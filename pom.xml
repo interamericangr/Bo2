@@ -454,7 +454,7 @@
 	</modules>
 
 	<scm>
-		<developerConnection>scm:svn:http://svn-srv/svn/bo2/head/Bo2</developerConnection>
+		<developerConnection>scm:svn:http://svn-srv/svn/bo2/trunk/Bo2</developerConnection>
 	</scm>
  
 	<repositories>
