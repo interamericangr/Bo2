@@ -1,0 +1,1 @@
+fixChild(gr.interamerican.bo2.utils.ReflectionUtils.get("_:name", this));

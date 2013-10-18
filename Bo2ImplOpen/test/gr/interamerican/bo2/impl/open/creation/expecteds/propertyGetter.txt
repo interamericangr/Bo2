@@ -1,0 +1,9 @@
+/*
+ * getter for a property
+ * Type is the property type
+ * name is the property name
+ *
+ */
+public java.lang.String getField1() {
+    return this.field1;
+}

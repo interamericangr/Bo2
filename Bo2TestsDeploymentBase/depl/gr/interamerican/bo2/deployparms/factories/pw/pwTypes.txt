@@ -1,0 +1,1 @@
+/gr/interamerican/bo2/deployparms/factories/pw/mappedPws.properties

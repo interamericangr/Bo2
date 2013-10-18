@@ -1,0 +1,7 @@
+/*
+ * implementation of AbstractKey.getElements().
+ */
+protected Object[] getElements() {
+	Object[] objects = {_:Value};
+	return objects;
+}

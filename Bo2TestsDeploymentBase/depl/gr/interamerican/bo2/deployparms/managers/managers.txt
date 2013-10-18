@@ -1,0 +1,4 @@
+/gr/interamerican/bo2/deployparms/managers/localdb/of.properties
+/gr/interamerican/bo2/deployparms/managers/localfs/of.properties
+/gr/interamerican/bo2/deployparms/managers/otherdb/of.properties
+/gr/interamerican/bo2/deployparms/managers/odf/of.properties

@@ -1,0 +1,11 @@
+/*
+ * getter for property typeId of TypedSelectable interface
+ * We need to call the getter of the property, instead of just returning the field
+ * because the getter might do more stuff.
+ *
+ * Name is the property name to delegate to.
+ *
+ */
+public java.lang.Long getTypeId() {
+    return getField2();
+}

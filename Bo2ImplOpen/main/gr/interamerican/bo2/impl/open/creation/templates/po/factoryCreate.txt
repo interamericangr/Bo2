@@ -1,0 +1,1 @@
+gr.interamerican.bo2.impl.open.creation.Factory.create(_:Type.class);

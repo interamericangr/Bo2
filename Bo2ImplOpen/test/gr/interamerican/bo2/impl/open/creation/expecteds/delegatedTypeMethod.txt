@@ -1,0 +1,12 @@
+/*
+ * exposes a type method of a PO field to the PO
+ * ReturnType is return type of the method
+ * MethodName is the name of the method
+ * DelegateField is the PO field that actually owns the method
+ * DeclarationParameters the parameter list on the declaration of the method
+ * InvocationParameters the arguments list on a method invocation
+ *
+ */
+public java.lang.Integer add(java.lang.Integer param0, java.lang.Integer param1) {
+    return bar.add(param0, param1);
+}

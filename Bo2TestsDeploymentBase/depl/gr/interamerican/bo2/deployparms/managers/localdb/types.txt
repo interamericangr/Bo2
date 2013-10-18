@@ -1,0 +1,2 @@
+/gr/interamerican/bo2/deployparms/managers/localdb/resourceWrappers.properties
+Replace: /gr/interamerican/bo2/deployparms/managers/localdb/rwReplacements.properties

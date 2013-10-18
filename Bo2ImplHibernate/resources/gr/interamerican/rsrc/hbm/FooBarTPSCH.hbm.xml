@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 6 ??? 2011 10:37:35 ?? by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping package="gr.interamerican.bo2.samples.hibernate.def.entities" default-access="property" >
+
+	<class name="FooBarTPSCH" table="FOOBAR_TPSCH">
+
+		<id name="id" type="integer"/>
+		
+		<discriminator column="DISCR" type="string"/>
+
+		<subclass name="FooTPSCH" discriminator-value="Foo" abstract="false">
+			<join table="FOO_TPSCH">
+				<key column="FOO_ID"/>
+				<property name="foo" type="java.lang.String">
+		            <column name="FOO" />
+		        </property>
+			</join>
+	    </subclass>
+	    
+		<subclass name="BarTPSCH" discriminator-value="Bar" abstract="false">
+			<join table="BAR_TPSCH">
+				<key column="BAR_ID"/>
+		        <property name="bar" type="java.lang.String">
+		            <column name="BAR" />
+		        </property>
+	        </join>
+	    </subclass>
+
+	</class>
+	
+</hibernate-mapping>

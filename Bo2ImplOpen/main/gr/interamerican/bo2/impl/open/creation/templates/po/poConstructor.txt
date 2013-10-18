@@ -1,0 +1,13 @@
+/* 
+ * Default constructor body of an AbstractBasePo.
+ 
+ * KeyType the type of the PO's Key
+ * InitializeChildrenSets code to initialize all PO fields that are
+ *                        of type java.util.Set and are marked with @Child
+ * FixChildrenSets code to call fixChild method on all initialized ChildrenSets
+ *
+ */
+super(); 
+this.setKey(gr.interamerican.bo2.impl.open.creation.Factory.create(_:KeyType.class);
+_:InitializeChildrenSets
+_:FixChildrenSets

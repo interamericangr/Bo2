@@ -1,0 +1,10 @@
+/*
+ * exposes a property setter of a PO field to the PO
+ * Type is the property type
+ * name is the property name
+ * DelegateField is the PO field that actually owns the property
+ *
+ */
+public void set_:Name(_:Type _:name){   
+    this.set_:Othername((_:Othertype) _:name);
+}

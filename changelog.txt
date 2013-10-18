@@ -1,0 +1,5 @@
+version 2.0.0013
+----------------
+Deprecated Bo2#getLogger()
+
+Unified logging of SQL sent to the JDBC driver directly by Bo2 workers. Logger: AbstractJdbcWorker, level: TRACE

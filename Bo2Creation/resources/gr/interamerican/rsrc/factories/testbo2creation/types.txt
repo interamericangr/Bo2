@@ -1,0 +1,3 @@
+/gr/interamerican/rsrc/factories/testbo2creation/types1.properties
+/gr/interamerican/rsrc/factories/testbo2creation/types2.properties
+Replace: /gr/interamerican/rsrc/factories/testbo2creation/replacements.properties

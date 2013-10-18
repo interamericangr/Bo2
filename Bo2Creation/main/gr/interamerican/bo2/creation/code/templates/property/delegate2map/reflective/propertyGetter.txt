@@ -1,0 +1,15 @@
+/*
+ * Creates a property getter by delegating it to a map.
+ * Type is the property type
+ * name is the property name
+ * DelegateField is the PO field that keeps the map
+ *
+ */
+public _:Type get_:Name(){
+    java.util.Map dlgt = (java.util.Map) gr.interamerican.bo2.utils.ReflectionUtils.get("_:DelegateField", this);
+    if (dlgt==null) {
+       dlgt = new java.util.HashMap();
+       gr.interamerican.bo2.utils.ReflectionUtils.set("_:DelegateField", dlgt, this);
+    }    
+    return (_:Type) dlgt.get("_:name");
+}

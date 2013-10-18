@@ -1,0 +1,26 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.sourceforge.net/" xml:lang="en" lang="en">  
+<body>
+<wicket:panel>
+	<fieldset>
+		<h3><label wicket:id="listLabel"/></h3>
+		<form wicket:id="tableForm">
+			<span wicket:id="radioGroup">
+				<table class="dataview" wicket:id="listTable"></table>
+			</span>
+			<input wicket:id="selectButton" type="submit" class="roundedButton"/>
+			<input wicket:id="secondSelectButton" type="submit" class="roundedButton"/>
+			<input wicket:id="newButton" type="submit" class="roundedButton"/>
+			<input wicket:id="editButton" type="submit" class="roundedButton"/>
+			<input wicket:id="viewButton" type="submit" class="roundedButton"/>
+			<input wicket:id="deleteButton" type="submit" class="roundedButton"/>
+			<input wicket:id="backButton" type="button" class="roundedButton"/>
+		</form>
+		<br/>
+		<div wicket:id="beanPanel"/>
+		<br/>
+		<div wicket:id="feedback" style="color: red"/>
+	</fieldset>
+</wicket:panel>
+</body>
+</html>

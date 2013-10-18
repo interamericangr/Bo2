@@ -1,0 +1,10 @@
+/*
+ * getter for a PO property marked with the @Child annotation.
+ * currently it is identical to a plain property getter.
+ * Type is the property type
+ * name is the property name
+ *
+ */
+public java.util.Set getSampleChildSet() {
+    return this.sampleChildSet;
+}

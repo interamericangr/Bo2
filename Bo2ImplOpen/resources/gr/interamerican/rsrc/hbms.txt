@@ -1,0 +1,14 @@
+#Indexes files indexing hbm.xml files
+gr/interamerican/rsrc/hbm/Customer.hbm.xml
+gr/interamerican/rsrc/hbm/CustomerAddress.hbm.xml
+gr/interamerican/rsrc/hbm/InvoiceCustomer.hbm.xml
+gr/interamerican/rsrc/hbm/Invoice.hbm.xml
+gr/interamerican/rsrc/hbm/InvoiceLine.hbm.xml
+gr/interamerican/rsrc/hbm/InvoiceSubLine.hbm.xml
+gr/interamerican/rsrc/hbm/InvoiceRule.hbm.xml
+gr/interamerican/rsrc/hbm/InvoiceSubRule.hbm.xml
+gr/interamerican/rsrc/hbm/User.hbm.xml
+gr/interamerican/rsrc/hbm/CompanyUser.hbm.xml
+gr/interamerican/rsrc/hbm/FooBarTPCH.hbm.xml
+gr/interamerican/rsrc/hbm/FooBarTPSCH.hbm.xml
+does/not/exist

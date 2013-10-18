@@ -1,0 +1,353 @@
+
+	
+	
+	/**
+	 * Tests <code>create(Class clazz)</code> when the implementation type
+	 * for clazz is a concrete class that has been defined in a types 
+	 * mapping file.
+	 */
+	@Test
+	public void testCreate_ArgClass_MappedConcreteImplementation() {		
+		testCreation(IEmpty2.class, IEmpty2Impl.class);
+		testCreation(IEmpty3.class, IEmpty3Impl.class);
+	}
+	
+	/**
+	 * Tests <code>create(Class clazz)</code> when the implementation type
+	 * for clazz is a concrete class that has not been defined in a types 
+	 * mapping file but its name can be resolved by a NameResolver.
+	 */
+	@Test
+	public void testCreate_ArgClass_ResolvedConcreteImplementation() {
+		testCreation (ImplementationDefault0.class, ImplementationDefault0Impl.class);
+	}
+	
+	/**
+	 * Tests <code>create(Class clazz)</code> when the implementation type
+	 * for clazz does not exist and clazz is an interface that extends Key.
+	 */
+	@Test
+	public void testCreate_ArgClassWithAbstractFactoredImplementation() {
+		AbstractBeanUsingDelegation sc  = 
+			factory.create(AbstractBeanUsingDelegation.class);
+		assertTrue(sc!=null);		
+		assertTrue(AbstractBeanUsingDelegation.class.isInstance(sc));
+	}		
+	
+		
+	/**
+	 * Tests <code>create(Class clazz)</code> when the implementation type
+	 * for clazz does not exist and clazz is an interface that extends Key.
+	 */
+	@Test
+	public void testCreate_ArgClassWithAbstractFactoredImplementation() {
+		AbstractBeanUsingDelegation sc  = 
+			factory.create(AbstractBeanUsingDelegation.class);
+		assertTrue(sc!=null);		
+		assertTrue(AbstractBeanUsingDelegation.class.isInstance(sc));
+	}		
+	
+	
+	
+	/**
+	 * Tests <code>create(String clazz)</code> when the implementation type
+	 * for clazz is a concrete class that has been defined in a types 
+	 * mapping file.
+	 */
+	@Test
+	public void testCreate_ArgStringWithMappedConcreteImplementation() {
+		String name2=IEmpty2.class.getName();
+		String name3=IEmpty3.class.getName();
+		testCreation(name2, IEmpty2Impl.class);
+		testCreation(name3, IEmpty3Impl.class);
+	}
+	
+	/**
+	 * Tests <code>create(String clazz)</code> when the implementation type
+	 * for clazz is a concrete class that has not been defined in a types 
+	 * mapping file but its name can be resolved by a NameResolver.
+	 */
+	@Test
+	public void testCreate_ArgStringWithResolvedConcreteImplementation() {
+		String name = ImplementationDefault0.class.getName(); 
+		testCreation(name, ImplementationDefault0Impl.class);
+	}
+	
+	
+		
+	/**
+	 * Tests <code>create(String clazz)</code> when the implementation type
+	 * for clazz does not exist and clazz is an interface that extends Key.
+	 */
+	@Test
+	public void testCreate_ArgStringWithAbstractFactoredImplementation() {	
+		String name = AbstractBeanUsingDelegation.class.getName();		
+		Object o = factory.create(name);
+		assertTrue(o!=null);		
+		assertTrue(AbstractBeanUsingDelegation.class.isInstance(o));	
+			
+	}
+	
+	/**
+	 * Tests getDeclarationTypeName().
+	 */
+	@Test
+	public void testGetDeclarationTypeName() {
+		for (int i = 0; i < implementationTypes.length; i++) {			
+			String actual =
+				factory.getDeclarationTypeName(implementationTypes[i]);
+			String expected = interfaceTypes[i].getName();
+			assertEquals(expected, actual);
+		}
+	}
+	
+	/**
+	 * Tests getDeclarationType().
+	 */
+	@Test
+	public void testGetDeclarationType() {
+		for (int i = 0; i < implementationTypes.length; i++) {			
+			Class<?> actual =
+				factory.getDeclarationType(implementationTypes[i]);
+			Class<?> expected = interfaceTypes[i];
+			assertEquals(expected, actual);
+		}
+		Class<?> notCreated = Integer.class;
+		assertNull(factory.getDeclarationType(notCreated));
+	}
+	
+	
+	/**
+	 * Tests GetImplementationType(Class clazz).
+	 */
+	@Test
+	public void testGetImplementationTypeArgClass() {
+		for (int i = 0; i < implementationTypes.length; i++) {
+			Class<?> actual =
+				factory.getImplementationType(interfaceTypes[i]);
+			Class<?> expected = implementationTypes[i];
+			assertEquals(expected, actual);
+		}
+	}
+
+	
+	/**
+	 * Tests GetImplementationType(String clazz).
+	 */
+	@Test
+	public void testGetImplementationTypeArgString() {
+		for (int i = 0; i < implementationTypes.length; i++) {
+			Class<?> actualClass =
+				factory.getImplementationType(interfaceTypes[i]);
+			String actual = actualClass.getName();
+			Class<?> expectedClass = implementationTypes[i];
+			String expected = expectedClass.getName();
+			
+			assertEquals(expected, actual);
+		}
+	}
+	
+	/**
+	 * Tests log.
+	 */
+	@Test
+	public void testLog() {
+		factory.log("testLog"); //$NON-NLS-1$
+	}
+	
+	
+	
+	
+	/**
+	 * convenience class for testing getImplementationType.
+	 * 
+	 * @param declarationType input declaration type
+	 * @param implementationType expected implementation type output.
+	 */
+	private void testGetDeclarationType(Class<?> declarationType, Class<?> implementationType) {	
+		Class<?> decl = factory.getDeclarationType(implementationType);
+		Assert.assertEquals(declarationType, decl);
+	}
+	
+
+	
+	/**
+	 * convenience class for testing the creation of objects.
+	 * 
+	 * @param declarationType input declaration type
+	 * @param implementationType expected implementation type output.
+	 */
+	private void testCreation(Class<?> declarationType, Class<?> implementationType) {		
+		Object o = factory.create(declarationType);
+		assertTrue(o!=null);
+		assertTrue(declarationType.isInstance(o));
+		assertTrue(implementationType.isInstance(o));
+		assertEquals(implementationType, o.getClass());
+	}
+	
+	/**
+	 * convenience class for testing the creation of objects
+	 * 
+	 * @param declarationTypeName input declaration type name
+	 * @param implementationType expected implementation type output.
+	 */
+	private void testCreation(String declarationTypeName, Class<?> implementationType) {
+		Object o = factory.create(declarationTypeName);
+		assertTrue(o!=null);		
+		assertTrue(implementationType.isInstance(o));		
+		assertEquals(implementationType, o.getClass());
+	}
+	
+	/**
+	 * Tests <code>create(Class clazz)</code> when clazz has been defined
+	 * as a class to be replaced.
+	 */
+	@Test
+	public void testCreateWithReplacement() {
+		testCreation(IEmpty4.class, IEmpty2Impl.class);		
+		Object ob = factory.create(IEmpty4.class);
+		String actual = factory.getDeclarationTypeName(ob.getClass());
+		String expected = IEmpty2.class.getName();
+		assertEquals(expected, actual);
+	}
+	
+	
+	/**
+	 * Tests create failing to create an object.
+	 */
+	@Test(expected=RuntimeException.class)
+	public void testCreate_failing() {			
+		factory.create(AlmostEmpty1.class);
+	}
+	
+	/**
+	 * Tests create failing to create an object.
+	 */
+	@Test(expected=RuntimeException.class)
+	public void testCreate_failing2() {		
+		String type = "gr.interamerican.bo2.samples.implopen.various.NotForFactory"; //$NON-NLS-1$
+		factory.create(type);
+	}
+	
+	/**
+	 * Tests create failing to create an object.
+	 */
+	@Test(expected=RuntimeException.class)
+	public void testCreate_failing3() {		
+		String type = "com.foo.Bar"; //$NON-NLS-1$
+		factory.create(type);
+	}
+	
+	/**
+	 * Test for createInstance.
+	 * 
+	 * Class has only a no arg constructor.
+	 */
+	@Test
+	public void testCreateInstance_withNoArg() {
+		A a1 = propFactory.createInstance(A.class);		
+		assertNotNull(a1);
+		A a2 = factory.createInstance(A.class);
+		assertNotNull(a2);
+	}
+	
+	/**
+	 * Test for createInstance.
+	 * 
+	 * Class has only a no arg constructor.
+	 */
+	@Test
+	public void testCreateInstance_withProp() {
+		B b1 = propFactory.createInstance(B.class);		
+		assertNotNull(b1);
+	}
+	
+	/**
+	 * Test for createInstance.
+	 * 
+	 * Class has only constructor that takes properties and factory
+	 * does not have properties.
+	 */
+	@Test(expected=RuntimeException.class)
+	public void testCreateInstance_withoutPropFail() {
+		factory.createInstance(B.class);	
+	}
+	
+	/**
+	 * Test for createInstance.
+	 * 
+	 * Class does not have an appropriate constructor.
+	 */
+	@Test(expected=RuntimeException.class)
+	public void testCreateInstance_withPropFail() {
+		propFactory.createInstance(C.class);	
+	}
+	
+	/**
+	 * Test for createInstance.
+	 * 
+	 * Class has only both constructors.
+	 */
+	@Test()
+	public void testCreateInstance_classHasBothConstructors() {
+		D d1 = propFactory.createInstance(D.class);
+		assertNotNull(d1);
+		assertEquals(d1.cNo, Integer.valueOf(2));
+		D d2 = factory.createInstance(D.class);
+		assertNotNull(d2);
+		assertEquals(d2.cNo, Integer.valueOf(1));
+	}
+	
+	
+	
+	/**
+	 * Class with default constructor.
+	 */
+	public static class A{/*empty*/}
+	
+	/**
+	 * Class with properties constructor.
+	 */
+	@SuppressWarnings("unused")
+	public static class B{
+		/**
+		 * Creates a new B object. 
+		 *
+		 * @param p
+		 */
+		public B(Properties p) {/*empty*/}
+	}
+	
+	/**
+	 * Class without appropriate constructor.
+	 */
+	@SuppressWarnings("unused")
+	public static class C{
+		/**
+		 * Creates a new C object. 
+		 *
+		 * @param o
+		 */
+		public C(Object o) {/*empty*/}
+	}
+	
+	/**
+	 * Class without appropriate constructor.
+	 */
+	@SuppressWarnings("unused")
+	public static class D{
+		/**
+		 * identifies the constructor used for this object.
+		 */
+		Integer cNo;
+		/**
+		 * Creates a new D object. 
+		 */
+		public D() {cNo = 1;}
+		/**
+		 * Creates a new D object. 
+		 *
+		 * @param o
+		 */
+		public D(Properties o) {cNo = 2;}
+	}

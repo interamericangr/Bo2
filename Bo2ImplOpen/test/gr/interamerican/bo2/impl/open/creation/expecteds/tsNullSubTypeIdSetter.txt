@@ -1,0 +1,8 @@
+/*
+ * setter for property subTypeId of TypedSelectable interface 
+ * when it is declared null on the annotation
+ *
+ */
+public void setSubTypeId(java.lang.Long subTypeId) {
+    /* empty */
+}

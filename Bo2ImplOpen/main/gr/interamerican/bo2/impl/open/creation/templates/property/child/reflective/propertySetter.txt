@@ -1,0 +1,10 @@
+/*
+ * setter for a property
+ * Type is the property type
+ * name is the property name
+ *
+ */
+public void set_:Name(_:Type _:name) {
+    gr.interamerican.bo2.utils.ReflectionUtils.set("_:name", _:name, this);
+    fixChild(_:name);
+}

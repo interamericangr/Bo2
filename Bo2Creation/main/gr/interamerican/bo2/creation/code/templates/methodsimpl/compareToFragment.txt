@@ -1,0 +1,6 @@
+    mine = this.get_:Name();
+    his = that.get_:Name();
+    result = gr.interamerican.bo2.utils.Utils.nullSafeCompare(mine,his);
+    if (result!=0) {
+       return result;
+    }

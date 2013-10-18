@@ -1,0 +1,11 @@
+/*
+ * exposes a property getter of a PO field to the PO
+ * Type is the property type
+ * name is the property name
+ * DelegateField is the PO field that actually owns the property
+ *
+ */
+public _:Type get_:Name(){
+    _:FieldType dlgt = (_:FieldType) gr.interamerican.bo2.utils.ReflectionUtils.get("_:DelegateField", this);
+    return (_:Type) dlgt.get_:Name();
+}

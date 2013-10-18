@@ -1,0 +1,11 @@
+/*
+ * setter for property typeId of TypedSelectable interface
+ * We need to call the setter of the property, instead of just setting the field
+ * because the setter might do more stuff.
+ *
+ * Name is the property name to delegate to.
+ *
+ */
+public void setTypeId(java.lang.Long typeId) {
+    setField2(typeId);
+}

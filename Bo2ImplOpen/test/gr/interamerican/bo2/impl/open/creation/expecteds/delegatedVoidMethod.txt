@@ -1,0 +1,11 @@
+/*
+ * exposes a void method of a PO field to the PO
+ * MethodName is the name of the method
+ * DelegateField is the PO field that actually owns the method
+ * DeclarationParameters the parameter list on the declaration of the method
+ * InvocationParameters the arguments list on a method invocation
+ *
+ */
+public void doNothing() {
+    bar.doNothing();
+}

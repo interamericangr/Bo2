@@ -1,0 +1,18 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.sourceforge.net/" xml:lang="en" lang="en">  
+<body>
+<wicket:panel>
+	<fieldset>
+		<legend wicket:id="panelLabel"/>
+		<form wicket:id="beanForm">
+			<div wicket:id="beanFormFieldsPanel"/>
+			<input wicket:id="executeButton" type="submit" class="roundedButton"/>
+			<input wicket:id="clearButton" type="button" class="roundedButton"/>
+			<input wicket:id="backButton" type="button" class="roundedButton"/>
+		</form>
+		<br/>
+		<div wicket:id="feedback" style="color: red"/>
+	</fieldset>
+</wicket:panel>
+</body>
+</html>

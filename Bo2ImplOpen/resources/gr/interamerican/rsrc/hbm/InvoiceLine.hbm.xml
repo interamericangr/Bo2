@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="gr.interamerican.bo2.test.def.posamples">
+	<class name="InvoiceLine" table="InvoiceLine">
+
+		<composite-id name="key" class="gr.interamerican.bo2.test.impl.posamples.InvoiceLineKeyImpl">
+			<key-property name="lineNo">
+				<column name="LINE_NO" sql-type="INTEGER" not-null="true"/>
+			</key-property>
+			<key-property name="invoiceNo">
+				<column name="INVOICE_NO" sql-type="varchar(32)" not-null="true"/>
+			</key-property>
+		</composite-id>
+		
+		<timestamp name="lastModified" column="LAST_MODIFIED" unsaved-value="null"/>
+		
+		<property name="lastModifiedBy" type="string" not-null="true">
+			<column name="LAST_MODIFIED_BY" sql-type="varchar(128)" not-null="false"/>
+		</property>	
+		
+		<property name="type" type="integer">
+			<column name="TYPE" sql-type="INTEGER"/>
+		</property>
+		
+		<property name="amount" type="double">
+			<column name="AMOUNT" sql-type="DOUBLE"/>
+		</property>
+		
+		<set name="subLines" lazy="true" inverse="true" cascade="all,delete-orphan">
+			<key not-null="true">
+				<column name="LINE_NO"/>
+				<column name="INVOICE_NO"/>
+			</key>
+			<one-to-many class="InvoiceSubLine" />
+		</set>
+		
+		<many-to-one name="customer" class="Customer" not-null="true" lazy="proxy" cascade="none">
+			<column name="CUSTOMER_NO"/>
+		</many-to-one>
+		
+	</class>
+</hibernate-mapping>

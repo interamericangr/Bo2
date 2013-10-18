@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="gr.interamerican.bo2.test.def.posamples">
+
+	<typedef
+		class="gr.interamerican.bo2.impl.open.hibernate.types.EntryUserTypeForLong" name="CompanyRole">
+		<param name="entryClassName">gr.interamerican.bo2.samples.implopen.entities.CompanyRole</param>
+		<param name="entryTypeId">1</param>
+		<param name="cacheName">cache</param>
+	</typedef>
+	
+	<typedef
+		class="gr.interamerican.bo2.impl.open.hibernate.types.EntryListUserTypeForLong" name="CompanyRoles">
+		<param name="entryTypeId">1</param>
+		<param name="cacheName">cache</param>
+	</typedef>
+	
+	<typedef
+		class="gr.interamerican.bo2.impl.open.hibernate.types.OneBasedEnumUserType" name="Sex">
+		<param name="enumClassName">gr.interamerican.bo2.test.def.samples.enums.Sex</param>
+	</typedef>
+
+	<class name="CompanyUser" table="COMPANYUSER">
+
+		<composite-id name="key" class="gr.interamerican.bo2.test.impl.posamples.CompanyUserKeyImpl">
+			<key-property name="id" type="long">
+				<column name="id"></column>
+			</key-property>	
+		</composite-id>
+		
+		<timestamp name="lastModified" column="LAST_MODIFIED" unsaved-value="null"/>
+		
+		<property name="lastModifiedBy" type="string" not-null="true">
+			<column name="LAST_MODIFIED_BY" sql-type="char(8)" not-null="false"/>
+		</property>
+		
+		<property name="companyRole" type="CompanyRole">
+			<column name="ROLE_CD" sql-type="BIGINT" />
+		</property>
+		
+		<property name="additionalRoles" type="CompanyRoles">
+			<column name="ADDITIONAL_ROLES" sql-type="varchar(32)" />
+		</property>
+		
+		<property name="sex" type="Sex">
+			<column name="SEX" sql-type="BIGINT" />
+		</property>
+		
+	</class>
+
+</hibernate-mapping>

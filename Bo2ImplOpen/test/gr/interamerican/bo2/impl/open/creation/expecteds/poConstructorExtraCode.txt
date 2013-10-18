@@ -1,0 +1,11 @@
+    /*
+     * code to append to the end of the PO default constructor.
+     * KeyType the type of the PO's Key
+     * InitializeChildrenSets code to initialize all PO fields that are
+     *                        of type java.util.Set and are marked with @Child
+     * FixChildrenSets code to call fixChild method on all initialized ChildrenSets
+     *
+     */
+    this.key = gr.interamerican.bo2.impl.open.creation.Factory.create(mypackage.MyKey.class);
+    this.sampleChildSet = new gr.interamerican.bo2.arch.utils.collections.ChildrenSet();
+    fixChild(this.sampleChildSet);

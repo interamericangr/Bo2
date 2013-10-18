@@ -1,0 +1,8 @@
+/**
+ * Mock method body.
+ * MethodName is the name of the method
+ * DeclarationParameters the parameter list on the declaration of the method
+ */
+public void _:MethodName(_:DeclarationParameters) {
+    /* empty */
+}

@@ -1,0 +1,1 @@
+gr.interamerican.bo2.utils.ReflectionUtils.setNullToDuplicateFieldsOfSuper(this, new java.lang.Class[]{gr.interamerican.bo2.utils.annotations.Child.class});

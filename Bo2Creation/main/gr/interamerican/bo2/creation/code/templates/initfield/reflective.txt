@@ -1,0 +1,1 @@
+gr.interamerican.bo2.utils.ReflectionUtils.set("_:name", _:Value, this);

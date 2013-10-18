@@ -1,0 +1,4 @@
+#List of supported encodings. Use values accepted by java.nio.CharSet.forName(String).
+#Used by SimpleFilesPanel.
+WINDOWS-1253
+UTF-8

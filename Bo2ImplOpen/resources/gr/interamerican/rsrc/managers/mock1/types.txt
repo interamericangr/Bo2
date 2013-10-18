@@ -1,0 +1,2 @@
+/gr/interamerican/rsrc/managers/mock1/resourceWrappers.properties
+Replace: /gr/interamerican/rsrc/managers/mock1/rwReplacements.properties

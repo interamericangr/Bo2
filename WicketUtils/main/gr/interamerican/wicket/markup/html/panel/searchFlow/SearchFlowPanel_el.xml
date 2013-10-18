@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="sfp_sbp_executeQueryButtonLabel">Αναζήτηση</entry>
+	<entry key="sfp_sbp_clearCriteriaButtonLabel">Καθαρισμός</entry>
+	<entry key="sfp_sbp_criteriaPanelLabel"></entry>
+	<entry key="sfp_ltp_backButtonLabel">Επιστροφή</entry>
+	<entry key="sfp_ltp_listTableLabel">Αποτελέσματα αναζήτησης</entry>
+	<entry key="sfp_pp_selectButtonLabel">Επιλογή</entry>
+	<entry key="sfp_pp_2ndSelectButtonLabel">Επιλογή</entry>
+	<entry key="sfp_msp_selectButtonLabel">Επιλογή</entry>
+	<entry key="sfp_msp_checkGroupSelectorLabel">Μαρκάρισμα όλων</entry>
+	<entry key="sfp_cpp_newButtonLabel">Νέα καταχώρηση</entry>
+	<entry key="sfp_cpp_editButtonLabel">Επεξεργασία</entry>
+	<entry key="sfp_cpp_deleteButtonLabel">Διαγραφή</entry>
+	<entry key="sfp_cpp_viewButtonLabel">Προβολή</entry>
+	<entry key="sfp_cpp_sbp_backButtonLabel">Επιστροφή</entry>
+	<entry key="sfp_cpp_sbp_panelLabel"></entry>
+	<entry key="sfp_cpp_sbp_clearButtonLabel">Καθαρισμός</entry>
+	<entry key="sfp_cpp_sbp_saveButtonLabel">Αποθήκευση</entry>
+	<entry key="sfp_cpp_sbp_updateButtonLabel">Ενημέρωση</entry>
+</properties>

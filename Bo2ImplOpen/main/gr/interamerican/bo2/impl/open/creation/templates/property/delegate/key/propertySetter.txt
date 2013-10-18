@@ -1,0 +1,13 @@
+/*
+ * exposes a property setter of a PO field to the PO
+ * Type is the property type
+ * name is the property name
+ * DelegateField is the PO field that actually owns the property
+ *
+ */
+public void set_:Name(_:Type _:name){
+    _:FieldType dlgt = (_:FieldType) getKey();
+    dlgt.set_:Name(_:name);
+    String[] properties = {"_:name"};
+    fixChildren(properties); 
+}

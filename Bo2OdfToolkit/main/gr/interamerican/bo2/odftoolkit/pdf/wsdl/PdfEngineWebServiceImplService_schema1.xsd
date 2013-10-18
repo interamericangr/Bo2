@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" targetNamespace="http://doc.utils.bo2.interamerican.gr/" xmlns:tns="http://doc.utils.bo2.interamerican.gr/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="PdfEngineException" type="tns:PdfEngineException"/>
+
+  <xs:element name="toPdf" type="tns:toPdf"/>
+
+  <xs:element name="toPdfResponse" type="tns:toPdfResponse"/>
+
+  <xs:complexType name="toPdf">
+    <xs:sequence>
+      <xs:element name="arg0" type="xs:base64Binary" nillable="true" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="toPdfResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:base64Binary" nillable="true" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PdfEngineException">
+    <xs:sequence>
+      <xs:element name="message" type="xs:string" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+

@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="gr.interamerican.bo2.test.def.posamples">
+	<class name="InvoiceSubLine" table="InvoiceSubLine">
+
+		<composite-id name="key" class="gr.interamerican.bo2.test.impl.posamples.InvoiceSubLineKeyImpl">
+			<key-property name="subLineNo">
+				<column name="SUB_LINE_NO" sql-type="INTEGER" not-null="true"/>
+			</key-property>
+			<key-property name="lineNo">
+				<column name="LINE_NO" sql-type="INTEGER" not-null="true"/>
+			</key-property>
+			<key-property name="invoiceNo">
+				<column name="INVOICE_NO" sql-type="varchar(32)" not-null="true"/>
+			</key-property>
+		</composite-id>
+		
+		<timestamp name="lastModified" column="LAST_MODIFIED" unsaved-value="null"/>
+		
+		<property name="lastModifiedBy" type="string" not-null="true">
+			<column name="LAST_MODIFIED_BY" sql-type="varchar(128)" not-null="false"/>
+		</property>	
+		
+		<property name="name" type="string">
+			<column name="NAME" sql-type="varchar(32)"/>
+		</property>
+		
+		<many-to-one name="rule" class="InvoiceRule" lazy="proxy" insert="false" update="false">
+			<column name="RULE_CD" sql-type="INTEGER"/>
+			<column name="INVOICE_NO" sql-type="varchar(32)"/>
+		</many-to-one>
+		
+		<property name="ruleCd" type="long">
+			<column name="RULE_CD" sql-type="INTEGER"/>
+		</property>
+		
+	</class>
+</hibernate-mapping>

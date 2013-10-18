@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="cpp_newButtonLabel">Νέο</entry>
+	<entry key="cpp_editButtonLabel">Επεξεργασία</entry>
+	<entry key="cpp_deleteButtonLabel">Διαγραφή</entry>
+	<entry key="cpp_viewButtonLabel">Προβολή</entry>
+	<entry key="cpp_sbp_backButtonLabel">Επιστροφή</entry>
+	<entry key="cpp_sbp_panelLabel"></entry>
+	<entry key="cpp_sbp_clearButtonLabel">Καθαρισμός</entry>
+	<entry key="cpp_sbp_saveButtonLabel">Αποθήκευση</entry>
+	<entry key="cpp_sbp_updateButtonLabel">Ενημέρωση</entry>
+</properties>

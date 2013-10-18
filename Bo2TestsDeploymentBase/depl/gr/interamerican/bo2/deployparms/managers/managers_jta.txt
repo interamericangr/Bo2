@@ -1,0 +1,4 @@
+/gr/interamerican/bo2/deployparms/managers/localdbjta/of.properties
+/gr/interamerican/bo2/deployparms/managers/localfs/of.properties
+/gr/interamerican/bo2/deployparms/managers/otherdbjta/of.properties
+/gr/interamerican/bo2/deployparms/managers/odf/of.properties

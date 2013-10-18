@@ -1,0 +1,17 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.sourceforge.net/" xml:lang="en" lang="en">  
+<body>
+<wicket:panel>
+	<table>
+		<tr wicket:id="fileRepeater">
+			<td align="right"><span wicket:id="name"/></td>
+			<td><input wicket:id="file" type="file"/></td>
+		</tr>
+		<wicket:enclosure child="supportedEncodings"><tr>
+			<td><wicket:message key="supportedEncodingsLabel"/></td>
+			<td><select wicket:id="supportedEncodings"/></td>
+		</tr></wicket:enclosure>
+	</table>
+</wicket:panel>
+</body>
+</html>

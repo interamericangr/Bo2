@@ -1,0 +1,13 @@
+drop table test.INVOICESUBRULE;
+drop table test.INVOICESUBLINE;
+drop table test.INVOICERULE;
+drop table test.INVOICELINE;
+drop table test.CUSTOMERADDRESS;
+drop table test.INVOICECUSTOMER;
+drop table test.CUSTOMER;
+drop table test.INVOICE;
+drop table test.CompanyUser;
+drop table test.FOOBAR_TPCH;
+drop table test.BAR_TPSCH;
+drop table test.FOO_TPSCH;
+drop table test.FOOBAR_TPSCH;

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+   "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="gr.interamerican.bo2.samples.archutil.po">
+
+	<class name="User" table="USERS">
+
+		<composite-id name="key" class="gr.interamerican.bo2.samples.archutil.po.UserKey">
+			<key-property name="id" type="integer">
+				<column name="id"></column>
+			</key-property>	
+		</composite-id>
+		<property name="name" column="usr_nm" />
+		<property name="roleId" column="role_id"/>
+		<property name="usrid" column="usr_id"/>
+				
+	</class>
+	
+</hibernate-mapping>
+

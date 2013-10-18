@@ -1,0 +1,13 @@
+/*
+ * exposes a type method of a PO field to the PO
+ * ReturnType is return type of the method
+ * MethodName is the name of the method
+ * DelegateField is the PO field that actually owns the method
+ * DeclarationParameters the parameter list on the declaration of the method
+ * InvocationParameters the arguments list on a method invocation
+ *
+ */
+public _:ReturnType _:MethodName(_:DeclarationParameters) {
+    _:FieldType dlgt = (_:FieldType) gr.interamerican.bo2.utils.ReflectionUtils.get("_:DelegateField", this);
+    return dlgt._:MethodName(_:InvocationParameters);
+}

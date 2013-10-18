@@ -1,0 +1,19 @@
+/**
+ * implementation of compareTo that delegates the comparison to a series
+ * of properties.
+ *
+ **/
+public int compareTo(java.lang.Object other) {
+    if (other==null) {
+        return 1;
+    }
+    _:Type that = (_:Type) other;    
+    java.lang.Comparable mine;
+    java.lang.Comparable his;
+    int result;
+    
+    _:Fragment
+    
+    return 0;
+
+}

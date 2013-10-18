@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="gr.interamerican.bo2.test.def.posamples">
+	<class name="InvoiceSubRule" table="InvoiceSubRule">
+
+		<composite-id name="key" class="gr.interamerican.bo2.test.impl.posamples.InvoiceSubRuleKeyImpl">
+			<key-property name="subRuleCd">
+				<column name="SUBRULE_CD" sql-type="INTEGER" not-null="true"/>
+			</key-property>
+			<key-property name="ruleCd">
+				<column name="RULE_CD" sql-type="INTEGER" not-null="true"/>
+			</key-property>
+			<key-property name="invoiceNo">
+				<column name="INVOICE_NO" sql-type="varchar(32)" not-null="true"/>
+			</key-property>
+		</composite-id>
+		
+		<timestamp name="lastModified" column="LAST_MODIFIED" unsaved-value="null"/>
+		
+		<property name="lastModifiedBy" type="string" not-null="true">
+			<column name="LAST_MODIFIED_BY" sql-type="varchar(128)" not-null="false"/>
+		</property>	
+		
+		<property name="subRuleName" type="string">
+			<column name="SUBRULENAME" sql-type="varchar(32)"/>
+		</property>
+		
+	</class>
+</hibernate-mapping>

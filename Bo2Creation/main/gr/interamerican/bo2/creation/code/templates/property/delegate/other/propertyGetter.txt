@@ -1,0 +1,10 @@
+/*
+ * exposes a property getter of a PO field to the PO
+ * Type is the property type
+ * name is the property name
+ * DelegateField is the PO field that actually owns the property
+ *
+ */
+public _:Type get_:Name(){
+    return (_:Type) this.get_:Othername();
+}

@@ -1,0 +1,10 @@
+/*
+ * setter for a PO property marked with the @Child annotation.
+ * Type is the property type
+ * name is the property name
+ *
+ */
+public void setSampleChildSet(java.util.Set sampleChildSet) {
+    this.sampleChildSet = sampleChildSet;
+    fixChild(sampleChildSet);
+}

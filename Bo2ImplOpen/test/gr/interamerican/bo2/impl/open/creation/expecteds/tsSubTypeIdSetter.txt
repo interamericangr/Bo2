@@ -1,0 +1,11 @@
+/*
+ * setter for property subTypeId of TypedSelectable interface
+ * We need to call the setter of the property, instead of just setting the field
+ * because the setter might do more stuff.
+ *
+ * Name is the property name to delegate to.
+ *
+ */
+public void setSubTypeId(java.lang.Long subTypeId) {
+    setField2(subTypeId);
+}

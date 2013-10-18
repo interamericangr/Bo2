@@ -1,0 +1,9 @@
+{
+    /*
+     * constructor body of a key.
+     * KeyType the type of the PO's Key
+     * KeyProperties properties of the PO Key (e.g. '"field1", "field2"')
+     *
+     */
+	super(_:Type.class, new java.lang.String[]{_:KeyProperties});
+}

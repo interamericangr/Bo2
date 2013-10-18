@@ -1,0 +1,9 @@
+/**
+ * Mock method body.
+ * ReturnType is return type of the method
+ * MethodName is the name of the method 
+ * DeclarationParameters the parameter list on the declaration of the method
+ */
+public _:ReturnType _:MethodName(_:DeclarationParameters) {
+    return _:Value;    
+}

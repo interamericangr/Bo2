@@ -1,0 +1,9 @@
+/*
+ * getter for a property
+ * Type is the property type
+ * name is the property name
+ *
+ */
+public _:Type get_:Name() {
+    return (_:Type) gr.interamerican.bo2.utils.ReflectionUtils.get("_:name", this);
+}

@@ -1,0 +1,8 @@
+/*
+ * getter for property subTypeId of TypedSelectable interface 
+ * when it is declared null on the annotation
+ *
+ */
+public java.lang.Long getSubTypeId() {
+    return null;
+}

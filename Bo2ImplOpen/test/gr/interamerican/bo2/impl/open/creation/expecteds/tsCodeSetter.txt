@@ -1,0 +1,12 @@
+/*
+ * setter for property code of TypedSelectable interface
+ * We need to call the setter of the property, instead of just setting the field
+ * because the setter might do more stuff.
+ *
+ * Name is the property name to delegate to.
+ * Type is the property type to delegate to (needed for casting
+ * java.lang.Object to that type).
+ */
+public void setCode(java.lang.Comparable code) {
+    setField1((java.lang.String) code);
+}

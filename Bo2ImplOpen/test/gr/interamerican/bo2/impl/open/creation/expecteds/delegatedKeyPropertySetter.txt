@@ -1,0 +1,10 @@
+/*
+ * exposes a Key property setter to the PO.
+ * KeyType is the type of the PO's Key
+ * name is the property name
+ *
+ */
+public void setField1(java.lang.String field1){
+    ((myPackage.myKey) key).setField1(field1);
+    fixKeysOfChildren();
+}

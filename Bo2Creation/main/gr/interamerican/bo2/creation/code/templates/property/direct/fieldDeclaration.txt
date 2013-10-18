@@ -1,0 +1,7 @@
+/*
+ * declares a private field.
+ * Type the field type
+ * name the field name
+ *
+ */
+private _:Type _:name;
