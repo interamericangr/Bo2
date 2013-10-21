@@ -12,6 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.runtime.concurrent;
 
+import gr.interamerican.bo2.arch.exceptions.TransactionManagerException;
 import gr.interamerican.bo2.utils.attributes.Named;
 
 /**
@@ -228,5 +229,22 @@ public interface BatchProcessInput extends Named {
 	 *        of the UI.
 	 */
 	void setUiRefreshInterval(Integer uiRefreshInterval);
+	
+	/**
+	 * Indicates if the batch process re-attempts when a 
+	 * {@link TransactionManagerException} is caught.
+	 * 
+	 * @return Returns true if the batch process re-attempts when a 
+	 *         {@link TransactionManagerException} is caught.
+	 */
+	Boolean getReattemptOnTmex();
+	
+	/**
+	 * Specifies if the batch process re-attempts when a 
+	 * {@link TransactionManagerException} is caught.
+	 *  
+	 * @param reattemptOnTmex
+	 */
+	void setReattemptOnTmex(Boolean reattemptOnTmex);
 
 }

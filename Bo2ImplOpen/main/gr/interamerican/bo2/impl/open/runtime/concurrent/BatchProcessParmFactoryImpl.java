@@ -27,6 +27,7 @@ import static gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessParm
 import static gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessParmNames.SHARED_STREAM_NAMES;
 import static gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessParmNames.TIDY_INTERVAL;
 import static gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessParmNames.UI_CAN_ADD_THREADS;
+import static gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessParmNames.REATTEMPT_ON_TMEX;
 import static gr.interamerican.bo2.utils.CollectionUtils.getMandatoryProperty;
 import static gr.interamerican.bo2.utils.StringConstants.COMMA;
 import static gr.interamerican.bo2.utils.StringUtils.isNullOrBlank;
@@ -126,6 +127,14 @@ implements BatchProcessParmsFactory {
 		String strNamedStreams = Utils.notNull(properties.getProperty(SHARED_STREAM_NAMES), StringConstants.EMPTY);
 		String[] sharedStreams = TokenUtils.splitTrim(strNamedStreams, COMMA, false);
 		input.setSharedStreamNames(sharedStreams);
+		
+		String strReattemptOnTmex = properties.getProperty(REATTEMPT_ON_TMEX);
+		if(StringUtils.isNullOrBlank(strReattemptOnTmex)) {
+			input.setReattemptOnTmex(true);
+		} else {
+			boolean reattemptOnTmex = StringUtils.string2Bool(strReattemptOnTmex);
+			input.setReattemptOnTmex(reattemptOnTmex);
+		}
 		
 		return input;
 		
@@ -239,6 +248,8 @@ implements BatchProcessParmsFactory {
 		}
 		
 		output.setNamedInputFiles(inputFileDefinitions);
+		
+		output.setReattemptOnTmex(Utils.notNull(input.getReattemptOnTmex(), true));
 		
 		return output;
 	}

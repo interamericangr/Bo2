@@ -105,7 +105,11 @@ implements Runnable, LongProcess {
 	/**
 	 * Indicates that processing has been paused.
 	 */
-	boolean paused = false;	
+	boolean paused = false;
+	/**
+	 * Indicates that processing has been paused.
+	 */
+	boolean reattemptOnTmex = true;	
 	/**
 	 * Operation to replace the currently running operation.
 	 */
@@ -191,10 +195,12 @@ implements Runnable, LongProcess {
 	 *        Modification that will set any input parameters to the operation.
 	 *        Can be null, if the operation needs no additional parameters
 	 *        that the input fetched by the queue. 
-	 * 
+	 * @param reattemptOnTmex 
+	 *        Indicates if rows for which a {@link TransactionManagerException}
+	 *        is caught are re-attempted.
 	 */
 	public QueueProcessor(Queue<T> inputQueue, String streamname, String name, Operation operation, String inputPropertyName, 
-			Formatter<T> formatter, Modification<Object> operationParametersSetter) {
+			Formatter<T> formatter, Modification<Object> operationParametersSetter, Boolean reattemptOnTmex) {
 		super();
 		this.inputQueue = inputQueue; 
 		this.name = name;
@@ -206,6 +212,9 @@ implements Runnable, LongProcess {
 		this.session = Bo2Session.getSession();
 		ReflectionUtils.mandatoryPropertyOfClass(inputPropertyName, operation.getClass());
 		startTime = new Date();
+		if(reattemptOnTmex!=null) {
+			this.reattemptOnTmex = reattemptOnTmex;
+		}
 	}
 	
 	/**
@@ -341,7 +350,9 @@ implements Runnable, LongProcess {
 			try {
 				process(input);
 			} catch (TransactionManagerException e) {
-				inputQueue.add(input);
+				if(reattemptOnTmex) {
+					inputQueue.add(input);
+				}
 				exceptionMessage = ExceptionUtils.getThrowableStackTrace(e);
 				tidy();
 				logFailure(input, e);

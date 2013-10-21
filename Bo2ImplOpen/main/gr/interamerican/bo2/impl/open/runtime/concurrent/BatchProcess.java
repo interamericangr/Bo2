@@ -263,7 +263,7 @@ implements Runnable, MultiThreadedLongProcess {
 		QueueProcessor<T> qp = new QueueProcessor<T>
 			(inputQueue, parameters.getName(), Integer.toString(id), op, 
 			 parameters.getInputPropertyName(), parameters.getFormatter(), 
-			 parameters.getQueryParametersSetter());	
+			 parameters.getQueryParametersSetter(), parameters.getReattemptOnTmex());	
 		queueProcessors.add(qp);
 		if (eod) {
 			qp.signalEndOfData();

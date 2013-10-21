@@ -65,7 +65,7 @@ public class TestQueueProcessor {
 		String inputPropertyName = "string"; //invalid property name.
 		Formatter<String> formatter = Utils.cast(ObjectFormatter.INSTANCE);
 		return new QueueProcessor<String> 
-			(new LinkedList<String>(), name, name, op, inputPropertyName, formatter, null);
+			(new LinkedList<String>(), name, name, op, inputPropertyName, formatter, null, true);
 	}
 	
 	/**
@@ -85,7 +85,7 @@ public class TestQueueProcessor {
 		Queue<String> q = Mockito.mock(Queue.class);
 		Modification<Object> mod = Mockito.mock(Modification.class);
 		QueueProcessor<String> qp = new QueueProcessor<String>		
-			(q, name, name, op, inputPropertyName, formatter, mod);
+			(q, name, name, op, inputPropertyName, formatter, mod, false);
 		Assert.assertEquals(q, qp.inputQueue);
 		Assert.assertEquals(inputPropertyName, qp.inputPropertyName);
 		Assert.assertEquals(op, qp.operation);
@@ -108,7 +108,7 @@ public class TestQueueProcessor {
 		Operation op = new PrintStringOperation();
 		String inputPropertyName = "notthis"; //invalid property name.
 		Formatter<String> formatter = Mockito.mock(Formatter.class);
-		new QueueProcessor<String> (new LinkedList<String>(), name, name, op, inputPropertyName, formatter, null);
+		new QueueProcessor<String> (new LinkedList<String>(), name, name, op, inputPropertyName, formatter, null, false);
 	}
 	
 	
@@ -174,7 +174,7 @@ public class TestQueueProcessor {
 		Operation op = new PrintStringOperation();
 		String inputPropertyName = "string"; //invalid property name.		
 		QueueProcessor<String> qp = new QueueProcessor<String> 
-			(new LinkedList<String>(), name, name, op, inputPropertyName, formatter, null);		
+			(new LinkedList<String>(), name, name, op, inputPropertyName, formatter, null, false);		
 		String s = qp.safeToString("S");
 		Assert.assertNotNull(s);
 	}

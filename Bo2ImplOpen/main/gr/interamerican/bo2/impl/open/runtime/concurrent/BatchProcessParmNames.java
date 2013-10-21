@@ -84,7 +84,10 @@ public class BatchProcessParmNames {
 	 * Property key for sharedStreamNames.
 	 */
 	public static final String SHARED_STREAM_NAMES = "sharedStreamNames"; //$NON-NLS-1$
-	
+	/**
+	 * Property key for reattemptOnTmex.
+	 */
+	public static final String REATTEMPT_ON_TMEX = "reattemptOnTmex"; //$NON-NLS-1$
 	
 
 	
