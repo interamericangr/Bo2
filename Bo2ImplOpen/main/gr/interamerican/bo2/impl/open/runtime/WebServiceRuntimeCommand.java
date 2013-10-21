@@ -16,13 +16,20 @@ import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
 import gr.interamerican.bo2.arch.exceptions.UnexpectedException;
 import gr.interamerican.bo2.arch.exceptions.WebServiceException;
-import gr.interamerican.bo2.impl.open.utils.Bo2;
 import gr.interamerican.bo2.utils.ExceptionUtils;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Wrapper for execution of {@link RuntimeCommand}s in web services.
  */
 public class WebServiceRuntimeCommand {
+	
+	/**
+	 * Logger.
+	 */
+	private static final Logger LOGGER = LoggerFactory.getLogger(WebServiceRuntimeCommand.class);
 	
 	/**
 	 * Wrapped command.
@@ -51,7 +58,7 @@ public class WebServiceRuntimeCommand {
 		} catch (LogicException e) {
 			throw new WebServiceException(e);
 		} catch (RuntimeException e) {
-			Bo2.getLogger().error(ExceptionUtils.getThrowableStackTrace(e));
+			LOGGER.error(ExceptionUtils.getThrowableStackTrace(e));
 			throw new WebServiceException(e);
 		}
 	}
