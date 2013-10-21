@@ -12,7 +12,8 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.runtime;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
 import gr.interamerican.bo2.arch.exceptions.UnexpectedException;

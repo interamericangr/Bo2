@@ -18,9 +18,8 @@ import gr.interamerican.wicket.test.WicketTest;
 
 import java.math.BigDecimal;
 
-import org.junit.Assert;
-
 import org.apache.wicket.model.Model;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**

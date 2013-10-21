@@ -13,8 +13,8 @@
 package gr.interamerican.bo2.utils.meta.formatters.nf;
 
 import gr.interamerican.bo2.utils.meta.transformations.ToString;
-import org.junit.Assert;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 /**

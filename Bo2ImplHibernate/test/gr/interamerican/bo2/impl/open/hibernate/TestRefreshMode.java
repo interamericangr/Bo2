@@ -13,7 +13,6 @@
 package gr.interamerican.bo2.impl.open.hibernate;
 
 import org.junit.Assert;
-
 import org.junit.Test;
 import org.mockito.Mockito;
 

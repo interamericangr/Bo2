@@ -19,8 +19,8 @@ import gr.interamerican.bo2.samples.utils.meta.Bean1descriptor;
 import gr.interamerican.bo2.utils.meta.exceptions.MultipleValidationsException;
 import gr.interamerican.wicket.bo2.protocol.http.Bo2WicketSession;
 import gr.interamerican.wicket.bo2.test.Bo2WicketTest;
-import org.junit.Assert;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 

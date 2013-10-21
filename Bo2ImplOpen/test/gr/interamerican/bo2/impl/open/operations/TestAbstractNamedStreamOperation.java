@@ -21,7 +21,6 @@ import gr.interamerican.bo2.impl.open.runtime.RuntimeCommand;
 import java.io.BufferedReader;
 
 import org.junit.Assert;
-
 import org.junit.Test;
 
 /**

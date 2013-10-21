@@ -15,8 +15,8 @@ package gr.interamerican.bo2.utils.meta.factories;
 import static org.junit.Assert.assertEquals;
 import gr.interamerican.bo2.utils.meta.descriptors.BigDecimalBoPropertyDescriptor;
 import gr.interamerican.samples.utils.meta.SamplePropertyDefinition;
-import org.junit.Assert;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 /**

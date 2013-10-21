@@ -21,11 +21,11 @@ import gr.interamerican.wicket.bo2.markup.html.formcomponent.MoneyPage;
 import gr.interamerican.wicket.bo2.markup.html.formcomponent.SelfDrawnMoneyField;
 import gr.interamerican.wicket.bo2.test.Bo2WicketTest;
 import gr.interamerican.wicket.utils.WicketUtils;
-import org.junit.Assert;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.util.tester.WicketTester;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**

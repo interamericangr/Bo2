@@ -16,8 +16,8 @@ import gr.interamerican.bo2.impl.open.creation.Factory;
 import gr.interamerican.bo2.test.def.posamples.Invoice;
 import gr.interamerican.bo2.utils.beans.Tree;
 import gr.interamerican.bo2.utils.reflect.beans.VariableDefinition;
-import org.junit.Assert;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 /**

@@ -19,7 +19,6 @@ import gr.interamerican.bo2.test.utils.UtilityForBo2Test;
 import java.util.Properties;
 
 import org.junit.Assert;
-
 import org.junit.Before;
 import org.junit.Test;
 

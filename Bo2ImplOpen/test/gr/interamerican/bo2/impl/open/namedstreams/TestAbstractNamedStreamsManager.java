@@ -30,9 +30,8 @@ import java.io.PrintStream;
 import java.nio.charset.Charset;
 import java.util.Properties;
 
-import org.junit.Assert;
-
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 

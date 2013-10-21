@@ -16,7 +16,6 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeBodyPart;
 
 import org.junit.Assert;
-
 import org.junit.Test;
 
 /**

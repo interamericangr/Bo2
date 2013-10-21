@@ -17,7 +17,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import gr.interamerican.bo2.utils.Debug;
-import gr.interamerican.bo2.utils.adapters.VoidOperation;
 import gr.interamerican.bo2.utils.attributes.SimpleCommand;
 import gr.interamerican.bo2.utils.conditions.Condition;
 

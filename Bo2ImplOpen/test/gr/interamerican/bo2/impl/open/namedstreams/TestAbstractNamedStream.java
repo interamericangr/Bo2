@@ -17,7 +17,6 @@ import gr.interamerican.bo2.arch.exceptions.DataOperationNotSupportedException;
 import gr.interamerican.bo2.utils.Bo2UtilsEnvironment;
 
 import java.io.PrintStream;
-import java.nio.charset.Charset;
 
 import org.junit.Assert;
 import org.junit.Test;

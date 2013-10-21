@@ -29,7 +29,6 @@ import gr.interamerican.bo2.utils.annotations.Child;
 import java.util.Map;
 
 import org.junit.Assert;
-
 import org.junit.Test;
 
 

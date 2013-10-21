@@ -18,7 +18,6 @@ import gr.interamerican.bo2.utils.CollectionUtils;
 import java.util.Properties;
 
 import org.junit.Assert;
-
 import org.junit.Test;
 
 /**

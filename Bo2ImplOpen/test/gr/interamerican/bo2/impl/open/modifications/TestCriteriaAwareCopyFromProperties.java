@@ -12,12 +12,11 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.modifications;
 
-import java.util.Properties;
-
-import gr.interamerican.bo2.impl.open.modifications.CriteriaAwareCopyFromProperties;
 import gr.interamerican.bo2.samples.archutil.beans.IntegerCriteriaDependentBean;
 import gr.interamerican.bo2.samples.archutil.beans.SampleCriteriaDependentBean;
 import gr.interamerican.bo2.samples.bean.BeanWith2Fields;
+
+import java.util.Properties;
 
 import org.junit.Assert;
 import org.junit.Test;

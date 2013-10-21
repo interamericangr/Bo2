@@ -20,13 +20,12 @@ import gr.interamerican.wicket.utils.WicketPage;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Assert;
-
 import org.apache.wicket.extensions.ajax.markup.html.tabs.AjaxTabbedPanel;
 import org.apache.wicket.extensions.markup.html.tabs.ITab;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**

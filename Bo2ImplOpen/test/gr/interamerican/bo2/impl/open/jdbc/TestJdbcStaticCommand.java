@@ -14,8 +14,8 @@ package gr.interamerican.bo2.impl.open.jdbc;
 
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
-import org.junit.Assert;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 /**

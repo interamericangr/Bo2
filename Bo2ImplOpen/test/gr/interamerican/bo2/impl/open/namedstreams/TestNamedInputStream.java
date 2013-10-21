@@ -20,7 +20,6 @@ import gr.interamerican.bo2.utils.Bo2UtilsEnvironment;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.nio.charset.Charset;
 
 import org.junit.After;
 import org.junit.Assert;

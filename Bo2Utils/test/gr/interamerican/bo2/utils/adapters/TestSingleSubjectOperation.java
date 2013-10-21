@@ -12,11 +12,12 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.adapters;
 
-import static org.mockito.Mockito.*;
-
-import org.junit.Test;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import org.junit.Assert;
+import org.junit.Test;
 /**
  * Tests {@link SingleSubjectOperation}.
  */

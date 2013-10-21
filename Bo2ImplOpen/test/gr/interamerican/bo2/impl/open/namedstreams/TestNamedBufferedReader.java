@@ -22,7 +22,6 @@ import gr.interamerican.bo2.utils.Bo2UtilsEnvironment;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.nio.charset.Charset;
 
 import org.junit.After;
 import org.junit.Assert;

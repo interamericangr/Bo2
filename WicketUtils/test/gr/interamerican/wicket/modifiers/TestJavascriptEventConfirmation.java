@@ -13,7 +13,6 @@
 package gr.interamerican.wicket.modifiers;
 
 import org.junit.Assert;
-
 import org.junit.Test;
 
 /**

@@ -3,7 +3,6 @@ package gr.interamerican.bo2.utils.concurrent;
 import java.math.BigDecimal;
 
 import org.junit.Assert;
-
 import org.junit.Test;
 
 /**

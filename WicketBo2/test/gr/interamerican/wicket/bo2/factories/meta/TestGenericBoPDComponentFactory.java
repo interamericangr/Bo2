@@ -18,10 +18,10 @@ import gr.interamerican.bo2.utils.meta.descriptors.BigDecimalBoPropertyDescripto
 import gr.interamerican.wicket.bo2.markup.html.form.SelfDrawnBigDecimalTextField;
 import gr.interamerican.wicket.bo2.markup.html.form.SelfDrawnLabel;
 import gr.interamerican.wicket.markup.html.TestPage;
-import org.junit.Assert;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.model.PropertyModel;
+import org.junit.Assert;
 import org.junit.Test;
 
 

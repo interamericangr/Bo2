@@ -13,7 +13,6 @@
 package gr.interamerican.bo2.utils.meta.descriptors;
 
 import org.junit.Assert;
-
 import org.junit.Test;
 
 /**

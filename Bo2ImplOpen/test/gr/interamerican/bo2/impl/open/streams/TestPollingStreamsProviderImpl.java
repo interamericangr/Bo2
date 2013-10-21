@@ -20,7 +20,6 @@ import java.io.InputStream;
 import java.util.Properties;
 
 import org.junit.Assert;
-
 import org.junit.Test;
 
 /**

@@ -16,7 +16,6 @@ import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.wicket.markup.html.TestPage;
 import gr.interamerican.wicket.test.WicketTest;
 import gr.interamerican.wicket.utils.MarkupConstants;
-import org.junit.Assert;
 
 import org.apache.wicket.AttributeModifier;
 import org.apache.wicket.markup.ComponentTag;
@@ -24,6 +23,7 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.util.tester.FormTester;
 import org.apache.wicket.util.tester.TagTester;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**

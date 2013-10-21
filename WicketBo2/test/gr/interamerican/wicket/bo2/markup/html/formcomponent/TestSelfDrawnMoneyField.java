@@ -16,9 +16,8 @@ import gr.interamerican.bo2.arch.utils.beans.MoneyImpl;
 
 import java.math.BigDecimal;
 
-import org.junit.Assert;
-
 import org.apache.wicket.util.tester.WicketTester;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 

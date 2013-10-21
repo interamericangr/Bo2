@@ -23,9 +23,9 @@ import gr.interamerican.bo2.samples.hibernate.def.entities.BarTPCH;
 import gr.interamerican.bo2.samples.hibernate.def.entities.BarTPSCH;
 import gr.interamerican.bo2.samples.hibernate.def.entities.FooTPCH;
 import gr.interamerican.bo2.samples.hibernate.def.entities.FooTPSCH;
-import org.junit.Assert;
 
 import org.hibernate.Session;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**

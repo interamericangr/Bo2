@@ -13,10 +13,10 @@
 package gr.interamerican.wicket.bo2.validation;
 
 import gr.interamerican.bo2.utils.meta.descriptors.StringBoPropertyDescriptor;
-import org.junit.Assert;
 
 import org.apache.wicket.validation.IValidatable;
 import org.apache.wicket.validation.IValidationError;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**

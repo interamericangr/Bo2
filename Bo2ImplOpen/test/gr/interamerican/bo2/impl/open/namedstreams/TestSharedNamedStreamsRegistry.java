@@ -17,13 +17,11 @@ import gr.interamerican.bo2.samples.implopen.mocks.MockAbstractNamedStreamsManag
 import gr.interamerican.bo2.samples.implopen.mocks.MockNamedStream;
 import gr.interamerican.bo2.utils.Bo2UtilsEnvironment;
 
-import java.nio.charset.Charset;
 import java.util.Properties;
 import java.util.Set;
 
-import org.junit.Assert;
-
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -14,13 +14,13 @@ package gr.interamerican.bo2.jsqlparser.visitors;
 
 import java.io.StringReader;
 
-import org.junit.Assert;
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.parser.CCJSqlParserManager;
 import net.sf.jsqlparser.parser.JSqlParser;
 import net.sf.jsqlparser.statement.Statement;
 import net.sf.jsqlparser.statement.select.Select;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 

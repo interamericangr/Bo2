@@ -12,8 +12,8 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.creation.templatebean;
 
-import gr.interamerican.bo2.creation.code.templatebean.DelegatePropertyWithReflectiveAccessCodeTemplates;
 import gr.interamerican.bo2.creation.code.templatebean.BaseTestPropertyCodeTemplates;
+import gr.interamerican.bo2.creation.code.templatebean.DelegatePropertyWithReflectiveAccessCodeTemplates;
 import gr.interamerican.bo2.creation.code.templatebean.Variables;
 import gr.interamerican.bo2.samples.bean.BeanWith1Field;
 

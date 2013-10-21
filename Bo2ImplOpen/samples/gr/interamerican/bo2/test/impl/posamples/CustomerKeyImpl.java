@@ -1,7 +1,6 @@
 package gr.interamerican.bo2.test.impl.posamples;
 
 import gr.interamerican.bo2.impl.open.po.AbstractKey;
-import gr.interamerican.bo2.test.def.posamples.CompanyUserKey;
 import gr.interamerican.bo2.test.def.posamples.CustomerKey;
 
 /**

@@ -13,7 +13,6 @@
 package gr.interamerican.wicket.bo2.factories.meta;
 
 import org.junit.Assert;
-
 import org.junit.Test;
 
 /**

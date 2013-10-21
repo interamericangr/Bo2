@@ -12,12 +12,12 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.runtime.concurrent;
 
-import java.util.Map;
-
 import gr.interamerican.bo2.arch.EntitiesQuery;
 import gr.interamerican.bo2.arch.Operation;
 import gr.interamerican.bo2.utils.adapters.Modification;
 import gr.interamerican.bo2.utils.meta.formatters.Formatter;
+
+import java.util.Map;
 
 /**
  * Parameters for the creation of a {@link BatchProcess}.

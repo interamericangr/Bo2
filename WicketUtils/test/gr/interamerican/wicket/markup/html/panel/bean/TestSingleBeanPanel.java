@@ -28,14 +28,13 @@ import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.List;
 
-import org.junit.Assert;
-
 import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.util.tester.FormTester;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 

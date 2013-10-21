@@ -14,8 +14,8 @@ package gr.interamerican.bo2.arch.utils;
 
 import gr.interamerican.bo2.arch.ext.Codified;
 import gr.interamerican.bo2.arch.utils.beans.CodifiedNamedImpl;
-import gr.interamerican.bo2.samples.archutil.beans.SampleBean1;
 import gr.interamerican.bo2.samples.archutil.beans.BeanWithCodifiedProperty;
+import gr.interamerican.bo2.samples.archutil.beans.SampleBean1;
 import gr.interamerican.bo2.utils.StringConstants;
 
 import org.junit.Assert;

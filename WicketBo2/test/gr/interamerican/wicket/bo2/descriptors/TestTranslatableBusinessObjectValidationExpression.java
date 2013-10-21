@@ -20,8 +20,8 @@ import gr.interamerican.bo2.arch.utils.ext.Bo2Session;
 import gr.interamerican.bo2.utils.meta.BusinessObjectValidationExpression;
 import gr.interamerican.wicket.bo2.protocol.http.Bo2WicketRequestCycle;
 import gr.interamerican.wicket.bo2.test.Bo2WicketTest;
-import org.junit.Assert;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 /**

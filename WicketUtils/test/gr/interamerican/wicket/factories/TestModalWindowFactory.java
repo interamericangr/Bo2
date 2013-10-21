@@ -12,10 +12,9 @@
  ******************************************************************************/
 package gr.interamerican.wicket.factories;
 
-import org.junit.Assert;
-
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.util.tester.WicketTester;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 

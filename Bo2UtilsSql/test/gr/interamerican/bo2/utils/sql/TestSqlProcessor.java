@@ -13,8 +13,8 @@
 package gr.interamerican.bo2.utils.sql;
 
 import gr.interamerican.bo2.utils.StringConstants;
-import org.junit.Assert;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 /**

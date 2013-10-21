@@ -21,7 +21,6 @@ import gr.interamerican.bo2.utils.mail.MailMessage;
 import java.util.Date;
 
 import org.junit.Assert;
-
 import org.junit.Test;
 
 /**

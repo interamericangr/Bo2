@@ -12,8 +12,6 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.namedstreams;
 
-import java.nio.charset.Charset;
-
 import gr.interamerican.bo2.arch.Provider;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.impl.open.utils.Bo2;

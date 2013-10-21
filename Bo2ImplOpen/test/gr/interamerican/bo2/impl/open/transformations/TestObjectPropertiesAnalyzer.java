@@ -13,7 +13,6 @@
 package gr.interamerican.bo2.impl.open.transformations;
 
 import org.junit.Assert;
-
 import org.junit.Test;
 
 /**

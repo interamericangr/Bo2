@@ -19,7 +19,6 @@ import gr.interamerican.bo2.utils.StringUtils;
 import java.util.Calendar;
 
 import org.junit.Assert;
-
 import org.junit.Test;
 
 /**

@@ -15,9 +15,9 @@ package gr.interamerican.wicket.bo2.markup.html.form;
 import gr.interamerican.bo2.utils.meta.descriptors.LongBoPropertyDescriptor;
 import gr.interamerican.wicket.markup.html.TestPage;
 import gr.interamerican.wicket.test.WicketTest;
-import org.junit.Assert;
 
 import org.apache.wicket.model.Model;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**

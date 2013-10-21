@@ -35,10 +35,10 @@ import gr.interamerican.bo2.samples.implopen.pw.UserPwImpl;
 import gr.interamerican.bo2.test.utils.UtilityForBo2Test;
 import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.annotations.Child;
-import org.junit.Assert;
 
 import org.hibernate.HibernateException;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 

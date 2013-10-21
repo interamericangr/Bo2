@@ -23,7 +23,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import org.junit.Assert;
-
 import org.junit.Test;
 
 /**

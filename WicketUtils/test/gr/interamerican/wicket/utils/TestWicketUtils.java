@@ -13,7 +13,6 @@
 package gr.interamerican.wicket.utils;
 
 import static org.junit.Assert.assertEquals;
-import org.junit.Assert;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.form.DropDownChoice;
@@ -24,6 +23,7 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.util.tester.FormTester;
 import org.apache.wicket.util.tester.WicketTester;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -26,7 +26,6 @@ import gr.interamerican.bo2.test.def.posamples.SamplesFactory;
 import java.util.Set;
 
 import org.junit.Assert;
-
 import org.junit.Test;
 
 

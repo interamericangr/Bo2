@@ -21,7 +21,6 @@ import gr.interamerican.bo2.impl.open.namedstreams.StreamResource;
 import gr.interamerican.bo2.impl.open.namedstreams.StreamType;
 import gr.interamerican.bo2.utils.Bo2UtilsEnvironment;
 
-import java.nio.charset.Charset;
 import java.util.Properties;
 
 /**

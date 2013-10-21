@@ -1,7 +1,6 @@
 package gr.interamerican.bo2.impl.open.records;
 
 import org.junit.Assert;
-
 import org.junit.Test;
 
 /**

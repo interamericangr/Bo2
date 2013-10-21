@@ -15,7 +15,6 @@ package gr.interamerican.bo2.utils.meta.formatters.nf;
 import java.text.SimpleDateFormat;
 
 import org.junit.Assert;
-
 import org.junit.Test;
 
 /**

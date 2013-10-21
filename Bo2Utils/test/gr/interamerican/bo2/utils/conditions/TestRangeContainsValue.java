@@ -13,8 +13,8 @@
 package gr.interamerican.bo2.utils.conditions;
 
 import gr.interamerican.bo2.utils.beans.Range;
-import org.junit.Assert;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 /**

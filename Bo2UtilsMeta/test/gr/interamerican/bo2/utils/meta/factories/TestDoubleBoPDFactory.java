@@ -16,8 +16,8 @@ import static org.junit.Assert.assertEquals;
 import gr.interamerican.bo2.utils.meta.descriptors.DoubleBoPropertyDescriptor;
 import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
 import gr.interamerican.samples.utils.meta.SamplePropertyDefinition;
-import org.junit.Assert;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 /**

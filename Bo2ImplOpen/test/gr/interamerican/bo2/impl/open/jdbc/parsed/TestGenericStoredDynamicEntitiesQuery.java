@@ -14,8 +14,8 @@ package gr.interamerican.bo2.impl.open.jdbc.parsed;
 
 import gr.interamerican.bo2.impl.open.creation.Factory;
 import gr.interamerican.bo2.samples.implopen.beans.UserIdBean;
-import org.junit.Assert;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 /**

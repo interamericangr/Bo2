@@ -17,8 +17,8 @@ import gr.interamerican.bo2.samples.archutil.po.User;
 import gr.interamerican.bo2.test.def.posamples.Invoice;
 import gr.interamerican.bo2.test.def.posamples.InvoiceCustomer;
 import gr.interamerican.bo2.utils.adapters.Modification;
-import org.junit.Assert;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 

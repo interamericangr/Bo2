@@ -19,11 +19,11 @@ import gr.interamerican.wicket.bo2.factories.meta.BaseClassForTestingComponentFa
 import gr.interamerican.wicket.bo2.markup.html.form.SelfDrawnDropDownChoiceForEntry;
 import gr.interamerican.wicket.markup.html.TestPage;
 import gr.interamerican.wicket.markup.html.panel.service.ModeAwareBeanPanelDef;
-import org.junit.Assert;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**

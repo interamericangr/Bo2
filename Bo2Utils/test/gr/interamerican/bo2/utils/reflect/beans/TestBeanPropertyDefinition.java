@@ -21,7 +21,6 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Type;
 
 import org.junit.Assert;
-
 import org.junit.Test;
 
 /**

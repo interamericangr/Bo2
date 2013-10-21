@@ -15,8 +15,8 @@ package gr.interamerican.bo2.impl.open.runtime.concurrent;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import gr.interamerican.bo2.arch.batch.LongProcess;
-import org.junit.Assert;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 /**

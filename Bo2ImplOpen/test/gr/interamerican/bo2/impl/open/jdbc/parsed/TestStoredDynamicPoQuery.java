@@ -15,7 +15,6 @@ package gr.interamerican.bo2.impl.open.jdbc.parsed;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import gr.interamerican.bo2.arch.Provider;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;

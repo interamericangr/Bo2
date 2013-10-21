@@ -22,8 +22,8 @@ import gr.interamerican.bo2.impl.open.runtime.AbstractBo2RuntimeCmd;
 import gr.interamerican.bo2.samples.archutil.po.User;
 import gr.interamerican.bo2.samples.archutil.po.UserKey;
 import gr.interamerican.bo2.test.utils.UtilityForBo2Test;
-import org.junit.Assert;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 /**

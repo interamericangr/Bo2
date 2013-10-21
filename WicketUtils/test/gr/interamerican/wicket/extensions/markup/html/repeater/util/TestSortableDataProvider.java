@@ -27,8 +27,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import org.junit.Assert;
-
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.DefaultDataTable;
@@ -36,6 +34,7 @@ import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.util.tester.ITestPageSource;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**

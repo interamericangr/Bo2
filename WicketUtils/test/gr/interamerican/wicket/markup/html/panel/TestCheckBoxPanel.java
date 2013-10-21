@@ -13,11 +13,11 @@
 package gr.interamerican.wicket.markup.html.panel;
 
 import gr.interamerican.wicket.utils.WicketPage;
-import org.junit.Assert;
 
 import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.util.tester.WicketTester;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 

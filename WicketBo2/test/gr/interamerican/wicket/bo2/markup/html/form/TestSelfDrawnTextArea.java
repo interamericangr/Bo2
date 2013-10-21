@@ -19,12 +19,11 @@ import gr.interamerican.wicket.test.WicketTest;
 
 import java.util.List;
 
-import org.junit.Assert;
-
 import org.apache.wicket.Component;
 import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.util.tester.FormTester;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 

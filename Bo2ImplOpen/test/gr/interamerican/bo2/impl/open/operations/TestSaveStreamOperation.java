@@ -18,7 +18,6 @@ import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
 import gr.interamerican.bo2.arch.exceptions.UnexpectedException;
 import gr.interamerican.bo2.impl.open.runtime.AbstractBo2RuntimeCmd;
-import gr.interamerican.bo2.utils.Bo2UtilsEnvironment;
 
 import org.junit.Test;
 

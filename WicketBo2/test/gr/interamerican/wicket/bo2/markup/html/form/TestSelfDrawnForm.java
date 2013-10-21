@@ -26,10 +26,9 @@ import gr.interamerican.wicket.test.WicketTest;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.Assert;
-
 import org.apache.wicket.Component;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
