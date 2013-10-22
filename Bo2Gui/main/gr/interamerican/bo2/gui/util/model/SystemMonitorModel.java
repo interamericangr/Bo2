@@ -12,6 +12,8 @@
  ******************************************************************************/
 package gr.interamerican.bo2.gui.util.model;
 
+import gr.interamerican.bo2.arch.enums.TargetEnvironment;
+import gr.interamerican.bo2.impl.open.utils.Bo2;
 import gr.interamerican.bo2.utils.SystemUtils;
 
 import java.io.Serializable;
@@ -66,6 +68,19 @@ public class SystemMonitorModel implements Serializable {
 	 */
 	public long getGcTime() {
 		return SystemUtils.gcTime();
+	}
+
+	/**
+	 * Returns the current environment, e.g. PROD, DEV, UAT
+	 * @return Returns the current environment
+	 */
+	public String getEnvironment() {
+		TargetEnvironment te = Bo2.getDefaultDeployment().getDeploymentBean().getTargetEnvironment();
+		if(te!=null) {
+			return te.toString();
+		}
+		return "N/A"; //$NON-NLS-1$
+		
 	}
 	
 }

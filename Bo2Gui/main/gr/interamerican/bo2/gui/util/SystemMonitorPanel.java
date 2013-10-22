@@ -33,7 +33,7 @@ public class SystemMonitorPanel extends BPanel<SystemMonitorModel> {
 	 * fields
 	 */
 	@SuppressWarnings("nls")
-	private static String[] FIELDS = { "usedMemory", "freeMemory", "totalMemory", "maxMemory", "gcEvents", "gcTime" };
+	private static String[] FIELDS = { "environment", "usedMemory", "freeMemory", "totalMemory", "maxMemory", "gcEvents", "gcTime" };
 	/**
 	 * default constructor.
 	 */
