@@ -20,6 +20,7 @@ import gr.interamerican.bo2.arch.PersistentObject;
 import gr.interamerican.bo2.arch.Provider;
 import gr.interamerican.bo2.arch.TransactionManager;
 import gr.interamerican.bo2.arch.Worker;
+import gr.interamerican.bo2.arch.enums.TargetEnvironment;
 import gr.interamerican.bo2.arch.exceptions.CouldNotBeginException;
 import gr.interamerican.bo2.arch.exceptions.CouldNotCommitException;
 import gr.interamerican.bo2.arch.exceptions.CouldNotRollbackException;
@@ -249,7 +250,7 @@ public class Bo2WicketRequestCycle extends WebRequestCycle {
 	/**
 	 * logger.
 	 */
-	private static Logger logger = LoggerFactory.getLogger(Bo2WicketRequestCycle.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(Bo2WicketRequestCycle.class.getName());
 
 	/**
 	 * RequestCycleStats.
@@ -350,13 +351,13 @@ public class Bo2WicketRequestCycle extends WebRequestCycle {
 					debug("committed the transaction.");
 				}
 			} catch (CouldNotCommitException cnce) {
-				logger.error("CouldNotCommitException: " + ExceptionUtils.getThrowableStackTrace(cnce));
+				LOGGER.error("CouldNotCommitException: " + ExceptionUtils.getThrowableStackTrace(cnce));
 				throw new RuntimeException(cnce);
 			} finally {
 				try {
 					cleanup();
 				}catch (DataException de) {
-					logger.error("DataException on cleanup: " + ExceptionUtils.getThrowableStackTrace(de));
+					LOGGER.error("DataException on cleanup: " + ExceptionUtils.getThrowableStackTrace(de));
 					throw new RuntimeException(de);
 				}
 			}
@@ -380,13 +381,13 @@ public class Bo2WicketRequestCycle extends WebRequestCycle {
 			}
 		} catch (CouldNotRollbackException cnrbex) {
 			cnrbex.setInitial(t);
-			logger.error("CouldNotRollbackException: " + ExceptionUtils.getThrowableStackTrace(cnrbex));
+			LOGGER.error("CouldNotRollbackException: " + ExceptionUtils.getThrowableStackTrace(cnrbex));
 		} finally {
 			try {
 				cleanup();
 			} catch (DataException de) {
 				de.initCause(t);
-				logger.error("DataException on cleanup: " + ExceptionUtils.getThrowableStackTrace(de));
+				LOGGER.error("DataException on cleanup: " + ExceptionUtils.getThrowableStackTrace(de));
 			}
 		}
 		/*
@@ -397,6 +398,13 @@ public class Bo2WicketRequestCycle extends WebRequestCycle {
 			InvocationTargetException itex = ExceptionUtils.causeInTheChain(t, InvocationTargetException.class);
 			t = Utils.notNull(itex.getTargetException(), t);
 		}
+		
+		/*
+		 * Facilitate debugging of unit tests run on DEVELOPMENT environment.
+		 */
+		if(Bo2.getDefaultDeployment().getDeploymentBean().getTargetEnvironment()==TargetEnvironment.DEVELOPMENT) {
+			LOGGER.error(ExceptionUtils.getThrowableStackTrace(t));
+		}
 
 		if (page instanceof WicketOutputMedium) {
 			WicketOutputMedium outputMedium = (WicketOutputMedium) page;
@@ -405,14 +413,13 @@ public class Bo2WicketRequestCycle extends WebRequestCycle {
 				AjaxRequestTarget art = (AjaxRequestTarget) target;
 				outputMedium.showError(t, art);
 			} else {
-				logger.error("Failed to display error from Throwable " + t.toString());
+				LOGGER.error("Failed to display error from Throwable " + t.toString());
 			}
 			logAndCleanSession();
 			return page;
-		} else {
-			logAndCleanSession();
-			return superOnRuntimeException(page, e);
 		}
+		logAndCleanSession();
+		return superOnRuntimeException(page, e);
 	}
 
 	/**
@@ -447,7 +454,7 @@ public class Bo2WicketRequestCycle extends WebRequestCycle {
 	 * @return Returns the page returned by super.OnRuntimeException()
 	 */
 	private Page superOnRuntimeException(Page page, RuntimeException e) {
-		logger.error("UNEXPECTED EXCEPTION: " + ExceptionUtils.getThrowableStackTrace(e));
+		LOGGER.error("UNEXPECTED EXCEPTION: " + ExceptionUtils.getThrowableStackTrace(e));
 		/*
 		 * TODO put the RuntimeException some place the ErrorPage can find it.
 		 */
@@ -509,8 +516,8 @@ public class Bo2WicketRequestCycle extends WebRequestCycle {
 	 * @param msg
 	 */
 	void debug(String msg) {
-		if (logger.isDebugEnabled()) {
-			logger.debug(msg);
+		if (LOGGER.isDebugEnabled()) {
+			LOGGER.debug(msg);
 		}
 	}
 
