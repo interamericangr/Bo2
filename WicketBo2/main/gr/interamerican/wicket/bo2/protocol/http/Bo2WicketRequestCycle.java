@@ -417,9 +417,11 @@ public class Bo2WicketRequestCycle extends WebRequestCycle {
 			}
 			logAndCleanSession();
 			return page;
+		} else {
+			logAndCleanSession();
+			return superOnRuntimeException(page, e);
 		}
-		logAndCleanSession();
-		return superOnRuntimeException(page, e);
+		
 	}
 
 	/**
