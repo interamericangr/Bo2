@@ -455,7 +455,7 @@
 	</modules>
 
 	<scm>
-		<developerConnection>scm:svn:http://svn-srv/svn/bo2/trunk/Bo2</developerConnection>
+		<developerConnection>scm:svn:http://svn-srv/svn/bo2/branches/br-2.0.0022-SNAPSHOT</developerConnection>
 	</scm>
  
 	<repositories>
