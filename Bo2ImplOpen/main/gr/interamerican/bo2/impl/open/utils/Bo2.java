@@ -98,14 +98,19 @@ public class Bo2 {
 		String longDf = dp.getLongDateFormat();
 		checkNotNull(longDf, "longDateFormat");
 		/*
-		 * encoding
+		 * fs text file encoding
 		 */
-		String charset = dp.getTextEncoding();
-		checkNotNull(charset, "textEncoding");
+		String textCharset = dp.getTextEncoding();
+		checkNotNull(textCharset, "textEncoding");
+		/*
+		 * resource text file
+		 */
+		String resourceFileCharset = dp.getResourceFileEncoding();
+		checkNotNull(resourceFileCharset, "resourceFileEncoding");
 		/*
 		 * set Bo2UtilsEnvironment
 		 */
-		Bo2UtilsEnvironment.setEnvironment(shortDf, isoDf, longDf, charset);
+		Bo2UtilsEnvironment.setEnvironment(shortDf, isoDf, longDf, textCharset, resourceFileCharset);
 		/*
 		 * SMTP initialization.
 		 */

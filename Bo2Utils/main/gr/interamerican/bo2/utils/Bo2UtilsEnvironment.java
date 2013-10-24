@@ -33,13 +33,15 @@ public class Bo2UtilsEnvironment {
 	 * @param shortDf 
 	 * @param isoDf 
 	 * @param longDf 
-	 * @param charset 	   
+	 * @param textCharset 	   
+	 * @param resourceFileCharset 
 	 */
-	public static void setEnvironment(String shortDf, String isoDf, String longDf, String charset) {
+	public static void setEnvironment(String shortDf, String isoDf, String longDf, String textCharset, String resourceFileCharset) {
 		SINGLETON.dfShortPattern = shortDf;
 		SINGLETON.dfIsoPattern = isoDf;
 		SINGLETON.dfLongPattern = longDf;
-		SINGLETON.textCharset = Charset.forName(charset);
+		SINGLETON.textCharset = Charset.forName(textCharset);
+		SINGLETON.resourceFileCharset = Charset.forName(resourceFileCharset);
 	}
 	
 	/**
@@ -49,6 +51,15 @@ public class Bo2UtilsEnvironment {
 	 */
 	public static Charset getDefaultTextCharset() {
 		return SINGLETON.textCharset;
+	}
+	
+	/**
+	 * Gets the defaultResourceFileCharset.
+	 *
+	 * @return Returns the defaultResourceFileCharset
+	 */
+	public static Charset getDefaultResourceFileCharset() {
+		return SINGLETON.resourceFileCharset;
 	}
 	
 	/**
@@ -101,6 +112,12 @@ public class Bo2UtilsEnvironment {
 	private Charset textCharset = Charset.defaultCharset();
 	
 	/**
+	 * Default resource file charset. This is the charset that should be used when reading
+	 * resource files. Initialized with the default platform Charset.
+	 */
+	private Charset resourceFileCharset = Charset.defaultCharset();
+	
+	/**
 	 * Creates a new Bo2UtilsEnvironment object. 
 	 * 
 	 * Hidden constructor.
@@ -144,6 +161,6 @@ public class Bo2UtilsEnvironment {
 	 */
 	Charset getTextCharset() {
 		return textCharset;
-	}	
+	}
 
 }
