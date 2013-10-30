@@ -39,7 +39,7 @@
 		<version.nbda-bo>1.5.0002</version.nbda-bo>
 		<version.jwf>1.0.0001</version.jwf>
 
-		<branchName>br-${project.version}</branchName>
+		<branchName>Bo2-br-${project.version}</branchName>
 
 		<project.build.sourceEncoding>CP1253</project.build.sourceEncoding>
 
