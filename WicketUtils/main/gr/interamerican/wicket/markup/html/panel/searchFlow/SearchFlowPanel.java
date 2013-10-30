@@ -403,6 +403,7 @@ extends ServicePanelWithBack {
 			cppDef.setSaveValidator(getDefinition().getSaveValidator());
 			cppDef.setUpdateValidator(getDefinition().getUpdateValidator());
 			cppDef.setDeleteValidator(getDefinition().getDeleteValidator());
+			cppDef.setPreEditValidator(getDefinition().getPreEditValidator());
 			cppDef.setCustomSingleBeanPanelDisabling(getDefinition().getCustomSingleBeanPanelDisabling());
 			cppDef.setSingleBeanFormContainsFileUpload(getDefinition().getSingleBeanFormContainsFileUpload());
 			if(getDefinition().getRefreshAfterDataOp()) {

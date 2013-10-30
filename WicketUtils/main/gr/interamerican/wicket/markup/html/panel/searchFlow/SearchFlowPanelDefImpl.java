@@ -253,6 +253,11 @@ implements SearchFlowPanelDef<C, B> {
 	private AjaxEnabledCondition<B> updateValidator;
 	
 	/**
+	 * Validator upon selecting an existing item for editing.
+	 */
+	private AjaxEnabledCondition<B> preEditValidator;
+	
+	/**
 	 * If it is true, the crud picker panel that shows the results
 	 * has its rows updated from the persistence layer after any save 
 	 * or update.
@@ -668,6 +673,14 @@ implements SearchFlowPanelDef<C, B> {
 
 	public void setSingleBeanFormContainsFileUpload(Boolean singleBeanFormContainsFileUpload) {
 		this.singleBeanFormContainsFileUpload = singleBeanFormContainsFileUpload;
+	}
+	
+	public void setPreEditValidator(AjaxEnabledCondition<B> validator) {
+		this.preEditValidator = validator;
+	}
+
+	public AjaxEnabledCondition<B> getPreEditValidator() {
+		return preEditValidator;
 	}
 	
 }

@@ -468,6 +468,23 @@ extends ServicePanelWithBackDef, BeanPanelDef<B> {
 	 */
 	AjaxEnabledCondition<B> getDeleteValidator();
 	
+	/**
+	 * [OPTIONAL]
+	 * Sets the validator that is executed when selecting an existing B for update.
+	 * This is applied to the results panel if it is a CrudPickerPanel
+	 * 
+	 * @param validator
+	 */
+	public void setPreEditValidator(AjaxEnabledCondition<B> validator);
+	
+	/**
+	 * Gets the validator that is executed when selecting an existing B for update.
+	 * This is applied to the results panel if it is a CrudPickerPanel
+	 * 
+	 * @return validator.
+	 */
+	public AjaxEnabledCondition<B> getPreEditValidator();
+	
 	/**********************************************************************/
 	
 	/*
