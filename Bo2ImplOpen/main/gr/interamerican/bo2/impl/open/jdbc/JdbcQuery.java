@@ -139,7 +139,8 @@ implements Query, NamedFieldsContainer, OrderedFieldsContainer {
 			Object[] params = parameters();
 			if (params!=null) {
 				setParameters(ps, params);
-			}				
+			}
+			logPsParameters(params);
 			rs = executeQueryPs(ps);
 		} catch (SQLException e) {
 			throw new DataException(e);

@@ -284,6 +284,19 @@ extends AbstractResourceConsumer {
 	}
 	
 	/**
+	 * Logs parameters passed to a prepared statement before execution.
+	 * 
+	 * @param params
+	 */
+	protected void logPsParameters(Object[] params) {
+		if (logger.isTraceEnabled()) {
+			String parameters = StringUtils.squareBrackets(StringUtils.array2String(params, StringConstants.COMMA));
+			logger.trace("PS parameters: " + parameters); //$NON-NLS-1$
+			
+		}
+	}
+	
+	/**
 	 * Logs statement preparation.
 	 * 
 	 * @param statement
