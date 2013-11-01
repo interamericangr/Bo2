@@ -14,6 +14,7 @@ package gr.interamerican.bo2.impl.open.jee;
 
 import gr.interamerican.bo2.impl.open.jee.jdbc.TestJndiConnectionStrategy;
 import gr.interamerican.bo2.impl.open.jee.jta.TestJtaTransactionManager;
+import gr.interamerican.bo2.impl.open.jee.servlet.TestLoggingFilter;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -29,6 +30,7 @@ import org.junit.runners.Suite.SuiteClasses;
 	{			
 		TestJndiConnectionStrategy.class,
 		TestJtaTransactionManager.class,
+		TestLoggingFilter.class,
 	}
 )
 public class TestSuiteBo2ImplOpenJee {

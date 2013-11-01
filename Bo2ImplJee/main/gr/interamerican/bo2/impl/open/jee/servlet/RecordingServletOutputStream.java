@@ -1,6 +1,10 @@
 package gr.interamerican.bo2.impl.open.jee.servlet;
 
+import gr.interamerican.bo2.utils.StringUtils;
+
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.nio.charset.Charset;
 
 import javax.servlet.ServletInputStream;
 import javax.servlet.ServletOutputStream;
@@ -16,15 +20,14 @@ import javax.servlet.ServletOutputStream;
  * since they delegate to
  * 
  * {@link ServletInputStream}{@link #write(int)}
- * <br/><br/>
- * Known limitations: Non ASCII characters are not recorded properly. 
+ * 
  */
 public class RecordingServletOutputStream extends ServletOutputStream {
 	
 	/**
 	 * Stream is recorded here.
 	 */
-	private StringBuilder sb = new StringBuilder();
+	private ByteArrayOutputStream baos = new ByteArrayOutputStream();
 	
 	/**
 	 * Decorated instance
@@ -32,16 +35,27 @@ public class RecordingServletOutputStream extends ServletOutputStream {
 	private ServletOutputStream sos;
 	
 	/**
+	 * Charset of the HTTP response.
+	 */
+	private Charset charset;
+	
+	/**
 	 * Creates a new WsLoggingServletInputStream object. 
 	 * @param sos 
+	 * @param encoding 
 	 */
-	public RecordingServletOutputStream(ServletOutputStream sos) {
+	public RecordingServletOutputStream(ServletOutputStream sos, String encoding) {
 		this.sos = sos;
+		if(!StringUtils.isNullOrBlank(encoding)) {
+			charset = Charset.forName(encoding);
+		} else {
+			charset = Charset.defaultCharset();
+		}
 	}
 	
 	@Override
 	public void write(int b) throws IOException {
-		sb.append((char)b);
+		baos.write(b); //one byte
 		sos.write(b);
 	}
 	
@@ -61,7 +75,8 @@ public class RecordingServletOutputStream extends ServletOutputStream {
 	 * @return contents of the decorated {@link ServletOutputStream}.
 	 */
 	public String getPayload() {
-		return sb.toString();
+		byte[] bytes = baos.toByteArray();
+		return new String(bytes, charset);
 	}
 
 }

@@ -25,7 +25,7 @@ public class RecordingServletResponseWrapper extends HttpServletResponseWrapper 
 	 */
 	public RecordingServletResponseWrapper(HttpServletResponse response) throws IOException {
 		super(response);
-		this.sos = new RecordingServletOutputStream(response.getOutputStream());
+		this.sos = new RecordingServletOutputStream(response.getOutputStream(), response.getCharacterEncoding());
 	}
 	
 	@Override
