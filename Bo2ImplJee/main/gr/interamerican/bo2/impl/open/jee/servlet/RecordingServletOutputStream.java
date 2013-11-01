@@ -16,6 +16,8 @@ import javax.servlet.ServletOutputStream;
  * since they delegate to
  * 
  * {@link ServletInputStream}{@link #write(int)}
+ * <br/><br/>
+ * Known limitations: Non ASCII characters are not recorded properly. 
  */
 public class RecordingServletOutputStream extends ServletOutputStream {
 	
