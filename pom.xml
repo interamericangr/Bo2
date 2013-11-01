@@ -369,6 +369,7 @@
 				<groupId>javax.transaction</groupId>
 				<artifactId>jta</artifactId>
 				<version>${version.jta}</version>
+				<scope>provided</scope>
 			</dependency>
 
 			<dependency>
@@ -404,6 +405,7 @@
 				<groupId>javax.servlet</groupId>
 				<artifactId>servlet-api</artifactId>
 				<version>${version.servlet-api}</version>
+				<scope>provided</scope>
 			</dependency>
 
 			<dependency>
