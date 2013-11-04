@@ -14,6 +14,7 @@ package gr.interamerican.bo2.creation.beans;
 
 import gr.interamerican.bo2.creation.ClassCreator;
 import gr.interamerican.bo2.creation.NameResolver;
+import gr.interamerican.bo2.creation.creators.MockFixtureResolver;
 import gr.interamerican.bo2.samples.abstractimpl.AbstractBeanWithIdAndName;
 import gr.interamerican.bo2.samples.creators.MockClassCreator;
 import gr.interamerican.bo2.samples.iempty.IEmpty1;
@@ -41,6 +42,7 @@ public class TestObjectFactoryAssistant {
 		ObjectFactoryAssistant assistant = new ObjectFactoryAssistant(p);
 		Assert.assertTrue(assistant.getNameResolver() instanceof MockNameResolver);
 		Assert.assertTrue(assistant.getInterfaceImplementor() instanceof MockClassCreator);
+		Assert.assertTrue(assistant.getFixtureResolver() instanceof MockFixtureResolver);
 		Assert.assertEquals(assistant.getMappingsFilePath(), "/com/foo.txt");
 		Assert.assertNull(assistant.getConcreteClassEnhancer());
 		Assert.assertNull(assistant.getAbstractClassImplementor());

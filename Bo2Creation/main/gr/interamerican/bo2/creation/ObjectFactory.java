@@ -123,5 +123,36 @@ public interface ObjectFactory {
 	 *        Concrete class that will be used as declaration and implementation.
 	 */
 	void registerImplementationAsDeclaration(Class<?> declaration);
+	
+	/**
+	 * Registers a fixture that this {@link ObjectFactory} will use
+	 * when the application requires the creation of an object instance
+	 * for the supplied <code>declarationType</code>
+	 * <br/>
+	 * The normal process for object creation will not be used if a
+	 * fixture has been set. 
+	 * <br/>
+	 * This facility is meant to allow developers to specify mock instances
+	 * to be created for a declarationType in certain unit testing scenarios
+	 * where the actual implementation is not available in the classpath.
+	 * <br/>
+	 * The fixtures only affect calls to the {@link #create(Class)} method
+	 * of the {@link ObjectFactory}. 
+	 *
+	 * @param <M> 
+	 *         Type of fixture.
+	 * @param declarationType
+	 *         Declaration class
+	 * @param fixture
+	 *         Instance to be returned upon a request for a declarationType
+	 *         object creation
+	 */
+	<M> void registerFixture(Class<M> declarationType, M fixture);
+	
+	/**
+	 * Resets any fixtures configured programmatically using 
+	 * {@link #registerFixture(Class, Object)}
+	 */
+	void resetFixtures();
 
 }

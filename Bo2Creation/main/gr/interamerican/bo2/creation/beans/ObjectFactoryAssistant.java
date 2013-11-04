@@ -13,8 +13,11 @@
 package gr.interamerican.bo2.creation.beans;
 
 import gr.interamerican.bo2.creation.ClassCreator;
+import gr.interamerican.bo2.creation.FixtureResolver;
 import gr.interamerican.bo2.creation.NameResolver;
+import gr.interamerican.bo2.creation.creators.MockFixtureResolver;
 import gr.interamerican.bo2.utils.ReflectionUtils;
+import gr.interamerican.bo2.utils.Utils;
 import gr.interamerican.bo2.utils.beans.PropertiesInitializedBean;
 
 import java.util.Properties;
@@ -41,10 +44,14 @@ extends PropertiesInitializedBean {
 	ClassCreator concreteClassEnhancer;
 	
 	/**
+	 * Fixture resolver.
+	 */
+	FixtureResolver fixtureResolver;
+	
+	/**
 	 * Name resolver.
 	 */
 	NameResolver nameResolver;
-	
 	
 	/**
 	 * Path to the file that contains the list of mappings files.
@@ -75,6 +82,11 @@ extends PropertiesInitializedBean {
 	String nameResolverClass;
 	
 	/**
+	 * Fixture resolver.
+	 */
+	String fixtureResolverClass;
+	
+	/**
 	 * Creates a new ObjectFactoryAssistant object. 
 	 *
 	 * @param properties
@@ -84,12 +96,10 @@ extends PropertiesInitializedBean {
 		this.nameResolver = ReflectionUtils.attemptNewInstance(nameResolverClass);
 		this.interfaceImplementor = ReflectionUtils.attemptNewInstance(interfaceImplementorClass);
 		this.abstractClassImplementor = ReflectionUtils.attemptNewInstance(abstractClassImplementorClass);
-		this.concreteClassEnhancer = ReflectionUtils.attemptNewInstance(concreteClassEnhancerClass);		
+		this.concreteClassEnhancer = ReflectionUtils.attemptNewInstance(concreteClassEnhancerClass);
+		this.fixtureResolver = ReflectionUtils.attemptNewInstance(fixtureResolverClass);
+		this.fixtureResolver = Utils.notNull(this.fixtureResolver, new MockFixtureResolver());
 	}
-	
-	
-	
-	
 	
 	/**
 	 * Gets the mappingsFilePath.
@@ -161,6 +171,15 @@ extends PropertiesInitializedBean {
 	 */
 	public NameResolver getNameResolver() {
 		return nameResolver;
+	}
+	
+	/**
+	 * Gets the fixtureResolver.
+	 *
+	 * @return Returns the fixtureResolver
+	 */
+	public FixtureResolver getFixtureResolver() {
+		return fixtureResolver;
 	}
 
 	/**

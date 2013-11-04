@@ -13,6 +13,8 @@
 package gr.interamerican.bo2.creation.beans;
 
 import gr.interamerican.bo2.creation.ClassCreator;
+import gr.interamerican.bo2.creation.ObjectFactory;
+import gr.interamerican.bo2.creation.creators.DefaultFixtureResolver;
 import gr.interamerican.bo2.creation.creators.ImplementorForInterfaces;
 import gr.interamerican.bo2.creation.exception.ClassCreationException;
 import gr.interamerican.bo2.creation.resolvers.PredefinedSuffixNameResolver;
@@ -46,6 +48,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 
 
@@ -242,6 +245,7 @@ public class TestObjectFactoryImpl {
 		Assert.assertEquals(3, of.decl2ImplNames.size());
 		Assert.assertEquals(0, of.decl2ImplTypes.size());
 		Assert.assertEquals(1, of.replacements.size());
+		Assert.assertTrue(of.assistant.getFixtureResolver() instanceof DefaultFixtureResolver);
 	}
 	
 	///////////////////////////////////////////////////////////////////////////////////////
@@ -676,23 +680,28 @@ public class TestObjectFactoryImpl {
 		impl.createInstance(SamplePib.class);
 	}
 	
+	/**
+	 * test registerFixture
+	 */
+	@Test
+	public void testRegisterFixture() {
+		factory.registerFixture(String.class, "");
+		Assert.assertEquals("", factory.create(String.class));
+		Assert.assertEquals("", factory.assistant.getFixtureResolver().resolveFixture(String.class));
+		Assert.assertTrue(factory.create(String.class) == factory.assistant.getFixtureResolver().resolveFixture(String.class));
+	}
 	
-	
-	
-	
-	
-	
+	/**
+	 * test resetFixtures
+	 */
+	@Test
+	public void testResetFixtures() {
+		ObjectFactory fixture = Mockito.mock(ObjectFactory.class);
+		factory.registerFixture(ObjectFactory.class, fixture);
+		Assert.assertEquals(fixture, factory.assistant.getFixtureResolver().resolveFixture(ObjectFactory.class));
 		
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
+		factory.resetFixtures();
+		Assert.assertNull(factory.assistant.getFixtureResolver().resolveFixture(ObjectFactory.class));
+	}
+		
 }

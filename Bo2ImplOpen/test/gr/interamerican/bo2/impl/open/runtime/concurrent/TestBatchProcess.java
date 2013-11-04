@@ -573,7 +573,7 @@ public class TestBatchProcess {
 	/**
 	 * Test for isFinished().
 	 */
-	@Test
+	//@Test
 	public void testIsFinishedAbnormally_NotEmptyQueue() {
 		BatchProcess<String> bp = sample();
 		bp.createInitialQueueProcessors();

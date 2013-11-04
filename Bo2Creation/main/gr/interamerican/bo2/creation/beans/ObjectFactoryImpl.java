@@ -148,9 +148,6 @@ public class ObjectFactoryImpl implements ObjectFactory {
 		setMappings(assistant.getMappingsFilePath());
 	}
 	
-
-
-	
 	/**
 	 * Creates a new Factory object using the information defined
 	 * in a properties file.
@@ -179,8 +176,11 @@ public class ObjectFactoryImpl implements ObjectFactory {
 		}
 	}
 	
-	
 	public <M> M create(Class<M> type) {
+		M fixture = assistant.getFixtureResolver().resolveFixture(type);
+		if(fixture != null) {
+			return fixture;
+		}
 		@SuppressWarnings("unchecked")
 		Class<M> implementation = (Class<M>)getImplementationType(type);
 		return createInstance(implementation);
@@ -323,6 +323,16 @@ public class ObjectFactoryImpl implements ObjectFactory {
 	
 	public void registerImplementationAsDeclaration(Class<?> declaration) {
 		associate(declaration, declaration);
+	}
+	
+	@Override
+	public <M> void registerFixture(Class<M> declarationType, M fixture) {
+		assistant.getFixtureResolver().registerFixture(declarationType, fixture);
+	}
+
+	@Override
+	public void resetFixtures() {
+		assistant.getFixtureResolver().clearFixturesCache();
 	}
 	
 	/**
