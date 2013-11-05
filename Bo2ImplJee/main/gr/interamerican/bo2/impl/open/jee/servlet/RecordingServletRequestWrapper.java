@@ -25,7 +25,7 @@ public class RecordingServletRequestWrapper extends HttpServletRequestWrapper {
 	 */
 	public RecordingServletRequestWrapper(HttpServletRequest request) throws IOException {
 		super(request);
-		this.sis = new RecordingServletInputStream(request.getInputStream(), request.getCharacterEncoding());
+		this.sis = new RecordingServletInputStream(request.getInputStream());
 	}
 	
 	@Override
@@ -38,7 +38,7 @@ public class RecordingServletRequestWrapper extends HttpServletRequestWrapper {
 	 * 
 	 * @return contents of the decorated {@link ServletInputStream}.
 	 */
-	public String getPayload() {
+	public byte[] getPayload() {
 		return sis.getPayload();
 	}
 	

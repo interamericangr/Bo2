@@ -1,10 +1,7 @@
 package gr.interamerican.bo2.impl.open.jee.servlet;
 
-import gr.interamerican.bo2.utils.StringUtils;
-
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.nio.charset.Charset;
 
 import javax.servlet.ServletInputStream;
 
@@ -35,22 +32,11 @@ public class RecordingServletInputStream extends ServletInputStream {
 	private ServletInputStream sis;
 	
 	/**
-	 * Charset of the HTTP request.
-	 */
-	private Charset charset;
-	
-	/**
 	 * Creates a new WsLoggingServletInputStream object. 
 	 * @param sis 
-	 * @param encoding 
 	 */
-	public RecordingServletInputStream(ServletInputStream sis, String encoding) {
+	public RecordingServletInputStream(ServletInputStream sis) {
 		this.sis = sis;
-		if(!StringUtils.isNullOrBlank(encoding)) {
-			charset = Charset.forName(encoding);
-		} else {
-			charset = Charset.defaultCharset();
-		}
 	}
 	
 	@Override
@@ -97,9 +83,8 @@ public class RecordingServletInputStream extends ServletInputStream {
 	 * 
 	 * @return contents of the decorated {@link ServletInputStream}.
 	 */
-	public String getPayload() {
-		byte[] bytes = baos.toByteArray();
-		return new String(bytes, charset);
+	public byte[] getPayload() {
+		return baos.toByteArray();
 	}
 	
 }

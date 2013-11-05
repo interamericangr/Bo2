@@ -1,6 +1,7 @@
 package gr.interamerican.bo2.impl.open.jee.servlet;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -13,9 +14,9 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 /**
- * Unit tests of {@link LoggingFilter}.
+ * Unit tests of {@link AbstractBaseLoggingFilter}.
  */
-public class TestLoggingFilter {
+public class TestAbstractBaseLoggingFilter {
 	
 	/**
 	 * Test doFilter()
@@ -25,7 +26,12 @@ public class TestLoggingFilter {
 	 */
 	@Test
 	public void testDoFilter() throws IOException, ServletException {
-		LoggingFilter subject = new LoggingFilter();
+		AbstractBaseLoggingFilter subject = new AbstractBaseLoggingFilter() {
+			@Override
+			protected void doLog(Charset requestEncoding, Charset responseEncoding, byte[] request, byte[] response) {
+				//empty
+			}
+		};
 		
 		ServletRequest request = Mockito.mock(HttpServletRequest.class);
 		ServletResponse response = Mockito.mock(HttpServletResponse.class);
