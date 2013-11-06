@@ -57,6 +57,17 @@ public class SoapLoggingFilter extends AbstractBaseLoggingFilter {
 	 */
 	@SuppressWarnings("nls")
 	private String logSoap(byte[] soap) {
+		if(soap.length==0) {
+			return "Empty document";
+		}
+		
+		byte[] xmlBeginning = "<?xml".getBytes();
+		for (int i=0; i<xmlBeginning.length; i++) {
+			if(xmlBeginning[i] != soap[i]) {
+				return "No XML declaration found";
+			}
+		}
+		
 		try {
 			ByteArrayInputStream bis = new ByteArrayInputStream(soap);
 			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -68,8 +79,7 @@ public class SoapLoggingFilter extends AbstractBaseLoggingFilter {
 			transformer.setOutputProperty(OutputKeys.METHOD, "xml");
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			/*
-			 * Presumably the XML parser should auto-detect the correct
-			 * encoding.
+			 * Presumably the XML parser auto-detects the correct encoding.
 			 */
 //			transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
 			transformer.transform(new DOMSource(document), new StreamResult(sw));
