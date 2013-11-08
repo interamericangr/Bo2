@@ -1,13 +1,13 @@
 /*******************************************************************************
- * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A. 
+ * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/copyleft/lesser.html
  * 
- * This library is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
 package gr.interamerican.wicket.markup.html.panel.searchFlow;
@@ -51,9 +51,9 @@ import org.apache.wicket.model.IModel;
  * {@link ServicePanel} that manages a simple UI flow of a query.
  * This UI flow consists of:
  * 
- * <li> A screen that allows the user to define criteria for the query 
+ * <li> A screen that allows the user to define criteria for the query
  * and execute it. </li>
- * <li> A screen that shows the results and allows the user to select 
+ * <li> A screen that shows the results and allows the user to select
  * one (or more) items or go back to the previous screen. </li>
  * 
  * Anyone using this, should provide the following {@link CallbackAction}s.
@@ -63,20 +63,20 @@ import org.apache.wicket.model.IModel;
  * <li> selected item(s) action (should retrieve the selected item(s) from this
  *      panel's definition and do something with it.
  * <li> delete, update, save action (should retrieve the item to perform
- *      the operation on from the beanModel of this panel's definition. 
+ *      the operation on from the beanModel of this panel's definition.
  * 
- * @param <C> 
- *        Type of search criteria. 
- * @param <B> 
+ * @param <C>
+ *        Type of search criteria.
+ * @param <B>
  *        Type of bean searched and being presented in the list.
  *
  */
 public class SearchFlowPanel
-<C extends Serializable, 
- B extends Serializable> 
+<C extends Serializable,
+B extends Serializable>
 extends ServicePanelWithBack {
 
-	/** 
+	/**
 	 * serialVersionUID
 	 */
 	private static final long serialVersionUID = 1L;
@@ -90,72 +90,72 @@ extends ServicePanelWithBack {
 	 * ID of resiltsPanel
 	 */
 	public static final String RESULTS_PANEL_ID = "resultsPanel"; //$NON-NLS-1$
-	
-	/** 
+
+	/**
 	 * the criteria panel.
 	 */
-	protected Panel criteriaPanel;	
-	
+	protected Panel criteriaPanel;
+
 	/**
-	 *  the criteria panel definition. 
+	 *  the criteria panel definition.
 	 */
 	protected SingleBeanPanelDef<C> criteriaPanelDef;
-	
+
 	/**
 	 * the results panel.
 	 */
 	protected Panel resultsPanel;
-	
+
 	/**
-	 *  the criteria panel definition. 
+	 *  the criteria panel definition.
 	 */
 	protected ListTablePanelDef<B> resultsPanelDef;
-	
+
 	/**
 	 * state of the panel.
 	 */
 	protected SearchFlowPanelState state;
-	
+
 	/**
 	 * Indicates if the results panel is a {@link CrudPickerPanel}.
 	 */
 	private Boolean hasCrudPickerPanel;
-	
+
 	/**
 	 * Indicates if the results panel is a {@link PickerPanel}.
 	 */
 	private Boolean hasPickerPanel;
-	
+
 	/**
 	 * Indicates if the results panel is a {@link MultipleSelectionsPanel}.
 	 */
 	private Boolean hasMultipleSelectionsPanel;
-	
+
 	/**
 	 * Bean class.
 	 */
 	private Class<B> beanClass;
-	
+
 	/**
 	 * Criteria class.
 	 */
 	private Class<C> criteriaClass;
-	
+
 	/**
-	 * Creates a new QueryFlowPanel object. 
+	 * Creates a new QueryFlowPanel object.
 	 * 
-	 * @param definition 
+	 * @param definition
 	 */
 	public SearchFlowPanel(SearchFlowPanelDef<C, B> definition) {
 		super(definition);
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
-	public SearchFlowPanelDef<C, B> getDefinition() {		
+	public SearchFlowPanelDef<C, B> getDefinition() {
 		return (SearchFlowPanelDef<C, B>) definition;
 	}
-	
+
 	@Override
 	protected void paint() {
 		state.paint(this);
@@ -164,34 +164,34 @@ extends ServicePanelWithBack {
 		add(feedBackPanel);
 		paintBackButton();
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void init() {
 		super.init();
-		hasCrudPickerPanel = (getDefinition().getDeleteAction()!=null) 
-						  || (getDefinition().getUpdateAction()!=null) 
-						  || (getDefinition().getSaveAction()!=null);
-		hasPickerPanel = (getDefinition().getPickAction()!=null) 
-					  && !getDefinition().getAllowMultipleSelections()
-					  && !hasCrudPickerPanel;
+		hasCrudPickerPanel = (getDefinition().getDeleteAction()!=null)
+				|| (getDefinition().getUpdateAction()!=null)
+				|| (getDefinition().getSaveAction()!=null);
+		hasPickerPanel = (getDefinition().getPickAction()!=null)
+				&& !getDefinition().getAllowMultipleSelections()
+				&& !hasCrudPickerPanel;
 		hasMultipleSelectionsPanel = getDefinition().getAllowMultipleSelections()
-								  && !hasCrudPickerPanel
-								  && !hasPickerPanel;
+				&& !hasCrudPickerPanel
+				&& !hasPickerPanel;
 		if(!hasMultipleSelectionsPanel) {
 			beanClass = (Class<B>) getDefinition().getBeanModel().getObject().getClass();
 		}
 		criteriaClass = (Class<C>) getDefinition().getCriteriaModel().getObject().getClass();
-		
+
 		getDefinition().getQueryAction().setCaller(this);
-				
+
 		criteriaPanelDef = createCriteriaPanelDef();
 		resultsPanelDef = createResultsPanelDef();
 		criteriaPanel = new CriteriaPanel(criteriaPanelDef);
 		resultsPanel = new EmptyPanel(RESULTS_PANEL_ID);
 		state = SearchFlowPanelState.CRITERIA;
 	}
-	
+
 	@SuppressWarnings("nls")
 	@Override
 	protected void validateDef() {
@@ -226,34 +226,34 @@ extends ServicePanelWithBack {
 		if(getDefinition().getSingleBeanFormContainsFileUpload()==null) {
 			getDefinition().setSingleBeanFormContainsFileUpload(false);
 		}
-		if(getDefinition().getAllowMultipleSelections() && getDefinition().getSelectionsModel()==null) {
+		if(getDefinition().getAllowMultipleSelections() && (getDefinition().getSelectionsModel()==null)) {
 			String msg = "Cannot instantiate a MultipleSelectionsPanel with a null selections model.";
 			throw new RuntimeException(msg);
 		}
 		if(getDefinition().getResults()==null) {
 			getDefinition().setResults(new ArrayList<B>());
 		}
-		if(!getDefinition().getAllowMultipleSelections() 
-				&& getDefinition().getBeanModel() == null) {
+		if(!getDefinition().getAllowMultipleSelections()
+				&& (getDefinition().getBeanModel() == null)) {
 			String msg = "Cannot initialize a SearchFlowPanel with null bean model " +
-						 "in its definition.";
+					"in its definition.";
 			throw new RuntimeException(msg);
 		}
-		if(!getDefinition().getAllowMultipleSelections() 
-				&& getDefinition().getBeanModel() != null 
-				&& getDefinition().getBeanModel().getObject() == null) {
+		if(!getDefinition().getAllowMultipleSelections()
+				&& (getDefinition().getBeanModel() != null)
+				&& (getDefinition().getBeanModel().getObject() == null)) {
 			String msg = "Cannot initialize a SearchFlowPanel with a bean model " +
-						 "that has a null model object in its definition.";
+					"that has a null model object in its definition.";
 			throw new RuntimeException(msg);
 		}
 		if(getDefinition().getCriteriaModel() == null) {
 			String msg = "Cannot initialize a SearchFlowPanel with null criteria model " +
-						 "in its definition.";
+					"in its definition.";
 			throw new RuntimeException(msg);
 		}
 		if(getDefinition().getCriteriaModel().getObject() == null) {
 			String msg = "Cannot initialize a SearchFlowPanel with a criteria model " +
-						 "that has a null model object in its definition.";
+					"that has a null model object in its definition.";
 			throw new RuntimeException(msg);
 		}
 		if(getDefinition().getQueryAction()==null) {
@@ -261,25 +261,25 @@ extends ServicePanelWithBack {
 			throw new RuntimeException(msg);
 		}
 	}
-	
+
 	/**
 	 * Creates the SingleBeanPanel definition for this search flow panel.
 	 * 
 	 * @return a {@link SingleBeanPanelDef}.
 	 */
 	protected SingleBeanPanelDef<C> createCriteriaPanelDef() {
-		
+
 		IModel<String> executeQueryLabel = StringResourceUtils.getResourceModel(
 				WellKnownResourceIds.SFP_SBP_EXECUTE_QUERY_BTN_LABEL, this, getDefinition().getExecuteQueryLabelModel(), null);
 		IModel<String> clearCriteriaLabel = StringResourceUtils.getResourceModel(
 				WellKnownResourceIds.SFP_SBP_CLEAR_CRITERIA_BTN_LABEL, this, getDefinition().getClearCriteriaLabelModel(), null);
 		IModel<String> criteriaPanelLabel = StringResourceUtils.getResourceModel(
 				WellKnownResourceIds.SFP_SBP_CRITERIA_PANEL_LABEL, this, getDefinition().getCriteriaPanelLabelModel(), null);
-		
+
 		SingleBeanPanelDef<C> cpDef = new SingleBeanPanelDefImpl<C>();
 		cpDef.setWicketId(CRITERIA_PANEL_ID);
 		cpDef.setShowClearButton(true);
-		cpDef.setBeanAction(new QueryWrapperAction(getDefinition().getQueryAction()));		
+		cpDef.setBeanAction(new QueryWrapperAction(getDefinition().getQueryAction()));
 		cpDef.setBackAction(null);
 		cpDef.setBeanFieldsPanelCreator(getDefinition().getCriteriaFieldsPanelCreator());
 		cpDef.setBeanModel(getDefinition().getCriteriaModel());
@@ -288,7 +288,7 @@ extends ServicePanelWithBack {
 		cpDef.setPanelLabelModel(criteriaPanelLabel);
 		return cpDef;
 	}
-	
+
 	/**
 	 * Creates the ServicePanel definition for this search flow panel.
 	 * 
@@ -299,7 +299,7 @@ extends ServicePanelWithBack {
 		if(getDefinition().getResultsHidesCriteria()) {
 			backAction = new BackToCriteriaAction();
 		}
-		
+
 		IModel<String> backToCriteriaLabel = StringResourceUtils.getResourceModel(
 				WellKnownResourceIds.SFP_LTP_BACK_BTN_LABEL, this, getDefinition().getBackToCriteriaLabelModel(), null);
 		IModel<String> resultsLabel = StringResourceUtils.getResourceModel(
@@ -308,7 +308,7 @@ extends ServicePanelWithBack {
 				WellKnownResourceIds.SFP_PP_SELECT_BTN_LABEL, this, getDefinition().getSelectLabelModel(), null);
 		IModel<String> secondSelectLabel = StringResourceUtils.getResourceModel(
 				WellKnownResourceIds.SFP_PP_2ND_SELECT_BTN_LABEL, this, getDefinition().getSecondSelectLabelModel(), null);
-		
+
 		if(hasPickerPanel) {
 			PickerPanelDef<B> ppDef = new PickerPanelDefImpl<B>();
 			ppDef.setWicketId(RESULTS_PANEL_ID);
@@ -330,7 +330,7 @@ extends ServicePanelWithBack {
 		if(hasMultipleSelectionsPanel) {
 			IModel<String> checkGroupSelectorLabel = StringResourceUtils.getResourceModel(
 					WellKnownResourceIds.SFP_MSP_CHECKGROUP_SELECTOR_LABEL, this, getDefinition().getCheckGroupSelectorLabelModel(), null);
-			
+
 			MultipleSelectionsPanelDef<B> mspDef = new MultipleSelectionsPanelDefImpl<B>();
 			mspDef.setWicketId(RESULTS_PANEL_ID);
 			mspDef.setBackAction(backAction);
@@ -367,7 +367,7 @@ extends ServicePanelWithBack {
 					WellKnownResourceIds.SFP_CPP_SBP_UPDATE_BTN_LABEL, this, getDefinition().getUpdateLabelModel(), null);
 			IModel<String> sbpPanelLabel = StringResourceUtils.getResourceModel(
 					WellKnownResourceIds.SFP_CPP_SBP_PANEL_LABEL, this, getDefinition().getBeanFieldsPanelLabelModel(), null);
-			
+
 			CrudPickerPanelDef<B> cppDef = new CrudPickerPanelDefImpl<B>();
 			cppDef.setWicketId(RESULTS_PANEL_ID);
 			cppDef.setDataTableCreator(getDefinition().getDataTableCreator());
@@ -389,6 +389,7 @@ extends ServicePanelWithBack {
 			cppDef.setRequestConfirmOnDelete(getDefinition().getRequestConfirmOnDelete());
 			cppDef.setListLabelModel(resultsLabel);
 			cppDef.setSecondSelectLabelModel(secondSelectLabel);
+			cppDef.setSecondItemSelectedAction(getDefinition().getSecondPickAction());
 			cppDef.setSelectLabelModel(selectLabel);
 			cppDef.setSaveLabelModel(sbpSaveButtonLabel);
 			cppDef.setUpdateLabelModel(sbpUpdateButtonLabel);
@@ -420,7 +421,7 @@ extends ServicePanelWithBack {
 		ltpDef.setListLabelModel(getDefinition().getResultsLabelModel());
 		return ltpDef;
 	}
-	
+
 	/**
 	 * Creates and initializes the <code>resultsPanel</code>.
 	 * 
@@ -453,8 +454,8 @@ extends ServicePanelWithBack {
 		Panel newResultsPanel = new ListTablePanel<B>(resultsPanelDef);
 		return newResultsPanel;
 	}
-	
-	
+
+
 	/**
 	 * Creates a new instance of B.
 	 * 
@@ -473,7 +474,7 @@ extends ServicePanelWithBack {
 			throw new RuntimeException(msg, re);
 		}
 	}
-	
+
 	/**
 	 * Creates a new instance of C.
 	 * 
@@ -492,9 +493,9 @@ extends ServicePanelWithBack {
 			throw new RuntimeException(msg, re);
 		}
 	}
-	
+
 	/**
-	 * Hook intended to be overridden by the user if he chooses to set 
+	 * Hook intended to be overridden by the user if he chooses to set
 	 * <code>readBeforeEdit</code> to true in the {@link SearchFlowPanelDef}.
 	 * 
 	 * TODO: If an exception is caught here, there is no way to register the
@@ -503,13 +504,13 @@ extends ServicePanelWithBack {
 	 * @return Returns a fresh copy of B from the persistence layer.
 	 */
 	protected B readBean() {
-		
+
 		String msg = StringUtils.concat(
 				"If you want to read before editing ", //$NON-NLS-1$
 				"you MUST override readBean()."); //$NON-NLS-1$
 		throw new RuntimeException(msg);
 	}
-	
+
 	/**
 	 * Hook intended to be overridden by the user. This is useful
 	 * if when updating a B instance there is a chance that the update
@@ -522,38 +523,39 @@ extends ServicePanelWithBack {
 	 * copying, a new instance is created from the persistence layer, which
 	 * has the same effect.
 	 * 
-	 * @param bean instance to copy. 
+	 * @param bean instance to copy.
 	 * 
 	 * @return Returns a copy of B.
 	 */
-	protected B copyBean(B bean) { 
+	protected B copyBean(B bean) {
 		return bean;
 	}
-	
+
 	/**
 	 * Override this if you want to execute some code before
 	 * going back to the criteria form from the results.
 	 * 
 	 * @param target
 	 */
-	protected void backToCriteria(@SuppressWarnings("unused") AjaxRequestTarget target) { /* empty hook */ }
-	
+	protected void backToCriteria(AjaxRequestTarget target) { /* empty hook */
+	}
+
 	/**
 	 * This action will hide the resultsPanel and show the criteriaPanel.
 	 */
 	public class BackToCriteriaAction implements CallbackAction {
-		
+
 		public void callBack(AjaxRequestTarget target) {
 			work(target);
 		}
-		
+
 		public void callBack(AjaxRequestTarget target, Form<?> form) {
 			work(target);
 		}
-		
+
 		/**
 		 * work.
-		 * @param target 
+		 * @param target
 		 */
 		void work(AjaxRequestTarget target) {
 			target.addComponent(SearchFlowPanel.this);
@@ -566,26 +568,26 @@ extends ServicePanelWithBack {
 		public Component getCaller() {
 			return SearchFlowPanel.this;
 		}
-	}	
-	
+	}
+
 	/**
 	 * Wrapper around the query callback action that connects
 	 * the callback action of the criteriaPanel with the resultsPanel.
 	 */
-	private class QueryWrapperAction extends CallbackWrapper {	
+	private class QueryWrapperAction extends CallbackWrapper {
 		/**
-		 * Creates a new QueryAction object. 
+		 * Creates a new QueryAction object.
 		 *
 		 * @param action
 		 */
 		public QueryWrapperAction(CallbackAction action) {
 			super(action);
 		}
-		
+
 		@Override public void before() {
 			resultsPanelDef.getList().clear();
 		}
-		
+
 		@Override public void after() {
 			List<B> queryResults =  getDefinition().getResults();
 			if(queryResults==null) { return; }
@@ -601,9 +603,9 @@ extends ServicePanelWithBack {
 			state.paint(SearchFlowPanel.this);
 		}
 	}
-	
+
 	/**
-	 * CriteriaPanel. 
+	 * CriteriaPanel.
 	 */
 	private class CriteriaPanel extends SingleBeanPanel<C> {
 		/**
@@ -612,16 +614,16 @@ extends ServicePanelWithBack {
 		private static final long serialVersionUID = 1L;
 
 		/**
-		 * Creates a new SearchFlowPanel.CriteriaPanel object. 
-		 * @param definition 
+		 * Creates a new SearchFlowPanel.CriteriaPanel object.
+		 * @param definition
 		 */
 		public CriteriaPanel(SingleBeanPanelDef<C> definition) {
 			super(definition);
 		}
-		
+
 		@Override protected C newBean() {
 			return SearchFlowPanel.this.newCriteriaBean();
 		}
 	}
-	
+
 }
