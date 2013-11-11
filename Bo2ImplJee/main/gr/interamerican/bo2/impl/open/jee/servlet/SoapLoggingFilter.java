@@ -57,7 +57,7 @@ public class SoapLoggingFilter extends AbstractBaseLoggingFilter {
 	 * @return Returns the SOAP message.
 	 */
 	@SuppressWarnings("nls")
-	private String logSoap(byte[] soap) {
+	String logSoap(byte[] soap) {
 		if(soap==null || soap.length==0) {
 			return "Empty document";
 		}
@@ -86,19 +86,19 @@ public class SoapLoggingFilter extends AbstractBaseLoggingFilter {
 			transformer.transform(new DOMSource(document), new StreamResult(sw));
 			return sw.toString();
 		} catch (TransformerConfigurationException e) {
-			/* ok */
+			LOGGER.error(e.getMessage());
 		} catch (IllegalArgumentException e) {
-			/* ok */
+			LOGGER.error(e.getMessage());
 		} catch (ParserConfigurationException e) {
-			/* ok */
+			LOGGER.error(e.getMessage());
 		} catch (SAXException e) {
-			/* ok */
+			LOGGER.error(e.getMessage());
 		} catch (IOException e) {
-			/* ok */
+			LOGGER.error(e.getMessage());
 		} catch (TransformerFactoryConfigurationError e) {
-			/* ok */
+			LOGGER.error(e.getMessage());
 		} catch (TransformerException e) {
-			/* ok */
+			LOGGER.error(e.getMessage());
 		}
 		return "SOAP parsing failed";
 	}
