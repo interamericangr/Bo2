@@ -58,7 +58,7 @@ public class SoapLoggingFilter extends AbstractBaseLoggingFilter {
 	 */
 	@SuppressWarnings("nls")
 	private String logSoap(byte[] soap) {
-		if(soap.length==0) {
+		if(soap==null || soap.length==0) {
 			return "Empty document";
 		}
 		

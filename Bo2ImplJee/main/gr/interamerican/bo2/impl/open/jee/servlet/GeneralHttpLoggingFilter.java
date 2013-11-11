@@ -42,6 +42,9 @@ public class GeneralHttpLoggingFilter extends AbstractBaseLoggingFilter {
 	 * @return Returns the HTTP message.
 	 */
 	private String logHttp(byte[] bytes, Charset charset) {
+		if(bytes==null) {
+			return StringConstants.EMPTY;
+		}
 		return new String(bytes, charset);
 	}
 
