@@ -1,5 +1,6 @@
 package gr.interamerican.bo2.impl.open.jee.servlet;
 
+import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.StringUtils;
 
 import java.io.IOException;
@@ -18,12 +19,14 @@ import javax.servlet.http.HttpServletResponse;
  * Base {@link Filter} that records HTTP request-response messages.
  * <br/>
  * Implementors of concrete extensions of this base class, should
- * implement {@link #doLog(Charset, Charset, byte[], byte[])}
+ * implement {@link #doLog(String, Charset, Charset, byte[], byte[])}
  */
 public abstract class AbstractBaseLoggingFilter implements Filter {
 	
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) 
 	throws IOException, ServletException {
+		
+		String url = StringConstants.EMPTY;
 
 		ServletRequest requestWrapper = request;
 		ServletResponse responseWrapper = response;
@@ -36,6 +39,7 @@ public abstract class AbstractBaseLoggingFilter implements Filter {
 		
 		if (request instanceof HttpServletRequest) {
 			requestWrapper = new RecordingServletRequestWrapper((HttpServletRequest) request);
+			url = ((HttpServletRequest) request).getRequestURL().toString();
 		}
 
 		if (response instanceof HttpServletResponse) {
@@ -60,7 +64,7 @@ public abstract class AbstractBaseLoggingFilter implements Filter {
 			responseCharset = Charset.forName(response.getCharacterEncoding());
 		}
 		
-		doLog(requestCharset, responseCharset, requestPayload, responsePayload);
+		doLog(url, requestCharset, responseCharset, requestPayload, responsePayload);
 
 	}
 
@@ -70,6 +74,8 @@ public abstract class AbstractBaseLoggingFilter implements Filter {
 	/**
 	 * Data necessary to perform the logging.
 	 * 
+	 * @param url 
+	 *        request url
 	 * @param requestEncoding
 	 *        {@link ServletRequest#getCharacterEncoding()} {@link Charset}
 	 *        or {@link Charset#defaultCharset()}, if the first is not available.
@@ -81,6 +87,6 @@ public abstract class AbstractBaseLoggingFilter implements Filter {
 	 * @param response
 	 *        Recorded raw bytes of the response.
 	 */
-	protected abstract void doLog(Charset requestEncoding, Charset responseEncoding, byte[] request, byte[] response);
+	protected abstract void doLog(String url, Charset requestEncoding, Charset responseEncoding, byte[] request, byte[] response);
 
 }

@@ -22,7 +22,7 @@ public class GeneralHttpLoggingFilter extends AbstractBaseLoggingFilter {
 	private static final Logger LOGGER = LoggerFactory.getLogger(GeneralHttpLoggingFilter.class.getName());
 
 	@Override
-	protected void doLog(Charset requestEncoding, Charset responseEncoding, byte[] request, byte[] response) {
+	protected void doLog(String url, Charset requestEncoding, Charset responseEncoding, byte[] request, byte[] response) {
 		@SuppressWarnings("nls")
 		String msg = StringUtils.concat(
 			"REQUEST" + StringConstants.NEWLINE,

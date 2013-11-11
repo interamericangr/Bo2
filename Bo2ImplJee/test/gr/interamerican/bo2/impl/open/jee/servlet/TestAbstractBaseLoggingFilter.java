@@ -28,7 +28,7 @@ public class TestAbstractBaseLoggingFilter {
 	public void testDoFilter() throws IOException, ServletException {
 		AbstractBaseLoggingFilter subject = new AbstractBaseLoggingFilter() {
 			@Override
-			protected void doLog(Charset requestEncoding, Charset responseEncoding, byte[] request, byte[] response) {
+			protected void doLog(String url, Charset requestEncoding, Charset responseEncoding, byte[] request, byte[] response) {
 				//empty
 			}
 		};
