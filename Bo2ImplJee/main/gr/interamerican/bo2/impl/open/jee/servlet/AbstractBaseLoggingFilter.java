@@ -83,9 +83,9 @@ public abstract class AbstractBaseLoggingFilter implements Filter {
 	 *        {@link ServletResponse#getCharacterEncoding()} {@link Charset}
 	 *        or {@link Charset#defaultCharset()}, if the first is not available.
 	 * @param request
-	 *        Recorded raw bytes of the request.
+	 *        Recorded raw bytes of the request. Null values are allowed.
 	 * @param response
-	 *        Recorded raw bytes of the response.
+	 *        Recorded raw bytes of the response. Null values are allowed.
 	 */
 	protected abstract void doLog(String url, Charset requestEncoding, Charset responseEncoding, byte[] request, byte[] response);
 
