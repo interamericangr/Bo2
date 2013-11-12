@@ -81,6 +81,10 @@ public class SoapLoggingFilter extends AbstractBaseLoggingFilter {
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			/*
 			 * Presumably the XML parser auto-detects the correct encoding.
+			 * The XML document should be encoded in UTF-8, UTF-16 or an older
+			 * encoding these are backwards compatible with.
+			 * Note that ISO8859-7 (or windows-1253) with Greek characters is 
+			 * not parsed by the JAXP parsers.
 			 */
 //			transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
 			transformer.transform(new DOMSource(document), new StreamResult(sw));
