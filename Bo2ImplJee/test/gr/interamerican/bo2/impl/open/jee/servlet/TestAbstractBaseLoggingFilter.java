@@ -1,13 +1,10 @@
 package gr.interamerican.bo2.impl.open.jee.servlet;
 
-import gr.interamerican.bo2.utils.StringConstants;
-
 import java.io.IOException;
 import java.nio.charset.Charset;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
