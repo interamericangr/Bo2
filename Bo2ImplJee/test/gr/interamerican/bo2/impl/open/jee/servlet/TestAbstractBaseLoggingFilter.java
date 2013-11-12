@@ -1,5 +1,7 @@
 package gr.interamerican.bo2.impl.open.jee.servlet;
 
+import gr.interamerican.bo2.utils.StringConstants;
+
 import java.io.IOException;
 import java.nio.charset.Charset;
 
@@ -33,7 +35,8 @@ public class TestAbstractBaseLoggingFilter {
 			}
 		};
 		
-		ServletRequest request = Mockito.mock(HttpServletRequest.class);
+		HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
+		Mockito.when(request.getRequestURL()).thenReturn(new StringBuffer());
 		ServletResponse response = Mockito.mock(HttpServletResponse.class);
 		FilterChain chain = Mockito.mock(FilterChain.class);
 		subject.doFilter(request, response, chain);
