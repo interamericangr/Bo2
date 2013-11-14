@@ -90,21 +90,32 @@ public class SoapLoggingFilter extends AbstractBaseLoggingFilter {
 			transformer.transform(new DOMSource(document), new StreamResult(sw));
 			return sw.toString();
 		} catch (TransformerConfigurationException e) {
-			LOGGER.error(e.getMessage());
+			return handle(e, soap);
 		} catch (IllegalArgumentException e) {
-			LOGGER.error(e.getMessage());
+			return handle(e, soap);
 		} catch (ParserConfigurationException e) {
-			LOGGER.error(e.getMessage());
+			return handle(e, soap);
 		} catch (SAXException e) {
-			LOGGER.error(e.getMessage());
+			return handle(e, soap);
 		} catch (IOException e) {
-			LOGGER.error(e.getMessage());
+			return handle(e, soap);
 		} catch (TransformerFactoryConfigurationError e) {
-			LOGGER.error(e.getMessage());
+			return handle(e, soap);
 		} catch (TransformerException e) {
-			LOGGER.error(e.getMessage());
+			return handle(e, soap);
 		}
-		return "SOAP parsing failed";
 	}
-
+	
+	/**
+	 * Handle SOAP parsing exception.
+	 * @param e
+	 * @param soap
+	 * @return SOAP string assuming bytes encoded as UTF-8
+	 */
+	@SuppressWarnings("nls")
+	String handle(Throwable e, byte[] soap) {
+		LOGGER.error(e.getMessage() + " while parsing SOAP. Returned as UTF-8");
+		return new String(soap, Charset.forName("UTF-8"));
+	}
+	
 }
