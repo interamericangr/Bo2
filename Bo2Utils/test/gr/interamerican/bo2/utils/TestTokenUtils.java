@@ -154,6 +154,68 @@ public class TestTokenUtils {
 	}
 	
 	/**
+	 * test startsWithUpperCase
+	 */
+	@Test
+	public void testSplit_emptyTokens2() {		
+		String str = "abc???ghi";
+		char separator = '?';
+		String [] result = split(str, separator,true);
+		String expected = "abc";
+		String actual = result[0];
+		assertEquals(expected,actual);
+		
+		String expected2 = "";
+		String actual2 = result[1];
+		assertEquals(expected2,actual2);
+		
+		String expected3 = "";
+		String actual3 = result[2];
+		assertEquals(expected3,actual3);
+		
+		String expected4 = "ghi";
+		String actual4 = result[3];
+		assertEquals(expected4,actual4);
+	}
+	
+	/**
+	 * test startsWithUpperCase
+	 */
+	@Test
+	public void testSplit_emptyTokens3() {		
+		String str = "??ghi";
+		char separator = '?';
+		String [] result = split(str, separator,true);
+		String expected = "";
+		String actual = result[0];
+		assertEquals(expected,actual);
+		
+		String expected2 = "";
+		String actual2 = result[1];
+		assertEquals(expected2,actual2);
+		
+		String expected3 = "ghi";
+		String actual3 = result[2];
+		assertEquals(expected3,actual3);
+	}
+	
+	/**
+	 * test startsWithUpperCase
+	 */
+	@Test
+	public void testSplit_emptyTokens4() {		
+		String str = ",,,,,";
+		char separator = ',';
+		String [] result = split(str, separator,true);
+		
+		assertEquals(5,result.length);
+		
+		for(String s : result) {
+			assertEquals("",s);
+		}
+	}
+	
+	/**
 	 * Unit
 	 */
 	@Test

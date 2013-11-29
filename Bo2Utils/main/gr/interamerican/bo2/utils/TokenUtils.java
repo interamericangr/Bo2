@@ -111,13 +111,14 @@ public class TokenUtils {
         } else {
         	StringTokenizer st = new StringTokenizer(s, separators, true);
         	boolean prevTokenWasSeparator = false;
+        	boolean first = true;
         	while (st.hasMoreTokens()) {
         		String token = st.nextToken();
         		/*
         		 * "" is contained in any string
         		 */
         		if(!"".equals(token) && separators.contains(token)) { //$NON-NLS-1$
-        			if(prevTokenWasSeparator) {
+        			if(prevTokenWasSeparator || first) {
         				tokens.add(StringConstants.EMPTY);
         			}
         			prevTokenWasSeparator = true;
@@ -125,7 +126,19 @@ public class TokenUtils {
         			tokens.add(token);
         			prevTokenWasSeparator = false;
         		}
+        		first = false;
         	}
+        	/*
+        	 * Should ending with a separator produces yet another empty token ???
+        	 */
+        	/*
+        	for(char c : separators.toCharArray()) {
+        		if(s.endsWith(String.valueOf(c))) {
+        			tokens.add(StringConstants.EMPTY);
+        		}
+        	}
+        	*/
+        	
         }
         tokens.trimToSize();        
         return tokens.toArray(new String[tokens.size()]);
