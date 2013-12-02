@@ -101,15 +101,17 @@ public class TestCopyFromProperties {
 	@Test
 	public void testExecute_withBool() {
 		Properties p = new Properties();
-		p.setProperty("bool", "1");
+		p.setProperty("bool", "true");
 		p.setProperty("wrappedBool", "1");
-		p.setProperty("hacky", "1");
+		p.setProperty("hacky", "TRUE");
+		p.setProperty("isLala", "1");
 		
 		BeanWithBoolean bean = new BeanWithBoolean();
 		
 		Assert.assertFalse(bean.isBool());
 		Assert.assertFalse(bean.getHacky());
 		Assert.assertNull(bean.getWrappedBool());
+		Assert.assertFalse(bean.getIsLala());
 		
 		CopyFromProperties<BeanWithBoolean> copy = new CopyFromProperties<BeanWithBoolean>(p);
 		copy.execute(bean);
@@ -117,6 +119,7 @@ public class TestCopyFromProperties {
 		Assert.assertTrue(bean.isBool());
 		Assert.assertTrue(bean.getWrappedBool());
 		Assert.assertTrue(bean.getHacky());
+		Assert.assertTrue(bean.getIsLala());
 				
 	}
 

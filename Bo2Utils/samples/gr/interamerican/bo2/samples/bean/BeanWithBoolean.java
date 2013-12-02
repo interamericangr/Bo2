@@ -32,6 +32,8 @@ public class BeanWithBoolean implements Serializable {
 	
 	boolean hacky;
 	
+	boolean isLala;
+	
 	/**
 	 * Creates a new BeanWithBoolean object. 
 	 */
@@ -100,6 +102,24 @@ public class BeanWithBoolean implements Serializable {
 	 */
 	public void setHacky(boolean hacky) {
 		this.hacky = hacky;
+	}
+
+	/**
+	 * Gets the isLala.
+	 *
+	 * @return Returns the isLala
+	 */
+	public boolean getIsLala() {
+		return isLala;
+	}
+
+	/**
+	 * Assigns a new value to the isLala.
+	 *
+	 * @param isLala the isLala to set
+	 */
+	public void setIsLala(boolean isLala) {
+		this.isLala = isLala;
 	}
 
 	
