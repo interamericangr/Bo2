@@ -60,7 +60,7 @@ public class TestTokenUtils {
 				"papaki 12 keno 2",
 				"papaki,. 12. .  keno,:f, 2",
 				"",
-				"1,.2,.3,,4."
+				"1,.2,.3,,4"
 		};
 		
 		String[][] expectedsWithTrue = {
@@ -208,7 +208,7 @@ public class TestTokenUtils {
 		char separator = ',';
 		String [] result = split(str, separator,true);
 		
-		assertEquals(5,result.length);
+		assertEquals(6,result.length);
 		
 		for(String s : result) {
 			assertEquals("",s);

@@ -128,17 +128,11 @@ public class TokenUtils {
         		}
         		first = false;
         	}
-        	/*
-        	 * Should ending with a separator produces yet another empty token ???
-        	 */
-        	/*
         	for(char c : separators.toCharArray()) {
         		if(s.endsWith(String.valueOf(c))) {
         			tokens.add(StringConstants.EMPTY);
         		}
         	}
-        	*/
-        	
         }
         tokens.trimToSize();        
         return tokens.toArray(new String[tokens.size()]);
