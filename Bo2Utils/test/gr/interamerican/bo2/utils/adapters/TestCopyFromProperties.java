@@ -14,6 +14,7 @@ package gr.interamerican.bo2.utils.adapters;
 
 import gr.interamerican.bo2.samples.bean.BeanWith2Fields;
 import gr.interamerican.bo2.samples.bean.BeanWith3Fields;
+import gr.interamerican.bo2.samples.bean.BeanWithBoolean;
 import gr.interamerican.bo2.samples.bean.BeanWithDate;
 import gr.interamerican.bo2.utils.DateUtils;
 
@@ -93,6 +94,30 @@ public class TestCopyFromProperties {
 		Assert.assertEquals(field3, bean.getField3());
 	}
 	
-	
+	/**
+	 * Test for execute()
+	 */
+	@SuppressWarnings("nls")
+	@Test
+	public void testExecute_withBool() {
+		Properties p = new Properties();
+		p.setProperty("bool", "1");
+		p.setProperty("wrappedBool", "1");
+		p.setProperty("hacky", "1");
+		
+		BeanWithBoolean bean = new BeanWithBoolean();
+		
+		Assert.assertFalse(bean.isBool());
+		Assert.assertFalse(bean.getHacky());
+		Assert.assertNull(bean.getWrappedBool());
+		
+		CopyFromProperties<BeanWithBoolean> copy = new CopyFromProperties<BeanWithBoolean>(p);
+		copy.execute(bean);
+		
+		Assert.assertTrue(bean.isBool());
+		Assert.assertTrue(bean.getWrappedBool());
+		Assert.assertTrue(bean.getHacky());
+				
+	}
 
 }
