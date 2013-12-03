@@ -32,6 +32,13 @@ public class TestHttpServletUtils {
 		actual = HttpServletUtils.getGetParameter(req, "bb");
 		Assert.assertEquals(expected, actual);
 		
+		Mockito.when(req.getQueryString()).thenReturn("a=&b=");
+		expected = "";
+		actual = HttpServletUtils.getGetParameter(req, "a");
+		Assert.assertEquals(expected, actual);
+		actual = HttpServletUtils.getGetParameter(req, "b");
+		Assert.assertEquals(expected, actual);
+		
 		Mockito.when(req.getQueryString()).thenReturn("");
 		actual = HttpServletUtils.getGetParameter(req, "a");
 		Assert.assertNull(actual);

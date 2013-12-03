@@ -43,17 +43,22 @@ public class HttpServletUtils {
 			return null;
 		}
 		String[] parameterPairs = queryString.split("&");
+		
 		for(String parameterPair : parameterPairs) {
 			String[] pair = parameterPair.split("=");
-			if(pair.length!=2) {
+			
+			if(!parameterName.equals(pair[0])) {
 				continue;
 			}
-			if(pair[0].equals(parameterName)) {
-				try {
-					return URLDecoder.decode(pair[1], "UTF-8");
-				} catch (UnsupportedEncodingException e) {
-					throw new RuntimeException(e);
-				}
+			
+			if(pair.length==1) {
+				return "";
+			}
+			
+			try {
+				return URLDecoder.decode(pair[1], "UTF-8");
+			} catch (UnsupportedEncodingException e) {
+				throw new RuntimeException(e);
 			}
 		}
 		return null;
