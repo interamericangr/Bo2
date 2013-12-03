@@ -204,7 +204,7 @@ public class TestTokenUtils {
 	 */
 	@Test
 	public void testSplit_emptyTokens4() {		
-		String str = ",,,,,";
+		String str = ",,,,, ";
 		char separator = ',';
 		String [] result = split(str, separator,true);
 		

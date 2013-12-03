@@ -129,7 +129,11 @@ public class TokenUtils {
         		first = false;
         	}
         	for(char c : separators.toCharArray()) {
-        		if(s.endsWith(String.valueOf(c))) {
+        		if(s.trim().endsWith(String.valueOf(c))) {
+        			/*
+        			 * this should return add a token with the trimmed spaces,
+        			 * but an empty String will have to do
+        			 */
         			tokens.add(StringConstants.EMPTY);
         		}
         	}
