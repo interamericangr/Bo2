@@ -386,9 +386,8 @@ public class SelectionUtils {
 		if(sample==null || CollectionUtils.isNullOrEmpty(collection)) { 
 			return results; 
 		}
-		PropertyDescriptor pd = JavaBeanUtils.mandatoryProperty(property, collection.iterator().next());
 		for(P p : collection) {
-			Object element = JavaBeanUtils.getProperty(pd, p);
+			Object element = JavaBeanUtils.getProperty(property, p);
 			if(sample.equals(element)) {
 				results.add(p);
 			}
