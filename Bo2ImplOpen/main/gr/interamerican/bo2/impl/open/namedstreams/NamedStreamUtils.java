@@ -67,10 +67,23 @@ public class NamedStreamUtils {
 	 * @return Named stream
 	 * @throws InitializationException
 	 */
-	@SuppressWarnings("unchecked")
 	public static <T> NamedStream<T> getDefaultNamedStream(Provider provider, String streamName) throws InitializationException {
 		String streamsManagerName = Bo2.getDefaultDeployment().getDeploymentBean().getStreamsManagerName();
-		return (NamedStream<T>) provider.getResource(streamsManagerName, NamedStreamsProvider.class).getStream(streamName);
+		return getNamedStream(provider, streamsManagerName, streamName);
+	}
+	
+	/**
+	 * Gets a named stream from the specified stream manager.
+	 * 
+	 * @param provider
+	 * @param managerName 
+	 * @param streamName
+	 * @return Named stream
+	 * @throws InitializationException
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> NamedStream<T> getNamedStream(Provider provider, String managerName, String streamName) throws InitializationException {
+		return (NamedStream<T>) provider.getResource(managerName, NamedStreamsProvider.class).getStream(streamName);
 	}
 
 }
