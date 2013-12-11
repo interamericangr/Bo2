@@ -14,6 +14,7 @@ package gr.interamerican.bo2.impl.open.namedstreams;
 
 import gr.interamerican.bo2.arch.Provider;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
+import gr.interamerican.bo2.impl.open.utils.Bo2;
 
 /**
  * Utilities for NamedStreams.
@@ -56,6 +57,20 @@ public class NamedStreamUtils {
 	throws InitializationException {
 		NamedStreamsProvider nsp = provider.getResource(managerName, NamedStreamsProvider.class);
 		nsp.registerStream(stream);
+	}
+	
+	/**
+	 * Gets a named stream from the default stream manager.
+	 * 
+	 * @param provider
+	 * @param streamName
+	 * @return Named stream
+	 * @throws InitializationException
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> NamedStream<T> getDefaultNamedStream(Provider provider, String streamName) throws InitializationException {
+		String streamsManagerName = Bo2.getDefaultDeployment().getDeploymentBean().getStreamsManagerName();
+		return (NamedStream<T>) provider.getResource(streamsManagerName, NamedStreamsProvider.class).getStream(streamName);
 	}
 
 }
