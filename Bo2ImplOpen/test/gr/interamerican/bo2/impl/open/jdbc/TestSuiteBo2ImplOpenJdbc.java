@@ -45,6 +45,7 @@ import org.junit.runners.Suite.SuiteClasses;
 		TestJdbcConnectionsTransactionManager.class,
 		TestStatementLocator.class,
 		TestSuiteBo2ImplOpenJdbcParsed.class,
+		TestJdbcCustomAnswerSingleStatementQuestion.class,
 		
 	}
 )

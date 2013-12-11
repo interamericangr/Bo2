@@ -28,7 +28,7 @@ import gr.interamerican.bo2.arch.exceptions.LogicException;
  * @param <A>
  *        Answer type 
  */
-public abstract class JdbcCustomAnswerQuestion<A> 
+public abstract class JdbcCustomAnswerSingleStatementQuestion<A> 
 extends JdbcSingleStatementQuestion<A> 
 implements OrderedFieldsContainer, NamedFieldsContainer {
 	

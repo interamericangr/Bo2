@@ -24,9 +24,9 @@ import gr.interamerican.bo2.test.utils.UtilityForBo2Test;
 import org.junit.Test;
 
 /**
- * Test for {@link JdbcCustomAnswerQuestion}.
+ * Test for {@link JdbcCustomAnswerSingleStatementQuestion}.
  */
-public class TestJdbcCustomAnswerQuestion extends AbstractNonTransactionalProviderTest {
+public class TestJdbcCustomAnswerSingleStatementQuestion extends AbstractNonTransactionalProviderTest {
 	
 	/**
 	 * tests the question that uses named parameters.
@@ -56,7 +56,7 @@ public class TestJdbcCustomAnswerQuestion extends AbstractNonTransactionalProvid
 	 */
 	@ManagerName("LOCALDB")
 	private class JdbcCustomAnswerQuestionSample 
-	extends JdbcCustomAnswerQuestion<Boolean> {	
+	extends JdbcCustomAnswerSingleStatementQuestion<Boolean> {	
 		
 		/**
 		 * id parameter.
