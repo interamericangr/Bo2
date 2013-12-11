@@ -19,7 +19,6 @@ import gr.interamerican.bo2.utils.conditions.PropertyEqualsTo;
 import gr.interamerican.bo2.utils.conditions.PropertyIsNotNull;
 import gr.interamerican.bo2.utils.conditions.PropertyIsNull;
 
-import java.beans.PropertyDescriptor;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -61,7 +60,7 @@ public class SelectionUtils {
 		for (T t : collection) {
 			@SuppressWarnings("unchecked")
 			V v = (V) ReflectionUtils.getProperty(propertyName, t);
-			if (maxElementOwner==null || Utils.nullSafeCompare(maxElement, v)<0) {
+			if ((maxElementOwner==null) || (Utils.nullSafeCompare(maxElement, v)<0)) {
 				maxElementOwner = t;
 				maxElement = v;
 			}			
@@ -102,7 +101,7 @@ public class SelectionUtils {
 			@SuppressWarnings("unchecked")
 			V v = (V) ReflectionUtils.getProperty(propertyName, t);
 			
-			if (minElementOwner==null || Utils.nullSafeCompare(minElement, v)>0) {
+			if ((minElementOwner==null) || (Utils.nullSafeCompare(minElement, v)>0)) {
 				minElement = v;
 				minElementOwner = t;
 			}			
@@ -125,6 +124,7 @@ public class SelectionUtils {
 	 * @deprecated duplicate with
 	 *             {@link ConditionUtils#getSubset(Collection, Condition)}
 	 */
+	@Deprecated
 	public static <S, T extends S> List<T> selectByCondition (Condition<S> condition, Collection<T> collection) {		 
 		List<T> selection = new ArrayList<T>();
 		for (T t : collection) {
@@ -383,7 +383,7 @@ public class SelectionUtils {
 	 */
 	static <P> List<P> getMatchingElements(Collection<P> collection, String property, Object sample) {
 		List<P> results = new ArrayList<P>();		
-		if(sample==null || CollectionUtils.isNullOrEmpty(collection)) { 
+		if((sample==null) || CollectionUtils.isNullOrEmpty(collection)) { 
 			return results; 
 		}
 		for(P p : collection) {

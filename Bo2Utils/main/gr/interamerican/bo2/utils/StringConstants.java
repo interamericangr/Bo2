@@ -35,6 +35,10 @@ public final class StringConstants {
 	 */
 	public static final String MINUS = "-"; //$NON-NLS-1$
 	/**
+	 * minus string (-).
+	 */
+	public static final String PLUS = "+"; //$NON-NLS-1$
+	/**
 	 * zero string (0).
 	 */
 	public static final String ZERO = "0"; //$NON-NLS-1$
