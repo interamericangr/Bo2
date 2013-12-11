@@ -35,12 +35,12 @@ implements OrderedFieldsContainer, NamedFieldsContainer {
 	/**
 	 * {@link ResultSet}
 	 */
-	protected ResultSet rs;
+	private ResultSet rs;
 	
 	/**
 	 * Result.
 	 */
-	protected A answer;
+	private A answer;
 	
 	/**
 	 * Extension point that allows the developer to create the
@@ -53,16 +53,18 @@ implements OrderedFieldsContainer, NamedFieldsContainer {
 	 * is the responsibility of the implementor to handle this
 	 * (e.g. by overriding {@link #getAnswer()}) or document it.
 	 * 
+	 * @return the created answer
+	 * 
 	 * @throws DataAccessException 
 	 */
-	protected abstract void createAnswer() throws DataAccessException;
+	protected abstract A createAnswer() throws DataAccessException;
 
 	@Override
 	protected void work() throws DataException, LogicException {
 		try {
 			rs = executePreparedQuery(sql(), getParamsFromNamedParams());
 			if(rs.next()) {
-				createAnswer();
+				answer = createAnswer();
 			}
 		} catch (SQLException e) {
 			throw new DataException(e);
