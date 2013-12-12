@@ -62,6 +62,8 @@ public class NamedStreamUtils {
 	/**
 	 * Gets a named stream from the default stream manager.
 	 * 
+	 * @see #getNamedStream(Provider, String, String)
+	 * 
 	 * @param provider
 	 * @param streamName
 	 * @return Named stream
