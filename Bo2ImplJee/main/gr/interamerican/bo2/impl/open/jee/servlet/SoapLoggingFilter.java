@@ -62,13 +62,6 @@ public class SoapLoggingFilter extends AbstractBaseLoggingFilter {
 			return "Empty document";
 		}
 		
-		byte[] xmlBeginning = "<?xml".getBytes(); //ASCII chars, the bytes should match
-		for (int i=0; i<xmlBeginning.length; i++) {
-			if(xmlBeginning[i] != soap[i]) {
-				return "No XML declaration found";
-			}
-		}
-		
 		try {
 			ByteArrayInputStream bis = new ByteArrayInputStream(soap);
 			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
