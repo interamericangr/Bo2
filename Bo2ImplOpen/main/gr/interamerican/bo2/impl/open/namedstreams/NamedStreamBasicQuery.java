@@ -12,10 +12,15 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.namedstreams;
 
+import java.nio.charset.Charset;
+
+import gr.interamerican.bo2.arch.Provider;
 import gr.interamerican.bo2.arch.Query;
 import gr.interamerican.bo2.arch.exceptions.DataAccessException;
 import gr.interamerican.bo2.arch.exceptions.DataException;
+import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.arch.records.Record;
+import gr.interamerican.bo2.utils.Bo2UtilsEnvironment;
 
 /**
  * Basic query that browses a sequential file.
@@ -40,15 +45,23 @@ implements Query {
 	 */
 	public NamedStreamBasicQuery() {
 		super();
+		initializeRecord(); //backwards compatibility, now performed on init
+	}
+	
+	@Override
+	public void init(Provider parent) throws InitializationException {
+		super.init(parent);
 		initializeRecord();
 	}
 	
 	/**
 	 * Record definition.
+	 * 
+	 * @param charset 
 	 *  
 	 * @return Returns an empty record.
 	 */
-	protected abstract Record emptyRecord();
+	protected abstract Record emptyRecord(Charset charset);
 	
 	public int getRow() throws DataAccessException {		
 		return row;
@@ -69,9 +82,8 @@ implements Query {
             row++;
             record.setBytes(rec);
             return true;
-        } else {
-            return false;
         }
+		return false;
 	}
 	
 	/**
@@ -87,7 +99,12 @@ implements Query {
 	 * Initializes the record. 
 	 */
 	void initializeRecord() {
-		this.record = emptyRecord();
+		if(stream == null) { //backwards compatibility
+			this.record = emptyRecord(Bo2UtilsEnvironment.getDefaultTextCharset()); 
+		} else {
+			this.record = emptyRecord(stream.getEncoding()); //normal behavior
+		}
+		
 	}
 
 }

@@ -12,6 +12,8 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.namedstreams;
 
+import java.nio.charset.Charset;
+
 import gr.interamerican.bo2.arch.records.Record;
 import gr.interamerican.bo2.impl.open.records.SimpleRecord;
 
@@ -22,8 +24,8 @@ public class NamedStreamSimpleQuery
 extends NamedStreamBasicQuery {
 	
 	@Override
-	protected Record emptyRecord() {
-		return new SimpleRecord();
+	protected Record emptyRecord(Charset charset) {
+		return new SimpleRecord(charset);
 	}
 
 }

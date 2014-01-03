@@ -12,13 +12,12 @@
  ******************************************************************************/
 package gr.interamerican.bo2.arch.records;
 
+import java.nio.charset.Charset;
+
 /**
  * Record.
- * 
- *
  */
 public interface Record {
-	
 	
 	/**
 	 * Sets the whole record.
@@ -48,5 +47,16 @@ public interface Record {
 	 * @return Returns the contents of the record as a byte array.
 	 */
 	public byte[] getBytes();
+	
+	/**
+	 * Sets the charset used for the transformation String <--> byte[]
+	 * <br/>
+	 * If this is not set the default Bo2 deployment text files charset should be used.
+	 * Note that the transformation is not necessarily symmetrical and the correct
+	 * encoding should be used. 
+	 *  
+	 * @param charset
+	 */
+	public void setCharset(Charset charset);
 
 }

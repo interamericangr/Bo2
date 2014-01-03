@@ -18,8 +18,10 @@ import gr.interamerican.bo2.arch.records.IndexedFieldsRecord;
 import gr.interamerican.bo2.impl.open.records.CsvRecord;
 import gr.interamerican.bo2.impl.open.records.StringIndexedCsvRecord;
 import gr.interamerican.bo2.samples.implopen.po.Address;
+import gr.interamerican.bo2.utils.Bo2UtilsEnvironment;
 
 import java.math.BigDecimal;
+import java.nio.charset.Charset;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -37,6 +39,8 @@ public class TestNamedStreamQuery {
 	 * NamedStreamQuery to test
 	 */
 	StreamQuery query = new StreamQuery();
+	
+	
 
 	/**
 	 * Number of colums
@@ -289,12 +293,14 @@ public class TestNamedStreamQuery {
 		 * Creates a new StreamQuery object. 
 		 */
 		public StreamQuery(){
-			emptyRecord();
+			super();
+			emptyRecord(Bo2UtilsEnvironment.getDefaultTextCharset());
 		}
 		
 		@Override
-		protected IndexedFieldsRecord<String> emptyRecord() {
+		protected IndexedFieldsRecord<String> emptyRecord(Charset charset) {
 			CsvRecord record = new CsvRecord(COLUMNS);
+			record.setCharset(charset);
 			record.setString(FIELD1, VALUE1);
 			record.setInt(FIELD2, VALUE2);
 			record.setShort(FIELD3,VALUE3);

@@ -40,7 +40,7 @@ import java.util.List;
  * 
  * {@link CsvRecord}s are zero based.
  */
-public class CsvRecord 
+public class CsvRecord extends AbstractBaseRecord
 implements ModifiableIndexedFieldsRecord<Integer>  {
 	
 	/**
@@ -151,11 +151,11 @@ implements ModifiableIndexedFieldsRecord<Integer>  {
 	}
 
 	public byte[] getBytes(Integer field) {		
-		return getString(field).getBytes();		
+		return getString(field).getBytes(charset());		
 	}
 
 	public void setBytes(Integer field, byte[] value) {
-		setString(field, new String(value));
+		setString(field, new String(value, charset()));
 	}
 
 	public boolean getBoolean(Integer field) {
@@ -273,7 +273,7 @@ implements ModifiableIndexedFieldsRecord<Integer>  {
 	}
 
 	public byte[] getBytes() {	
-		return getBuffer().getBytes();
+		return getBuffer().getBytes(charset());
 	}
 
 	public String getBuffer() {		
@@ -281,7 +281,7 @@ implements ModifiableIndexedFieldsRecord<Integer>  {
 	}
 
 	public void setBytes(byte[] arg) {
-		setBuffer(new String(arg));	
+		setBuffer(new String(arg, charset()));	
 	}	
 	
 	public void setBuffer(String arg) {

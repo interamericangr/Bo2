@@ -36,7 +36,7 @@ import java.util.List;
  * The default separator is semicolon, but it is possible to change
  * the separator to any character. <br/>
  */
-public class StringIndexedCsvRecord 
+public class StringIndexedCsvRecord extends AbstractBaseRecord
 implements ModifiableIndexedFieldsRecord<String>  {
 	
 	/**
@@ -126,7 +126,7 @@ implements ModifiableIndexedFieldsRecord<String>  {
 	 * @see gr.interamerican.bo2.arch.records.IndexedFieldsRecord#getBytes(java.lang.Object)
 	 */
 	public byte[] getBytes(String field) {		
-		return getString(field).getBytes();		
+		return getString(field).getBytes(charset());		
 	}
 	
 	/*
@@ -134,7 +134,7 @@ implements ModifiableIndexedFieldsRecord<String>  {
 	 * @see gr.interamerican.bo2.arch.records.ModifiableIndexedFieldsRecord#setBytes(java.lang.Object, byte[])
 	 */
 	public void setBytes(String field, byte[] value) {
-		setString(field, new String(value));
+		setString(field, new String(value, charset()));
 	}
 
 	/*

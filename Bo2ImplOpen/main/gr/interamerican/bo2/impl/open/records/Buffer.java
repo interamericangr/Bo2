@@ -38,7 +38,7 @@ import java.util.List;
  * The basic language equivalent is <code>type</code>. 
  * The cobol language equivalent is a record described by a copybook.
  */
-public class Buffer 
+public class Buffer extends AbstractBaseRecord
 implements ModifiableIndexedFieldsRecord<String> {
 	
 	/**
@@ -223,7 +223,7 @@ implements ModifiableIndexedFieldsRecord<String> {
 	}	
 	
 	public String getBuffer() {		
-		return new String(getBytes());
+		return new String(getBytes(), charset());
 	}
 	
 	public void setBytes(byte[] arg) {
@@ -232,7 +232,7 @@ implements ModifiableIndexedFieldsRecord<String> {
 	}
 	
 	public void setBuffer(String arg) {
-		setBytes(arg.getBytes());		
+		setBytes(arg.getBytes(charset()));		
 	}
 	
 	public List<String> getFields() {		
@@ -266,7 +266,7 @@ implements ModifiableIndexedFieldsRecord<String> {
 	 * @return Returns the char array.
 	 */
 	char[] toCharArray(byte[] bytes) {
-		String s = new String(bytes);
+		String s = new String(bytes, charset());
 		return s.toCharArray();		
 	}
 	
@@ -279,7 +279,7 @@ implements ModifiableIndexedFieldsRecord<String> {
 	 */
 	byte[] toByteArray(char[] chars) {
 		String s = new String(chars);
-		return s.getBytes();		
+		return s.getBytes(charset());		
 	}
 	
 	/**

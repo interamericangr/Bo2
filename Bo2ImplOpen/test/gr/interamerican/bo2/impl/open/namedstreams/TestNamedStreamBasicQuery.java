@@ -14,12 +14,15 @@ package gr.interamerican.bo2.impl.open.namedstreams;
 
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.records.Record;
 import gr.interamerican.bo2.impl.open.records.CsvRecord;
+import gr.interamerican.bo2.utils.Bo2UtilsEnvironment;
 
+import java.nio.charset.Charset;
+
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -45,7 +48,7 @@ public class TestNamedStreamBasicQuery {
 	 */
 	@Test
 	public void testGetRecord(){
-		assertNotNull(query.getRecord()); 
+		Assert.assertNotNull(query.getRecord()); 
 	}
 	
 	/**
@@ -86,11 +89,11 @@ public class TestNamedStreamBasicQuery {
 		 * Creates a new StreamQuery object. 
 		 */
 		public StreamQuery(){
-			emptyRecord();
+			emptyRecord(Bo2UtilsEnvironment.getDefaultTextCharset());
 		}
 		
 		@Override
-		protected Record emptyRecord() {
+		protected Record emptyRecord(Charset charset) {
 			return new CsvRecord(COLUMNS);
 		}
 		
