@@ -71,7 +71,7 @@ import org.slf4j.LoggerFactory;
  * the queue for an entity to process. The entity is set to the operation
  * using the appropriate setter defined by the argument <code>inputPropertyName</code>.
  * The operation is then executed. The results of each operation execution are 
- * logged by the queue processor that owns the operation. <br/>
+ * logged by the queue processor that owns the operation.  <br/>
  * 
  * @param <T> 
  *        Type of object being processed by the batch process.
@@ -362,8 +362,6 @@ implements Runnable, MultiThreadedLongProcess {
 			LOGGER.info("Executing " + op.getClass().getName()); //$NON-NLS-1$
 			RuntimeCommand cmd = new RuntimeCommand(op);
 			cmd.execute();
-			
-			Bo2Session.setProvider(provider); //reset thread local singleton provider
 		}		
 	}	
 	
@@ -413,8 +411,11 @@ implements Runnable, MultiThreadedLongProcess {
 	 * @throws CouldNotBeginException 
 	 */
 	void initialize() throws InitializationException, DataException, CouldNotBeginException {
+		provider = Bo2.getProvider();
+		Bo2Session.setProvider(provider);
 		provider.getTransactionManager().begin();
 		pritHeaders();
+		openSharedStreams();
 		Query query = parameters.getQuery();
 		Modification<Object> setCriteria = parameters.getQueryParametersSetter();
 		if (setCriteria!=null) {
@@ -439,7 +440,6 @@ implements Runnable, MultiThreadedLongProcess {
 	 * 
 	 * TODO: The input streams use default deployment encoding. Do we want to include
 	 *       this in the BatchProcess metadata?
-	 * TODO: Unify this and sharedStreams property.
 	 * 
 	 * @throws InitializationException
 	 * @throws DataException
@@ -473,14 +473,17 @@ implements Runnable, MultiThreadedLongProcess {
 	}
 	
 	/**
-	 * Ends the query unit of work (commits the transaction and closes the query).
+	 * Cleanup.
 	 * 
 	 * @throws DataException
 	 * @throws CouldNotCommitException 
 	 */
-	void endQuery() throws DataException, CouldNotCommitException {
-		parameters.getQuery().close();
+	void close() throws DataException, CouldNotCommitException {
 		provider.getTransactionManager().commit();
+		parameters.getQuery().close();
+		provider.close();
+		provider = null;
+		Bo2Session.setProvider(null);
 	}
 	
 	/**
@@ -571,10 +574,6 @@ implements Runnable, MultiThreadedLongProcess {
 	LogicException, UnexpectedException {
 		eod=false;
 		startTime = new Date();
-		
-		initializeMainProvider();
-		openSharedStreams();
-		
 		executeOperation(
 				parameters.getPreProcessing(), 
 				parameters.getPreOperationParametersSetter());
@@ -582,7 +581,7 @@ implements Runnable, MultiThreadedLongProcess {
 			initialize();
 			parameters.getQuery().execute();
 			processQuery();
-			endQuery();
+			close();
 		} catch (TransactionManagerException e) {
 			throw new UnexpectedException(e);
 		}
@@ -590,25 +589,7 @@ implements Runnable, MultiThreadedLongProcess {
 				parameters.getPostProcessing(), 
 				parameters.getPostOperationParametersSetter());
 		
-		closeMainProvider();
 		endTime = new Date();
-	}
-	
-	/**
-	 * @throws DataException
-	 */
-	void closeMainProvider() throws DataException {
-		provider.close();
-		provider = null;
-		Bo2Session.setProvider(null);
-	}
-
-	/**
-	 * @throws InitializationException
-	 */
-	void initializeMainProvider() throws InitializationException {
-		provider = Bo2.getProvider();
-		Bo2Session.setProvider(provider);
 	}
 
 	@Override
