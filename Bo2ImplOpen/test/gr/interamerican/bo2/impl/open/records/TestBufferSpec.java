@@ -12,6 +12,8 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.records;
 
+import java.util.Set;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -68,6 +70,21 @@ public class TestBufferSpec {
 		for (int i = 0; i < fields.length; i++) {
 			Assert.assertEquals(positions[i], spec.getPosition(fields[i]));			
 		}		
+	}
+	
+	/**
+	 * Tests getLength.
+	 */	
+	@Test
+	public void testGetPositions() {
+		int[] lengths = {2,4,6}; 
+		int[] positions = {0,2,0}; 
+		String[] fields = {"one", "two", "three"};
+		BufferSpec spec = new BufferSpec(fields, lengths, positions);
+		Set<Integer> pos = spec.getFieldPositions();
+		Assert.assertEquals(pos.size(), 2);
+		Assert.assertTrue(pos.contains(0));
+		Assert.assertTrue(pos.contains(2));
 	}
 	
 	

@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Specification structure for a Buffer class.
@@ -108,6 +110,17 @@ public class BufferSpec {
 	public List<String> getFieldNames() {
 		List<String> fields = new ArrayList<String>(fieldLengths.keySet());
 		return fields;
+	}
+	
+	/**
+	 * Names of fields.
+	 * 
+	 * @return Returns the names of the fields.
+	 */
+	public Set<Integer> getFieldPositions() {
+		Set<Integer> positions = new TreeSet<Integer>();
+		positions.addAll(fieldPositions.values());
+		return positions;
 	}
 
 	/**

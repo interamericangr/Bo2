@@ -398,6 +398,18 @@ public class TestBuffer {
 		SampleBuffer sample = new SampleBuffer();		
 		assertEquals(sample.getBuffer(), sample.toString());
 	}
+	
+	/**
+	 * tests toCsv().
+	 */
+	@Test
+	public void testToCsv() {	
+		SampleBuffer sample = new SampleBuffer();
+		sample.setBuffer("aaaaabbcccddddddddddeeeeeeeeee");
+		String actual = sample.toCsv(';');
+		String expected = ("aaaaa;bb;ccc;dddddddddd;eeeeeeeeee");
+		assertEquals(expected, actual);
+	}
 
 	
 	/**

@@ -27,6 +27,7 @@ import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Buffer is a fixed length byte array with named fields of fixed length. <br/>
@@ -60,6 +61,11 @@ implements ModifiableIndexedFieldsRecord<String> {
 	 * buffer
 	 */
 	private char[] buffer;
+	
+	/**
+	 * Positions to put a delimiter in order to transform the record to CSV.
+	 */
+	private Set<Integer> delimiterPositions;
 		
 	/**
 	 * Creates a new Buffer object.
@@ -73,6 +79,8 @@ implements ModifiableIndexedFieldsRecord<String> {
 		for (int i = 0; i < buffer.length; i++) {
 			buffer[i] = DEFAULT;
 		}
+		delimiterPositions = spec.getFieldPositions();
+		delimiterPositions.remove(0);
 	}
 		
 	public byte[] getBytes(String field) {		
@@ -333,6 +341,27 @@ implements ModifiableIndexedFieldsRecord<String> {
 		char[] ret = new char[len];
 		System.arraycopy(buffer, pos, ret, 0, len);
 		return ret;
+	}
+	
+	/**
+	 * Creates a new CSV record with the results of this Buffer.
+	 * 
+	 * @param delimiter
+	 *        Delimiter for the CSV record.
+	 * 
+	 * @return Returns the buffer converted to a CSV record.
+	 */
+	public String toCsv(char delimiter) {
+		int capacity = buffer.length + delimiterPositions.size();		
+		StringBuilder sb = new StringBuilder(capacity);
+		sb.append(buffer);
+		int i=0;
+		for (Integer pos : delimiterPositions) {
+			int p = pos + i;			
+			sb.insert(p, delimiter);
+			i++;
+		}
+		return sb.toString();
 	}
 	
 	
