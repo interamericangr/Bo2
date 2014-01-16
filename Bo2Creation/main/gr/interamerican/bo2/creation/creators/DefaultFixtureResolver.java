@@ -8,21 +8,24 @@ import java.util.Map;
 /**
  * Default implementation of {@link FixtureResolver}
  * <br/>
- * This implementation relies on a ThreadLocal Map in order to support 
- * multi-threaded execution of unit tests. The tests may configure 
+ * This implementation relies on a ThreadLocal Map in order to support
+ * multi-threaded execution of unit tests. The tests may configure
  * fixtures before they execute and MUST reset the fixtures afterwards.
  * <br/>
  * Resetting is the only way to remove the thread local value.
  */
 public class DefaultFixtureResolver implements FixtureResolver {
-	
+
+	/**
+	 * tlCache
+	 */
 	final ThreadLocal<Map<Class<?>, Object>> tlCache = new ThreadLocal<Map<Class<?>, Object>>();
 
 	@Override
 	@SuppressWarnings("unchecked")
 	public <M> M resolveFixture(Class<M> clazz) {
 		if(tlCache.get()==null) { //no fixture has been configured
-			return null; 
+			return null;
 		}
 		return (M) tlCache.get().get(clazz);
 	}
@@ -43,5 +46,5 @@ public class DefaultFixtureResolver implements FixtureResolver {
 		}
 		tlCache.get().put(declarationType, fixture);
 	}
-	
+
 }
