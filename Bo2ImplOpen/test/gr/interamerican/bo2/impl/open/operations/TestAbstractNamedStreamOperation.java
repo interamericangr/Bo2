@@ -57,6 +57,7 @@ public class TestAbstractNamedStreamOperation {
 			super("Sample.csv"); //$NON-NLS-1$
 		}
 		
+		@Override
 		public void execute() throws LogicException, DataException {
 			Assert.assertNotNull(stream);
 			String s = stream.readString();

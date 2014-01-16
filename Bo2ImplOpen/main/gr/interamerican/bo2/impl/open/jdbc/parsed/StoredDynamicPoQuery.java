@@ -14,14 +14,13 @@ package gr.interamerican.bo2.impl.open.jdbc.parsed;
 
 import gr.interamerican.bo2.arch.EntitiesQuery;
 import gr.interamerican.bo2.arch.PersistentObject;
-import gr.interamerican.bo2.arch.Provider;
 import gr.interamerican.bo2.arch.exceptions.DataAccessException;
 import gr.interamerican.bo2.arch.exceptions.DataException;
-import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.arch.ext.CriteriaDependent;
 import gr.interamerican.bo2.impl.open.creation.Factory;
 import gr.interamerican.bo2.impl.open.jdbc.AbstractJdbcWorker;
 import gr.interamerican.bo2.utils.JavaBeanUtils;
+import gr.interamerican.bo2.utils.annotations.Child;
 
 /**
  * This class is a {@link StoredDynamicEntitiesQuery} decorator that makes
@@ -55,17 +54,7 @@ implements EntitiesQuery<P>, CriteriaDependent<Object> {
 	/**
 	 * Wrapped stored dynamic entities query.
 	 */
-	protected StoredDynamicEntitiesQuery query;
-	
-	/**
-	 * Avoid lock.
-	 */
-	private boolean avoidLock = false;
-	
-	/**
-	 * Criteria.
-	 */
-	private Object criteria;
+	@Child private StoredDynamicEntitiesQuery query;
 	
 	/**
 	 * PersistentObject class.
@@ -81,7 +70,7 @@ implements EntitiesQuery<P>, CriteriaDependent<Object> {
 	public StoredDynamicPoQuery(StoredDynamicEntitiesQuery query, Class<P> clazz) {
 		this.query = query;
 		this.clazz = clazz;
-		query.setAvoidLock(avoidLock);
+		query.setManagerName(getManagerName());
 	}
 	
 	public void execute() throws DataException {
@@ -97,12 +86,11 @@ implements EntitiesQuery<P>, CriteriaDependent<Object> {
 	}
 
 	public void setAvoidLock(boolean avoidLock) {
-		this.avoidLock = avoidLock;
 		query.setAvoidLock(avoidLock);
 	}
 
 	public boolean isAvoidLock() {
-		return false;
+		return query.isAvoidLock();
 	}
 
 	public void setCriteria(Object criteria) {
@@ -110,7 +98,7 @@ implements EntitiesQuery<P>, CriteriaDependent<Object> {
 	}
 
 	public Object getCriteria() {
-		return criteria;
+		return query.getCriteria();
 	}
 
 	public P getEntity() throws DataAccessException {
@@ -123,24 +111,6 @@ implements EntitiesQuery<P>, CriteriaDependent<Object> {
 	public void setManagerName(String managerName) {	
 		super.setManagerName(managerName);
 		query.setManagerName(managerName);
-	}
-	
-	@Override
-	public void init(Provider parent) throws InitializationException {
-		super.init(parent);
-		query.init(parent);
-	}
-	
-	@Override
-	public void open() throws DataException {
-		super.open();
-		query.open();
-	}
-	
-	@Override
-	public void close() throws DataException {
-		query.close();
-		super.close();
 	}
 
 }
