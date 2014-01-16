@@ -1,13 +1,13 @@
 /*******************************************************************************
- * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A. 
+ * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/copyleft/lesser.html
  * 
- * This library is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.po;
@@ -24,7 +24,6 @@ import gr.interamerican.bo2.arch.utils.copiers.KeyCopier;
 import gr.interamerican.bo2.arch.utils.copiers.MoneyCopier;
 import gr.interamerican.bo2.arch.utils.copiers.NullCopier;
 import gr.interamerican.bo2.impl.open.transformations.Copy;
-import gr.interamerican.bo2.impl.open.utils.Bo2;
 import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.adapters.Modification;
 import gr.interamerican.bo2.utils.beans.TypeBasedSelection;
@@ -41,23 +40,23 @@ import org.slf4j.LoggerFactory;
  * Utilities for copying persistent objects.
  */
 public class PoCopier {
-	
+
 
 	/**
 	 * Logger.
 	 */
 	private static Logger logger = LoggerFactory.getLogger(PoUtils.class);
-	
+
 	/**
 	 * Copiers.
 	 */
 	TypeBasedSelection<Copier<?>> copiers = new TypeBasedSelection<Copier<?>>();
-	
+
 	/**
 	 * Singleton instance.
 	 */
 	private static final PoCopier copier = new PoCopier();
-	
+
 	/**
 	 * Transformation before copying a persistent object.
 	 */
@@ -69,7 +68,7 @@ public class PoCopier {
 	 */
 	private Modification<PersistentObject<?>> onCopyChildPo = null;
 
-	
+
 	/**
 	 * Static singleton accessor.
 	 * 
@@ -80,7 +79,7 @@ public class PoCopier {
 	}
 
 	/**
-	 * Creates a new PoCopier object. 
+	 * Creates a new PoCopier object.
 	 *
 	 */
 	private PoCopier() {
@@ -94,7 +93,7 @@ public class PoCopier {
 		copiers.registerSelection(Character.class, new ImmutableObjectCopier<Character>());
 		copiers.registerSelection(String.class, new ImmutableObjectCopier<String>());
 		copiers.registerSelection(BigDecimal.class, new ImmutableObjectCopier<BigDecimal>());
-		
+
 		copiers.registerSelection(int.class, new ImmutableObjectCopier<Integer>());
 		copiers.registerSelection(short.class, new ImmutableObjectCopier<Short>());
 		copiers.registerSelection(long.class, new ImmutableObjectCopier<Long>());
@@ -102,21 +101,21 @@ public class PoCopier {
 		copiers.registerSelection(double.class, new ImmutableObjectCopier<Double>());
 		copiers.registerSelection(byte.class, new ImmutableObjectCopier<Byte>());
 		copiers.registerSelection(char.class, new ImmutableObjectCopier<Character>());
-		
+
 		copiers.registerSelection(Date.class, new DateCopier());
-		
+
 		/*
 		 * I don't like this, because it is not really copying, but replacing.
 		 * This shouldn't be here. Modification record should be reset by deepCopy(o).
 		 */
-		copiers.registerSelection(ModificationRecordImpl.class, 
+		copiers.registerSelection(ModificationRecordImpl.class,
 				new Copy<ModificationRecordImpl>(ModificationRecordImpl.class));
-		
-		copiers.registerSelection(Money.class, new MoneyCopier());		
+
+		copiers.registerSelection(Money.class, new MoneyCopier());
 		copiers.registerSelection(Key.class, new KeyCopier());
 		copiers.registerSelection(DetachStrategy.class, new NullCopier<DetachStrategy>());
 	}
-	
+
 	/**
 	 * Finds a registered copier and has the object copied by him.
 	 * 
@@ -133,17 +132,17 @@ public class PoCopier {
 			if (logger.isTraceEnabled()) {
 				String msg = StringUtils.concat(
 						"No suitable copier found for class ",
-						objectToCopy.getClass().getName(), 
+						objectToCopy.getClass().getName(),
 						". Returning a reference to the same object.");
 				logger.trace(msg);
-			}			
+			}
 			return objectToCopy;
 		} else {
 			logger.trace("Using copier: " + c.getClass().getName());
 			return c.copy(objectToCopy);
 		}
 	}
-	
+
 	/**
 	 * Registers a copier of a type.
 	 * 
@@ -154,7 +153,7 @@ public class PoCopier {
 	@SuppressWarnings("nls")
 	public <T> void register(Class<?> type, Copier<T> c) {
 		if(PersistentObject.class.isAssignableFrom(type)) {
-			Bo2.getLogger().warn("Are you sure that a copier for " + type.getName() + " must be registered?");
+			logger.warn("Are you sure that a copier for " + type.getName() + " must be registered?");
 		}
 		copiers.registerSelection(type, c);
 	}
@@ -195,5 +194,5 @@ public class PoCopier {
 			Modification<PersistentObject<?>> onCopyChildPo) {
 		copier.onCopyChildPo = onCopyChildPo;
 	}
-	
+
 }

@@ -1,13 +1,13 @@
 /*******************************************************************************
- * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A. 
+ * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/copyleft/lesser.html
  * 
- * This library is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.runtime;
@@ -15,7 +15,9 @@ package gr.interamerican.bo2.impl.open.runtime;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
 import gr.interamerican.bo2.arch.exceptions.UnexpectedException;
-import gr.interamerican.bo2.impl.open.utils.Bo2;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * The {@link MultiLauncher}'s responsibility is to execute multiple {@link RuntimeCommand}. <br/>
@@ -24,7 +26,11 @@ import gr.interamerican.bo2.impl.open.utils.Bo2;
  * the class, creates an instance of it and executes it.
  */
 public class MultiLauncher {
-	
+
+	/**
+	 * logger
+	 */
+	private static final Logger LOG = LoggerFactory.getLogger(MultiLauncher.class);
 	/**
 	 * Executes a set of commands. If any of them fails, the jvm exits.
 	 * 
@@ -46,7 +52,7 @@ public class MultiLauncher {
 	 *             Thrown by the RuntimeCommand.
 	 */
 	public static void main(String[] args) throws ClassNotFoundException, InstantiationException,
-			IllegalAccessException, UnexpectedException, DataException, LogicException {
+	IllegalAccessException, UnexpectedException, DataException, LogicException {
 		for (String className : args) {
 			launch(className);
 		}
@@ -63,7 +69,7 @@ public class MultiLauncher {
 	 */
 	private static void launch(String className) {
 		try {
-			Bo2.getLogger().info("Running:" + className); //$NON-NLS-1$
+			LOG.info("Running:" + className); //$NON-NLS-1$
 			Class<?> cmdClass = Class.forName(className);
 			RuntimeCommand cmd = (RuntimeCommand) cmdClass.newInstance();
 			cmd.execute();
@@ -72,6 +78,6 @@ public class MultiLauncher {
 			System.exit(-1);
 		}
 	}
-	
-	
+
+
 }
