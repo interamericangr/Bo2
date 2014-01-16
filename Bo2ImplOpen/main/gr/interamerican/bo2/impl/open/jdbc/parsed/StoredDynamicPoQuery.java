@@ -54,7 +54,7 @@ implements EntitiesQuery<P>, CriteriaDependent<Object> {
 	/**
 	 * Wrapped stored dynamic entities query.
 	 */
-	@Child private StoredDynamicEntitiesQuery query;
+	@Child protected StoredDynamicEntitiesQuery query;
 	
 	/**
 	 * PersistentObject class.
