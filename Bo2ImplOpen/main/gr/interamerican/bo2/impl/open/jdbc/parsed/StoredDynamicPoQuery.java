@@ -46,7 +46,10 @@ import gr.interamerican.bo2.utils.annotations.Child;
  * 
  * @param <P> 
  *        type of PersistentObject
+ *        
+ * @deprecated Use StoredDynamicEntitiesQuery directly and handle conversion manually.
  */
+@Deprecated
 public class StoredDynamicPoQuery<P extends PersistentObject<?>> 
 extends AbstractJdbcWorker 
 implements EntitiesQuery<P>, CriteriaDependent<Object> {
