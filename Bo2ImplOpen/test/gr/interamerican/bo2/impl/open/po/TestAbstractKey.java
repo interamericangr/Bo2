@@ -15,6 +15,7 @@ package gr.interamerican.bo2.impl.open.po;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
@@ -86,6 +87,26 @@ public class TestAbstractKey {
 		assertTrue(o1.equals(o2));
 		assertTrue(o1.compareTo(o2)==0);		
 		assertTrue(o2.equals(o1));
+		assertTrue(o2.compareTo(o1)==0);		
+		assertEquals(o1.hashCode(), o2.hashCode());
+	}
+	
+	/**
+	 * Tests that equals does not work for incompatible classes with the same array.
+	 */
+	@Test
+	@SuppressWarnings("nls")
+	public void testCompareSameArrayIncompatibleClasses() {
+		Object[] objects = {1, 2, "this", "that"};
+		
+		Impl o1 = new Impl();
+		o1.setFields(objects);
+		Impl2 o2 = new Impl2();
+		o2.setFields(objects);
+		
+		assertFalse(o1.equals(o2));
+		assertTrue(o1.compareTo(o2)==0);		
+		assertFalse(o2.equals(o1));
 		assertTrue(o2.compareTo(o1)==0);		
 		assertEquals(o1.hashCode(), o2.hashCode());
 	}
@@ -174,6 +195,35 @@ public class TestAbstractKey {
 	 * Implementation of AbstractKeyImpl for the tests.
 	 */
 	private static class Impl extends AbstractKey {		
+		/**
+		 * serialVersionUID
+		 */
+		private static final long serialVersionUID = 1L;
+		
+		/**
+		 * elements.
+		 */
+		private Object[] elements;
+		
+		/**
+		 * Sets the elements.
+		 * @param elements
+		 */
+		public void setFields(Object[] elements) {
+			this.elements = elements;
+		}
+		
+		@Override
+		public Object[] getElements() {
+			return elements;
+		}
+		
+	}
+	
+	/**
+	 * Implementation of AbstractKeyImpl for the tests.
+	 */
+	private static class Impl2 extends AbstractKey {		
 		/**
 		 * serialVersionUID
 		 */

@@ -110,6 +110,12 @@ implements Key {
 		if (obj==null) {
 			return false;
 		}
+		Class<?> thisClass = this.getClass();
+		Class<?> thatClass = obj.getClass();
+		boolean compatibleTypes = thisClass==thatClass || thisClass.isInstance(obj) || thatClass.isInstance(this);
+		if(!compatibleTypes) {
+			return false;
+		}
 		if (AbstractKey.class.isInstance(obj))  {
 			AbstractKey that = (AbstractKey) obj;
 			return this.compareTo(that)==0;
