@@ -107,6 +107,7 @@ public class HibernateConfigurations {
 	 * @throws InitializationException 
 	 *         If the creation of the SessionFactory fails.
 	 */
+	@SuppressWarnings("nls")
 	static SessionFactory createSessionFactory(String pathToCfg, String dbSchema, String sessionInterceptor, String hibernateMappingsPath) 
 	throws InitializationException {
 		try {
@@ -121,6 +122,7 @@ public class HibernateConfigurations {
 			
 			List<String> hbms = getHibernateMappingsIfAvailable(hibernateMappingsPath);
 			for(String entityMapping : hbms) {
+				LOGGER.debug("Adding " + entityMapping + " to the session factory configuration.");
 				conf.addResource(entityMapping);
 			}
 			
