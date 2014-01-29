@@ -27,6 +27,7 @@ import gr.interamerican.bo2.utils.beans.Range;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -46,15 +47,130 @@ public class TestGenericsUtils {
 	 * @throws NoSuchFieldException
 	 */
 	@Test
-	public void testGetCollectionTypeOfField() 
+	public void testGetCollectionTypeOfField_withRawList() 
 	throws SecurityException, NoSuchFieldException {
-		Field rawList = CollectionFields.class.getDeclaredField("rawList");
-		Assert.assertEquals(Object.class, GenericsUtils.getCollectionTypeOfField(rawList));
-		Field stringList = CollectionFields.class.getDeclaredField("stringList");
-		Assert.assertEquals(String.class, GenericsUtils.getCollectionTypeOfField(stringList));
-		Field string = CollectionFields.class.getDeclaredField("string");
-		Assert.assertNull(GenericsUtils.getCollectionTypeOfField(string));
+		Field field = CollectionFields.class.getDeclaredField("rawList");
+		Assert.assertEquals(Object.class, GenericsUtils.getCollectionTypeOfField(field));
 	}
+	
+	/**
+	 * Tests getCollectionTypeOfField()
+	 * 
+	 * @throws SecurityException
+	 * @throws NoSuchFieldException
+	 */
+	@Test
+	public void testGetCollectionTypeOfField_withParameterizedSet() 
+	throws SecurityException, NoSuchFieldException {
+		Field field = CollectionFields.class.getDeclaredField("setsCollection");
+		Assert.assertEquals(Set.class, GenericsUtils.getCollectionTypeOfField(field));
+	}
+	
+	/**
+	 * Tests getCollectionTypeOfField()
+	 * 
+	 * @throws SecurityException
+	 * @throws NoSuchFieldException
+	 */
+	@Test
+	public void testGetCollectionTypeOfField_withStringList() 
+	throws SecurityException, NoSuchFieldException {
+		Field field = CollectionFields.class.getDeclaredField("stringList");
+		Assert.assertEquals(String.class, GenericsUtils.getCollectionTypeOfField(field));
+	}
+	
+	/**
+	 * Tests getCollectionTypeOfField()
+	 * 
+	 * @throws SecurityException
+	 * @throws NoSuchFieldException
+	 */
+	@Test
+	public void testGetCollectionTypeOfField_withParameterizedType() 
+	throws SecurityException, NoSuchFieldException {
+		Field field = CollectionFields.class.getDeclaredField("setsCollection");
+		Assert.assertEquals(Set.class, GenericsUtils.getCollectionTypeOfField(field));
+	}
+	
+	/**
+	 * Tests getCollectionTypeOfField()
+	 * 
+	 * @throws SecurityException
+	 * @throws NoSuchFieldException
+	 */
+	@Test (expected=RuntimeException.class)	
+	public void testGetCollectionTypeOfField_withNoCollection() 
+	throws SecurityException, NoSuchFieldException {
+		Field field = CollectionFields.class.getDeclaredField("string");
+		GenericsUtils.getCollectionTypeOfField(field);
+	}
+	
+	
+	/**
+	 * Tests getCollectionTypeOfProperty()
+	 * 
+	 * rawList
+	 * 
+	 */
+	@Test
+	public void testGetCollectionTypeOfProperty_withRawList() {
+		Class<?> actual = GenericsUtils.getCollectionTypeOfProperty(CollectionFields.class, "rawList");
+		Assert.assertEquals(Object.class, actual);
+	}
+	
+	/**
+	 * Tests getCollectionTypeOfProperty()
+	 * 
+	 * rawList
+	 * 
+	 */
+	@Test
+	public void testGetCollectionTypeOfProperty_withParameterizedSet() {
+		Class<?> actual = GenericsUtils.getCollectionTypeOfProperty(CollectionFields.class, "setsCollection");
+		Assert.assertEquals(Set.class, actual);
+	}
+	
+	
+	
+	/**
+	 * Tests getCollectionTypeOfProperty()
+	 * 
+	 * stringList
+	 */
+	@Test
+	public void testGetCollectionTypeOfProperty_withStringList() {
+		Class<?> actual = GenericsUtils.getCollectionTypeOfProperty(CollectionFields.class, "stringList");
+		Assert.assertEquals(String.class, actual);
+	}
+	
+	/**
+	 * Tests getCollectionTypeOfProperty()
+	 * 
+	 * string
+	 */
+	@Test (expected=RuntimeException.class)	
+	public void testGetCollectionTypeOfProperty_withNoCollection() {
+		GenericsUtils.getCollectionTypeOfProperty(CollectionFields.class, "string");
+	}
+	
+	/**
+	 * Tests getCollectionTypeOfProperty()
+	 * 
+	 * noField
+	 * 
+	 */
+	@Test (expected=RuntimeException.class)	
+	public void testGetCollectionTypeOfProperty_withNoProperty() {
+		GenericsUtils.getCollectionTypeOfProperty(CollectionFields.class, "noField");
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * Unit test for isVariableReturnType()
@@ -241,9 +357,86 @@ public class TestGenericsUtils {
 	static class IntegerRange extends Range<Integer> {/*empty*/}
 	
 	class CollectionFields {
+		/**
+		 * List
+		 */
 		List rawList;
+		/**
+		 * List of String
+		 */
 		List<String> stringList;
+		/**
+		 * String
+		 */
 		String string;
+		/**
+		 * Collection of (Set of String)
+		 */
+		Collection<Set<String>> setsCollection;
+		/**
+		 * Gets the rawList.
+		 *
+		 * @return Returns the rawList
+		 */
+		public List getRawList() {
+			return rawList;
+		}
+		/**
+		 * Assigns a new value to the rawList.
+		 *
+		 * @param rawList the rawList to set
+		 */
+		public void setRawList(List rawList) {
+			this.rawList = rawList;
+		}
+		/**
+		 * Gets the stringList.
+		 *
+		 * @return Returns the stringList
+		 */
+		public List<String> getStringList() {
+			return stringList;
+		}
+		/**
+		 * Assigns a new value to the stringList.
+		 *
+		 * @param stringList the stringList to set
+		 */
+		public void setStringList(List<String> stringList) {
+			this.stringList = stringList;
+		}
+		/**
+		 * Gets the string.
+		 *
+		 * @return Returns the string
+		 */
+		public String getString() {
+			return string;
+		}
+		/**
+		 * Assigns a new value to the string.
+		 *
+		 * @param string the string to set
+		 */
+		public void setString(String string) {
+			this.string = string;
+		}
+		/**
+		 * Gets the setsCollection.
+		 *
+		 * @return Returns the setsCollection
+		 */
+		public Collection<Set<String>> getSetsCollection() {
+			return setsCollection;
+		}
+		/**
+		 * Assigns a new value to the setsCollection.
+		 *
+		 * @param setsCollection the setsCollection to set
+		 */
+		public void setSetsCollection(Collection<Set<String>> setsCollection) {
+			this.setsCollection = setsCollection;
+		}
 	}
 
 }

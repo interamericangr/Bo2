@@ -12,6 +12,9 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils;
 
+import gr.interamerican.bo2.utils.reflect.analyze.TypeAnalysis;
+import gr.interamerican.bo2.utils.reflect.beans.BeanPropertyDefinition;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.ParameterizedType;
@@ -96,8 +99,76 @@ public class GenericsUtils {
 		return false;
 	}
 	
+	
+	
+	
 	/**
-	 * Finds the type of elements of a {@link Field} that declares a Collection.
+	 * Finds the type of elements of a {@link Field} or Property
+	 * who's type is a Collection.
+	 * 
+	 * @param clazz
+	 *        Class of the field or property.
+	 * @param type 
+	 *        {@link Type} of the field or property.
+	 * 
+	 * @return The type of the collection.
+	 */
+	static Class<?> getCollectionTypeOf(Class<?> clazz, Type type) {
+		if(!(Collection.class.isAssignableFrom(clazz))) {			
+			String msg = StringUtils.concat
+				(clazz.getName()," is not as a Collection"); //$NON-NLS-1$
+			throw new RuntimeException(msg);
+		}
+		if(!(type instanceof ParameterizedType)) {
+			return Object.class;
+		}
+		ParameterizedType parameterized = (ParameterizedType) type;
+		Type[] args = parameterized.getActualTypeArguments();
+		if(args==null || args.length==0) {
+			return Object.class;
+		}
+		Type argument = args[0];
+		if(argument instanceof Class) {
+			return (Class<?>) argument;
+		} 
+		if(argument instanceof ParameterizedType) {
+			ParameterizedType ptArg = (ParameterizedType) argument;
+			return (Class<?>)ptArg.getRawType();
+		} 
+		throw new RuntimeException("Could not find type of collection elements"); //$NON-NLS-1$
+	}	
+	
+	
+	
+	
+	/**
+	 * Finds the type of elements of a {@link Field} who's type is a Collection.
+	 * 
+	 * If the field is not declared as a Collection, a RuntimeException
+	 * is thrown. <br/>  
+	 * If the field is declared as a raw Collection, then Object.class is returned.
+	 * <br/>
+	 * An assumption is made that the field declaration contains only one
+	 * type argument.
+	 * <br/>
+	 * Disclaimer: This will not work for a declarations like: <br/> 
+	 * <code>
+	 * StringList foo; //StringList extends List&ltString&gt.
+	 * </code> 
+	 * 
+	 * @param field
+	 *        The field.
+	 * 
+	 * @return The type of the collection elements declared with this Field.
+	 */
+	public static Class<?> getCollectionTypeOfField(Field field) {
+		Class<?> clazz = field.getType();
+		Type type = field.getGenericType();
+		return getCollectionTypeOf(clazz, type);
+	}
+	
+	/**
+	 * Finds the type of elements of a property that declares a Collection.
 	 * Bad input returns null. If the field is not parameterized, Object is
 	 * returned.
 	 * <br/>
@@ -107,30 +178,25 @@ public class GenericsUtils {
 	 * Disclaimer: This will not work for a declarations like
 	 * StringList foo; //StringList extends List<String>. 
 	 * 
-	 * @param field
+	 * @param clazz 
+	 *        Class declaring the property.
+	 * @param property 
+	 *        Name of property.
 	 * 
 	 * @return The type of the collection elements declared with this Field.
 	 */
-	public static Class<?> getCollectionTypeOfField(Field field) {
-		if(field==null) {
-			return null;
+	@SuppressWarnings("nls")
+	public static Class<?> getCollectionTypeOfProperty(Class<?> clazz, String property) {
+		TypeAnalysis analysis = TypeAnalysis.analyze(clazz);
+		BeanPropertyDefinition<?> boPD = analysis.getFirstPropertyByName(property);
+		if (boPD==null) {
+			String msg = StringUtils.concat(
+				"Property ", property, " does not exist in type ", clazz.getName());
+			throw new RuntimeException(msg);
 		}
-		if(!(Collection.class.isAssignableFrom(field.getType()))) {
-			return null;
-		}
-		if(!(field.getGenericType() instanceof ParameterizedType)) {
-			return Object.class;
-		}
-		ParameterizedType type = (ParameterizedType) field.getGenericType();
-		Type[] args = type.getActualTypeArguments();
-		if(args==null || args.length==0) {
-			return Object.class;
-		}
-		Type argument = args[0];
-		if(argument instanceof Class) {
-			return (Class<?>) argument;
-		}
-		return null;
+		Class<?> pClass = boPD.getType();
+		Type pType = boPD.getGenericType();
+		return getCollectionTypeOf(pClass, pType);
 	}
 	
 	
