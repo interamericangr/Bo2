@@ -24,7 +24,8 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses(
 	{			
-		TestAccessType.class
+		TestAccessType.class,
+		TestIndexPropertyType.class,
 	}
 )
 public class TestSuiteBo2UtilsEnums { 
