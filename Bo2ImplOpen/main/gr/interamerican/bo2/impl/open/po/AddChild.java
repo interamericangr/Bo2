@@ -1,25 +1,27 @@
 package gr.interamerican.bo2.impl.open.po;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.Collection;
-import java.util.Set;
-
-import com.sun.star.uno.RuntimeException;
-
 import gr.interamerican.bo2.arch.Key;
 import gr.interamerican.bo2.arch.PersistentObject;
 import gr.interamerican.bo2.utils.GenericsUtils;
 import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.Utils;
+import gr.interamerican.bo2.utils.annotations.Child;
+import gr.interamerican.bo2.utils.enums.IndexPropertyType;
 import gr.interamerican.bo2.utils.reflect.analyze.TypeAnalysis;
 import gr.interamerican.bo2.utils.reflect.beans.BeanPropertyDefinition;
 
+import java.util.Collection;
+import java.util.Set;
+
+import com.sun.star.uno.RuntimeException;
+
 /**
+ * This utility makes it easier to add an element to a {@link Child} collection
+ * of a {@link PersistentObject}.
  * 
  */
-public class AddChild<P extends PersistentObject<?>> {
+public class AddChild {
 	/**
 	 * Class of Persistent object.
 	 */
@@ -36,31 +38,47 @@ public class AddChild<P extends PersistentObject<?>> {
 	 * Class of Persistent object key.
 	 */
 	Class<? extends Key> childKeyClass;
-
+	
 	/**
 	 * Persistent object.
 	 */
-	P po;
+	PersistentObject<?> po;
+	
+	/**
+	 * Index property type.
+	 */
+	IndexPropertyType indexPropertyType;
+	
+	/**
+	 * Name of child collection property.
+	 */
+	String childCollectionName;
+	
+	/**
+	 * Name of index property.
+	 */
+	String indexPropertyName;
 	
 	/**
 	 * Creates a new AddChild object. 
 	 *
 	 * @param po
-	 * @param childCollection
+	 * @param childCollectionName
 	 */
-	public AddChild(P po, String childCollection) {
-		String noIndexMsg = "Could not find index property of child key!"; //$NON-NLS-1$
+	public AddChild(PersistentObject<?> po, String childCollectionName) {
 		
 		this.po = po;
+		this.childCollectionName = childCollectionName;
 		this.poClass = Utils.cast(po.getClass());
 		this.keyClass = Utils.cast(PoUtils.getKeyType(poClass));
+		
 		Class<?> elementsClass = 
-				GenericsUtils.getCollectionTypeOfProperty(poClass, childCollection);
+				GenericsUtils.getCollectionTypeOfProperty(poClass, childCollectionName);
 		
 		if (!PersistentObject.class.isAssignableFrom(elementsClass)) {
 			@SuppressWarnings("nls")
 			String msg = StringUtils.concat(
-					"The collection ", childCollection, 
+					"The collection ", childCollectionName, 
 					" is not declared as a Collection of some PersistentObject type");
 			throw new RuntimeException(msg);					 
 		}
@@ -70,29 +88,51 @@ public class AddChild<P extends PersistentObject<?>> {
 		
 		
 		TypeAnalysis keyAnalysis = TypeAnalysis.analyze(keyClass);
-		Set<String> keyProperties = keyAnalysis.getNamesOfReadWriteProperties();
+		Set<String> keyPropertiesSet = keyAnalysis.getNamesOfReadWriteProperties();
 		
 		TypeAnalysis childKeyAnalysis = TypeAnalysis.analyze(childKeyClass);
 		Set<String> childKeyProperties = childKeyAnalysis.getNamesOfReadWriteProperties();
 
-		childKeyProperties.removeAll(keyProperties);
+		childKeyProperties.removeAll(keyPropertiesSet);
 		
 		if (childKeyProperties.size()!=1) {
-			throw new RuntimeException(noIndexMsg);
+			String msg = "Could not find index property of child key!"; //$NON-NLS-1$
+			throw new RuntimeException(msg);
 		}
 		
-		String indexPropertyName = childKeyProperties.iterator().next();
+		this.indexPropertyName = childKeyProperties.iterator().next();
 		
 		BeanPropertyDefinition<?> indexProperty =  
 				childKeyAnalysis.getFirstPropertyByName(indexPropertyName);
 		
-		Class<?> indexPropertyType = indexProperty.getType();
+		Class<?> indexPropertyClass = indexProperty.getType();
 		
+		indexPropertyType = IndexPropertyType.getIndexPropertyTypeFor(indexPropertyClass);
 		
-		
+		if (indexPropertyType==null) {
+			String msg = "Index property type not supported!"; //$NON-NLS-1$
+			throw new RuntimeException(msg);	
+		}
 	}
 	
 	
+	/**
+	 * Adds the specified elements 
+	 * 
+	 * @param objects
+	 *        Elements to add.
+	 */
+	public void add(PersistentObject<?>... objects) {
+		Object col = ReflectionUtils.getProperty(childCollectionName, po);
+		Collection<Object> childCollection = Utils.cast(col);
+		for (PersistentObject<?> child : objects) {			
+			Object childKey =  child.getKey();
+			Object key = po.getKey();
+			ReflectionUtils.copyProperties(key, childKey);
+			indexPropertyType.addNext(childCollection, child, indexPropertyName);
+		}
+		
+	}
 	
 	
 
