@@ -21,7 +21,7 @@ import com.sun.star.uno.RuntimeException;
  * of a {@link PersistentObject}.
  * 
  */
-public class AddChild {
+public class ChildAdder {
 	/**
 	 * Class of Persistent object.
 	 */
@@ -39,10 +39,7 @@ public class AddChild {
 	 */
 	Class<? extends Key> childKeyClass;
 	
-	/**
-	 * Persistent object.
-	 */
-	PersistentObject<?> po;
+	
 	
 	/**
 	 * Index property type.
@@ -61,17 +58,15 @@ public class AddChild {
 	
 	/**
 	 * Creates a new AddChild object. 
-	 *
-	 * @param po
+	 * 
+	 * @param poClass
 	 * @param childCollectionName
 	 */
-	public AddChild(PersistentObject<?> po, String childCollectionName) {
-		
-		this.po = po;
+	public ChildAdder(Class<? extends PersistentObject<?>> poClass, String childCollectionName) {
+		this.poClass = Utils.cast(poClass);
 		this.childCollectionName = childCollectionName;
-		this.poClass = Utils.cast(po.getClass());
-		this.keyClass = Utils.cast(PoUtils.getKeyType(poClass));
 		
+		this.keyClass = Utils.cast(PoUtils.getKeyType(poClass));		
 		Class<?> elementsClass = 
 				GenericsUtils.getCollectionTypeOfProperty(poClass, childCollectionName);
 		
@@ -117,12 +112,14 @@ public class AddChild {
 	
 	
 	/**
-	 * Adds the specified elements 
-	 * 
+	 * Adds the specified elements
+	 *  
+	 * @param po 
+	 *        Persistent object to add thee elements.
 	 * @param objects
 	 *        Elements to add.
 	 */
-	public void add(PersistentObject<?>... objects) {
+	public void add(PersistentObject<?> po, PersistentObject<?>... objects) {
 		Object col = ReflectionUtils.getProperty(childCollectionName, po);
 		Collection<Object> childCollection = Utils.cast(col);
 		for (PersistentObject<?> child : objects) {			

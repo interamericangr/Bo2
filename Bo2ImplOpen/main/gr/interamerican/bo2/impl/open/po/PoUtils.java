@@ -992,6 +992,23 @@ public class PoUtils {
 		}		
 	}
 	
+	/**
+	 * Gets the first declared interface of the specified class
+	 * that is a PersistentObject. 
+	 * 
+	 * @param clazz
+	 * 
+	 * @return Returns the first interface
+	 */
+	public static Class<?> getPoDeclarationType(Class<?> clazz) {
+		Class<?>[] interfaces = clazz.getInterfaces();
+		for (Class<?> iface : interfaces) {
+			if (PersistentObject.class.isAssignableFrom(iface)) {
+				return iface;
+			}
+		}
+		return null;
+	}
 	
 
 }

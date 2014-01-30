@@ -12,22 +12,19 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Unit test for {@link AddChild}.
+ * Unit test for {@link ChildAdder}.
  */
-public class TestAddChild {
+public class TestChildAdder {
 	
 	/**
 	 * Tests the constructor.
 	 */
 	@SuppressWarnings("nls")
 	@Test
-	public void testConstructor() {
-		Invoice invoice = new InvoiceImpl();		
-		AddChild add = new AddChild(invoice, "lines");
-		
-		Assert.assertEquals("lines", add.childCollectionName);
-		Assert.assertEquals(invoice, add.po);		
-		Assert.assertEquals(InvoiceImpl.class, add.poClass);
+	public void testConstructor() {				
+		ChildAdder add = new ChildAdder(Invoice.class, "lines");
+		Assert.assertEquals("lines", add.childCollectionName);				
+		Assert.assertEquals(Invoice.class, add.poClass);
 		Assert.assertEquals(InvoiceKey.class, add.keyClass);
 		Assert.assertEquals(InvoiceLine.class, add.childPoClass);
 		Assert.assertEquals(InvoiceLineKey.class, add.childKeyClass);
@@ -42,7 +39,7 @@ public class TestAddChild {
 	@SuppressWarnings("nls")
 	@Test(expected=RuntimeException.class)
 	public void testConstructor_failWithNotExistingProperty() {
-		new AddChild(new InvoiceImpl(), "sex");		
+		new ChildAdder(Invoice.class, "sex");		
 	}
 	
 	/**
@@ -51,7 +48,7 @@ public class TestAddChild {
 	@SuppressWarnings("nls")
 	@Test(expected=RuntimeException.class)
 	public void testConstructor_failWithNotBadPropertyType() {				
-		new AddChild(new InvoiceImpl(), "invoiceNo");		
+		new ChildAdder(Invoice.class, "invoiceNo");		
 	}
 	
 	/**
@@ -61,7 +58,7 @@ public class TestAddChild {
 	@Test
 	public void testAdd() {		
 		Invoice invoice = new InvoiceImpl();		
-		AddChild add = new AddChild(invoice, "lines");
+		ChildAdder add = new ChildAdder(Invoice.class, "lines");
 		
 		String invoiceNo = "x1";
 		invoice.setInvoiceNo(invoiceNo);		
@@ -70,7 +67,7 @@ public class TestAddChild {
 		InvoiceLine l3 = new InvoiceLineImpl();
 		InvoiceLine l4 = new InvoiceLineImpl();
 		InvoiceLine[] lines = {l1,l2,l3,l4};		
-		add.add(lines);
+		add.add(invoice,lines);
 		for (int i = 0; i < lines.length; i++) {
 			Assert.assertTrue(invoice.getLines().contains(lines[i]));
 			Assert.assertEquals(invoiceNo, lines[i].getInvoiceNo());
