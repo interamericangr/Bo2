@@ -50,6 +50,8 @@ import org.junit.runners.Suite.SuiteClasses;
 		TestMultipleValuesMap.class,
 		TestTimer.class,
 		TestSystemState.class,
+		TestSegmentedDistance.class,
+		TestSegmentedArea.class,
 	}
 )
 public class TestSuiteBo2UtilsBeans {
