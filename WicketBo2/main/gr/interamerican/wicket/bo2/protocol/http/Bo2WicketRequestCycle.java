@@ -38,10 +38,12 @@ import gr.interamerican.bo2.impl.open.utils.Bo2DeploymentParams;
 import gr.interamerican.bo2.utils.ExceptionUtils;
 import gr.interamerican.bo2.utils.Utils;
 import gr.interamerican.bo2.utils.beans.Timer;
+import gr.interamerican.bo2.utils.mail.MailMessage;
 import gr.interamerican.wicket.def.WicketOutputMedium;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.wicket.IRequestTarget;
@@ -352,6 +354,7 @@ public class Bo2WicketRequestCycle extends WebRequestCycle {
 				}
 			} catch (CouldNotCommitException cnce) {
 				LOGGER.error("CouldNotCommitException: " + ExceptionUtils.getThrowableStackTrace(cnce));
+				emergencyLogAndEmail("CouldNotCommitException");
 				throw new RuntimeException(cnce);
 			} finally {
 				try {
@@ -366,6 +369,34 @@ public class Bo2WicketRequestCycle extends WebRequestCycle {
 		}
 		super.onEndRequest();
 		logAndCleanSession();
+	}
+	
+	/**
+	 * EMERGENCY LOG AND EMAIL
+	 * @param exceptionType 
+	 */
+	void emergencyLogAndEmail(String exceptionType) {
+		StringBuilder sb = new StringBuilder();
+		for (Worker worker : workers) {
+			sb.append(worker.getClass().getSimpleName());
+			sb.append(COMMA);
+		}
+		String msg = exceptionType + " for user " + Bo2Session.getUserId() + " and workers: " + sb.toString() + " on " + new Date();
+		LOGGER.error(msg);
+		
+		try {
+			String[] recipients = new String[]{"katerosd", "sofrasth", "nakoss", "milonakisv"};
+			MailMessage m = new MailMessage();
+			m.setFrom("no-reply@interamerican.gr");
+			for (String recipient : recipients) {
+				m.addTo(recipient + "@interamerican.gr");
+			}
+			m.setSubject(exceptionType);
+			m.setMessage(msg);
+			m.send();
+		} catch (Exception e) {
+			LOGGER.error("Failed to notify CouldNotCommitException by email due to: " + e.getMessage());
+		}
 	}
 
 	@Override
@@ -382,6 +413,7 @@ public class Bo2WicketRequestCycle extends WebRequestCycle {
 		} catch (CouldNotRollbackException cnrbex) {
 			cnrbex.setInitial(t);
 			LOGGER.error("CouldNotRollbackException: " + ExceptionUtils.getThrowableStackTrace(cnrbex));
+			emergencyLogAndEmail("CouldNotRollbackException");
 		} finally {
 			try {
 				cleanup();
