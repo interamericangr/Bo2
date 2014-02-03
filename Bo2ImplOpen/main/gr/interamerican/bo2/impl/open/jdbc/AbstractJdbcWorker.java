@@ -342,18 +342,24 @@ extends AbstractResourceConsumer {
 	/**
 	 * Executers a query..
 	 * 
-	 * @param ps Statement.
+	 * @param ps
+	 *            PreparedStatement.
+	 * @param statement
+	 *            (plain sql for logging purposes)
+	 * @param params
+	 *            (for logging purposes)
 	 * @return Returns the resultset.
 	 * @throws SQLException
 	 */
-	protected ResultSet executeQueryPs(PreparedStatement ps)
+	protected ResultSet executeQueryPs(PreparedStatement ps, String statement, Object[] params)
 			throws SQLException {
 		try {
 			Debug.setActiveModule(ps);
 			ResultSet rs = ps.executeQuery();
 			return rs;
 		} catch (SQLException e) {
-			logger.error(e.toString());
+			logger.error(showPreparedStatement(statement, params) + StringConstants.NEWLINE
+					+ ExceptionUtils.getThrowableStackTrace(e));
 			throw e;
 		} finally {
 			Debug.resetActiveModule();
@@ -479,7 +485,7 @@ extends AbstractResourceConsumer {
 		if (params!=null) {
 			setParameters(ps, params);
 		}
-		return executeQueryPs(ps);
+		return executeQueryPs(ps, statement, params);
 	}
 
 
