@@ -149,10 +149,10 @@ public class CollectionUtils {
 	 * @return the value of the key or an epmty String if the key is not found
 	 */
 	public static String getOptionalProperty(Properties properties, String key) {
-		if(properties.getProperty(key)==null)
+		if(properties.getProperty(key)==null) {
 			return StringConstants.EMPTY;
-		else
-			return properties.getProperty(key).trim();
+		}
+		return properties.getProperty(key).trim();
 	}
 	
 	/**
@@ -976,6 +976,36 @@ public class CollectionUtils {
 		return countByCondition(condition, collection);
 	}
 	
-		
+	/**
+	 * Partition a list to a list that contains sub-lists of the list with a specified size.
+	 * The last sub-list may be of size less than {@code size}. The sub-lists maintain the
+	 * initial ordering.
+	 * @param list
+	 * @param size
+	 * @return a list that contains sub-lists of specific size.
+	 */
+	public static <T> List<List<T>> partition(List<T> list, int size) {
+		List<List<T>> result = new ArrayList<List<T>>();
+		if(list.size() < size) {
+			result.add(list);
+			return result;
+		}
+		int ctr=0;
+		List<T> part = new ArrayList<T>();
+		for(T t : list) {
+			if(ctr >= size && ctr%size==0) { //not the first time
+				result.add(part);
+				part = new ArrayList<T>();
+				part.add(t);
+			} else {
+				part.add(t);
+			}
+			ctr++;
+		}
+		if(!part.isEmpty()) {
+			result.add(part);
+		}
+		return result;
+	}
 	
 }

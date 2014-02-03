@@ -654,7 +654,46 @@ public class TestCollectionUtils {
 		Assert.assertEquals("4", map.get(4));
 	}
 	
-	
+	/**
+	 * Unit test for partition.
+	 */
+	@SuppressWarnings("nls")
+	@Test
+	public void testPartition() {
+		List<String> list = new ArrayList<String>();
+		list.add("a");
+		List<List<String>> result = CollectionUtils.partition(list, 2);
+		
+		Assert.assertEquals(1, result.size());
+		Assert.assertEquals(1, result.get(0).size());
+		Assert.assertEquals("a", result.get(0).get(0));
+		
+		list.add("b");
+		list.add("c");
+		list.add("d");
+		result = CollectionUtils.partition(list, 2);
+		
+		Assert.assertEquals(2, result.size());
+		Assert.assertEquals(2, result.get(0).size());
+		Assert.assertEquals(2, result.get(1).size());
+		Assert.assertEquals("a", result.get(0).get(0));
+		Assert.assertEquals("b", result.get(0).get(1));
+		Assert.assertEquals("c", result.get(1).get(0));
+		Assert.assertEquals("d", result.get(1).get(1));
+		
+		list.add("e");
+		result = CollectionUtils.partition(list, 2);
+		
+		Assert.assertEquals(3, result.size());
+		Assert.assertEquals(2, result.get(0).size());
+		Assert.assertEquals(2, result.get(1).size());
+		Assert.assertEquals(1, result.get(2).size());
+		Assert.assertEquals("a", result.get(0).get(0));
+		Assert.assertEquals("b", result.get(0).get(1));
+		Assert.assertEquals("c", result.get(1).get(0));
+		Assert.assertEquals("d", result.get(1).get(1));
+		Assert.assertEquals("e", result.get(2).get(0));
+	}
 	
 
 	/**
