@@ -385,7 +385,7 @@ public class Bo2WicketRequestCycle extends WebRequestCycle {
 		LOGGER.error(msg);
 		
 		try {
-			String[] recipients = new String[]{"katerosd", "sofrasth", "nakoss", "milonakisv"};
+			String[] recipients = new String[]{"zabelid", "katerosd", "sofrasth", "nakoss", "milonakisv"};
 			MailMessage m = new MailMessage();
 			m.setFrom("no-reply@interamerican.gr");
 			for (String recipient : recipients) {
