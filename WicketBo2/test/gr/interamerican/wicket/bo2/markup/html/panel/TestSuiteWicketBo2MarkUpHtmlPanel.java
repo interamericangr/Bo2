@@ -24,6 +24,7 @@ import org.junit.runners.Suite.SuiteClasses;
 @SuiteClasses(
 	{
 		TestSelfDrawnPanel.class,
+		TestSelfDrawnGridPanel.class,
 		TestCallbackActionPanel.class,
 	}
 )

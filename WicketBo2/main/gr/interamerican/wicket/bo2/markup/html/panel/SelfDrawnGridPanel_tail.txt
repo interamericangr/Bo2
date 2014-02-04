@@ -1,0 +1,5 @@
+		</tr>
+	</table>
+</wicket:panel>
+</body>
+</html>

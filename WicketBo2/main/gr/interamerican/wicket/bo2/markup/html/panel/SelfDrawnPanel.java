@@ -38,59 +38,21 @@ import org.apache.wicket.model.CompoundPropertyModel;
  * what it is.
  * <br/>
  * This Panel requires a {@link CompoundPropertyModel}. If the
- * model object of this model changes, the chage is propagated
+ * model object of this model changes, the change is propagated
  * to the contained components.
+ * <br/>
+ * The components are drawn in a simple vertical layout.
  * 
  * @param <T>
  *        Type of model object.
  */
-public class SelfDrawnPanel<T extends Serializable> extends Panel {
+public class SelfDrawnPanel<T extends Serializable> extends BaseSelfDrawnPanel<T> {
 	
     /**
      *serialVersionUID.
      */
     private static final long serialVersionUID = 1L;
     
-    /**
-     * Wicket id of Panel's label.
-     * TODO: is this necessary?
-     */
-    private static final String TITLE_LABEL_WICKET_ID = "titleLabel"; //$NON-NLS-1$
-    
-    /**
-     * Wicket id of label.
-     */
-    private static final String LABEL_WICKET_ID="label"; //$NON-NLS-1$
-    
-    /**
-     * Wicket id of component.
-     */
-    private static final String COMPONENT_WICKET_ID="component"; //$NON-NLS-1$
-   
-    /**
-     * Wicket id for the repeater.
-     */
-    private static final String REPEATER_WICKET_ID = "repeater"; //$NON-NLS-1$
-   
-    /**
-     * Name of index property of {@link BoPropertyDescriptor}.
-     * This is used to sort the components within the panel.
-     */
-    private static final String INDEX_PROPERTY_NAME = "index"; //$NON-NLS-1$
-
-    /**
-     * Creates an empty invisible label.
-     *
-     * @param id Id of the label.
-     *
-     * @return Returns an empty invisible label.
-     */
-    private Label empty(String id) {
-        Label l = new Label(id);
-        l.setVisible(false);
-        return l;
-    }
-
     /**
      * Creates a new SelfDrawnPanelTest object.
      *
