@@ -5,6 +5,8 @@ import gr.interamerican.bo2.utils.StringUtils;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 /**
  * {@link SegmentedDistance} models a set of segments with a set of
@@ -119,6 +121,16 @@ public class SegmentedDistance<A extends Comparable<? super A>,V> {
 			}
 		}
 		return null;
+	}
+	
+	/**
+	 * Gets the ranges that segment the distance.
+	 * 
+	 * @return Returns a sorted set that contains the ranges that segment this 
+	 *         {@link SegmentedDistance}.
+	 */
+	public SortedSet<Range<A>> getSegments() {
+		return new TreeSet<Range<A>>(ranges.keySet());
 	}
 
 }

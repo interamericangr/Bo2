@@ -1,5 +1,7 @@
 package gr.interamerican.bo2.utils.beans;
 
+import java.util.Set;
+
 import gr.interamerican.bo2.utils.StringUtils;
 
 
@@ -77,9 +79,29 @@ public class SegmentedArea
 			}
 			
 		}
-		ySegment.setValue(yLeft, yRight, value);	
-				
+		ySegment.setValue(yLeft, yRight, value);					
 	}
 	
+	/**
+	 * Gets the ranges that segment the X distance.
+	 * 
+	 * @return Returns a sorted set that contains the ranges that segment the
+	 *         X {@link SegmentedDistance}.
+	 */	
+	public Set<Range<X>> getSegmentsX() {
+		return xSegments.getSegments();
+	}
+	
+	/**
+	 * Gets the ranges that segment the X distance.
+	 * 
+	 * @return Returns a sorted set that contains the ranges that segment the
+	 *         X {@link SegmentedDistance}.
+	 */	
+	public Set<Range<X>> getSegmentsY() {
+		
+		
+		return null;
+	}
 
 }
