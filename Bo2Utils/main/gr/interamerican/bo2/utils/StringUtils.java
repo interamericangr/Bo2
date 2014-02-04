@@ -1215,4 +1215,25 @@ public class StringUtils {
 		return string;
 	}
 	
+	/**
+	 * Splits a string into strings by length.
+	 * 
+	 * @param string
+	 * @param length
+	 * 
+	 * @return If the string is null, returns an empty array
+	 *         If the string is not null, returns an array of strings splitted by the length
+	 *         
+	 */         
+	public static String[] splitByLength(String string,int length){
+		if (string==null) {
+			return new String[0];
+		}
+		
+		if(string.length() > 0){
+			return string.split("(?<=\\G.{"+length+"})");
+		}
+		return new String[0];
+	}
+	
 }

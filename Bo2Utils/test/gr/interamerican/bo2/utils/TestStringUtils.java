@@ -949,8 +949,6 @@ public class TestStringUtils {
 	
 	
 	
-	
-	
 	/**
 	 * tests truncateCharsFromEnd
 	 */
@@ -962,6 +960,22 @@ public class TestStringUtils {
 		assertEquals(StringConstants.EMPTY, StringUtils.truncateCharsFromEnd(sample, 5));
 		sample = null;
 		assertNull(StringUtils.truncateCharsFromEnd(sample, 5));
+	}
+	
+	/**
+	 * tests splitByLength
+	 */
+	@Test
+	public void testSplitByLength() {
+		String sample = "lala";
+		
+		for(String s : StringUtils.splitByLength(sample, 2)){
+			assertEquals("la", s);
+		}		
+		assertEquals(0, StringUtils.splitByLength(StringConstants.EMPTY, 2).length);
+		assertEquals(sample, StringUtils.splitByLength(sample, 0)[0]);
+		sample = null;
+		assertEquals(0, StringUtils.splitByLength(sample, 2).length);
 	}
 	
 }
