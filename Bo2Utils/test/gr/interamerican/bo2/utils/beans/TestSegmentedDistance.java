@@ -1,5 +1,6 @@
 package gr.interamerican.bo2.utils.beans;
 
+import java.util.Collection;
 import java.util.Set;
 
 import org.junit.Assert;
@@ -118,6 +119,25 @@ public class TestSegmentedDistance {
 		Assert.assertTrue(segments.contains(r2));		
 	}
 	
+	
+	/**
+	 * Tests setRange.
+	 */
+	@Test
+	public void testGetValues() {
+		SegmentedDistance<Integer, Object> distance = new SegmentedDistance<Integer, Object>();
+		Integer l1 = 0;
+		Integer r1= l1+5;
+		Integer l2 = r1+1;
+		Integer r2 = l2+15;		
+		Object o1 = new Object();
+		Object o2 = null;		
+		distance.setValue(l1, r1, o1);
+		distance.setValue(l2, r2, o2);
+		Collection<Object> values = distance.getValues();
+		Assert.assertTrue(values.contains(o1));
+		Assert.assertTrue(values.contains(null));
+	}
 	
 	
 	

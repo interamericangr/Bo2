@@ -1,5 +1,7 @@
 package gr.interamerican.bo2.utils.beans;
 
+import java.util.Set;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -93,6 +95,28 @@ public class TestSegmentedArea {
 		Assert.assertNull(actual);
 		actual = area.getValue(2, 52L);
 		Assert.assertNull(actual);
+	}
+	
+	/**
+	 * tests setValue().
+	 */
+	@SuppressWarnings("nls")
+	@Test
+	public void testGetValues() {
+		SegmentedArea<Integer, Long, String> area = 
+				new SegmentedArea<Integer, Long, String>();
+		area.setValue(0, 5, 0L, 5L, "A");
+		area.setValue(6, 10, 0L, 5L, "B");
+		area.setValue(11, 15, 0L, 5L, "A");
+		area.setValue(0, 5, 6L, 20L, null);
+		area.setValue(6, 10, 6L, 20L, null);
+		area.setValue(11, 15, 6L, 20L, "C");
+		Set<String> values = area.getValues();
+		Assert.assertEquals(4, values.size());
+		Assert.assertTrue(values.contains("A"));
+		Assert.assertTrue(values.contains("B"));
+		Assert.assertTrue(values.contains("C"));
+		Assert.assertTrue(values.contains(null));
 	}
 
 }

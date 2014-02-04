@@ -1,6 +1,10 @@
 package gr.interamerican.bo2.utils.beans;
 
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import gr.interamerican.bo2.utils.StringUtils;
 
@@ -88,7 +92,7 @@ public class SegmentedArea
 	 * @return Returns a sorted set that contains the ranges that segment the
 	 *         X {@link SegmentedDistance}.
 	 */	
-	public Set<Range<X>> getSegmentsX() {
+	public SortedSet<Range<X>> getSegmentsX() {
 		return xSegments.getSegments();
 	}
 	
@@ -98,10 +102,32 @@ public class SegmentedArea
 	 * @return Returns a sorted set that contains the ranges that segment the
 	 *         X {@link SegmentedDistance}.
 	 */	
-	public Set<Range<X>> getSegmentsY() {
-		
-		
-		return null;
+	public SortedSet<Range<Y>> getSegmentsY() {
+		SortedSet<Range<Y>> yRanges = new TreeSet<Range<Y>>();
+		Set<SegmentedDistance<Y, V>> columns = xSegments.getValues();
+		for (SegmentedDistance<Y, V> column : columns) {
+			Set<Range<Y>> ranges = column.getSegments();
+			yRanges.addAll(ranges);			
+		}
+		return yRanges;
+	}
+	
+	/**
+	 * Gets all values associated with segments in this area.
+	 * 
+	 * If a segment is associated with null, then null will be included 
+	 * in the set of values.
+	 * 
+	 * @return Returns a set containing the values.
+	 */	
+	public Set<V> getValues() {
+		Set<V> values = new HashSet<V>();
+		Set<SegmentedDistance<Y, V>> columns = xSegments.getValues();
+		for (SegmentedDistance<Y, V> column : columns) {
+			Set<V> colValues = column.getValues();
+			values.addAll(colValues);			
+		}
+		return values;
 	}
 
 }

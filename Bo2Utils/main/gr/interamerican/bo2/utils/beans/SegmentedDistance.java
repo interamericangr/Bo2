@@ -2,7 +2,9 @@ package gr.interamerican.bo2.utils.beans;
 
 import gr.interamerican.bo2.utils.StringUtils;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
@@ -131,6 +133,18 @@ public class SegmentedDistance<A extends Comparable<? super A>,V> {
 	 */
 	public SortedSet<Range<A>> getSegments() {
 		return new TreeSet<Range<A>>(ranges.keySet());
+	}
+	
+	/**
+	 * Gets the values associated with segments of this distance.
+	 * 
+	 * If a segment is associated with null, then null will be included 
+	 * in the set of values.
+	 * 
+	 * @return Returns a Set containing the values.
+	 */
+	public Set<V> getValues() {
+		return new HashSet<V>(ranges.values());
 	}
 
 }
