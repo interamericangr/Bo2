@@ -18,6 +18,10 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
 import org.junit.Test;
 
 /**
@@ -27,41 +31,64 @@ public class TestRange {
 	/**
 	 * Instance being tested.
 	 */
-	private Range<Integer> range = new Range<Integer>(10,20);
+	private Range<Integer> r10to20 = new Range<Integer>(10,20);
 	
 	/**
 	 * test for contains().
 	 */
 	@Test
 	public void testContains() {
-		assertFalse(range.contains(-15));
-		assertTrue(range.contains(10));
-		assertTrue(range.contains(15));
-		assertTrue(range.contains(20));
-		assertFalse(range.contains(45));
+		assertFalse(r10to20.contains(-15));
+		assertTrue(r10to20.contains(10));
+		assertTrue(r10to20.contains(15));
+		assertTrue(r10to20.contains(20));
+		assertFalse(r10to20.contains(45));
 	}
 	
 	/**
-	 * test for overlasWith().
+	 * test for overlasWith(range).
 	 */
 	@Test
-	public void testOverlapsWith() {
-		assertFalse(range.overlapsWith(new Range<Integer>(0,5)));
-		assertTrue(range.overlapsWith(new Range<Integer>(0,10)));
-		assertTrue(range.overlapsWith(new Range<Integer>(0,15)));
-		assertTrue(range.overlapsWith(new Range<Integer>(10,20)));
-		assertTrue(range.overlapsWith(new Range<Integer>(12,15)));
-		assertTrue(range.overlapsWith(new Range<Integer>(12,25)));
-		assertTrue(range.overlapsWith(new Range<Integer>(20,30)));
-		assertFalse(range.overlapsWith(new Range<Integer>(30,40)));
+	public void testOverlapsWith_single() {
+		assertFalse(r10to20.overlapsWith(new Range<Integer>(0,5)));
+		assertTrue(r10to20.overlapsWith(new Range<Integer>(0,10)));
+		assertTrue(r10to20.overlapsWith(new Range<Integer>(0,15)));
+		assertTrue(r10to20.overlapsWith(new Range<Integer>(10,20)));
+		assertTrue(r10to20.overlapsWith(new Range<Integer>(12,15)));
+		assertTrue(r10to20.overlapsWith(new Range<Integer>(12,25)));
+		assertTrue(r10to20.overlapsWith(new Range<Integer>(20,30)));
+		assertFalse(r10to20.overlapsWith(new Range<Integer>(30,40)));
 	}
+	
+	/**
+	 * test for overlapsWith(collection).
+	 */
+	@Test
+	public void testOverlapsWith_OverlappingArray() {
+		List<Range<Integer>> list = new ArrayList<Range<Integer>>();
+		list.add(new Range<Integer>(0,5));
+		list.add(new Range<Integer>(18,25));
+		assertTrue(r10to20.overlapsWith(list));
+	}
+	
+	/**
+	 * test for overlapsWith(collection).
+	 */
+	@Test
+	public void testOverlapsWith_NonOverlappingArray() {
+		List<Range<Integer>> list = new ArrayList<Range<Integer>>();
+		list.add(new Range<Integer>(0,5));
+		list.add(new Range<Integer>(58,65));
+		assertFalse(r10to20.overlapsWith(list));
+	}
+
 	
 	/**
 	 * test for static Range.contains().
 	 */
 	@Test
 	public void testStaticContains() {
-		assertTrue(Range.contains(range, 15));
+		assertTrue(Range.contains(r10to20, 15));
 	}
 	
 	/**
@@ -69,7 +96,7 @@ public class TestRange {
 	 */
 	@Test(expected=ClassCastException.class)
 	public void testStaticContains_WithClassCastExceptionForLong() {
-		Range.contains(range, 1L);
+		Range.contains(r10to20, 1L);
 	}
 	
 	/**
@@ -77,7 +104,7 @@ public class TestRange {
 	 */
 	@Test(expected=ClassCastException.class)
 	public void testStaticContains_WithClassCastExceptionForString() {
-		Range.contains(range, "this"); //$NON-NLS-1$
+		Range.contains(r10to20, "this"); //$NON-NLS-1$
 	}
 	
 	
@@ -133,16 +160,16 @@ public class TestRange {
 	 */
 	@Test
 	public void testCompareTo() {		
-		assertTrue(range.compareTo(new Range<Integer>(0,5))>0);
-		assertTrue(range.compareTo(new Range<Integer>(0,10))>0);
-		assertTrue(range.compareTo(new Range<Integer>(0,15))>0);
-		assertTrue(range.compareTo(new Range<Integer>(0,30))>0);
-		assertTrue(range.compareTo(new Range<Integer>(10,20))==0);
-		assertTrue(range.compareTo(new Range<Integer>(12,15))<0);
-		assertTrue(range.compareTo(new Range<Integer>(12,25))<0);
-		assertTrue(range.compareTo(new Range<Integer>(20,30))<0);
-		assertTrue(range.compareTo(new Range<Integer>(30,40))<0);
-		assertTrue(range.compareTo(null)==1);
+		assertTrue(r10to20.compareTo(new Range<Integer>(0,5))>0);
+		assertTrue(r10to20.compareTo(new Range<Integer>(0,10))>0);
+		assertTrue(r10to20.compareTo(new Range<Integer>(0,15))>0);
+		assertTrue(r10to20.compareTo(new Range<Integer>(0,30))>0);
+		assertTrue(r10to20.compareTo(new Range<Integer>(10,20))==0);
+		assertTrue(r10to20.compareTo(new Range<Integer>(12,15))<0);
+		assertTrue(r10to20.compareTo(new Range<Integer>(12,25))<0);
+		assertTrue(r10to20.compareTo(new Range<Integer>(20,30))<0);
+		assertTrue(r10to20.compareTo(new Range<Integer>(30,40))<0);
+		assertTrue(r10to20.compareTo(null)==1);
 	}
 	
 	/**

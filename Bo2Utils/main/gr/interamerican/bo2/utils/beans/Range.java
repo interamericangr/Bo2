@@ -12,6 +12,8 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.beans;
 
+import java.util.Collection;
+
 import gr.interamerican.bo2.utils.Utils;
 
 
@@ -95,6 +97,26 @@ implements Comparable<Range<T>> {
 		|| range.contains(this.getLeft())
 		|| range.contains(this.getRight());
 	}
+	
+	/**
+	 * Checks if this range overlaps with any of the ranges in the
+	 * specified collection.
+	 * 
+	 * @param ranges
+	 *        Collection of ranges being checked for overlapping
+	 *        with this range.
+	 *        
+	 * @return Returns true if this range overlapps with any of the ranges
+	 * in the collection. Otherwise returns false.
+	 */
+	public boolean overlapsWith(Collection<Range<T>> ranges) {
+		for (Range<T> r : ranges ) {
+			if (this.overlapsWith(r)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	/**
 	 * Checks if a value is contained within this range.
@@ -131,5 +153,7 @@ implements Comparable<Range<T>> {
 		Comparable val = (Comparable) object;
 		return range.contains(val);
 	}
+	
+  
     
 }
