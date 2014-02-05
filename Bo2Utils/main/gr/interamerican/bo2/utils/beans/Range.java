@@ -154,6 +154,26 @@ implements Comparable<Range<T>> {
 		return range.contains(val);
 	}
 	
+	
+	/**
+	 * Type unsafe factory method. 
+	 *  
+	 * Casts the specified <code>left</code> and <code>right</code> arguments
+	 * to <code>Comparable</code> and then creates a new {@link Range} with the
+	 * specified limits.
+	 *  
+	 * @param left
+	 * @param right
+	 * 
+	 * @return Returns a new Range with the specified limits.
+	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public static Range range(Object left, Object right) {
+		Comparable l = (Comparable) left;
+		Comparable r = (Comparable) right;
+		return new Range(l,r);
+	}
+	
   
     
 }

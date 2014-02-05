@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -197,6 +198,20 @@ public class TestRange {
 		Integer right = 4;
 		Range<Integer> r = new Range<Integer>(left, right);	
 		r.setRight(null);
+	}
+	
+	/**
+	 * test for static Range.contains().
+	 */	
+	@SuppressWarnings("rawtypes")
+	@Test
+	public void testRange() {
+		Integer left = 3;
+		Integer right = 4;
+		Range r = Range.range(left, right);
+		Assert.assertNotNull(r);
+		Assert.assertEquals(left, r.getLeft());
+		Assert.assertEquals(right, r.getRight());
 	}
 	
 }
