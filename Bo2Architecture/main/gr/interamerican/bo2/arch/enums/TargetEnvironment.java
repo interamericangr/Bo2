@@ -34,6 +34,16 @@ public enum TargetEnvironment {
 	/**
 	 * The application is in production.
 	 */
+	MIGRATION,
+	
+	/**
+	 * The application is in production.
+	 */
+	PRDEV,
+	
+	/**
+	 * The application is in production.
+	 */
 	PRODUCTION;
 
 }

@@ -385,7 +385,11 @@ public class Bo2WicketRequestCycle extends WebRequestCycle {
 		LOGGER.error(msg);
 		
 		try {
-			String[] recipients = new String[]{"zabelid", "katerosd", "sofrasth", "nakoss", "milonakisv"};
+			String[] recipients = recepients();
+			if(recipients == null) {
+				return;
+			}
+
 			MailMessage m = new MailMessage();
 			m.setFrom("no-reply@interamerican.gr");
 			for (String recipient : recipients) {
@@ -396,6 +400,20 @@ public class Bo2WicketRequestCycle extends WebRequestCycle {
 			m.send();
 		} catch (Exception e) {
 			LOGGER.error("Failed to notify CouldNotCommitException by email due to: " + e.getMessage());
+		}
+	}
+	
+	/**
+	 * @return Emergency email recepients
+	 */
+	String[] recepients() {
+		switch(Bo2.getDefaultDeployment().getDeploymentBean().getTargetEnvironment()) {
+			case UAT:
+				return new String[]{"skondrasp", "katerosd", "sofrasth", "nakoss", "milonakisv"};
+			case PRODUCTION:
+				return new String[]{"zabelid", "katerosd", "sofrasth", "nakoss", "milonakisv"};
+			default:
+				return null;
 		}
 	}
 
