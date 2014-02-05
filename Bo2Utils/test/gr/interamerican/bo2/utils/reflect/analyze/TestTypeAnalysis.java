@@ -432,7 +432,7 @@ public class TestTypeAnalysis {
 		Assert.assertEquals(2, analysis.getConcreteGetters().size());
 		Assert.assertEquals(2,analysis.getConcreteSetters().size());	
 		Assert.assertEquals(
-				OBJECT_METHODS_COUNT + COMPARABLE_METHODS_COUNT + 2, 
+				OBJECT_METHODS_COUNT + COMPARABLE_METHODS_COUNT + 3, 
 				analysis.concreteMethods.size());		
 		
 		Assert.assertEquals(2,analysis.allProperties.size());
