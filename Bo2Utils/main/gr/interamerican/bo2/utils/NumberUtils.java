@@ -401,6 +401,19 @@ public class NumberUtils {
     	}
     	Class<?> clazz = number.getClass();
     	return clazz==Float.class || clazz==Double.class || clazz==BigDecimal.class;
-    }
+	}
 
+	/**
+	 * Returns true if the argument Number is either null or zero.
+	 * 
+	 * @param number
+	 *            Number to check
+	 * @return True if it is Zero or Null
+	 */
+	public static boolean isNullOrZero(Number number) {
+		if (number == null) {
+			return true;
+		}
+		return number.doubleValue() == 0;
+	}
 }

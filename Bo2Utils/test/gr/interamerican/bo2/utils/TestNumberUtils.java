@@ -463,4 +463,16 @@ public class TestNumberUtils {
 		}
 	}
 	
+	/**
+	 * test isNullOrZero
+	 */
+	@Test
+	public void testIsNullOrZero() {
+		assertTrue(NumberUtils.isNullOrZero(null));
+		assertTrue(NumberUtils.isNullOrZero(0L));
+		assertTrue(NumberUtils.isNullOrZero(0.0));
+		assertTrue(NumberUtils.isNullOrZero(BigDecimal.ZERO));
+		assertFalse(NumberUtils.isNullOrZero(0.1));
+		assertFalse(NumberUtils.isNullOrZero(10L));
+	}
 }
