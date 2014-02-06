@@ -35,6 +35,8 @@ public class HibernateVariableDefinition extends VariableDefinition {
 	
 	String role;
 	
+	String hashCode;
+	
 	/**
 	 * Creates a new HibernateVariableDefinition object. 
 	 *
@@ -61,6 +63,7 @@ public class HibernateVariableDefinition extends VariableDefinition {
 	static HibernateVariableDefinition createForProxy(HibernateProxy proxy, String name, Class<?> fieldType) {
 		HibernateVariableDefinition result = new HibernateVariableDefinition(name, fieldType);
 		result.status = "HibernateProxy";
+		result.hashCode = String.valueOf(System.identityHashCode(proxy));
 		
 		boolean initialized = !proxy.getHibernateLazyInitializer().isUninitialized();
 		
@@ -92,6 +95,7 @@ public class HibernateVariableDefinition extends VariableDefinition {
 	static HibernateVariableDefinition createForInitializedProxy(HibernateProxy proxy, String name, Class<?> fieldType) {
 		HibernateVariableDefinition result = new HibernateVariableDefinition(name, fieldType);
 		result.status = "Initialized HibernateProxy";
+		result.hashCode = String.valueOf(System.identityHashCode(proxy));
 		result.initialized = StringUtils.toString(true);
 		
 		Object implementation = proxy.getHibernateLazyInitializer().getImplementation();
@@ -127,7 +131,7 @@ public class HibernateVariableDefinition extends VariableDefinition {
 		
 		HibernateVariableDefinition result = new HibernateVariableDefinition(name, fieldType);
 		result.status = "PersistentCollection";
-		
+		result.hashCode = String.valueOf(System.identityHashCode(collection));
 		result.initialized = StringUtils.toString(apc.wasInitialized());
 		
 		SessionImplementor session = apc.getSession();
@@ -145,6 +149,7 @@ public class HibernateVariableDefinition extends VariableDefinition {
 	static HibernateVariableDefinition createForPersistentObject(PersistentObject<?> po, String name, Class<?> fieldType) {
 		HibernateVariableDefinition result = new HibernateVariableDefinition(name, fieldType);
 		result.status = "PersistentObject";
+		result.hashCode = String.valueOf(System.identityHashCode(po));
 		result.initialized = "N/A";
 		result.attached = "N/A";
 		result.setValue(po);
@@ -173,7 +178,8 @@ public class HibernateVariableDefinition extends VariableDefinition {
 				StringUtils.squareBrackets("attached: " + this.attached),
 				StringUtils.squareBrackets("lastModified: " + lastModified),
 				StringUtils.squareBrackets("id: " + this.id),
-				StringUtils.squareBrackets("role: " + this.role));
+				StringUtils.squareBrackets("role: " + this.role),
+				StringUtils.squareBrackets("hashCode: " + this.hashCode));
 			return StringUtils.squareBrackets(fields);
 	}
 
