@@ -40,9 +40,10 @@ extends AbstractSelfDrawnTextField<T> {
 	 *
 	 * @param id
 	 * @param descriptor
+	 * @param type 
 	 */
-	public AbstractSelfDrawnNumberTextField(String id, NumberBoPropertyDescriptor<T> descriptor) {
-		super(id, descriptor);
+	public AbstractSelfDrawnNumberTextField(String id, NumberBoPropertyDescriptor<T> descriptor, Class<T> type) {
+		super(id, descriptor, type);
 	}
 	
 	/**
@@ -51,16 +52,14 @@ extends AbstractSelfDrawnTextField<T> {
      * @param id
      * @param descriptor
      * @param model
+	 * @param type 
      */
-    public AbstractSelfDrawnNumberTextField(String id, IModel<T> model, NumberBoPropertyDescriptor<T> descriptor) {
-        super(id, model, descriptor);
+    public AbstractSelfDrawnNumberTextField(String id, IModel<T> model, NumberBoPropertyDescriptor<T> descriptor, Class<T> type) {
+        super(id, model, descriptor, type);
     }
     
 	@Override
 	public IConverter getConverter(final Class<?> type) {
-		if(type!=getModelObjectClass()) {
-			return super.getConverter(type);
-		}
 		AbstractDecimalConverter result = getNumberCoverter();
 		if(result == null) {
 			return super.getConverter(type);
@@ -79,9 +78,4 @@ extends AbstractSelfDrawnTextField<T> {
 	 */
 	protected abstract AbstractDecimalConverter getNumberCoverter();
 	
-	/**
-	 * @return Returns the model object class. This should conform to Class<T>
-	 */
-	protected abstract Class<T> getModelObjectClass(); 
-
 }

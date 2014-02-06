@@ -35,7 +35,7 @@ public class SelfDrawnDoubleTextField extends AbstractSelfDrawnNumberTextField<D
 	 * @param descriptor
 	 */
 	public SelfDrawnDoubleTextField(String id, NumberBoPropertyDescriptor<Double> descriptor) {
-		super(id, descriptor);
+		super(id, descriptor, Double.class);
 	}
 	
 	/**
@@ -46,17 +46,12 @@ public class SelfDrawnDoubleTextField extends AbstractSelfDrawnNumberTextField<D
 	 * @param model
 	 */
 	public SelfDrawnDoubleTextField(String id, IModel<Double> model, NumberBoPropertyDescriptor<Double> descriptor) {
-		super(id, model, descriptor);
+		super(id, model, descriptor, Double.class);
 	}
 	
 	@Override
 	protected AbstractDecimalConverter getNumberCoverter() {
 		return new DoubleConverter();
-	}
-	
-	@Override
-	protected Class<Double> getModelObjectClass() {
-		return Double.class;
 	}
 	
 }

@@ -35,7 +35,7 @@ public class SelfDrawnFloatTextField extends AbstractSelfDrawnNumberTextField<Fl
 	 * @param descriptor
 	 */
 	public SelfDrawnFloatTextField(String id, NumberBoPropertyDescriptor<Float> descriptor) {
-		super(id, descriptor);
+		super(id, descriptor, Float.class);
 	}
 	
 	/**
@@ -46,17 +46,12 @@ public class SelfDrawnFloatTextField extends AbstractSelfDrawnNumberTextField<Fl
 	 * @param descriptor
 	 */
 	public SelfDrawnFloatTextField(String id, IModel<Float> model, NumberBoPropertyDescriptor<Float> descriptor) {
-		super(id, model, descriptor);
+		super(id, model, descriptor, Float.class);
 	}
 	
 	@Override
 	protected AbstractDecimalConverter getNumberCoverter() {
 		return new FloatConverter();
-	}
-	
-	@Override
-	protected Class<Float> getModelObjectClass() {
-		return Float.class;
 	}
 	
 }

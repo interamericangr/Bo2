@@ -39,7 +39,7 @@ extends AbstractSelfDrawnNumberTextField<BigDecimal>{
 	 * @param model
 	 */
 	public SelfDrawnBigDecimalTextField(String id, IModel<BigDecimal> model, NumberBoPropertyDescriptor<BigDecimal> descriptor) {
-		super(id, model, descriptor);
+		super(id, model, descriptor, BigDecimal.class);
 	}
 	
 	/**
@@ -49,17 +49,12 @@ extends AbstractSelfDrawnNumberTextField<BigDecimal>{
 	 * @param descriptor
 	 */
 	public SelfDrawnBigDecimalTextField(String id, NumberBoPropertyDescriptor<BigDecimal> descriptor) {
-		super(id, descriptor);
+		super(id, descriptor, BigDecimal.class);
 	}
 
 	@Override
 	protected AbstractDecimalConverter getNumberCoverter() {
 		return new BigDecimalConverter();
-	}
-	
-	@Override
-	protected Class<BigDecimal> getModelObjectClass() {
-		return BigDecimal.class;
 	}
 
 }

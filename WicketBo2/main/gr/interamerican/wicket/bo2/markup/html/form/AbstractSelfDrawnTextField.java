@@ -47,9 +47,10 @@ public abstract class AbstractSelfDrawnTextField<T extends Serializable> extends
      * @param id
      * @param descriptor
      * @param model
+     * @param type 
      */
-    public AbstractSelfDrawnTextField(String id, IModel<T> model, BoPropertyDescriptor<T> descriptor) {
-        super(id, model);
+    public AbstractSelfDrawnTextField(String id, IModel<T> model, BoPropertyDescriptor<T> descriptor, Class<T> type) {
+        super(id, model, type);
         this.descriptor = descriptor;
         SelfDrawnUtils.<T>standardSelfDrawnFormComponentStuff(this, descriptor);
     }
@@ -59,9 +60,10 @@ public abstract class AbstractSelfDrawnTextField<T extends Serializable> extends
      *
      * @param id
      * @param descriptor
+     * @param type 
      */
-    public AbstractSelfDrawnTextField(String id, BoPropertyDescriptor<T> descriptor) {
-        super(id, new Model<T>());
+    public AbstractSelfDrawnTextField(String id, BoPropertyDescriptor<T> descriptor, Class<T> type) {
+        super(id, new Model<T>(), type);
         this.descriptor = descriptor;
         SelfDrawnUtils.<T>standardSelfDrawnFormComponentStuff(this, descriptor);
     }

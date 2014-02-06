@@ -16,7 +16,9 @@ import gr.interamerican.bo2.utils.meta.descriptors.DoubleBoPropertyDescriptor;
 import gr.interamerican.wicket.markup.html.TestPage;
 import gr.interamerican.wicket.test.WicketTest;
 
+import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.util.tester.FormTester;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -36,10 +38,12 @@ public class TestSelfDrawnDoubleTextField extends WicketTest {
 		tester.startPage(testPageSource(field));
 		Assert.assertSame(field,tester.getComponentFromLastRenderedPage(subjectPath()));
 		Assert.assertNull(field.getDefaultModelObject());
+		
+		testFormSubmission(field);
 	}
 	
 	/**
-	 * Test creation.
+	 * Test creation and form submission.
 	 */
 	@Test
 	public void testConstructor_withModel_noDefault() {
@@ -48,7 +52,8 @@ public class TestSelfDrawnDoubleTextField extends WicketTest {
 			new SelfDrawnDoubleTextField(TestPage.TEST_ID, new Model<Double>(), descriptor);
 		tester.startPage(testPageSource(field));
 		Assert.assertSame(field,tester.getComponentFromLastRenderedPage(subjectPath()));
-		Assert.assertNull(field.getDefaultModelObject());
+		
+		testFormSubmission(field);
 	}
 	
 	
@@ -71,6 +76,8 @@ public class TestSelfDrawnDoubleTextField extends WicketTest {
 		//field = new SelfDrawnBigDecimalTextField(TestPage.TEST_ID, new Model<BigDecimal>(), descriptor);
 		
 		Assert.assertEquals(defaultValue, field.getDefaultModelObject());
+		
+		testFormSubmission(field);
 	}
 	
 	/**
@@ -87,6 +94,18 @@ public class TestSelfDrawnDoubleTextField extends WicketTest {
 		tester.startPage(testPageSource(field));
 		Assert.assertSame(field,tester.getComponentFromLastRenderedPage(subjectPath()));
 		Assert.assertEquals(defaultValue, field.getDefaultModelObject());
+		
+		testFormSubmission(field);
+	}
+	
+	/**
+	 * @param textField
+	 */
+	private void testFormSubmission(TextField<Double> textField) {
+		FormTester formTester = tester.newFormTester(formPath());
+		formTester.setValue(TestPage.TEST_ID, "10,0"); //$NON-NLS-1$
+		formTester.submit();
+		Assert.assertEquals(new Double(10.0), textField.getModelObject());
 	}
 
 }

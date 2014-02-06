@@ -34,7 +34,7 @@ public class SelfDrawnStringTextField extends AbstractSelfDrawnTextField<String>
      * @param descriptor
      */
     public SelfDrawnStringTextField(String id, StringBoPropertyDescriptor descriptor) {
-        super(id, descriptor);
+        super(id, descriptor, String.class);
         SelfDrawnUtils.<String>standardSelfDrawnFormComponentStuff(this, descriptor);
     }
    
@@ -46,7 +46,7 @@ public class SelfDrawnStringTextField extends AbstractSelfDrawnTextField<String>
      * @param descriptor
      */
     public SelfDrawnStringTextField(String id, IModel<String> model, StringBoPropertyDescriptor descriptor) {
-        super(id, model, descriptor);
+        super(id, model, descriptor, String.class);
         SelfDrawnUtils.<String>standardSelfDrawnFormComponentStuff(this, descriptor);
     }
 
