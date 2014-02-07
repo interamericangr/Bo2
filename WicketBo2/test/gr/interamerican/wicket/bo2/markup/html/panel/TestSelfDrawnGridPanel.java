@@ -19,6 +19,7 @@ import gr.interamerican.bo2.utils.meta.descriptors.BoPropertyDescriptor;
 import gr.interamerican.bo2.utils.meta.descriptors.DoubleBoPropertyDescriptor;
 import gr.interamerican.bo2.utils.meta.descriptors.IntegerBoPropertyDescriptor;
 import gr.interamerican.bo2.utils.meta.descriptors.StringBoPropertyDescriptor;
+import gr.interamerican.wicket.bo2.markup.html.form.SelfDrawnStringTextField;
 import gr.interamerican.wicket.markup.html.TestPage;
 import gr.interamerican.wicket.test.WicketTest;
 
@@ -35,6 +36,7 @@ import org.junit.Test;
 /**
  * Unit tests for {@link SelfDrawnPanel}.
  */
+@SuppressWarnings("nls")
 public class TestSelfDrawnGridPanel extends WicketTest {
 	
 	/**
@@ -51,7 +53,7 @@ public class TestSelfDrawnGridPanel extends WicketTest {
 		tester.startPage(testPageSource());
 		
 		@SuppressWarnings("unchecked")
-		TextField<Integer> tf =  (TextField<Integer>) tester.getComponentFromLastRenderedPage(path("repeater:field1field2:component1")); //$NON-NLS-1$
+		TextField<Integer> tf =  (TextField<Integer>) tester.getComponentFromLastRenderedPage(path("repeater:field1field2:component1"));
 		
 		Integer actual = tf.getModel().getObject();
 		Integer expected = model.getObject().getField2();
@@ -60,11 +62,35 @@ public class TestSelfDrawnGridPanel extends WicketTest {
 		/*
 		 * Change the model object and assert correct propagation to components.
 		 */
-		model.setObject(new BeanWith3Fields("1", 2, 1d)); //$NON-NLS-1$
+		model.setObject(new BeanWith3Fields("1", 2, 1d));
 		
 		actual = tf.getModel().getObject();
 		expected = model.getObject().getField2();
 		Assert.assertEquals(expected, actual);
+	}
+	
+	/**
+	 * Test creation and correct model propagation.
+	 */
+	@Test
+	public void testSelfDrawnGridPanel_submit() {
+		tester.startPage(testPageSource());
+		
+		tester.assertComponent(path("repeater:field1field2:component0"), SelfDrawnStringTextField.class);
+		SelfDrawnStringTextField tf =  (SelfDrawnStringTextField) tester.getComponentFromLastRenderedPage(path("repeater:field1field2:component0"));
+		Assert.assertTrue(tf.getConvertEmptyInputStringToNull());
+		
+		FormTester formTester = tester.newFormTester(formPath());
+		formTester.setValue(TestPage.TEST_ID + ":repeater:field1field2:component0", ""); //$NON-NLS-2$
+		formTester.setValue(TestPage.TEST_ID + ":repeater:field1field2:component1", "10"); //$NON-NLS-2$
+		formTester.setValue(TestPage.TEST_ID + ":repeater:field3:component0", "10,1"); //$NON-NLS-2$
+		formTester.submit();
+		
+		Assert.assertFalse(getFeedbackPanel().anyErrorMessage());
+		
+		Assert.assertNull(model.getObject().getField1());
+		Assert.assertEquals(new Integer(10) , model.getObject().getField2());
+		Assert.assertEquals(new Double(10.1), model.getObject().getField3());
 	}
 	
 	/**
@@ -75,19 +101,19 @@ public class TestSelfDrawnGridPanel extends WicketTest {
 		tester.startPage(testPageSource());
 		Assert.assertFalse(getFeedbackPanel().anyErrorMessage());
 		FormTester formTester = tester.newFormTester(formPath());
-		formTester.setValue(TestPage.TEST_ID + ":repeater:field1field2:component1", "-10"); //$NON-NLS-1$ //$NON-NLS-2$
+		formTester.setValue(TestPage.TEST_ID + ":repeater:field1field2:component1", "-10"); //$NON-NLS-2$
 		formTester.submit(TestPage.SUBMIT_BUTTON_ID);
 		Assert.assertTrue(getFeedbackPanel().anyErrorMessage());
 		/*
 		 * This is added to refresh the markup with the feedback panel message.
 		 * It is not necessary for the test.
 		 */
-		tester.executeAjaxEvent(getAjaxButton(), "onclick"); //$NON-NLS-1$
+		tester.executeAjaxEvent(getAjaxButton(), "onclick");
 	}
 	
 	@Override
 	protected Component initializeComponent() {
-		model = new CompoundPropertyModel<BeanWith3Fields>(new BeanWith3Fields("1", 1, 1d)); //$NON-NLS-1$
+		model = new CompoundPropertyModel<BeanWith3Fields>(new BeanWith3Fields("1", 1, 1d));
 		return new SelfDrawnGridPanel<BeanWith3Fields>(TestPage.TEST_ID, model, createBod(), 2);
 	}
 	
@@ -111,9 +137,10 @@ public class TestSelfDrawnGridPanel extends WicketTest {
 		StringBoPropertyDescriptor sbpd = new StringBoPropertyDescriptor();
 		sbpd.setClassName(BeanWith3Fields.class.getName());
 		sbpd.setHasDefault(false);
-		sbpd.setName("field1"); //$NON-NLS-1$
+		sbpd.setName("field1");
 		sbpd.setPackageName(BeanWith3Fields.class.getPackage().getName());
-		sbpd.setNullAllowed(false);
+		sbpd.setNullAllowed(true);
+		sbpd.setIndex(1);
         return sbpd;
     }
 	
@@ -124,10 +151,11 @@ public class TestSelfDrawnGridPanel extends WicketTest {
 		IntegerBoPropertyDescriptor ibpd = new IntegerBoPropertyDescriptor();
 		ibpd.setClassName(BeanWith3Fields.class.getName());
 		ibpd.setHasDefault(false);
-		ibpd.setName("field2"); //$NON-NLS-1$
+		ibpd.setName("field2");
 		ibpd.setPackageName(BeanWith3Fields.class.getPackage().getName());
 		ibpd.setNullAllowed(false);
 		ibpd.setNegativeAllowed(false);
+		ibpd.setIndex(2);
         return ibpd;
     }
 	
@@ -138,10 +166,11 @@ public class TestSelfDrawnGridPanel extends WicketTest {
 		DoubleBoPropertyDescriptor dbpd = new DoubleBoPropertyDescriptor();
 		dbpd.setClassName(BeanWith3Fields.class.getName());
 		dbpd.setHasDefault(false);
-		dbpd.setName("field3"); //$NON-NLS-1$
+		dbpd.setName("field3");
 		dbpd.setPackageName(BeanWith3Fields.class.getPackage().getName());
 		dbpd.setNullAllowed(false);
 		dbpd.setNegativeAllowed(false);
+		dbpd.setIndex(3);
         return dbpd;
     }
 	
