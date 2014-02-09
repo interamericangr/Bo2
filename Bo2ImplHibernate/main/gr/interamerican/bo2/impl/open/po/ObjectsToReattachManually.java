@@ -14,7 +14,7 @@ package gr.interamerican.bo2.impl.open.po;
 
 import gr.interamerican.bo2.arch.PersistentObject;
 import gr.interamerican.bo2.utils.ReflectionUtils;
-import gr.interamerican.bo2.utils.adapters.AnyOperation;
+import gr.interamerican.bo2.utils.adapters.Transformation;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -39,7 +39,7 @@ import org.hibernate.proxy.HibernateProxy;
  * to an {@link AbstractBasePo} does not alter its state. 
  */
 public class ObjectsToReattachManually 
-implements AnyOperation<AbstractBasePo<?>, Set<Object>> {
+implements Transformation<AbstractBasePo<?>, Set<Object>> {
 	
 	/**
 	 * Singleton.

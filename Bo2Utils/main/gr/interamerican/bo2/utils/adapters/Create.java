@@ -26,7 +26,7 @@ import java.lang.reflect.Constructor;
  *        Type of result.
  */
 public class Create<A,R> 
-implements AnyOperation<A, R> {
+implements Transformation<A, R> {
 	
 	/**
 	 * Class of argument.

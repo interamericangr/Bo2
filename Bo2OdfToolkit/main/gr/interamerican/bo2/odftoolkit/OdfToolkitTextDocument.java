@@ -17,7 +17,7 @@ import gr.interamerican.bo2.odftoolkit.utils.OdfUtils;
 import gr.interamerican.bo2.odftoolkit.utils.StyleUtils;
 import gr.interamerican.bo2.odftoolkit.utils.VariableContainerUtils;
 import gr.interamerican.bo2.utils.AdapterUtils;
-import gr.interamerican.bo2.utils.adapters.AnyOperation;
+import gr.interamerican.bo2.utils.adapters.Transformation;
 import gr.interamerican.bo2.utils.adapters.GetProperty;
 import gr.interamerican.bo2.utils.doc.BusinessDocument;
 import gr.interamerican.bo2.utils.doc.DocumentEngine;
@@ -90,13 +90,13 @@ public class OdfToolkitTextDocument implements BusinessDocument {
 	
 	public List<String> getFields() throws DocumentEngineException {
 		List<TextUserFieldDeclElement> userFields = VariableContainerUtils.getUserFields(document);		
-		AnyOperation<TextUserFieldDeclElement, String> getUserFieldName = 
+		Transformation<TextUserFieldDeclElement, String> getUserFieldName = 
 			new GetProperty<TextUserFieldDeclElement, String>
 			("textNameAttribute", TextUserFieldDeclElement.class); //$NON-NLS-1$
 		List<String> fields = AdapterUtils.apply(userFields, getUserFieldName);
 		
 		List<TextVariableDeclElement> variables = VariableContainerUtils.getVariables(document);
-		AnyOperation<TextVariableDeclElement, String> getVariableName = 
+		Transformation<TextVariableDeclElement, String> getVariableName = 
 			new GetProperty<TextVariableDeclElement, String>
 			("textNameAttribute", TextVariableDeclElement.class); //$NON-NLS-1$
 		List<String> variableNames = AdapterUtils.apply(variables, getVariableName);

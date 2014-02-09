@@ -22,7 +22,7 @@ import gr.interamerican.bo2.arch.ext.TypedSelectable;
 import gr.interamerican.bo2.impl.open.runtime.AbstractBo2RuntimeCmd;
 import gr.interamerican.bo2.samples.queries.TsEntitiesQueryImpl;
 import gr.interamerican.bo2.utils.Utils;
-import gr.interamerican.bo2.utils.adapters.AnyOperation;
+import gr.interamerican.bo2.utils.adapters.Transformation;
 
 import java.util.List;
 
@@ -97,7 +97,7 @@ public class TestWorkerUtils {
 	/**
 	 * Transforms a {@link TypedSelectable} to a {@link CodifiedImpl}.
 	 */
-	private class Adapter implements AnyOperation<TypedSelectable<Long>, CodifiedImpl> {
+	private class Adapter implements Transformation<TypedSelectable<Long>, CodifiedImpl> {
 		public CodifiedImpl execute(TypedSelectable<Long> a) {
 			CodifiedImpl codified = new CodifiedImpl();
 			codified.setCode(a.getCode());

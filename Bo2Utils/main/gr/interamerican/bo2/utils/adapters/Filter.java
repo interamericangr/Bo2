@@ -26,7 +26,7 @@ import gr.interamerican.bo2.utils.conditions.Condition;
  * @param <T>
  *        Type of objects being filtered. 
  */
-public class Filter<T> implements AnyOperation<T, T> {
+public class Filter<T> implements Transformation<T, T> {
 	/**
 	 * Creates a new Filter object. 
 	 *

@@ -18,7 +18,7 @@ import gr.interamerican.bo2.arch.utils.beans.MoneyImpl;
 import gr.interamerican.bo2.samples.archutil.beans.MoneyBean;
 import gr.interamerican.bo2.samples.archutil.conditions.IsGreaterThanZero;
 import gr.interamerican.bo2.utils.AdapterUtils;
-import gr.interamerican.bo2.utils.adapters.AnyOperation;
+import gr.interamerican.bo2.utils.adapters.Transformation;
 import gr.interamerican.bo2.utils.adapters.MultipleStepsCreate;
 import gr.interamerican.bo2.utils.conditions.Condition;
 
@@ -89,7 +89,7 @@ public class TestMoneyUtils {
 	@SuppressWarnings("nls")
 	@Test
 	public void testCalculatePercentage_withPercentage() {
-		AnyOperation<String, MoneyBean> create = 
+		Transformation<String, MoneyBean> create = 
 			new MultipleStepsCreate<String, MoneyBean>
 			(String.class, BigDecimal.class, MoneyBean.class);
 		String[] amountsArray = {"32.25", "78.15", "96.22", "11.11", "23.14"};
@@ -122,7 +122,7 @@ public class TestMoneyUtils {
 	@SuppressWarnings("nls")
 	@Test
 	public void testCalculatePercentage_withProperty() {
-		AnyOperation<String, MoneyBean> create = 
+		Transformation<String, MoneyBean> create = 
 			new MultipleStepsCreate<String, MoneyBean>
 			(String.class, BigDecimal.class, MoneyBean.class);
 		String[] amountsArray = {"32.25", "78.15", "96.22", "11.11", "23.14"};

@@ -25,7 +25,6 @@ import org.junit.runners.Suite.SuiteClasses;
 	{
 
 		TestFormatArray.class,
-		TestToString.class,
 		TestToProperties.class,
 	}
 )

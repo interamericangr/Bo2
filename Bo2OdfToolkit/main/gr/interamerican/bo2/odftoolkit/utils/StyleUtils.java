@@ -18,7 +18,7 @@ import gr.interamerican.bo2.odftoolkit.OdfToolkitTextDocument;
 import gr.interamerican.bo2.utils.AdapterUtils;
 import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.StringUtils;
-import gr.interamerican.bo2.utils.adapters.AnyOperation;
+import gr.interamerican.bo2.utils.adapters.Transformation;
 import gr.interamerican.bo2.utils.adapters.GetProperty;
 import gr.interamerican.bo2.utils.doc.BusinessDocument;
 import gr.interamerican.bo2.utils.doc.DocumentEngineException;
@@ -141,7 +141,7 @@ public class StyleUtils {
 	public static void fixStyles(Document doc) 
 	throws Exception {
 		List<OdfStyle> styles = getStyles(doc);
-		AnyOperation<OdfStyle, String> getName = 
+		Transformation<OdfStyle, String> getName = 
 			new GetProperty<OdfStyle, String>("styleNameAttribute", OdfStyle.class); 
 		List<String> styleNames = AdapterUtils.apply(styles, getName);
 		

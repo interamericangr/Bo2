@@ -12,7 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils;
 
-import gr.interamerican.bo2.utils.adapters.AnyOperation;
+import gr.interamerican.bo2.utils.adapters.Transformation;
 import gr.interamerican.bo2.utils.adapters.GetProperty;
 import gr.interamerican.bo2.utils.adapters.VoidOperation;
 import gr.interamerican.bo2.utils.beans.Tree;
@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Utility class taking advantage of {@link AnyOperation}s.
+ * Utility class taking advantage of {@link Transformation}s.
  */
 public class AdapterUtils {
 	
@@ -56,7 +56,7 @@ public class AdapterUtils {
 	 *         to the elements of the set.
 	 */
 	
-	public static <A,R> List<R> apply(List<A> list, AnyOperation<A, R> adapter) {
+	public static <A,R> List<R> apply(List<A> list, Transformation<A, R> adapter) {
 		List<R> result = new ArrayList<R>();
 		for (A a : list) {
 			R r = adapter.execute(a);
@@ -116,7 +116,7 @@ public class AdapterUtils {
 	 * 
 	 * @return Returns a list that contains the 
 	 */	
-	public static <A,R> Set<R> apply(Set<A> set, AnyOperation<A, R> adapter) {
+	public static <A,R> Set<R> apply(Set<A> set, Transformation<A, R> adapter) {
 		Set<R> result = new HashSet<R>();
 		for (A a : set) {
 			R r = adapter.execute(a);
@@ -145,7 +145,7 @@ public class AdapterUtils {
 	 * 
 	 * @return Returns a list that contains the 
 	 */	
-	public static <K,A,R> Map<K,R> apply(Map<K,A> map, AnyOperation<A, R> adapter) {
+	public static <K,A,R> Map<K,R> apply(Map<K,A> map, Transformation<A, R> adapter) {
 		return apply(map,null,adapter);
 	}
 	
@@ -181,7 +181,7 @@ public class AdapterUtils {
 	 */
 	@SuppressWarnings("unchecked")
 	public static <K,V,L,W> Map<L,W> apply
-	(Map<K,V> map, AnyOperation<K, L> keyTrans, AnyOperation<V, W> valTrans) {
+	(Map<K,V> map, Transformation<K, L> keyTrans, Transformation<V, W> valTrans) {
 		Map<L,W> result = new HashMap<L,W>();
 		for (Map.Entry<K, V> entry : map.entrySet()) {			
 			K k = entry.getKey();
@@ -228,7 +228,7 @@ public class AdapterUtils {
 	 *         operation to the elements of the set.
 	 */
 	
-	public static <A,R> R[] apply(A[] arguments, R[] sample, AnyOperation<A, R> adapter) {		
+	public static <A,R> R[] apply(A[] arguments, R[] sample, Transformation<A, R> adapter) {		
 		R[] result = ArrayUtils.enforceCapacity(sample, arguments.length);
 		for (int i = 0; i < arguments.length; i++) {
 			result[i] = adapter.execute(arguments[i]);
@@ -251,7 +251,7 @@ public class AdapterUtils {
 	 * 
 	 * @return Returns a tree that contains the results. 
 	 */	
-	public static <A,R> Tree<R> apply(Tree<A> tree, AnyOperation<A, R> adapter) {
+	public static <A,R> Tree<R> apply(Tree<A> tree, Transformation<A, R> adapter) {
 		R root = adapter.execute(tree.getRootElement());
 		Tree<R> result = new Tree<R>(root, tree.getName());
 		for (Tree<A> child : tree.getNodes()) {

@@ -13,7 +13,7 @@
 package gr.interamerican.bo2.utils.meta.transformations;
 
 import gr.interamerican.bo2.utils.ArrayUtils;
-import gr.interamerican.bo2.utils.adapters.AnyOperation;
+import gr.interamerican.bo2.utils.adapters.Transformation;
 import gr.interamerican.bo2.utils.meta.formatters.Formatter;
 
 /**
@@ -25,7 +25,7 @@ import gr.interamerican.bo2.utils.meta.formatters.Formatter;
  * 
  */
 public class FormatArray 
-implements AnyOperation<Object[], String[]> {
+implements Transformation<Object[], String[]> {
 	
 	/**
 	 * Formatters.

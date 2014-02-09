@@ -13,13 +13,13 @@
 package gr.interamerican.bo2.impl.open.po;
 
 import gr.interamerican.bo2.arch.PersistentObject;
-import gr.interamerican.bo2.utils.adapters.AnyOperation;
+import gr.interamerican.bo2.utils.adapters.Transformation;
 
 /**
  * Gets the key of a {@link PersistentObject} or null if the specified
  * object is not a PersistentObject.
  */
-public class GetPoKey implements AnyOperation<Object, Object> {
+public class GetPoKey implements Transformation<Object, Object> {
 	
 	public Object execute(Object a) {
 		if (a instanceof PersistentObject<?>) {

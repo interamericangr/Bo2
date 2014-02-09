@@ -14,7 +14,7 @@ package gr.interamerican.bo2.utils.reflect.analyze;
 
 import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.StringUtils;
-import gr.interamerican.bo2.utils.adapters.AnyOperation;
+import gr.interamerican.bo2.utils.adapters.Transformation;
 import gr.interamerican.bo2.utils.beans.Tree;
 import gr.interamerican.bo2.utils.conditions.Condition;
 import gr.interamerican.bo2.utils.reflect.beans.VariableDefinition;
@@ -39,7 +39,7 @@ import org.slf4j.LoggerFactory;
  * Abstract class that extracts the structure of an object to a tree.
  */
 public abstract class AbstractObjectStructureAnalyzer 
-implements AnyOperation<Object, Tree<VariableDefinition<?>>> {
+implements Transformation<Object, Tree<VariableDefinition<?>>> {
 	
 	/**
 	 * Logger.

@@ -22,7 +22,7 @@ package gr.interamerican.bo2.utils.adapters;
  *        Type of result.
  */
 public class MultipleStepsCreate<A,R> 
-implements AnyOperation<A, R> {
+implements Transformation<A, R> {
 			
 	/**
 	 * Sequence.
@@ -42,7 +42,7 @@ implements AnyOperation<A, R> {
 	public MultipleStepsCreate(Class<?>... classes) {
 		super();
 		int createsCount = classes.length-1;
-		AnyOperation[] creates = new AnyOperation<?, ?>[createsCount];		
+		Transformation[] creates = new Transformation<?, ?>[createsCount];		
 		for (int i = 0; i < createsCount; i++) {
 			Class arg = classes[i];
 			Class ret = classes[i+1];

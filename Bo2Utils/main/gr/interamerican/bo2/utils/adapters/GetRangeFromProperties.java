@@ -24,7 +24,7 @@ import gr.interamerican.bo2.utils.beans.Range;
  * 
  */
 public class GetRangeFromProperties<T, P extends Comparable<? super P>>
-implements AnyOperation<T, Range<P>> {
+implements Transformation<T, Range<P>> {
 	
 	/**
 	 * Get left property.

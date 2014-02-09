@@ -28,7 +28,7 @@ import java.beans.PropertyDescriptor;
  * @param <R> 
  *        Type of result.
  */
-public class GetProperty<A,R> implements AnyOperation<A, R>{
+public class GetProperty<A,R> implements Transformation<A, R>{
 	
 	/**
 	 * Property to get.

@@ -22,7 +22,7 @@ import gr.interamerican.bo2.impl.open.creation.Factory;
 import gr.interamerican.bo2.utils.NumberUtils;
 import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.StringUtils;
-import gr.interamerican.bo2.utils.adapters.AnyOperation;
+import gr.interamerican.bo2.utils.adapters.Transformation;
 
 import java.util.Date;
 
@@ -31,7 +31,7 @@ import java.util.Date;
  */
 @SuppressWarnings("nls")
 public class LongProcessToString 
-implements AnyOperation<MultiThreadedLongProcess, String> {
+implements Transformation<MultiThreadedLongProcess, String> {
 	/**
 	 * Time of previous call.
 	 */

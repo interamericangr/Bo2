@@ -10,18 +10,29 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
-package gr.interamerican.bo2.utils.meta.transformations;
-
-import gr.interamerican.bo2.utils.adapters.AnyOperation;
+package gr.interamerican.bo2.utils.adapters;
 
 /**
+ * {@link Transformation} is a generic adapter interface.
+ * 
+ * It can model any operation that receives an input and returns an output.
+ * The use of a generic adapter interface is to have it used by utilities
+ * that perform it on predefined data structures.
+ * 
+ * @param <A>
+ *        Type of operation argument.
+ * @param <R> 
+ *        Type of operation result.
  * 
  */
-public class ToString 
-implements AnyOperation<Object, String> {
-	
-	public String execute(Object a) {
-		return a.toString();
-	}
-
+public interface Transformation<A,R> {
+	/**
+	 * Operation.
+	 * 
+	 * @param a
+	 *        Operation argument.
+	 *        
+	 * @return Returns the result of the operation. 
+	 */
+	R execute(A a);
 }

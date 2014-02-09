@@ -19,7 +19,7 @@ import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.impl.open.namedstreams.NamedStream;
 import gr.interamerican.bo2.impl.open.namedstreams.NamedStreamsProvider;
-import gr.interamerican.bo2.utils.adapters.AnyOperation;
+import gr.interamerican.bo2.utils.adapters.Transformation;
 
 /**
  * Exports a query to a byte output stream.
@@ -38,7 +38,7 @@ extends AbstractQueryCrawlerOperation<Q>{
 	/**
 	 * Transformation for each row.
 	 */
-	protected AnyOperation<R, byte[]> rowTransformation;
+	protected Transformation<R, byte[]> rowTransformation;
 	
 	/**
 	 * Output stream.
@@ -68,7 +68,7 @@ extends AbstractQueryCrawlerOperation<Q>{
 	 * @param outputName 
 	 *        Logical name of output stream.
 	 */
-	public QueryExporterOperation(Q query, AnyOperation<R, byte[]> rowTransformation, String outputName) {
+	public QueryExporterOperation(Q query, Transformation<R, byte[]> rowTransformation, String outputName) {
 		super(query);
 		this.rowTransformation = rowTransformation;
 		this.outputName = outputName;

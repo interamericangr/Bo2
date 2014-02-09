@@ -24,7 +24,7 @@ import org.apache.commons.beanutils.NestedNullException;
  * in the constructor. The properties can be nested.
  */
 public class GetProperties 
-implements AnyOperation<Object, Object[]>{
+implements Transformation<Object, Object[]>{
 
 	/**
 	 * Properties to extract.

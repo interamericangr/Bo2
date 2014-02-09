@@ -47,7 +47,7 @@ import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.TokenUtils;
-import gr.interamerican.bo2.utils.adapters.AnyOperation;
+import gr.interamerican.bo2.utils.adapters.Transformation;
 import gr.interamerican.bo2.utils.adapters.GetProperty;
 import gr.interamerican.bo2.utils.reflect.analyze.TypeAnalysis;
 import gr.interamerican.bo2.utils.reflect.beans.BeanPropertyDefinition;
@@ -282,7 +282,7 @@ extends AbstractClassCreator {
 				String[] methodNames = TokenUtils.tokenize(anno.value());
 				if (methodNames.length==0) {
 					Method[] methods = field.getType().getMethods();
-					AnyOperation<Method, String> getname = 
+					Transformation<Method, String> getname = 
 						new GetProperty<Method, String>("name", Method.class); //$NON-NLS-1$
 					methodNames = AdapterUtils.apply(methods, new String[0], getname);
 				}

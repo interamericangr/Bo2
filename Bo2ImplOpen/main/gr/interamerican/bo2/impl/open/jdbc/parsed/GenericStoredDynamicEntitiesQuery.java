@@ -24,7 +24,7 @@ import gr.interamerican.bo2.arch.ext.CriteriaDependent;
 import gr.interamerican.bo2.impl.open.jdbc.AbstractJdbcWorker;
 import gr.interamerican.bo2.utils.StreamUtils;
 import gr.interamerican.bo2.utils.StringUtils;
-import gr.interamerican.bo2.utils.adapters.AnyOperationSpec;
+import gr.interamerican.bo2.utils.adapters.TransformationSpec;
 import gr.interamerican.bo2.utils.sql.SqlProcessor;
 import gr.interamerican.bo2.utils.sql.elements.PredefinedReport;
 
@@ -59,7 +59,7 @@ import java.util.HashMap;
 public class GenericStoredDynamicEntitiesQuery<C> 
 extends AbstractJdbcWorker 
 implements  EntitiesQuery<Object>, CriteriaDependent<C>, OrderedFieldsContainer, 
-NamedFieldsContainer, OrderedNamedFieldsContainer, AnyOperationSpec {
+NamedFieldsContainer, OrderedNamedFieldsContainer, TransformationSpec {
 	/**
 	 * Static map with all reports.
 	 */

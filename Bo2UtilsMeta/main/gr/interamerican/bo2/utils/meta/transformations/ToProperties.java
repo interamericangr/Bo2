@@ -12,7 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.meta.transformations;
 
-import gr.interamerican.bo2.utils.adapters.AnyOperation;
+import gr.interamerican.bo2.utils.adapters.Transformation;
 import gr.interamerican.bo2.utils.meta.BusinessObjectDescriptor;
 import gr.interamerican.bo2.utils.meta.descriptors.BoPropertyDescriptor;
 
@@ -27,7 +27,7 @@ import java.util.Properties;
  * 
  */
 public class ToProperties<T> 
-implements AnyOperation<T, Properties>{
+implements Transformation<T, Properties>{
 	
 	/**
 	 * Business object descriptor.

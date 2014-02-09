@@ -13,9 +13,9 @@
 package gr.interamerican.bo2.utils.adapters;
 
 /**
- * Simple implementation of {@link AnyOperationSpec}.
+ * Simple implementation of {@link TransformationSpec}.
  */
-public class AnyOperationSpecImpl {
+public class TransformationSpecImpl {
 	
 	/**
 	 * Type of the argument.
@@ -33,7 +33,7 @@ public class AnyOperationSpecImpl {
 	 * @param argumentType
 	 * @param resultType
 	 */
-	public AnyOperationSpecImpl(Class<?> argumentType, Class<?> resultType) {
+	public TransformationSpecImpl(Class<?> argumentType, Class<?> resultType) {
 		super();
 		this.argumentType = argumentType;
 		this.resultType = resultType;
@@ -43,7 +43,7 @@ public class AnyOperationSpecImpl {
 	 * Creates a new AnyOperationSpecImpl object. 
 	 *
 	 */
-	public AnyOperationSpecImpl() {
+	public TransformationSpecImpl() {
 		super();
 	}
 

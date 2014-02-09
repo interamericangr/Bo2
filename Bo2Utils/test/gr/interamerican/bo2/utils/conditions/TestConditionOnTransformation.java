@@ -12,7 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.conditions;
 
-import gr.interamerican.bo2.utils.adapters.AnyOperation;
+import gr.interamerican.bo2.utils.adapters.Transformation;
 import gr.interamerican.bo2.utils.adapters.GetTheSame;
 import gr.interamerican.bo2.utils.comparators.SpecificNumberComparator;
 
@@ -29,7 +29,7 @@ public class TestConditionOnTransformation {
 	 */
 	@Test
 	public void testCheck() {
-		AnyOperation<Integer, Integer> transform = new GetTheSame<Integer>();
+		Transformation<Integer, Integer> transform = new GetTheSame<Integer>();
 		GreaterThan<Integer> isPositive = new GreaterThan<Integer>(new SpecificNumberComparator<Integer>(), 0);
 		ConditionOnTransformation<Integer, Integer> conditionOnTransformation = 
 			new ConditionOnTransformation<Integer, Integer>(transform, isPositive);

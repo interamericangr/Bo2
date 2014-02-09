@@ -20,6 +20,6 @@ package gr.interamerican.bo2.utils.adapters;
  * @param <T> 
  *        Type of object being modified.
  */
-public interface Modification<T> extends AnyOperation<T, T> {
+public interface Modification<T> extends Transformation<T, T> {
 	/* empty */
 }

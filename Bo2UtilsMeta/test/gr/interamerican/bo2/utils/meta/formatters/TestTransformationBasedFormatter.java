@@ -13,7 +13,7 @@
 package gr.interamerican.bo2.utils.meta.formatters;
 
 import static org.junit.Assert.assertEquals;
-import gr.interamerican.bo2.utils.meta.transformations.ToString;
+import gr.interamerican.bo2.utils.adapters.ToString;
 
 import org.junit.Test;
 

@@ -15,10 +15,10 @@ package gr.interamerican.bo2.impl.open.workers;
 import gr.interamerican.bo2.arch.Worker;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
-import gr.interamerican.bo2.utils.adapters.AnyOperation;
+import gr.interamerican.bo2.utils.adapters.Transformation;
 
 /**
- * Abstract base class for implementations of {@link AnyOperation}
+ * Abstract base class for implementations of {@link Transformation}
  * that must also be {@link Worker}s.
  * 
  * @param <A>
@@ -28,7 +28,7 @@ import gr.interamerican.bo2.utils.adapters.AnyOperation;
  */
 public abstract class AbstractTransformation<A,R> 
 extends AbstractResourceConsumer 
-implements AnyOperation<A, R> {
+implements Transformation<A, R> {
 	
 	public R execute(A a) {
 		try {

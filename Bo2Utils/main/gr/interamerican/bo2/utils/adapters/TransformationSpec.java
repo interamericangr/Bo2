@@ -10,26 +10,24 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
-package gr.interamerican.bo2.utils.meta.transformations;
-
-import org.junit.Assert;
-import org.junit.Test;
+package gr.interamerican.bo2.utils.adapters;
 
 /**
- * Unit test for {@link ToString}
+ * Specification for a simple operation.
  */
-public class TestToString {
+public interface TransformationSpec {
+	/**
+	 * Gets the type of the argument.
+	 * 
+	 * @return Returns the type of the argument.
+	 */
+	public Class<?> getArgumentType();
 	
 	/**
-	 * tests execute.
+	 * Gets the type of the result.
+	 * 
+	 * @return Returns the type of the result.
 	 */
-	@Test
-	public void testExecute() {
-		ToString ts = new ToString();
-		Object o = new Object();
-		String actual = ts.execute(o);
-		String expected = o.toString();
-		Assert.assertEquals(expected, actual);
-	}
+	public Class<?> getResultType();
 
 }

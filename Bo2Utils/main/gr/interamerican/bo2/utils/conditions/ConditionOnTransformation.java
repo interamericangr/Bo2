@@ -12,7 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.conditions;
 
-import gr.interamerican.bo2.utils.adapters.AnyOperation;
+import gr.interamerican.bo2.utils.adapters.Transformation;
 
 /**
  * Applies a condition on a transformation of the specified object.
@@ -28,7 +28,7 @@ implements Condition<A> {
 	/**
 	 * Transformation operation.
 	 */
-	AnyOperation<A, P> transformation;
+	Transformation<A, P> transformation;
 	/**
 	 * Condition to check on the result of the transformation.
 	 */
@@ -46,7 +46,7 @@ implements Condition<A> {
 	 * @param condition
 	 */
 	public ConditionOnTransformation
-	(AnyOperation<A, P> transformation, Condition<P> condition) {
+	(Transformation<A, P> transformation, Condition<P> condition) {
 		super();
 		this.transformation = transformation;
 		this.condition = condition;

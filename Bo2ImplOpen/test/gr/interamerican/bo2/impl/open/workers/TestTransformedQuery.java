@@ -24,7 +24,7 @@ import gr.interamerican.bo2.arch.ext.TypedSelectable;
 import gr.interamerican.bo2.impl.open.runtime.AbstractBo2RuntimeCmd;
 import gr.interamerican.bo2.samples.queries.TsEntitiesQueryImpl;
 import gr.interamerican.bo2.utils.StringConstants;
-import gr.interamerican.bo2.utils.adapters.AnyOperation;
+import gr.interamerican.bo2.utils.adapters.Transformation;
 import gr.interamerican.bo2.utils.adapters.Filter;
 import gr.interamerican.bo2.utils.adapters.GetProperty;
 import gr.interamerican.bo2.utils.adapters.Sequence;
@@ -70,7 +70,7 @@ public class TestTransformedQuery {
 	/**
 	 * transformation.
 	 */
-	AnyOperation<TypedSelectable<Long>, String> transformation =
+	Transformation<TypedSelectable<Long>, String> transformation =
 		new Sequence<TypedSelectable<Long>, String>(getName, noEmptyStrings);
 		
 	/**

@@ -17,7 +17,7 @@ package gr.interamerican.bo2.utils.adapters;
  * 
  */
 public class ToString 
-implements AnyOperation<Object, String> {
+implements Transformation<Object, String> {
 	
 	public String execute(Object a) {
 		return a.toString();

@@ -20,7 +20,7 @@ import gr.interamerican.bo2.arch.exceptions.UnexpectedException;
 import gr.interamerican.bo2.impl.open.annotations.ManagerName;
 import gr.interamerican.bo2.impl.open.runtime.AbstractBo2RuntimeCmd;
 import gr.interamerican.bo2.impl.open.workers.ArrayIteratorQuery;
-import gr.interamerican.bo2.utils.adapters.AnyOperation;
+import gr.interamerican.bo2.utils.adapters.Transformation;
 
 import org.junit.Test;
 
@@ -82,7 +82,7 @@ public class TestQueryExporterOperation {
 	/**
 	 * Transformation.
 	 */
-	class GetBytes implements AnyOperation<String, byte[]> {		
+	class GetBytes implements Transformation<String, byte[]> {		
 		public byte[] execute(String a) {			
 			return (a+"\n").getBytes(); //$NON-NLS-1$
 		}

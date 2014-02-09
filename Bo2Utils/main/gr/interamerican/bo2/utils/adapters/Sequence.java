@@ -26,12 +26,12 @@ package gr.interamerican.bo2.utils.adapters;
 
  *  
  */
-public class Sequence<A,R> implements AnyOperation<A, R>{
+public class Sequence<A,R> implements Transformation<A, R>{
 	
 	/**
 	 * Sequence of operations to execute.
 	 */
-	AnyOperation<?, ?>[] operations;
+	Transformation<?, ?>[] operations;
 
 	
 	/**
@@ -39,7 +39,7 @@ public class Sequence<A,R> implements AnyOperation<A, R>{
 	 *
 	 * @param operations
 	 */
-	public Sequence(AnyOperation<?, ?>... operations) {
+	public Sequence(Transformation<?, ?>... operations) {
 		super();
 		this.operations = operations;
 	}
@@ -49,7 +49,7 @@ public class Sequence<A,R> implements AnyOperation<A, R>{
 	public R execute(Object a) {
 		Object arg = a;
 		for (int i = 0; i < operations.length; i++) { 
-			AnyOperation<Object,Object> operation = (AnyOperation<Object,Object>) operations[i];
+			Transformation<Object,Object> operation = (Transformation<Object,Object>) operations[i];
 			Object result = operation.execute(arg);
 			arg = result;
 		}

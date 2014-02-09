@@ -20,7 +20,7 @@ import gr.interamerican.bo2.impl.open.creation.Factory;
 import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.Utils;
-import gr.interamerican.bo2.utils.adapters.AnyOperationSpec;
+import gr.interamerican.bo2.utils.adapters.TransformationSpec;
 import gr.interamerican.bo2.utils.beans.AssociationTable;
 import gr.interamerican.bo2.utils.reflect.beans.VariableDefinition;
 import gr.interamerican.bo2.utils.sql.VariableDefinitionFactory;
@@ -40,7 +40,7 @@ import java.util.List;
 public class PredefinedReportQuery 
 extends DynamicJdbcQuery<Object> 
 implements EntitiesQuery<Object>, OrderedFieldsContainer, 
-OrderedNamedFieldsContainer, AnyOperationSpec {
+OrderedNamedFieldsContainer, TransformationSpec {
 	
 	/**
 	 * Package of synthetic row classes.

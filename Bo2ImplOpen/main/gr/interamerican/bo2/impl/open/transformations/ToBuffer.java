@@ -16,7 +16,7 @@ import gr.interamerican.bo2.impl.open.records.Buffer;
 import gr.interamerican.bo2.impl.open.records.BufferSpec;
 import gr.interamerican.bo2.utils.CollectionUtils;
 import gr.interamerican.bo2.utils.StringConstants;
-import gr.interamerican.bo2.utils.adapters.AnyOperation;
+import gr.interamerican.bo2.utils.adapters.Transformation;
 import gr.interamerican.bo2.utils.beans.Pair;
 import gr.interamerican.bo2.utils.meta.BusinessObjectDescriptor;
 import gr.interamerican.bo2.utils.meta.Mediator;
@@ -38,7 +38,7 @@ import java.util.Set;
  *        Type of object being transformed to buffer.
  */
 public class ToBuffer<T> 
-implements AnyOperation<T, Buffer> {
+implements Transformation<T, Buffer> {
 	
 	/**
 	 * Buffer specification.

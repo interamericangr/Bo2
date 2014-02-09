@@ -14,14 +14,14 @@ package gr.interamerican.bo2.impl.open.transformations;
 
 import gr.interamerican.bo2.impl.open.records.CsvRecord;
 import gr.interamerican.bo2.utils.StringUtils;
-import gr.interamerican.bo2.utils.adapters.AnyOperation;
+import gr.interamerican.bo2.utils.adapters.Transformation;
 
 /**
  * Converts a {@link CsvRecord} to a String that is created by
  * the tags that represent a row.
  */
 public class CsvRecord2RowTags 
-implements AnyOperation<CsvRecord, String> {
+implements Transformation<CsvRecord, String> {
 	/**
 	 * Count of CSV record columns.
 	 */

@@ -13,13 +13,13 @@
 package gr.interamerican.bo2.utils.adapters;
 
 /**
- * Implementation of {@link AnyOperation} that returns the 
+ * Implementation of {@link Transformation} that returns the 
  * same input object.
  * 
  * @param <T>
  *        Type of object. 
  */
-public class GetTheSame<T> implements AnyOperation<T, T>{
+public class GetTheSame<T> implements Transformation<T, T>{
 
 	public T execute(T a) {		
 		return a;

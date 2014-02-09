@@ -12,7 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.meta.formatters;
 
-import gr.interamerican.bo2.utils.adapters.AnyOperation;
+import gr.interamerican.bo2.utils.adapters.Transformation;
 
 /**
  * Formatter that is based on a transformation to String.
@@ -26,14 +26,14 @@ implements Formatter<T> {
 	/**
 	 * Transformation to String.
 	 */
-	AnyOperation<T, String> transformation;
+	Transformation<T, String> transformation;
 
 	/**
 	 * Creates a new TransformationBasedFormatter object. 
 	 *
 	 * @param transformation
 	 */
-	public TransformationBasedFormatter(AnyOperation<T, String> transformation) {
+	public TransformationBasedFormatter(Transformation<T, String> transformation) {
 		super();
 		this.transformation = transformation;
 	}

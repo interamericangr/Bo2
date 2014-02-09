@@ -28,7 +28,7 @@ import gr.interamerican.bo2.utils.conditions.Condition;
  * @param <R> 
  *        Type of output objects.
  */
-public class AdvancedFilter<T,R> implements AnyOperation<T, R> {
+public class AdvancedFilter<T,R> implements Transformation<T, R> {
 	/**
 	 * Creates a new Filter object. 
 	 *
@@ -38,7 +38,7 @@ public class AdvancedFilter<T,R> implements AnyOperation<T, R> {
 	 *        Transformation applied on objects that
 	 *        fulfill the condition. 
 	 */
-	public AdvancedFilter(Condition<T> condition, AnyOperation<T, R> transformation) {
+	public AdvancedFilter(Condition<T> condition, Transformation<T, R> transformation) {
 		super();
 		this.condition = condition;
 		this.transformation = transformation;
@@ -54,7 +54,7 @@ public class AdvancedFilter<T,R> implements AnyOperation<T, R> {
 	 * Transformation executed on objects that fulfill
 	 * the condition.
 	 */
-	AnyOperation<T, R> transformation;
+	Transformation<T, R> transformation;
 
 	
 	public R execute(T a) {

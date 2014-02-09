@@ -18,7 +18,7 @@ import gr.interamerican.bo2.utils.conditions.Condition;
  * Adapter for a {@link Condition}.
  * 
  * This class adapts the {@link Condition} interface to the
- * {@link AnyOperation} interface. This adapter operation will 
+ * {@link Transformation} interface. This adapter operation will 
  * return for each object the result of the condition's check 
  * on it.
  * 
@@ -26,7 +26,7 @@ import gr.interamerican.bo2.utils.conditions.Condition;
  *        Type of object being checked against the condition.
  */
 public class ConditionAdapter<T> 
-implements AnyOperation<T, Boolean> {
+implements Transformation<T, Boolean> {
 	/**
 	 * Adapted condition.
 	 */

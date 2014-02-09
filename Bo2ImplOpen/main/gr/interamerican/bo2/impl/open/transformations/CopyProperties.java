@@ -14,7 +14,7 @@ package gr.interamerican.bo2.impl.open.transformations;
 
 import gr.interamerican.bo2.impl.open.creation.Factory;
 import gr.interamerican.bo2.utils.ReflectionUtils;
-import gr.interamerican.bo2.utils.adapters.AnyOperation;
+import gr.interamerican.bo2.utils.adapters.Transformation;
 
 /**
  * Creates a new instance of class R using the default Bo2
@@ -27,7 +27,7 @@ import gr.interamerican.bo2.utils.adapters.AnyOperation;
  *        Type of result.
  */
 public class CopyProperties<A,R> 
-implements AnyOperation<A, R> {
+implements Transformation<A, R> {
 	
 	/**
 	 * Class of argument.

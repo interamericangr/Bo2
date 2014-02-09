@@ -67,7 +67,7 @@ import java.util.Set;
  *        Type of object who's properties are being checked. 
  */
 public class PropertyValuesChecker<T>
-implements AnyOperation<T, List<String>> {
+implements Transformation<T, List<String>> {
 	
 	/**
 	 * Array that contains the names of properties to check.

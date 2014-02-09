@@ -18,7 +18,7 @@ import java.math.BigDecimal;
  * Number converter.
  */
 public class NumberConverter 
-implements AnyOperation<Number, Number> {
+implements Transformation<Number, Number> {
 	
 	/**
 	 * Output type.

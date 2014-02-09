@@ -12,7 +12,9 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.meta.formatters.nf;
 
-import gr.interamerican.bo2.utils.meta.transformations.ToString;
+
+
+import gr.interamerican.bo2.utils.adapters.ToString;
 
 import org.junit.Assert;
 import org.junit.Test;

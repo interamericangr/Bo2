@@ -15,7 +15,7 @@ package gr.interamerican.bo2.impl.open.workers;
 import gr.interamerican.bo2.arch.EntitiesQuery;
 import gr.interamerican.bo2.arch.Worker;
 import gr.interamerican.bo2.arch.exceptions.DataAccessException;
-import gr.interamerican.bo2.utils.adapters.AnyOperation;
+import gr.interamerican.bo2.utils.adapters.Transformation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +51,7 @@ public class WorkerUtils {
 	
 	/**
 	 * Fetches all results of an {@link EntitiesQuery} query to a list.
-	 * Each result is first transformed based on a provided {@link AnyOperation}
+	 * Each result is first transformed based on a provided {@link Transformation}
 	 * adapter.
 	 * 
 	 * @param query
@@ -68,7 +68,7 @@ public class WorkerUtils {
 	 * @throws DataAccessException
 	 */
 	public static <P,T> List<T> 
-	queryTransformedResultsAsList(EntitiesQuery<P> query, AnyOperation<P, T> adapter)
+	queryTransformedResultsAsList(EntitiesQuery<P> query, Transformation<P, T> adapter)
 	throws DataAccessException {		
 		List<T> list = new ArrayList<T>();
 		while (query.next()) {

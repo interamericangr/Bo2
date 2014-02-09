@@ -15,7 +15,7 @@ package gr.interamerican.bo2.impl.open.workers;
 import gr.interamerican.bo2.arch.EntitiesQuery;
 import gr.interamerican.bo2.arch.exceptions.DataAccessException;
 import gr.interamerican.bo2.arch.exceptions.DataException;
-import gr.interamerican.bo2.utils.adapters.AnyOperation;
+import gr.interamerican.bo2.utils.adapters.Transformation;
 import gr.interamerican.bo2.utils.annotations.Child;
 
 /**
@@ -39,7 +39,7 @@ implements EntitiesQuery<T> {
 	/**
 	 * Transformation.
 	 */
-	protected AnyOperation<F, T> transformation;
+	protected Transformation<F, T> transformation;
 	
 	/**
 	 * Current row.
@@ -58,7 +58,7 @@ implements EntitiesQuery<T> {
 	 * @param transformation
 	 *        Transformation to run.
 	 */
-	public TransformedQuery(EntitiesQuery<F> query, AnyOperation<F, T> transformation) {
+	public TransformedQuery(EntitiesQuery<F> query, Transformation<F, T> transformation) {
 		super();
 		this.query = query;
 		this.transformation = transformation;

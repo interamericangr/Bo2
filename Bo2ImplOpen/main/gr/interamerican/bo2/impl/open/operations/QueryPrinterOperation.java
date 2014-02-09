@@ -19,7 +19,7 @@ import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.impl.open.namedstreams.NamedStream;
 import gr.interamerican.bo2.impl.open.namedstreams.NamedStreamsProvider;
-import gr.interamerican.bo2.utils.adapters.AnyOperation;
+import gr.interamerican.bo2.utils.adapters.Transformation;
 
 /**
  * Exports a query to a byte output stream.
@@ -35,12 +35,12 @@ extends AbstractQueryCrawlerOperation<Q>{
 	/**
 	 * Transformation for each row.
 	 */
-	private AnyOperation<R, String> rowTransformation;
+	private Transformation<R, String> rowTransformation;
 	
 	/**
 	 * Special transformation for the first row.
 	 */
-	 private AnyOperation<R, String> firstRowTransformation;
+	 private Transformation<R, String> firstRowTransformation;
 	
 	/**
 	 * Output stream.
@@ -72,8 +72,8 @@ extends AbstractQueryCrawlerOperation<Q>{
 	 * @param outputName 
 	 *        Logical name of output stream.
 	 */
-	public QueryPrinterOperation(Q query, AnyOperation<R, String> rowTransformation, 
-			AnyOperation<R, String> firstRowTransformation, String outputName) {
+	public QueryPrinterOperation(Q query, Transformation<R, String> rowTransformation, 
+			Transformation<R, String> firstRowTransformation, String outputName) {
 		super(query);
 		this.rowTransformation = rowTransformation;
 		this.firstRowTransformation = firstRowTransformation; 
@@ -90,7 +90,7 @@ extends AbstractQueryCrawlerOperation<Q>{
 	 * @param outputName 
 	 *        Logical name of output stream.
 	 */
-	public QueryPrinterOperation(Q query, AnyOperation<R, String> rowTransformation, String outputName) {
+	public QueryPrinterOperation(Q query, Transformation<R, String> rowTransformation, String outputName) {
 		this(query, rowTransformation, rowTransformation, outputName);
 	}
 
