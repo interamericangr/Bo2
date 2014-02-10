@@ -38,6 +38,7 @@ public class TestSelfDrawnFloatTextField extends WicketTest {
 		tester.startPage(testPageSource(field));
 		Assert.assertSame(field,tester.getComponentFromLastRenderedPage(subjectPath()));
 		Assert.assertNull(field.getDefaultModelObject());
+		Assert.assertTrue(field.getConvertEmptyInputStringToNull());
 		
 		testFormSubmission(field);
 	}

@@ -58,7 +58,8 @@ public class TestSelfDrawnStringTextField extends WicketTest {
 	public void testCreation_nodefault() {
 		tester.startPage(testPageSource());		
 		@SuppressWarnings("unchecked")
-		TextField<String> tf = (TextField<String>) getTestSubject();		
+		TextField<String> tf = (TextField<String>) getTestSubject();
+		Assert.assertTrue(tf.getConvertEmptyInputStringToNull());
 		Assert.assertNull(tf.getModelObject());
 		Assert.assertFalse(getFeedbackPanel().anyErrorMessage());
 	}
