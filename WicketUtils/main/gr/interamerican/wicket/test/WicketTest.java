@@ -15,16 +15,21 @@ package gr.interamerican.wicket.test;
 import gr.interamerican.wicket.markup.html.TestPage;
 import gr.interamerican.wicket.utils.WicketUtils;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
 import org.apache.wicket.RequestCycle;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
+import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.util.tester.FormTester;
 import org.apache.wicket.util.tester.ITestPageSource;
 import org.apache.wicket.util.tester.WicketTester;
+import org.apache.wicket.util.tester.WicketTesterHelper;
+import org.junit.Assert;
 
 
 /**
@@ -62,6 +67,7 @@ public class WicketTest {
 	
 	/**
 	 * Creates a new ITestPageSource that contains the {@link TestPage}.
+	 * Create the component by overriding #initializeComponent().
 	 *        
 	 * @return Returns the test page source.
 	 */
@@ -182,6 +188,27 @@ public class WicketTest {
 	 */
 	protected Component getTestSubject() {
 		return tester.getComponentFromLastRenderedPage(subjectPath());
+	}
+	
+	/**
+	 * Common assertions.
+	 */
+	protected void commonAssertions_noError() {
+		tester.assertNoErrorMessage();
+		Assert.assertTrue(tester.getLastRenderedPage() instanceof TestPage);
+		Assert.assertEquals(HttpServletResponse.SC_OK, tester.getServletResponse().getCode());
+	}
+	
+	/**
+	 * Common assertions when error message is expected.
+	 * @param errorMessagePortion 
+	 */
+	protected void commonAssertions_error(String errorMessagePortion) {
+		String messages = WicketTesterHelper.asLined(tester.getMessages(FeedbackMessage.ERROR));
+		Assert.assertNotNull(messages);
+		Assert.assertTrue(messages.contains(errorMessagePortion));
+		Assert.assertTrue(tester.getLastRenderedPage() instanceof TestPage);
+		Assert.assertEquals(HttpServletResponse.SC_OK, tester.getServletResponse().getCode());
 	}
 	
 	/**
