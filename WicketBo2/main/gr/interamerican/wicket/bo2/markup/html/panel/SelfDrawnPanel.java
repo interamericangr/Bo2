@@ -184,7 +184,6 @@ implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 		String markup = MARKUPS.get(columns);
 		if(markup == null) {
 			markup = calculateMarkup(rowSpecs);
-			System.out.println(markup);
 			MARKUPS.putIfAbsent(markupKey, markup);
 		}
 		
