@@ -61,24 +61,28 @@ public class TestSelfDrawnPanel extends WicketTest {
 		actual = tf.getModel().getObject();
 		expected = model.getObject().getField2();
 		Assert.assertEquals(expected, actual);
+		
+		commonAssertions_noError();
 	}
 	
 	/**
-	 * Unit test for submitting the form of a se
+	 * Unit test for submitting the form of a selfdrawnpanel when
+	 * the validation fails.
 	 */
 	@Test
+	@SuppressWarnings("nls")
 	public void testSelfDrawnPanel_componentValidators() {
 		tester.startPage(testPageSource());
 		Assert.assertFalse(getFeedbackPanel().anyErrorMessage());
 		FormTester formTester = tester.newFormTester(formPath());
-		formTester.setValue(TestPage.TEST_ID + ":repeater:field2:component", "-10"); //$NON-NLS-1$ //$NON-NLS-2$
+		formTester.setValue(TestPage.TEST_ID + ":repeater:field2:component", "-10");
 		formTester.submit(TestPage.SUBMIT_BUTTON_ID);
 		Assert.assertTrue(getFeedbackPanel().anyErrorMessage());
 		/*
 		 * This is added to refresh the markup with the feedback panel message.
-		 * It is not necessary for the test.
 		 */
-		tester.executeAjaxEvent(getAjaxButton(), "onclick"); //$NON-NLS-1$
+		tester.executeAjaxEvent(getAjaxButton(), "onclick");
+		commonAssertions_error("field2");
 	}
 	
 	@Override

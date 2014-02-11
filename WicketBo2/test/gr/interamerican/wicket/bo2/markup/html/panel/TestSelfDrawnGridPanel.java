@@ -67,6 +67,8 @@ public class TestSelfDrawnGridPanel extends WicketTest {
 		actual = tf.getModel().getObject();
 		expected = model.getObject().getField2();
 		Assert.assertEquals(expected, actual);
+		
+		commonAssertions_noError();
 	}
 	
 	/**
@@ -91,6 +93,8 @@ public class TestSelfDrawnGridPanel extends WicketTest {
 		Assert.assertNull(model.getObject().getField1());
 		Assert.assertEquals(new Integer(10) , model.getObject().getField2());
 		Assert.assertEquals(new Double(10.1), model.getObject().getField3());
+		
+		commonAssertions_noError();
 	}
 	
 	/**
@@ -109,6 +113,7 @@ public class TestSelfDrawnGridPanel extends WicketTest {
 		 * It is not necessary for the test.
 		 */
 		tester.executeAjaxEvent(getAjaxButton(), "onclick");
+		commonAssertions_error("field2");
 	}
 	
 	@Override
