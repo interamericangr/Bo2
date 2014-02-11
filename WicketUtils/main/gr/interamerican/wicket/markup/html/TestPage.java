@@ -70,7 +70,6 @@ extends BaseTestPage  {
 		
 		@Override
 		protected void onError(AjaxRequestTarget target, Form<?> form) {
-			System.err.println("TestPageAjaxButton:error"); //$NON-NLS-1$
 			target.addComponent(feedbackPanel);
 		}
 		
