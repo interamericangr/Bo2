@@ -4,4 +4,3 @@
 <wicket:panel>
 	<h3><span wicket:id="titleLabel"></span></h3>	
 	<table border="0" cellpadding="1" cellspacing="1">
-		<tr wicket:id="repeater" style="height:23px;">

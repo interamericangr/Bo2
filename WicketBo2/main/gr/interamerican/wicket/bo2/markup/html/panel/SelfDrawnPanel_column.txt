@@ -1,0 +1,3 @@
+<td  align="right" valign="middle"><input wicket:id=":LABEL_ID"></input></td>
+<td style="width:10px;"></td>
+<td style="width: 200px; "><input wicket:id=":COMPONENT_ID"></input></td>

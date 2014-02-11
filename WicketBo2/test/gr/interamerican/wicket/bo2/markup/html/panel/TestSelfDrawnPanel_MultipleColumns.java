@@ -20,6 +20,7 @@ import gr.interamerican.bo2.utils.meta.descriptors.DoubleBoPropertyDescriptor;
 import gr.interamerican.bo2.utils.meta.descriptors.IntegerBoPropertyDescriptor;
 import gr.interamerican.bo2.utils.meta.descriptors.StringBoPropertyDescriptor;
 import gr.interamerican.wicket.bo2.markup.html.form.SelfDrawnStringTextField;
+import gr.interamerican.wicket.bo2.utils.SelfDrawnUtils;
 import gr.interamerican.wicket.markup.html.TestPage;
 import gr.interamerican.wicket.test.WicketTest;
 
@@ -27,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.wicket.Component;
+import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.util.tester.FormTester;
@@ -37,7 +39,7 @@ import org.junit.Test;
  * Unit tests for {@link SelfDrawnPanel}.
  */
 @SuppressWarnings("nls")
-public class TestSelfDrawnGridPanel extends WicketTest {
+public class TestSelfDrawnPanel_MultipleColumns extends WicketTest {
 	
 	/**
 	 * Model of SelfDrawnPanel.
@@ -53,11 +55,18 @@ public class TestSelfDrawnGridPanel extends WicketTest {
 		tester.startPage(testPageSource());
 		
 		@SuppressWarnings("unchecked")
-		TextField<Integer> tf =  (TextField<Integer>) tester.getComponentFromLastRenderedPage(path("repeater:field1field2:component1"));
+		TextField<Integer> tf =  (TextField<Integer>) tester.getComponentFromLastRenderedPage(path("field2"));
 		
 		Integer actual = tf.getModel().getObject();
 		Integer expected = model.getObject().getField2();
 		Assert.assertEquals(expected, actual);
+		
+		/*
+		 * Test SelfDrawnUtils TODO: move this
+		 */
+		Assert.assertTrue(getTestSubject() instanceof SelfDrawnPanel);
+		Component cmp = SelfDrawnUtils.getComponentFromSelfDrawnPanel((MarkupContainer) getTestSubject(), "field2");
+		Assert.assertTrue(cmp==tf);
 		
 		/*
 		 * Change the model object and assert correct propagation to components.
@@ -78,14 +87,14 @@ public class TestSelfDrawnGridPanel extends WicketTest {
 	public void testSelfDrawnGridPanel_submit() {
 		tester.startPage(testPageSource());
 		
-		tester.assertComponent(path("repeater:field1field2:component0"), SelfDrawnStringTextField.class);
-		SelfDrawnStringTextField tf =  (SelfDrawnStringTextField) tester.getComponentFromLastRenderedPage(path("repeater:field1field2:component0"));
+		tester.assertComponent(path("field1"), SelfDrawnStringTextField.class);
+		SelfDrawnStringTextField tf =  (SelfDrawnStringTextField) tester.getComponentFromLastRenderedPage(path("field1"));
 		Assert.assertTrue(tf.getConvertEmptyInputStringToNull());
 		
 		FormTester formTester = tester.newFormTester(formPath());
-		formTester.setValue(TestPage.TEST_ID + ":repeater:field1field2:component0", ""); //$NON-NLS-2$
-		formTester.setValue(TestPage.TEST_ID + ":repeater:field1field2:component1", "10"); //$NON-NLS-2$
-		formTester.setValue(TestPage.TEST_ID + ":repeater:field3:component0", "10,1"); //$NON-NLS-2$
+		formTester.setValue(TestPage.TEST_ID + ":field1", ""); //$NON-NLS-2$
+		formTester.setValue(TestPage.TEST_ID + ":field2", "10"); //$NON-NLS-2$
+		formTester.setValue(TestPage.TEST_ID + ":field3", "10,1"); //$NON-NLS-2$
 		formTester.submit();
 		
 		Assert.assertFalse(getFeedbackPanel().anyErrorMessage());
@@ -105,7 +114,7 @@ public class TestSelfDrawnGridPanel extends WicketTest {
 		tester.startPage(testPageSource());
 		Assert.assertFalse(getFeedbackPanel().anyErrorMessage());
 		FormTester formTester = tester.newFormTester(formPath());
-		formTester.setValue(TestPage.TEST_ID + ":repeater:field1field2:component1", "-10"); //$NON-NLS-2$
+		formTester.setValue(TestPage.TEST_ID + ":field2", "-10"); //$NON-NLS-2$
 		formTester.submit(TestPage.SUBMIT_BUTTON_ID);
 		Assert.assertTrue(getFeedbackPanel().anyErrorMessage());
 		/*
@@ -119,7 +128,7 @@ public class TestSelfDrawnGridPanel extends WicketTest {
 	@Override
 	protected Component initializeComponent() {
 		model = new CompoundPropertyModel<BeanWith3Fields>(new BeanWith3Fields("1", 1, 1d));
-		return new SelfDrawnGridPanel<BeanWith3Fields>(TestPage.TEST_ID, model, createBod(), 2);
+		return new SelfDrawnPanel<BeanWith3Fields>(TestPage.TEST_ID, model, createBod(), 2);
 	}
 	
 	/**

@@ -14,7 +14,6 @@ package gr.interamerican.wicket.bo2.utils;
 
 import gr.interamerican.bo2.arch.ext.TranslatableEntry;
 import gr.interamerican.bo2.arch.ext.TranslatableEntryOwner;
-import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.beans.Pair;
 import gr.interamerican.bo2.utils.beans.PairWithComparableLeft;
@@ -38,7 +37,6 @@ import java.util.Set;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.MarkupContainer;
-import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.markup.html.form.IChoiceRenderer;
@@ -70,9 +68,7 @@ public class SelfDrawnUtils {
 		if(selfDrawnPanel == null){
 			return null;
 		}
-		WebMarkupContainer repeater = (WebMarkupContainer) selfDrawnPanel.get(SelfDrawnPanel.getRepeaterId());
-		WebMarkupContainer repeaterChild = (WebMarkupContainer) repeater.get(wicketId); 
-		return repeaterChild.get(SelfDrawnPanel.getComponentId());
+		return selfDrawnPanel.get(wicketId);
 	}
 	
 	/**
@@ -251,8 +247,8 @@ public class SelfDrawnUtils {
 		if(selfDrawnPanel == null){
 			return null;
 		}
-		String path = StringUtils.concatSeparated(StringConstants.COLON, SelfDrawnPanel.getRepeaterId(), fieldId, SelfDrawnPanel.getLabelId());
-		return selfDrawnPanel.get(path);
+		String labelWicketId = SelfDrawnPanel.labelWicketIdWithPropertyName(fieldId);
+		return selfDrawnPanel.get(labelWicketId);
 	}
-
+	
 }

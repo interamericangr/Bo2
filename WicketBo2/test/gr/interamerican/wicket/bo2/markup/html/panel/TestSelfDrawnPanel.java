@@ -47,7 +47,7 @@ public class TestSelfDrawnPanel extends WicketTest {
 	public void testSelfDrawnPanel() {
 		tester.startPage(testPageSource());
 		@SuppressWarnings("unchecked")
-		TextField<Long> tf =  (TextField<Long>) tester.getComponentFromLastRenderedPage(path("repeater:field2:component")); //$NON-NLS-1$
+		TextField<Long> tf =  (TextField<Long>) tester.getComponentFromLastRenderedPage(path("field2")); //$NON-NLS-1$
 		
 		Long actual = tf.getModel().getObject();
 		Long expected = model.getObject().getField2();
@@ -75,7 +75,7 @@ public class TestSelfDrawnPanel extends WicketTest {
 		tester.startPage(testPageSource());
 		Assert.assertFalse(getFeedbackPanel().anyErrorMessage());
 		FormTester formTester = tester.newFormTester(formPath());
-		formTester.setValue(TestPage.TEST_ID + ":repeater:field2:component", "-10");
+		formTester.setValue(TestPage.TEST_ID + ":field2", "-10");
 		formTester.submit(TestPage.SUBMIT_BUTTON_ID);
 		Assert.assertTrue(getFeedbackPanel().anyErrorMessage());
 		/*

@@ -13,7 +13,6 @@
 package gr.interamerican.wicket.bo2.creators;
 
 import gr.interamerican.bo2.utils.meta.BusinessObjectDescriptor;
-import gr.interamerican.wicket.bo2.markup.html.panel.SelfDrawnGridPanel;
 import gr.interamerican.wicket.bo2.markup.html.panel.SelfDrawnPanel;
 import gr.interamerican.wicket.creators.PanelCreator;
 import gr.interamerican.wicket.markup.html.panel.service.ModeAwareBeanPanelDef;
@@ -24,7 +23,7 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 
 /**
- * {@link PanelCreator} implementation based on {@link SelfDrawnPanel} and {@link SelfDrawnGridPanel}.
+ * {@link PanelCreator} implementation based on {@link SelfDrawnPanel}
  * 
  * @param <B>
  *            type of Bean
@@ -39,7 +38,7 @@ public class SelfDrawnPanelCreator<B extends Serializable> implements PanelCreat
 	/**
 	 * Number of columns.
 	 */
-	private int columns = 0;
+	private int columns = 1; //DEFAULT 1
 
 	/**
 	 * Creates a new SelfDrawnPanelCreator object.
@@ -69,10 +68,7 @@ public class SelfDrawnPanelCreator<B extends Serializable> implements PanelCreat
 		}
 		String id = definition.getWicketId();
 		CompoundPropertyModel<B> model = (CompoundPropertyModel<B>) definition.getBeanModel();
-		if(columns == 0) {
-			return new SelfDrawnPanel<B>(id, model, beanDescriptor);
-		} 
-		return new SelfDrawnGridPanel<B>(id, model, beanDescriptor, columns);
+		return new SelfDrawnPanel<B>(id, model, beanDescriptor, columns);
 	}
 
 }

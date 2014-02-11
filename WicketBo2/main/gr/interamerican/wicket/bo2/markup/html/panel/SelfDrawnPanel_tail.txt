@@ -1,4 +1,3 @@
-		</tr>
 	</table>
 </wicket:panel>
 </body>
