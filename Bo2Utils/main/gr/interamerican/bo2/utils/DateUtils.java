@@ -593,12 +593,14 @@ public class DateUtils {
 	}
 
 	/**
-	 * Gets the days (of month) of the specified date.
+	 * Gets the day of the month of the specified date.
+	 * 
+	 * The first day of month returns 1.
 	 * 
 	 * @param date
-	 *            Date.
+	 *        Date.
 	 * 
-	 * @return Returns the days (of month) of the specified date.
+	 * @return Returns the day of month of the specified date.
 	 */
 	public static final int days(Date date) {
 		Calendar cal = DateUtils.getCalendar(date);
@@ -685,10 +687,13 @@ public class DateUtils {
 	}
 
 	/**
-	 * returns all the holidays associated with the easter.
+	 * Returns all the holidays associated with the easter.
 	 * 
-	 * @param year
-	 * @return
+	 * @param year	   
+	 * 
+	 * @return Returns a list of {@link Date} objects, each one 
+	 *         representing   date that is a public holiday due
+	 *         to the Greek Orthodox Easter of the specified year.
 	 */
 	static Set<Date> getOrthodoxEasterHolidays(int year) {
 		Set<Date> dates = new HashSet<Date>();
