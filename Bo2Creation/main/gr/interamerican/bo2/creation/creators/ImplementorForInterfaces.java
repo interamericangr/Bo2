@@ -49,7 +49,7 @@ extends AbstractClassCreator {
 			String name = bpd.getName();
 			Class<?> type = bpd.getType();
 			Map<String, String> vars = Variables.variablesForProperty(name, type, name, type);
-			addFieldCode(templates.getFieldDeclarationCode(vars));
+			addFieldCode(templates.getFieldDeclarationCode(vars)); //TODO: initialize field?
 			Method getter = bpd.getGetter(); 
 			if (getter!=null) {				
 				String code = templates.getPropertyGetter(vars,getter.getName());

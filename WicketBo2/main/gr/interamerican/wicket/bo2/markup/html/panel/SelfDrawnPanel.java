@@ -181,7 +181,7 @@ implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 		specs = CollectionUtils.sort(specs, BoPropertyDescriptor.class, INDEX_PROPERTY_NAME);
 		List<List<BoPropertyDescriptor<?>>> rowSpecs = CollectionUtils.partition(specs, columns);
 		
-		String markup = MARKUPS.get(columns);
+		String markup = MARKUPS.get(markupKey);
 		if(markup == null) {
 			markup = calculateMarkup(rowSpecs);
 			MARKUPS.putIfAbsent(markupKey, markup);
@@ -317,6 +317,8 @@ implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 	}
 	
 	/**
+	 * This is not part of the public API.
+	 * 
 	 * The wicketId of the label of the form component for the specified property
 	 * 
 	 * @param propertyName

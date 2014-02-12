@@ -44,6 +44,8 @@ import org.apache.wicket.markup.html.panel.Panel;
 
 /**
  * Utilities for self-drawn wicket {@link Component}s.
+ * 
+ * TODO: Create SelfDrawnPanelUtils to package gr.interamerican.wicket.bo2.markup.html.panel
  */
 public class SelfDrawnUtils {
 		
