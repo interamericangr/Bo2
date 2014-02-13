@@ -17,7 +17,7 @@ implements NumericCalculator, SimpleCommand, Input<T> {
 	/**
 	 * Operation result.
 	 */
-	protected int numericResult;
+	protected Number numericResult;
 	
 	/**
 	 * input object.
