@@ -43,5 +43,10 @@ extends AbstractIntTypesBoPropertyDescriptor<Integer> implements Serializable {
 		}
 		return FormatterResolver.<Integer>getFormatter(Integer.class);
 	}
+	
+	@Override
+	public Integer valueOf(Number value) {	
+		return value.intValue();
+	}
 
 }

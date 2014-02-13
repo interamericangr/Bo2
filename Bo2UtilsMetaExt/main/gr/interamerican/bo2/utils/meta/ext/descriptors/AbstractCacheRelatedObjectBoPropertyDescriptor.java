@@ -13,7 +13,9 @@
 package gr.interamerican.bo2.utils.meta.ext.descriptors;
 
 import gr.interamerican.bo2.arch.ext.Cache;
+import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.meta.descriptors.AbstractBoPropertyDescriptor;
+import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
 import gr.interamerican.bo2.utils.meta.formatters.Formatter;
 import gr.interamerican.bo2.utils.meta.parsers.Parser;
 import gr.interamerican.bo2.utils.meta.validators.Validator;
@@ -86,5 +88,20 @@ extends AbstractBoPropertyDescriptor<T>{
 	 * @return Returns the appropriate validator.
 	 */
 	protected abstract Validator<T> getValidator();
+	
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public T valueOf(Number value) {
+		Long lvalue = value.longValue();
+		String strCode = StringUtils.toString(lvalue);
+		try {
+			C code = codeParser.parse(strCode);
+			return (T) cache.get(typeId, code);
+		} catch (ParseException e) {
+			return null;
+		}
+		
+	}
 
 }

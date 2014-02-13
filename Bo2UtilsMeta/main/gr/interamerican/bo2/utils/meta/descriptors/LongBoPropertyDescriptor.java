@@ -44,4 +44,9 @@ extends AbstractIntTypesBoPropertyDescriptor<Long> implements Serializable {
 		return FormatterResolver.<Long>getFormatter(Long.class);
 	}
 	
+	@Override
+	public Long valueOf(Number value) {	
+		return value.longValue();
+	}
+	
 }

@@ -46,5 +46,10 @@ extends AbstractNumberBoPropertyDescriptor<Float> implements Serializable {
 	protected Formatter<Float> getFormatter() {
 		return new DecimalFormatter<Float>(getLengthOfDecimalPart());
 	}		
+	
+	@Override
+	public Float valueOf(Number value) {	
+		return value.floatValue();
+	}
 
 }

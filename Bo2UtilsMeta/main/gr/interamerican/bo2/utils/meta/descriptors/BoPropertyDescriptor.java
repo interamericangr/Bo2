@@ -153,6 +153,19 @@ extends Named, Labeled {
 	T parse(String value) throws ParseException;
 	
 	/**
+	 * Converts the specified number to the appropriate value that matches to this
+	 * {@link BoPropertyDescriptor}.
+	 * 
+	 * If a numeric translation can't be performed for the specific data type, then
+	 * returns null.
+	 * 
+	 * @param value
+	 * 
+	 * @return Returns the value.
+	 */
+	T valueOf(Number value);
+	
+	/**
 	 * Gets the string representation of the value.
 	 * 
 	 * @param value Value to print.

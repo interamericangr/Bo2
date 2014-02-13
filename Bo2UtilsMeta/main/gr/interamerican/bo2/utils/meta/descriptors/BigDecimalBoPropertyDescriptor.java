@@ -46,5 +46,13 @@ extends AbstractNumberBoPropertyDescriptor<BigDecimal> {
 		return new DecimalFormatter<BigDecimal>(getLengthOfDecimalPart());
 	}
 	
+	@Override
+	public BigDecimal valueOf(Number value) {
+		if (value instanceof BigDecimal) {
+			return (BigDecimal)value;
+		}
+		return new BigDecimal(value.doubleValue());
+	}
+	
 	
 }

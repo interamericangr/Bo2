@@ -188,6 +188,11 @@ implements BoPropertyDescriptor<T> {
 		descriptor.setMaxLength(maxLength);
 	}
 	
+	@Override
+	public T valueOf(Number value) {	
+		return descriptor.valueOf(value);
+	}
+	
 	
 
 }
