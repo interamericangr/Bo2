@@ -100,6 +100,11 @@ public  class SamplePropertyDefinition implements PropertyDefinition {
 	 */
 	String expression;
 	
+	/**
+	 * affected.
+	 */
+	String affected;
+	
 
 	public String getName() {
 		return name;
@@ -284,4 +289,13 @@ public  class SamplePropertyDefinition implements PropertyDefinition {
 	public String getExpression() {
 		return expression;
 	}
+	
+	public String getAffected() {
+		return affected;
+	}
+
+	public void setAffected(String affected) {
+		this.affected = affected;
+	}
+	
 }

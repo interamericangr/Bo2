@@ -123,4 +123,8 @@ implements BusinessObjectDescriptor<T>{
 		return descriptor.getExpressions();
 	}
 
+	public BoPropertyDescriptor<?> getDescriptorByName(String descriptorName) {
+		return descriptor.getDescriptorByName(descriptorName);
+	}
+
 }

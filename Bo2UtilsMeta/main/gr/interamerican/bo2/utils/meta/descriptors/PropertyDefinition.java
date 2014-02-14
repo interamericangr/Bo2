@@ -58,6 +58,8 @@ import java.io.Serializable;
  * <br/>
  * expression:      A regular expression that can validate the value of the property.
  * <br/>
+ * affected:        The name of a single property definition that this affects. This only
+ *                  has meaning within a specific group of PropertyDefinitions
  */
 public interface PropertyDefinition 
 extends Named, Serializable{
@@ -254,5 +256,17 @@ extends Named, Serializable{
 	 * @return Returns the expression.
 	 */
 	String getExpression();
+	
+	/**
+	 * Assigns a new value to the affected.
+	 *
+	 * @param affected the affected to set
+	 */
+	void setAffected(String affected);
+	
+	/**
+	 * @return Returns the affected.
+	 */
+	String getAffected();
 
 }

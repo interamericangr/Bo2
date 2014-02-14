@@ -14,6 +14,7 @@ package gr.interamerican.bo2.utils.meta.descriptors;
 
 import gr.interamerican.bo2.utils.attributes.Labeled;
 import gr.interamerican.bo2.utils.attributes.Named;
+import gr.interamerican.bo2.utils.meta.BusinessObjectDescriptor;
 import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
 import gr.interamerican.bo2.utils.meta.exceptions.ValidationException;
 
@@ -224,5 +225,17 @@ extends Named, Labeled {
 	 */
 	void setMaxLength(int maxLength);
 	
+	/**
+	 * Set the name of a {@link BoPropertyDescriptor} that this one affects.
+	 * This is evaluated within the context of a specific {@link BusinessObjectDescriptor}.
+	 *
+	 * @param affected the affected to set
+	 */
+	void setAffected(String affected);
+	
+	/**
+	 * @return Returns the name of the affected {@link BoPropertyDescriptor}.
+	 */
+	String getAffected();
 
 }

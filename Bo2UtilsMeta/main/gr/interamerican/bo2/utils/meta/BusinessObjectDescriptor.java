@@ -90,4 +90,12 @@ extends Named, Labeled {
 	 */
 	public Set<BusinessObjectValidationExpression> getExpressions();
 	
+	/**
+	 * Returns the BoPropertyDescriptor with the specified name.
+	 * 
+	 * @param descriptorName
+	 * @return Returns the BoPropertyDescriptor with the specified name.
+	 */
+	public BoPropertyDescriptor<?> getDescriptorByName(String descriptorName);
+	
 }

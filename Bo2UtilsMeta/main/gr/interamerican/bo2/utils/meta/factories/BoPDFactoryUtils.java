@@ -35,6 +35,7 @@ public class BoPDFactoryUtils {
 		input.setReadOnly(def.getReadOnly());
 		input.setHasDefault(def.getHasDefault());
 		input.setNullAllowed(def.getNullAllowed());
+		input.setAffected(def.getAffected());
 	}
 
 }

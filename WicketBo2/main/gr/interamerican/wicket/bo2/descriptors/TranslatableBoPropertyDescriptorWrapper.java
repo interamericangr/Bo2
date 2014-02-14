@@ -185,14 +185,20 @@ implements BoPropertyDescriptor<T> {
 	}
 
 	public void setMaxLength(int maxLength) {
-		descriptor.setMaxLength(maxLength);
+		throw new RuntimeException("Not allowed"); //$NON-NLS-1$
 	}
 	
 	@Override
 	public T valueOf(Number value) {	
 		return descriptor.valueOf(value);
 	}
-	
-	
+
+	public void setAffected(String affected) {
+		throw new RuntimeException("Not allowed"); //$NON-NLS-1$
+	}
+
+	public String getAffected() {
+		return descriptor.getAffected();
+	}
 
 }

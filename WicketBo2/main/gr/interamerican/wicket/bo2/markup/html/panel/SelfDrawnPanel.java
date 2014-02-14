@@ -12,6 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.wicket.bo2.markup.html.panel;
 
+import gr.interamerican.bo2.arch.ext.TranslatableEntry;
 import gr.interamerican.bo2.utils.CollectionUtils;
 import gr.interamerican.bo2.utils.StreamUtils;
 import gr.interamerican.bo2.utils.StringConstants;
@@ -19,16 +20,23 @@ import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.beans.Pair;
 import gr.interamerican.bo2.utils.meta.BusinessObjectDescriptor;
 import gr.interamerican.bo2.utils.meta.descriptors.BoPropertyDescriptor;
+import gr.interamerican.bo2.utils.meta.ext.descriptors.CachedEntryBoPropertyDescriptor;
 import gr.interamerican.wicket.bo2.factories.meta.GenericBoPDComponentFactory;
+import gr.interamerican.wicket.bo2.markup.html.form.DropDownChoiceForEntry;
+import gr.interamerican.wicket.bo2.utils.SelfDrawnUtils;
 import gr.interamerican.wicket.util.resource.StringAsResourceStream;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.MarkupContainer;
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.markup.IMarkupCacheKeyProvider;
 import org.apache.wicket.markup.IMarkupResourceStreamProvider;
 import org.apache.wicket.markup.html.basic.Label;
@@ -192,6 +200,8 @@ implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 		}
 		
 		add(label);
+		
+		addOnChangeBehaviorsOnAffectingDropDowns(boDescriptor);
 	}
 	
 	public String getCacheKey(MarkupContainer container, Class<?> containerClass) {
@@ -366,6 +376,100 @@ implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 		Label l = new Label(id);
 		l.setVisible(false);
 		return l;
+	}
+	
+	/**
+	 * Resolves DropDownChoices that affect other DropDownChoices and adds ajax
+	 * 'onchange' behaviors. 
+	 *  
+	 * @param boDescriptor
+	 */
+	void addOnChangeBehaviorsOnAffectingDropDowns(BusinessObjectDescriptor<T> boDescriptor) {
+		for(BoPropertyDescriptor<?> bpd : boDescriptor.getPropertyDescriptors()) {
+			if(!StringUtils.isNullOrBlank(bpd.getAffected())) {
+				addOnChangeBehaviorOnAffectingDropDown(boDescriptor, bpd.getName(), bpd.getAffected());
+			}
+		}
+	}
+	
+	/**
+	 * Adds an 'onchange' behavior on a DropDownChoice of this panel that affects another
+	 * DropDownChoice of this panel. 
+	 * 
+	 * @param boDescriptor
+	 * @param affecting 
+	 * @param affected 
+	 */
+	@SuppressWarnings({ "unchecked", "nls" })
+	<E extends TranslatableEntry<Long, ?, Long>>
+	void addOnChangeBehaviorOnAffectingDropDown(BusinessObjectDescriptor<T> boDescriptor, String affecting, String affected) {
+		try {
+			DropDownChoiceForEntry<Long,E> affectingDdc = (DropDownChoiceForEntry<Long,E>) get(affecting);
+			DropDownChoiceForEntry<Long,E> affectedDdc = (DropDownChoiceForEntry<Long,E>) get(affected);
+			CachedEntryBoPropertyDescriptor<E,?> affectedDescriptor = (CachedEntryBoPropertyDescriptor<E,?>) boDescriptor.getDescriptorByName(affected);
+			affectingDdc.add(new AffectingDdcBehavior<E>(affectingDdc, affectedDdc, affectedDescriptor));
+		} catch (ClassCastException e) {
+			String msg = "Invalid BusinessObjectDescriptor affected property descriptors setup: " + boDescriptor.getName();
+			throw new RuntimeException(msg, e);
+		}
+	}
+	
+	/**
+	 * Behavior that will affect the choices of a Drop Down Choice of this panel
+	 * based on the selection performed on another Drop Down Choice of this panel
+	 * that affects the first.
+	 * 
+	 * @param <E> Entry type. This is hacky, not both DDCs have to have the same type.
+	 */
+	static class AffectingDdcBehavior<E extends TranslatableEntry<Long, ?, Long>> extends AjaxFormComponentUpdatingBehavior {
+		
+		/**
+		 * serialVersionUID.
+		 */
+		private static final long serialVersionUID = 1L;
+		
+		/**
+		 * Affecting drop down choice
+		 */
+		DropDownChoiceForEntry<Long,E> affectingDdc;
+		
+		/**
+		 * Affected drop down choice
+		 */
+		DropDownChoiceForEntry<Long,E> affectedDdc;
+		
+		/**
+		 * CachedEntryBoPropertyDescriptor of the affected drop down choice
+		 */
+		CachedEntryBoPropertyDescriptor<E,?> affectedDescriptor;
+		
+		/**
+		 * Creates a new SelfDrawnPanel.AffectingDdcBehavior object. 
+		 * @param affectedDdc 
+		 * @param affectedDescriptor 
+		 * @param affectingDdc 
+		 */
+		public AffectingDdcBehavior(DropDownChoiceForEntry<Long,E> affectingDdc, DropDownChoiceForEntry<Long,E> affectedDdc, CachedEntryBoPropertyDescriptor<E,?> affectedDescriptor) {
+			super("onchange"); //$NON-NLS-1$
+			this.affectedDdc = affectedDdc;
+			this.affectedDescriptor = affectedDescriptor;
+			this.affectingDdc = affectingDdc;
+		}
+		
+		@Override
+		protected void onUpdate(AjaxRequestTarget target) {
+			target.addComponent(affectedDdc);
+			E affectingChoice = affectingDdc.getModelObject();
+			Long affectedSubListCd = null;
+			if(affectingChoice != null) {
+				affectedSubListCd = affectingChoice.getCode();
+			}
+			Set<E> choices = affectedDescriptor.getValues(affectedSubListCd);
+			List<E> choicesList = new ArrayList<E>(choices);
+			affectedDdc.setChoices(choicesList);
+			SelfDrawnUtils.<Long, E>sortCachedEntries(affectedDdc);
+		}
+		
 	}
 
 }

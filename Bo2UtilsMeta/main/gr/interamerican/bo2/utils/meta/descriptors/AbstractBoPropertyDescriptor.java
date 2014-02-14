@@ -84,6 +84,10 @@ implements BoPropertyDescriptor<T> {
 	 * length
 	 */
 	int maxLength;
+	/**
+	 * affected.
+	 */
+	private String affected;
 
 	/**
 	 * Creates a new AbstractBoPropertyDescriptor object. 
@@ -301,6 +305,12 @@ implements BoPropertyDescriptor<T> {
 		return null;
 	}
 	
-	
+	public String getAffected() {
+		return affected;
+	}
+
+	public void setAffected(String affected) {
+		this.affected = affected;
+	}
 
 }

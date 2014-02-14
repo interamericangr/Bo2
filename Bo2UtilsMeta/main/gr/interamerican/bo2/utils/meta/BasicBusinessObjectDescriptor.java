@@ -139,5 +139,20 @@ public class BasicBusinessObjectDescriptor<T> implements BusinessObjectDescripto
 		}
 		return context;
 	}
+	
+	/**
+	 * @param descriptorName
+	 * 
+	 * @return Returns the BoPropertyDescriptor of this {@link BusinessObjectDescriptor}
+	 *         with the specified name. 
+	 */
+	public BoPropertyDescriptor<?> getDescriptorByName(String descriptorName) {
+		for(BoPropertyDescriptor<?> bpd : getPropertyDescriptors()) {
+			if(descriptorName.equals(bpd.getName())) {
+				return bpd;
+			}
+		}
+		return null;
+	}
 
 }
