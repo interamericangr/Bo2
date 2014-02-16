@@ -57,6 +57,9 @@ extends AbstractCacheRelatedObjectBoPropertyDescriptor<T, C>{
 	public T parse(String value) throws ParseException {		
 		C code = codeParser.parse(value);
 		TypedSelectable<C> typedSelectable = cache.get(typeId, code);	
+		if (typedSelectable==null) {
+			return null;
+		}
 		return getOwner(typedSelectable);
 	}
 	
