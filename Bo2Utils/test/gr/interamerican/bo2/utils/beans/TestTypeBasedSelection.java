@@ -23,7 +23,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * 
+ * Unit tests for {@link TestTypeBasedSelection}.
  */
 public class TestTypeBasedSelection {
 
@@ -104,6 +104,17 @@ public class TestTypeBasedSelection {
 		Integer i = 2;
 		assertEquals(value,selection.select(i));
 		assertTrue(selection.selections.containsKey(Integer.class));
+	}
+	
+	/**
+	 * tests Select
+	 */
+	@Test
+	public void testSelect_WithAutoboxing(){
+		String value = "value"; //$NON-NLS-1$
+		selection.registerSelection(Integer.class, value);		
+		int i = 2;
+		assertEquals(value,selection.select(i));
 	}
 	
 }
