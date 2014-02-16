@@ -18,6 +18,8 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
+import java.lang.reflect.InvocationTargetException;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -128,7 +130,7 @@ public class TestExceptionUtils {
 	}
 	
 	/**
-	 * tests SetLastModifiedByToPo
+	 * tests unwrap(ex).
 	 */	
 	@Test
 	public void testUnwrap_withOther(){
@@ -136,6 +138,41 @@ public class TestExceptionUtils {
 		RuntimeException wrapper = new RuntimeException(t);
 		Throwable actual = ExceptionUtils.unwrap(wrapper);
 		Assert.assertEquals(t, actual);		
+	}
+	
+	/**
+	 * tests unwrap(ex).
+	 */	
+	@Test
+	public void testUnwrap_withRteThatHasnoCause(){
+		RuntimeException npex = new NullPointerException();
+		Throwable actual = ExceptionUtils.unwrap(npex);
+		Assert.assertEquals(npex, actual);		
+	}
+	
+	/**
+	 * tests unwrap(ex).
+	 */	
+	@Test
+	public void testUnwrap_withRteThatHasInvocationtargetEx(){
+		Exception initial = new Exception();		
+		InvocationTargetException itex = new InvocationTargetException(initial);		
+		RuntimeException npex = new RuntimeException(itex);
+		Throwable actual = ExceptionUtils.unwrap(npex);
+		Assert.assertEquals(initial, actual);		
+	}
+	
+	/**
+	 * tests unwrap(ex).
+	 */	
+	@Test
+	public void testUnwrap_withRteThatHasInvocationtargetExAnotherRte(){
+		Exception initial = new Exception();	
+		RuntimeException targetEx = new RuntimeException(initial);		
+		InvocationTargetException itex = new InvocationTargetException(targetEx);		
+		RuntimeException npex = new RuntimeException(itex);
+		Throwable actual = ExceptionUtils.unwrap(npex);
+		Assert.assertEquals(initial, actual);		
 	}
 	
 

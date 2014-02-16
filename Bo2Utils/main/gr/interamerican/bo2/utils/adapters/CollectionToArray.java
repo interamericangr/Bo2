@@ -28,7 +28,7 @@ implements Transformation<List<T>, T[]> {
 	/**
 	 * Sample array.
 	 */
-	private T[] sample;
+	T[] sample;
 	
 	/**
 	 * Creates a new ListToArray object. 

@@ -33,6 +33,7 @@ import org.junit.runners.Suite.SuiteClasses;
 		TestAbsoluteValueFloat.class,
 		TestAbsoluteValueInt.class,
 		TestAbsoluteValueLong.class,
+		TestAbsoluteValue.class,
 		
 	}
 )

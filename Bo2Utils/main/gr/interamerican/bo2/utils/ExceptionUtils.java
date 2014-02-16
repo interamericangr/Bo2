@@ -14,6 +14,7 @@ package gr.interamerican.bo2.utils;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.lang.reflect.InvocationTargetException;
 
 
 
@@ -150,8 +151,16 @@ public class ExceptionUtils {
 	public static Throwable unwrap(Throwable t) {
 		if (t instanceof RuntimeException) {
 			Throwable cause = t.getCause();
-			return Utils.notNull(cause, t);
+			if (cause==null) {
+				return t;
+			}
+			return unwrap(cause);			
 		} else {
+			if (t instanceof InvocationTargetException) {
+				InvocationTargetException itex = (InvocationTargetException)t;
+				Throwable targetEx = itex.getTargetException();
+				return unwrap(targetEx);				
+			}			
 			return t;
 		}
 	}

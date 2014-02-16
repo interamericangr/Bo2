@@ -47,6 +47,9 @@ import org.junit.runners.Suite.SuiteClasses;
 		TestReplaceWith.class,
 		TestPeriodicCommand.class,
 		TestSingleSubjectOperation.class,
+		TestCopyFromBeans.class,
+		TestCollectionToArray.class,
+		TestRefresh.class,
 		TestSuiteBo2UtilsAdaptersDate.class,
 		TestSuiteBo2UtilsAdaptersNumber.class,
 	}

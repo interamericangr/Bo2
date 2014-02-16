@@ -7,7 +7,8 @@ import java.lang.reflect.Modifier;
 
 
 /**
- * {@link InvokeMethod} is a generic adapter that 
+ * {@link InvokeMethod} adapts the invocation of a {@link Method}
+ * to the {@link Transformation} interface.
  * 
  * 
  * @param <A>
