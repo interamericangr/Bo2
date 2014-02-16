@@ -18,7 +18,6 @@ import gr.interamerican.bo2.samples.archutil.beans.MoneyBean;
 import gr.interamerican.bo2.utils.meta.BasicBusinessObjectDescriptor;
 import gr.interamerican.bo2.utils.meta.BusinessObjectDescriptor;
 import gr.interamerican.bo2.utils.meta.descriptors.BoPropertyDescriptor;
-import gr.interamerican.bo2.utils.meta.descriptors.LongBoPropertyDescriptor;
 import gr.interamerican.bo2.utils.meta.ext.descriptors.MoneyBoPropertyDescriptor;
 import gr.interamerican.wicket.bo2.markup.html.formcomponent.SelfDrawnMoneyField;
 import gr.interamerican.wicket.markup.html.TestPage;
@@ -60,7 +59,7 @@ public class TestSelfDrawnPanel_Money extends WicketTest {
 		/*
 		 * Change the model object and assert correct propagation to components.
 		 */
-		model.setObject(new MoneyBean(BigDecimal.ZERO, BigDecimal.ZERO, new MoneyImpl(new BigDecimal("1")), null));
+		model.setObject(new MoneyBean(BigDecimal.ZERO, BigDecimal.ZERO, new MoneyImpl(new BigDecimal("1")), null)); //$NON-NLS-1$
 		
 		actual = tf.getModel().getObject();
 		expected = model.getObject().getMoneyAmount1();
