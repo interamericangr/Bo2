@@ -84,7 +84,7 @@ public class SelfDrawnMoneyField extends FormComponentPanel<Money>{
 	public SelfDrawnMoneyField(String id,IModel<Money> model,MoneyBoPropertyDescriptor descriptor) {
 		super(id, model);
 		this.setOutputMarkupPlaceholderTag(true);
-		createAmountField(id, descriptor, model);
+		createAmountField("component", descriptor, model); //$NON-NLS-1$
 	}
 
 	/**

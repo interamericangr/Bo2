@@ -15,12 +15,18 @@ package gr.interamerican.bo2.samples.archutil.beans;
 import gr.interamerican.bo2.arch.Money;
 import gr.interamerican.bo2.arch.utils.beans.MoneyImpl;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
  * Javabean with some BigDecimal and Money properties.
  */
-public class MoneyBean {
+public class MoneyBean implements Serializable {
+	
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	/**
 	 * Big decimal amount 1.
