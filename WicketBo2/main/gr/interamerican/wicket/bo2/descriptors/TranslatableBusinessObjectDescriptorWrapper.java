@@ -127,4 +127,8 @@ implements BusinessObjectDescriptor<T>{
 		return descriptor.getDescriptorByName(descriptorName);
 	}
 
+	public BoPropertyDescriptor<?> whoAffectsMe(BoPropertyDescriptor<?> affected) {
+		return descriptor.whoAffectsMe(affected);
+	}
+
 }

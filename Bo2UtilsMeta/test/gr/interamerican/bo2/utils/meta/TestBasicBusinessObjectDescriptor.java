@@ -45,7 +45,7 @@ public class TestBasicBusinessObjectDescriptor {
 	/**
 	 * Lista me BoPropertyDescriptors
 	 */
-	List<BoPropertyDescriptor<?>>  descriptors =  getDescriptors();
+	Bean1descriptor descriptor =  new Bean1descriptor();
 	
 	/**
 	 * Create a Bean
@@ -60,24 +60,12 @@ public class TestBasicBusinessObjectDescriptor {
 	}
     
 	/**
-	 * Return one list with BoPropertyDescriptors
-	 * @return List<BoPropertyDescriptor<?>>
-	 */
-	private List<BoPropertyDescriptor<?>> getDescriptors(){
-		
-		 Bean1descriptor descriptor =  new Bean1descriptor();
-		 List<BoPropertyDescriptor<?>> descriptors = descriptor.getPropertyDescriptors();
-		 return descriptors;
-	}
-	
-	
-	/**
 	 * Test Get
 	 */
 	@Test 
 	public void testGet(){
 	
-		busDesc.setPropertyDescriptors(descriptors);
+		busDesc.setPropertyDescriptors(descriptor.getPropertyDescriptors());
 	    assertNotNull(busDesc.get(bean));
 	}
 	
@@ -89,11 +77,11 @@ public class TestBasicBusinessObjectDescriptor {
 	@Test
 	public void testSet() throws MultipleValidationsException{
 		
-		busDesc.setPropertyDescriptors(descriptors);
+		busDesc.setPropertyDescriptors(descriptor.getPropertyDescriptors());
 		Map<BoPropertyDescriptor<?>, Object> propertyValues = new HashMap<BoPropertyDescriptor<?>,Object>();
 		
 		String value = "building description"; //$NON-NLS-1$
-		propertyValues.put(descriptors.get(1), value);
+		propertyValues.put(descriptor.getPropertyDescriptors().get(1), value);
 		
 		busDesc.set(bean, propertyValues);
 	}
@@ -106,7 +94,7 @@ public class TestBasicBusinessObjectDescriptor {
 	@Test 
 	public void testValidate() throws MultipleValidationsException{
 		
-		StringBoPropertyDescriptor stringDesc = (StringBoPropertyDescriptor) descriptors.get(1);
+		StringBoPropertyDescriptor stringDesc = (StringBoPropertyDescriptor) descriptor.getPropertyDescriptors().get(1);
 		List<BoPropertyDescriptor<?>> list = new ArrayList<BoPropertyDescriptor<?>>();
 		list.add(stringDesc);
 		busDesc.setPropertyDescriptors(list);
@@ -120,10 +108,8 @@ public class TestBasicBusinessObjectDescriptor {
 	 */
 	@Test (expected=MultipleValidationsException.class )
 	public void testValidateDescriptor() throws MultipleValidationsException{
-		
-		busDesc.setPropertyDescriptors(descriptors);
+		busDesc.setPropertyDescriptors(descriptor.getPropertyDescriptors());
 		busDesc.validate(bean);
-		
 	}
 	
 	/**
@@ -137,5 +123,33 @@ public class TestBasicBusinessObjectDescriptor {
 		busDesc.setLabel("testName"); //$NON-NLS-1$
 		Assert.assertNotNull(busDesc.getLabel());
 	}
-
+	
+	/**
+	 * Test getDescriptorWithName
+	 */
+	@Test 
+	@SuppressWarnings("nls")
+	public void testGetDescriptorWithName() {
+		BoPropertyDescriptor<?> expected = descriptor.getPropertyDescriptors().get(0);
+		BoPropertyDescriptor<?> actual = descriptor.getDescriptorByName("id");
+		
+		Assert.assertEquals(expected, actual);
+		Assert.assertEquals("id", actual.getName());
+	}
+	
+	/**
+	 * Test getDescriptorWithName
+	 */
+	@Test 
+	@SuppressWarnings("nls")
+	public void testWhoAffectsMe() {
+		descriptor.getPropertyDescriptors().get(0).setAffected("description"); 
+		BoPropertyDescriptor<?> affected = descriptor.getPropertyDescriptors().get(1);
+		BoPropertyDescriptor<?> expected = descriptor.getPropertyDescriptors().get(0);
+		BoPropertyDescriptor<?> actual = descriptor.whoAffectsMe(affected);
+		
+		Assert.assertEquals(expected, actual);
+		Assert.assertEquals("id", actual.getName());
+	}
+	
 }

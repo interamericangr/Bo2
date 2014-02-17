@@ -89,6 +89,9 @@ public class TestSelfDrawnPanel_AffectedDdcs extends Bo2WicketTest {
 			(SelfDrawnDropDownChoiceForEntry<Long, TranslatableEntryImpl>) tester.getComponentFromLastRenderedPage(path("field1"));
 		Assert.assertTrue(field1Ddc.getChoices().size()==2);
 		
+		/*
+		 * dependent value code is null. This list is therefore empty.
+		 */
 		SelfDrawnDropDownChoiceForEntry<Long, TranslatableEntryImpl> field2Ddc = 
 			(SelfDrawnDropDownChoiceForEntry<Long, TranslatableEntryImpl>) tester.getComponentFromLastRenderedPage(path("field2"));
 		Assert.assertTrue(field2Ddc.getChoices().isEmpty()); 
@@ -101,6 +104,7 @@ public class TestSelfDrawnPanel_AffectedDdcs extends Bo2WicketTest {
 		Assert.assertTrue(field2Ddc.getChoices().size()==2); 
 		commonAssertions_noError();
 	}
+	
 	
 	@Override
 	protected Component initializeComponent() {
@@ -155,7 +159,7 @@ public class TestSelfDrawnPanel_AffectedDdcs extends Bo2WicketTest {
 		
 		ibpd = Mockito.spy(ibpd);
 		
-		Mockito.doReturn(field2Values()).when(ibpd).getValues(Mockito.anyLong());
+		Mockito.doReturn(field2Values()).when(ibpd).getValues(2L); //selection of field1 on #testOnChangeBehavior()
 		Mockito.doReturn(new HashSet<TranslatableEntryImpl>()).when(ibpd).getValues();
 		
         return ibpd;

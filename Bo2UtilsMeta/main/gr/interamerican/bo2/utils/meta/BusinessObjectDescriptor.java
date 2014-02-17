@@ -98,4 +98,15 @@ extends Named, Labeled {
 	 */
 	public BoPropertyDescriptor<?> getDescriptorByName(String descriptorName);
 	
+	/**
+	 * Asks this {@link BusinessObjectDescriptor} which of its property descriptors
+	 * affects the argument. If the argument is not contained in {@link #getPropertyDescriptors()}
+	 * a RuntimeExcetion is thrown.
+	 * 
+	 * @param affected
+	 *        Affected 
+	 * @return The affecting BoPropertyDescriptor
+	 */
+	public BoPropertyDescriptor<?> whoAffectsMe(BoPropertyDescriptor<?> affected);
+	
 }

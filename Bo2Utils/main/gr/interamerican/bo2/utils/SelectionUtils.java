@@ -146,7 +146,7 @@ public class SelectionUtils {
 	 * @return Returns a list that contains all elements of the specified 
 	 *         collection that fulfill the specified condition.
 	 */
-	public static <T> T selectFirstByCondition (Condition<T> condition, Collection<T> collection) {
+	public static <T> T selectFirstByCondition (Condition<T> condition, Collection<? extends T> collection) {
 		for (T t : collection) {
 			if (condition.check(t)) {			
 				return t;				
@@ -235,7 +235,7 @@ public class SelectionUtils {
 	 *         that have the specified property equal to the specified value.
 	 */
 	public static <T> T selectFirstByProperty
-	(String property, Object value, Collection<T> collection, Class<T> type) {
+	(String property, Object value, Collection<? extends T> collection, Class<T> type) {
 		ConditionOnProperty<T> condition = new PropertyEqualsTo<T>(property, type, value);
 		return selectFirstByCondition(condition, collection);
 	}
@@ -256,7 +256,7 @@ public class SelectionUtils {
 	 *         fulfill the condition, then returns null.
 	 */
 	public static <T> T selectFirstByProperties
-	(String[] properties, Object[] values, Collection<T> collection, Class<T> type) {
+	(String[] properties, Object[] values, Collection<? extends T> collection, Class<T> type) {
 		Condition<T> condition = new PropertiesEqual<T>(properties, values, type);
 		return selectFirstByCondition(condition, collection);
 	}
@@ -297,7 +297,7 @@ public class SelectionUtils {
 	 *         that have the specified property equal to the specified value.
 	 */
 	public static <T> T selectFirstWithNotNullProperty
-	(String property, Collection<T> collection, Class<T> type) {
+	(String property, Collection<? extends T> collection, Class<T> type) {
 		ConditionOnProperty<T> notNull = new PropertyIsNotNull<T>(property, type);
 		return selectFirstByCondition(notNull, collection);
 	}
@@ -319,7 +319,7 @@ public class SelectionUtils {
 	 *         that have the specified property equal to the specified value.
 	 */
 	public static <T> T selectFirstWithNullProperty
-	(String property, Collection<T> collection, Class<T> type) {		
+	(String property, Collection<? extends T> collection, Class<T> type) {		
 		ConditionOnProperty<T> isNull = new PropertyIsNull<T>(property, type);
 		return selectFirstByCondition(isNull, collection);
 	}
@@ -342,7 +342,7 @@ public class SelectionUtils {
 	 * @return Returns true, if there is at least one element in the collection
 	 *         whose <code>property</code> is equal to the supplied <code>value</code>.
 	 */
-	public static <T> Boolean existsByProperty(String property, Object value, Collection<T> collection, Class<T> type) {		
+	public static <T> Boolean existsByProperty(String property, Object value, Collection<? extends T> collection, Class<T> type) {		
 		T t = SelectionUtils.selectFirstByProperty(property, value, collection, type);		
 		return t!=null;
 	}
@@ -358,7 +358,7 @@ public class SelectionUtils {
 	 *         specified collection that fulfills the specified
 	 *         condition.
 	 */
-	public static <T> Boolean existsByCondition(Condition<T> condition, Collection<T> collection) {
+	public static <T> Boolean existsByCondition(Condition<T> condition, Collection<? extends T> collection) {
 		T t = SelectionUtils.selectFirstByCondition(condition, collection);
 		return (t!=null);
 	}

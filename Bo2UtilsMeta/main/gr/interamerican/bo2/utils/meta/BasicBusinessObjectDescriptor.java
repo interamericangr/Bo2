@@ -12,6 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.meta;
 
+import gr.interamerican.bo2.utils.SelectionUtils;
 import gr.interamerican.bo2.utils.meta.descriptors.BoPropertyDescriptor;
 import gr.interamerican.bo2.utils.meta.exceptions.MultipleValidationsException;
 import gr.interamerican.bo2.utils.meta.exceptions.ValidationException;
@@ -153,6 +154,14 @@ public class BasicBusinessObjectDescriptor<T> implements BusinessObjectDescripto
 			}
 		}
 		return null;
+	}
+
+	public BoPropertyDescriptor<?> whoAffectsMe(BoPropertyDescriptor<?> affected) {
+		if(!getPropertyDescriptors().contains(affected)) {
+			throw new RuntimeException(affected.getFullyQualifiedName() + " does not belong to " + getName()); //$NON-NLS-1$
+		}
+		BoPropertyDescriptor<?> result = SelectionUtils.selectFirstByProperty("affected", affected.getName(), getPropertyDescriptors(), BoPropertyDescriptor.class); //$NON-NLS-1$
+		return result;
 	}
 
 }

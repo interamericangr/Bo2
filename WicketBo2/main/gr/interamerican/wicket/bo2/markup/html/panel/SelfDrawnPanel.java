@@ -14,6 +14,7 @@ package gr.interamerican.wicket.bo2.markup.html.panel;
 
 import gr.interamerican.bo2.arch.ext.TranslatableEntry;
 import gr.interamerican.bo2.utils.CollectionUtils;
+import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.StreamUtils;
 import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.StringUtils;
@@ -197,12 +198,13 @@ implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 		}
 		
 		for (List<BoPropertyDescriptor<?>> rowSpec : rowSpecs) {
-			populateRow(rowSpec);
+			populateRow(rowSpec, boDescriptor);
 		}
 		
 		add(label);
 		
 		addOnChangeBehaviorsOnAffectingDropDowns(boDescriptor);
+		
 	}
 	
 	public String getCacheKey(MarkupContainer container, Class<?> containerClass) {
@@ -238,14 +240,29 @@ implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 	/**
 	 * Populate the WebMarkupContainer that encapsulates a single row.
 	 * @param rowSpec
+	 * @param boDescriptor 
 	 */
-	void populateRow(List<BoPropertyDescriptor<?>> rowSpec) {
+	@SuppressWarnings("unchecked")
+	<E extends TranslatableEntry<Long, ?, Long>>
+	void populateRow(List<BoPropertyDescriptor<?>> rowSpec, BusinessObjectDescriptor<T> boDescriptor) {
 		int counter = 0;
 		for (BoPropertyDescriptor<?> spec : rowSpec) {
 			String componentId = spec.getName();
 			String labelId = labelWicketIdWithPropertyName(spec.getName());
 			
 			Pair<Component, Component> pair = GenericBoPDComponentFactory.INSTANCE.draw(model.bind(spec.getName()), spec, componentId, labelId);
+			
+			/*
+			 * Fix the choices before adding.
+			 */
+			BoPropertyDescriptor<?> affecting = boDescriptor.whoAffectsMe(spec);
+			if(affecting != null) {
+				setChoicesToDependentDropDown(
+					boDescriptor, 
+					(CachedEntryBoPropertyDescriptor<E, Long>) spec, 
+					(DropDownChoiceForEntry<Long, E>) pair.getRight());
+			}
+			
 			add(pair.getLeft());
 			add(pair.getRight());
 			counter++;
@@ -258,6 +275,34 @@ implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 			add(empty(labelWicketIdWithColumn(i)));
 			add(empty(componentWicketIdWithColumn(i)));
 		}
+	}
+	
+	/**
+	 * Sets the choices for a dependent drop down based on the model
+	 * object value of the affecting property.
+	 * 
+	 * @param boDescriptor
+	 * @param affectedPd
+	 * @param affectedDdc
+	 */
+	@SuppressWarnings("unchecked")
+	<E extends TranslatableEntry<Long, ?, Long>>
+	void setChoicesToDependentDropDown(BusinessObjectDescriptor<T> boDescriptor, CachedEntryBoPropertyDescriptor<E, Long> affectedPd, DropDownChoiceForEntry<Long,E> affectedDdc) {
+		BoPropertyDescriptor<?> affecting = boDescriptor.whoAffectsMe(affectedPd);
+		
+		E affectingChoice = null;
+		if(model.getObject() != null) {
+			affectingChoice = (E) ReflectionUtils.getProperty(affecting.getName(), model.getObject());
+		}
+		
+		Long subListCd = null;
+		if(affectingChoice != null) {
+			subListCd = affectingChoice.getCode();
+		}
+		Set<E> choices = affectedPd.getValues(subListCd);
+		List<E> choicesList = new ArrayList<E>(choices);
+		affectedDdc.setChoices(choicesList);
+		SelfDrawnUtils.<Long, E>sortCachedEntries(affectedDdc);
 	}
 	
 	/**
@@ -328,6 +373,46 @@ implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 	}
 	
 	/**
+	 * Resolves DropDownChoices that affect other DropDownChoices and adds ajax
+	 * 'onchange' behaviors. 
+	 *  
+	 * @param boDescriptor
+	 */
+	void addOnChangeBehaviorsOnAffectingDropDowns(BusinessObjectDescriptor<T> boDescriptor) {
+		for(BoPropertyDescriptor<?> bpd : boDescriptor.getPropertyDescriptors()) {
+			if(!StringUtils.isNullOrBlank(bpd.getAffected())) {
+				addOnChangeBehaviorOnAffectingDropDown(boDescriptor, bpd.getName(), bpd.getAffected());
+			}
+		}
+	}
+
+	/**
+	 * Adds an 'onchange' behavior on a DropDownChoice of this panel that
+	 * affects another DropDownChoice of this panel.
+	 * 
+	 * @param boDescriptor
+	 * @param affecting
+	 * @param affected
+	 */
+	@SuppressWarnings({ "nls", "unchecked" })
+	<E extends TranslatableEntry<Long, ?, Long>> void addOnChangeBehaviorOnAffectingDropDown(
+			BusinessObjectDescriptor<T> boDescriptor, String affecting, String affected) {
+		DropDownChoiceForEntry<Long, E> affectingDdc = (DropDownChoiceForEntry<Long, E>) get(affecting);
+		DropDownChoiceForEntry<Long, E> affectedDdc = (DropDownChoiceForEntry<Long, E>) get(affected);
+		BoPropertyDescriptor<?> unchecked = boDescriptor.getDescriptorByName(affected);
+		if (unchecked instanceof TranslatableBoPropertyDescriptorWrapper) {
+			unchecked = ((TranslatableBoPropertyDescriptorWrapper<?, ?, ?>) unchecked).getDescriptor();
+		}
+		if (!(unchecked instanceof CachedEntryBoPropertyDescriptor)) {
+			String msg = "Invalid BusinessObjectDescriptor affected property descriptors setup: "
+					+ boDescriptor.getName();
+			throw new RuntimeException(msg);
+		}
+		CachedEntryBoPropertyDescriptor<E, ?> affectedDescriptor = (CachedEntryBoPropertyDescriptor<E, ?>) unchecked;
+		affectingDdc.add(new AffectingDdcBehavior<E>(affectingDdc, affectedDdc, affectedDescriptor));
+	}
+	
+	/**
 	 * This is not part of the public API.
 	 * 
 	 * The wicketId of the label of the form component for the specified property
@@ -377,46 +462,6 @@ implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 		Label l = new Label(id);
 		l.setVisible(false);
 		return l;
-	}
-	
-	/**
-	 * Resolves DropDownChoices that affect other DropDownChoices and adds ajax
-	 * 'onchange' behaviors. 
-	 *  
-	 * @param boDescriptor
-	 */
-	void addOnChangeBehaviorsOnAffectingDropDowns(BusinessObjectDescriptor<T> boDescriptor) {
-		for(BoPropertyDescriptor<?> bpd : boDescriptor.getPropertyDescriptors()) {
-			if(!StringUtils.isNullOrBlank(bpd.getAffected())) {
-				addOnChangeBehaviorOnAffectingDropDown(boDescriptor, bpd.getName(), bpd.getAffected());
-			}
-		}
-	}
-
-	/**
-	 * Adds an 'onchange' behavior on a DropDownChoice of this panel that
-	 * affects another DropDownChoice of this panel.
-	 * 
-	 * @param boDescriptor
-	 * @param affecting
-	 * @param affected
-	 */
-	@SuppressWarnings({ "nls", "unchecked" })
-	<E extends TranslatableEntry<Long, ?, Long>> void addOnChangeBehaviorOnAffectingDropDown(
-			BusinessObjectDescriptor<T> boDescriptor, String affecting, String affected) {
-		DropDownChoiceForEntry<Long, E> affectingDdc = (DropDownChoiceForEntry<Long, E>) get(affecting);
-		DropDownChoiceForEntry<Long, E> affectedDdc = (DropDownChoiceForEntry<Long, E>) get(affected);
-		BoPropertyDescriptor<?> unchecked = boDescriptor.getDescriptorByName(affected);
-		if (unchecked instanceof TranslatableBoPropertyDescriptorWrapper) {
-			unchecked = ((TranslatableBoPropertyDescriptorWrapper<?, ?, ?>) unchecked).getDescriptor();
-		}
-		if (!(unchecked instanceof CachedEntryBoPropertyDescriptor)) {
-			String msg = "Invalid BusinessObjectDescriptor affected property descriptors setup: "
-					+ boDescriptor.getName();
-			throw new RuntimeException(msg);
-		}
-		CachedEntryBoPropertyDescriptor<E, ?> affectedDescriptor = (CachedEntryBoPropertyDescriptor<E, ?>) unchecked;
-		affectingDdc.add(new AffectingDdcBehavior<E>(affectingDdc, affectedDdc, affectedDescriptor));
 	}
 	
 	/**

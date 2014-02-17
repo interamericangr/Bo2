@@ -73,7 +73,7 @@ extends BasicBusinessObjectDescriptor<Bean1> {
 		idDesc.setReadOnly(false);
 		idDesc.setPackageName(Bean1.class.getPackage().getName());
 		idDesc.setClassName(Bean1.class.getSimpleName());
-
+		
 		return idDesc;
 	}
 	
@@ -92,6 +92,7 @@ extends BasicBusinessObjectDescriptor<Bean1> {
 		descriptionDesc.setReadOnly(false);
 		descriptionDesc.setPackageName(Bean1.class.getPackage().getName());
 		descriptionDesc.setClassName(Bean1.class.getSimpleName());
+		
 		return descriptionDesc;
 	}
 	/**
