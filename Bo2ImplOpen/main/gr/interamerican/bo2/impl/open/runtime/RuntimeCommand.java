@@ -24,6 +24,7 @@ import gr.interamerican.bo2.arch.exceptions.LogicException;
 import gr.interamerican.bo2.arch.exceptions.NoTransactionManagerException;
 import gr.interamerican.bo2.arch.exceptions.ProviderCreationException;
 import gr.interamerican.bo2.arch.exceptions.UnexpectedException;
+import gr.interamerican.bo2.arch.utils.Bo2ExceptionUtils;
 import gr.interamerican.bo2.arch.utils.ext.Bo2Session;
 import gr.interamerican.bo2.impl.open.utils.Bo2;
 import gr.interamerican.bo2.impl.open.utils.Bo2Deployment;
@@ -223,16 +224,7 @@ public class RuntimeCommand {
 	void rethrow(Throwable ex) 
 	throws DataException, LogicException, UnexpectedException {
 		ex.printStackTrace();
-		if (ex instanceof Error) {
-			throw (Error) ex;
-		}		
-		if (ex instanceof LogicException) {
-			throw (LogicException) ex;
-		}
-		if (ex instanceof DataException) {
-			throw (DataException) ex;
-		}		
-		throw new UnexpectedException(ex);
+		Bo2ExceptionUtils.throwDataLogicOrUnexpectedException(ex);
 	}
 	
 	/**
