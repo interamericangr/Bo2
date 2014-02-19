@@ -54,6 +54,7 @@ import org.junit.runners.Suite.SuiteClasses;
 		TestNotInitialized.class,
 		TestArrayHasOnlyNulls.class,
 		TestComparisonCondition.class,		
+		TestInvokeMethodCondition.class,
 	}
 )
 public class TestSuiteBo2UtilsConditions { 
