@@ -7,9 +7,12 @@ import gr.interamerican.bo2.utils.conditions.Condition;
 
 /**
  * Validates an object against a condition.
+ * 
+ * @param <T> 
+ *        Type of object being validated.
  */
 public class ConditionValidator<T> 
-extends AbstractBaseWorker 
+extends AbstractResourceConsumer 
 implements Rule {
 	
 	
