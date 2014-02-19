@@ -41,7 +41,8 @@ import org.junit.runners.Suite.SuiteClasses;
 		TestSuiteBo2ArchUtilsCopiers.class,
 		TestSuiteBo2ArchUtilsComparators.class,
 		TestSuiteBo2ArchUtilsExt.class,
-		TestBo2ArchReflectionUtils.class
+		TestBo2ArchReflectionUtils.class,
+		TestBo2ExceptionUtils.class,
 	}
 )
 public class TestSuiteBo2ArchUtils {
