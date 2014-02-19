@@ -257,9 +257,10 @@ implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 			 */
 			BoPropertyDescriptor<?> affecting = boDescriptor.whoAffectsMe(spec);
 			if(affecting != null) {
+				CachedEntryBoPropertyDescriptor<E, Long> unwrappedSpec = unwrapDescriptorIfAppropriate(boDescriptor, spec);
 				setChoicesToDependentDropDown(
 					boDescriptor, 
-					(CachedEntryBoPropertyDescriptor<E, Long>) spec, 
+					unwrappedSpec, 
 					(DropDownChoiceForEntry<Long, E>) pair.getRight());
 			}
 			
@@ -394,22 +395,37 @@ implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 	 * @param affecting
 	 * @param affected
 	 */
-	@SuppressWarnings({ "nls", "unchecked" })
+	@SuppressWarnings("unchecked")
 	<E extends TranslatableEntry<Long, ?, Long>> void addOnChangeBehaviorOnAffectingDropDown(
-			BusinessObjectDescriptor<T> boDescriptor, String affecting, String affected) {
+		BusinessObjectDescriptor<T> boDescriptor, String affecting, String affected) {
+		
 		DropDownChoiceForEntry<Long, E> affectingDdc = (DropDownChoiceForEntry<Long, E>) get(affecting);
 		DropDownChoiceForEntry<Long, E> affectedDdc = (DropDownChoiceForEntry<Long, E>) get(affected);
 		BoPropertyDescriptor<?> unchecked = boDescriptor.getDescriptorByName(affected);
-		if (unchecked instanceof TranslatableBoPropertyDescriptorWrapper) {
-			unchecked = ((TranslatableBoPropertyDescriptorWrapper<?, ?, ?>) unchecked).getDescriptor();
+		CachedEntryBoPropertyDescriptor<E, ?> affectedDescriptor = unwrapDescriptorIfAppropriate(boDescriptor, unchecked);
+		affectingDdc.add(new AffectingDdcBehavior<E>(affectingDdc, affectedDdc, affectedDescriptor));
+	}
+	
+	/**
+	 * Unwrap possibly wrapped {@link CachedEntryBoPropertyDescriptor} as a {@link TranslatableBoPropertyDescriptorWrapper}
+	 * 
+	 * @param boDescriptor
+	 * @param possiblyWrapped
+	 * @return CachedEntryBoPropertyDescriptor
+	 */
+	@SuppressWarnings({ "nls", "unchecked" })
+	<E extends TranslatableEntry<Long, ?, Long>> CachedEntryBoPropertyDescriptor<E, Long> unwrapDescriptorIfAppropriate(
+		BusinessObjectDescriptor<T> boDescriptor, BoPropertyDescriptor<?> possiblyWrapped) {
+		
+		BoPropertyDescriptor<?> result = possiblyWrapped;
+		if (possiblyWrapped instanceof TranslatableBoPropertyDescriptorWrapper) {
+			result = ((TranslatableBoPropertyDescriptorWrapper<?, ?, ?>) possiblyWrapped).getDescriptor();
 		}
-		if (!(unchecked instanceof CachedEntryBoPropertyDescriptor)) {
-			String msg = "Invalid BusinessObjectDescriptor affected property descriptors setup: "
-					+ boDescriptor.getName();
+		if (!(result instanceof CachedEntryBoPropertyDescriptor)) {
+			String msg = "Invalid BusinessObjectDescriptor affected property descriptors setup: " + boDescriptor.getName();
 			throw new RuntimeException(msg);
 		}
-		CachedEntryBoPropertyDescriptor<E, ?> affectedDescriptor = (CachedEntryBoPropertyDescriptor<E, ?>) unchecked;
-		affectingDdc.add(new AffectingDdcBehavior<E>(affectingDdc, affectedDdc, affectedDescriptor));
+		return (CachedEntryBoPropertyDescriptor<E, Long>) result;
 	}
 	
 	/**
