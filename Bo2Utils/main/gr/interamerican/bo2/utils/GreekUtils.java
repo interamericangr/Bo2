@@ -1,5 +1,7 @@
 package gr.interamerican.bo2.utils;
 
+import static gr.interamerican.bo2.utils.StringConstants.EMPTY;
+
 /**
  * Utilities for the Greek Language.
  */
@@ -58,15 +60,62 @@ public class GreekUtils {
 	   StringBuilder strb=new StringBuilder();
 	   for (int i = 0; i < l; i++) {
 		   char c=result.charAt(i);
-		   if (c=='-'||c=='_'||c==' ' ) {
-			   continue;    		   
-		   } else if (!Character.isDigit(c)) {
-			   strb.append(greek(c));
-		   } else {
-			   strb.append(result.charAt(i));
-		   }
+		   strb.append(greek(c));
 	   }
 	   return strb.toString();
 	}
+	
+	/**
+	 * Checks if the specified string contains any letter that
+	 * is not a greek capital letter.
+	 * 
+	 * Characters that are not letters, are ignored from the check. 
+	 * 
+	 * @param str
+	 *        String to process.
+	 * 
+	 * @return Returns <code>true</code> if the specified string contains
+	 *         any character that is a letter of any non greek alphabet.
+	 *         Returns <code>false</code> if the specified string contains
+	 *         only greek letters and/or any other character that is not
+	 *         a letter.
+	 */
+	public static boolean containsNonGreekLetters (String str) {
+	   String onlyLetters = StringUtils.removeAllButLetters(str);
+	   if (onlyLetters.length()==0) {
+		   return false;
+	   }
+	   String onlyGreek =removeEverythingButGreekLetters(onlyLetters);	  
+	   return onlyGreek.length()!=onlyLetters.length();
+	}
+	
+	/**
+	 * Removes any character that is not a greek letter from the
+	 * specified string
+	 *  
+	 * @param string
+	 * 
+	 * @return Returns the new string after removing from it any
+	 *         character that is not a greek letter.
+	 */
+	public static String removeEverythingButGreekLetters(String string) {
+		String isGreekRegex = "[^\\p{InGreek}]"; //$NON-NLS-1$		
+		return string.replaceAll(isGreekRegex, EMPTY);
+	}
+	
+	/**
+	 * Removes any character that is a greek letter from the
+	 * specified string
+	 *  
+	 * @param string
+	 * 
+	 * @return Returns the new string after removing from it any
+	 *         character that is a greek letter.
+	 */
+	public static String removeGreekLetters(String string) {
+		String isGreekRegex = "[\\p{InGreek}]"; //$NON-NLS-1$		
+		return string.replaceAll(isGreekRegex, EMPTY);
+	}
+
 
 }

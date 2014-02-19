@@ -672,7 +672,6 @@ public class TestStringUtils {
 	 */
 	@Test
 	public void testMid_TwoParameters() {
-	
 		String str = "";
 		Integer start = 5;
 		String expected = "";
