@@ -28,6 +28,7 @@ import java.math.BigDecimal;
 
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.html.form.FormComponentPanel;
+import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
@@ -50,12 +51,12 @@ public class SelfDrawnMoneyField extends FormComponentPanel<Money>{
 	 */
 	private static final BigDecimalBoPDComponentFactory BD_COMPONENT_FACTORY = 
 		(BigDecimalBoPDComponentFactory) BoPDTypeBasedFactorySelection.
-		INSTANCE.selectionForType(BigDecimalBoPropertyDescriptor.class); 
+		INSTANCE.selectionForType(BigDecimalBoPropertyDescriptor.class);
 	
 	/**
-	 * 
+	 * Field that holds the amount.
 	 */
-	private SelfDrawnBigDecimalTextField amountTextField;
+	private TextField<BigDecimal> amountField;
 
 	/**
 	 * Creates a new SelfDrawnMoneyField object. 
@@ -64,12 +65,13 @@ public class SelfDrawnMoneyField extends FormComponentPanel<Money>{
 	 * @param descriptor 
 	 *        MoneyBoPropertyDescriptor.
 	 */
-	public SelfDrawnMoneyField(String id,MoneyBoPropertyDescriptor descriptor) {
+	public SelfDrawnMoneyField(String id, MoneyBoPropertyDescriptor descriptor) {
 		super(id);
 		this.setOutputMarkupPlaceholderTag(true);
 		IModel<Money> model = new Model<Money>(new MoneyImpl());
 		this.setDefaultModel(model);
-		createAmountField("component", descriptor, model); //$NON-NLS-1$
+		amountField = createAmountField("component", descriptor, model); //$NON-NLS-1$
+		add(amountField);
 	}
 
 	/**
@@ -81,10 +83,11 @@ public class SelfDrawnMoneyField extends FormComponentPanel<Money>{
 	 * @param model
 	 *        The Model of type {@link Money}. 
 	 */
-	public SelfDrawnMoneyField(String id,IModel<Money> model,MoneyBoPropertyDescriptor descriptor) {
+	public SelfDrawnMoneyField(String id, IModel<Money> model, MoneyBoPropertyDescriptor descriptor) {
 		super(id, model);
 		this.setOutputMarkupPlaceholderTag(true);
-		createAmountField("component", descriptor, model); //$NON-NLS-1$
+		amountField = createAmountField("component", descriptor, model); //$NON-NLS-1$
+		add(amountField);
 	}
 
 	/**
@@ -93,15 +96,16 @@ public class SelfDrawnMoneyField extends FormComponentPanel<Money>{
 	 * @param id
 	 * @param descriptor
 	 * @param model
+	 * @return The amount field.
 	 */
-	private void createAmountField(String id, MoneyBoPropertyDescriptor descriptor, IModel<Money> model) {
+	@SuppressWarnings("unchecked")
+	private TextField<BigDecimal> createAmountField(String id, MoneyBoPropertyDescriptor descriptor, IModel<Money> model) {
 		BigDecimalBoPropertyDescriptor amountDescriptor = createAmountDescriptor(descriptor);
 		if(model.getObject()==null) {
 			model.setObject(new MoneyImpl());
 		}
 		PropertyModel<BigDecimal> amountModel = new PropertyModel<BigDecimal>(model.getObject(), "amount"); //$NON-NLS-1$
-		amountTextField = (SelfDrawnBigDecimalTextField) BD_COMPONENT_FACTORY.drawMain(id,amountModel,amountDescriptor);
-		this.add(amountTextField);
+		return (TextField<BigDecimal>) BD_COMPONENT_FACTORY.drawMain(id,amountModel,amountDescriptor);
 	}
 	
 	@Override
@@ -112,8 +116,10 @@ public class SelfDrawnMoneyField extends FormComponentPanel<Money>{
 	
 	@Override
 	protected void convertInput() {
-		Money value = new MoneyImpl(amountTextField.getConvertedInput());
-		this.setConvertedInput(value);	
+		BigDecimal amount = amountField.getConvertedInput();
+		Money money = getModel().getObject();
+		money.setAmount(amount);
+		setConvertedInput(money);	
 	}
 	
 	/**
@@ -149,13 +155,17 @@ public class SelfDrawnMoneyField extends FormComponentPanel<Money>{
 		
 		return amountDesc;
 	}
-
+	
 	/**
 	 * Gets the amountTextField.
 	 *
+	 * @deprecated REMOVE THIS.
+	 *
 	 * @return Returns the amountTextField
 	 */
+	@Deprecated
 	public SelfDrawnBigDecimalTextField getAmountTextField() {
-		return amountTextField;
+		return (SelfDrawnBigDecimalTextField) amountField;
 	}
+
 }

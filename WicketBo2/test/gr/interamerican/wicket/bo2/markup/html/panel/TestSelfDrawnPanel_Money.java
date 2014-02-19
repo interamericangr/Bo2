@@ -54,12 +54,11 @@ public class TestSelfDrawnPanel_Money extends WicketTest {
 		Money actual = tf.getModel().getObject();
 		Money expected = model.getObject().getMoneyAmount1();
 		Assert.assertEquals(expected, actual);
-		Assert.assertTrue(tf.getModel().getObject().getAmount() == BigDecimal.ZERO);
 		
 		/*
 		 * Change the model object and assert correct propagation to components.
 		 */
-		model.setObject(new MoneyBean(BigDecimal.ZERO, BigDecimal.ZERO, new MoneyImpl(new BigDecimal("1")), null)); //$NON-NLS-1$
+		model.setObject(new MoneyBean(BigDecimal.ZERO, BigDecimal.ZERO, new MoneyImpl(new BigDecimal("1.1")), null)); //$NON-NLS-1$
 		
 		actual = tf.getModel().getObject();
 		expected = model.getObject().getMoneyAmount1();
@@ -104,6 +103,7 @@ public class TestSelfDrawnPanel_Money extends WicketTest {
 		
 		MoneyImpl expected = new MoneyImpl(new BigDecimal(10));
 		MoneyImpl actual = (MoneyImpl) model.getObject().getMoneyAmount1();
+		System.out.println(actual);
 		Assert.assertEquals(expected, actual);
 		
 		commonAssertions_noError();
@@ -111,7 +111,9 @@ public class TestSelfDrawnPanel_Money extends WicketTest {
 	
 	@Override
 	protected Component initializeComponent() {
-		model = new CompoundPropertyModel<MoneyBean>(new MoneyBean());
+		MoneyBean mb = new MoneyBean();
+		mb.setMoneyAmount1(new MoneyImpl(new BigDecimal(1.1d)));
+		model = new CompoundPropertyModel<MoneyBean>(mb);
 		return new SelfDrawnPanel<MoneyBean>(TestPage.TEST_ID, model, createBod());
 	}
 	
