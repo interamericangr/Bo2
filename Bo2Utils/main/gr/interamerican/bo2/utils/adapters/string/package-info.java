@@ -10,34 +10,9 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
-package gr.interamerican.bo2.utils;
-
-import java.util.List;
-
-import org.junit.Assert;
-import org.junit.Test;
-
 /**
- * Unit tests form {@link RegexUtils}.
+ * This package contains {@link gr.interamerican.bo2.utils.adapters.Transformation}s
+ * that are applied on {@link java.lang.String} objects.
  */
-public class TestRegexUtils {
-	
-	/**
-	 * Test getMatches().
-	 */
-	@SuppressWarnings("nls")
-	@Test
-	public void testGetMatches() {
-		String value = "this is a ${var} and a 2nd ${var2} reference";
-		String pattern = "\\$\\{.*?\\}";
-		List<String> matches = RegexUtils.getMatches(value, pattern);
-		Assert.assertEquals("${var}", matches.get(0));
-		Assert.assertEquals("${var2}", matches.get(1));
-		
-		value = "no match";
-		matches = RegexUtils.getMatches(value, pattern);
-		Assert.assertTrue(matches.isEmpty());
-	}
-	
-	
-}
+ package gr.interamerican.bo2.utils.adapters.string;
+

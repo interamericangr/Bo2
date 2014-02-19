@@ -12,6 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils;
 
+import static gr.interamerican.bo2.utils.StringConstants.EMPTY;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -620,36 +621,7 @@ public class TestStringUtils {
 		assertEquals(expected3,actual3);
 	}
 	
-	/**
-	 * test toGreekPlateNo
-	 */
-	@Test
-	public void testToGreekPlateNo() {
-		String plateno ="yzx 5248";
-		String expected = "ÕÆ×5248";
-		String actual = StringUtils.toGreekPlateNo(plateno);
-		assertEquals(expected,actual);
-		
-		String plateno2 ="ikn-4789";
-		String expected2 = "ÉÊÍ4789";
-		String actual2 = StringUtils.toGreekPlateNo(plateno2);
-		assertEquals(expected2,actual2);
-		
-		String plateno3 ="abe_5486";
-		String expected3 = "ÁÂÅ5486";
-		String actual3 = StringUtils.toGreekPlateNo(plateno3);
-		assertEquals(expected3,actual3);
-		
-		String plateno4 ="opt3547";
-		String expected4 = "ÏÑÔ3547";
-		String actual4 = StringUtils.toGreekPlateNo(plateno4);
-		assertEquals(expected4,actual4);
-		
-		String plateno5 ="hmg3547";
-		String expected5 = "ÇÌG3547";
-		String actual5 = StringUtils.toGreekPlateNo(plateno5);
-		assertEquals(expected5,actual5);
-	}
+	
 
 	/**
 	 * test mid
@@ -913,24 +885,30 @@ public class TestStringUtils {
 	 * tests containsGreekLatinNumbersSpaces
 	 */
 	@Test
-	public void testContainsGreekLatinNumbersSpaces() {
-		String s = "asdf9101";
-		assertTrue(StringUtils.containsGreekLatinNumbersSpaces(s));
+	public void testContainsOnlyLettersNumbersSpaces() {
+        System.out.println("\u0428 XZ 2525"); //"\u0428 is a cyrillic letter. 
+		
+		String s = "\u0428 XZ 2525";
+		assertTrue(StringUtils.containsOnlyLettersNumbersSpaces(s));
+		
+		s = "asdf9101";
+		assertTrue(StringUtils.containsOnlyLettersNumbersSpaces(s));
 		
 		s = "asdfÁÓÄ123";
-		assertTrue(StringUtils.containsGreekLatinNumbersSpaces(s));
+		assertTrue(StringUtils.containsOnlyLettersNumbersSpaces(s));
 		
 		s = "##asdf";
-		assertFalse(StringUtils.containsGreekLatinNumbersSpaces(s));
+		assertFalse(StringUtils.containsOnlyLettersNumbersSpaces(s));
 		
 		s = " a s";
-		assertTrue(StringUtils.containsGreekLatinNumbersSpaces(s));
+		assertTrue(StringUtils.containsOnlyLettersNumbersSpaces(s));
 		
 		s = "as92.";
-		assertFalse(StringUtils.containsGreekLatinNumbersSpaces(s));
+		assertFalse(StringUtils.containsOnlyLettersNumbersSpaces(s));
 		
 		s = "as92\"";
-		assertFalse(StringUtils.containsGreekLatinNumbersSpaces(s));
+		assertFalse(StringUtils.containsOnlyLettersNumbersSpaces(s));
+
 	}
 	
 	/**
@@ -976,6 +954,94 @@ public class TestStringUtils {
 		assertEquals(sample, StringUtils.splitByLength(sample, 0)[0]);
 		sample = null;
 		assertEquals(0, StringUtils.splitByLength(sample, 2).length);
+	}
+	
+	/**
+	 * Tests length. 
+	 */
+	@Test
+	public void testLength() {
+		Assert.assertEquals(0, StringUtils.length(null));
+		Assert.assertEquals(0, StringUtils.length(""));
+		Assert.assertEquals("XXX".length(), StringUtils.length("XXX"));
+	}
+	
+	/**
+	 * Tests length. 
+	 */
+	@Test
+	public void testSquareBracketsWithMandatoryContent() {
+		Assert.assertEquals(EMPTY, StringUtils.squareBracketsWithMandatoryContent(null));
+		Assert.assertEquals(EMPTY, StringUtils.squareBracketsWithMandatoryContent(EMPTY));
+		Assert.assertEquals("[XXXX]", StringUtils.squareBracketsWithMandatoryContent("XXXX"));
+	}
+	
+	/**
+	 * Tests StripPkgFromFqcn(s). 
+	 */
+	@Test	
+	public void testStripPkgFromFqcn() {
+		String actual = StringUtils.stripPkgFromFqcn("gr.com.gr.Foo");
+		Assert.assertEquals("Foo", actual);
+		
+		String zara = "Zaratustra";
+		String tustra = StringUtils.stripPkgFromFqcn(zara);
+		Assert.assertEquals(zara, tustra);
+	}
+	
+	/**
+	 * Tests removeAllButLetters(string).
+	 */
+	@Test
+	public void testRemoveAllButLetters() {
+		String string = " +* Xx äåí 21 ðÜù! *";
+		String expected = "XxäåíðÜù";
+		String actual = StringUtils.removeAllButLetters(string);
+		Assert.assertEquals(expected, actual);
+	}
+	
+	/**
+	 * Tests removeAllButDigits(string).
+	 */
+	@Test
+	public void testRemoveAllButDigits() {
+		String string = "+* Xx äåí 21 ðÜù! *";
+		String expected = "21";
+		String actual = StringUtils.removeAllButDigits(string);
+		Assert.assertEquals(expected, actual);
+	}
+	
+	/**
+	 * Tests removeAllButLettersAndDigits(string).
+	 */
+	@Test
+	public void testRemoveAllButLettersAndDigits() {
+		String string = " Xx äåí 21 ðÜù! **";
+		String expected = "Xxäåí21ðÜù";
+		String actual = StringUtils.removeAllButLettersAndDigits(string);
+		Assert.assertEquals(expected, actual);
+	}
+	
+	/**
+	 * Tests removeAllButLettersAndDigits(string).
+	 */
+	@Test
+	public void testDoubleQuotes() {
+		String string = "Xx!";
+		String expected = "\"Xx!\"";
+		String actual = StringUtils.doubleQuotes(string);
+		Assert.assertEquals(expected, actual);
+	}
+	
+	/**
+	 * Tests removeAllButLettersAndDigits(string).
+	 */
+	@Test
+	public void testTruncateToLength() {
+		String string = "Xx äåí 21 ðÜù!";
+		String expected = "Xx äå";
+		String actual = StringUtils.truncateToLength(string, 5);
+		Assert.assertEquals(expected, actual);
 	}
 	
 }

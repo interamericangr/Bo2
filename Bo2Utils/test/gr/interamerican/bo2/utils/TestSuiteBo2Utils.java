@@ -71,6 +71,7 @@ import org.junit.runners.Suite.SuiteClasses;
 		TestAbstractObjectStructureAnalyzer.class,
 		TestIllegalCharacterFilter.class,
 		TestDependencyGraphs.class,
+		TestGreekUtils.class,
 		TestSuiteBo2UtilsAdapters.class,
 		TestSuiteBo2UtilsConditions.class,
 		TestSuiteBo2UtilsComparators.class,

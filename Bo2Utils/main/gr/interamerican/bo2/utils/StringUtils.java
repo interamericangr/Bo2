@@ -12,6 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils;
 
+import static gr.interamerican.bo2.utils.StringConstants.EMPTY;
 import gr.interamerican.bo2.utils.beans.Pair;
 
 import java.util.ArrayList;
@@ -31,9 +32,7 @@ public class StringUtils {
 	 * This is a utility class having only static methods.
 	 * There is no need to create any instance of this class.
 	 */
-	private StringUtils() {
-		/* empty */
-	}
+	private StringUtils() {/* empty */}
 	
 	/**
 	 * Creates a string with all  arguments separated by comma.
@@ -398,69 +397,6 @@ public class StringUtils {
     }
     
     /**
-     * Replaces all english characters in a string with their corresponding greek     * 
-     * characters that look same as the english characters. (only upper case) <br>
-     * 
-     * example input value AS2121 : return value ï¿½S2121 (ï¿½ is greek) <br>
-     * 
-     * @param str
-     * 
-     * @return plate no
-     */
-    public static String toGreekPlateNo(String str) {
-       String plateno=str.toUpperCase();
-       int l=plateno.length();
-       StringBuilder strb=new StringBuilder();
-       for (int i = 0; i < l; i++) {
-    	   char c=plateno.charAt(i);
-    	   if (c=='-'||c=='_'||c==' ' ) {
-    		   continue;    		   
-    	   } else if (!Character.isDigit(c)) {
-    		   strb.append(greek(c));
-    	   } else {
-    		   strb.append(plateno.charAt(i));
-    	   }
-       }
-       return strb.toString();
-    }
-    
-    /**
-     * Converts an english uppercase character to its corresponding greek
-     * that looks exactly the same. <br/>
-     * 
-     * The method is used for the translation of all latin characters
-     * to their corresponding greek character in plate numbers.
-     * 
-     * Examples:  
-     * <li> input: A (english) return ï¿½ (greek) </li>
-     * <li> input: S (english) return S (there is no corresponding greek letter) </li>
-     * 
-     * @param c english character
-     * 
-     * @return greek character
-     */
-    private static char greek(char c) {
-      switch (c) {
-      	case 'A':return 'Á';
-  		case 'B':return 'Â';
-	  	case 'E':return 'Å';
-	  	case 'H':return 'Ç';
-	  	case 'I':return 'É';
-	  	case 'K':return 'Ê';
-	  	case 'M':return 'Ì';
-	  	case 'N':return 'Í';
-	  	case 'O':return 'Ï';
-	  	case 'P':return 'Ñ';
-	  	case 'T':return 'Ô';
-	  	case 'X':return '×';  		
-	  	case 'Y':return 'Õ';  		
-	  	case 'Z':return 'Æ';  			
-	  	default: return c;
-      } 
-      
-    }
-    
-    /**
      * Checks if a String is null or blanc.
      * 
      * @param s String examined.
@@ -563,7 +499,7 @@ public class StringUtils {
 		if(StringUtils.isNullOrBlank(string)) {
 			return StringConstants.EMPTY;
 		}
-		return "["+string+"]";  //$NON-NLS-1$//$NON-NLS-2$
+		return squareBrackets(string);  
 	}
 	
 	/**
@@ -678,6 +614,19 @@ public class StringUtils {
 			return null; 
 		}
 		return s.trim();
+	}
+	
+	/**
+	 * Null safe length().
+	 * 
+	 * @param s String to trim.
+	 * @return Returns s.trim() if s is not null, otherwise returns null.
+	 */
+	public static int length(String s) {
+		if (s==null) {
+			return 0; 
+		}
+		return s.length();
 	}
 	
 	/**
@@ -954,6 +903,45 @@ public class StringUtils {
 	}
 	
 	/**
+	 * Removes all characters except those that are letters.
+	 * 
+	 * @param string
+	 *        String to clear from any appearance of non letter characters.
+	 * 
+	 * @return Returns the string having removed the character.
+	 */
+	public static String removeAllButLetters(String string) {
+		String isLetterRegex = "[^\\p{L}]"; //$NON-NLS-1$
+		return string.replaceAll(isLetterRegex, EMPTY);
+	}
+	
+	/**
+	 * Removes all characters except those that are letters.
+	 * 
+	 * @param string
+	 *        String to clear from any appearance of non letter characters.
+	 * 
+	 * @return Returns the string having removed the character.
+	 */
+	public static String removeAllButLettersAndDigits(String string) {
+		String isLetterOrDigitRegex = "[^\\p{L}+^\\p{Digit}]"; //$NON-NLS-1$
+		return string.replaceAll(isLetterOrDigitRegex, EMPTY);
+	}
+	
+	/**
+	 * Removes all characters except those that are letters.
+	 * 
+	 * @param string
+	 *        String to clear from any appearance of non letter characters.
+	 * 
+	 * @return Returns the string having removed the character.
+	 */
+	public static String removeAllButDigits(String string) {
+		String isDigitRegex = "[^\\p{Digit}]"; //$NON-NLS-1$
+		return string.replaceAll(isDigitRegex, EMPTY);
+	}
+	
+	/**
 	 * Removes a string from any appearance of specified characters.
 	 * 
 	 * @param string
@@ -980,7 +968,9 @@ public class StringUtils {
 	 * @return the normalized string.
 	 */
 	public static String normalizeSpaces(String s) {
-		if(s==null){return null;}
+		if(s==null){
+			return null;
+		}
 		boolean normalized = false;
 		String newLine = StringConstants.NEWLINE;
 		String tab = StringConstants.TAB;
@@ -1150,7 +1140,7 @@ public class StringUtils {
 	
 	/**
 	 * Checks if the specified string contains only characters that
-	 * represent Greek and Latin letters and numbers.
+	 * represent Letters of any language, Numbers and spaces.
 	 * 
 	 * @param s
 	 * 
@@ -1158,7 +1148,7 @@ public class StringUtils {
 	 *         Greek and Latin letters and numbers.
 	 */
 	@SuppressWarnings("nls")
-	public static boolean containsGreekLatinNumbersSpaces(String s) {
+	public static boolean containsOnlyLettersNumbersSpaces(String s) {
 		return s.matches("[ *\\p{L}*\\p{Digit}*]+");
 	}
 	
@@ -1225,6 +1215,7 @@ public class StringUtils {
 	 *         If the string is not null, returns an array of strings splitted by the length
 	 *         
 	 */         
+	@SuppressWarnings("nls")
 	public static String[] splitByLength(String string,int length){
 		if (string==null) {
 			return new String[0];

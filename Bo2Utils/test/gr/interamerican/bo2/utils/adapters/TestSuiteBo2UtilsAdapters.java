@@ -14,6 +14,7 @@ package gr.interamerican.bo2.utils.adapters;
 
 import gr.interamerican.bo2.utils.adapters.date.TestSuiteBo2UtilsAdaptersDate;
 import gr.interamerican.bo2.utils.adapters.number.TestSuiteBo2UtilsAdaptersNumber;
+import gr.interamerican.bo2.utils.adapters.string.TestSuiteBo2UtilsAdaptersString;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -52,6 +53,7 @@ import org.junit.runners.Suite.SuiteClasses;
 		TestRefresh.class,
 		TestSuiteBo2UtilsAdaptersDate.class,
 		TestSuiteBo2UtilsAdaptersNumber.class,
+		TestSuiteBo2UtilsAdaptersString.class,
 	}
 )
 public class TestSuiteBo2UtilsAdapters {
