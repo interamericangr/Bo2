@@ -47,6 +47,11 @@ public class SelfDrawnMoneyField extends FormComponentPanel<Money>{
 	private static final long serialVersionUID = 1L;
 	
 	/**
+	 * Wicket id of the amount field. 	
+	 */
+	public static final String AMOUNT_FIELD_ID = "component"; //$NON-NLS-1$
+	
+	/**
 	 * Factory for the {@link SelfDrawnBigDecimalTextField} that shows the amount.
 	 */
 	private static final BigDecimalBoPDComponentFactory BD_COMPONENT_FACTORY = 
@@ -70,7 +75,7 @@ public class SelfDrawnMoneyField extends FormComponentPanel<Money>{
 		this.setOutputMarkupPlaceholderTag(true);
 		IModel<Money> model = new Model<Money>(new MoneyImpl());
 		this.setDefaultModel(model);
-		amountField = createAmountField("component", descriptor, model); //$NON-NLS-1$
+		amountField = createAmountField(AMOUNT_FIELD_ID, descriptor, model);
 		add(amountField);
 	}
 
@@ -86,7 +91,7 @@ public class SelfDrawnMoneyField extends FormComponentPanel<Money>{
 	public SelfDrawnMoneyField(String id, IModel<Money> model, MoneyBoPropertyDescriptor descriptor) {
 		super(id, model);
 		this.setOutputMarkupPlaceholderTag(true);
-		amountField = createAmountField("component", descriptor, model); //$NON-NLS-1$
+		amountField = createAmountField(AMOUNT_FIELD_ID, descriptor, model);
 		add(amountField);
 	}
 

@@ -24,6 +24,7 @@ import gr.interamerican.wicket.bo2.markup.html.form.ChoiceRendererForEntryOwner;
 import gr.interamerican.wicket.bo2.markup.html.form.DropDownChoiceForEntry;
 import gr.interamerican.wicket.bo2.markup.html.form.DropDownChoiceForEntryOwner;
 import gr.interamerican.wicket.bo2.markup.html.form.SelfDrawnForm;
+import gr.interamerican.wicket.bo2.markup.html.formcomponent.SelfDrawnMoneyField;
 import gr.interamerican.wicket.bo2.markup.html.panel.SelfDrawnPanel;
 import gr.interamerican.wicket.bo2.validation.BoPropertyDescriptorValidatorWrapper;
 import gr.interamerican.wicket.callback.CallbackAction;
@@ -125,7 +126,7 @@ public class SelfDrawnUtils {
     		component.setDefaultModelObject(descriptor.getDefaultValue());
         }
     	if(descriptor.isReadOnly()) {
-    		WicketUtils.disableComponent(component);
+    		disableComponent(component);
     	}
     	/*
     	 * This check cannot be off-loaded to the NotNullValidator, since
@@ -138,6 +139,20 @@ public class SelfDrawnUtils {
     	 * the Component is created.
     	 */
     	component.setRequired(!descriptor.isNullAllowed());
+	}
+	
+	/**
+	 * Disables a component.
+	 * 
+	 * @param component
+	 */
+	static <T> void disableComponent(FormComponent<T> component) {
+		if(component instanceof SelfDrawnMoneyField) {
+			SelfDrawnMoneyField sdmf = (SelfDrawnMoneyField) component;
+			sdmf.get(SelfDrawnMoneyField.AMOUNT_FIELD_ID).setEnabled(false);
+		} else {
+			WicketUtils.disableComponent(component);
+		}
 	}
 	
 	/**
