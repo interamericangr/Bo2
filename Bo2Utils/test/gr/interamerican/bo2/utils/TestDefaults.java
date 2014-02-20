@@ -73,8 +73,22 @@ public class TestDefaults {
 	/**
 	 * Unit test for getDefaultValue()
 	 */	
+	@SuppressWarnings("cast")
 	@Test 
 	public void testGetDefaultValue() {
+		Assert.assertTrue(Defaults.getDefaultValue(Byte.class) instanceof Byte);
+		Assert.assertTrue(Defaults.getDefaultValue(byte.class) instanceof Byte);
+		Assert.assertTrue(Defaults.getDefaultValue(Short.class) instanceof Short);
+		Assert.assertTrue(Defaults.getDefaultValue(short.class) instanceof Short);
+		Assert.assertTrue(Defaults.getDefaultValue(Integer.class) instanceof Integer);
+		Assert.assertTrue(Defaults.getDefaultValue(int.class) instanceof Integer);
+		Assert.assertTrue(Defaults.getDefaultValue(Long.class) instanceof Long);
+		Assert.assertTrue(Defaults.getDefaultValue(long.class) instanceof Long);
+		Assert.assertTrue(Defaults.getDefaultValue(Double.class) instanceof Double);
+		Assert.assertTrue(Defaults.getDefaultValue(double.class) instanceof Double);
+		Assert.assertTrue(Defaults.getDefaultValue(Float.class) instanceof Float);
+		Assert.assertTrue(Defaults.getDefaultValue(float.class) instanceof Float);
+		
 		BeanWith3Fields expected = new BeanWith3Fields();
 		Defaults.STANDARD_DEFAULTS.put(BeanWith3Fields.class, expected);
 		BeanWith3Fields actual = Defaults.getDefaultValue(BeanWith3Fields.class);

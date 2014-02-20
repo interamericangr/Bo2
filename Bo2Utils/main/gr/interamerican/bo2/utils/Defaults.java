@@ -30,21 +30,23 @@ public class Defaults {
 		new HashMap<Class<?>, Object>();	
 	static {
 		STANDARD_DEFAULTS.put(String.class, StringConstants.EMPTY);
-		STANDARD_DEFAULTS.put(Double.class, 0.0);
+		STANDARD_DEFAULTS.put(Double.class, 0.0d);
+		STANDARD_DEFAULTS.put(Float.class, 0.0f);
 		STANDARD_DEFAULTS.put(Integer.class, 0);
 		STANDARD_DEFAULTS.put(Long.class, 0L);
-		STANDARD_DEFAULTS.put(Short.class, 0);
+		STANDARD_DEFAULTS.put(Short.class, (short) 0);
 		STANDARD_DEFAULTS.put(Boolean.class, false);
 		STANDARD_DEFAULTS.put(Character.class, ' ');
-		STANDARD_DEFAULTS.put(Byte.class, 0);
+		STANDARD_DEFAULTS.put(Byte.class, (byte) 0);
 		STANDARD_DEFAULTS.put(BigDecimal.class, BigDecimal.ZERO);
-		STANDARD_DEFAULTS.put(double.class, 0.0);
+		STANDARD_DEFAULTS.put(double.class, 0.0d);
+		STANDARD_DEFAULTS.put(float.class, 0.0f);
 		STANDARD_DEFAULTS.put(int.class, 0);
-		STANDARD_DEFAULTS.put(long.class, 0);
-		STANDARD_DEFAULTS.put(short.class, 0);
+		STANDARD_DEFAULTS.put(long.class, 0L);
+		STANDARD_DEFAULTS.put(short.class, (short) 0);
 		STANDARD_DEFAULTS.put(boolean.class, false);
 		STANDARD_DEFAULTS.put(char.class, ' ');
-		STANDARD_DEFAULTS.put(byte.class, 0);
+		STANDARD_DEFAULTS.put(byte.class, (byte) 0);
 	}
 	
 	
