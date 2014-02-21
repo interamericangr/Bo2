@@ -15,6 +15,12 @@
 			<groupId>gr.interamerican.bo2</groupId>
 			<artifactId>Bo2Utils</artifactId>
 			<version>${project.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>gr.interamerican.bo2</groupId>
+			<artifactId>Bo2Utils</artifactId>
+			<version>${project.version}</version>
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
