@@ -1,6 +1,10 @@
 package gr.interamerican.bo2.utils.greek;
 
 import static java.lang.Character.toUpperCase;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import gr.interamerican.bo2.utils.Utils;
 import gr.interamerican.bo2.utils.beans.AssociationTable;
 import gr.interamerican.bo2.utils.beans.Pair;
@@ -15,8 +19,8 @@ public class NameTranslator {
 	 * 
 	 * Greek character is left, Latin character is right.
 	 */
-	AssociationTable<Character, Character> associations = 
-		new AssociationTable<Character, Character>();
+	Map<Character, Character> associations = 
+		new HashMap<Character, Character>();
 
 	/**
 	 * Creates a new VisuallySimilarLatin object. 
@@ -24,40 +28,40 @@ public class NameTranslator {
 	 */
 	public NameTranslator() {
 		super();
-		AssociationTable<Character, Character> lowercases = 
-				new AssociationTable<Character, Character>();
-		lowercases.associate('α', 'a');
-		lowercases.associate('β', 'b');
-		lowercases.associate('γ', 'g');
-		lowercases.associate('δ', 'd');
-		lowercases.associate('ε', 'e');
-		lowercases.associate('ζ', 'z');
-		lowercases.associate('η', 'i');
-		lowercases.associate('θ', 't'); //TODO: th
-		lowercases.associate('ι', 'i');
-		lowercases.associate('κ', 'k');
-		lowercases.associate('λ', 'l');
-		lowercases.associate('μ', 'm');
-		lowercases.associate('ν', 'n');
-		lowercases.associate('ξ', 'x');
-		lowercases.associate('ο', 'o');
-		lowercases.associate('π', 'p');
-		lowercases.associate('ρ', 'r');
-		lowercases.associate('σ', 's');
-		lowercases.associate('ς', 's');
-		lowercases.associate('τ', 't');
-		lowercases.associate('υ', 'y');
-		lowercases.associate('φ', 'f');
-		lowercases.associate('χ', 'h'); //TODO: ch
-		lowercases.associate('ψ', 'p'); //TODO: ps
-		lowercases.associate('ω', 'o');		
+		Map<Character, Character> lowercases = 
+				new HashMap<Character, Character>();
+		lowercases.put('α', 'a');
+		lowercases.put('β', 'b');
+		lowercases.put('γ', 'g');
+		lowercases.put('δ', 'd');
+		lowercases.put('ε', 'e');
+		lowercases.put('ζ', 'z');
+		lowercases.put('η', 'i');
+		lowercases.put('θ', 't'); //TODO: th
+		lowercases.put('ι', 'i');
+		lowercases.put('κ', 'k');
+		lowercases.put('λ', 'l');
+		lowercases.put('μ', 'm');
+		lowercases.put('ν', 'n');
+		lowercases.put('ξ', 'x');
+		lowercases.put('ο', 'o');
+		lowercases.put('π', 'p');
+		lowercases.put('ρ', 'r');
+		lowercases.put('σ', 's');
+		lowercases.put('ς', 's');
+		lowercases.put('τ', 't');
+		lowercases.put('υ', 'y');
+		lowercases.put('φ', 'f');
+		lowercases.put('χ', 'h'); //TODO: ch
+		lowercases.put('ψ', 'p'); //TODO: ps
+		lowercases.put('ω', 'o');		
 		//TODO: ου => ou, διαλυτικά, κτλ.
 		
-		for (Pair<Character, Character> pair : lowercases) {
-			Character l = pair.getLeft();
-			Character r = pair.getRight();			
-			associations.associate(l, r);
-			associations.associate(toUpperCase(l), toUpperCase(r));
+		for (Map.Entry<Character, Character> entry : lowercases.entrySet()) {
+			Character l = entry.getKey();
+			Character r = entry.getValue();	
+			associations.put(l, r);
+			associations.put(toUpperCase(l), toUpperCase(r));
 		}
 	}
 	
@@ -70,7 +74,7 @@ public class NameTranslator {
 	 * @return Returns the associated Latin character.
 	 */
 	Character getLatin(Character greek) {
-		Character c = associations.getRight(greek);
+		Character c = associations.get(greek);
 		return Utils.notNull(c, greek);		
 	}
 	

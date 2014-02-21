@@ -88,7 +88,7 @@ public class TestGreekUtils {
 	@Test
 	public void testToLatin() {
 		String[] inputs = 
-			{"Παπαδοπουλος", "Σπυρος Νακος", "Ουρανοκατεβατο",};
+			{"Παπαδοπουλος", "Σπυρος Νακος", "Ουρανοκατεβατος",};
 		String[] expecteds = 
 			{"Papadopoylos", "Spyros Nakos", "Oyranokatebatos",};
 		

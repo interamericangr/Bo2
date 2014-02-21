@@ -26,12 +26,9 @@ import org.junit.runners.Suite.SuiteClasses;
  */
 @RunWith(Suite.class)
 @SuiteClasses(
-	{	
-		
+	{			
 		TestLength.class,
 		TestOnlyLetters.class,
-		TestRemoveSymbolsAndReplaceLatinWithSimilarGreekChars.class,
-		
 	}
 )
 public class TestSuiteBo2UtilsAdaptersString {

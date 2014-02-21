@@ -15,6 +15,7 @@ package gr.interamerican.bo2.utils.beans;
 import gr.interamerican.bo2.utils.StringUtils;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -24,17 +25,18 @@ import java.util.Map;
  * @param <L> 
  * @param <R> 
  */
-public class AssociationTable<L,R> {
+public class AssociationTable<L,R> 
+implements Iterable<Pair<L, R>>{
 	
 	/**
 	 * Map with the right elements.
 	 */
-	private HashMap<L, R> rights = new HashMap<L, R>();
+	HashMap<L, R> rights = new HashMap<L, R>();
 	
 	/**
 	 * Map with the left elements.
 	 */
-	private HashMap<R, L> lefts = new HashMap<R, L>();
+	HashMap<R, L> lefts = new HashMap<R, L>();
 	
 	/**
 	 * Associates left with right.
@@ -82,10 +84,7 @@ public class AssociationTable<L,R> {
 		lefts.clear();
 		rights.clear();
 	}
-	
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
+
 	@SuppressWarnings("nls")
 	@Override
 	public String toString() {
@@ -118,5 +117,41 @@ public class AssociationTable<L,R> {
 	public int size() {
 		return lefts.size();
 	}
+
+	
+	public Iterator<Pair<L, R>> iterator() {	
+		return new AssociationsIterator();
+	}
+	
+	
+	
+	/**
+	 * Iterator for this class.
+	 */
+	class AssociationsIterator implements Iterator<Pair<L, R>> {
+
+		/**
+		 * Iterator.
+		 */
+		Iterator<Map.Entry<L, R>> iterator = rights.entrySet().iterator();
+		
+		public boolean hasNext() {			
+			return iterator.hasNext();
+		}
+
+		@Override
+		public Pair<L, R> next() {
+			Map.Entry<L, R> entry = iterator.next();
+			return new Pair<L, R>(entry.getKey(), entry.getValue());
+		}
+		
+		public void remove() {
+			throw new UnsupportedOperationException();
+		}
+		
+	}
+	
+	
+	
 
 }

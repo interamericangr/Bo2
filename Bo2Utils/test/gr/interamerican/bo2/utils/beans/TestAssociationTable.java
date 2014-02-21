@@ -18,6 +18,12 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Iterator;
+
+
+
+
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -26,12 +32,13 @@ import org.junit.Test;
 public class TestAssociationTable {
 	
 	
+	
 	/**
 	 * Tests associate() and getLeft(), getRight().
 	 */
 	@SuppressWarnings("nls")
 	@Test
-	public void testAssociateSecondTime() {
+	public void testAssociate_SecondTime() {
 		AssociationTable <String, Integer> table =
 			new AssociationTable<String, Integer>();
 		Integer one = 1;
@@ -143,5 +150,76 @@ public class TestAssociationTable {
 		table.associate("ena", new Integer(1));
 		assertEquals(1,table.size());
 	}
+	
+	
+	/**
+	 * Tests iterator
+	 */
+	@SuppressWarnings("nls")
+	@Test
+	public void testIterator() {
+		AssociationTable <String, Integer> table =
+				new AssociationTable<String, Integer>();
+		table.associate("ena", new Integer(1));
+		table.associate("dyo", new Integer(2));
+		Iterator<Pair<String, Integer>> iterator = table.iterator();
+		assertNotNull(iterator);
+	}
+	
+	/**
+	 * Tests iterator
+	 */
+	@SuppressWarnings("nls")
+	@Test
+	public void testIterator_hasNext() {
+		AssociationTable <String, Integer> table =
+				new AssociationTable<String, Integer>();
+		table.associate("ena", new Integer(1));
+		table.associate("dyo", new Integer(2));
+		Iterator<Pair<String, Integer>> iterator = table.iterator();
+		assertTrue(iterator.hasNext());
+	}
+	
+	/**
+	 * Tests iterator
+	 */
+	@SuppressWarnings("nls")
+	@Test
+	public void testIterator_next() {
+		AssociationTable <String, Integer> table =
+				new AssociationTable<String, Integer>();
+		table.associate("ena", new Integer(1));
+		table.associate("dyo", new Integer(2));
+		table.associate("tria", new Integer(3));		
+		int i=0;
+		for (Pair<String, Integer> pair : table) {
+			String left = pair.getLeft();
+			Integer right = pair.getRight();
+			Assert.assertEquals(right, table.getRight(left));
+			Assert.assertEquals(left, table.getLeft(right));
+			i++;
+		}
+		Assert.assertEquals(i, 3);		
+	}
+	
+	/**
+	 * Tests iterator
+	 */
+	@SuppressWarnings("nls")
+	@Test(expected=UnsupportedOperationException.class)
+	public void testIterator_remove() {
+		AssociationTable <String, Integer> table =
+				new AssociationTable<String, Integer>();
+		table.associate("ena", new Integer(1));
+		table.associate("dyo", new Integer(2));
+		table.associate("tria", new Integer(3));		
+		Iterator<Pair<String, Integer>> iterator = table.iterator();
+		if (iterator.hasNext()) {
+			iterator.next();
+			iterator.remove();			
+		}
+	}
+	
+	
 	
 }
