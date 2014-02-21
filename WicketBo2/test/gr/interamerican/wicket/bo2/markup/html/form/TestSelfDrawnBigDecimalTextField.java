@@ -99,6 +99,24 @@ public class TestSelfDrawnBigDecimalTextField extends WicketTest {
 	}
 	
 	/**
+	 * Test creation disabled
+	 */
+	@Test
+	public void testConstructor_withModel_disabled() {
+		BigDecimalBoPropertyDescriptor descriptor = new BigDecimalBoPropertyDescriptor();
+		descriptor.setReadOnly(true);
+		SelfDrawnBigDecimalTextField field = 
+			new SelfDrawnBigDecimalTextField(TestPage.TEST_ID, new Model<BigDecimal>(BigDecimal.TEN), descriptor);
+		tester.startPage(testPageSource(field));
+		Assert.assertSame(field,tester.getComponentFromLastRenderedPage(subjectPath()));
+		
+		FormTester formTester = tester.newFormTester(formPath());
+		formTester.submit();
+		
+		Assert.assertEquals(BigDecimal.TEN, field.getModelObject());
+	}
+	
+	/**
 	 * @param textField
 	 */
 	private void testFormSubmission(TextField<BigDecimal> textField) {

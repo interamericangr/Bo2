@@ -19,8 +19,6 @@ import gr.interamerican.bo2.utils.meta.descriptors.BigDecimalBoPropertyDescripto
 import gr.interamerican.bo2.utils.meta.descriptors.PropertyDefinition;
 import gr.interamerican.bo2.utils.meta.ext.descriptors.MoneyBoPropertyDescriptor;
 import gr.interamerican.bo2.utils.meta.factories.BigDecimalBoPDFactory;
-import gr.interamerican.wicket.bo2.factories.meta.BigDecimalBoPDComponentFactory;
-import gr.interamerican.wicket.bo2.factories.meta.BoPDTypeBasedFactorySelection;
 import gr.interamerican.wicket.bo2.markup.html.form.SelfDrawnBigDecimalTextField;
 import gr.interamerican.wicket.utils.MarkupConstants;
 
@@ -28,7 +26,6 @@ import java.math.BigDecimal;
 
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.html.form.FormComponentPanel;
-import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
@@ -37,7 +34,9 @@ import org.apache.wicket.model.PropertyModel;
  * A self drawn form component that binds to a {@link Money} instance.
  * This works by adding to itself a {@link SelfDrawnBigDecimalTextField}
  * that binds the <code>amount</code> BigDecimal property of {@link Money}. 
- * 
+ * <br/>
+ * The {@link MoneyBoPropertyDescriptor} meta-data are applied to the
+ * nested text field.
  */
 public class SelfDrawnMoneyField extends FormComponentPanel<Money>{
 
@@ -52,16 +51,9 @@ public class SelfDrawnMoneyField extends FormComponentPanel<Money>{
 	public static final String AMOUNT_FIELD_ID = "component"; //$NON-NLS-1$
 	
 	/**
-	 * Factory for the {@link SelfDrawnBigDecimalTextField} that shows the amount.
-	 */
-	private static final BigDecimalBoPDComponentFactory BD_COMPONENT_FACTORY = 
-		(BigDecimalBoPDComponentFactory) BoPDTypeBasedFactorySelection.
-		INSTANCE.selectionForType(BigDecimalBoPropertyDescriptor.class);
-	
-	/**
 	 * Field that holds the amount.
 	 */
-	private TextField<BigDecimal> amountField;
+	private SelfDrawnBigDecimalTextField amountField;
 
 	/**
 	 * Creates a new SelfDrawnMoneyField object. 
@@ -103,14 +95,14 @@ public class SelfDrawnMoneyField extends FormComponentPanel<Money>{
 	 * @param model
 	 * @return The amount field.
 	 */
-	@SuppressWarnings("unchecked")
-	private TextField<BigDecimal> createAmountField(String id, MoneyBoPropertyDescriptor descriptor, IModel<Money> model) {
+	private SelfDrawnBigDecimalTextField createAmountField(String id, MoneyBoPropertyDescriptor descriptor, IModel<Money> model) {
 		BigDecimalBoPropertyDescriptor amountDescriptor = createAmountDescriptor(descriptor);
 		if(model.getObject()==null) {
 			model.setObject(new MoneyImpl());
 		}
-		PropertyModel<BigDecimal> amountModel = new PropertyModel<BigDecimal>(model.getObject(), "amount"); //$NON-NLS-1$
-		return (TextField<BigDecimal>) BD_COMPONENT_FACTORY.drawMain(id,amountModel,amountDescriptor);
+		
+		PropertyModel<BigDecimal> amountModel = new PropertyModel<BigDecimal>(model, "amount"); //$NON-NLS-1$
+		return new SelfDrawnBigDecimalTextField(id, amountModel, amountDescriptor);
 	}
 	
 	@Override
@@ -121,10 +113,18 @@ public class SelfDrawnMoneyField extends FormComponentPanel<Money>{
 	
 	@Override
 	protected void convertInput() {
+		/*
+		 * If the amountField is disabled, do not take it into consideration at all.
+		 */
+		if(!amountField.isEnabled()) {
+			setConvertedInput(getModel().getObject());
+			return;
+		}
+		
 		BigDecimal amount = amountField.getConvertedInput();
 		Money money = getModel().getObject();
 		money.setAmount(amount);
-		setConvertedInput(money);	
+		setConvertedInput(money);
 	}
 	
 	/**
@@ -170,7 +170,7 @@ public class SelfDrawnMoneyField extends FormComponentPanel<Money>{
 	 */
 	@Deprecated
 	public SelfDrawnBigDecimalTextField getAmountTextField() {
-		return (SelfDrawnBigDecimalTextField) amountField;
+		return amountField;
 	}
 
 }
