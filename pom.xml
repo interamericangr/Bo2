@@ -433,6 +433,7 @@
 		<module>Bo2TestsDeploymentBase</module>
 		<module>Bo2TestsDeploymentJdbc</module>
 		<module>Bo2Utils</module>
+		<module>Bo2UtilsGreek</module>
 		<module>Bo2Architecture</module>
 		<module>Bo2Creation</module>
 		<module>Bo2ArchUtils</module>
