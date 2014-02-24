@@ -12,9 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.greek;
 
-import gr.interamerican.bo2.utils.adapters.string.TestLength;
-import gr.interamerican.bo2.utils.adapters.string.TestOnlyLetters;
-import gr.interamerican.bo2.utils.greek.adapters.TestRemoveSymbolsAndReplaceLatinWithSimilarGreekChars;
+import gr.interamerican.bo2.utils.greek.adapters.TestSuiteBo2UtilsGreekAdapters;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -31,13 +29,14 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses(
 	{	
-		
-		TestLength.class,
-		TestOnlyLetters.class,
-		TestRemoveSymbolsAndReplaceLatinWithSimilarGreekChars.class,
-		
+		TestGreekLetters.class,
+		TestGreekUtils.class,
+		TestRemoveToneSigns.class,
+		TestVisuallySimilarLatin.class,
+		TestTranscription743.class,
+		TestSuiteBo2UtilsGreekAdapters.class,
 	}
 )
-public class TestSuiteBo2UtilsAdaptersString {
+public class TestSuiteBo2UtilsGreek {
 	/* empty */
 }

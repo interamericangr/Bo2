@@ -11,20 +11,11 @@ import gr.interamerican.bo2.utils.greek.VisuallySimilarLatin;
 public class TestVisuallySimilarLatin {
 	
 	/**
-	 * tests the constructor.
-	 */
-	@Test
-	public void testConstructor() {
-		VisuallySimilarLatin obj = new VisuallySimilarLatin();
-		Assert.assertTrue(obj.associations.size()>0);		
-	}
-	
-	/**
 	 * tests getGreek(c).
 	 */
 	@Test
 	public void testGetGreek() {
-		VisuallySimilarLatin obj = new VisuallySimilarLatin();		
+		VisuallySimilarLatin obj = VisuallySimilarLatin.getInstance();	
 		Character latin = Character.toUpperCase('a');
 		Character greek = Character.toUpperCase('á');
 		Character actual = obj.getGreek(latin);
@@ -37,7 +28,7 @@ public class TestVisuallySimilarLatin {
 	 */
 	@Test
 	public void testGetLatin() {
-		VisuallySimilarLatin obj = new VisuallySimilarLatin();		
+		VisuallySimilarLatin obj = VisuallySimilarLatin.getInstance();		
 		Character latin = Character.toUpperCase('a');
 		Character greek = Character.toUpperCase('á');
 		Character actual = obj.getLatin(greek);

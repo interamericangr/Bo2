@@ -7,42 +7,18 @@ import gr.interamerican.bo2.utils.StringUtils;
  * Utilities for the Greek Language.
  */
 public class GreekUtils {
-
-	/**
-	 * Converts an english uppercase character to its corresponding greek
-	 * that looks exactly the same. <br/>
-	 * 
-	 * The method is used for the translation of all latin characters
-	 * to their corresponding greek character in plate numbers.
-	 * 
-	 * Examples:  
-	 * <li> input: A (english) return ï¿½ (greek) </li>
-	 * <li> input: S (english) return S (there is no corresponding greek letter) </li>
-	 * 
-	 * @param c english character
-	 * 
-	 * @return greek character
-	 */
-	private static char greek(char c) {
-	  switch (c) {
-	  	case 'A':return 'Á';
-		case 'B':return 'Â';
-	  	case 'E':return 'Å';
-	  	case 'H':return 'Ç';
-	  	case 'I':return 'É';
-	  	case 'K':return 'Ê';
-	  	case 'M':return 'Ì';
-	  	case 'N':return 'Í';
-	  	case 'O':return 'Ï';
-	  	case 'P':return 'Ñ';
-	  	case 'T':return 'Ô';
-	  	case 'X':return '×';  		
-	  	case 'Y':return 'Õ';  		
-	  	case 'Z':return 'Æ';  			
-	  	default: return c;
-	  } 
 	
-	}
+	/**
+	 * Transcription743.
+	 */
+	private static Transcription743 tr743 = Transcription743.getInstance();
+	
+	/**
+	 * VisuallySimilarLatin.
+	 */
+	private static VisuallySimilarLatin visuallySimilar = VisuallySimilarLatin.getInstance();
+
+	
 
 	/**
 	 * Removes all characters that are not letters or digits, converts to 
@@ -54,16 +30,8 @@ public class GreekUtils {
 	 * 
 	 * @return Returns the result of the process.
 	 */
-	public static String removeSymbolsAndReplaceLatinWithSimilarGreekChars (String str) {
-	   String result=StringUtils.removeAllButLettersAndDigits(str);
-	   result = result.toUpperCase();
-	   int l=result.length();
-	   StringBuilder strb=new StringBuilder();
-	   for (int i = 0; i < l; i++) {
-		   char c=result.charAt(i);
-		   strb.append(greek(c));
-	   }
-	   return strb.toString();
+	public static String removeSymbolsAndReplaceLatinWithSimilarGreekChars (String str) {	  
+	   return visuallySimilar.removeSymbolsAndReplaceLatinWithSimilarGreekChars(str);
 	}
 	
 	/**
@@ -131,9 +99,7 @@ public class GreekUtils {
 	 *         similar Greek character, then returns null.
 	 */
 	public static String toLatin(String greek) {
-		
-		
-		return null;		
+		return tr743.transcript(greek);	
 	}
 
 

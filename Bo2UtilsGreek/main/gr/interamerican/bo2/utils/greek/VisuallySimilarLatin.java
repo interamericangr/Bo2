@@ -1,5 +1,7 @@
 package gr.interamerican.bo2.utils.greek;
 
+import gr.interamerican.bo2.utils.StringUtils;
+import gr.interamerican.bo2.utils.Utils;
 import gr.interamerican.bo2.utils.beans.AssociationTable;
 
 /**
@@ -8,18 +10,35 @@ import gr.interamerican.bo2.utils.beans.AssociationTable;
 public class VisuallySimilarLatin {
 	
 	/**
+	 * Singleton instance.
+	 */
+	private static final VisuallySimilarLatin INSTANCE = new VisuallySimilarLatin();
+	
+	/**
+	 * Gets the instance.
+	 *
+	 * @return Returns the instance
+	 */
+	public static VisuallySimilarLatin getInstance() {
+		return INSTANCE;
+	}
+	
+	
+	
+	
+	/**
 	 * Characters asssociation table.
 	 * 
 	 * Greek character is left, Latin character is right.
 	 */
-	AssociationTable<Character, Character> associations = 
+	private AssociationTable<Character, Character> associations = 
 		new AssociationTable<Character, Character>();
 
 	/**
 	 * Creates a new VisuallySimilarLatin object. 
 	 *
 	 */
-	public VisuallySimilarLatin() {
+	private VisuallySimilarLatin() {
 		super();
 		associations.associate('Á', 'A');
 		associations.associate('Â', 'B');
@@ -70,6 +89,30 @@ public class VisuallySimilarLatin {
 	public Character getLatin(char greek) {
 		return associations.getRight(greek);
 	}
+	
+	/**
+	 * Removes all characters that are not letters or digits, converts to 
+	 * upper case and then replaces any latin character that has a similar 
+	 * greek character with its greek similar (visually equal) character. <br/>
+	 * 
+	 * @param str
+	 *        String to process.
+	 * 
+	 * @return Returns the result of the process.
+	 */
+	public String removeSymbolsAndReplaceLatinWithSimilarGreekChars (String str) {
+	   String string=StringUtils.removeAllButLettersAndDigits(str).toUpperCase();	   
+	   char[] input = string.toCharArray();
+	   int len=input.length;
+	   char[] output = new char[len];
+	   
+	   for (int i = 0; i < len; i++) {
+		   char c=input[i];
+		   output[i] = Utils.notNull(getGreek(c), c);
+	   }
+	   return new String(output);
+	}
+
 	
 	
 

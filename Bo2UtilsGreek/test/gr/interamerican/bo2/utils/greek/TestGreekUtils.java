@@ -23,7 +23,7 @@ public class TestGreekUtils {
 		
 		for (int i = 0; i < inputs.length; i++) {
 			String actual = removeSymbolsAndReplaceLatinWithSimilarGreekChars(inputs[i]);
-			assertEquals(expecteds[i].toUpperCase(),actual);
+			assertEquals(expecteds[i],actual.toLowerCase());
 		}
 	}
 	
@@ -88,9 +88,9 @@ public class TestGreekUtils {
 	@Test
 	public void testToLatin() {
 		String[] inputs = 
-			{"Παπαδοπουλος", "Σπυρος Νακος", "Ουρανοκατεβατος",};
+			{"Παπαδοπουλος", "Σπυρος Νακος and John", "Ουρανοκατεβατος",};
 		String[] expecteds = 
-			{"Papadopoylos", "Spyros Nakos", "Oyranokatebatos",};
+			{"Papadopoulos", "Spyros Nakos and John", "Ouranokatevatos",};
 		
 		for (int i = 0; i < inputs.length; i++) {
 			System.out.println(inputs[i]);

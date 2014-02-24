@@ -28,11 +28,11 @@ public class GreekLetters {
 	/**
 	 * vowels.
 	 */
-	private final char[] vowels = {'á', 'å', 'ç', 'é', 'å', 'ï', 'ù'};
+	private final char[] vowels = {'á', 'å', 'ç', 'é', 'ï', 'õ', 'ù'};
 	/**
 	 * vowelsWithTone.
 	 */
-	private final char[] vowelsWithTone = {'Ü', 'Ý', 'Þ', 'ß', 'Ý', 'ü', 'þ'};
+	private final char[] vowelsWithTone = {'Ü', 'Ý', 'Þ', 'ß', 'ü', 'ý', 'þ'};
 	/**
 	 * vowelsWithDialytika.
 	 */
@@ -91,6 +91,7 @@ public class GreekLetters {
 		for (char c : vowelsWithToneAndDialytika) {
 			vowelsSet.add(c);			
 		}
+		
 		for (char c : soundlessConsonants) {
 			soundlessConsonantsSet.add(c);
 			soundlessConsonantsSet.add(Character.toUpperCase(c));			
@@ -103,44 +104,7 @@ public class GreekLetters {
 		consonantsSet.addAll(soundlessConsonantsSet);
 	}
 	
-	/**
-	 * Checks if the specified character is a Greek vowel.
-	 * 
-	 * @param c
-	 * 
-	 * @return Returns true if the specified character is a Greek vowel.
-	 *         otherwise returns false. 
-	 * 
-	 */
-	public boolean isGreekVowel(char c) {
-		return vowelsSet.contains(c);
-	}
 	
-	/**
-	 * Checks if the specified character is a Greek vowel.
-	 * 
-	 * @param c
-	 * 
-	 * @return Returns true if the specified character is a Greek consonant.
-	 *         Otherwise returns false. 
-	 * 
-	 */
-	public boolean isGreekConsonant(char c) {
-		return consonantsSet.contains(c);
-	}
-	
-	/**
-	 * Checks if the specified character is a Greek vowel.
-	 * 
-	 * @param c
-	 * 
-	 * @return Returns true if the specified character is a Greek 
-	 *         soundless consonant. Otherwise returns false. 
-	 * 
-	 */
-	public boolean isGreekSoundlessConsonant(char c) {
-		return soundlessConsonantsSet.contains(c);
-	}
 	
 	/**
 	 * Gets the vowelsSet.
