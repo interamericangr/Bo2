@@ -131,8 +131,9 @@ public class GreekUtils {
 	 *         similar Greek character, then returns null.
 	 */
 	public static String toLatin(String greek) {
-		NameTranslator nt = new NameTranslator();
-		return nt.toLatin(greek);		
+		
+		
+		return null;		
 	}
 
 
