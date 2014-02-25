@@ -128,7 +128,7 @@ public class TestSelfDrawnPanel_MultipleColumns extends WicketTest {
 	@Override
 	protected Component initializeComponent() {
 		model = new CompoundPropertyModel<BeanWith3Fields>(new BeanWith3Fields("1", 1, 1d));
-		return new SelfDrawnPanel<BeanWith3Fields>(TestPage.TEST_ID, model, createBod(), 2);
+		return new SelfDrawnPanel<BeanWith3Fields>(TestPage.TEST_ID, model, createBod(), 2, null);
 	}
 	
 	/**

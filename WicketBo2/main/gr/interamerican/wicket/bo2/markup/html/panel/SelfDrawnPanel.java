@@ -21,8 +21,8 @@ import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.beans.Pair;
 import gr.interamerican.bo2.utils.meta.BusinessObjectDescriptor;
 import gr.interamerican.bo2.utils.meta.descriptors.BoPropertyDescriptor;
+import gr.interamerican.bo2.utils.meta.descriptors.BoPropertyDescriptorWrapper;
 import gr.interamerican.bo2.utils.meta.ext.descriptors.CachedEntryBoPropertyDescriptor;
-import gr.interamerican.wicket.bo2.descriptors.TranslatableBoPropertyDescriptorWrapper;
 import gr.interamerican.wicket.bo2.factories.meta.GenericBoPDComponentFactory;
 import gr.interamerican.wicket.bo2.markup.html.form.DropDownChoiceForEntry;
 import gr.interamerican.wicket.bo2.utils.SelfDrawnUtils;
@@ -32,6 +32,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -152,33 +153,50 @@ implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 	 * Markup key for caching.
 	 */
 	private final String markupKey;
+	
+	/**
+	 * Fixture for a drop down. Key is property name,
+	 * value is subListCd for the {@link CachedEntryBoPropertyDescriptor}
+	 * that corresponds to the name.
+	 */
+	private final Map<String, Long> dropDownFix;
 
 	/**
-	 * Creates a new SelfDrawnGridPanel object.
+	 * Creates a new SelfDrawnPanel object with 1 column and no drop down fixture.
 	 * 
 	 * @param id
 	 * @param model
 	 * @param boDescriptor
+	 * 
+	 * @see #SelfDrawnPanel(String, CompoundPropertyModel, BusinessObjectDescriptor, int, Map)
 	 */
 	public SelfDrawnPanel(String id, CompoundPropertyModel<T> model, BusinessObjectDescriptor<T> boDescriptor) {
-		this(id, model, boDescriptor, 1);
+		this(id, model, boDescriptor, 1, null);
 	}
 	
 	/**
-	 * Creates a new SelfDrawnGridPanel object.
+	 * Creates a new SelfDrawnPanel object.
 	 * 
 	 * @param id
+	 *        Wicket id.
 	 * @param model
+	 *        Wicket model.
 	 * @param boDescriptor
+	 *        BusinessObjectDescriptor that describes the model object.
 	 * @param columns
+	 *        Number of columns
+	 * @param dropDownFix 
+	 *        (optional) Fixture for a drop down. Key is property name, value is subListCd for 
+	 *        the {@link CachedEntryBoPropertyDescriptor} that corresponds to the name.
 	 */
-	public SelfDrawnPanel(String id, CompoundPropertyModel<T> model, BusinessObjectDescriptor<T> boDescriptor, int columns) {
+	public SelfDrawnPanel(String id, CompoundPropertyModel<T> model, BusinessObjectDescriptor<T> boDescriptor, int columns, Map<String, Long> dropDownFix) {
 		super(id, model);
 
 		setOutputMarkupPlaceholderTag(true);
 
 		this.model = model;
 		this.columns = columns;
+		this.dropDownFix = dropDownFix;
 		this.markupKey = markupKey(boDescriptor);
 
 		String labelStr = boDescriptor.getLabel();
@@ -263,6 +281,10 @@ implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 					unwrappedSpec, 
 					(DropDownChoiceForEntry<Long, E>) pair.getRight());
 			}
+			if(dropDownFix!= null && dropDownFix.get(spec.getName()) != null) {
+				CachedEntryBoPropertyDescriptor<E, Long> unwrappedSpec = unwrapDescriptorIfAppropriate(boDescriptor, spec);
+				setChoicesToFixedDropDown(unwrappedSpec, (DropDownChoiceForEntry<Long, E>) pair.getRight(), dropDownFix.get(spec.getName()));
+			}
 			
 			add(pair.getLeft());
 			add(pair.getRight());
@@ -300,10 +322,23 @@ implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 		if(affectingChoice != null) {
 			subListCd = affectingChoice.getCode();
 		}
-		Set<E> choices = affectedPd.getValues(subListCd);
+		
+		setChoicesToFixedDropDown(affectedPd, affectedDdc, subListCd);
+	}
+	
+	/**
+	 * Sets the choices to a drop down based on a supplied fixture.
+	 * 
+	 * @param fixedPd
+	 * @param fixedDdc
+	 * @param subListCd
+	 */
+	<E extends TranslatableEntry<Long, ?, Long>>
+	void setChoicesToFixedDropDown(CachedEntryBoPropertyDescriptor<E, Long> fixedPd, DropDownChoiceForEntry<Long,E> fixedDdc, Long subListCd) {
+		Set<E> choices = fixedPd.getValues(subListCd);
 		List<E> choicesList = new ArrayList<E>(choices);
-		affectedDdc.setChoices(choicesList);
-		SelfDrawnUtils.<Long, E>sortCachedEntries(affectedDdc);
+		fixedDdc.setChoices(choicesList);
+		SelfDrawnUtils.<Long, E>sortCachedEntries(fixedDdc);
 	}
 	
 	/**
@@ -407,7 +442,7 @@ implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 	}
 	
 	/**
-	 * Unwrap possibly wrapped {@link CachedEntryBoPropertyDescriptor} as a {@link TranslatableBoPropertyDescriptorWrapper}
+	 * Unwrap possibly wrapped {@link CachedEntryBoPropertyDescriptor}.
 	 * 
 	 * @param boDescriptor
 	 * @param possiblyWrapped
@@ -418,8 +453,8 @@ implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 		BusinessObjectDescriptor<T> boDescriptor, BoPropertyDescriptor<?> possiblyWrapped) {
 		
 		BoPropertyDescriptor<?> result = possiblyWrapped;
-		if (possiblyWrapped instanceof TranslatableBoPropertyDescriptorWrapper) {
-			result = ((TranslatableBoPropertyDescriptorWrapper<?, ?, ?>) possiblyWrapped).getDescriptor();
+		while(result instanceof BoPropertyDescriptorWrapper) {
+			result = ((BoPropertyDescriptorWrapper<?>) result).getDescriptor();
 		}
 		if (!(result instanceof CachedEntryBoPropertyDescriptor)) {
 			String msg = "Invalid BusinessObjectDescriptor affected property descriptors setup: " + boDescriptor.getName();

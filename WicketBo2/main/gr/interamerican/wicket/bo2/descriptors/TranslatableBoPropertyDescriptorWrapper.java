@@ -15,6 +15,7 @@ package gr.interamerican.wicket.bo2.descriptors;
 import gr.interamerican.bo2.arch.ext.Translator;
 import gr.interamerican.bo2.utils.Utils;
 import gr.interamerican.bo2.utils.meta.descriptors.BoPropertyDescriptor;
+import gr.interamerican.bo2.utils.meta.descriptors.BoPropertyDescriptorWrapper;
 import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
 import gr.interamerican.bo2.utils.meta.exceptions.ValidationException;
 import gr.interamerican.wicket.bo2.protocol.http.Bo2WicketSession;
@@ -31,8 +32,8 @@ import gr.interamerican.wicket.bo2.protocol.http.Bo2WicketSession;
  *            Type of language id.
  * 
  */
-public class TranslatableBoPropertyDescriptorWrapper<T, R, L> 
-implements BoPropertyDescriptor<T> {
+public class TranslatableBoPropertyDescriptorWrapper<T, R, L>
+implements BoPropertyDescriptor<T>, BoPropertyDescriptorWrapper<T> {
 	/**
 	 * Descriptor.
 	 */

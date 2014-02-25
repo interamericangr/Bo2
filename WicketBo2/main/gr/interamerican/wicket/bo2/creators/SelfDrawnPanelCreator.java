@@ -13,11 +13,13 @@
 package gr.interamerican.wicket.bo2.creators;
 
 import gr.interamerican.bo2.utils.meta.BusinessObjectDescriptor;
+import gr.interamerican.bo2.utils.meta.ext.descriptors.CachedEntryBoPropertyDescriptor;
 import gr.interamerican.wicket.bo2.markup.html.panel.SelfDrawnPanel;
 import gr.interamerican.wicket.creators.PanelCreator;
 import gr.interamerican.wicket.markup.html.panel.service.ModeAwareBeanPanelDef;
 
 import java.io.Serializable;
+import java.util.Map;
 
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
@@ -39,6 +41,13 @@ public class SelfDrawnPanelCreator<B extends Serializable> implements PanelCreat
 	 * Number of columns.
 	 */
 	private int columns = 1; //DEFAULT 1
+	
+	/**
+	 * Fixture for a drop down. Key is property name,
+	 * value is subListCd for the {@link CachedEntryBoPropertyDescriptor}
+	 * that corresponds to the name.
+	 */
+	private final Map<String, Long> dropDownFix;
 
 	/**
 	 * Creates a new SelfDrawnPanelCreator object.
@@ -48,6 +57,7 @@ public class SelfDrawnPanelCreator<B extends Serializable> implements PanelCreat
 	public SelfDrawnPanelCreator(BusinessObjectDescriptor<B> beanDescriptor) {
 		super();
 		this.beanDescriptor = beanDescriptor;
+		this.dropDownFix = null;
 	}
 
 	/**
@@ -60,6 +70,21 @@ public class SelfDrawnPanelCreator<B extends Serializable> implements PanelCreat
 		super();
 		this.beanDescriptor = beanDescriptor;
 		this.columns = columns;
+		this.dropDownFix = null;
+	}
+	
+	/**
+	 * Creates a new SelfDrawnPanelCreator object.
+	 * 
+	 * @param beanDescriptor
+	 * @param columns 
+	 * @param dropDownFix 
+	 */
+	public SelfDrawnPanelCreator(BusinessObjectDescriptor<B> beanDescriptor, int columns, Map<String, Long> dropDownFix) {
+		super();
+		this.beanDescriptor = beanDescriptor;
+		this.columns = columns;
+		this.dropDownFix = dropDownFix;
 	}
 
 	public Panel createPanel(ModeAwareBeanPanelDef<B> definition) {
@@ -68,7 +93,7 @@ public class SelfDrawnPanelCreator<B extends Serializable> implements PanelCreat
 		}
 		String id = definition.getWicketId();
 		CompoundPropertyModel<B> model = (CompoundPropertyModel<B>) definition.getBeanModel();
-		return new SelfDrawnPanel<B>(id, model, beanDescriptor, columns);
+		return new SelfDrawnPanel<B>(id, model, beanDescriptor, columns, dropDownFix);
 	}
 
 }
