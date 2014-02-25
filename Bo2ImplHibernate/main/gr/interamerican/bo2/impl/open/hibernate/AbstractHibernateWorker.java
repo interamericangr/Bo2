@@ -13,6 +13,7 @@
 package gr.interamerican.bo2.impl.open.hibernate;
 
 import static gr.interamerican.bo2.utils.StringConstants.EMPTY;
+import gr.interamerican.bo2.arch.PersistentObject;
 import gr.interamerican.bo2.arch.Provider;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.arch.utils.ext.Bo2Session;
@@ -51,7 +52,7 @@ extends AbstractResourceConsumer {
 	/**
 	 * Logger.
 	 */
-	private static Logger logger = LoggerFactory.getLogger(AbstractHibernateWorker.class);
+	private static Logger LOGGER = LoggerFactory.getLogger(AbstractHibernateWorker.class);
 	
 	/**
 	 * Hibernate session
@@ -184,6 +185,13 @@ extends AbstractResourceConsumer {
 		try {
 			Debug.setActiveModule(session);
 			Bo2Session.setState(CrudStates.UPDATE);
+			/*
+			 * A detached entity should be attached to the current persistence
+			 * context before merging to avoid reading from the database on merge. 
+			 */
+			if(shouldUpdateFirst(object)) {
+				session.update(object);
+			}
 			Object ret = session.merge(object);
 			flush(object);
 			return ret;
@@ -206,9 +214,26 @@ extends AbstractResourceConsumer {
 		String msg = StringUtils.concat(
 			he.getClass().getName(), ". Message: ",			
 			Utils.notNull(he.getMessage(), EMPTY));
-		logger.error(msg);
+		LOGGER.error(msg);
 	}
 	
-	
+	/**
+	 * Is it ok to perform a session.update on the given object?
+	 * @param object
+	 * @return True, if it is ok to perform a session.update on the given object
+	 */
+	boolean shouldUpdateFirst(Object object) {
+		if(!(object instanceof PersistentObject)) {
+			return false;
+		}
+		PersistentObject<?> po = (PersistentObject<?>) object;
+		if(HibernateBo2Utils.isTransient(po)) {
+			return false;
+		}
+		if(session.contains(object)) {
+			return false;
+		}
+		return true;
+	}
 
 }
