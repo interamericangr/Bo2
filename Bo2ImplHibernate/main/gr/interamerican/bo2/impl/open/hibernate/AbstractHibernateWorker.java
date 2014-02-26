@@ -187,11 +187,14 @@ extends AbstractResourceConsumer {
 			Bo2Session.setState(CrudStates.UPDATE);
 			/*
 			 * A detached entity should be attached to the current persistence
-			 * context before merging to avoid reading from the database on merge. 
+			 * context before merging to avoid reading from the database on merge.
+			 * 
+			 * TODO: This has side-effects to existing code. Unfortunately there
+			 * are use cases that will not work unless a detached object is merged. 
 			 */
-			if(shouldUpdateFirst(object)) {
-				session.update(object);
-			}
+//			if(shouldUpdateFirst(object)) {
+//				session.update(object);
+//			}
 			Object ret = session.merge(object);
 			flush(object);
 			return ret;
