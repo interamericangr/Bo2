@@ -164,6 +164,30 @@ public class Factory {
 	}
 	
 	/**
+	 * Registers a fixture that the underlying {@link ObjectFactory} will use
+	 * when the application requires the creation of an object instance
+	 * for the supplied <code>declarationTypeName</code>
+	 * <br/>
+	 * The normal process for object creation will not be used if a
+	 * fixture has been set. 
+	 * <br/>
+	 * This facility is meant to allow developers to specify mock instances
+	 * to be created for a declarationType in certain unit testing scenarios
+	 * where the actual implementation is not available in the classpath.
+	 * <br/>
+	 * The fixtures concern only invocations to {@link #create(String)}.
+	 * 
+	 * @param declarationTypeName
+	 *         Declaration class name
+	 * @param fixture
+	 *         Instance to be returned upon a request for a declarationType
+	 *         object creation
+	 */
+	public static void registerFixture(String declarationTypeName, Object fixture) {
+		currentFactory.registerFixture(declarationTypeName, fixture);
+	}
+	
+	/**
 	 * Resets any fixtures configured programmatically to the underlying
 	 * {@link ObjectFactory} using {@link #registerFixture(Class, Object)}
 	 */
@@ -187,9 +211,8 @@ public class Factory {
 	public static <M> M nullSafe (M value, Class<M> type) {
 		if (value==null) {
 			return create(type);
-		} else {
-			return value;
 		}
+		return value;
 	}
 	
 

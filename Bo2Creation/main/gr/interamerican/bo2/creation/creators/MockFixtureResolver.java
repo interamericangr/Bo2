@@ -11,7 +11,7 @@ import gr.interamerican.bo2.creation.FixtureResolver;
 public class MockFixtureResolver implements FixtureResolver {
 
 	@Override
-	public <M> M resolveFixture(Class<M> clazz) {
+	public <M> M resolveFixture(Object typeOrName) {
 		return null;
 	}
 
@@ -22,6 +22,10 @@ public class MockFixtureResolver implements FixtureResolver {
 
 	@Override
 	public <M> void registerFixture(Class<M> declarationType, M fixture) {
+		/* empty */
+	}
+
+	public void registerFixture(String declarationTypeName, Object fixture) {
 		/* empty */
 	}
 

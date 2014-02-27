@@ -690,6 +690,13 @@ public class TestObjectFactoryImpl {
 		Assert.assertEquals(StringConstants.EMPTY, factory.create(String.class));
 		Assert.assertEquals(StringConstants.EMPTY, factory.assistant.getFixtureResolver().resolveFixture(String.class));
 		Assert.assertTrue(factory.create(String.class) == factory.assistant.getFixtureResolver().resolveFixture(String.class));
+		
+		factory.registerFixture(String.class.getName(), StringConstants.ONE);
+		Assert.assertEquals(StringConstants.ONE, factory.create(String.class.getName()));
+		Assert.assertEquals(StringConstants.ONE, factory.assistant.getFixtureResolver().resolveFixture(String.class.getName()));
+		Assert.assertTrue(factory.create(String.class.getName()) == factory.assistant.getFixtureResolver().resolveFixture(String.class.getName()));
+		
+		factory.resetFixtures();
 	}
 
 	/**

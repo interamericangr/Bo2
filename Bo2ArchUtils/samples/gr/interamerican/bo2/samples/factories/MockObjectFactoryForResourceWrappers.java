@@ -62,6 +62,10 @@ implements ObjectFactory  {
 	public <M> void registerFixture(Class<M> declarationType, M fixture) {
 		/* empty */
 	}
+	
+	public void registerFixture(String declarationTypeName, Object fixture) {
+		/* empty */
+	}
 
 	@Override
 	public void resetFixtures() {

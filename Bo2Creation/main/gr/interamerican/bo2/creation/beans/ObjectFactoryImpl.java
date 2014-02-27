@@ -187,6 +187,10 @@ public class ObjectFactoryImpl implements ObjectFactory {
 	}
 
 	public Object create(String declarationTypeName) {
+		Object fixture = assistant.getFixtureResolver().resolveFixture(declarationTypeName);
+		if(fixture != null) {
+			return fixture;
+		}
 		Class<?> clazz = getImplementationType(declarationTypeName);
 		return createInstance(clazz);		
 	}
@@ -327,6 +331,11 @@ public class ObjectFactoryImpl implements ObjectFactory {
 	
 	@Override
 	public <M> void registerFixture(Class<M> declarationType, M fixture) {
+		assistant.getFixtureResolver().registerFixture(declarationType, fixture);
+	}
+	
+	@Override
+	public void registerFixture(String declarationType, Object fixture) {
 		assistant.getFixtureResolver().registerFixture(declarationType, fixture);
 	}
 

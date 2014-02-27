@@ -19,17 +19,17 @@ public class DefaultFixtureResolver implements FixtureResolver {
 	/**
 	 * tlCache
 	 */
-	final ThreadLocal<Map<Class<?>, Object>> tlCache = new ThreadLocal<Map<Class<?>, Object>>();
+	final ThreadLocal<Map<Object, Object>> tlCache = new ThreadLocal<Map<Object, Object>>();
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public <M> M resolveFixture(Class<M> clazz) {
+	public <M> M resolveFixture(Object typeOrName) {
 		if(tlCache.get()==null) { //no fixture has been configured
 			return null;
 		}
-		return (M) tlCache.get().get(clazz);
+		return (M) tlCache.get().get(typeOrName);
 	}
-
+	
 	@Override
 	public void clearFixturesCache() {
 		if(tlCache.get()==null) {
@@ -37,14 +37,22 @@ public class DefaultFixtureResolver implements FixtureResolver {
 		}
 		tlCache.get().clear();
 		tlCache.remove();
+		
 	}
 
 	@Override
 	public <M> void registerFixture(Class<M> declarationType, M fixture) {
 		if(tlCache.get()==null) {
-			tlCache.set(new HashMap<Class<?>, Object>());
+			tlCache.set(new HashMap<Object, Object>());
 		}
 		tlCache.get().put(declarationType, fixture);
+	}
+
+	public void registerFixture(String declarationTypeName, Object fixture) {
+		if(tlCache.get()==null) {
+			tlCache.set(new HashMap<Object, Object>());
+		}
+		tlCache.get().put(declarationTypeName, fixture);
 	}
 
 }
