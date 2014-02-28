@@ -22,6 +22,11 @@ import gr.interamerican.bo2.arch.Provider;
 public class JdbcDetachStrategy implements DetachStrategy {
 	
 	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	/**
 	 * Singleton instance.
 	 */
 	public static final JdbcDetachStrategy INSTANCE = new JdbcDetachStrategy();

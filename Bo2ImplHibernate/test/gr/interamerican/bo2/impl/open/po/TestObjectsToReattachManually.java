@@ -18,20 +18,19 @@ import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
 import gr.interamerican.bo2.arch.exceptions.UnexpectedException;
 import gr.interamerican.bo2.impl.open.creation.Factory;
+import gr.interamerican.bo2.impl.open.po.PoReattachAnalysis.PoReattachAnalysisResult;
 import gr.interamerican.bo2.impl.open.runtime.AbstractBo2RuntimeCmd;
 import gr.interamerican.bo2.test.def.posamples.Customer;
 import gr.interamerican.bo2.test.def.posamples.Invoice;
 import gr.interamerican.bo2.test.def.posamples.SamplesFactory;
 import gr.interamerican.bo2.test.scenarios.DeleteInvoiceData;
 
-import java.util.Set;
-
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Unit test for {@link ObjectsToReattachManually}.
+ * Unit test for {@link PoReattachAnalysis}.
  */
 public class TestObjectsToReattachManually {
 	
@@ -101,8 +100,9 @@ public class TestObjectsToReattachManually {
 			}
 		}.execute();
 		
-		Set<Object> set = ObjectsToReattachManually.INSTANCE.execute((AbstractBasePo<?>) invoice);
-		Assert.assertEquals(1, set.size());
+		PoReattachAnalysisResult analysis = PoReattachAnalysis.get().execute((AbstractBasePo<?>) invoice);
+		Assert.assertEquals(1, analysis.getPosToReattachManually().size());
+		Assert.assertEquals(0, analysis.getTransientPos().size());
 		
 		/*
 		 * Initialize the InvoiceCustomer.
@@ -119,8 +119,9 @@ public class TestObjectsToReattachManually {
 			}
 		}.execute();
 		
-		set = ObjectsToReattachManually.INSTANCE.execute((AbstractBasePo<?>) invoice);
-		Assert.assertEquals(1, set.size());
+		analysis = PoReattachAnalysis.get().execute((AbstractBasePo<?>) invoice);
+		Assert.assertEquals(1, analysis.getPosToReattachManually().size());
+		Assert.assertEquals(0, analysis.getTransientPos().size());
 		
 		/*
 		 * Initialize the Customer as well
@@ -137,8 +138,9 @@ public class TestObjectsToReattachManually {
 			}
 		}.execute();
 		
-		set = ObjectsToReattachManually.INSTANCE.execute((AbstractBasePo<?>) invoice);
-		Assert.assertEquals(1, set.size());
+		analysis = PoReattachAnalysis.get().execute((AbstractBasePo<?>) invoice);
+		Assert.assertEquals(1, analysis.getPosToReattachManually().size());
+		Assert.assertEquals(0, analysis.getTransientPos().size());
 		
 		/*
 		 * Deep copy the invoice
@@ -154,8 +156,9 @@ public class TestObjectsToReattachManually {
 			}
 		}.execute();
 		
-		set = ObjectsToReattachManually.INSTANCE.execute((AbstractBasePo<?>) invoice);
-		Assert.assertEquals(1, set.size());
+		analysis = PoReattachAnalysis.get().execute((AbstractBasePo<?>) invoice);
+		Assert.assertEquals(1, analysis.getPosToReattachManually().size());
+		Assert.assertEquals(9, analysis.getTransientPos().size()); //1 I + 1 IL + 1 ISL + 2 IR + 3 ISR + 1IC 
 		
 		/*
 		 * Deep copy the invoice and initialize the Customer.
@@ -172,8 +175,9 @@ public class TestObjectsToReattachManually {
 			}
 		}.execute();
 		
-		set = ObjectsToReattachManually.INSTANCE.execute((AbstractBasePo<?>) invoice);
-		Assert.assertEquals(1, set.size());
+		analysis = PoReattachAnalysis.get().execute((AbstractBasePo<?>) invoice);
+		Assert.assertEquals(1, analysis.getPosToReattachManually().size());
+		Assert.assertEquals(9, analysis.getTransientPos().size()); //1 I + 1 IL + 1 ISL + 2 IR + 3 ISR + 1IC 
 		
 	}
 

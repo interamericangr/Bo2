@@ -17,9 +17,11 @@ import java.util.Date;
 
 /**
  * {@link ModificationRecord} contains information about the
- * modification of an object.
+ * modification of an object. PersistentObjects that implement
+ * this interface may store data that can be used for optimistic
+ * conversation scope locking.
  */
-public interface ModificationRecord extends Serializable{
+public interface ModificationRecord extends Serializable {
 	
 	/**
 	 * Timestamp of last modification.

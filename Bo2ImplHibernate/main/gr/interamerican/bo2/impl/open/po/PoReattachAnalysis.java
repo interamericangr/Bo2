@@ -12,7 +12,10 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.po;
 
+import gr.interamerican.bo2.arch.DetachStrategy;
 import gr.interamerican.bo2.arch.PersistentObject;
+import gr.interamerican.bo2.impl.open.hibernate.HibernateBo2Utils;
+import gr.interamerican.bo2.impl.open.po.PoReattachAnalysis.PoReattachAnalysisResult;
 import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.adapters.Transformation;
 
@@ -28,7 +31,11 @@ import org.hibernate.proxy.HibernateProxy;
 /**
  * This adapter accepts an {@link AbstractBasePo} instance inspects
  * its fields and produces a List of objects that may be considered
- * for manual re-attaching to the Hibernate Session.
+ * for manual re-attaching to the Hibernate Session and a list of
+ * objects that are currently transient and should not be affected
+ * by the re-attachment process.
+ * <br/>
+ * The two lists are returned as a {@link PoReattachAnalysisResult}.
  * <br/>
  * This is achieved by inspecting recursively owned entities and
  * owned collections of entities and including in the results referenced
@@ -37,19 +44,33 @@ import org.hibernate.proxy.HibernateProxy;
  * No force initialization of lazy proxies of entities or collections
  * of entities is caused by this adapter. The application of the adapter
  * to an {@link AbstractBasePo} does not alter its state. 
+ * <br/>
+ * 
+ * @see DetachStrategy#reattach(Object, gr.interamerican.bo2.arch.Provider)
  */
-public class ObjectsToReattachManually 
-implements Transformation<AbstractBasePo<?>, Set<Object>> {
+public class PoReattachAnalysis implements Transformation<AbstractBasePo<?>, PoReattachAnalysisResult> {
 	
 	/**
 	 * Singleton.
 	 */
-	public static final ObjectsToReattachManually INSTANCE = new ObjectsToReattachManually();
+	private static final PoReattachAnalysis INSTANCE = new PoReattachAnalysis();
+	
+	/**
+	 * Singleton accessor.
+	 * 
+	 * @return Singleton.
+	 */
+	public static PoReattachAnalysis get() {
+		return INSTANCE;
+	}
 
-	public Set<Object> execute(AbstractBasePo<?> a) {
-		Set<Object> results = new HashSet<Object>();
+	public PoReattachAnalysisResult execute(AbstractBasePo<?> a) {
+		PoReattachAnalysisResult analysis = new PoReattachAnalysisResult();
 		
-		results.addAll(getReferences(a));
+		analysis.getPosToReattachManually().addAll(getReferences(a));
+		if(HibernateBo2Utils.isTransient(a)) {
+			analysis.getTransientPos().add(a);
+		}
 		
 		for(Object child : ReflectionUtils.get(a.getChildFields(), a)) {
 			if(child instanceof HibernateProxy) {
@@ -57,7 +78,9 @@ implements Transformation<AbstractBasePo<?>, Set<Object>> {
 				if(proxy.getHibernateLazyInitializer().isUninitialized()) {
 					continue;
 				}
-				results.addAll(INSTANCE.execute((AbstractBasePo<?>) proxy.getHibernateLazyInitializer().getImplementation()));
+				PoReattachAnalysisResult intermediate = INSTANCE.execute((AbstractBasePo<?>) proxy.getHibernateLazyInitializer().getImplementation());
+				analysis.getPosToReattachManually().addAll(intermediate.getPosToReattachManually());
+				analysis.getTransientPos().addAll(intermediate.getTransientPos());
 			} else if(child instanceof PersistentCollection) {
 				PersistentCollection pColl = (PersistentCollection) child;
 				if(!pColl.wasInitialized()) {
@@ -69,23 +92,31 @@ implements Transformation<AbstractBasePo<?>, Set<Object>> {
 						if(proxy.getHibernateLazyInitializer().isUninitialized()) {
 							continue;
 						}
-						results.addAll(INSTANCE.execute((AbstractBasePo<?>) proxy.getHibernateLazyInitializer().getImplementation()));
+						PoReattachAnalysisResult intermediate = INSTANCE.execute((AbstractBasePo<?>) proxy.getHibernateLazyInitializer().getImplementation());
+						analysis.getPosToReattachManually().addAll(intermediate.getPosToReattachManually());
+						analysis.getTransientPos().addAll(intermediate.getTransientPos());
 					} else if(obj instanceof AbstractBasePo) {
-						results.addAll(INSTANCE.execute((AbstractBasePo<?>) obj));
+						PoReattachAnalysisResult intermediate = INSTANCE.execute((AbstractBasePo<?>) obj);
+						analysis.getPosToReattachManually().addAll(intermediate.getPosToReattachManually());
+						analysis.getTransientPos().addAll(intermediate.getTransientPos());
 					}
 				}
 			} else if (child instanceof AbstractBasePo){ 
-				results.addAll(INSTANCE.execute((AbstractBasePo<?>) child));
+				PoReattachAnalysisResult intermediate = INSTANCE.execute((AbstractBasePo<?>) child);
+				analysis.getPosToReattachManually().addAll(intermediate.getPosToReattachManually());
+				analysis.getTransientPos().addAll(intermediate.getTransientPos());
 			} else if (child instanceof Collection) {
 				for(Object obj : (Collection<?>) child) {
 					if(obj instanceof AbstractBasePo) {
-						results.addAll(INSTANCE.execute((AbstractBasePo<?>) obj));
+						PoReattachAnalysisResult intermediate = INSTANCE.execute((AbstractBasePo<?>) obj);
+						analysis.getPosToReattachManually().addAll(intermediate.getPosToReattachManually());
+						analysis.getTransientPos().addAll(intermediate.getTransientPos());
 					}
 				}
 			}
 		}
 		
-		return results;
+		return analysis;
 	}
 	
 	/**
@@ -133,8 +164,43 @@ implements Transformation<AbstractBasePo<?>, Set<Object>> {
 	}
 	
 	/**
+	 * Results bean
+	 */
+	public static class PoReattachAnalysisResult {
+		
+		/**
+		 * Transient pos found.
+		 */
+		private final Set<Object> transientPos = new HashSet<Object>();
+		
+		/**
+		 * Many-to-one association pos found.
+		 */
+		private final Set<Object> posToReattachManually = new HashSet<Object>();
+		
+		/**
+		 * Gets the transientPos.
+		 *
+		 * @return Returns the transientPos
+		 */
+		public Set<Object> getTransientPos() {
+			return transientPos;
+		}
+
+		/**
+		 * Gets the posToReattachManually.
+		 *
+		 * @return Returns the posToReattachManually
+		 */
+		public Set<Object> getPosToReattachManually() {
+			return posToReattachManually;
+		}
+		
+	}
+	
+	/**
 	 * Use Singleton instance.
 	 */
-	private ObjectsToReattachManually() { /* hidden, empty */ }
+	private PoReattachAnalysis() { /* hidden, empty */ }
 
 }

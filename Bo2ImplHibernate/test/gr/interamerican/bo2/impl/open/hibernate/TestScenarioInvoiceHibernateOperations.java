@@ -1105,6 +1105,64 @@ public class TestScenarioInvoiceHibernateOperations {
 		
 	}
 	
+	/**
+	 * Tests that when re-attaching a detached instance transient objects
+	 * on its graph are not attached.
+	 * 
+	 * @throws DataException
+	 * @throws LogicException
+	 * @throws UnexpectedException 
+	 */
+	@Test
+	public void testReattachInvoiceDoesNotAttachTransientChildren() 
+	throws DataException, LogicException, UnexpectedException {
+		
+		/* first, store the samples - including a Customer */
+		new AbstractBo2RuntimeCmd() {
+			@Override public void work() throws LogicException,
+			DataException, InitializationException, UnexpectedException {
+				invoice = factory.sampleInvoiceFull(4);
+				invoice.setInvoiceNo(invoiceNo);
+				PersistenceWorker<Invoice> ipw = openPw(Invoice.class);
+				invoice = ipw.store(invoice);
+				invoice.getLines().size(); //force init persistent collection
+			}
+		}.execute();
+		
+		/* now add an invoiceline and reattach */
+		new AbstractBo2RuntimeCmd() {
+			@Override public void work() throws LogicException,
+			DataException, InitializationException, UnexpectedException {
+				InvoiceLine line = factory.sampleInvoiceLine(5);
+				invoice.getLines().add(line);
+				PoUtils.reattach(invoice, getProvider());
+				Assert.assertNull(line.getLastModified());
+			}
+		}.execute();
+		
+		/* now perform an update */
+		new AbstractBo2RuntimeCmd() {
+			@Override public void work() throws LogicException,
+			DataException, InitializationException, UnexpectedException {
+				/*
+				 * INFAMOUS NONTHREADSAFEACCESS TO SESSION ASSERTION ERROR
+				 * The following line, if uncommented causes the above error.
+				 * The reason is that transient instances are attached and 
+				 * then evicted from the session. When the worker update
+				 * is performed they are attached again. Hibernate then throws
+				 * an AssertionError on flush(), because, this is a fishy
+				 * behavior. There is no reason to reattach before a worker
+				 * update since Bo2 2.0.0061.
+				 */
+//				PoUtils.reattach(invoice, getProvider()); 
+				PersistenceWorker<Invoice> ipw = openPw(Invoice.class);
+				Invoice i = ipw.update(invoice);
+				Assert.assertTrue(i == invoice);
+			}
+		}.execute();
+		
+	}
+	
 	/*---------------------------------------------------------------------------
 	  Advanced test cases.
 	 ----------------------------------------------------------------------------*/

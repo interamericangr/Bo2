@@ -12,7 +12,6 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.po;
 
-import gr.interamerican.bo2.arch.CompositePo;
 import gr.interamerican.bo2.arch.DetachStrategy;
 import gr.interamerican.bo2.arch.Key;
 import gr.interamerican.bo2.arch.PersistentObject;
@@ -63,11 +62,14 @@ import org.slf4j.LoggerFactory;
  * <li> Child collections can only be of type {@link Set}. 
  *      All these collections can be declared as sets. These sets are 
  *      created by the constructor. </li> 
- * <li> Child element must always be {@link CompositePo}. Defining
- *      a child element that is not instance of {@link CompositePo}
+ * <li> Child element must always be {@link PersistentObject}s. Defining
+ *      a child element that is not instance of {@link PersistentObject}
  *      makes no sense. The reason to mark an element as child is to have
  *      its key modified by the father's key. If the child can't be modified
- *      by the father's key it is useless to mark it as child. </li> 
+ *      by the father's key it is useless to mark it as child. </li>
+ * <li> Child elements are <strong>owned</strong> by this instance. Their
+ *      existence either in the java heap or in the persistence layer makes
+ *      no sense without this object </li>
  * 
  * @param <K> Type of the persistent object key.
  */

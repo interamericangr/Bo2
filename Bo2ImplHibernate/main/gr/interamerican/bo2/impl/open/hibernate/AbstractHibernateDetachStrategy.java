@@ -13,10 +13,12 @@
 package gr.interamerican.bo2.impl.open.hibernate;
 
 import gr.interamerican.bo2.arch.DetachStrategy;
+import gr.interamerican.bo2.arch.ModificationRecord;
 import gr.interamerican.bo2.arch.PersistentObject;
 import gr.interamerican.bo2.arch.Provider;
 import gr.interamerican.bo2.impl.open.po.AbstractBasePo;
-import gr.interamerican.bo2.impl.open.po.ObjectsToReattachManually;
+import gr.interamerican.bo2.impl.open.po.PoReattachAnalysis;
+import gr.interamerican.bo2.impl.open.po.PoReattachAnalysis.PoReattachAnalysisResult;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -40,7 +42,7 @@ public abstract class AbstractHibernateDetachStrategy implements DetachStrategy 
 	/**
 	 * logger.
 	 */
-	private static Logger logger = LoggerFactory.getLogger(AbstractHibernateDetachStrategy.class);
+	private static Logger LOGGER = LoggerFactory.getLogger(AbstractHibernateDetachStrategy.class.getName());
 	
 	public void detach(Object object, Provider provider) {
 		/* Don't do anything special */
@@ -54,33 +56,37 @@ public abstract class AbstractHibernateDetachStrategy implements DetachStrategy 
 		}
 	}
 
+	@SuppressWarnings("nls")
 	public void reattach(Object object, Provider provider) {
 		if(object == null) { 
 			return; 
 		}
 		if (!(object instanceof PersistentObject)) { 
 			return; 
-		}		
+		}
+		if(HibernateBo2Utils.isTransient((PersistentObject<?>) object)) {
+			return;
+		}
 		HibernateSessionProvider hProv = HibernateBo2Utils.getHibernateSessionProvider(object, provider);
 		if(hProv==null) {
 			return;
 		}
 		Session session = hProv.getHibernateSession();
 		
-		Set<Object> objectsToReattachManually = null;
+		Set<Object> objectsToReattachManually = new HashSet<Object>();
+		Set<Object> transientObjects = new HashSet<Object>();
 		if(object instanceof AbstractBasePo) {
-			objectsToReattachManually = ObjectsToReattachManually.INSTANCE.execute((AbstractBasePo<?>) object);
-		} else {
-			objectsToReattachManually = new HashSet<Object>();
+			PoReattachAnalysisResult poInspectionResult = PoReattachAnalysis.get().execute((AbstractBasePo<?>) object);
+			objectsToReattachManually = poInspectionResult.getPosToReattachManually();
+			transientObjects = poInspectionResult.getTransientPos();
 		}
+		
+		LOGGER.debug("------------------------------------------------>reattach " + object.getClass().getName() + object);
 		
 		if(!HibernateBo2Utils.isTransient((PersistentObject<?>) object)) {
 			try {
-				/*
-				 * TODO: Do we want to force this, even if the check fails possibly
-				 * by evicting from the session first?
-				 */
-				if(mayLockOrUpdate(object, session)) {
+				boolean mayLockOrUpdate = mayLockOrUpdate(object, session);
+				if(mayLockOrUpdate) {
 					doReattach(object, session);
 				}
 			} catch (HibernateException he) {
@@ -88,11 +94,30 @@ public abstract class AbstractHibernateDetachStrategy implements DetachStrategy 
 			}
 			hProv.register(object);
 		}
+
+		/*
+		 * Detach transient objects on the graph that were possibly
+		 * attached by a cascade option during #doReattach execution.
+		 */
+		int j = 0;
+		for(Object obj : transientObjects) {
+			boolean detachTransientObjectAttachedByCascade = detachTransientObjectAttachedByCascade(obj, session);
+			if(detachTransientObjectAttachedByCascade) {
+				LOGGER.debug("detached transient: " + obj.getClass().getName() + obj.toString()); 
+				j++;
+			}
+		}
 		
+		/*
+		 * Re-attach manually not owned associations for which there
+		 * was no cascade option during #doReattach execution.
+		 */
 		int i = 0;
 		for(Object obj : objectsToReattachManually) {
 			try {
-				if(mayLockOrUpdate(obj, session)) {
+				boolean mayLockOrUpdate = mayLockOrUpdate(obj, session);
+				if(mayLockOrUpdate) {
+					LOGGER.debug("reattached by locking: " + obj.getClass().getName() + obj.toString()); 
 					session.buildLockRequest(LockOptions.NONE).lock(obj); 
 					i++;
 				}
@@ -100,7 +125,10 @@ public abstract class AbstractHibernateDetachStrategy implements DetachStrategy 
 				throw new RuntimeException(he);
 			}
 		}
-		logger.debug("Reattach candidates: " + objectsToReattachManually.size() + ". Reattached: " + i); //$NON-NLS-1$ //$NON-NLS-2$
+		
+		LOGGER.debug("Manual reattach candidates: " + objectsToReattachManually.size() + ". Reattached: " + i);
+		LOGGER.debug("Transient objects: " + transientObjects.size() + ". Detached manually: " + j);
+		LOGGER.debug("reattached " + object.getClass().getName() + object + "<----------------------------------------------");
 		
 	}
 	
@@ -111,6 +139,34 @@ public abstract class AbstractHibernateDetachStrategy implements DetachStrategy 
 	 * @param session
 	 */
 	protected abstract void doReattach(Object object, Session session);
+	
+	/**
+	 * Detaches the entity.
+	 * 
+	 * @param object
+	 * @param session
+	 * @return Whether it was indeed detached.
+	 */
+	private boolean detachTransientObjectAttachedByCascade(Object object, Session session) {
+		boolean evicted = false;
+		boolean mdfCleared = false;
+		
+		if(session.contains(object)) {
+			session.evict(object);
+			evicted = true;
+		}
+		
+		//an object may have been evicted by cascade previously, so we check this separately
+		if(object instanceof ModificationRecord) {
+			ModificationRecord mdf = (ModificationRecord) object;
+			if(mdf.getLastModified()!=null) {
+				mdf.setLastModified(null);
+				mdfCleared = true;
+			}
+		}
+		
+		return evicted || mdfCleared;
+	}
 	
 	/**
 	 * Indicates if an entity may be locked or updated.
