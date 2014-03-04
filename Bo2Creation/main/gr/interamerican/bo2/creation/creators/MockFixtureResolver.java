@@ -1,6 +1,7 @@
 package gr.interamerican.bo2.creation.creators;
 
 import gr.interamerican.bo2.creation.FixtureResolver;
+import gr.interamerican.bo2.creation.ObjectFactory;
 
 /**
  * Mock implementation of {@link FixtureResolver} used internally when no
@@ -11,7 +12,7 @@ import gr.interamerican.bo2.creation.FixtureResolver;
 public class MockFixtureResolver implements FixtureResolver {
 
 	@Override
-	public <M> M resolveFixture(Object typeOrName) {
+	public <M> M resolveFixture(Class<M> type) {
 		return null;
 	}
 
@@ -25,7 +26,7 @@ public class MockFixtureResolver implements FixtureResolver {
 		/* empty */
 	}
 
-	public void registerFixture(String declarationTypeName, Object fixture) {
+	public <M> void registerFixture(Class<M> declarationType, ObjectFactory fixtureFactory) {
 		/* empty */
 	}
 

@@ -63,7 +63,7 @@ implements ObjectFactory  {
 		/* empty */
 	}
 	
-	public void registerFixture(String declarationTypeName, Object fixture) {
+	public <M> void registerFixture(Class<M> declarationType, ObjectFactory fixtureFactory) {
 		/* empty */
 	}
 

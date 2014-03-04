@@ -13,10 +13,10 @@ public interface FixtureResolver {
 	 * Resolves a fixture for a given class. If no fixture is found, null
 	 * is returned.
 	 * 
-	 * @param typeOrName
+	 * @param type
 	 * @return Fixture instance.
 	 */
-	<M> M resolveFixture(Object typeOrName);
+	<M> M resolveFixture(Class<M> type);
 	
 	/**
 	 * Registers a fixture.
@@ -29,10 +29,10 @@ public interface FixtureResolver {
 	/**
 	 * Registers a fixture.
 	 * 
-	 * @param declarationTypeName
-	 * @param fixture
+	 * @param declarationType
+	 * @param fixtureFactory
 	 */
-	void registerFixture(String declarationTypeName, Object fixture);
+	<M> void registerFixture(Class<M> declarationType, ObjectFactory fixtureFactory);
 	
 	/**
 	 * Clears the fixtures cache of this {@link FixtureResolver} instance.

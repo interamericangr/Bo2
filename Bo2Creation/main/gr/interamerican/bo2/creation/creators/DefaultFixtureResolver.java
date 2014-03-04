@@ -1,6 +1,7 @@
 package gr.interamerican.bo2.creation.creators;
 
 import gr.interamerican.bo2.creation.FixtureResolver;
+import gr.interamerican.bo2.creation.ObjectFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,17 +20,22 @@ public class DefaultFixtureResolver implements FixtureResolver {
 	/**
 	 * tlCache
 	 */
-	final ThreadLocal<Map<Object, Object>> tlCache = new ThreadLocal<Map<Object, Object>>();
+	final ThreadLocal<Map<Class<?>, Object>> tlCache = new ThreadLocal<Map<Class<?>, Object>>();
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public <M> M resolveFixture(Object typeOrName) {
+	public <M> M resolveFixture(Class<M> type) {
 		if(tlCache.get()==null) { //no fixture has been configured
 			return null;
 		}
-		return (M) tlCache.get().get(typeOrName);
+		Object fixture = tlCache.get().get(type);
+		if (fixture instanceof ObjectFactory) {
+			ObjectFactory fixtureFactory = (ObjectFactory) fixture;
+			return fixtureFactory.create(type);
+		}
+		return (M) tlCache.get().get(type);
 	}
-	
+
 	@Override
 	public void clearFixturesCache() {
 		if(tlCache.get()==null) {
@@ -37,22 +43,21 @@ public class DefaultFixtureResolver implements FixtureResolver {
 		}
 		tlCache.get().clear();
 		tlCache.remove();
-		
 	}
 
 	@Override
 	public <M> void registerFixture(Class<M> declarationType, M fixture) {
 		if(tlCache.get()==null) {
-			tlCache.set(new HashMap<Object, Object>());
+			tlCache.set(new HashMap<Class<?>, Object>());
 		}
 		tlCache.get().put(declarationType, fixture);
 	}
 
-	public void registerFixture(String declarationTypeName, Object fixture) {
+	public <M> void registerFixture(Class<M> declarationType, ObjectFactory fixtureFactory) {
 		if(tlCache.get()==null) {
-			tlCache.set(new HashMap<Object, Object>());
+			tlCache.set(new HashMap<Class<?>, Object>());
 		}
-		tlCache.get().put(declarationTypeName, fixture);
+		tlCache.get().put(declarationType, fixtureFactory);
 	}
 
 }

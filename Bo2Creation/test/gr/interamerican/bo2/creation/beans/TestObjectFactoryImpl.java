@@ -691,11 +691,6 @@ public class TestObjectFactoryImpl {
 		Assert.assertEquals(StringConstants.EMPTY, factory.assistant.getFixtureResolver().resolveFixture(String.class));
 		Assert.assertTrue(factory.create(String.class) == factory.assistant.getFixtureResolver().resolveFixture(String.class));
 		
-		factory.registerFixture(String.class.getName(), StringConstants.ONE);
-		Assert.assertEquals(StringConstants.ONE, factory.create(String.class.getName()));
-		Assert.assertEquals(StringConstants.ONE, factory.assistant.getFixtureResolver().resolveFixture(String.class.getName()));
-		Assert.assertTrue(factory.create(String.class.getName()) == factory.assistant.getFixtureResolver().resolveFixture(String.class.getName()));
-		
 		factory.resetFixtures();
 	}
 
@@ -704,12 +699,20 @@ public class TestObjectFactoryImpl {
 	 */
 	@Test
 	public void testResetFixtures() {
-		ObjectFactory fixture = Mockito.mock(ObjectFactory.class);
-		factory.registerFixture(ObjectFactory.class, fixture);
-		Assert.assertEquals(fixture, factory.assistant.getFixtureResolver().resolveFixture(ObjectFactory.class));
+		ObjectFactoryAssistant fixture = Mockito.mock(ObjectFactoryAssistant.class);
+		factory.registerFixture(ObjectFactoryAssistant.class, fixture);
+		Assert.assertEquals(fixture, factory.assistant.getFixtureResolver().resolveFixture(ObjectFactoryAssistant.class));
 
+		JavabeanDefinition fixture2 = Mockito.mock(JavabeanDefinition.class);
+		ObjectFactory fixtureFactory = Mockito.mock(ObjectFactory.class);
+		Mockito.when(fixtureFactory.create(JavabeanDefinition.class)).thenReturn(fixture2);
+		factory.registerFixture(JavabeanDefinition.class, fixtureFactory);
+		
+		Assert.assertEquals(fixture2, factory.assistant.getFixtureResolver().resolveFixture(JavabeanDefinition.class));
+		
 		factory.resetFixtures();
-		Assert.assertNull(factory.assistant.getFixtureResolver().resolveFixture(ObjectFactory.class));
+		Assert.assertNull(factory.assistant.getFixtureResolver().resolveFixture(ObjectFactoryAssistant.class));
+		Assert.assertNull(factory.assistant.getFixtureResolver().resolveFixture(JavabeanDefinition.class));
 	}
 
 }

@@ -152,25 +152,27 @@ public interface ObjectFactory {
 	/**
 	 * Registers a fixture that this {@link ObjectFactory} will use
 	 * when the application requires the creation of an object instance
-	 * for the supplied <code>declarationTypeName</code>
+	 * for the supplied <code>declarationType</code>
 	 * <br/>
 	 * The normal process for object creation will not be used if a
 	 * fixture has been set. 
 	 * <br/>
-	 * This facility is meant to allow developers to specify mock instances
-	 * to be created for a declarationTypeName in certain unit testing scenarios
-	 * where the actual implementation is not available in the classpath.
+	 * This facility is meant to allow developers to specify ObjectFactory 
+	 * instances that will be used for the instantiation of a declarationType 
+	 * in certain unit testing scenarios where the actual implementation 
+	 * is not available in the classpath.
 	 * <br/>
-	 * The fixtures only affect calls to the {@link #create(String)} method
-	 * of the {@link ObjectFactory}. 
+	 * The fixtures only affect calls to the {@link #create(Class)} method
+	 * of this {@link ObjectFactory}. 
 	 *
-	 * @param declarationTypeName
-	 *         Declaration class name
-	 * @param fixture
-	 *         Instance to be returned upon a request for a declarationType
-	 *         object creation
+	 * @param <M> 
+	 *         Type of fixture.
+	 * @param declarationType
+	 *         Declaration class
+	 * @param fixtureFactory
+	 *         ObjectFactory that will actually perform the instantiation.
 	 */
-	void registerFixture(String declarationTypeName, Object fixture);
+	<M> void registerFixture(Class<M> declarationType, ObjectFactory fixtureFactory);
 	
 	/**
 	 * Resets any fixtures configured programmatically using 
