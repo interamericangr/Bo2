@@ -457,7 +457,7 @@ public class ObjectFactoryImpl implements ObjectFactory {
 	 * @throws IOException 
 	 * 
 	 */
-	private void readMappings(String mappingsFilePath) 
+	protected void readMappings(String mappingsFilePath) 
 	throws IOException {
 		String[] paths = StreamUtils.readResourceFile(mappingsFilePath, true, true);
 		if (paths==null) {

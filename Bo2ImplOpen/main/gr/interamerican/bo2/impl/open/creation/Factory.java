@@ -58,6 +58,11 @@ public class Factory {
 		}
 		Bo2Creation.getBo2ClassPool().appendClassPath(new ClassClassPath(Factory.class));
 	}	
+	
+	/**
+	 * Hidden constructor of a utility class.
+	 */
+	private Factory() {/* empty */}
 
 	/**
 	 * Gets the current factory.
@@ -237,13 +242,6 @@ public class Factory {
 		}
 		Class<? extends PersistentObject<?>> poClass = Utils.cast(clazz);
 		return defaultPwFactory.getDetachStrategy(poClass);		
-	}
-
-	/**
-	 * Hidden constructor of a utility class.
-	 */
-	private Factory() {
-		/* empty */
 	}
 	
 	/**

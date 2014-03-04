@@ -13,9 +13,6 @@ extends ImplementorForAbstractClasses {
 	protected String getSuffix() {
 		return "_FmAbstractClassImplementationBybo2"; //$NON-NLS-1$
 	}
-	
-	/*
-	 * TODO:
 	 
 	@Override
 	protected void supportRemainingMethods() {
@@ -24,8 +21,4 @@ extends ImplementorForAbstractClasses {
 			doSupportMethodWithMock(method);
 		}
 	}
-	*/
-	
-	
-
 }

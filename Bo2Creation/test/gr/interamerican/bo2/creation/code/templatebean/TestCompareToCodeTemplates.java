@@ -19,16 +19,16 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Unit test for {@link MethodsImplCodeTemplates}.
+ * Unit test for {@link CompareToCodeTemplates}.
  */
-public class TestMethodsImplCodeTemplates {
+public class TestCompareToCodeTemplates {
 
 	/**
 	 * Test 
 	 */
 	@Test
 	public void testConstructor() {
-		MethodsImplCodeTemplates templates = new MethodsImplCodeTemplates();
+		CompareToCodeTemplates templates = new CompareToCodeTemplates();
 		Assert.assertNotNull(templates.getCompareToBody());		
 		Map<String, String> map = new HashMap<String, String>();
 		Assert.assertNotNull(templates.getCompareToFragment(map));

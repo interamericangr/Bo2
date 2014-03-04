@@ -12,7 +12,15 @@
  ******************************************************************************/
 package gr.interamerican.bo2.creation.creators;
 
+import static gr.interamerican.bo2.creation.util.CodeGenerationUtilities.generateMethodDeclarationParameters;
 import gr.interamerican.bo2.creation.ClassCreator;
+import gr.interamerican.bo2.creation.annotations.ComparableThrough;
+import gr.interamerican.bo2.creation.code.templatebean.EmptyMethodCodeTemplates;
+import gr.interamerican.bo2.creation.code.templatebean.CompareToCodeTemplates;
+import gr.interamerican.bo2.creation.code.templatebean.MethodCodeTemplates;
+import gr.interamerican.bo2.creation.code.templatebean.PropertyWithDirectAccessCodeTemplates;
+import gr.interamerican.bo2.creation.code.templatebean.PropertyWithReflectiveAccessCodeTemplates;
+import gr.interamerican.bo2.creation.code.templatebean.Variables;
 import gr.interamerican.bo2.creation.exception.ClassCreationException;
 import gr.interamerican.bo2.creation.update.AbstractClassUpdater;
 import gr.interamerican.bo2.creation.update.AddingFieldsClassUpdater;
@@ -21,12 +29,14 @@ import gr.interamerican.bo2.creation.update.AddingMethodsClassUpdater;
 import gr.interamerican.bo2.creation.update.ClassCompiler;
 import gr.interamerican.bo2.creation.update.SettingSuperTypeClassUpdater;
 import gr.interamerican.bo2.creation.util.CodeGenerationUtilities;
+import gr.interamerican.bo2.creation.util.MethodsUtilities;
 import gr.interamerican.bo2.utils.AdapterUtils;
 import gr.interamerican.bo2.utils.ArrayUtils;
 import gr.interamerican.bo2.utils.CollectionUtils;
 import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.StringUtils;
+import gr.interamerican.bo2.utils.TokenUtils;
 import gr.interamerican.bo2.utils.reflect.analyze.TypeAnalysis;
 import gr.interamerican.bo2.utils.reflect.beans.BeanPropertyDefinition;
 
@@ -68,6 +78,27 @@ implements ClassCreator {
 	 * @return Gets the suffix that is added to the new class name.
 	 */
 	protected abstract String getSuffix();
+	
+	/**
+	 * Code templates for the implementation of the {@link Comparable#compareTo(Object)} method.
+	 */
+	protected CompareToCodeTemplates methodsTemplates = new CompareToCodeTemplates();
+	
+	/**
+	 * Code templates for mock implementation of methods.
+	 */
+	protected EmptyMethodCodeTemplates emptyMethodTemplates = new EmptyMethodCodeTemplates();
+	
+	/**
+	 * Templates for property implementation with direct access.
+	 */
+	protected PropertyWithDirectAccessCodeTemplates directProperty = new PropertyWithDirectAccessCodeTemplates();
+		
+	
+	/**
+	 * Templates for property implementation with access through the java reflection API.
+	 */
+	protected PropertyWithReflectiveAccessCodeTemplates reflectiveProperty = new PropertyWithReflectiveAccessCodeTemplates();
 		
 	
 	
@@ -75,6 +106,11 @@ implements ClassCreator {
 	 * Analysis of the type to implement.
 	 */
 	protected TypeAnalysis analysis;
+	
+	/**
+	 * CompareTo method.
+	 */
+	protected Method compareTo = null;
 	
 	/**
 	 * Set that contains all methods that have to be implemented.
@@ -152,10 +188,22 @@ implements ClassCreator {
 	/**
 	 * Support for the type.
 	 * 
+	 * 1. add serial version Uid field.
+	 * 2. Support properties.
+	 * 3. Support methods.
+	 * 4. Support the compareTo() method.
+	 * 5. Support any remaining method if possible.
+	 * 
 	 * @throws ClassCreationException 
 	 */
-	protected abstract void supportType() throws ClassCreationException;
-	
+	protected void supportType() throws ClassCreationException	{
+		addSerialVersionUid();		
+		supportProperties();
+		supportMethods();
+		supportComparable();	
+		supportRemainingMethods();
+		addBasicUpdaters();		
+	}
 	
 	public synchronized Class<?> create(Class<?> type) throws ClassCreationException {		
 		initialize(type);
@@ -163,6 +211,21 @@ implements ClassCreator {
 		markSupertypeMethodsAsImplemented();
 		supportType();
 		return compile();	
+	}
+	
+	/**
+	 * Supports a method by adding an empty stub.
+	 * 
+	 * @param method
+	 */
+	protected void doSupportMethodWithMock(Method method) {
+		MethodCodeTemplates templates = emptyMethodTemplates;						
+		Class<?>[] args = method.getParameterTypes();
+		String declarationParams=generateMethodDeclarationParameters(args);			
+		Map<String, String> vars = Variables.variablesForEmptyMethod (
+			method.getName(), method.getReturnType(), declarationParams);
+		String code = templates.getMethod(vars, method.getReturnType());
+		implementMethod(method, code);
 	}
 		
 	
@@ -174,6 +237,7 @@ implements ClassCreator {
 	 * @throws ClassCreationException 
 	 *         If the analysis of the specified type, identifies a problem.
 	 */
+	@SuppressWarnings("unused")
 	protected void initialize(Class<?> clazz) throws ClassCreationException  {
 		this.analysis = TypeAnalysis.analyze(clazz);
 		allMethodsToImplement.clear();
@@ -184,7 +248,13 @@ implements ClassCreator {
 		methodsAlreadyImplemented.clear();
 		fieldsToAdd.clear();
 		methodsToAdd.clear();
-		updaters.clear();	
+		updaters.clear();
+		
+		if (Comparable.class.isAssignableFrom(clazz)) {
+			compareTo = MethodsUtilities.compareTo(clazz);
+		} else {
+			compareTo = null;
+		}
 	}
 	
 	/**
@@ -507,6 +577,30 @@ implements ClassCreator {
 	}
 	
 	/**
+	 * Handles the properties of the class.
+	 * 
+	 * @throws ClassCreationException 
+	 */
+	protected abstract void supportProperties() throws ClassCreationException;
+	
+	/**
+	 * Tries to implement all methods that haven't been implemented
+	 * until now.
+	 */
+	protected abstract void supportMethods();
+	
+	
+	/**
+	 * This method provides an extension point.
+	 * 
+	 * It provides the place to implement any remaining method.
+	 * This is the last attempt to implement methods.
+	 */
+	protected void supportRemainingMethods() {
+		/* empty */		
+	}	
+	
+	/**
 	 * Gets all methods not yet implemented.
 	 * 
 	 * @return Returns all methods not yet implemented.
@@ -613,5 +707,86 @@ implements ClassCreator {
 		return field.getType();
 	}
 	
+	/**
+	 * Support comparable by delegating the comparison to properties.
+	 * 
+	 * @param type 
+	 * @param properties 
+	 */	
+	protected void implementCompareTo(Class<?> type, BeanPropertyDefinition<?>[] properties) {		
+		StringBuilder sb = new StringBuilder();
+		for (BeanPropertyDefinition<?> def : properties) {
+			Map<String, String>  vars = Variables.variablesForProperty(def);
+			String codepart = methodsTemplates.getCompareToFragment(vars);
+			sb.append(codepart);
+			sb.append(StringConstants.NEWLINE);
+		}
+		Map<String, String> variables = new HashMap<String, String>();
+		Variables.setType(variables, type);
+		Variables.setFragment(variables, sb.toString());
+		String code = methodsTemplates.getCompareToBody(variables);
+		implementMethod(compareTo, code);		
+	}	
+	
+	/**
+	 * Gets the compareTo.
+	 *
+	 * @return Returns the compareTo
+	 */
+	protected Method getCompareTo() {
+		return compareTo;
+	}
+	
+	/**
+	 * Support for comparable.
+	 * 
+	 * @return Returns true if the method was implemented.
+	 * @throws ClassCreationException 
+	 */
+	protected boolean doSupportComparable() throws ClassCreationException {
+		Class<?> clazz = analysis.getClazz();
+		ComparableThrough anno = clazz.getAnnotation(ComparableThrough.class);
+		if (anno!=null) {
+			String[] properties = TokenUtils.tokenize(anno.value());
+			BeanPropertyDefinition<?>[] defs = new BeanPropertyDefinition<?>[properties.length];
+			for (int i = 0; i < defs.length; i++) {
+				defs[i] = analysis.getFirstPropertyByName(properties[i]);
+				if (defs[i]==null) {
+					throw wrongComparableThroughAnno();
+				}
+			}
+			implementCompareTo(clazz, defs);
+			return true;
+		}
+		return false;
+	}
+	
+	
+	/**
+	 * Support for comparable.
+	 * 
+	 * @return Returns true if the method was implemented.
+	 * @throws ClassCreationException 
+	 */
+	protected boolean supportComparable() throws ClassCreationException {
+		if (isNotImplementedMethod(compareTo)) {
+			return doSupportComparable();
+		}
+		return true;
+	}
+	
+	
+	/**
+	 * Creates a ClassCreation exception for cases that a wrong annotation
+	 * {@link ComparableThrough} has been set.
+	 * 
+	 * @return retuns a ClassCreation.
+	 */
+	ClassCreationException wrongComparableThroughAnno() {
+		@SuppressWarnings("nls")
+		String msg = "Invalid value of ComparableThrough annotation in class " 
+			       + analysis.getClazz().getName();
+		return new ClassCreationException(msg);
+	}
 	
 }

@@ -32,7 +32,7 @@ import gr.interamerican.bo2.creation.code.templatebean.DelegatePropertyWithRefle
 import gr.interamerican.bo2.creation.code.templatebean.DelegateToOtherPropertyCodeTemplates;
 import gr.interamerican.bo2.creation.code.templatebean.EmptyMethodCodeTemplates;
 import gr.interamerican.bo2.creation.code.templatebean.MethodCodeTemplates;
-import gr.interamerican.bo2.creation.code.templatebean.MethodsImplCodeTemplates;
+import gr.interamerican.bo2.creation.code.templatebean.CompareToCodeTemplates;
 import gr.interamerican.bo2.creation.code.templatebean.PropertyCodeTemplates;
 import gr.interamerican.bo2.creation.code.templatebean.PropertyMockCodeTemplates;
 import gr.interamerican.bo2.creation.code.templatebean.PropertyWithDirectAccessCodeTemplates;
@@ -92,17 +92,7 @@ extends AbstractClassCreator {
 	private static final String METHOD = "method"; //$NON-NLS-1$
 	
 	
-	/**
-	 * Templates.
-	 */
-	protected PropertyWithDirectAccessCodeTemplates directProperty =
-		new PropertyWithDirectAccessCodeTemplates();
 	
-	/**
-	 * Templates.
-	 */
-	protected PropertyWithReflectiveAccessCodeTemplates reflectiveProperty =
-		new PropertyWithReflectiveAccessCodeTemplates();
 	
 	/**
 	 * Templates.
@@ -152,15 +142,7 @@ extends AbstractClassCreator {
 	protected DelegateMethodWithReflectiveAccessCodeTemplates reflectiveDelegateMethod =
 		new DelegateMethodWithReflectiveAccessCodeTemplates();	
 	
-	/**
-	 * Templates.
-	 */
-	protected MethodsImplCodeTemplates methodsTemplates = new MethodsImplCodeTemplates();
 	
-	/**
-	 * Templates.
-	 */
-	protected EmptyMethodCodeTemplates emptyMethodTemplates = new EmptyMethodCodeTemplates();
 	
 	/**
 	 * Maps names of properties to delegate to the fields that will
@@ -197,12 +179,6 @@ extends AbstractClassCreator {
 	 */
 	Set<String> mockMethods = new HashSet<String>();
 	
-	/**
-	 * CompareTo method.
-	 */
-	private Method compareTo = null;
-	
-
 
 	
 	/**
@@ -606,18 +582,7 @@ extends AbstractClassCreator {
 	}
 	
 
-	/**
-	 * Creates a ClassCreation exception for cases that a wrong annotation
-	 * {@link ComparableThrough} has been set.
-	 * 
-	 * @return retuns a ClassCreation.
-	 */
-	ClassCreationException wrongComparableThroughAnno() {
-		@SuppressWarnings("nls")
-		String msg = "Invalid value of ComparableThrough annotation in class " 
-			       + analysis.getClazz().getName();
-		return new ClassCreationException(msg);
-	}
+
 		
 	@Override
 	protected String getSuffix() {
@@ -630,11 +595,7 @@ extends AbstractClassCreator {
 	@Override
 	protected void initialize(Class<?> clazz) throws ClassCreationException  {	
 		super.initialize(clazz);
-		if (Comparable.class.isAssignableFrom(clazz)) {
-			compareTo = MethodsUtilities.compareTo(clazz);
-		} else {
-			compareTo = null;
-		}
+		
 		mockProperties.clear();
 		mockMethods.clear();
 		analyzeDelegateProperties();
@@ -658,21 +619,9 @@ extends AbstractClassCreator {
 	}
 	
 	@Override
-	protected void supportType() throws ClassCreationException {
-		addSerialVersionUid();		
-		supportProperties();
-		supportMethods();	
-		if (isNotImplementedMethod(compareTo)) {
-			supportComparable();
-		}
-		addBasicUpdaters();		
-	}
-	
-	@Override
 	protected String supertype() {
 		return analysis.getClazz().getCanonicalName();
 	}
-	
 	
 	/**
 	 * Selects the appropriate PropertyCodeTemplates.
@@ -849,6 +798,7 @@ extends AbstractClassCreator {
 	 * 
 	 * @throws ClassCreationException 
 	 */
+	@Override
 	protected void supportProperties() throws ClassCreationException {
 		Set<BeanPropertyDefinition<?>> properties = analysis.getAllProperties();
 		for (BeanPropertyDefinition<?> bpd : properties) {
@@ -860,6 +810,7 @@ extends AbstractClassCreator {
 	 * Tries to implement all methods that haven't been implemented
 	 * until now.
 	 */
+	@Override
 	protected void supportMethods() {
 		Set<Method> notImplemented = getMethodsNotYetImplemented();
 		for (Method method : notImplemented) {
@@ -892,13 +843,7 @@ extends AbstractClassCreator {
 	 */
 	protected boolean supportMethodWithMock(Method method) {
 		if (mockMethods.contains(method.getName())) {
-			MethodCodeTemplates templates = emptyMethodTemplates;						
-			Class<?>[] args = method.getParameterTypes();
-			String declarationParams=generateMethodDeclarationParameters(args);			
-			Map<String, String> vars = Variables.variablesForEmptyMethod (
-				method.getName(), method.getReturnType(), declarationParams);
-			String code = templates.getMethod(vars, method.getReturnType());
-			implementMethod(method, code);
+			doSupportMethodWithMock(method);
 			return true;
 		}		
 		return false;
@@ -966,56 +911,6 @@ extends AbstractClassCreator {
 		return ok;
 	}
 	
-	/**
-	 * Support comparable by delegating the comparison to properties.
-	 * 
-	 * @param type 
-	 * @param properties 
-	 */	
-	protected void implementCompareTo(Class<?> type, BeanPropertyDefinition<?>[] properties) {		
-		StringBuilder sb = new StringBuilder();
-		for (BeanPropertyDefinition<?> def : properties) {
-			Map<String, String>  vars = Variables.variablesForProperty(def);
-			String codepart = methodsTemplates.getCompareToFragment(vars);
-			sb.append(codepart);
-			sb.append(StringConstants.NEWLINE);
-		}
-		Map<String, String> variables = new HashMap<String, String>();
-		Variables.setType(variables, type);
-		Variables.setFragment(variables, sb.toString());
-		String code = methodsTemplates.getCompareToBody(variables);
-		implementMethod(compareTo, code);		
-	}	
-	
-	
-	
-	/**
-	 * Support for comparable.
-	 * 
-	 * @return Returns true if the method was implemented.
-	 * @throws ClassCreationException 
-	 */
-	protected boolean supportComparable() throws ClassCreationException {
-		Class<?> clazz = analysis.getClazz();
-		ComparableThrough anno = clazz.getAnnotation(ComparableThrough.class);
-		if (anno!=null) {
-			String[] properties = TokenUtils.tokenize(anno.value());
-			BeanPropertyDefinition<?>[] defs = new BeanPropertyDefinition<?>[properties.length];
-			for (int i = 0; i < defs.length; i++) {
-				defs[i] = analysis.getFirstPropertyByName(properties[i]);
-				if (defs[i]==null) {
-					throw wrongComparableThroughAnno();
-				}
-			}
-			implementCompareTo(clazz, defs);
-			return true;
-		}
-		return false;
-	}
-	
-	
-	
-	
 	
 	/**
 	 * Tries to support the specified property by delegating it to another
@@ -1073,19 +968,5 @@ extends AbstractClassCreator {
 	protected void markPropertyAsMock (BeanPropertyDefinition<?> mock) {
 		mockProperties.add(mock);
 	}
-
-	/**
-	 * Gets the compareTo.
-	 *
-	 * @return Returns the compareTo
-	 */
-	protected Method getCompareTo() {
-		return compareTo;
-	}
-		
-	
-	
-	
-	
 
 }

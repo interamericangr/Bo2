@@ -34,7 +34,7 @@ import org.junit.runners.Suite.SuiteClasses;
 		TestDelegateMethodWithDirectAccessCodeTemplates.class,
 		TestDelegateMethodWithReflectiveAccessCodeTemplates.class,
 		TestFieldInitializationCodeTemplates.class,
-		TestMethodsImplCodeTemplates.class,
+		TestCompareToCodeTemplates.class,
 	}
 )
 public class TestSuiteBo2CreationTemplateBean {

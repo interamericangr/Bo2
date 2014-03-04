@@ -13,17 +13,28 @@
 package gr.interamerican.bo2.impl.open.creation;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import gr.interamerican.bo2.arch.DetachStrategy;
+import gr.interamerican.bo2.creation.ObjectFactory;
+import gr.interamerican.bo2.creation.beans.FunctionalMocksObjectFactoryImpl;
 import gr.interamerican.bo2.samples.almostEmpty.AlmostEmpty1;
 import gr.interamerican.bo2.samples.archutil.po.User;
+import gr.interamerican.bo2.samples.ibean.IBeanWith2Strings;
+import gr.interamerican.bo2.samples.interfaces.SmartCalc;
 import gr.interamerican.bo2.utils.reflect.beans.VariableDefinition;
 
 import java.lang.reflect.Field;
 
+
+
+
+
+
 import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
  * Unit tests for {@link Factory}.
@@ -73,7 +84,8 @@ public class TestFactory {
 	}
 	
 	/**
-	 * Tests compileJavaBean
+	 * Tests compileJavaBean().
+	 * 
 	 * @throws NoSuchFieldException 
 	 * @throws SecurityException 
 	 */
@@ -92,6 +104,97 @@ public class TestFactory {
 		assertEquals(String.class, field.getType());		
 		Object ob = Factory.create(className);
 		assertNotNull(ob);
+		
+		Class<?> secondCall = Factory.compileJavaBean(className, properties);
+		assertSame(newType, secondCall);
 	}
+	
+	/**
+	 * Test for setCurrentFactory(of).
+	 */
+	@Test
+	public void testSetCurrentFactory() {
+		ObjectFactory factory = Factory.currentFactory;		
+		ObjectFactory of = Mockito.mock(ObjectFactory.class);
+		Factory.setCurrentFactory(of);
+		assertEquals(of, Factory.currentFactory);
+		Factory.currentFactory = factory;
+	}
+	
+	/**
+	 * Test for getCurrentFactory().
+	 */
+	@Test
+	public void testGetCurrentFactory() {
+		assertEquals(Factory.currentFactory, Factory.getCurrentFactory());
+	}
+	
+	/**
+	 * Test for registerFixture(clazz,factory).
+	 */
+	@Test
+	public void testRegisterFixture_withFactory() {
+		ObjectFactory of = new FunctionalMocksObjectFactoryImpl();
+		Factory.registerFixture(SmartCalc.class, of);
+		SmartCalc calc = Factory.create(SmartCalc.class);
+		assertNotNull(calc);
+		String name = "calc"; //$NON-NLS-1$
+		calc.setBeanName(name);
+		assertEquals(name, calc.getBeanName());
+		Factory.resetFixtures();
+	}
+	
+	/**
+	 * Test for registerFixture(clazz,instance)
+	 */
+	@Test
+	public void testRegisterFixture_withInstance() {
+		SmartCalc calc = Mockito.mock(SmartCalc.class);
+		Factory.registerFixture(SmartCalc.class, calc);
+		SmartCalc[] actuals = {
+				Factory.create(SmartCalc.class),
+				Factory.create(SmartCalc.class),
+				Factory.create(SmartCalc.class)
+		};
+		for (int i = 0; i < actuals.length; i++) {
+			assertEquals(calc, actuals[i]);	
+		}
+		Factory.resetFixtures();		
+	}
+	
+	/**
+	 * Test for resetFixtures()
+	 */
+	@Test
+	public void testResetFixtures() {
+		IBeanWith2Strings mock = Mockito.mock(IBeanWith2Strings.class);
+		Factory.registerFixture(IBeanWith2Strings.class, mock);
+		IBeanWith2Strings created = Factory.create(IBeanWith2Strings.class);		
+		assertEquals(mock, created);
+		Factory.resetFixtures();
+		IBeanWith2Strings bean = Factory.create(IBeanWith2Strings.class);
+		assertNotSame(mock, bean);
+	}
+	
+	/**
+	 * Test for getType(c)
+	 */
+	@Test
+	public void testGetType() {
+		Class<?> clazz = Factory.getType(IBeanWith2Strings.class.getName());
+		assertNotNull(clazz);
+	}
+	
+	/**
+	 * Test for declarationTypeName(c)
+	 */
+	@Test
+	public void testDeclarationTypeName() {
+		String name = Factory.declarationTypeName(IBeanWith2Strings.class);
+		assertEquals(IBeanWith2Strings.class.getName(),name);
+	}
+	
+	
+	
 
 }

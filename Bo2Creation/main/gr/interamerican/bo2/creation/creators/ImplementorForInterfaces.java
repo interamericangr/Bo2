@@ -12,10 +12,12 @@
  ******************************************************************************/
 package gr.interamerican.bo2.creation.creators;
 
+import gr.interamerican.bo2.creation.annotations.ComparableThrough;
 import gr.interamerican.bo2.creation.code.templatebean.PropertyWithDirectAccessCodeTemplates;
 import gr.interamerican.bo2.creation.code.templatebean.Variables;
 import gr.interamerican.bo2.creation.exception.ClassCreationException;
 import gr.interamerican.bo2.creation.util.CodeGenerationUtilities;
+import gr.interamerican.bo2.utils.TokenUtils;
 import gr.interamerican.bo2.utils.reflect.beans.BeanPropertyDefinition;
 
 import java.lang.reflect.Method;
@@ -34,16 +36,14 @@ import java.util.Set;
 public class ImplementorForInterfaces 
 extends AbstractClassCreator {
 	
-	/**
-	 * Templates.
-	 */
-	private PropertyWithDirectAccessCodeTemplates templates =
-		new PropertyWithDirectAccessCodeTemplates();
+	
 	
 	/**
 	 * Handles the properties of the interface.
 	 */
-	void supportProperties() {
+	@Override
+	protected void supportProperties() {
+		PropertyWithDirectAccessCodeTemplates templates = directProperty;
 		Set<BeanPropertyDefinition<?>> properties = analysis.getAllProperties();
 		for (BeanPropertyDefinition<?> bpd : properties) {
 			String name = bpd.getName();
@@ -63,12 +63,8 @@ extends AbstractClassCreator {
 		}
 	}
 	
-	@Override
-	protected void supportType() throws ClassCreationException {
-		addSerialVersionUid();
-		supportProperties();	
-		addBasicUpdaters();	
-	}
+	
+	
 	
 	@Override
 	protected String getSuffix() {
@@ -93,6 +89,11 @@ extends AbstractClassCreator {
 	protected String[] interfaces() {	
 		String[] types = {analysis.getClazz().getCanonicalName()};
 		return types;
+	}
+	
+	@Override
+	protected void supportMethods() {
+		/* do nothing */
 	}
 	
 	

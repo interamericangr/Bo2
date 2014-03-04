@@ -46,6 +46,14 @@ public class TestAbstractClassCreator {
 		protected void supportType() throws ClassCreationException {
 			/* empty */			
 		}
+		@Override
+		protected void supportProperties() throws ClassCreationException {
+			/* empty */			
+		}
+		@Override
+		protected void supportMethods() {
+			/* empty */			
+		}
 	};	
 		
 	/**
@@ -274,6 +282,18 @@ public class TestAbstractClassCreator {
 		creator.initialize(IBeanWithIdAndName.class);
 		Set<Method> notImplemented = creator.getMethodsNotYetImplemented();
 		Assert.assertEquals(4, notImplemented.size());
+	}
+	
+	/**
+	 * Unit test for getMethodsNotYetImplemented.
+	 * @throws ClassCreationException 
+	 */		
+	@Test
+	public void testGetCompareTo() throws ClassCreationException {
+		creator.initialize(Comparable.class);
+		Assert.assertNotNull(creator.compareTo);
+		Assert.assertEquals(creator.compareTo.getName(), "compareTo"); //$NON-NLS-1$
+		Assert.assertEquals(creator.compareTo, creator.getCompareTo());		
 	}
 	
 

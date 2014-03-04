@@ -6,6 +6,7 @@ import gr.interamerican.bo2.samples.interfaces.SmartCalc;
 import java.math.BigDecimal;
 
 import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * Unit tests for {@link FunctionalMockImplementorForInterfaces}.
@@ -20,6 +21,7 @@ extends BaseTestForInterfaceImplementors {
 		super(new FunctionalMockImplementorForInterfaces());
 	}
 	
+	@Test
 	@Override
 	public void testCreate_withMethods() throws ClassCreationException {
 		Class<?> clazz =creator.create(SmartCalc.class);		 

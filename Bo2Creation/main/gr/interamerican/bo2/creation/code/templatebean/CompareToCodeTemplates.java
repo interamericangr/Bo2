@@ -20,21 +20,21 @@ import java.util.Map;
 /**
  * Code templates for method implementation. 
  */
-public class MethodsImplCodeTemplates 
+public class CompareToCodeTemplates 
 extends FolderInitializedBean {
 	
 	/**
 	 * Package with code template files.
 	 */
 	private static final String CODE_TEMPLATES_PATH = 
-		"/gr/interamerican/bo2/creation/code/templates/methodsimpl/"; //$NON-NLS-1$
+		"/gr/interamerican/bo2/creation/code/templates/method/compareTo/"; //$NON-NLS-1$
 
 
 	/**
 	 * Creates a new MethodCodeTemplates object. 
 	 *
 	 */
-	public MethodsImplCodeTemplates() {		
+	public CompareToCodeTemplates() {		
 		super(CODE_TEMPLATES_PATH, true);
 	}
 	

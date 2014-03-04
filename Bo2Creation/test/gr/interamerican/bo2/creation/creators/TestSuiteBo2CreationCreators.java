@@ -29,6 +29,8 @@ import org.junit.runners.Suite.SuiteClasses;
 		TestImplementorForInterfaces.class,
 		TestImplementorForAbstractClasses.class,
 		TestNewJavabeanClassCreator.class,
+		TestFunctionalMockImplementorForAbstractClasses.class,
+		TestFunctionalMockImplementorForInterfaces.class,
 		
 	}
 )
