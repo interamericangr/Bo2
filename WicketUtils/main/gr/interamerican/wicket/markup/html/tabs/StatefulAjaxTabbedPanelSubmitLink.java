@@ -57,9 +57,9 @@ extends AjaxSubmitLink {
 	protected void onSubmit(AjaxRequestTarget target, Form<?> form1) {		
 		owner.setSelectedTab(index);
 		if (target != null) {
-			target.addComponent(owner);
+			target.add(owner);
 			if (owner.button != null){
-				target.addComponent(owner.form);
+				target.add(owner.form);
 			}
 		}
 		owner.callOnAjaxUpdate(target);
@@ -67,7 +67,7 @@ extends AjaxSubmitLink {
 	
 	@Override
 	protected void onError(AjaxRequestTarget target, Form<?> form) {
-		target.addComponent(owner);
+		target.add(owner);
 		owner.callOnAjaxUpdate(target);
 	}
 

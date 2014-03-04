@@ -21,6 +21,7 @@ import gr.interamerican.bo2.utils.meta.BusinessObjectValidationExpression;
 import gr.interamerican.wicket.bo2.protocol.http.Bo2WicketRequestCycle;
 import gr.interamerican.wicket.bo2.test.Bo2WicketTest;
 
+import org.apache.wicket.request.cycle.RequestCycle;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -76,7 +77,7 @@ extends Bo2WicketTest {
 	 */
 	@Test
 	public void testGetMessage() {
-		Bo2WicketRequestCycle cycle = (Bo2WicketRequestCycle) newRequestCycle();
+		RequestCycle cycle = RequestCycle.get();
 		Bo2WicketRequestCycle.beginRequest(cycle);
 		
 		String expected = "Message"; //$NON-NLS-1$

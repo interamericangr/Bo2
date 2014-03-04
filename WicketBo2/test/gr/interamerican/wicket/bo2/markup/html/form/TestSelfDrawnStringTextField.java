@@ -56,7 +56,7 @@ public class TestSelfDrawnStringTextField extends WicketTest {
 	 */
 	@Test
 	public void testCreation_nodefault() {
-		tester.startPage(testPageSource());		
+		tester.startPage(getTestPage());		
 		@SuppressWarnings("unchecked")
 		TextField<String> tf = (TextField<String>) getTestSubject();
 		Assert.assertTrue(tf.getConvertEmptyInputStringToNull());
@@ -71,7 +71,7 @@ public class TestSelfDrawnStringTextField extends WicketTest {
 	public void testCreation_withDefault() {
 		descriptor.setHasDefault(true);
 		descriptor.setDefaultValue(StringConstants.EMPTY);
-		tester.startPage(testPageSource());		
+		tester.startPage(getTestPage());		
 		@SuppressWarnings("unchecked")
 		TextField<String> tf = (TextField<String>) getTestSubject();		
 		Assert.assertNotNull(tf.getModelObject());
@@ -86,7 +86,7 @@ public class TestSelfDrawnStringTextField extends WicketTest {
 	public void testCreation_withExpression() {
 		String expression = "[^b]at"; //$NON-NLS-1$
 		descriptor.setExpression(expression);
-		tester.startPage(testPageSource());
+		tester.startPage(getTestPage());
 		
 		@SuppressWarnings("unchecked")
 		TextField<String> tf = (TextField<String>) getTestSubject();

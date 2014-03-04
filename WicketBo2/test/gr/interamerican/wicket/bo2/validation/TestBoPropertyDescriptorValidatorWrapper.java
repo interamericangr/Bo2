@@ -14,6 +14,8 @@ package gr.interamerican.wicket.bo2.validation;
 
 import gr.interamerican.bo2.utils.meta.descriptors.StringBoPropertyDescriptor;
 
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.validation.IValidatable;
 import org.apache.wicket.validation.IValidationError;
 import org.junit.Assert;
@@ -57,6 +59,11 @@ public class TestBoPropertyDescriptorValidatorWrapper {
 		public boolean isValid() {
 			return false;
 		}
+
+		public IModel<String> getModel() {
+			return new Model<String>(getValue());
+		}
+		
 	}
 
 }

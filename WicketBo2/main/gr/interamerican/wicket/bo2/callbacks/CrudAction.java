@@ -104,7 +104,7 @@ extends Bo2WicketBlock {
 		AjaxRequestTarget target = getHandlerParameter(AjaxRequestTarget.class);
 		IModel<P> model = null;
 		
-		target.addComponent(definition.getServicePanel());
+		target.add(definition.getServicePanel());
 		model =definition.getBeanModel();
 	
 		P p = model.getObject();

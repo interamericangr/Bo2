@@ -18,8 +18,8 @@ import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.panel.EmptyPanel;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
-import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.util.tester.FormTester;
 import org.apache.wicket.util.tester.WicketTester;
@@ -72,7 +72,7 @@ public class TestWicketUtils {
 	 */
 	@Test
 	public void testValidateNotNull(){
-		Component component = new Panel("panelid");  //$NON-NLS-1$
+		Component component = new EmptyPanel("panelid");  //$NON-NLS-1$
 		IModel<Void> model = null; 
 		DropDownChoice<String> formComponent = new DropDownChoice("id",model); //$NON-NLS-1$
 		WicketUtils.validateNotNull(component, formComponent);
@@ -85,7 +85,7 @@ public class TestWicketUtils {
 	 */
 	@Test
 	public void testValidateNotNull_withTreeArgs(){
-		Component component = new Panel("panelid");  //$NON-NLS-1$
+		Component component = new EmptyPanel("panelid");  //$NON-NLS-1$
 		IModel<Void> model = null; 
 		DropDownChoice <String> formComponent = new DropDownChoice("id",model); //$NON-NLS-1$
 		String resourceKey = "1"; //$NON-NLS-1$

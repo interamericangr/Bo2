@@ -12,7 +12,6 @@
  ******************************************************************************/
 package gr.interamerican.wicket.bo2.test;
 
-import gr.interamerican.wicket.bo2.protocol.http.Bo2WicketRequestCycle;
 import gr.interamerican.wicket.test.WicketTest;
 
 import org.apache.wicket.protocol.http.WebApplication;
@@ -44,20 +43,5 @@ public class Bo2WicketTest extends WicketTest{
 	protected Bo2WicketTest(WebApplication application) {
 		super(application);
 	}
-	
-	/**
-	 * Casts the result of newRequestCycle() to a {@link Bo2WicketRequestCycle}.
-	 * 
-	 * @return Returns a new Bo2WicketRequestCycle.
-	 */
-	protected Bo2WicketRequestCycle newBo2RequestCycle() {
-		return (Bo2WicketRequestCycle) newRequestCycle(); 
-	}
-	
-
-	
-	
-	
-	
 
 }

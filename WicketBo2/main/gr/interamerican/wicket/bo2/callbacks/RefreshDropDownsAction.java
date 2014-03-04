@@ -63,7 +63,7 @@ implements PanelDependent {
 		operation.close();
 		refreshDropDowns();
 		AjaxRequestTarget target = getHandlerParameter(AjaxRequestTarget.class);
-		target.addComponent(panel);
+		target.add(panel);
 	}
 	
 	/**

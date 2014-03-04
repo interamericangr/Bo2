@@ -35,6 +35,11 @@ import org.apache.wicket.model.Model;
 public class MoneyPage extends WebPage{
 
 	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * MoneyOwnerObjectDescriptor.
 	 */
 	BasicBusinessObjectDescriptor<MoneyOwnerObject> moneyDesc = 

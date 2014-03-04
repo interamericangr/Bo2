@@ -13,13 +13,13 @@
 package gr.interamerican.wicket.components;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.behavior.AbstractBehavior;
+import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.ComponentTag;
 
 /**
  * 
  */
-public class NumberFormatBehaviour extends AbstractBehavior {
+public class NumberFormatBehaviour extends Behavior {
 
 	/**
 	 *  the serial version UID
@@ -40,11 +40,11 @@ public class NumberFormatBehaviour extends AbstractBehavior {
 	public NumberFormatBehaviour(Integer decimals){
 		this.decimals = decimals;
 	}
-	/* (non-Javadoc)
-	 * @see org.apache.wicket.behavior.AbstractBehavior#onComponentTag(org.apache.wicket.Component, org.apache.wicket.markup.ComponentTag)
-	 */
-		@Override
-		public void onComponentTag(final Component component, final ComponentTag tag) { 
-			tag.getAttributes().put("onchange","format_number(id,value,"+decimals+");");//$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$  
-		}
+
+	@Override
+	@SuppressWarnings("nls")
+	public void onComponentTag(final Component component, final ComponentTag tag) { 
+		tag.getAttributes().put("onchange","format_number(id,value,"+decimals+");");  
+	}
+	
 }

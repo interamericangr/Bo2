@@ -44,7 +44,7 @@ public class TestBigDecimalBoPDComponentFactory extends BaseClassForTestingCompo
 	@Test
 	public void testDrawMain_First(){
 		Component component = bigDecimalBoPDComponentFactory.drawMain(bigDecimalBoPropertyDescriptor, TestPage.TEST_ID);
-		tester.startPage(testPageSource(component));
+		tester.startPage(getTestPage(component));
 		tester.assertComponent(path(StringConstants.EMPTY), SelfDrawnBigDecimalTextField.class); 
 	}
 	
@@ -55,7 +55,7 @@ public class TestBigDecimalBoPDComponentFactory extends BaseClassForTestingCompo
 	public void testDrawMain_Second(){
 		PropertyModel<Bean1> model = new PropertyModel<Bean1>(bean1,bigDecimalBoPropertyDescriptor.getName());
 		Component component = bigDecimalBoPDComponentFactory.drawMain(TestPage.TEST_ID, model, bigDecimalBoPropertyDescriptor);
-		tester.startPage(testPageSource(component));
+		tester.startPage(getTestPage(component));
 		tester.assertComponent(path(StringConstants.EMPTY), SelfDrawnBigDecimalTextField.class); 
 	}
 	

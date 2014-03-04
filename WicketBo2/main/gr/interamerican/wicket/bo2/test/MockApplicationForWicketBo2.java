@@ -12,16 +12,16 @@
  ******************************************************************************/
 package gr.interamerican.wicket.bo2.test;
 
-import gr.interamerican.wicket.bo2.protocol.http.Bo2WicketRequestCycle;
+import gr.interamerican.wicket.bo2.protocol.http.Bo2RequestCycleListener;
 import gr.interamerican.wicket.bo2.protocol.http.Bo2WicketSession;
+import gr.interamerican.wicket.markup.html.TestPage;
 
-import org.apache.wicket.Request;
-import org.apache.wicket.RequestCycle;
-import org.apache.wicket.Response;
+import org.apache.wicket.Page;
 import org.apache.wicket.Session;
-import org.apache.wicket.protocol.http.WebRequest;
-import org.apache.wicket.protocol.http.WebResponse;
-import org.apache.wicket.util.tester.WicketTester;
+import org.apache.wicket.protocol.http.WebApplication;
+import org.apache.wicket.request.Request;
+import org.apache.wicket.request.Response;
+import org.apache.wicket.request.cycle.PageRequestHandlerTracker;
 
 /**
  * Dummy web application for unit tests.
@@ -29,15 +29,23 @@ import org.apache.wicket.util.tester.WicketTester;
  * This is not a Bo2WicketApplication.
  */
 public class MockApplicationForWicketBo2 
-extends WicketTester.DummyWebApplication {
-	
-	@Override
-	public RequestCycle newRequestCycle(Request request, Response response) {
-		return new Bo2WicketRequestCycle(this, (WebRequest)request, (WebResponse)response);
-	}
+extends WebApplication {
 	
 	@Override
 	public Session newSession(Request request, Response response) {
-		return new Bo2WicketSession<Object,Object>(request);
+		return new Bo2WicketSession<Object, Object>(request);
 	}
+	
+	@Override
+	protected void init() {
+		super.init();
+		getRequestCycleListeners().add(new PageRequestHandlerTracker());
+		getRequestCycleListeners().add(new Bo2RequestCycleListener());
+	}
+	
+	@Override
+	public Class<? extends Page> getHomePage() {
+		return TestPage.class;
+	}
+	
 }

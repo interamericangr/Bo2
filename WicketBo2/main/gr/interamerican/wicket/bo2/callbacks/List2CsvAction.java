@@ -33,7 +33,8 @@ import gr.interamerican.wicket.util.resource.InputStreamAsResourceStream;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.wicket.request.target.resource.ResourceStreamRequestTarget;
+import org.apache.wicket.request.cycle.RequestCycle;
+import org.apache.wicket.request.handler.resource.ResourceStreamRequestHandler;
 import org.apache.wicket.util.resource.IResourceStream;
 
 /**
@@ -90,9 +91,7 @@ extends Bo2WicketBlock {
 			NamedInputStream nis = (NamedInputStream) 
 				nsp.convert(streamName, StreamType.INPUTSTREAM, client.getFileName()); 
 			IResourceStream csvStream = new InputStreamAsResourceStream(nis.getStream());
-			ResourceStreamRequestTarget requestTarget = 
-				new ResourceStreamRequestTarget(csvStream, client.getFileName());
-			Bo2WicketRequestCycle.get().setRequestTarget(requestTarget);
+			RequestCycle.get().scheduleRequestHandlerAfterCurrent(new ResourceStreamRequestHandler(csvStream, client.getFileName()));
 		}
 	}
 	

@@ -19,9 +19,7 @@ import gr.interamerican.wicket.markup.html.TestPage;
 import gr.interamerican.wicket.samples.creators.DataTableCreatorForBeanWithOrderedFields;
 import gr.interamerican.wicket.test.WicketTest;
 
-import org.apache.wicket.Page;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.DataTable;
-import org.apache.wicket.util.tester.ITestPageSource;
 import org.junit.Test;
 
 /**
@@ -51,33 +49,16 @@ public class TestListTablePanel extends WicketTest {
 	}
 	
 	/**
-	 * Creates a page source
-	 * 
-	 * @param def
-	 * @return Returns a page source.
-	 */
-	@SuppressWarnings("serial")
-	ITestPageSource pageSource(final ListTablePanelDef<BeanWithOrderedFields> def) {		
-		return new ITestPageSource() {
-			public Page getTestPage() {
-				ListTablePanel<BeanWithOrderedFields> panel = 
-					new ListTablePanel<BeanWithOrderedFields>(def);
-				return new TestPage(panel);
-			}
-		};		
-	}
-
-	/**
 	 * Tests creation of {@link ListTablePanel}.
 	 */	
 	@Test
 	public void testCreation() {		
-		tester.startPage(pageSource(createDef()));
+		tester.startPage(getTestPage(new ListTablePanel<BeanWithOrderedFields>(createDef())));
 		tester.assertComponent(path("tableForm:listTable"), DataTable.class);
 		tester.assertVisible(path("tableForm:listTable"));
 		DataTable<BeanWithOrderedFields> table = (DataTable<BeanWithOrderedFields>) 
 			tester.getComponentFromLastRenderedPage(path("tableForm:listTable"));
-		assertEquals(3, table.getColumns().length);		
+		assertEquals(3, table.getColumns().size());		
 		assertEquals(7, table.getDataProvider().size());
 	}
 

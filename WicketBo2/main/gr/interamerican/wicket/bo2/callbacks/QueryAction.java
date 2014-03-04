@@ -78,7 +78,7 @@ extends Bo2WicketBlock {
 	public void work() 
 	throws InitializationException, DataException, LogicException {
 		AjaxRequestTarget target = getHandlerParameter(AjaxRequestTarget.class);
-		target.addComponent(definition.getServicePanel());
+		target.add(definition.getServicePanel());
 		Q query = Bo2WicketRequestCycle.open(queryClass);
 		C criteria = definition.getCriteriaModel().getObject();
 		query.setCriteria(criteria);

@@ -43,7 +43,7 @@ implements IAjaxIndicatorAware{
 	 */
 	@SuppressWarnings("unused")
 	private void onChangeValue(AjaxRequestTarget target){
-		target.addComponent(this.getComponent());
+		target.add(this.getComponent());
 	}
 
 	public String getAjaxIndicatorMarkupId() {

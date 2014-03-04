@@ -56,7 +56,7 @@ public class TestSelectableBoPDComponentFactory extends BaseClassForTestingCompo
 	@Test
 	public void testDrawMain_First(){
 		Component component = selectableBoPDComponentFactory.drawMain(selectableBoPropertyDescriptor, TestPage.TEST_ID);
-		tester.startPage(testPageSource(component));
+		tester.startPage(getTestPage(component));
 		tester.assertComponent(path(StringConstants.EMPTY), SelfDrawnDropDownChoiceForSelectable.class); 
 	}
 	
@@ -67,7 +67,7 @@ public class TestSelectableBoPDComponentFactory extends BaseClassForTestingCompo
 	public void testDrawMain_Second(){
 		PropertyModel<Bean1> model = new PropertyModel<Bean1>(bean1,selectableBoPropertyDescriptor.getName());
 		Component component = selectableBoPDComponentFactory.drawMain(TestPage.TEST_ID,model, selectableBoPropertyDescriptor);
-		tester.startPage(testPageSource(component));
+		tester.startPage(getTestPage(component));
 		tester.assertComponent(path(StringConstants.EMPTY), SelfDrawnDropDownChoiceForSelectable.class); 
 	}
 	

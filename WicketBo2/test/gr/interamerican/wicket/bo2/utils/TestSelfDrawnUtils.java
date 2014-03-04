@@ -43,7 +43,7 @@ public class TestSelfDrawnUtils extends BaseClassForTestingComponentFactory{
 		
 		ModeAwareBeanPanelDef<TestBean> definition = ServicePanelDefinitionFactory.createBeanPanelDef(TestPage.TEST_ID, model);
 		Panel selfDrawnPanel = creator.createPanel(definition);
-		tester.startPage(testPageSource(selfDrawnPanel));
+		tester.startPage(getTestPage(selfDrawnPanel));
 		tester.assertComponent(path(StringConstants.EMPTY), Panel.class); 
 		tester.assertRenderedPage(TestPage.class);
 

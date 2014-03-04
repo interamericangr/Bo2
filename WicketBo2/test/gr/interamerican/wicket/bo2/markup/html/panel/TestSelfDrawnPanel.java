@@ -45,7 +45,7 @@ public class TestSelfDrawnPanel extends WicketTest {
 	 */
 	@Test
 	public void testSelfDrawnPanel() {
-		tester.startPage(testPageSource());
+		tester.startPage(getTestPage());
 		@SuppressWarnings("unchecked")
 		TextField<Long> tf =  (TextField<Long>) tester.getComponentFromLastRenderedPage(path("field2")); //$NON-NLS-1$
 		
@@ -72,7 +72,7 @@ public class TestSelfDrawnPanel extends WicketTest {
 	@Test
 	@SuppressWarnings("nls")
 	public void testSelfDrawnPanel_componentValidators() {
-		tester.startPage(testPageSource());
+		tester.startPage(getTestPage());
 		Assert.assertFalse(getFeedbackPanel().anyErrorMessage());
 		FormTester formTester = tester.newFormTester(formPath());
 		formTester.setValue(TestPage.TEST_ID + ":field2", "-10");

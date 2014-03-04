@@ -41,7 +41,7 @@ public class JavascriptEventConfirmation extends AttributeModifier {
 	 *        The confirmation message.
 	 */
 	public JavascriptEventConfirmation(String event, String msg) {
-		super(event, true, new Model<String>(msg));
+		super(event, new Model<String>(msg));
 	}
 
 	@Override

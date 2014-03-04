@@ -537,7 +537,8 @@ extends ServicePanelWithBack {
 	 * 
 	 * @param target
 	 */
-	protected void backToCriteria(AjaxRequestTarget target) { /* empty hook */
+	protected void backToCriteria(@SuppressWarnings("unused") AjaxRequestTarget target) { 
+		/* empty hook */
 	}
 
 	/**
@@ -558,7 +559,7 @@ extends ServicePanelWithBack {
 		 * @param target
 		 */
 		void work(AjaxRequestTarget target) {
-			target.addComponent(SearchFlowPanel.this);
+			target.add(SearchFlowPanel.this);
 			backToCriteria(target);
 			state = SearchFlowPanelState.CRITERIA;
 			state.paint(SearchFlowPanel.this);

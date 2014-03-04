@@ -57,8 +57,12 @@ import org.apache.wicket.model.Model;
  * Page for testing SelfDrawnComponents.
  */
 public class SelfDrawnTestPage extends WebPage{
-	 
 	
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Descriptors.
 	 */
@@ -91,7 +95,7 @@ public class SelfDrawnTestPage extends WebPage{
 		}
 		@Override
 		protected void onError(AjaxRequestTarget target, Form<?> form) {
-			target.addComponent(feedbackPanel);
+			target.add(feedbackPanel);
 		}
     };
 	

@@ -12,9 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.wicket.markup.html.panel;
 
-import static org.junit.Assert.assertSame;
 import gr.interamerican.wicket.markup.html.TestPage;
-import gr.interamerican.wicket.markup.html.panel.picker.PickerPanel;
 import gr.interamerican.wicket.test.WicketTest;
 
 import org.apache.wicket.Component;
@@ -23,35 +21,25 @@ import org.apache.wicket.model.Model;
 import org.junit.Test;
 
 /**
- * Unit tests for {@link PickerPanel}
+ * Unit tests for {@link FilePanel}
  */
 public class TestFilePanel extends WicketTest {
 	
 	/**
-	 * Panel to test.
-	 */
-	FilePanel panel;	
+	 * Tests creation of {@link FilePanel}.
+	 */	
+	@Test
+	public void testCreation() {		 
+		tester.startPage(getTestPage());
+		tester.assertComponent(subjectPath(), FilePanel.class);
+		commonAssertions_noError();
+	}
 	
 	@Override
 	protected Component initializeComponent() {
 		IModel<byte[]> model = new Model<byte[]>();
 		model.setObject(null);
-		panel = new FilePanel(TestPage.TEST_ID, model);
-		return panel;
-	}
-	
-	
-	/**
-	 * Tests creation of {@link PickerPanel}.
-	 * 
-	 * Also tests that pressing the select button, selects the item. 
-	 */	
-	@Test
-	public void testCreation() {		 
-		tester.startPage(testPageSource());
-		tester.assertComponent(subjectPath(), FilePanel.class);
-		Component actual = tester.getComponentFromLastRenderedPage(subjectPath());
-		assertSame(panel, actual);
+		return new FilePanel(TestPage.TEST_ID, model);
 	}
 
 }

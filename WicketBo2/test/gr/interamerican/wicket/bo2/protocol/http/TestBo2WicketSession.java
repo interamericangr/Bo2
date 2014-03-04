@@ -22,12 +22,10 @@ import gr.interamerican.bo2.arch.ext.User;
 
 import java.util.Locale;
 
-import org.apache.wicket.Request;
 import org.apache.wicket.markup.html.form.DropDownChoice;
+import org.apache.wicket.request.Request;
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Test;
-
-
 
 /**
  * 
@@ -43,10 +41,6 @@ public class TestBo2WicketSession {
 		when(request.getLocale()).thenReturn(Locale.ENGLISH);
 		return request;
 	}
-
-	
-	
-
 
 	/**
 	 * System test. Creates a real Bo2WicketSession.
@@ -161,9 +155,4 @@ public class TestBo2WicketSession {
 		assertTrue(session.isAuthorized(authId));
 	}
 	
-	
-
-	
-	
-
 }

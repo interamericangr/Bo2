@@ -45,7 +45,7 @@ public class TestDoubleBoPDComponentFactory extends BaseClassForTestingComponent
 	@Test
 	public void testDrawMain_First(){
 		Component component = doubleBoPDComponentFactory.drawMain(doubleBoPropertyDescriptor, TestPage.TEST_ID);
-		tester.startPage(testPageSource(component));
+		tester.startPage(getTestPage(component));
 		tester.assertComponent(path(StringConstants.EMPTY), SelfDrawnDoubleTextField.class); 
 	}
 	
@@ -56,7 +56,7 @@ public class TestDoubleBoPDComponentFactory extends BaseClassForTestingComponent
 	public void testDrawMain_Second(){
 		PropertyModel<Bean1> model = new PropertyModel<Bean1>(bean1,doubleBoPropertyDescriptor.getName());
 		Component component = doubleBoPDComponentFactory.drawMain(TestPage.TEST_ID, model, doubleBoPropertyDescriptor);
-		tester.startPage(testPageSource(component));
+		tester.startPage(getTestPage(component));
 		tester.assertComponent(path(StringConstants.EMPTY), SelfDrawnDoubleTextField.class); 
 	}
 

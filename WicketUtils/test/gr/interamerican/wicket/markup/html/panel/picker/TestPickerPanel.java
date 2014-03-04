@@ -27,7 +27,6 @@ import gr.interamerican.wicket.test.WicketTest;
 
 import java.util.Map;
 
-import org.apache.wicket.Page;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.DataTable;
 import org.apache.wicket.feedback.FeedbackMessage;
@@ -35,7 +34,6 @@ import org.apache.wicket.markup.html.form.Radio;
 import org.apache.wicket.markup.html.form.RadioGroup;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
-import org.apache.wicket.util.tester.ITestPageSource;
 import org.junit.Test;
 
 /**
@@ -83,23 +81,6 @@ public class TestPickerPanel extends WicketTest {
 	}
 	
 	/**
-	 * Creates a page source
-	 * 
-	 * @param def
-	 * @return Returns a page source.
-	 */
-	@SuppressWarnings("serial")
-	ITestPageSource pageSource(final PickerPanelDef<BeanWithOrderedFields> def) {		
-		return new ITestPageSource() {
-			public Page getTestPage() {
-				PickerPanel<BeanWithOrderedFields> panel = 
-					new PickerPanel<BeanWithOrderedFields>(def);
-				return new TestPage(panel);
-			}
-		};
-	}
-	
-	/**
 	 * Tests creation of {@link PickerPanel}.
 	 * 
 	 * Also tests that pressing the select button, selects the item. 
@@ -107,7 +88,7 @@ public class TestPickerPanel extends WicketTest {
 	@Test
 	public void testCreation() {
 		PickerPanelDef<BeanWithOrderedFields> def = createDef(); 
-		tester.startPage(pageSource(def));
+		tester.startPage(getTestPage(new PickerPanel<BeanWithOrderedFields>(def)));
 
 		tester.assertComponent(path("tableForm:radioGroup"), RadioGroup.class);
 		tester.assertComponent(path("tableForm:radioGroup:listTable"), DataTable.class);
@@ -163,7 +144,7 @@ public class TestPickerPanel extends WicketTest {
 		 * row radio. "radio" is the wicket:id of the radio buttons and 0 stands
 		 * for the first row.
 		 */
-		Map<String, String[]> map= tester.getWicketRequest().getParameterMap();	
+		Map<String, String[]> map= tester.getRequest().getParameterMap();	
 		map.put("testId:tableForm:radioGroup", new String[]{"radio0"});
 
 		tester.executeAjaxEvent(button, "onclick");
@@ -186,8 +167,8 @@ public class TestPickerPanel extends WicketTest {
 		PickerPanelDef<BeanWithOrderedFields> def = createDef();
 		def.setDisableUnauthorizedButtons(true);
 		def.setItemSelectedActionFlag(new AlwaysDownFlag());
-		
-		tester.startPage(pageSource(def));
+
+		tester.startPage(getTestPage(new PickerPanel<BeanWithOrderedFields>(def)));
 		
 		String buttonId = path("tableForm:selectButton");		
 		tester.assertComponent(buttonId, AjaxButton.class);
@@ -211,7 +192,7 @@ public class TestPickerPanel extends WicketTest {
 		def.setDisableUnauthorizedButtons(false);
 		def.setItemSelectedActionFlag(new AlwaysDownFlag());
 		
-		tester.startPage(pageSource(def));
+		tester.startPage(getTestPage(new PickerPanel<BeanWithOrderedFields>(def)));
 		
 		String buttonId = path("tableForm:selectButton");
 		tester.assertComponent(buttonId, AjaxButton.class);

@@ -40,9 +40,9 @@ public class TestValidationStyleBehavior extends WicketTest {
 		 * Field's HTML element already has class attribute
 		 */
 		RequiredSelfDrawnTextField field = new RequiredSelfDrawnTextField(TestPage.TEST_ID);
-		field.add(new AttributeModifier(MarkupConstants.CSS_CLASS, true, new Model<String>(MarkupConstants.TITLE)));
+		field.add(new AttributeModifier(MarkupConstants.CSS_CLASS, new Model<String>(MarkupConstants.TITLE)));
 		field.add(ValidationStyleBehavior.INSTANCE);
-		tester.startPage(testPageSource(field));
+		tester.startPage(getTestPage(field));
 		FormTester formTester = getFormTester();
 		formTester.setValue(TestPage.TEST_ID, StringConstants.EMPTY);
 		formTester.submit(TestPage.SUBMIT_BUTTON_ID);
@@ -56,7 +56,7 @@ public class TestValidationStyleBehavior extends WicketTest {
 		 */
 		field = new RequiredSelfDrawnTextField(TestPage.TEST_ID);
 		field.add(ValidationStyleBehavior.INSTANCE);
-		tester.startPage(testPageSource(field));
+		tester.startPage(getTestPage(field));
 		formTester = getFormTester();
 		formTester.setValue(TestPage.TEST_ID, StringConstants.EMPTY);
 		formTester.submit(TestPage.SUBMIT_BUTTON_ID);

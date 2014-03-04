@@ -37,7 +37,7 @@ public class TestSelfDrawnBigDecimalTextField extends WicketTest {
 		BigDecimalBoPropertyDescriptor descriptor = new BigDecimalBoPropertyDescriptor();
 		SelfDrawnBigDecimalTextField field = 
 			new SelfDrawnBigDecimalTextField(TestPage.TEST_ID, descriptor);
-		tester.startPage(testPageSource(field));
+		tester.startPage(getTestPage(field));
 		Assert.assertSame(field,tester.getComponentFromLastRenderedPage(subjectPath()));
 		Assert.assertNull(field.getDefaultModelObject());
 		
@@ -52,7 +52,7 @@ public class TestSelfDrawnBigDecimalTextField extends WicketTest {
 		BigDecimalBoPropertyDescriptor descriptor = new BigDecimalBoPropertyDescriptor();
 		SelfDrawnBigDecimalTextField field = 
 			new SelfDrawnBigDecimalTextField(TestPage.TEST_ID, new Model<BigDecimal>(), descriptor);
-		tester.startPage(testPageSource(field));
+		tester.startPage(getTestPage(field));
 		Assert.assertSame(field,tester.getComponentFromLastRenderedPage(subjectPath()));
 		Assert.assertNull(field.getDefaultModelObject());
 		
@@ -70,7 +70,7 @@ public class TestSelfDrawnBigDecimalTextField extends WicketTest {
 		descriptor.setDefaultValue(defaultValue);
 		SelfDrawnBigDecimalTextField field = 
 			new SelfDrawnBigDecimalTextField(TestPage.TEST_ID, descriptor);
-		tester.startPage(testPageSource(field));
+		tester.startPage(getTestPage(field));
 		Assert.assertSame(field,tester.getComponentFromLastRenderedPage(subjectPath()));
 		
 		//field = new SelfDrawnBigDecimalTextField(TestPage.TEST_ID, new Model<BigDecimal>(), descriptor);
@@ -91,7 +91,7 @@ public class TestSelfDrawnBigDecimalTextField extends WicketTest {
 		descriptor.setDefaultValue(defaultValue);
 		SelfDrawnBigDecimalTextField field = 
 			new SelfDrawnBigDecimalTextField(TestPage.TEST_ID, new Model<BigDecimal>(), descriptor);
-		tester.startPage(testPageSource(field));
+		tester.startPage(getTestPage(field));
 		Assert.assertSame(field,tester.getComponentFromLastRenderedPage(subjectPath()));
 		Assert.assertEquals(defaultValue, field.getDefaultModelObject());
 		
@@ -107,7 +107,7 @@ public class TestSelfDrawnBigDecimalTextField extends WicketTest {
 		descriptor.setReadOnly(true);
 		SelfDrawnBigDecimalTextField field = 
 			new SelfDrawnBigDecimalTextField(TestPage.TEST_ID, new Model<BigDecimal>(BigDecimal.TEN), descriptor);
-		tester.startPage(testPageSource(field));
+		tester.startPage(getTestPage(field));
 		Assert.assertSame(field,tester.getComponentFromLastRenderedPage(subjectPath()));
 		
 		FormTester formTester = tester.newFormTester(formPath());

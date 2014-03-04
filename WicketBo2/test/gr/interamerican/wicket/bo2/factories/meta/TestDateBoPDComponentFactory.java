@@ -45,7 +45,7 @@ public class TestDateBoPDComponentFactory  extends BaseClassForTestingComponentF
 	@Test
 	public void testDrawMain_First(){
 		Component component = dateBoPDComponentFactory.drawMain(dateBoPropertyDescriptor, TestPage.TEST_ID);
-		tester.startPage(testPageSource(component));
+		tester.startPage(getTestPage(component));
 		tester.assertComponent(path(StringConstants.EMPTY), SelfDrawnDateField.class); 
 	}
 	
@@ -56,7 +56,7 @@ public class TestDateBoPDComponentFactory  extends BaseClassForTestingComponentF
 	public void testDrawMain_Second(){
 		PropertyModel<Bean1> model = new PropertyModel<Bean1>(bean1,dateBoPropertyDescriptor.getName());
 		Component component = dateBoPDComponentFactory.drawMain(TestPage.TEST_ID, model, dateBoPropertyDescriptor);
-		tester.startPage(testPageSource(component));
+		tester.startPage(getTestPage(component));
 		tester.assertComponent(path(StringConstants.EMPTY), SelfDrawnDateField.class); 
 	}
 }

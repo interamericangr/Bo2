@@ -46,7 +46,7 @@ public class TestStringBoPDComponentFactory extends BaseClassForTestingComponent
 	@Test
 	public void testDrawMain_First(){
 		Component component = stringBoPDComponentFactory.drawMain(stringBoPropertyDescriptor, TestPage.TEST_ID);
-		tester.startPage(testPageSource(component));
+		tester.startPage(getTestPage(component));
 		tester.assertComponent(path(StringConstants.EMPTY), SelfDrawnStringTextField.class); 
 	}
 	
@@ -57,7 +57,7 @@ public class TestStringBoPDComponentFactory extends BaseClassForTestingComponent
 	public void testDrawMain_Second(){
 		PropertyModel<Bean1> model = new PropertyModel<Bean1>(bean1,stringBoPropertyDescriptor.getName());	
 		Component component = stringBoPDComponentFactory.drawMain(TestPage.TEST_ID , model, stringBoPropertyDescriptor);
-		tester.startPage(testPageSource(component));
+		tester.startPage(getTestPage(component));
 		tester.assertComponent(path(StringConstants.EMPTY), SelfDrawnStringTextField.class); 
 	}
 	
@@ -68,7 +68,7 @@ public class TestStringBoPDComponentFactory extends BaseClassForTestingComponent
 	public void testDrawMain_First_SecondCase(){
 		stringBoPropertyDescriptor = bean1descriptor.textAreaDesccription();
 		Component component = stringBoPDComponentFactory.drawMain(stringBoPropertyDescriptor, TestPage.TEST_ID);
-		tester.startPage(testPageSource(component));
+		tester.startPage(getTestPage(component));
 		tester.assertComponent(path(StringConstants.EMPTY), SelfDrawnTextArea.class); 
 	}
 	
@@ -80,7 +80,7 @@ public class TestStringBoPDComponentFactory extends BaseClassForTestingComponent
 		stringBoPropertyDescriptor = bean1descriptor.textAreaDesccription();
 		PropertyModel<Bean1> model = new PropertyModel<Bean1>(bean1,stringBoPropertyDescriptor.getName());	
 		Component component = stringBoPDComponentFactory.drawMain(TestPage.TEST_ID ,model, stringBoPropertyDescriptor);
-		tester.startPage(testPageSource(component));
+		tester.startPage(getTestPage(component));
 		tester.assertComponent(path(StringConstants.EMPTY), SelfDrawnTextArea.class); 
 	}
 	

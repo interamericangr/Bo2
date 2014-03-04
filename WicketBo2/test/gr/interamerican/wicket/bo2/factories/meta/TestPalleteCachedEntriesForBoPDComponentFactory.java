@@ -71,7 +71,7 @@ public class TestPalleteCachedEntriesForBoPDComponentFactory extends BaseClassFo
 	@Test
 	public void testDrawMain_First(){
 		Component component = palleteCachedEntriesForBoPDComponentFactory.drawMain(multipleChoiceDesc, TestPage.TEST_ID);
-		tester.startPage(testPageSource(component));
+		tester.startPage(getTestPage(component));
 		tester.assertComponent(path(StringConstants.EMPTY), SelfDrawnPalleteForEntries.class); 
 	}
 	
@@ -83,7 +83,7 @@ public class TestPalleteCachedEntriesForBoPDComponentFactory extends BaseClassFo
 //		PropertyModel<Bean1> model = new PropertyModel<Bean1>(bean1,multipleChoiceDesc.getName());
 		ListModel<Long> model = new ListModel<Long>(bean1.getMultipleChoiceField());
 		Component component = palleteCachedEntriesForBoPDComponentFactory.drawMain(TestPage.TEST_ID, model,multipleChoiceDesc);
-		tester.startPage(testPageSource(component));
+		tester.startPage(getTestPage(component));
 		tester.assertComponent(path(StringConstants.EMPTY), SelfDrawnPalleteForEntries.class); 
 	}
 	

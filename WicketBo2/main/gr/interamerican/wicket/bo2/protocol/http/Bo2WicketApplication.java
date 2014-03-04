@@ -16,13 +16,11 @@ import gr.interamerican.bo2.arch.ext.TranslatableEntry;
 
 import java.util.Collection;
 
-import org.apache.wicket.Request;
-import org.apache.wicket.RequestCycle;
-import org.apache.wicket.Response;
 import org.apache.wicket.Session;
 import org.apache.wicket.protocol.http.WebApplication;
-import org.apache.wicket.protocol.http.WebRequest;
-import org.apache.wicket.protocol.http.WebResponse;
+import org.apache.wicket.request.Request;
+import org.apache.wicket.request.Response;
+import org.apache.wicket.request.cycle.PageRequestHandlerTracker;
 
 /**
  * Base class for Wicket applications using Bo2.
@@ -34,13 +32,15 @@ public abstract class Bo2WicketApplication<A, L extends Comparable<? super L>>
 extends WebApplication {
 
 	@Override
-	public RequestCycle newRequestCycle(Request request, Response response) {
-		return new Bo2WicketRequestCycle(this, (WebRequest)request, (WebResponse)response);
-	}
-
-	@Override
 	public Session newSession(Request request, Response response) {
 		return new Bo2WicketSession<A, L>(request);
+	}
+	
+	@Override
+	protected void init() {
+		super.init();
+		getRequestCycleListeners().add(new PageRequestHandlerTracker());
+		getRequestCycleListeners().add(new Bo2RequestCycleListener());
 	}
 	
 	/**

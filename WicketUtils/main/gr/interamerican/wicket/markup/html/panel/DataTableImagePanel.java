@@ -23,7 +23,7 @@ import org.apache.wicket.markup.IMarkupResourceStreamProvider;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.resource.ContextRelativeResource;
+import org.apache.wicket.request.resource.ContextRelativeResource;
 import org.apache.wicket.util.resource.IResourceStream;
 
 /**

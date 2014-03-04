@@ -21,7 +21,7 @@ import java.text.NumberFormat;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.util.convert.IConverter;
-import org.apache.wicket.util.convert.converters.BigDecimalConverter;
+import org.apache.wicket.util.convert.converter.BigDecimalConverter;
 
 /**
  * BigDecimal TextField.
@@ -65,14 +65,15 @@ public class BigDecimalTextField extends TextField<BigDecimal> {
 		
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public IConverter getConverter(final Class<?> type) {
+	public <C> IConverter<C> getConverter(Class<C> type) {
 		NumberFormat nf = new DecimalFormat();
 		nf.setMaximumFractionDigits(dec);
 		nf.setMinimumFractionDigits(dec);
 		BigDecimalConverter dc = new BigDecimalConverter();
 		dc.setNumberFormat(getLocale(), nf);
-		return dc;
+		return (IConverter<C>) dc;
 	}
 
 }

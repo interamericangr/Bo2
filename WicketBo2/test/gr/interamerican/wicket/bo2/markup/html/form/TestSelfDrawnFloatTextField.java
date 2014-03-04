@@ -35,7 +35,7 @@ public class TestSelfDrawnFloatTextField extends WicketTest {
 		FloatBoPropertyDescriptor descriptor = new FloatBoPropertyDescriptor();
 		SelfDrawnFloatTextField field = 
 			new SelfDrawnFloatTextField(TestPage.TEST_ID, descriptor);
-		tester.startPage(testPageSource(field));
+		tester.startPage(getTestPage(field));
 		Assert.assertSame(field,tester.getComponentFromLastRenderedPage(subjectPath()));
 		Assert.assertNull(field.getDefaultModelObject());
 		Assert.assertTrue(field.getConvertEmptyInputStringToNull());
@@ -51,7 +51,7 @@ public class TestSelfDrawnFloatTextField extends WicketTest {
 		FloatBoPropertyDescriptor descriptor = new FloatBoPropertyDescriptor();
 		SelfDrawnFloatTextField field = 
 			new SelfDrawnFloatTextField(TestPage.TEST_ID, new Model<Float>(), descriptor);
-		tester.startPage(testPageSource(field));
+		tester.startPage(getTestPage(field));
 		Assert.assertSame(field,tester.getComponentFromLastRenderedPage(subjectPath()));
 		Assert.assertNull(field.getDefaultModelObject());
 		
@@ -72,7 +72,7 @@ public class TestSelfDrawnFloatTextField extends WicketTest {
 		descriptor.setDefaultValue(defaultValue);
 		SelfDrawnFloatTextField field = 
 			new SelfDrawnFloatTextField(TestPage.TEST_ID, descriptor);
-		tester.startPage(testPageSource(field));
+		tester.startPage(getTestPage(field));
 		Assert.assertSame(field,tester.getComponentFromLastRenderedPage(subjectPath()));
 		
 		//field = new SelfDrawnBigDecimalTextField(TestPage.TEST_ID, new Model<BigDecimal>(), descriptor);
@@ -93,7 +93,7 @@ public class TestSelfDrawnFloatTextField extends WicketTest {
 		descriptor.setDefaultValue(defaultValue);
 		SelfDrawnFloatTextField field = 
 			new SelfDrawnFloatTextField(TestPage.TEST_ID, new Model<Float>(), descriptor);
-		tester.startPage(testPageSource(field));
+		tester.startPage(getTestPage(field));
 		Assert.assertSame(field,tester.getComponentFromLastRenderedPage(subjectPath()));
 		Assert.assertEquals(defaultValue, field.getDefaultModelObject());
 		

@@ -44,6 +44,6 @@ public class EmptyOnSelectionChangedBehavior extends AjaxFormComponentUpdatingBe
 	
 	@Override
 	protected void onUpdate(AjaxRequestTarget target) {
-		target.addComponent(panel);
+		target.add(panel);
 	}
 }

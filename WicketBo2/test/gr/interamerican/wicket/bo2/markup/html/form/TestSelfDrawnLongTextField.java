@@ -35,7 +35,7 @@ public class TestSelfDrawnLongTextField extends WicketTest {
 		LongBoPropertyDescriptor descriptor = new LongBoPropertyDescriptor();
 		SelfDrawnLongTextField field = 
 			new SelfDrawnLongTextField(TestPage.TEST_ID, descriptor);
-		tester.startPage(testPageSource(field));
+		tester.startPage(getTestPage(field));
 		Assert.assertSame(field,tester.getComponentFromLastRenderedPage(subjectPath()));
 		Assert.assertNull(field.getDefaultModelObject());
 		
@@ -50,7 +50,7 @@ public class TestSelfDrawnLongTextField extends WicketTest {
 		LongBoPropertyDescriptor descriptor = new LongBoPropertyDescriptor();
 		SelfDrawnLongTextField field = 
 			new SelfDrawnLongTextField(TestPage.TEST_ID, new Model<Long>(), descriptor);
-		tester.startPage(testPageSource(field));
+		tester.startPage(getTestPage(field));
 		Assert.assertSame(field,tester.getComponentFromLastRenderedPage(subjectPath()));
 		Assert.assertNull(field.getDefaultModelObject());
 		
@@ -71,7 +71,7 @@ public class TestSelfDrawnLongTextField extends WicketTest {
 		descriptor.setDefaultValue(defaultValue);
 		SelfDrawnLongTextField field = 
 			new SelfDrawnLongTextField(TestPage.TEST_ID, descriptor);
-		tester.startPage(testPageSource(field));
+		tester.startPage(getTestPage(field));
 		Assert.assertSame(field,tester.getComponentFromLastRenderedPage(subjectPath()));
 		
 		//field = new SelfDrawnBigDecimalTextField(TestPage.TEST_ID, new Model<BigDecimal>(), descriptor);
@@ -92,7 +92,7 @@ public class TestSelfDrawnLongTextField extends WicketTest {
 		descriptor.setDefaultValue(defaultValue);
 		SelfDrawnLongTextField field = 
 			new SelfDrawnLongTextField(TestPage.TEST_ID, new Model<Long>(), descriptor);
-		tester.startPage(testPageSource(field));
+		tester.startPage(getTestPage(field));
 		Assert.assertSame(field,tester.getComponentFromLastRenderedPage(subjectPath()));
 		Assert.assertEquals(defaultValue, field.getDefaultModelObject());
 		

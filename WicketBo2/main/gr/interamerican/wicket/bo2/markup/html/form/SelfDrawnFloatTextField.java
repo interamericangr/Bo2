@@ -15,8 +15,8 @@ package gr.interamerican.wicket.bo2.markup.html.form;
 import gr.interamerican.bo2.utils.meta.descriptors.NumberBoPropertyDescriptor;
 
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.util.convert.converters.AbstractDecimalConverter;
-import org.apache.wicket.util.convert.converters.FloatConverter;
+import org.apache.wicket.util.convert.converter.AbstractDecimalConverter;
+import org.apache.wicket.util.convert.converter.FloatConverter;
 
 /**
  * Self-drawn Float TextField.
@@ -50,7 +50,7 @@ public class SelfDrawnFloatTextField extends AbstractSelfDrawnNumberTextField<Fl
 	}
 	
 	@Override
-	protected AbstractDecimalConverter getNumberCoverter() {
+	protected AbstractDecimalConverter<Float> getNumberCoverter() {
 		return new FloatConverter();
 	}
 	

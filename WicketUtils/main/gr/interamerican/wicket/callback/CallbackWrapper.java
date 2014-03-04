@@ -72,7 +72,7 @@ public class CallbackWrapper implements CallbackAction {
 	 * Things to do before executing the wrapped action.
 	 * @param target 
 	 */
-	public void before(AjaxRequestTarget target) { /* empty */
+	public void before(@SuppressWarnings("unused") AjaxRequestTarget target) { /* empty */
 	}
 	
 	/**
@@ -84,7 +84,7 @@ public class CallbackWrapper implements CallbackAction {
 	 * Things to do after executing the wrapped action.
 	 * @param target 
 	 */	
-	public void after(AjaxRequestTarget target) { /* empty */
+	public void after(@SuppressWarnings("unused") AjaxRequestTarget target) { /* empty */
 	}
 
 	/**

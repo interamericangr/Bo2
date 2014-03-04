@@ -17,8 +17,8 @@ import gr.interamerican.bo2.utils.meta.descriptors.NumberBoPropertyDescriptor;
 import java.math.BigDecimal;
 
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.util.convert.converters.AbstractDecimalConverter;
-import org.apache.wicket.util.convert.converters.BigDecimalConverter;
+import org.apache.wicket.util.convert.converter.AbstractDecimalConverter;
+import org.apache.wicket.util.convert.converter.BigDecimalConverter;
 
 /**
  * Self-drawn BigDecimal TextField.
@@ -53,7 +53,7 @@ extends AbstractSelfDrawnNumberTextField<BigDecimal>{
 	}
 
 	@Override
-	protected AbstractDecimalConverter getNumberCoverter() {
+	protected AbstractDecimalConverter<BigDecimal> getNumberCoverter() {
 		return new BigDecimalConverter();
 	}
 

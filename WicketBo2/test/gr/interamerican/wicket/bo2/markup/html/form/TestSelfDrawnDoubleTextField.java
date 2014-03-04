@@ -35,7 +35,7 @@ public class TestSelfDrawnDoubleTextField extends WicketTest {
 		DoubleBoPropertyDescriptor descriptor = new DoubleBoPropertyDescriptor();
 		SelfDrawnDoubleTextField field = 
 			new SelfDrawnDoubleTextField(TestPage.TEST_ID, descriptor);
-		tester.startPage(testPageSource(field));
+		tester.startPage(getTestPage(field));
 		Assert.assertSame(field,tester.getComponentFromLastRenderedPage(subjectPath()));
 		Assert.assertNull(field.getDefaultModelObject());
 		
@@ -50,7 +50,7 @@ public class TestSelfDrawnDoubleTextField extends WicketTest {
 		DoubleBoPropertyDescriptor descriptor = new DoubleBoPropertyDescriptor();
 		SelfDrawnDoubleTextField field = 
 			new SelfDrawnDoubleTextField(TestPage.TEST_ID, new Model<Double>(), descriptor);
-		tester.startPage(testPageSource(field));
+		tester.startPage(getTestPage(field));
 		Assert.assertSame(field,tester.getComponentFromLastRenderedPage(subjectPath()));
 		
 		testFormSubmission(field);
@@ -70,7 +70,7 @@ public class TestSelfDrawnDoubleTextField extends WicketTest {
 		descriptor.setDefaultValue(defaultValue);
 		SelfDrawnDoubleTextField field = 
 			new SelfDrawnDoubleTextField(TestPage.TEST_ID, descriptor);
-		tester.startPage(testPageSource(field));
+		tester.startPage(getTestPage(field));
 		Assert.assertSame(field,tester.getComponentFromLastRenderedPage(subjectPath()));
 		
 		//field = new SelfDrawnBigDecimalTextField(TestPage.TEST_ID, new Model<BigDecimal>(), descriptor);
@@ -91,7 +91,7 @@ public class TestSelfDrawnDoubleTextField extends WicketTest {
 		descriptor.setDefaultValue(defaultValue);
 		SelfDrawnDoubleTextField field = 
 			new SelfDrawnDoubleTextField(TestPage.TEST_ID, new Model<Double>(), descriptor);
-		tester.startPage(testPageSource(field));
+		tester.startPage(getTestPage(field));
 		Assert.assertSame(field,tester.getComponentFromLastRenderedPage(subjectPath()));
 		Assert.assertEquals(defaultValue, field.getDefaultModelObject());
 		

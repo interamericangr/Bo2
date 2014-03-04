@@ -191,7 +191,7 @@ extends PickerPanel<B> {
 			@Override
 			public void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				if(!ServicePanelUtils.authorizedByFlag(getDefinition().getDeleteActionFlag())) {
-					target.addComponent(feedBackPanel);
+					target.add(feedBackPanel);
 					CrudPickerPanel.this.error(getDefinition().getDeleteActionFlag().getDownMessage());
 					return;
 				}
@@ -228,7 +228,7 @@ extends PickerPanel<B> {
 			@Override
 			public void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				if(!ServicePanelUtils.authorizedByFlag(getDefinition().getUpdateActionFlag())) {
-					target.addComponent(feedBackPanel);
+					target.add(feedBackPanel);
 					CrudPickerPanel.this.error(getDefinition().getUpdateActionFlag().getDownMessage());
 					return;
 				}
@@ -252,7 +252,7 @@ extends PickerPanel<B> {
 				beanPanel.replaceWith(replacement);
 				beanPanel = replacement;
 				beanPanel.setVisible(true);
-				target.addComponent(CrudPickerPanel.this);
+				target.add(CrudPickerPanel.this);
 			}
 		};
 		
@@ -289,7 +289,7 @@ extends PickerPanel<B> {
 					sbpFieldsPanel.setEnabled(false);
 				}
 				beanPanel.setVisible(true);
-				target.addComponent(CrudPickerPanel.this);
+				target.add(CrudPickerPanel.this);
 			}
 		};
 		
@@ -304,7 +304,7 @@ extends PickerPanel<B> {
 			@Override
 			public void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				if(!ServicePanelUtils.authorizedByFlag(getDefinition().getSaveActionFlag())) {
-					target.addComponent(feedBackPanel);
+					target.add(feedBackPanel);
 					CrudPickerPanel.this.error(getDefinition().getSaveActionFlag().getDownMessage());
 					return;
 				}
@@ -317,7 +317,7 @@ extends PickerPanel<B> {
 				beanPanel.replaceWith(replacement);
 				beanPanel = replacement;
 				beanPanel.setVisible(true);
-				target.addComponent(CrudPickerPanel.this);
+				target.add(CrudPickerPanel.this);
 			}
 		};
 		
@@ -635,7 +635,7 @@ extends PickerPanel<B> {
 		 * @param target
 		 */
 		private void hide(AjaxRequestTarget target) {
-			target.addComponent(beanPanel);
+			target.add(beanPanel);
 			beanPanel.setVisible(false);
 		}
 	}

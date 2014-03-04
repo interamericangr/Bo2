@@ -45,7 +45,7 @@ public class TestFloatBoPDComponentFactory extends BaseClassForTestingComponentF
 	@Test
 	public void testDrawMain_First(){
 		Component component = floatBoPDComponentFactory.drawMain(floatBoPropertyDescriptor, TestPage.TEST_ID);
-		tester.startPage(testPageSource(component));
+		tester.startPage(getTestPage(component));
 		tester.assertComponent(path(StringConstants.EMPTY), SelfDrawnFloatTextField.class); 
 	}
 	
@@ -56,7 +56,7 @@ public class TestFloatBoPDComponentFactory extends BaseClassForTestingComponentF
 	public void testDrawMain_Second(){
 		PropertyModel<Bean1> model = new PropertyModel<Bean1>(bean1,floatBoPropertyDescriptor.getName());
 		Component component = floatBoPDComponentFactory.drawMain(TestPage.TEST_ID, model, floatBoPropertyDescriptor);
-		tester.startPage(testPageSource(component));
+		tester.startPage(getTestPage(component));
 		tester.assertComponent(path(StringConstants.EMPTY), SelfDrawnFloatTextField.class); 
 	}
 

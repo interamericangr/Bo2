@@ -45,7 +45,7 @@ public class TestBooleanBoPDComponentFactory extends BaseClassForTestingComponen
 	@Test
 	public void testDrawMain_First(){
 		Component component = booleanBoPDComponentFactory.drawMain(booleanBoPropertyDescriptor, TestPage.TEST_ID);
-		tester.startPage(testPageSource(component));
+		tester.startPage(getTestPage(component));
 		tester.assertComponent(path(StringConstants.EMPTY), SelfDrawnCheckBox.class); 
 	}
 	/**
@@ -55,7 +55,7 @@ public class TestBooleanBoPDComponentFactory extends BaseClassForTestingComponen
 	public void testDrawMain_Second(){
 		PropertyModel<Bean1> model = new PropertyModel<Bean1>(bean1,booleanBoPropertyDescriptor.getName());
 		Component component = booleanBoPDComponentFactory.drawMain(TestPage.TEST_ID, model, booleanBoPropertyDescriptor);
-		tester.startPage(testPageSource(component));
+		tester.startPage(getTestPage(component));
 		tester.assertComponent(path(StringConstants.EMPTY), SelfDrawnCheckBox.class); 
 	}
 

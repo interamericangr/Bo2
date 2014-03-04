@@ -55,9 +55,11 @@ public class CustomDateTextField extends DateTextField{
 		this.add(new CustomDatePicker());
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
-	public IConverter getConverter(Class<?> type) {
-		return new PatternDateConverter 
+	public <C> IConverter<C> getConverter(Class<C> type) {
+		return (IConverter<C>) new PatternDateConverter 
 			(Bo2UtilsEnvironment.getShortDateFormatPattern(), true);
 	}
+	
 }

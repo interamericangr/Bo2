@@ -123,7 +123,7 @@ public class CallbackAjaxButton extends AjaxButton {
 	 */
 	private void renderFeedbackPanel(AjaxRequestTarget target) {
 		if(feedbackPanel != null) {
-			target.addComponent(feedbackPanel);
+			target.add(feedbackPanel);
 		}
 	}
 

@@ -72,7 +72,7 @@ public class TestMultipleChoiceCachedEntryBoPDFactory extends BaseClassForTestin
 	@Test
 	public void testDrawMain_First(){
 		Component component = multipleChoiceCachedEntryBoPDFactory.drawMain(multipleChoiceDesc, TestPage.TEST_ID);
-		tester.startPage(testPageSource(component));
+		tester.startPage(getTestPage(component));
 		tester.assertComponent(path(StringConstants.EMPTY), SelfDrawnMultipleChoiceForEntry.class); 
 	}
 	
@@ -82,7 +82,7 @@ public class TestMultipleChoiceCachedEntryBoPDFactory extends BaseClassForTestin
 	@Test
 	public void testDrawMain_Sec(){
 		Component component = multipleChoiceCachedEntryBoPDFactory.drawMain(TestPage.TEST_ID, new ListModel<Entry>(new ArrayList<Entry>()),multipleChoiceDesc);
-		tester.startPage(testPageSource(component));
+		tester.startPage(getTestPage(component));
 		tester.assertComponent(path(StringConstants.EMPTY), SelfDrawnMultipleChoiceForEntry.class); 
 	}
 	

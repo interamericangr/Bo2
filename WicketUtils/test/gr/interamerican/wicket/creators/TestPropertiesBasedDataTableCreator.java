@@ -78,9 +78,8 @@ public class TestPropertiesBasedDataTableCreator extends WicketTest {
 		elements.add(new ChildBean());
 		
 		for(PropertiesBasedDataTableCreator<ChildBean> creator : creators) {
-			tester = new WicketTester();
 			Component component = creator.createDataTable(id, elements);
-			tester.startPage(testPageSource(component));
+			tester.startPage(getTestPage(component));
 			tester.assertComponent(subjectPath(), DataTable.class);
 		}
 	}
@@ -88,8 +87,8 @@ public class TestPropertiesBasedDataTableCreator extends WicketTest {
 	/**
 	 * Test CreateColumns
 	 * 
-	 * οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ colums οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ propeties οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½ Bean
-	 * οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½.
+	 * Ο αριθμός των colums που δημιουργούνται είναι όσα propeties έχει το Bean
+	 * που δίνουμε.
 	 */
 	@Test
 	public void testCreateColumns() {

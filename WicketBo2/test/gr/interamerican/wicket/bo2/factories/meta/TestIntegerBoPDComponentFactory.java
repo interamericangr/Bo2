@@ -45,7 +45,7 @@ public class TestIntegerBoPDComponentFactory extends BaseClassForTestingComponen
 	@Test
 	public void testDrawMain_First(){
 		Component component = integerBoPDComponentFactory.drawMain(integerBoPropertyDescriptor, TestPage.TEST_ID);
-		tester.startPage(testPageSource(component));
+		tester.startPage(getTestPage(component));
 		tester.assertComponent(path(StringConstants.EMPTY), SelfDrawnIntegerTextField.class); 
 	}
 	
@@ -56,7 +56,7 @@ public class TestIntegerBoPDComponentFactory extends BaseClassForTestingComponen
 	public void testDrawMain_Second(){
 		PropertyModel<Bean1> model = new PropertyModel<Bean1>(bean1,integerBoPropertyDescriptor.getName());
 		Component component = integerBoPDComponentFactory.drawMain(TestPage.TEST_ID,model, integerBoPropertyDescriptor);
-		tester.startPage(testPageSource(component));
+		tester.startPage(getTestPage(component));
 		tester.assertComponent(path(StringConstants.EMPTY), SelfDrawnIntegerTextField.class); 
 	}
 }

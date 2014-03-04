@@ -102,7 +102,7 @@ public class LinkFactory {
             	Component component = container.get(componentName);
             	boolean newVisibility = !component.isVisible();
             	component.setVisible(newVisibility);
-                target.addComponent(component);
+                target.add(component);
             }
         };
         return refreshLink;

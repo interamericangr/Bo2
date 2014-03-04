@@ -22,8 +22,7 @@ import gr.interamerican.wicket.callback.CallbackAction;
 
 import java.io.Serializable;
 
-import org.apache.wicket.RequestCycle;
-
+import org.apache.wicket.request.cycle.RequestCycle;
 
 /**
  * {@link Bo2WicketBlock} provides an abstract method that can

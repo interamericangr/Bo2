@@ -278,7 +278,7 @@ public class TestSingleBeanPanel extends WicketTest {
 				return new BeanWithOrderedFields();
 			}
 		};
-		tester.startPage(testPageSource(panel));
+		tester.startPage(getTestPage(panel));
 	}
 	
 	/**

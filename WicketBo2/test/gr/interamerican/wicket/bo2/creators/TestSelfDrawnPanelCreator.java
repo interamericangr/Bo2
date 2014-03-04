@@ -72,7 +72,7 @@ public class TestSelfDrawnPanelCreator extends Bo2WicketTest{
 		CompoundPropertyModel<ChildBean> model = new CompoundPropertyModel<ChildBean>(bean);		
 		ModeAwareBeanPanelDef<ChildBean> definition = ServicePanelDefinitionFactory.createBeanPanelDef(id, model);
 		Component component = creator.createPanel(definition);
-		tester.startPage(testPageSource(component));
+		tester.startPage(getTestPage(component));
 		tester.assertComponent(path(StringConstants.EMPTY), Panel.class); 
 	}
 	

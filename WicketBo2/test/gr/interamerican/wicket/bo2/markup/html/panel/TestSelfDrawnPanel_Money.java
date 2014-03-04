@@ -48,7 +48,7 @@ public class TestSelfDrawnPanel_Money extends WicketTest {
 	 */
 	@Test
 	public void testSelfDrawnPanel() {
-		tester.startPage(testPageSource());
+		tester.startPage(getTestPage());
 		SelfDrawnMoneyField tf =  (SelfDrawnMoneyField) tester.getComponentFromLastRenderedPage(path("moneyAmount1")); //$NON-NLS-1$
 		
 		Money actual = tf.getModel().getObject();
@@ -74,7 +74,7 @@ public class TestSelfDrawnPanel_Money extends WicketTest {
 	@Test
 	@SuppressWarnings("nls")
 	public void testSelfDrawnPanel_componentValidators() {
-		tester.startPage(testPageSource());
+		tester.startPage(getTestPage());
 		Assert.assertFalse(getFeedbackPanel().anyErrorMessage());
 		FormTester formTester = tester.newFormTester(formPath());
 		formTester.setValue(TestPage.TEST_ID + ":moneyAmount1:component", "-10");
@@ -94,7 +94,7 @@ public class TestSelfDrawnPanel_Money extends WicketTest {
 	@Test
 	@SuppressWarnings("nls")
 	public void testSelfDrawnPanel_submit() {
-		tester.startPage(testPageSource());
+		tester.startPage(getTestPage());
 		Assert.assertFalse(getFeedbackPanel().anyErrorMessage());
 		FormTester formTester = tester.newFormTester(formPath());
 		formTester.setValue(TestPage.TEST_ID + ":moneyAmount1:component", "10");

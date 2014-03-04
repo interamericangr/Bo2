@@ -61,7 +61,7 @@ public class TestTranslatableBoPDWrapperComponentFactory extends BaseClassForTes
 	public void testDrawMain_First(){
 		
 		Component component = translatableBoPDComponentFactory.drawMain(tbpD, TestPage.TEST_ID);
-		tester.startPage(testPageSource(component));
+		tester.startPage(getTestPage(component));
 		tester.assertComponent(path(StringConstants.EMPTY), SelfDrawnStringTextField.class); 
 	}
 	
@@ -72,7 +72,7 @@ public class TestTranslatableBoPDWrapperComponentFactory extends BaseClassForTes
 	public void testDrawMain_Second(){
 		PropertyModel<Bean1> model = new PropertyModel<Bean1>(bean1,stringBoPropertyDescriptor.getName());
 		Component component = translatableBoPDComponentFactory.drawMain(TestPage.TEST_ID, model, tbpD);
-		tester.startPage(testPageSource(component));
+		tester.startPage(getTestPage(component));
 		tester.assertComponent(path(StringConstants.EMPTY), SelfDrawnStringTextField.class); 
 	}
 }

@@ -74,7 +74,7 @@ public class TestCachedEntryBoPDComponentFactory extends BaseClassForTestingComp
 	@Test
 	public void testDrawMain_First(){
 		Component component = cachedEntryBoPDComponentFactory.drawMain(cashedDesc, TestPage.TEST_ID);
-		tester.startPage(testPageSource(component));
+		tester.startPage(getTestPage(component));
 		tester.assertComponent(path(StringConstants.EMPTY), SelfDrawnDropDownChoiceForEntry.class); 
 	}
 	/**
@@ -84,7 +84,7 @@ public class TestCachedEntryBoPDComponentFactory extends BaseClassForTestingComp
 	public void testDrawMain_Second(){
 		PropertyModel<Bean1> model = new PropertyModel<Bean1>(bean1,cashedDesc.getName());
 		Component component = cachedEntryBoPDComponentFactory.drawMain(TestPage.TEST_ID, model, cashedDesc);
-		tester.startPage(testPageSource(component));
+		tester.startPage(getTestPage(component));
 		tester.assertComponent(path(StringConstants.EMPTY), SelfDrawnDropDownChoiceForEntry.class); 
 
 	}

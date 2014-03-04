@@ -82,7 +82,7 @@ public class TestCachedEntryOwnerBoPDComponentFactory extends BaseClassForTestin
 	@Test
 	public void testDrawMain_First(){
 		Component component = cachedEntryOwnerBoPDFactory.drawMain(multipleChoiceDesc, TestPage.TEST_ID);
-		tester.startPage(testPageSource(component));
+		tester.startPage(getTestPage(component));
 		tester.assertComponent(path(StringConstants.EMPTY), SelfDrawnDropDownChoiceForEntryOwner.class); 
 	}
 
@@ -93,7 +93,7 @@ public class TestCachedEntryOwnerBoPDComponentFactory extends BaseClassForTestin
 	public void testDrawMain_Second(){
 		Model<Long> model = new Model<Long>(bean1.getId());
 		Component component = cachedEntryOwnerBoPDFactory.drawMain(TestPage.TEST_ID ,model, multipleChoiceDesc);
-		tester.startPage(testPageSource(component));
+		tester.startPage(getTestPage(component));
 		tester.assertComponent(path(StringConstants.EMPTY), SelfDrawnDropDownChoiceForEntryOwner.class); 
 	}
 	

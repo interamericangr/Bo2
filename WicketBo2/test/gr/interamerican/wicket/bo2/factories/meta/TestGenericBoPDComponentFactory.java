@@ -75,7 +75,7 @@ public class TestGenericBoPDComponentFactory extends BaseClassForTestingComponen
 //	@Test
 //	public void testDrawMain_First(){
 //		Component component = doubleBoPDComponentFactory.drawMain(doubleBoPropertyDescriptor, TEST_WICKET_ID);
-//		tester.startPage(testPageSource(component));
+//		tester.startPage(getTestPage(component));
 //		tester.assertComponent(path(StringConstants.EMPTY), SelfDrawnBigDecimalTextField.class); 
 //	}
 //	
@@ -85,7 +85,7 @@ public class TestGenericBoPDComponentFactory extends BaseClassForTestingComponen
 //	@Test
 //	public void testDrawMain_Second(){
 //		Component component = doubleBoPDComponentFactory.drawMain(bean1, doubleBoPropertyDescriptor,TEST_WICKET_ID);
-//		tester.startPage(testPageSource(component));
+//		tester.startPage(getTestPage(component));
 //		tester.assertComponent(path(StringConstants.EMPTY), SelfDrawnBigDecimalTextField.class); 
 //	}
 	

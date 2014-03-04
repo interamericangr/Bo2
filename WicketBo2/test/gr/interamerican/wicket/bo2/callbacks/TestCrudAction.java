@@ -28,6 +28,7 @@ import gr.interamerican.wicket.markup.html.panel.service.ServicePanel;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Assert;
 import org.junit.Test;
@@ -51,10 +52,8 @@ public class TestCrudAction {
 	@SuppressWarnings({ "unchecked", "nls" })
 	@Test
 	public void testAction() throws DataException{
-		Bo2WicketRequestCycle rc = new Bo2WicketRequestCycle (
-			wicketTester.getApplication(), wicketTester.getWicketRequest(),
-			wicketTester.getWicketResponse());
-		Bo2WicketRequestCycle.beginRequest(rc);
+		RequestCycle cycle = RequestCycle.get();
+		Bo2WicketRequestCycle.beginRequest(cycle);
 		
 		
 		NextUserKeyQuestion q = Mockito.mock(NextUserKeyQuestion.class);
@@ -91,7 +90,7 @@ public class TestCrudAction {
 		User actual = model.getObject();
 		Assert.assertEquals(user2, actual);
 		
-		Bo2WicketRequestCycle.endRequest(rc);		
+		Bo2WicketRequestCycle.endRequest(cycle);		
 	}
 	
 	/**

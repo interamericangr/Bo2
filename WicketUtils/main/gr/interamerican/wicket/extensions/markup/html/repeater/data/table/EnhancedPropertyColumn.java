@@ -102,10 +102,8 @@ public class EnhancedPropertyColumn<T> extends PropertyColumn<T>{
 		if(formatter!=null) {
 			String formatted = getFormatted(faultyExprTolerant);
 			return new Model<String>(formatted);
-		} else {
-			return super.createLabelModel(rowModel);
 		}
-		
+		return super.createLabelModel(rowModel);
 	}
 
 	/**

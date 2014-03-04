@@ -31,7 +31,7 @@ public class TestStatefulAjaxTabbedPanelSubmitLink {
 	 */
 	@Test
 	public void testConstructor() {
-		String id = "LinkId";
+		String id = "LinkId"; //$NON-NLS-1$
 		int index = 5;
 		StatefulAjaxTabbedPanel panel = mock(StatefulAjaxTabbedPanel.class);
 		StatefulAjaxTabbedPanelSubmitLink link = 
@@ -46,7 +46,7 @@ public class TestStatefulAjaxTabbedPanelSubmitLink {
 	 */
 	@Test
 	public void testOnSubmit() {
-		String id = "LinkId";
+		String id = "LinkId"; //$NON-NLS-1$
 		int index = 5;
 		StatefulAjaxTabbedPanel panel = mock(StatefulAjaxTabbedPanel.class);
 		StatefulAjaxTabbedPanelSubmitLink link = 
@@ -54,7 +54,7 @@ public class TestStatefulAjaxTabbedPanelSubmitLink {
 		AjaxRequestTarget target = mock(AjaxRequestTarget.class);
 		@SuppressWarnings("unchecked") Form<Object> form = mock(Form.class);		
 		link.onSubmit(target, form);
-		verify(target, times(1)).addComponent(panel);
+		verify(target, times(1)).add(panel);
 		verify(panel, times(1)).setSelectedTab(index);
 		verify(panel, times(1)).callOnAjaxUpdate(target);
 	}
@@ -64,7 +64,7 @@ public class TestStatefulAjaxTabbedPanelSubmitLink {
 	 */
 	@Test
 	public void testOnError() {
-		String id = "LinkId";
+		String id = "LinkId"; //$NON-NLS-1$
 		int index = 5;
 		StatefulAjaxTabbedPanel panel = mock(StatefulAjaxTabbedPanel.class);
 		StatefulAjaxTabbedPanelSubmitLink link = 
@@ -72,7 +72,7 @@ public class TestStatefulAjaxTabbedPanelSubmitLink {
 		AjaxRequestTarget target = mock(AjaxRequestTarget.class);
 		@SuppressWarnings("unchecked") Form<Object> form = mock(Form.class);		
 		link.onError(target, form);
-		verify(target, times(1)).addComponent(panel);		
+		verify(target, times(1)).add(panel);		
 		verify(panel, times(1)).callOnAjaxUpdate(target);
 	}
 

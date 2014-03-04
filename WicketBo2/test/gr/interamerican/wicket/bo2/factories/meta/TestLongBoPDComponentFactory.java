@@ -45,7 +45,7 @@ public class TestLongBoPDComponentFactory extends BaseClassForTestingComponentFa
 	@Test
 	public void testDrawMain_First(){
 		Component component = longBoPDComponentFactory.drawMain(longBoPropertyDescriptor, TestPage.TEST_ID);
-		tester.startPage(testPageSource(component));
+		tester.startPage(getTestPage(component));
 		tester.assertComponent(path(StringConstants.EMPTY), SelfDrawnLongTextField.class); 
 	}
 	
@@ -56,7 +56,7 @@ public class TestLongBoPDComponentFactory extends BaseClassForTestingComponentFa
 	public void testDrawMain_Second(){
 		PropertyModel<Bean1> model = new PropertyModel<Bean1>(bean1,longBoPropertyDescriptor.getName());
 		Component component = longBoPDComponentFactory.drawMain(TestPage.TEST_ID, model, longBoPropertyDescriptor);
-		tester.startPage(testPageSource(component));
+		tester.startPage(getTestPage(component));
 		tester.assertComponent(path(StringConstants.EMPTY), SelfDrawnLongTextField.class); 
 	}
 }

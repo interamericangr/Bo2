@@ -23,26 +23,23 @@ import org.apache.wicket.model.IModel;
 /**
  * Factory for {@link SelfDrawnStringTextField} and {@link SelfDrawnTextArea}.
  */
-public class StringBoPDComponentFactory
-extends AbstractBoPDComponentFactory<StringBoPropertyDescriptor> {   
-   
-    public Component drawMain(StringBoPropertyDescriptor descriptor,String wicketId) {
-        int maxLength = descriptor.getMaxLength();
-        if (maxLength>MarkupConstants.COLS_VALUE){
-            return new SelfDrawnTextArea(wicketId,descriptor);
-        }else{
-            return new SelfDrawnStringTextField(wicketId, descriptor);   
-        }
-    }
-  
-	@SuppressWarnings("unchecked")
-	public Component drawMain(String cmpWicketId , IModel<?> model, StringBoPropertyDescriptor descriptor) {
+public class StringBoPDComponentFactory extends AbstractBoPDComponentFactory<StringBoPropertyDescriptor> {
+
+	public Component drawMain(StringBoPropertyDescriptor descriptor, String wicketId) {
 		int maxLength = descriptor.getMaxLength();
-        if (maxLength>MarkupConstants.COLS_VALUE){
-            return new SelfDrawnTextArea(cmpWicketId,(IModel<String>) model,descriptor);
-        }else{
-            return new SelfDrawnStringTextField(cmpWicketId ,(IModel<String>) model, descriptor);   
-        }
+		if (maxLength > MarkupConstants.COLS_VALUE) {
+			return new SelfDrawnTextArea(wicketId, descriptor);
+		}
+		return new SelfDrawnStringTextField(wicketId, descriptor);
 	}
-	
+
+	@SuppressWarnings("unchecked")
+	public Component drawMain(String cmpWicketId, IModel<?> model, StringBoPropertyDescriptor descriptor) {
+		int maxLength = descriptor.getMaxLength();
+		if (maxLength > MarkupConstants.COLS_VALUE) {
+			return new SelfDrawnTextArea(cmpWicketId, (IModel<String>) model, descriptor);
+		}
+		return new SelfDrawnStringTextField(cmpWicketId, (IModel<String>) model, descriptor);
+	}
+
 }

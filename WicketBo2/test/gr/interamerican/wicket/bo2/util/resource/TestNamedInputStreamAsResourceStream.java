@@ -12,8 +12,6 @@
  ******************************************************************************/
 package gr.interamerican.wicket.bo2.util.resource;
 
-import static gr.interamerican.wicket.bo2.protocol.http.Bo2WicketRequestCycle.beginRequest;
-import static gr.interamerican.wicket.bo2.protocol.http.Bo2WicketRequestCycle.endRequest;
 import static gr.interamerican.wicket.bo2.protocol.http.Bo2WicketRequestCycle.provider;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.impl.open.namedstreams.NamedInputStream;
@@ -25,6 +23,7 @@ import gr.interamerican.wicket.bo2.test.MockApplicationForWicketBo2;
 
 import java.io.IOException;
 
+import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Assert;
 import org.junit.Test;
@@ -49,10 +48,7 @@ public class TestNamedInputStreamAsResourceStream {
 	@SuppressWarnings("nls")
 	@Test
 	public void testLifeCycle() throws InitializationException, IOException{
-		Bo2WicketRequestCycle rc = new Bo2WicketRequestCycle (
-			wicketTester.getApplication(), wicketTester.getWicketRequest(),
-			wicketTester.getWicketResponse());
-		beginRequest(rc);
+		Bo2WicketRequestCycle.beginRequest(RequestCycle.get());
 		String name = "TestNamedInputStreamAsResourceStream_STREAMNAME";
 		String manager = "LOCALFS";		
 		NamedInputStream nis = NamedStreamFactory.input(new byte[1], name, 10, Bo2UtilsEnvironment.getDefaultTextCharset());
@@ -61,10 +57,7 @@ public class TestNamedInputStreamAsResourceStream {
 			new NamedInputStreamAsResourceStream(manager, name);
 		Assert.assertEquals(nis, resource.nis);
 		resource.close();
-		endRequest(rc);
+		Bo2WicketRequestCycle.endRequest(RequestCycle.get());
 	}
-	
-	
-	
 	
 }

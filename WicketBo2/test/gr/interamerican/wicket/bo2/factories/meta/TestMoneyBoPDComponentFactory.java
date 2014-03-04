@@ -69,8 +69,8 @@ public class TestMoneyBoPDComponentFactory extends Bo2WicketTest{
 	public void testDrawMain_First(){
 		Component component = moneyBoPDComponentFactory.drawMain(moneyBoPropertyDescriptor,COMPONENT);
 		Assert.assertNotNull(component);
-		MoneyPage moneyPage = new MoneyPage(component);
 		wicketTester = new WicketTester();
+		MoneyPage moneyPage = new MoneyPage(component);
 		wicketTester.startPage(moneyPage);
 		wicketTester.assertRenderedPage(moneyPage.getClass());
 		wicketTester.assertComponent(WicketUtils.wicketPath(COMPONENT), SelfDrawnMoneyField.class);  
@@ -83,8 +83,8 @@ public class TestMoneyBoPDComponentFactory extends Bo2WicketTest{
 	public void testDrawMain_Sec(){
 		PropertyModel<Money> model  = new PropertyModel<Money>(moneyOwner, moneyBoPropertyDescriptor.getName());
 		Component component = moneyBoPDComponentFactory.drawMain(COMPONENT,model,moneyBoPropertyDescriptor);
-		MoneyPage moneyPage = new MoneyPage(component);
 		wicketTester = new WicketTester();
+		MoneyPage moneyPage = new MoneyPage(component);
 		wicketTester.startPage(moneyPage);
 		wicketTester.assertRenderedPage(moneyPage.getClass());
 		wicketTester.assertComponent(WicketUtils.wicketPath(COMPONENT), SelfDrawnMoneyField.class);  

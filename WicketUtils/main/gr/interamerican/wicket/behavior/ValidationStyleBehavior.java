@@ -17,7 +17,7 @@ import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.wicket.utils.MarkupConstants;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.behavior.AbstractBehavior;
+import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.html.form.FormComponent;
 
@@ -27,7 +27,7 @@ import org.apache.wicket.markup.html.form.FormComponent;
  * failed. The CSS class that marks the validation failure
  * is added before any other classes already present.
  */
-public class ValidationStyleBehavior extends AbstractBehavior {
+public class ValidationStyleBehavior extends Behavior {
 
 	/**
 	 * serialVersionUID.

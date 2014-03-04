@@ -24,6 +24,7 @@ import gr.interamerican.wicket.samples.blocks.DummyBo2WicketBlock;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.request.cycle.RequestCycle;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -108,7 +109,7 @@ extends Bo2WicketTest {
 	 */
 	@Test
 	public void testGetProvider() {		
-		Bo2WicketRequestCycle cycle = newBo2RequestCycle();
+		RequestCycle cycle = RequestCycle.get();
 		Bo2WicketRequestCycle.beginRequest(cycle);
 		flag = false;
 		Bo2WicketBlock block = new Bo2WicketBlock() {			
@@ -132,13 +133,12 @@ extends Bo2WicketTest {
 	@Test
 	public void testCallBack_withTarget() {
 		Page home = homePage();		
-		AjaxRequestTarget target = new AjaxRequestTarget(home);		
-		Bo2WicketRequestCycle cycle = newBo2RequestCycle();
-		Bo2WicketRequestCycle.beginRequest(cycle);
+		AjaxRequestTarget target = new AjaxRequestTarget(home);
+		Bo2WicketRequestCycle.beginRequest(RequestCycle.get());
 		flag = false;		
 		act.callBack(target);
 		Assert.assertTrue(flag);
-		Bo2WicketRequestCycle.endRequest(cycle);
+		Bo2WicketRequestCycle.endRequest(RequestCycle.get());
 	}
 	
 	/**
@@ -149,18 +149,11 @@ extends Bo2WicketTest {
 		Page home = homePage();		
 		AjaxRequestTarget target = new AjaxRequestTarget(home);
 		Form<Object> form = new Form<Object>("formId"); //$NON-NLS-1$
-		Bo2WicketRequestCycle cycle = newBo2RequestCycle();
-		Bo2WicketRequestCycle.beginRequest(cycle);
+		Bo2WicketRequestCycle.beginRequest(RequestCycle.get());
 		flag = false;
 		act.callBack(target,form);
 		Assert.assertTrue(flag);
-		Bo2WicketRequestCycle.endRequest(cycle);
+		Bo2WicketRequestCycle.endRequest(RequestCycle.get());
 	}
-
-
-
-
-	
-	
 
 }

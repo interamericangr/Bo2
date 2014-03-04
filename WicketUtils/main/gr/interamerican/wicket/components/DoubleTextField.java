@@ -20,7 +20,7 @@ import java.text.NumberFormat;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.util.convert.IConverter;
-import org.apache.wicket.util.convert.converters.DoubleConverter;
+import org.apache.wicket.util.convert.converter.DoubleConverter;
 
 /**
  * Double TextField.
@@ -65,13 +65,14 @@ public class DoubleTextField extends TextField<Double> {
 	}
 
 	@Override
-	public IConverter getConverter(final Class<?> type) {
+	@SuppressWarnings("unchecked")
+	public <C> IConverter<C> getConverter(final Class<C> type) {
 		NumberFormat nf = new DecimalFormat();
 		nf.setMaximumFractionDigits(dec);
 		nf.setMinimumFractionDigits(dec);
 		DoubleConverter dc = new DoubleConverter();
 		dc.setNumberFormat(getLocale(), nf);
-		return dc;
+		return (IConverter<C>) dc;
 	}
 
 }

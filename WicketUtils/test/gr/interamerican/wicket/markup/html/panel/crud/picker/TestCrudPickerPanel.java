@@ -78,7 +78,7 @@ public class TestCrudPickerPanel extends WicketTest {
 	 */	
 	@Test
 	public void testCreation() {
-		tester.startPage(testPageSource(panel));
+		tester.startPage(getTestPage(panel));
 		
 		tester.assertComponent(path("tableForm"), Form.class);
 		tester.assertComponent(path("tableForm:radioGroup"), RadioGroup.class);
@@ -99,7 +99,7 @@ public class TestCrudPickerPanel extends WicketTest {
 	 */
 	@Test
 	public void testDelete() {		
-		tester.startPage(testPageSource(panel));
+		tester.startPage(getTestPage(panel));
 		
 		assertEquals(7, definition.getList().size());
 		
@@ -117,7 +117,7 @@ public class TestCrudPickerPanel extends WicketTest {
 		CallbackAjaxButton deleteButton = (CallbackAjaxButton) tester.
 			getComponentFromLastRenderedPage(path("tableForm:deleteButton"));
 		
-		Map<String, String[]> map= tester.getWicketRequest().getParameterMap();	
+		Map<String, String[]> map= tester.getRequest().getParameterMap();	
 		map.put("testId:tableForm:radioGroup", new String[]{"radio0"});
     	tester.executeAjaxEvent(deleteButton, "onclick");
     	
@@ -136,7 +136,7 @@ public class TestCrudPickerPanel extends WicketTest {
 	 */
 	@Test
 	public void testNew() {		
-		tester.startPage(testPageSource(panel));
+		tester.startPage(getTestPage(panel));
 		
 		assertEquals(7, definition.getList().size());
 		
@@ -188,7 +188,7 @@ public class TestCrudPickerPanel extends WicketTest {
 	 */
 	@Test
 	public void testNewThenBack() {
-		tester.startPage(testPageSource(panel));
+		tester.startPage(getTestPage(panel));
 		
 		tester.assertComponent(path("tableForm:newButton"), AjaxButton.class);
 		AjaxButton newButton = (AjaxButton) tester.
@@ -211,7 +211,7 @@ public class TestCrudPickerPanel extends WicketTest {
 	 */
 	@Test
 	public void testUpdate() {
-		tester.startPage(testPageSource(panel));
+		tester.startPage(getTestPage(panel));
 		
 		assertEquals(7, definition.getList().size());
 		
@@ -229,7 +229,7 @@ public class TestCrudPickerPanel extends WicketTest {
 		AjaxButton editButton = (AjaxButton) tester.
 			getComponentFromLastRenderedPage(path("tableForm:editButton"));
 		
-		Map<String, String[]> map= tester.getWicketRequest().getParameterMap();	
+		Map<String, String[]> map= tester.getRequest().getParameterMap();	
 		map.put("testId:tableForm:radioGroup", new String[]{"radio0"});
     	tester.executeAjaxEvent(editButton, "onclick");
     	
@@ -351,12 +351,12 @@ public class TestCrudPickerPanel extends WicketTest {
 	abstract class AbstractAction extends AbstractCallbackAction {
 		
 		public void callBack(AjaxRequestTarget target) {
-			target.addComponent(panel);
+			target.add(panel);
 			work();
 		}
 		
 		public void callBack(AjaxRequestTarget target, Form<?> form) {
-			target.addComponent(panel);
+			target.add(panel);
 			work();
 		}
 		

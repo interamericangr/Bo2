@@ -15,10 +15,8 @@ package gr.interamerican.wicket.extensions.markup.html.repeater.util;
 
 import static gr.interamerican.wicket.markup.html.BaseTestPage.TEST_ID;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
 import gr.interamerican.bo2.samples.bean.Family;
 import gr.interamerican.bo2.samples.utils.meta.Bean1;
-import gr.interamerican.wicket.markup.html.TestPage;
 import gr.interamerican.wicket.test.WicketTest;
 
 import java.math.BigDecimal;
@@ -28,12 +26,11 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.Page;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.DefaultDataTable;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
+import org.apache.wicket.extensions.markup.html.repeater.util.SortParam;
 import org.apache.wicket.model.Model;
-import org.apache.wicket.util.tester.ITestPageSource;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -45,14 +42,9 @@ import org.junit.Test;
 public class TestSortableDataProvider extends WicketTest {
 	
 	/**
-	 * Table ID.
+	 * sample beans.
 	 */
-	private static final String TABLEID = "datatable";
-	
-	/**
-	 * Table for the tests.
-	 */
-	DefaultDataTable table;
+	Bean1[] beans = new Bean1[]{sample(), sample()};
 	
 	/**
 	 * Creates a sample {@link Bean1}.
@@ -112,40 +104,25 @@ public class TestSortableDataProvider extends WicketTest {
 	 */	
 	@Test
 	public void testSortableDataProvider(){
-		Bean1[] beans = {sample(), sample()};
-		tester.startPage(pageSource(beans));	
+		tester.startPage(getTestPage());	
 		tester.assertComponent(subjectPath(), DefaultDataTable.class);
-		Component actual = tester.getComponentFromLastRenderedPage(subjectPath());
-		assertSame(table, actual);		
+		
+		@SuppressWarnings("unchecked")
+		DefaultDataTable<Bean1> table = (DefaultDataTable<Bean1>) tester.getComponentFromLastRenderedPage(subjectPath());
 		Assert.assertEquals(beans.length, table.getRowCount());
 	}
 	
-	
-	
-	/**
-	 * Creates a page source
-	 * 
-	 * @param beans
-	 *        Beans to put to the table.
-	 * 
-	 * @return Returns a page source.
-	 */
-	@SuppressWarnings("serial")
-	ITestPageSource pageSource(final Bean1... beans) {		
-		return new ITestPageSource() {
-			@SuppressWarnings("nls")
-			public Page getTestPage() {
-				List<Bean1> rows = Arrays.asList(beans);				
-				SortableDataProvider<Bean1> sdp = new SortableDataProvider<Bean1>(rows,Bean1.class);
-				@SuppressWarnings("unchecked") IColumn<Bean1>[] columns = new IColumn[2];
-				columns[0] = new PropertyColumn<Bean1>(new Model<String>("Amount"), "amount", "amount");
-				columns[1] = new PropertyColumn<Bean1>(new Model<String>("Description"), "description", "description");
-				sdp.setSort("amount", true);
-				
-				table = new DefaultDataTable<Bean1>(TEST_ID, columns, sdp, 10);							
-				return new TestPage(table);
-			}
-		};
+	@Override
+	@SuppressWarnings("nls")
+	protected Component initializeComponent() {
+		List<Bean1> rows = Arrays.asList(beans);				
+		SortableDataProvider<Bean1> sdp = new SortableDataProvider<Bean1>(rows,Bean1.class);
+		List<IColumn<Bean1>> columns = new ArrayList<IColumn<Bean1>>();
+		columns.add(new PropertyColumn<Bean1>(new Model<String>("Amount"), "amount", "amount"));
+		columns.add(new PropertyColumn<Bean1>(new Model<String>("Description"), "description", "description"));
+		SortParam sort = new SortParam("amount", true);
+		sdp.setSort(sort);
+		return new DefaultDataTable<Bean1>(TEST_ID, columns, sdp, 10);
 	}
-
+	
 }

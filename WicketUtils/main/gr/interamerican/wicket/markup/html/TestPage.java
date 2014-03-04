@@ -16,6 +16,7 @@ import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.panel.EmptyPanel;
 import org.apache.wicket.util.tester.WicketTester;
 
 /**
@@ -28,9 +29,24 @@ public class TestPage
 extends BaseTestPage  {
 	
 	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	/**
 	 * Wicket id.
 	 */
 	public static final String SUBMIT_BUTTON_ID = "submitButton"; //$NON-NLS-1$
+	
+	/**
+	 * Creates a new TestPage object. 
+	 */
+	public TestPage() {
+		Form<Void> form = new Form<Void>(FORM_ID);
+		add(form);		
+		form.add(new EmptyPanel(TEST_ID));
+		form.add(new TestPageAjaxButton(SUBMIT_BUTTON_ID));
+	}
 
 	/**
 	 * Creates a new WrapperPanel object.
@@ -70,7 +86,7 @@ extends BaseTestPage  {
 		
 		@Override
 		protected void onError(AjaxRequestTarget target, Form<?> form) {
-			target.addComponent(feedbackPanel);
+			target.add(feedbackPanel);
 		}
 		
     }

@@ -12,62 +12,81 @@
  ******************************************************************************/
 package gr.interamerican.wicket.bo2.protocol.http;
 
-import static gr.interamerican.bo2.utils.StringConstants.COMMA;
 import gr.interamerican.bo2.arch.DetachStrategy;
 import gr.interamerican.bo2.arch.Operation;
 import gr.interamerican.bo2.arch.PersistenceWorker;
 import gr.interamerican.bo2.arch.PersistentObject;
 import gr.interamerican.bo2.arch.Provider;
-import gr.interamerican.bo2.arch.TransactionManager;
 import gr.interamerican.bo2.arch.Worker;
-import gr.interamerican.bo2.arch.enums.TargetEnvironment;
-import gr.interamerican.bo2.arch.exceptions.CouldNotBeginException;
-import gr.interamerican.bo2.arch.exceptions.CouldNotCommitException;
-import gr.interamerican.bo2.arch.exceptions.CouldNotRollbackException;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
-import gr.interamerican.bo2.arch.ext.Session;
-import gr.interamerican.bo2.arch.utils.ext.Bo2Session;
 import gr.interamerican.bo2.impl.open.creation.Factory;
 import gr.interamerican.bo2.impl.open.namedstreams.NamedStreamsProvider;
 import gr.interamerican.bo2.impl.open.po.PoUtils;
 import gr.interamerican.bo2.impl.open.streams.StreamsProvider;
 import gr.interamerican.bo2.impl.open.utils.Bo2;
 import gr.interamerican.bo2.impl.open.utils.Bo2DeploymentParams;
-import gr.interamerican.bo2.utils.ExceptionUtils;
-import gr.interamerican.bo2.utils.Utils;
 import gr.interamerican.bo2.utils.beans.Timer;
-import gr.interamerican.bo2.utils.mail.MailMessage;
-import gr.interamerican.wicket.def.WicketOutputMedium;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import org.apache.wicket.IRequestTarget;
-import org.apache.wicket.Page;
-import org.apache.wicket.RequestCycle;
-import org.apache.wicket.Response;
-import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.protocol.http.WebApplication;
-import org.apache.wicket.protocol.http.WebRequest;
-import org.apache.wicket.protocol.http.WebRequestCycle;
+import org.apache.wicket.request.cycle.RequestCycle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * WebRequestCycle for Bo2 wicket projects.
- * 
- * This implementation of WebRequestCycle creates a transaction
- * for each request. A {@link TransactionManager} is used for that.
- * The WebRequestCycle offers a {@link Provider} property that can
- * be used by any {@link Worker}.
+ * Maintains the Bo2 context associated with a web Request-Response cycle. This includes
+ * logging and {@link Worker}s opened in the cycle.
+ * <br/>
+ * This class also serves as a facade for transparently performing operations on {@link Worker}s
+ * on web layer code.
+ * <br/>
+ * Each wicket request cycle creates a {@link Bo2WicketRequestCycle} object that is associated
+ * with the current thread. Its facilities are available through public static methods that
+ * mutate the thread local instance.
+ * </br>
+ * The naming is such for legacy reasons. TODO: rename to Bo2WicketRequestCycleContext
  */
-@SuppressWarnings("nls")
-public class Bo2WicketRequestCycle extends WebRequestCycle {
+public class Bo2WicketRequestCycle {
+	
+	/**
+	 * Threadlocal context
+	 */
+	private static ThreadLocal<Bo2WicketRequestCycle> CONTEXT = new ThreadLocal<Bo2WicketRequestCycle>();
+	
+	/**
+	 * logger.
+	 */
+	static final Logger LOGGER = LoggerFactory.getLogger(Bo2WicketRequestCycle.class.getName());
 
+	/**
+	 * RequestCycleStats.
+	 */
+	static RequestCycleStats stats = new RequestCycleStats();
+	
+	/**
+	 * Gets the {@link Bo2WicketRequestCycle} instance for the current thread.
+	 * 
+	 * @return Bo2WicketRequestCycle.
+	 */
+	public static Bo2WicketRequestCycle get() {
+		if(CONTEXT.get()==null) {
+			CONTEXT.set(new Bo2WicketRequestCycle());
+		}
+		return CONTEXT.get();
+	}
+	
+	/**
+	 * Removes the threadlocal entry for the current thread.
+	 * This should be called when the {@link Bo2WicketRequestCycle}
+	 * instance is no longer useful.
+	 */
+	static void release() {
+		CONTEXT.remove();
+	}
+	
 	/**
 	 * Calls <code>onBeginRequest()</code> on the specified cycle.
 	 * 
@@ -75,13 +94,13 @@ public class Bo2WicketRequestCycle extends WebRequestCycle {
 	 * classes in order to emulate the wicket request-response cycle.
 	 * 
 	 * @param cycle
-	 *        {@link Bo2WicketRequestCycle} on which the method is
+	 *        {@link RequestCycle} on which the method is 
 	 *        invoked.
 	 */
-	public static void beginRequest(Bo2WicketRequestCycle cycle) {
-		cycle.onBeginRequest();
+	public static void beginRequest(RequestCycle cycle) {
+		cycle.getListeners().onBeginRequest(cycle);
 	}
-
+	
 	/**
 	 * Calls <code>onEndRequest()</code> on the specified cycle.
 	 * 
@@ -89,11 +108,11 @@ public class Bo2WicketRequestCycle extends WebRequestCycle {
 	 * classes in order to emulate the wicket request-response cycle.
 	 * 
 	 * @param cycle
-	 *        {@link Bo2WicketRequestCycle} on which the method is
+	 *        {@link RequestCycle} on which the method is 
 	 *        invoked.
 	 */
-	public static void endRequest(Bo2WicketRequestCycle cycle) {
-		cycle.onEndRequest();
+	public static void endRequest(RequestCycle cycle) {
+		cycle.getListeners().onEndRequest(cycle);
 	}
 
 	/**
@@ -191,11 +210,10 @@ public class Bo2WicketRequestCycle extends WebRequestCycle {
 	 * @throws InitializationException
 	 */
 	public static final NamedStreamsProvider getDefaultNamedStreamsProvider()
-			throws InitializationException {
+	throws InitializationException {
 		Bo2DeploymentParams depl =Bo2.getDefaultDeployment().getDeploymentBean();
 		String nspName = depl.getStreamsManagerName();
-		NamedStreamsProvider nsp =
-				provider().getResource(nspName, NamedStreamsProvider.class);
+		NamedStreamsProvider nsp = provider().getResource(nspName, NamedStreamsProvider.class);
 		return nsp;
 	}
 
@@ -208,7 +226,7 @@ public class Bo2WicketRequestCycle extends WebRequestCycle {
 	 * @throws InitializationException
 	 */
 	public static final StreamsProvider getDefaultStreamsProvider()
-			throws InitializationException {
+	throws InitializationException {
 		Bo2DeploymentParams depl = Bo2.getDefaultDeployment().getDeploymentBean();
 		String nspName = depl.getStreamsManagerName();
 		StreamsProvider sp = provider().getResource(nspName, StreamsProvider.class);
@@ -231,7 +249,7 @@ public class Bo2WicketRequestCycle extends WebRequestCycle {
 	 *        The object to re-attach
 	 */
 	public static final void reattach(Object object) {
-		PoUtils.reattach(object, Bo2WicketRequestCycle.get().getProvider());
+		PoUtils.reattach(object, provider());
 	}
 
 	/**
@@ -244,235 +262,29 @@ public class Bo2WicketRequestCycle extends WebRequestCycle {
 		return get().getProvider();
 	}
 
-
-	public static Bo2WicketRequestCycle get() {
-		return (Bo2WicketRequestCycle) RequestCycle.get();
-	}
-
-	/**
-	 * logger.
+	/*
+	 * INSTANCE FIELDS AND METHODS
 	 */
-	private static final Logger LOGGER = LoggerFactory.getLogger(Bo2WicketRequestCycle.class.getName());
-
-	/**
-	 * RequestCycleStats.
-	 */
-	private static RequestCycleStats stats = new RequestCycleStats();
-
+	
 	/**
 	 * Resource manager for the operation.
 	 */
-	private Provider provider;
+	Provider provider;
 
 	/**
 	 * Workers managed by this request cycle.
 	 */
-	private List<Worker> workers = new ArrayList<Worker>();
-
-	/**
-	 * Names of workers.
-	 */
-	private String workerNames = null;
+	List<Worker> workers = new ArrayList<Worker>();
 
 	/**
 	 * Indicates if an error has happened in the current cycle.
 	 */
-	private boolean error = false;
+	boolean error = false;
 
 	/**
 	 * Timer.
 	 */
-	private Timer timer;
-
-
-
-	/**
-	 * Creates a new Bo2WicketRequestCycle object.
-	 *
-	 * @param application
-	 * @param request
-	 * @param response
-	 */
-	public Bo2WicketRequestCycle
-	(WebApplication application, WebRequest request, Response response) {
-		super(application, request, response);
-	}
-
-	@Override
-	protected void onRequestTargetSet(IRequestTarget requestTarget) {
-		super.onRequestTargetSet(requestTarget);
-		/*
-		 * The requestTarget has not yet been added on the RequestCycle
-		 * stack. For this reason we have to pass the target manually to
-		 * the page.
-		 */
-		if(requestTarget instanceof AjaxRequestTarget) {
-			AjaxRequestTarget target = (AjaxRequestTarget) requestTarget;
-			Page page = target.getPage();
-			if(page instanceof WicketOutputMedium) {
-				WicketOutputMedium outputMedium = (WicketOutputMedium) page;
-				outputMedium.clearMessages(target);
-			}
-		}
-	}
-
-	@Override
-	protected void onBeginRequest() {
-		stats.newCycle();
-		try {
-			timer = new Timer();
-			Session<?, ?> session = Bo2WicketSession.get();
-			Bo2Session.setSession(session);
-			provider = Bo2.getDefaultDeployment().getProvider();
-			Bo2Session.setProvider(provider);
-			TransactionManager manager = provider.getTransactionManager();
-			if(manager!=null) {
-				manager.begin();
-				debug("started the transaction manager " + toString());
-			}
-		} catch (CouldNotBeginException e) {
-			throw new RuntimeException(e);
-		} catch (InitializationException e) {
-			throw new RuntimeException(e);
-		}
-		super.onBeginRequest();
-	}
-
-	@Override
-	protected void onEndRequest() {
-		/*
-		 * If an error has occurred, there is nothing to commit,
-		 * as the transaction has already rolled back and the
-		 * workers and the provider have been closed.
-		 */
-		if(!error) {
-			try {
-				TransactionManager manager = provider.getTransactionManager();
-				if(manager!=null) {
-					manager.commit();
-					debug("committed the transaction.");
-				}
-			} catch (CouldNotCommitException cnce) {
-				LOGGER.error("CouldNotCommitException: " + ExceptionUtils.getThrowableStackTrace(cnce));
-				emergencyLogAndEmail("CouldNotCommitException");
-				throw new RuntimeException(cnce);
-			} finally {
-				try {
-					cleanup();
-				}catch (DataException de) {
-					LOGGER.error("DataException on cleanup: " + ExceptionUtils.getThrowableStackTrace(de));
-					throw new RuntimeException(de);
-				}
-			}
-		} else {
-			debug("Nothing to do, an error was registered in the cycle.");
-		}
-		super.onEndRequest();
-		logAndCleanSession();
-	}
-	
-	/**
-	 * EMERGENCY LOG AND EMAIL
-	 * @param exceptionType 
-	 */
-	void emergencyLogAndEmail(String exceptionType) {
-		StringBuilder sb = new StringBuilder();
-		for (Worker worker : workers) {
-			sb.append(worker.getClass().getSimpleName());
-			sb.append(COMMA);
-		}
-		String msg = exceptionType + " for user " + Bo2Session.getUserId() + " and workers: " + sb.toString() + " on " + new Date();
-		LOGGER.error(msg);
-		
-		try {
-			String[] recipients = recepients();
-			if(recipients == null) {
-				return;
-			}
-
-			MailMessage m = new MailMessage();
-			m.setFrom("no-reply@interamerican.gr");
-			for (String recipient : recipients) {
-				m.addTo(recipient + "@interamerican.gr");
-			}
-			m.setSubject(exceptionType);
-			m.setMessage(msg);
-			m.send();
-		} catch (Exception e) {
-			LOGGER.error("Failed to notify CouldNotCommitException by email due to: " + e.getMessage());
-		}
-	}
-	
-	/**
-	 * @return Emergency email recepients
-	 */
-	String[] recepients() {
-		switch(Bo2.getDefaultDeployment().getDeploymentBean().getTargetEnvironment()) {
-			case UAT:
-				return new String[]{"skondrasp", "katerosd", "sofrasth", "nakoss", "milonakisv"};
-			case PRODUCTION:
-				return new String[]{"zabelid", "katerosd", "sofrasth", "nakoss", "milonakisv"};
-			default:
-				return null;
-		}
-	}
-
-	@Override
-	public Page onRuntimeException(Page page, RuntimeException e) {
-		Throwable t = ExceptionUtils.unwrap(e);
-		stats.updateExceptionStats(t);
-		error = true;
-		try {
-			TransactionManager manager = provider.getTransactionManager();
-			if(manager!=null) {
-				manager.rollback();
-				debug("rolled back the transaction.");
-			}
-		} catch (CouldNotRollbackException cnrbex) {
-			cnrbex.setInitial(t);
-			LOGGER.error("CouldNotRollbackException: " + ExceptionUtils.getThrowableStackTrace(cnrbex));
-			emergencyLogAndEmail("CouldNotRollbackException");
-		} finally {
-			try {
-				cleanup();
-			} catch (DataException de) {
-				de.initCause(t);
-				LOGGER.error("DataException on cleanup: " + ExceptionUtils.getThrowableStackTrace(de));
-			}
-		}
-		/*
-		 * If an invocation target exception is somewhere in the chain,
-		 * use its (non null) target to render the error stack trace.
-		 */
-		if(ExceptionUtils.isCausedBy(t, InvocationTargetException.class)) {
-			InvocationTargetException itex = ExceptionUtils.causeInTheChain(t, InvocationTargetException.class);
-			t = Utils.notNull(itex.getTargetException(), t);
-		}
-		
-		/*
-		 * Facilitate debugging of unit tests run on DEVELOPMENT environment.
-		 */
-		if(Bo2.getDefaultDeployment().getDeploymentBean().getTargetEnvironment()==TargetEnvironment.DEVELOPMENT) {
-			LOGGER.error(ExceptionUtils.getThrowableStackTrace(t));
-		}
-
-		if (page instanceof WicketOutputMedium) {
-			WicketOutputMedium outputMedium = (WicketOutputMedium) page;
-			IRequestTarget target = getRequestTarget();
-			if(target instanceof AjaxRequestTarget) {
-				AjaxRequestTarget art = (AjaxRequestTarget) target;
-				outputMedium.showError(t, art);
-			} else {
-				LOGGER.error("Failed to display error from Throwable " + t.toString());
-			}
-			logAndCleanSession();
-			return page;
-		} else {
-			logAndCleanSession();
-			return superOnRuntimeException(page, e);
-		}
-		
-	}
+	Timer timer;
 
 	/**
 	 * Marks the specified object as being saved only when explicitly defined
@@ -499,33 +311,13 @@ public class Bo2WicketRequestCycle extends WebRequestCycle {
 	}
 
 	/**
-	 * Calls super.OnRuntimeException().
-	 * 
-	 * @param page
-	 * @param e
-	 * @return Returns the page returned by super.OnRuntimeException()
-	 */
-	private Page superOnRuntimeException(Page page, RuntimeException e) {
-		LOGGER.error("UNEXPECTED EXCEPTION: " + ExceptionUtils.getThrowableStackTrace(e));
-		/*
-		 * TODO put the RuntimeException some place the ErrorPage can find it.
-		 */
-		Page errorPage = super.onRuntimeException(page, e);
-		stats.logForDebugging(workerNames, timer);
-		Bo2Session.setSession(null);
-		return errorPage;
-	}
-
-	/**
 	 * Closes any workers opened in this cycle and the provider.
 	 * 
 	 * @throws DataException
 	 */
-	private void cleanup() throws DataException {
-		debug("performing cleanup.");
+	void cleanup() throws DataException {
 		closeWorkers();
 		provider.close();
-		debug("cleaned up.");
 	}
 
 	/**
@@ -534,14 +326,10 @@ public class Bo2WicketRequestCycle extends WebRequestCycle {
 	 * @throws DataException
 	 */
 	private void closeWorkers() throws DataException {
-		StringBuilder sb = new StringBuilder();
 		for (Worker worker : workers) {
 			worker.close();
-			sb.append(worker.getClass().getSimpleName());
-			sb.append(COMMA);
 		}
 		workers.clear();
-		workerNames = sb.toString();
 	}
 
 	/**
@@ -554,25 +342,9 @@ public class Bo2WicketRequestCycle extends WebRequestCycle {
 	}
 
 	/**
-	 * Cleanup and logging.
+	 * Creates a new Bo2WicketRequestCycle object.
 	 */
-	void logAndCleanSession() {
-		stats.logForDebugging(workerNames, timer);
-		Bo2Session.setSession(null);
-		Bo2Session.setProvider(null);
-	}
-
-	/**
-	 * Writes a debug message through the logger.
-	 * 
-	 * @param msg
-	 */
-	void debug(String msg) {
-		if (LOGGER.isDebugEnabled()) {
-			LOGGER.debug(msg);
-		}
-	}
-
-
+	private Bo2WicketRequestCycle() { /* empty */ }
+	
 }
 

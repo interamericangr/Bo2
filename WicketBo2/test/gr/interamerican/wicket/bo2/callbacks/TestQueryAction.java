@@ -24,6 +24,7 @@ import java.util.List;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Assert;
 import org.junit.Test;
@@ -46,9 +47,7 @@ public class TestQueryAction {
 	 */
 	@Test
 	public void testAction() {
-		Bo2WicketRequestCycle rc = new Bo2WicketRequestCycle (
-			wicketTester.getApplication(), wicketTester.getWicketRequest(),
-			wicketTester.getWicketResponse());
+		RequestCycle rc = RequestCycle.get();
 		Bo2WicketRequestCycle.beginRequest(rc);
 		
 		SearchFlowPanelDef<BeanWith1Field, BeanWith1Field> definition = 

@@ -20,8 +20,9 @@ import gr.interamerican.wicket.bo2.test.MockApplicationForWicketBo2;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.wicket.IRequestTarget;
-import org.apache.wicket.request.target.resource.ResourceStreamRequestTarget;
+import org.apache.wicket.request.IRequestHandler;
+import org.apache.wicket.request.cycle.RequestCycle;
+import org.apache.wicket.request.handler.resource.ResourceStreamRequestHandler;
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Assert;
 import org.junit.Test;
@@ -44,9 +45,7 @@ public class TestList2CsvAction {
 	@SuppressWarnings({ "nls", "rawtypes", "unchecked" })
 	@Test
 	public void testAction(){
-		Bo2WicketRequestCycle rc = new Bo2WicketRequestCycle (
-			wicketTester.getApplication(), wicketTester.getWicketRequest(),
-			wicketTester.getWicketResponse());
+		RequestCycle rc = RequestCycle.get();
 		Bo2WicketRequestCycle.beginRequest(rc);
 		
 		BeanWith3Fields[] beans = {
@@ -67,9 +66,9 @@ public class TestList2CsvAction {
 		List2CsvAction action = new List2CsvAction(client);
 		
 		action.execute();
-		IRequestTarget target = Bo2WicketRequestCycle.get().getRequestTarget();
-		Assert.assertTrue(target instanceof ResourceStreamRequestTarget);
-		ResourceStreamRequestTarget rt = (ResourceStreamRequestTarget) target;
+		IRequestHandler target = rc.getRequestHandlerScheduledAfterCurrent();
+		Assert.assertTrue(target instanceof ResourceStreamRequestHandler);
+		ResourceStreamRequestHandler rt = (ResourceStreamRequestHandler) target;
 		Assert.assertEquals(rt.getFileName(), client.getFileName());				
 		Bo2WicketRequestCycle.endRequest(rc);		
 	}

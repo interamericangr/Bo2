@@ -134,7 +134,7 @@ extends ListTablePanel<B> {
 			@Override
 			public void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				if(!ServicePanelUtils.authorizedByFlag(getDefinition().getItemSelectedActionFlag())) {
-					target.addComponent(feedBackPanel);
+					target.add(feedBackPanel);
 					PickerPanel.this.error(getDefinition().getItemSelectedActionFlag().getDownMessage());
 					return;
 				}
@@ -152,7 +152,7 @@ extends ListTablePanel<B> {
 			@Override
 			public void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				if(!ServicePanelUtils.authorizedByFlag(getDefinition().getSecondItemSelectedActionFlag())) {
-					target.addComponent(feedBackPanel);
+					target.add(feedBackPanel);
 					PickerPanel.this.error(getDefinition().getSecondItemSelectedActionFlag().getDownMessage());
 					return;
 				}

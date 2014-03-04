@@ -52,7 +52,7 @@ public class TestSelfDrawnPanel_MultipleColumns extends WicketTest {
 	 */
 	@Test
 	public void testSelfDrawnGridPanel() {
-		tester.startPage(testPageSource());
+		tester.startPage(getTestPage());
 		
 		@SuppressWarnings("unchecked")
 		TextField<Integer> tf =  (TextField<Integer>) tester.getComponentFromLastRenderedPage(path("field2"));
@@ -85,7 +85,7 @@ public class TestSelfDrawnPanel_MultipleColumns extends WicketTest {
 	 */
 	@Test
 	public void testSelfDrawnGridPanel_submit() {
-		tester.startPage(testPageSource());
+		tester.startPage(getTestPage());
 		
 		tester.assertComponent(path("field1"), SelfDrawnStringTextField.class);
 		SelfDrawnStringTextField tf =  (SelfDrawnStringTextField) tester.getComponentFromLastRenderedPage(path("field1"));
@@ -111,7 +111,7 @@ public class TestSelfDrawnPanel_MultipleColumns extends WicketTest {
 	 */
 	@Test
 	public void testSelfDrawnPanel_componentValidators() {
-		tester.startPage(testPageSource());
+		tester.startPage(getTestPage());
 		Assert.assertFalse(getFeedbackPanel().anyErrorMessage());
 		FormTester formTester = tester.newFormTester(formPath());
 		formTester.setValue(TestPage.TEST_ID + ":field2", "-10"); //$NON-NLS-2$

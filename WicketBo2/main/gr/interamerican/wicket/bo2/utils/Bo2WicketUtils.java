@@ -42,7 +42,7 @@ public class Bo2WicketUtils {
 	 * @param className  
 	 * @return CompoundPropertyModel<T>  
 	 */
-	@SuppressWarnings("nls")
+	@SuppressWarnings({ "nls", "unchecked" })
 	public static  <T> CompoundPropertyModel<T> returnModel(Class<T> className){
 		CompoundPropertyModel<T> cpm = null;
 		/*
@@ -63,7 +63,7 @@ public class Bo2WicketUtils {
 			Debug.debug(logger, "Argument class was not an interface: " + className.getName());
 			Class<?> decl = Factory.getCurrentFactory().getDeclarationType(className);
 			if(decl != null) {
-				cpm = new CompoundPropertyModel<T>(Factory.create(decl));
+				cpm = new CompoundPropertyModel<T>((T) Factory.create(decl));
 			} else {
 				cpm = null;
 			}

@@ -9,7 +9,7 @@ import java.text.NumberFormat;
 
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.util.convert.IConverter;
-import org.apache.wicket.util.convert.converters.BigDecimalConverter;
+import org.apache.wicket.util.convert.converter.BigDecimalConverter;
 import org.apache.wicket.validation.validator.RangeValidator;
 
 
@@ -20,7 +20,6 @@ import org.apache.wicket.validation.validator.RangeValidator;
  * 
  * Note: Use this when you need High Precision.
  * 
- * @param <T>
  */
 public class PercentageBigDecimalTextField extends TextField<BigDecimal> {
 
@@ -50,7 +49,8 @@ public class PercentageBigDecimalTextField extends TextField<BigDecimal> {
 	}
 
 	@Override
-	public IConverter getConverter(final Class<?> type) {
+	@SuppressWarnings("unchecked")
+	public <C> IConverter<C> getConverter(final Class<C> type) {
 		int counter = decimals;
 		String sharp_str = "#,"; //$NON-NLS-1$
 		String zero_str = "0."; //$NON-NLS-1$
@@ -66,6 +66,6 @@ public class PercentageBigDecimalTextField extends TextField<BigDecimal> {
 		nf.setMinimumFractionDigits(4);
 		BigDecimalConverter dc = new BigDecimalConverter();
 		dc.setNumberFormat(getLocale(), nf);
-		return dc;
+		return (IConverter<C>) dc;
 	}
 }

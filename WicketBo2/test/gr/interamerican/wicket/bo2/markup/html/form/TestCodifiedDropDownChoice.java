@@ -41,7 +41,7 @@ public class TestCodifiedDropDownChoice extends WicketTest {
 	 */
 	@Test
 	public void testConstructor() {
-		tester.startPage(testPageSource());
+		tester.startPage(getTestPage());
 		Assert.assertSame(ddc, tester.getComponentFromLastRenderedPage(path(DDC_WICKET_ID)));
 		Assert.assertEquals(ddc.getChoices(), Arrays.asList(10L, 5L, 95L));
 	}

@@ -19,14 +19,12 @@ import java.text.NumberFormat;
 
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.util.convert.IConverter;
-import org.apache.wicket.util.convert.converters.DoubleConverter;
+import org.apache.wicket.util.convert.converter.DoubleConverter;
 import org.apache.wicket.validation.validator.RangeValidator;
 
 /**
  * A TextField for Double percentage values.<br/>
  * It has a RangeValidator that guarantees that the percentage is not grater than a hundred and is equal or greater than zero. 
- * 
- * @param <T>
  */
 public class PercentageTextField extends TextField<Double> {
 
@@ -56,7 +54,8 @@ public class PercentageTextField extends TextField<Double> {
 	}
 	
 	@Override
-	public IConverter getConverter(final Class<?> type) {
+	@SuppressWarnings("unchecked")
+	public <C> IConverter<C> getConverter(final Class<C> type) {
 		int counter = decimals;
 		String sharp_str = "#,"; //$NON-NLS-1$
 		String zero_str = "0."; //$NON-NLS-1$
@@ -72,6 +71,7 @@ public class PercentageTextField extends TextField<Double> {
 		nf.setMinimumFractionDigits(4);
 		DoubleConverter dc = new DoubleConverter();
 		dc.setNumberFormat(getLocale(), nf);
-		return dc;
+		return (IConverter<C>) dc;
 	}
+	
 }

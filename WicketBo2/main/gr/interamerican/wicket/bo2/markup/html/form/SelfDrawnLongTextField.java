@@ -15,7 +15,7 @@ package gr.interamerican.wicket.bo2.markup.html.form;
 import gr.interamerican.bo2.utils.meta.descriptors.NumberBoPropertyDescriptor;
 
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.util.convert.converters.AbstractDecimalConverter;
+import org.apache.wicket.util.convert.converter.AbstractDecimalConverter;
 
 /**
  * Self-drawn Long TextField.
@@ -49,7 +49,7 @@ public class SelfDrawnLongTextField extends AbstractSelfDrawnNumberTextField<Lon
     }
     
     @Override
-    protected AbstractDecimalConverter getNumberCoverter() {
+    protected AbstractDecimalConverter<Long> getNumberCoverter() {
     	return null;
     }
     

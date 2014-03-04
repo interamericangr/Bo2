@@ -22,17 +22,16 @@ import org.apache.wicket.model.Model;
  * Page used to test {@link Bo2WicketSession}.
  */
 public class Bo2WicketSessionTestPage extends WebPage{
-	 
-	
 		
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	/**
 	 * 
 	 */
 	private FeedbackPanel feedbackPanel = new FeedbackPanel("feedBackPanel"); //$NON-NLS-1$
-	
-	
-	
-	
 
 	/**
 	 * Creates a new WicketPage object. 
@@ -40,12 +39,6 @@ public class Bo2WicketSessionTestPage extends WebPage{
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Bo2WicketSessionTestPage(){
 		add(feedbackPanel);
-		
-		
-
-		
-
-        
         /*
          * Bo2WicketSession
          */
@@ -56,17 +49,5 @@ public class Bo2WicketSessionTestPage extends WebPage{
         add(bo2WicketSession.entryOwnersDropDownChoice("bo2entryOwnerDropDown1",new Model(),new ArrayList())); //$NON-NLS-1$
         
 	}
-
-
-	
-
-	
-
-
-
-	
-	
-	
-
 
 }

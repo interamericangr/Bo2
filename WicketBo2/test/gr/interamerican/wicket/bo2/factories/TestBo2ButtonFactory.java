@@ -39,7 +39,7 @@ public class TestBo2ButtonFactory extends Bo2WicketTest{
 		IModel <String> model = new Model<String>();
 		FeedbackOwner owner = new SampleFeedbackOwner();
 		Component component = Bo2ButtonFactory.createButton(TestPage.TEST_ID,model, messageHandler, owner);
-		tester.startPage(testPageSource(component));
+		tester.startPage(getTestPage(component));
 		tester.assertComponent(path(StringConstants.EMPTY), AjaxButton.class); 
 	}
 	
@@ -52,7 +52,7 @@ public class TestBo2ButtonFactory extends Bo2WicketTest{
 		String messageHandler = "feedbackOwnerMethod"; //$NON-NLS-1$
 		FeedbackOwner owner = new SampleFeedbackOwner();
 		Component component = Bo2ButtonFactory.createButton(TestPage.TEST_ID, messageHandler, owner);
-		tester.startPage(testPageSource(component));
+		tester.startPage(getTestPage(component));
 		tester.assertComponent(path(StringConstants.EMPTY), AjaxButton.class); 
 	}
 	

@@ -34,7 +34,9 @@ public class TestSimpleFilesPanel extends WicketTest {
 	 */
 	@Test
 	public void testConstruct() {
-		tester.startPage(testPageSource());
+		tester.startPage(getTestPage());
+		tester.assertComponent(subjectPath(), SimpleFilesPanel.class);
+		commonAssertions_noError();
 	}
 	
 	@Override

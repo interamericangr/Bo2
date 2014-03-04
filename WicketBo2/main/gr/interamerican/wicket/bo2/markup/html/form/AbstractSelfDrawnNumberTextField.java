@@ -19,7 +19,7 @@ import java.text.NumberFormat;
 
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.util.convert.IConverter;
-import org.apache.wicket.util.convert.converters.AbstractDecimalConverter;
+import org.apache.wicket.util.convert.converter.AbstractDecimalConverter;
 
 /**
  * Base class for self-drawn number TextField components.
@@ -59,8 +59,9 @@ extends AbstractSelfDrawnTextField<T> {
     }
     
 	@Override
-	public IConverter getConverter(final Class<?> type) {
-		AbstractDecimalConverter result = getNumberCoverter();
+	@SuppressWarnings("unchecked")
+	public <C> IConverter<C> getConverter(Class<C> type) {
+		AbstractDecimalConverter<T> result = getNumberCoverter();
 		if(result == null) {
 			return super.getConverter(type);
 		}
@@ -68,7 +69,7 @@ extends AbstractSelfDrawnTextField<T> {
 		int maxFractionDigits = ((NumberBoPropertyDescriptor<T>)descriptor).getLengthOfDecimalPart();
 		nf.setMaximumFractionDigits(maxFractionDigits+1);
 		result.setNumberFormat(getLocale(), nf);
-		return result;
+		return (IConverter<C>) result;
 	}
 	
 	/**
@@ -76,6 +77,6 @@ extends AbstractSelfDrawnTextField<T> {
 	 *         for which decimal digits make sense. For the rest, this MUST return
 	 *         null.
 	 */
-	protected abstract AbstractDecimalConverter getNumberCoverter();
+	protected abstract AbstractDecimalConverter<T> getNumberCoverter();
 	
 }

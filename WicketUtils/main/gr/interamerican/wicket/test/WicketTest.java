@@ -19,14 +19,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.Page;
-import org.apache.wicket.RequestCycle;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.util.tester.FormTester;
-import org.apache.wicket.util.tester.ITestPageSource;
 import org.apache.wicket.util.tester.WicketTester;
 import org.apache.wicket.util.tester.WicketTesterHelper;
 import org.junit.Assert;
@@ -66,52 +64,29 @@ public class WicketTest {
 	protected WicketTester tester;
 	
 	/**
-	 * Creates a new ITestPageSource that contains the {@link TestPage}.
-	 * Create the component by overriding #initializeComponent().
+	 * Creates a new Page that contains the component created by {@link #initializeComponent()}.
 	 *        
-	 * @return Returns the test page source.
+	 * @return Returns the test page.
 	 */
-	@SuppressWarnings("serial")
-	protected ITestPageSource testPageSource() {
-		return new ITestPageSource() {
-			public Page getTestPage() {				
-				return new TestPage(initializeComponent());
-			}
-		};
+	protected Page getTestPage() {
+		return new TestPage(initializeComponent());
 	}
 	
 	/**
-	 * Creates a new ITestPageSource that contains the {@link TestPage}
-	 * with the specified component.
+	 * Creates a new Page that contains the specified component.
 	 * 
 	 * @param cmp
 	 *        The component to test. 
 	 *        
-	 * @return Returns the test page source.
+	 * @return Returns the test page.
 	 */
-	@SuppressWarnings("serial")
-	protected ITestPageSource testPageSource(final Component cmp) {
-		return new ITestPageSource() {
-			public Page getTestPage() {				
-				return new TestPage(cmp);
-			}
-		};
-	}
-	
-	/**
-	 * Gets a new RequestCycle.
-	 * 
-	 * @return Returns a new RequestCycle.
-	 * 
-	 */
-	protected RequestCycle newRequestCycle() {
-		return tester.getApplication().newRequestCycle
-			(tester.getWicketRequest(), tester.getWicketResponse());
+	protected Page getTestPage(Component cmp) {
+		return new TestPage(cmp);
 	}
 	
 	/**
 	 * For components that require a provider in order to be initialized,
-	 * overriding this hook and using {@link #testPageSource()} might be 
+	 * overriding this hook and using {@link #getTestPage()} might be 
 	 * preferable.
 	 * 
 	 * @return Returns the test page source.
@@ -196,7 +171,7 @@ public class WicketTest {
 	protected void commonAssertions_noError() {
 		tester.assertNoErrorMessage();
 		Assert.assertTrue(tester.getLastRenderedPage() instanceof TestPage);
-		Assert.assertEquals(HttpServletResponse.SC_OK, tester.getServletResponse().getCode());
+		Assert.assertEquals(HttpServletResponse.SC_OK, tester.getResponse().getStatus());
 	}
 	
 	/**
@@ -208,7 +183,7 @@ public class WicketTest {
 		Assert.assertNotNull(messages);
 		Assert.assertTrue(messages.contains(errorMessagePortion));
 		Assert.assertTrue(tester.getLastRenderedPage() instanceof TestPage);
-		Assert.assertEquals(HttpServletResponse.SC_OK, tester.getServletResponse().getCode());
+		Assert.assertEquals(HttpServletResponse.SC_OK, tester.getResponse().getStatus());
 	}
 	
 	/**

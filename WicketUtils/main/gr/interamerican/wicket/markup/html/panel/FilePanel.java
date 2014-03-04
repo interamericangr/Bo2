@@ -12,31 +12,30 @@
  ******************************************************************************/
 package gr.interamerican.wicket.markup.html.panel;
 
-import static gr.interamerican.wicket.util.resource.WellKnownResourceIds.FP_CLEAR_BTN_LABEL;
 import gr.interamerican.bo2.utils.StringConstants;
-import gr.interamerican.bo2.utils.attributes.SimpleCommand;
-import gr.interamerican.wicket.callback.CallbackAction;
-import gr.interamerican.wicket.callback.MethodBasedCallbackAction;
-import gr.interamerican.wicket.factories.ButtonFactory;
-import gr.interamerican.wicket.factories.LinkFactory;
-import gr.interamerican.wicket.markup.html.form.SimpleCommandForm;
 import gr.interamerican.wicket.markup.html.panel.bean.SingleBeanPanel;
-import gr.interamerican.wicket.util.resource.ByteArrayAsResourceStream;
+import gr.interamerican.wicket.util.resource.WellKnownResourceIds;
+
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.upload.FileUpload;
 import org.apache.wicket.markup.html.form.upload.FileUploadField;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
-import org.apache.wicket.request.target.resource.ResourceStreamRequestTarget;
+import org.apache.wicket.request.handler.resource.ResourceStreamRequestHandler;
 import org.apache.wicket.util.lang.Bytes;
+import org.apache.wicket.util.resource.AbstractResourceStream;
 import org.apache.wicket.util.resource.IResourceStream;
+import org.apache.wicket.util.resource.ResourceStreamNotFoundException;
 
 /**
  * A panel that allows to add the content of a file to a model object.
@@ -91,7 +90,7 @@ public class FilePanel extends Panel {
 	/**
 	 * Link that allows the user to download the file.
 	 */
-	private AjaxLink<String> downloadFileLink;
+	private Link<String> downloadFileLink;
 	
 	/**
 	 * Link label.
@@ -101,7 +100,7 @@ public class FilePanel extends Panel {
 	/**
 	 * Current content.
 	 */
-	IModel<byte[]> model;
+	private IModel<byte[]> model;
 	
 	/**
 	 * File chooser.
@@ -125,72 +124,52 @@ public class FilePanel extends Panel {
 		
 		this.model = model;
 		
-		CallbackAction onDownloadLinkClick = 
-			new MethodBasedCallbackAction("onDownloadLinkClick", this); //$NON-NLS-1$
-		downloadFileLink = LinkFactory.createLink(DOWNLOAD_FILE_LINK_ID, onDownloadLinkClick);
+		downloadFileLink = new DownloadTemplateLink(DOWNLOAD_FILE_LINK_ID);
 		downloadFileLink.setOutputMarkupId(true);
 		linkLabel = new Label(LINK_LABEL_ID, new Model<String>());
 		downloadFileLink.add(linkLabel);
 		updateLinkLabel(null);
 		
-		fileChooser = new FileUploadField(FILE_CHOOSER_ID, new Model<FileUpload>());
+		fileChooser = new FileUploadField(FILE_CHOOSER_ID, new Model()); //TODO: migration to w1.5
 		
+		Form<Void> panelForm = new Form<Void>(FORM_ID) {
+			/**
+			 * serialVersionUID.
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			protected void onSubmit() {
+				FileUpload fileUpload = fileChooser.getFileUpload();
+				if(fileUpload!=null && !isClearSubmit) {
+					if (fileUpload.getBytes().length > 0) {
+						model.setObject(fileUpload.getBytes());
+					}
+				}
+				isClearSubmit = false;
+				super.onSubmit();
+			}
+		};
+		panelForm.setMultiPart(true);
 		
-		SimpleCommand onFormSubmit = 
-			new MethodBasedCallbackAction("onFormSubmit", this); //$NON-NLS-1$
-		Form<Void> panelForm = new SimpleCommandForm<Void>(FORM_ID, onFormSubmit);
-		panelForm.setMultiPart(true);		
-		
-		CallbackAction onClearButtonClick = 
-			new MethodBasedCallbackAction("onClearButtonClick", this); //$NON-NLS-1$
-		IModel<String> buttonModel = new StringResourceModel(FP_CLEAR_BTN_LABEL, null);
-		AjaxButton clearButton = ButtonFactory.createButton
-			(CLEAR_FILE_BUTTON_ID, buttonModel, onClearButtonClick, null);
-		
+		AjaxButton clearButton = new AjaxButton(
+			CLEAR_FILE_BUTTON_ID, new StringResourceModel(WellKnownResourceIds.FP_CLEAR_BTN_LABEL, null)) {
+			/**
+			 * serialVersionUID.
+			 */
+			private static final long serialVersionUID = 1L;
+
+			@Override protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+				model.setObject(new byte[0]);
+				updateLinkLabel(target);
+				isClearSubmit = true;
+			}
+		};
 		add(panelForm);
 		add(downloadFileLink);
-		
 		panelForm.add(fileChooser, clearButton, downloadFileLink);
 		
 	}
-	
-	
-	/**
-	 * Event handler for the click event of the clear button.
-	 * 
-	 * @param target
-	 */
-	void onClearButtonClick(AjaxRequestTarget target) {
-		model.setObject(new byte[0]);
-		updateLinkLabel(target);
-		isClearSubmit = true;		
-	}
-	
-	/**
-	 * Event handler for the form submit event.
-	 */
-	void onFormSubmit() {
-		FileUpload fileUpload = fileChooser.getFileUpload();
-		if(fileUpload!=null && !isClearSubmit) {
-			if (fileUpload.getBytes().length > 0) {
-				model.setObject(fileUpload.getBytes());
-			}
-		}
-		isClearSubmit = false;
-	}
-	
-	/**
-	 * Event handler for the click event of the download link.
-	 */
-	void onDownloadLinkClick() {
-		byte[] bytes = model.getObject();
-		if (bytes!=null && bytes.length>0) {
-			IResourceStream stream = new ByteArrayAsResourceStream(bytes);
-			ResourceStreamRequestTarget target = new ResourceStreamRequestTarget(stream); 
-			getRequestCycle().setRequestTarget(target);
-		}	
-	}
-	
 	
 	/**
 	 * Refreshes the link label.
@@ -198,13 +177,54 @@ public class FilePanel extends Panel {
 	 * @param target
 	 */
 	@SuppressWarnings("nls")
-	void updateLinkLabel(AjaxRequestTarget target) {
+	private void updateLinkLabel(AjaxRequestTarget target) {
 		if(target!=null) {
-			target.addComponent(downloadFileLink);
+			target.add(downloadFileLink);
 		}
 		byte[] content = model.getObject()!=null ? model.getObject() : new byte[0];
 		Bytes bytes = Bytes.bytes(content.length);
 		linkLabel.setDefaultModelObject("[" + bytes.toString() + "]");
+	}
+	
+	/**
+	 * A Link that prompts the user to download a CSV with the results.
+	 */
+	private class DownloadTemplateLink extends Link<String> {
+		/**
+		 * serialVersionUID.
+		 */
+		private static final long serialVersionUID = 1L;
+
+		/**
+		 * Creates a new ExportCsvLink object. 
+		 *
+		 * @param id
+		 */
+		public DownloadTemplateLink(String id) {
+			super(id);
+		}
+
+		@Override
+		public void onClick() {
+			IResourceStream stream = new AbstractResourceStream () {
+				/**
+				 * serialVersionUID.
+				 */
+				private static final long serialVersionUID = 1L;
+				
+				InputStream in = null;
+				public InputStream getInputStream()	throws ResourceStreamNotFoundException {
+					in = new ByteArrayInputStream(model.getObject());
+					return in;
+				}
+				public void close() throws IOException {
+					in.close();
+				}
+			};
+			if(model.getObject()!=null && model.getObject().length >0) {
+				getRequestCycle().scheduleRequestHandlerAfterCurrent(new ResourceStreamRequestHandler(stream));
+			}
+		}
 	}
 	
 	/**
@@ -219,7 +239,5 @@ public class FilePanel extends Panel {
 			return StringConstants.EMPTY;
 		}
 		return fileChooser.getFileUpload().getClientFileName();
-	}
-	
-	
+	}	
 }

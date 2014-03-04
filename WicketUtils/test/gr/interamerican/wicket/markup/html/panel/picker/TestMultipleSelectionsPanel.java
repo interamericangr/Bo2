@@ -26,13 +26,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.wicket.Page;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.DataTable;
 import org.apache.wicket.markup.html.form.Check;
 import org.apache.wicket.markup.html.form.CheckGroup;
 import org.apache.wicket.model.Model;
-import org.apache.wicket.util.tester.ITestPageSource;
 import org.junit.Test;
 
 /**
@@ -81,23 +79,6 @@ public class TestMultipleSelectionsPanel extends WicketTest {
 	}
 	
 	/**
-	 * Creates a page source
-	 * 
-	 * @param def
-	 * @return Returns a page source.
-	 */
-	@SuppressWarnings("serial")
-	ITestPageSource pageSource(final MultipleSelectionsPanelDef<BeanWithOrderedFields> def) {		
-		return new ITestPageSource() {
-			public Page getTestPage() {
-				MultipleSelectionsPanel<BeanWithOrderedFields> panel = 
-					new MultipleSelectionsPanel<BeanWithOrderedFields>(def);
-				return new TestPage(panel);
-			}
-		};
-	}
-	
-	/**
 	 * Tests creation of {@link MultipleSelectionsPanel}.
 	 * 
 	 * Also tests that pressing the select button, selects the selected items. 
@@ -105,7 +86,7 @@ public class TestMultipleSelectionsPanel extends WicketTest {
 	@Test
 	public void testCreation() {
 		MultipleSelectionsPanelDef<BeanWithOrderedFields> def = createDef(); 
-		tester.startPage(pageSource(def));
+		tester.startPage(getTestPage(new MultipleSelectionsPanel<BeanWithOrderedFields>(def)));
 		
 		tester.assertComponent(path("tableForm:checkGroup"), CheckGroup.class);
 		tester.assertComponent(path("tableForm:checkGroup:listTable"), DataTable.class);
@@ -166,7 +147,7 @@ public class TestMultipleSelectionsPanel extends WicketTest {
 		 * row radio. "radio" is the wicket:id of the radio buttons and 0 stands
 		 * for the first row.
 		 */
-		Map<String, String[]> map= tester.getWicketRequest().getParameterMap();	
+		Map<String, String[]> map= tester.getRequest().getParameterMap();	
 		map.put("testId:tableForm:checkGroup", new String[]{"check0", "check1"});
 
 		tester.executeAjaxEvent(button, "onclick");

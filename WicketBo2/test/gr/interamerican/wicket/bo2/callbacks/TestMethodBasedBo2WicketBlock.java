@@ -57,7 +57,7 @@ public class TestMethodBasedBo2WicketBlock {
 	 * 
 	 * @param argument
 	 */
-	void ambiguous(Integer argument) {/* empty */}
+	void ambiguous(@SuppressWarnings("unused") Integer argument) {/* empty */}
 
 	/**
 	 * Method to be executed by a {@link Bo2WicketBlock} and throw

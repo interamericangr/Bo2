@@ -53,7 +53,7 @@ public class TestSelfDrawnPanel_AffectedDdcs extends Bo2WicketTest {
 	@Test
 	@SuppressWarnings("unchecked")
 	public void testCreation() {
-		tester.startPage(testPageSource());
+		tester.startPage(getTestPage());
 		
 		tester.assertComponent(path("field1"), SelfDrawnDropDownChoiceForEntry.class);
 		tester.assertComponent(path("field2"), SelfDrawnDropDownChoiceForEntry.class);
@@ -80,7 +80,7 @@ public class TestSelfDrawnPanel_AffectedDdcs extends Bo2WicketTest {
 	@Test
 	@SuppressWarnings("unchecked")
 	public void testOnChangeBehavior() {
-		tester.startPage(testPageSource());
+		tester.startPage(getTestPage());
 		
 		tester.assertComponent(path("field1"), SelfDrawnDropDownChoiceForEntry.class);
 		tester.assertComponent(path("field2"), SelfDrawnDropDownChoiceForEntry.class);

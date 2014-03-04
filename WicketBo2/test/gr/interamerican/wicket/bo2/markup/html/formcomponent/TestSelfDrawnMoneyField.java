@@ -36,7 +36,7 @@ public class TestSelfDrawnMoneyField extends WicketTest {
 	@Test
 	public void testSelfDrawnMoneyField(){
 		SelfDrawnMoneyField field = new SelfDrawnMoneyField(TestPage.TEST_ID, new Model<Money>(), getBoPropertyDecriptor(false));
-		tester.startPage(testPageSource(field));
+		tester.startPage(getTestPage(field));
 		Assert.assertSame(field,tester.getComponentFromLastRenderedPage(subjectPath()));
 		Assert.assertNotNull(field.getDefaultModelObject());
 		Assert.assertEquals(field.getModel().getObject().getAmount(), BigDecimal.ZERO);
@@ -51,7 +51,7 @@ public class TestSelfDrawnMoneyField extends WicketTest {
 	public void testSelfDrawnMoneyField_disabled(){
 		Money money = new MoneyImpl(BigDecimal.TEN);
 		SelfDrawnMoneyField field = new SelfDrawnMoneyField(TestPage.TEST_ID, new Model<Money>(money), getBoPropertyDecriptor(true));
-		tester.startPage(testPageSource(field));
+		tester.startPage(getTestPage(field));
 		Assert.assertSame(field,tester.getComponentFromLastRenderedPage(subjectPath()));
 		Assert.assertNotNull(field.getDefaultModelObject());
 		Assert.assertEquals(0, BigDecimal.TEN.compareTo(field.getModelObject().getAmount()));
