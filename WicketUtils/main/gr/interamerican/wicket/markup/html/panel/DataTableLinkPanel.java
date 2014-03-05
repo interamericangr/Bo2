@@ -105,7 +105,8 @@ implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 			builder.append("<a wicket:id=\"editItemLink\"><label wicket:id=\"linkText\"></label></a>"); //$NON-NLS-1$
 		} 
 		else {
-			builder.append(imageType.toString());
+			String contextRelativeUrl = getRequestCycle().getUrlRenderer().renderContextRelativeUrl(imageType.getImage()) ;
+			builder.append(imageType.toString(contextRelativeUrl));
 		}
 		builder.append("</wicket:panel></body></html>"); //$NON-NLS-1$
 		return new StringAsResourceStream(builder.toString());

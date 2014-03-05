@@ -14,13 +14,10 @@ package gr.interamerican.wicket.utils;
 
 
 import gr.interamerican.bo2.utils.beans.Pair;
-import gr.interamerican.wicket.callback.CallbackAction;
 import gr.interamerican.wicket.markup.html.panel.CheckBoxPanel;
 import gr.interamerican.wicket.markup.html.panel.DataTableAjaxLinkPanel;
-import gr.interamerican.wicket.markup.html.panel.DataTableButtonPanel;
 import gr.interamerican.wicket.markup.html.panel.DataTableRadioButtonPanel;
 import gr.interamerican.wicket.markup.html.tabs.StatefulAjaxTabbedPanel;
-import gr.interamerican.wicket.samples.actions.DummyCallback;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -76,10 +73,6 @@ public class WicketPage extends WebPage{
 		Link<String> link2 = LinkUtils.createLink(new Pair<String, Class<? extends Page>>("link2", this.getClass())); //$NON-NLS-1$
 		add(link2);
 
-
-
-				
-
 		//Test CheckBoxPanel
 		CheckBoxPanelImpl<Boolean> testCheckBoxPanel = new 
  CheckBoxPanelImpl<Boolean>(
@@ -102,14 +95,6 @@ public class WicketPage extends WebPage{
  StatefulAjaxTabbedPanel("tabs", getITabs(), new Form("form"), null); //$NON-NLS-1$ //$NON-NLS-2$
 		add(tabs);
 
-        //Test DataTableButtonPanel
-		Form form1 = new Form("form1"); //$NON-NLS-1$
-		DataTableButtonPanelImpl<?> testDataTableButtonPanel = 
- new DataTableButtonPanelImpl<Serializable>(
-				"dataTableButtonPanel", new Model(), ImageType.ARROW_DOWN, new DummyCallback()); //$NON-NLS-1$
-		form1.add(testDataTableButtonPanel);
-		add(form1);
-		
 		//Test DataTableRadioButtonPanel		
 		RadioGroup radioGroup = new RadioGroup("radioGroup"); //$NON-NLS-1$
 		DataTableRadioButtonPanel<Serializable> dataTableRadioButtionPanel = 
@@ -216,42 +201,5 @@ public class WicketPage extends WebPage{
 			//Do Nothing	
 		}								
 	}
-
-
-	/**
-	 * 
-	 * Test class to test the DataTableButtonPanel
-	 *
-	 * @param <T>
-	 */
-	private class DataTableButtonPanelImpl<T extends Serializable> extends DataTableButtonPanel<T>{
-
-		/**
-		 * serial id.
-		 */
-		private static final long serialVersionUID = 1L;
-
-		/**
-		 * 
-		 * @param id
-		 * @param model
-		 * @param imageType
-		 * @param block
-		 */
-		public DataTableButtonPanelImpl(String id, IModel<T> model,
-				ImageType imageType, CallbackAction block) {
-			super(id, model, imageType, block);
-		}
-
-		/**
-		 * 
-		 */
-		@Override
-		protected void onButtonError(AjaxRequestTarget target, Form<?> form) {
-			/* do nothing */
-		}
-	}
-	
-	
 
 }

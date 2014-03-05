@@ -36,7 +36,6 @@ import org.junit.runners.Suite.SuiteClasses;
 
 	TestCheckBoxPanel.class,
 	TestDataTableLinkPanel.class,
-	TestDataTableButtonPanel.class,
 	TestDataTableRadioButtonPanel.class,
 	TestServicePanelWithBack.class,
 	TestSingleBeanPanel.class,

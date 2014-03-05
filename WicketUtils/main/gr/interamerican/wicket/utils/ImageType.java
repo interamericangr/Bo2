@@ -97,11 +97,26 @@ public enum ImageType {
 		return image;
 	}
 	
+	/**
+	 * Legacy wicket 1.4 implementation
+	 * TODO: remove it.
+	 */
 	@Override
 	public String toString() {
 		return StringUtils.concat(
 				"<input type=\"image\" wicket:id=\"editItemLink\" src=\"",
 				image,
+				"\"></input>");
+	}
+	
+	/**
+	 * @param contextRelativeUrl
+	 * @return html fragment for image 
+	 */
+	public String toString(String contextRelativeUrl) {
+		return StringUtils.concat(
+				"<input type=\"image\" wicket:id=\"editItemLink\" src=\"",
+				contextRelativeUrl,
 				"\"></input>");
 	}
 	
