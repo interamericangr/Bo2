@@ -19,6 +19,7 @@ import gr.interamerican.wicket.util.resource.WellKnownResourceIds;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
@@ -31,6 +32,7 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.StringResourceModel;
+import org.apache.wicket.model.util.ListModel;
 import org.apache.wicket.request.handler.resource.ResourceStreamRequestHandler;
 import org.apache.wicket.util.lang.Bytes;
 import org.apache.wicket.util.resource.AbstractResourceStream;
@@ -65,12 +67,12 @@ public class FilePanel extends Panel {
 	/**
 	 * Wicket id.
 	 */
-	private static final String FILE_CHOOSER_ID = "fileChooser"; //$NON-NLS-1$
+	static final String FILE_CHOOSER_ID = "fileChooser"; //$NON-NLS-1$
 	
 	/**
 	 * Wicket id.
 	 */
-	private static final String FORM_ID = "form"; //$NON-NLS-1$
+	static final String FORM_ID = "form"; //$NON-NLS-1$
 	
 	/**
 	 * Wicket id.
@@ -130,7 +132,7 @@ public class FilePanel extends Panel {
 		downloadFileLink.add(linkLabel);
 		updateLinkLabel(null);
 		
-		fileChooser = new FileUploadField(FILE_CHOOSER_ID, new Model()); //TODO: migration to w1.5
+		fileChooser = new FileUploadField(FILE_CHOOSER_ID, new ListModel<FileUpload>(new ArrayList<FileUpload>()));
 		
 		Form<Void> panelForm = new Form<Void>(FORM_ID) {
 			/**

@@ -13,7 +13,8 @@
 package gr.interamerican.wicket.markup.html.panel;
 
 import gr.interamerican.bo2.utils.attributes.NamedDescribed;
-import gr.interamerican.wicket.callback.ChainedCallbackAction;
+import gr.interamerican.wicket.ajax.markup.html.form.CallbackAjaxButton;
+import gr.interamerican.wicket.callback.ChainedCallbackActionImpl;
 import gr.interamerican.wicket.markup.html.TestPage;
 import gr.interamerican.wicket.test.WicketTest;
 
@@ -21,13 +22,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.wicket.Component;
+import org.apache.wicket.markup.html.form.upload.FileUploadField;
+import org.apache.wicket.util.file.File;
+import org.apache.wicket.util.tester.FormTester;
+import org.junit.Assert;
 import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
  * Unit tests for {@link SimpleFilesPanel}.
  */
 public class TestSimpleFilesPanel extends WicketTest {
+	
+	/**
+	 * Def.
+	 */
+	SimpleFilesPanelDef def;
 	
 	/**
 	 * Test construct
@@ -37,6 +46,41 @@ public class TestSimpleFilesPanel extends WicketTest {
 		tester.startPage(getTestPage());
 		tester.assertComponent(subjectPath(), SimpleFilesPanel.class);
 		commonAssertions_noError();
+		
+		tester.debugComponentTrees();
+	}
+	
+	/**
+	 * testSubmit
+	 */
+	@SuppressWarnings("nls")
+	@Test
+	public void testSubmit() {
+		tester.startPage(getTestPage());
+		tester.assertComponent(subjectPath(), SimpleFilesPanel.class);
+		commonAssertions_noError();
+		
+		tester.debugComponentTrees();
+		SimpleFilesPanel subject = (SimpleFilesPanel) tester.getComponentFromLastRenderedPage(subjectPath());
+		CallbackAjaxButton button = new CallbackAjaxButton(TestPage.SUBMIT_BUTTON_ID, def.getSubmitAction());
+		subject.getPage().get(TestPage.FORM_ID).get(TestPage.SUBMIT_BUTTON_ID).replaceWith(button);
+		
+		FormTester formTester = getFormTester();
+		File file = new File(getClass().getResource("/gr/interamerican/wicket/samples/img/delete.jpeg").getFile());
+		String fcPath = "testId:fileRepeater:file1:file";
+		
+		tester.assertComponent("tf:" + fcPath, FileUploadField.class);
+		Assert.assertNull(def.getUploadedFiles());
+		
+		formTester.setFile(fcPath, file, "image/jpeg");
+		tester.executeAjaxEvent(button, "onclick"); //SUBMITS form as well
+		
+		Assert.assertNotNull(def.getUploadedFiles());
+		Assert.assertTrue(def.getUploadedFiles().size()==2);
+		Assert.assertNotNull(def.getUploadedFiles().get(0));
+		Assert.assertNull(def.getUploadedFiles().get(1));
+		Assert.assertTrue(def.getUploadedFiles().get(0).getSize() > 0);
+		
 	}
 	
 	@Override
@@ -51,8 +95,8 @@ public class TestSimpleFilesPanel extends WicketTest {
 		defs.add(def1);
 		defs.add(def2);
 		
-		SimpleFilesPanelDef def = new SimpleFilesPanelDefImpl();
-		def.setSubmitAction(Mockito.mock(ChainedCallbackAction.class));
+		def = new SimpleFilesPanelDefImpl();
+		def.setSubmitAction(new ChainedCallbackActionImpl());
 		def.setWicketId(TestPage.TEST_ID);
 		def.setFileDefinitions(defs);
 		

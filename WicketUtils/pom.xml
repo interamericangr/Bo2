@@ -61,6 +61,22 @@
 			<scope>test</scope>
 		</dependency>
 		
+		<dependency>
+			<groupId>gr.interamerican.bo2</groupId>
+			<artifactId>Bo2TestsDeploymentBase</artifactId>
+			<version>${project.version}</version>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>gr.interamerican.bo2</groupId>
+			<artifactId>Bo2TestsDeploymentJdbc</artifactId>
+			<version>${project.version}</version>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+		
 	</dependencies>
 
 </project>

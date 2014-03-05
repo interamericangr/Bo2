@@ -18,6 +18,9 @@ import gr.interamerican.wicket.test.WicketTest;
 import org.apache.wicket.Component;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.util.file.File;
+import org.apache.wicket.util.tester.FormTester;
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -28,11 +31,26 @@ public class TestFilePanel extends WicketTest {
 	/**
 	 * Tests creation of {@link FilePanel}.
 	 */	
+	@SuppressWarnings("nls")
 	@Test
-	public void testCreation() {		 
+	public void testCreationAndSubmit() {		 
 		tester.startPage(getTestPage());
 		tester.assertComponent(subjectPath(), FilePanel.class);
 		commonAssertions_noError();
+		
+		FilePanel subject = (FilePanel) tester.getComponentFromLastRenderedPage(subjectPath());
+		
+		FormTester formTester = getFormTester();
+		File file = new File(getClass().getResource("/gr/interamerican/wicket/samples/img/delete.jpeg").getFile());
+		String fcPath = TestPage.TEST_ID + ":" + FilePanel.FORM_ID + ":" + FilePanel.FILE_CHOOSER_ID;
+		
+		Assert.assertNull(subject.getDefaultModelObject());
+		
+		formTester.setFile(fcPath, file, "image/jpeg");
+		formTester.submit(TestPage.SUBMIT_BUTTON_ID);
+		
+		Assert.assertTrue(subject.getDefaultModelObject() instanceof byte[]);
+		Assert.assertTrue(((byte[]) subject.getDefaultModelObject()).length > 0);
 	}
 	
 	@Override
