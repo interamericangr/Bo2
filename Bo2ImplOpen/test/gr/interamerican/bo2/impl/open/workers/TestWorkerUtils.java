@@ -94,6 +94,42 @@ public class TestWorkerUtils {
 		}.execute();
 	}
 	
+	
+	/**
+	 * tests queryTransformedResultsAsList
+	 * 
+	 * @throws LogicException 
+	 * @throws DataException 
+	 * @throws UnexpectedException 
+	 */
+	@Test
+	public void testExecute() 
+	throws UnexpectedException, DataException, LogicException {
+		new AbstractBo2RuntimeCmd() {
+
+			@SuppressWarnings("static-access")
+			@Override
+			public void work() throws LogicException, DataException,
+					InitializationException, UnexpectedException {
+				query.init(this.getProvider());
+				query.open();
+				query.execute();
+				List<CodifiedImpl> list = utils.queryTransformedResultsAsList(query, new Adapter());
+				assertTrue(list.size()>0);
+			}
+		}.execute();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * Transforms a {@link TypedSelectable} to a {@link CodifiedImpl}.
 	 */

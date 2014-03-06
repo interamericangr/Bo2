@@ -13,32 +13,18 @@
 package gr.interamerican.bo2.samples.operations;
 
 import gr.interamerican.bo2.arch.Operation;
-import gr.interamerican.bo2.arch.Provider;
 import gr.interamerican.bo2.arch.exceptions.DataException;
-import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
+import gr.interamerican.bo2.samples.workers.EmptyWorker;
 
 /**
  * Operation that is not doing anything.
  */
-public class EmptyOperation implements Operation {
+public class EmptyOperation
+extends EmptyWorker 
+implements Operation {
 	
-	public void open() throws DataException {
-		/*empty*/		
-	}
-	
-	public void close() throws DataException {
-		/*empty*/		
-	}
-	
-	public void init(Provider parent) throws InitializationException {
-		/*empty*/		
-	}
-	
-	public Provider getProvider() {
-		return null;
-	}
-	
+	@Override
 	public void execute() throws LogicException, DataException {
 		/*empty*/		
 	}

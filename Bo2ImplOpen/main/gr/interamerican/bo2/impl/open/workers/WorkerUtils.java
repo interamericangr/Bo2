@@ -13,8 +13,16 @@
 package gr.interamerican.bo2.impl.open.workers;
 
 import gr.interamerican.bo2.arch.EntitiesQuery;
+import gr.interamerican.bo2.arch.Operation;
+import gr.interamerican.bo2.arch.Provider;
+import gr.interamerican.bo2.arch.Rule;
 import gr.interamerican.bo2.arch.Worker;
 import gr.interamerican.bo2.arch.exceptions.DataAccessException;
+import gr.interamerican.bo2.arch.exceptions.DataException;
+import gr.interamerican.bo2.arch.exceptions.InitializationException;
+import gr.interamerican.bo2.arch.exceptions.LogicException;
+import gr.interamerican.bo2.impl.open.creation.Factory;
+import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.adapters.Transformation;
 
 import java.util.ArrayList;
@@ -77,6 +85,140 @@ public class WorkerUtils {
 		}
 		return list;
 	}
+	
+	/**
+	 * Instantiates and executes an operation.
+	 * 
+	 * This method does the following:
+	 * <ul><li> Instantiates the operation using {@link Factory}. </li>
+	 *     <li> Copies all common properties from the specified input object
+	 *          to the operation. </li>
+	 *     <li> Initializes the operation. </li>
+	 *     <li> Opens the operation. </li>
+	 *     <li> Executes the operation. </li>
+	 *     <li> Closes the operation. </li> </ul>
+	 *     
+	 * 
+	 * @param className
+	 *        Name of operation class.
+	 * @param provider
+	 *        Provider used to initialize the operation. 
+	 * @param inputs
+	 *        Object used to copy any input properties to the operation.
+	 *        
+	 * @throws LogicException
+	 * @throws DataException
+	 */
+	public static void execute(String className, Provider provider, Object inputs) 
+	throws LogicException, DataException {
+		Operation op = create(className, provider, inputs);
+		op.open();
+		op.execute();
+		op.close();
+	}
+	
+	/**
+	 * Instantiates and executes an {@link Operation}.
+	 * 
+	 * This method does the following:
+	 * <ul><li> Instantiates the operation using {@link Factory}. </li>
+	 *     <li> Initializes the operation. </li>
+	 *     <li> Opens the operation. </li>
+	 *     <li> Executes the operation. </li>
+	 *     <li> Closes the operation. </li> </ul>
+	 *     
+	 * 
+	 * @param className
+	 *        Name of operation class.
+	 * @param provider
+	 *        Provider used to initialize the operation.
+	 *        
+	 * @throws LogicException
+	 * @throws DataException
+	 */
+	public static void execute(String className, Provider provider) 
+	throws LogicException, DataException {
+		execute(className, provider, null);
+	}
+	
+	/**
+	 * Instantiates and applies a {@link Rule}.
+	 * 
+	 * This method does the following:
+	 * <ul><li> Instantiates the rule using {@link Factory}. </li>
+	 *     <li> Copies all common properties from the specified input object
+	 *          to the rule. </li>
+	 *     <li> Initializes the rule. </li>
+	 *     <li> Opens the rule. </li>
+	 *     <li> Executes the rule. </li>
+	 *     <li> Closes the rule. </li> </ul>
+	 *     
+	 * 
+	 * @param className
+	 *        Name of rule class.
+	 * @param provider
+	 *        Provider used to initialize the rule. 
+	 * @param inputs
+	 *        Object used to copy any input properties to the rule.
+	 *        
+	 * @throws LogicException
+	 * @throws DataException
+	 */
+	public static void apply(String className, Provider provider, Object inputs) 
+	throws LogicException, DataException {
+		Rule op = create(className, provider, inputs);
+		op.open();
+		op.apply();
+		op.close();
+	}
+	
+	/**
+	 * Instantiates and applies a {@link Rule}.
+	 * 
+	 * This method does the following:
+	 * <ul><li> Instantiates the rule using {@link Factory}. </li>
+	 *     <li> Initializes the rule. </li>
+	 *     <li> Opens the rule. </li>
+	 *     <li> Executes the rule. </li>
+	 *     <li> Closes the rule. </li> </ul>
+	 *     
+	 * 
+	 * @param className
+	 *        Name of rule class.
+	 * @param provider
+	 *        Provider used to initialize the rule. 
+	 *        
+	 * @throws LogicException
+	 * @throws DataException
+	 */
+	public static void apply(String className, Provider provider) 
+	throws LogicException, DataException {
+		apply(className, provider, null);
+	}
+	
+	/**
+	 * Creates and initializes a Worker.
+	 * 
+	 * @param className
+	 * @param p
+	 * @return Returns the worker.
+	 */
+	static <W extends Worker> W create(String className, Provider p, Object inputs) {		
+		try {
+			@SuppressWarnings("unchecked")
+			W w = (W) Factory.create(className);
+			w.init(p);
+			if (inputs!=null) {
+				ReflectionUtils.copyProperties(inputs, w);				
+			}			
+			return w;
+		} catch (InitializationException e) {
+			throw new RuntimeException(e);
+		}
+		
+	}
+	
+	 
 	
 
 }

@@ -13,17 +13,19 @@
 package gr.interamerican.bo2.samples.queries;
 
 import gr.interamerican.bo2.arch.EntitiesQuery;
-import gr.interamerican.bo2.arch.Provider;
 import gr.interamerican.bo2.arch.exceptions.DataAccessException;
 import gr.interamerican.bo2.arch.exceptions.DataException;
-import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.arch.ext.TypedSelectable;
 import gr.interamerican.bo2.arch.utils.beans.TypedSelectableImpl;
+import gr.interamerican.bo2.samples.workers.EmptyWorker;
 
 /**
  * query implementation for the test. 
  */
-public class TsEntitiesQueryImpl implements EntitiesQuery<TypedSelectable<Long>> {
+
+public class TsEntitiesQueryImpl 
+extends EmptyWorker 
+implements EntitiesQuery<TypedSelectable<Long>> {
 	
 	/**
 	 * Type id for type selectable implementation.
@@ -55,12 +57,7 @@ public class TsEntitiesQueryImpl implements EntitiesQuery<TypedSelectable<Long>>
 	 * current row.
 	 */
 	int i=0;		
-	public void open() throws DataException {/*empty*/}		
-	public void close() throws DataException {/*empty*/}
-	public void init(Provider parent) throws InitializationException {/*empty*/}
-	public Provider getProvider() {
-		return null;
-	}		
+			
 	public void execute() throws DataException {
 		i=0;
 	}
