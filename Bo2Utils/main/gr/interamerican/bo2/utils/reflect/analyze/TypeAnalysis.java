@@ -60,9 +60,16 @@ public class TypeAnalysis {
 	 */
 	public static TypeAnalysis analyze(Class<?> type) {
 		TypeAnalysis analysis = cache.get(type);
+		/*
+		 * double checked locking for performing and caching the analysis
+		 */
 		if (analysis==null) {
-			analysis = new TypeAnalysis(type);
-			cache.put(type, analysis);
+			synchronized(TypeAnalysis.class) {
+                if (cache.get(type) == null) {
+                	analysis = new TypeAnalysis(type);
+                	cache.put(type, analysis);
+                }
+            }
 		}
 		return analysis;
 	}
@@ -191,9 +198,9 @@ public class TypeAnalysis {
 	Array propertyKey(String name, Type genericType, Class<?> type) {		
 		if (genericType instanceof TypeVariable) {
 			return new Array(name, Object.class);
-		} else {
-			return new Array(name, type);
-		}		
+		}
+		
+		return new Array(name, type);
 	}
 	
 	/**
