@@ -30,7 +30,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 		TestCallbackAjaxButton.class,
 		TestCallbackAjaxLink.class,
-	
+		TestCallbackAjaxImageButton.class
 	}
 )
 public class TestSuiteAjaxMarkupHtmlForm {

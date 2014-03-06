@@ -117,5 +117,10 @@ public interface MarkupConstants {
 	/**
 	 * Read only.
 	 */
-	public static final String READONLY = "readonly"; 
+	public static final String READONLY = "readonly";
+
+	/**
+	 * Source.
+	 */
+	public static final String SRC ="src"; 
 }
