@@ -20,6 +20,7 @@ import gr.interamerican.bo2.impl.open.annotations.Bo2AnnoUtils;
 import gr.interamerican.bo2.impl.open.annotations.Parameter;
 import gr.interamerican.bo2.impl.open.annotations.ParametersOrder;
 import gr.interamerican.bo2.utils.ReflectionUtils;
+import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.annotations.Child;
 import gr.interamerican.bo2.utils.reflect.analyze.TypeAnalysis;
 
@@ -207,7 +208,7 @@ implements Worker {
 	 */
 	protected void validateOpen() throws DataException {
 		if (!open) {
-			throw new DataException(NOT_OPEN); 
+			throw new DataException(NOT_OPEN + StringConstants.SPACE + this.getClass().getName()); 
 		}
 	}
 
