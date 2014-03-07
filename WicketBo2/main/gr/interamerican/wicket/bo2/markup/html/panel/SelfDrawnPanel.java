@@ -559,7 +559,7 @@ implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 		
 		@Override
 		protected void onUpdate(AjaxRequestTarget target) {
-			target.addComponent(affectedDdc);
+			target.add(affectedDdc);
 			E affectingChoice = affectingDdc.getModelObject();
 			Long affectedSubListCd = null;
 			if(affectingChoice != null) {
