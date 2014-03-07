@@ -13,6 +13,7 @@
 package gr.interamerican.bo2.impl.open.workers;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
@@ -20,11 +21,26 @@ import gr.interamerican.bo2.arch.exceptions.UnexpectedException;
 import gr.interamerican.bo2.arch.ext.Codified;
 import gr.interamerican.bo2.arch.ext.TypedSelectable;
 import gr.interamerican.bo2.impl.open.runtime.AbstractBo2RuntimeCmd;
+import gr.interamerican.bo2.samples.archutil.BeanWithBeanWithFirst;
+import gr.interamerican.bo2.samples.archutil.BeanWithFirst;
+import gr.interamerican.bo2.samples.operations.EmptyOperation;
+import gr.interamerican.bo2.samples.providers.EmptyProvider;
 import gr.interamerican.bo2.samples.queries.TsEntitiesQueryImpl;
+import gr.interamerican.bo2.samples.workers.EmptyRule;
+import gr.interamerican.bo2.samples.workers.EmptyWorker;
+import gr.interamerican.bo2.samples.workers.Increment;
 import gr.interamerican.bo2.utils.Utils;
 import gr.interamerican.bo2.utils.adapters.Transformation;
 
 import java.util.List;
+
+
+
+
+
+
+
+import junit.framework.Assert;
 
 import org.junit.Test;
 
@@ -103,30 +119,106 @@ public class TestWorkerUtils {
 	 * @throws UnexpectedException 
 	 */
 	@Test
-	public void testExecute() 
+	public void testCreate() 
 	throws UnexpectedException, DataException, LogicException {
 		new AbstractBo2RuntimeCmd() {
-
-			@SuppressWarnings("static-access")
+			
 			@Override
 			public void work() throws LogicException, DataException,
-					InitializationException, UnexpectedException {
-				query.init(this.getProvider());
-				query.open();
-				query.execute();
-				List<CodifiedImpl> list = utils.queryTransformedResultsAsList(query, new Adapter());
-				assertTrue(list.size()>0);
+			InitializationException, UnexpectedException {
+				BeanWithFirst bean = new BeanWithFirst();
+				BeanWithBeanWithFirst input = new BeanWithBeanWithFirst(bean);				
+				Increment increment = 
+					WorkerUtils.create(Increment.class.getName(), new EmptyProvider(), input);
+				assertEquals(bean, increment.getBean());		
 			}
 		}.execute();
 	}
 	
+	/**
+	 * tests queryTransformedResultsAsList
+	 * 
+	 * @throws LogicException 
+	 * @throws DataException 
+	 * @throws UnexpectedException 
+	 */
+	@Test
+	public void testExecute_with3() 
+	throws UnexpectedException, DataException, LogicException {
+		new AbstractBo2RuntimeCmd() {
+			
+			@Override
+			public void work() throws LogicException, DataException,
+			InitializationException, UnexpectedException {
+				BeanWithFirst bean = new BeanWithFirst();
+				BeanWithBeanWithFirst input = new BeanWithBeanWithFirst(bean);				
+				WorkerUtils.execute(Increment.class.getName(), new EmptyProvider(), input);
+				assertEquals(Integer.valueOf(1), bean.getFirst());		
+			}
+		}.execute();
+	}
 	
+	/**
+	 * tests queryTransformedResultsAsList
+	 * 
+	 * @throws LogicException 
+	 * @throws DataException 
+	 * @throws UnexpectedException 
+	 */
+	@Test
+	public void testExecute_with2() 
+	throws UnexpectedException, DataException, LogicException {
+		new AbstractBo2RuntimeCmd() {			
+			@Override
+			public void work() throws LogicException, DataException,
+			InitializationException, UnexpectedException {								
+				WorkerUtils.execute(EmptyOperation.class.getName(), new EmptyProvider());						
+			}
+		}.execute();
+	}
 	
+	/**
+	 * tests queryTransformedResultsAsList
+	 * 
+	 * @throws LogicException 
+	 * @throws DataException 
+	 * @throws UnexpectedException 
+	 */
+	@Test
+	public void testApply_with3() 
+	throws UnexpectedException, DataException, LogicException {
+		new AbstractBo2RuntimeCmd() {
+			
+			@Override
+			public void work() throws LogicException, DataException,
+			InitializationException, UnexpectedException {
+				BeanWithFirst bean = new BeanWithFirst();
+				BeanWithBeanWithFirst input = new BeanWithBeanWithFirst(bean);				
+				WorkerUtils.apply(Increment.class.getName(), new EmptyProvider(), input);
+				assertEquals(Integer.valueOf(1), bean.getFirst());		
+			}
+		}.execute();
+	}
 	
-	
-	
-	
-	
+	/**
+	 * tests queryTransformedResultsAsList
+	 * 
+	 * @throws LogicException 
+	 * @throws DataException 
+	 * @throws UnexpectedException 
+	 */
+	@Test
+	public void testApply_with2() 
+	throws UnexpectedException, DataException, LogicException {
+		new AbstractBo2RuntimeCmd() {			
+			@Override
+			public void work() throws LogicException, DataException,
+			InitializationException, UnexpectedException {				
+				WorkerUtils.apply(EmptyRule.class.getName(), new EmptyProvider());						
+			}
+		}.execute();
+	}
+
 	
 	
 	
