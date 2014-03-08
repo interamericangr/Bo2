@@ -23,7 +23,7 @@ import org.apache.wicket.extensions.markup.html.repeater.data.table.DataTable;
  * @param <B> 
  *        Type of entity presented in the data table.
  */
-public interface DataTableCreator<B extends Serializable> {
+public interface DataTableCreator<B extends Serializable> extends Serializable {
 	
 	/**
 	 * Creates the {@link DataTable}.

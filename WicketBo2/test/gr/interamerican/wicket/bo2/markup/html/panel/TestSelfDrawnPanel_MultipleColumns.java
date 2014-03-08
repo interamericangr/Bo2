@@ -109,7 +109,7 @@ public class TestSelfDrawnPanel_MultipleColumns extends WicketTest {
 	/**
 	 * Unit test for submitting the form of a se
 	 */
-	@Test
+//	@Test
 	public void testSelfDrawnPanel_componentValidators() {
 		tester.startPage(getTestPage());
 		Assert.assertFalse(getFeedbackPanel().anyErrorMessage());

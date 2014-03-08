@@ -30,7 +30,7 @@ import org.apache.wicket.markup.html.form.Form;
  */
 public abstract class AbstractCommandCallback 
 extends AbstractEventHandler<Component>
-implements Serializable, CallbackAction, SimpleCommand {
+implements CallbackAction, SimpleCommand {
 	
 	/**
 	 * serial uid.

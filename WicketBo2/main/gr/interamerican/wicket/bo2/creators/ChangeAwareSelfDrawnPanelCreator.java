@@ -19,6 +19,7 @@ import gr.interamerican.wicket.def.PanelDependent;
 import gr.interamerican.wicket.markup.html.panel.service.ModeAwareBeanPanelDef;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 import org.apache.wicket.markup.html.panel.Panel;
@@ -40,9 +41,14 @@ public class ChangeAwareSelfDrawnPanelCreator
 extends SelfDrawnPanelCreator<B> {
 	
 	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Wicket ids of components that get a onChange updating behavior.
 	 */
-	Set<String> onChangeUpdatingComponents;
+	HashSet<String> onChangeUpdatingComponents;
 	
 	/**
 	 * Action that is executed onChange
@@ -59,7 +65,7 @@ extends SelfDrawnPanelCreator<B> {
 	public ChangeAwareSelfDrawnPanelCreator(BusinessObjectDescriptor<B> beanDescriptor, 
 			Set<String> onChangeUpdatingComponents, C onChangeAction) {
 		super(beanDescriptor);
-		this.onChangeUpdatingComponents = onChangeUpdatingComponents;
+		this.onChangeUpdatingComponents = new HashSet<String>(onChangeUpdatingComponents);
 		this.onChangeAction = onChangeAction;
 	}
 	

@@ -44,10 +44,14 @@ public class PropertiesBasedMultipleSelectionsDataTableCreator<B extends Seriali
 extends PropertiesBasedDataTableCreator<B>{
 	
 	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	/**
 	 * Label of select column.
 	 */
 	protected IModel<String> selectColumnLabelModel;
-	 
 		
 	/**
 	 * Disable paging.

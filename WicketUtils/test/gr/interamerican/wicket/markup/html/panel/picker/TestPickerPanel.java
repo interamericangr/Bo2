@@ -34,6 +34,7 @@ import org.apache.wicket.markup.html.form.Radio;
 import org.apache.wicket.markup.html.form.RadioGroup;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.serialize.java.JavaSerializer;
 import org.junit.Test;
 
 /**
@@ -88,7 +89,10 @@ public class TestPickerPanel extends WicketTest {
 	@Test
 	public void testCreation() {
 		PickerPanelDef<BeanWithOrderedFields> def = createDef(); 
-		tester.startPage(getTestPage(new PickerPanel<BeanWithOrderedFields>(def)));
+		PickerPanel<BeanWithOrderedFields> panel = new PickerPanel<BeanWithOrderedFields>(def);
+		tester.startPage(getTestPage(panel));
+		
+		new JavaSerializer(tester.getApplication().getApplicationKey()).serialize(panel);
 
 		tester.assertComponent(path("tableForm:radioGroup"), RadioGroup.class);
 		tester.assertComponent(path("tableForm:radioGroup:listTable"), DataTable.class);

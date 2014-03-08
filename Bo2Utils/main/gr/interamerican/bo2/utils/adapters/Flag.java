@@ -12,11 +12,13 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.adapters;
 
+import java.io.Serializable;
+
 /**
  * Flag is an adapter interface for any class that has
  * an operation that returns a boolean value.
  */
-public interface Flag {
+public interface Flag extends Serializable {
 	
 	/**
 	 * Returns true if the flag is up.

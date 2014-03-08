@@ -16,13 +16,20 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.io.Serializable;
+
 import org.junit.Test;
 
 /**
  * Unit tests for {@link MethodBasedCallbackAction}.
  */
 @SuppressWarnings("nls")
-public class TestMethodBasedCallbackAction {
+public class TestMethodBasedCallbackAction implements Serializable { //HACK
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	/**
 	 * Value used for testing.
 	 */

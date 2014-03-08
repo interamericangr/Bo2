@@ -27,6 +27,11 @@ public abstract class AbstractDataTableCreator<B extends Serializable>
 implements DataTableCreator<B> {
 	
 	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	/**
 	 * Rows per page.
 	 */
 	protected Integer rowsPerPage;

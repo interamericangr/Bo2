@@ -15,6 +15,9 @@ package gr.interamerican.wicket.bo2.callbacks;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+
+import java.io.Serializable;
+
 import gr.interamerican.bo2.arch.exceptions.LogicException;
 
 import org.junit.Test;
@@ -23,7 +26,12 @@ import org.junit.Test;
  * Unit tests for {@link MethodBasedBo2WicketBlock}.
  */
 @SuppressWarnings("nls")
-public class TestMethodBasedBo2WicketBlock {
+public class TestMethodBasedBo2WicketBlock implements Serializable { //HACK
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	/**
 	 * Value used for testing.
 	 */

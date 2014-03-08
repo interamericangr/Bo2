@@ -21,6 +21,10 @@ import org.apache.wicket.Component;
 public abstract class AbstractCallbackAction 
 implements CallbackAction {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * Caller component.
 	 */
 	protected Component caller;

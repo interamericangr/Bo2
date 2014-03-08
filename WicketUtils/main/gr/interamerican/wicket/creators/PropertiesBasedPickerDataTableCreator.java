@@ -39,6 +39,11 @@ public class PropertiesBasedPickerDataTableCreator
 extends PropertiesBasedDataTableCreator<B>{
 	
 	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	/**
 	 * Label of select column.
 	 */
 	 IModel<String> selectColumnLabelModel;

@@ -44,6 +44,11 @@ public class PropertiesBasedDataTableCreator
 extends AbstractDataTableCreator<B>{
 	
 	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	/**
 	 * Class of B
 	 */
 	protected Class<B> beanClass;
@@ -71,7 +76,7 @@ extends AbstractDataTableCreator<B>{
 	/**
 	 * Extra columns. These are appended after the property columns.
 	 */
-	protected List<IColumn<B>> extraColumns = new ArrayList<IColumn<B>>();
+	protected ArrayList<IColumn<B>> extraColumns = new ArrayList<IColumn<B>>();
 	
 	/**
 	 * Indicates if this table will be tolerant to faulty property expressions.

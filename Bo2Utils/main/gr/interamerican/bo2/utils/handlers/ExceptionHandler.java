@@ -12,12 +12,14 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.handlers;
 
+import java.io.Serializable;
+
 /**
  * <p>Abstraction for an object that handles exceptions.
  * 
  * <p>The implementor may re-throw the exception as an unchecked exception.
  */
-public interface ExceptionHandler {
+public interface ExceptionHandler extends Serializable {
 	
 	/**
 	 * Handles the specified thrown exception.

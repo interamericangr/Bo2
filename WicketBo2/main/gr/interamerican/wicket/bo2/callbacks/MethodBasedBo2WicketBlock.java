@@ -16,6 +16,8 @@ import gr.interamerican.bo2.utils.handlers.EventHandlerComponent;
 import gr.interamerican.bo2.utils.handlers.MethodInvocator;
 import gr.interamerican.bo2.utils.handlers.ThrowingExceptionHandler;
 
+import java.io.Serializable;
+
 /**
  * A {@link MethodBasedBo2WicketBlock} is a Bo2WicketBlock that 
  * executes a method of its owner object.
@@ -36,7 +38,7 @@ extends Bo2WicketBlock {
 	/**
 	 * Method invocator.
 	 */
-	MethodInvocator mi;
+	transient MethodInvocator mi;
 	
 	/**
 	 * method name. 
@@ -45,7 +47,7 @@ extends Bo2WicketBlock {
 	/**
 	 * method owner.
 	 */
-	Object owner;
+	Serializable owner;
 			
 	/**
 	 * Creates a new MethodBasedBo2WicketBlock object. 
@@ -53,17 +55,28 @@ extends Bo2WicketBlock {
 	 * @param methodName
 	 * @param owner
 	 */
-	public MethodBasedBo2WicketBlock(String methodName, Object owner) {
+	public MethodBasedBo2WicketBlock(String methodName, Serializable owner) {
 		/* don't call super() */
 		this.methodName = methodName;
 		this.owner = owner;
 		this.handler = new EventHandlerComponent<Object>(ThrowingExceptionHandler.INSTANCE);
-		mi = new MethodInvocator(handler, methodName, owner);
+		methodInvocator();
+	}
+	
+	/**
+	 * Initialized transient field {@link #mi}
+	 * @return MethodInvocator.
+	 */
+	MethodInvocator methodInvocator() {
+		if(mi==null) {
+			mi = new MethodInvocator(handler, methodName, owner);
+		}
+		return mi;
 	}
 	
 	@Override
 	public void work() {		
-		mi.invoke();
+		methodInvocator().invoke();
 	}
 	
 	@Override

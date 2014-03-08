@@ -12,6 +12,8 @@
  ******************************************************************************/
 package gr.interamerican.wicket.callback;
 
+import java.io.Serializable;
+
 import gr.interamerican.bo2.utils.handlers.EventHandlerComponent;
 import gr.interamerican.bo2.utils.handlers.MethodInvocator;
 import gr.interamerican.bo2.utils.handlers.ThrowingExceptionHandler;
@@ -36,7 +38,7 @@ extends AbstractCommandCallback {
 	/**
 	 * Method invocator.
 	 */
-	MethodInvocator mi;
+	transient MethodInvocator mi;
 	
 	/**
 	 * method name. 
@@ -53,12 +55,23 @@ extends AbstractCommandCallback {
 	 * @param methodName
 	 * @param owner
 	 */
-	public MethodBasedCallbackAction(String methodName, Object owner) {
+	public MethodBasedCallbackAction(String methodName, Serializable owner) {
 		super();
 		this.methodName = methodName;
 		this.owner = owner;
 		this.handler = new EventHandlerComponent<Object>(ThrowingExceptionHandler.INSTANCE);
-		mi = new MethodInvocator(handler, methodName, owner);
+		methodInvocator();
+	}
+	
+	/**
+	 * Initialized transient field {@link #mi}
+	 * @return MethodInvocator.
+	 */
+	MethodInvocator methodInvocator() {
+		if(mi==null) {
+			mi = new MethodInvocator(handler, methodName, owner);
+		}
+		return mi;
 	}
 	
 	@Override

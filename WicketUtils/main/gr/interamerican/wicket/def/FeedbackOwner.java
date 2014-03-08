@@ -12,12 +12,14 @@
  ******************************************************************************/
 package gr.interamerican.wicket.def;
 
+import java.io.Serializable;
+
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 
 /**
  * Owner of a feedbackpanel.
  */
-public interface FeedbackOwner {
+public interface FeedbackOwner extends Serializable{
 	/**
 	 * Gets the feedback panel of this object.
 	 * 

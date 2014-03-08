@@ -12,13 +12,17 @@
  ******************************************************************************/
 package gr.interamerican.wicket.bo2.creators;
 
+import gr.interamerican.bo2.arch.ext.Cache;
+import gr.interamerican.bo2.arch.utils.CacheRegistry;
 import gr.interamerican.bo2.utils.meta.BusinessObjectDescriptor;
+import gr.interamerican.bo2.utils.meta.BusinessObjectDescriptorOwner;
 import gr.interamerican.bo2.utils.meta.ext.descriptors.CachedEntryBoPropertyDescriptor;
 import gr.interamerican.wicket.bo2.markup.html.panel.SelfDrawnPanel;
 import gr.interamerican.wicket.creators.PanelCreator;
 import gr.interamerican.wicket.markup.html.panel.service.ModeAwareBeanPanelDef;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.wicket.markup.html.panel.Panel;
@@ -27,18 +31,37 @@ import org.apache.wicket.model.CompoundPropertyModel;
 /**
  * {@link PanelCreator} implementation based on {@link SelfDrawnPanel}
  * 
- * @param <B>
- *            type of Bean
- *            
- * @deprecated Use SelfDrawnPanelCreatorWithCachedBod because of this being non-Serializable
+ * @param <B> type of Bean
+ * @param <C> type of Cache code
+ * 
+ * @see CacheRegistry
+ * @see Cache
+ * @see BusinessObjectDescriptor
  */
-@Deprecated
-public class SelfDrawnPanelCreator<B extends Serializable> implements PanelCreator<B> {
+public class SelfDrawnPanelCreatorWithCachedBod
+<B extends Serializable, 
+ C extends Comparable<? super C>> 
+implements PanelCreator<B> {
 
 	/**
-	 * B descriptor.
+	 * serialVersionUID
 	 */
-	BusinessObjectDescriptor<B> beanDescriptor; //TODO: transient or make serializable
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * Name of cache that holds the BusinessObjectDescriptor
+	 */
+	String cacheName;
+	
+	/**
+	 * BusinessObjectDescriptor entries typeId
+	 */
+	Long descriptorTypeId;
+	
+	/**
+	 * BusinessObjectDescriptor code
+	 */
+	C descriptorCode;
 	
 	/**
 	 * Number of columns.
@@ -50,44 +73,51 @@ public class SelfDrawnPanelCreator<B extends Serializable> implements PanelCreat
 	 * value is subListCd for the {@link CachedEntryBoPropertyDescriptor}
 	 * that corresponds to the name.
 	 */
-	private final Map<String, Long> dropDownFix;
+	private HashMap<String, Long> dropDownFix;
 
 	/**
 	 * Creates a new SelfDrawnPanelCreator object.
 	 * 
-	 * @param beanDescriptor
+	 * @param cacheName 
+	 * @param descriptorTypeId 
+	 * @param descriptorCode 
 	 */
-	public SelfDrawnPanelCreator(BusinessObjectDescriptor<B> beanDescriptor) {
-		super();
-		this.beanDescriptor = beanDescriptor;
-		this.dropDownFix = null;
+	public SelfDrawnPanelCreatorWithCachedBod(String cacheName, Long descriptorTypeId, C descriptorCode) {
+		this(cacheName, descriptorTypeId, descriptorCode, 1, null);
 	}
 
 	/**
 	 * Creates a new SelfDrawnPanelCreator object.
 	 * 
-	 * @param beanDescriptor
+	 * @param cacheName 
+	 * @param descriptorTypeId 
+	 * @param descriptorCode 
 	 * @param columns 
 	 */
-	public SelfDrawnPanelCreator(BusinessObjectDescriptor<B> beanDescriptor, int columns) {
-		super();
-		this.beanDescriptor = beanDescriptor;
-		this.columns = columns;
-		this.dropDownFix = null;
+	public SelfDrawnPanelCreatorWithCachedBod(String cacheName, Long descriptorTypeId, C descriptorCode, int columns) {
+		this(cacheName, descriptorTypeId, descriptorCode, columns, null);
 	}
 	
 	/**
 	 * Creates a new SelfDrawnPanelCreator object.
+	 * @param cacheName 
+	 * @param descriptorTypeId 
+	 * @param descriptorCode 
 	 * 
-	 * @param beanDescriptor
 	 * @param columns 
 	 * @param dropDownFix 
 	 */
-	public SelfDrawnPanelCreator(BusinessObjectDescriptor<B> beanDescriptor, int columns, Map<String, Long> dropDownFix) {
+	public SelfDrawnPanelCreatorWithCachedBod(String cacheName, Long descriptorTypeId, C descriptorCode, int columns, Map<String, Long> dropDownFix) {
 		super();
-		this.beanDescriptor = beanDescriptor;
+		this.cacheName = cacheName;
+		this.descriptorTypeId = descriptorTypeId;
+		this.descriptorCode = descriptorCode;
 		this.columns = columns;
-		this.dropDownFix = dropDownFix;
+		if(dropDownFix!=null) {
+			this.dropDownFix = new HashMap<String, Long>(dropDownFix);
+		} else {
+			this.dropDownFix = null;
+		}
 	}
 
 	public Panel createPanel(ModeAwareBeanPanelDef<B> definition) {
@@ -96,7 +126,16 @@ public class SelfDrawnPanelCreator<B extends Serializable> implements PanelCreat
 		}
 		String id = definition.getWicketId();
 		CompoundPropertyModel<B> model = (CompoundPropertyModel<B>) definition.getBeanModel();
-		return new SelfDrawnPanel<B>(id, model, beanDescriptor, columns, dropDownFix);
+		return new SelfDrawnPanel<B>(id, model, beanDescriptor(), columns, dropDownFix);
+	}
+	
+	/**
+	 * @return Gets a cached BusinessObjectDescriptor
+	 */
+	@SuppressWarnings("unchecked")
+	BusinessObjectDescriptor<B> beanDescriptor() {
+		BusinessObjectDescriptorOwner bodOwner = (BusinessObjectDescriptorOwner) CacheRegistry.<C>getRegisteredCache(cacheName).get(descriptorTypeId, descriptorCode);
+		return (BusinessObjectDescriptor<B>) bodOwner.getBusinessObjectDescriptor();
 	}
 
 }

@@ -12,6 +12,8 @@
  ******************************************************************************/
 package gr.interamerican.wicket.condition;
 
+import java.io.Serializable;
+
 import org.apache.wicket.ajax.AjaxRequestTarget;
 
 /**
@@ -21,7 +23,7 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
  * @param <T>
  *        Type of object being checked. 
  */
-public interface AjaxEnabledCondition<T> {
+public interface AjaxEnabledCondition<T> extends Serializable {
 	
 	/**
 	 * Checks if the condition is met for the specified object.

@@ -12,6 +12,8 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.meta.formatters;
 
+import java.io.Serializable;
+
 /**
  * A {@link Formatter} creates string representation of objects.
  * 
@@ -23,7 +25,7 @@ package gr.interamerican.bo2.utils.meta.formatters;
  * @param <T> Type of objects represented as strings by the writer. 
  * 
  */
-public interface Formatter<T> {
+public interface Formatter<T> extends Serializable {
 	
 	/**
 	 * Creates a string representation of an object.

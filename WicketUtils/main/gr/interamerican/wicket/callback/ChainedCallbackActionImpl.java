@@ -24,9 +24,14 @@ import org.apache.wicket.markup.html.form.Form;
 public class ChainedCallbackActionImpl extends AbstractCallbackAction implements ChainedCallbackAction {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Actions.
 	 */
-	Deque<CallbackAction> actions = new ArrayDeque<CallbackAction>();
+	ArrayDeque<CallbackAction> actions = new ArrayDeque<CallbackAction>();
 	
 	/**
 	 * Has this {@link CallbackAction} been called?

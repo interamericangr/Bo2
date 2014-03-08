@@ -12,6 +12,8 @@
  ******************************************************************************/
 package gr.interamerican.wicket.callback;
 
+import java.io.Serializable;
+
 import gr.interamerican.bo2.utils.handlers.Called;
 
 import org.apache.wicket.Component;
@@ -23,7 +25,7 @@ import org.apache.wicket.markup.html.form.Form;
  * the command pattern in Wicket components.
  */
 public interface CallbackAction
-extends Called<Component> {
+extends Called<Component>, Serializable {
 	
 	/**
 	 * Method that provides means for other entities to request a callBack

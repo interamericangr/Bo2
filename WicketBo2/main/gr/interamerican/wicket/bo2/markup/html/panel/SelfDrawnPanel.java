@@ -31,6 +31,7 @@ import gr.interamerican.wicket.util.resource.StringAsResourceStream;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -159,7 +160,7 @@ implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 	 * value is subListCd for the {@link CachedEntryBoPropertyDescriptor}
 	 * that corresponds to the name.
 	 */
-	private final Map<String, Long> dropDownFix;
+	private final HashMap<String, Long> dropDownFix;
 
 	/**
 	 * Creates a new SelfDrawnPanel object with 1 column and no drop down fixture.
@@ -196,7 +197,11 @@ implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 
 		this.model = model;
 		this.columns = columns;
-		this.dropDownFix = dropDownFix;
+		if(dropDownFix != null) {
+			this.dropDownFix = new HashMap<String, Long>(dropDownFix);
+		} else {
+			this.dropDownFix = null;
+		}
 		this.markupKey = markupKey(boDescriptor);
 
 		String labelStr = boDescriptor.getLabel();
