@@ -1,4 +1,4 @@
-i#!/bin/sh
+#!/bin/sh
 mvn release:prepare
 e="$?"
 if [ $e -ne 0 ]
