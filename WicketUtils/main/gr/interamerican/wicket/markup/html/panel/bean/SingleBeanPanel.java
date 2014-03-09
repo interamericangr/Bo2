@@ -184,7 +184,6 @@ extends ServicePanelWithBack {
 
 		beanForm = new Form<B>(FORM_ID, getDefinition().getBeanModel());
 		beanForm.setOutputMarkupId(true);
-		beanForm.setMultiPart(true);
 		if(getDefinition().getSingleBeanFormContainsFileUpload()) {
 			beanForm.setMultiPart(true);
 			beanForm.add(new AttributeModifier("enctype", new Model<String>("multipart/form-data")));
