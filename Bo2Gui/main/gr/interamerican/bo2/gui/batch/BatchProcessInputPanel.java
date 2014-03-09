@@ -20,8 +20,6 @@ import java.util.Properties;
 
 /**
  * Panel for invoking a batch process.
- * 
- *
  */
 public class BatchProcessInputPanel extends BPanelForMap<Properties> {
 	
@@ -29,8 +27,6 @@ public class BatchProcessInputPanel extends BPanelForMap<Properties> {
 	 * serial version id.
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	
 	
 	/**
 	 * Creates a new BatchProcessInputPanel object. 
@@ -53,7 +49,6 @@ public class BatchProcessInputPanel extends BPanelForMap<Properties> {
 		this(model,false);
 	}
 	
-	
 	@Override
 	protected TextFieldProperties componentProperties() {
 		boolean editable = isEditable();	
@@ -71,10 +66,4 @@ public class BatchProcessInputPanel extends BPanelForMap<Properties> {
 	boolean isEditable() {
 		return (Boolean) paintParameter;
 	}
-	
-	
-
-
-	
-	
 }
