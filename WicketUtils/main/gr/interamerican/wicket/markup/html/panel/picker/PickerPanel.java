@@ -176,6 +176,7 @@ extends ListTablePanel<B> {
 		tableForm.add(selectButton);
 		tableForm.add(secondSelectButton);
 		tableForm.add(backButton);
+		tableForm.setMultiPart(true);
 		add(tableForm);		
 		add(feedBackPanel);
 		if(getDefinition().getItemSelectedAction() == null) {
