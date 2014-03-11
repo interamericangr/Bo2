@@ -45,6 +45,11 @@ import gr.interamerican.bo2.utils.DateUtils;
 import gr.interamerican.bo2.utils.Debug;
 import gr.interamerican.bo2.utils.annotations.Child;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.Date;
 import java.util.Set;
 
@@ -767,10 +772,12 @@ public class TestScenarioInvoiceHibernateOperations {
 	 * @throws UnexpectedException
 	 * @throws DataException
 	 * @throws LogicException
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
 	 */
 	@Test
 	public void testReattachToSession_deSerializedInstance() 
-	throws UnexpectedException, DataException, LogicException {
+	throws UnexpectedException, DataException, LogicException, IOException, ClassNotFoundException {
 		
 		/* first, store the samples - including a Customer */
 		new AbstractBo2RuntimeCmd() {
@@ -799,6 +806,27 @@ public class TestScenarioInvoiceHibernateOperations {
 		}.execute();
 		Customer c = invoice.getCustomer().getCustomer();
 		Assert.assertTrue(c instanceof HibernateProxy);
+		Assert.assertTrue(((HibernateProxy)c).getHibernateLazyInitializer().isUninitialized());
+		
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(baos);
+        oos.writeObject(invoice);
+        oos.flush();
+        baos.flush();
+        oos.close();
+        baos.close();
+        ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+        ObjectInputStream ois = new ObjectInputStream(bais);
+        invoice = (Invoice) ois.readObject();
+		
+        new AbstractBo2RuntimeCmd() {
+			@Override
+			public void work() throws LogicException, DataException, InitializationException, UnexpectedException {
+				PoUtils.reattach(invoice, getProvider());
+				Assert.assertEquals(taxId, invoice.getCustomer().getCustomer().getTaxId());
+			}
+		}.execute();
+		
 	}
 	
 	/**
