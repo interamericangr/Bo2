@@ -20,6 +20,11 @@ import gr.interamerican.bo2.utils.meta.formatters.Formatter;
  */
 public class NamedFormatter implements Formatter<Named> {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public String format(Named t) {
 		return t.getName();
 	}

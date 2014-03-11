@@ -165,6 +165,11 @@ public class SimpleFilesPanel extends ServicePanel {
 	 */
 	private class BeforeSubmitAction extends AbstractCallbackAction {
 		
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		public void callBack(AjaxRequestTarget target) {
 			callback();
 		}

@@ -24,6 +24,11 @@ import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
 public abstract class AbstractParser<T> 
 implements Parser<T> {
 	
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	public T parse(String value) throws ParseException {
 		if (value==null || StringConstants.NULL.equalsIgnoreCase(value)) {
 			return null;

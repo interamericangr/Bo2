@@ -30,6 +30,10 @@ public class NrCachedEntryOwnerFormatter
 extends NullReturningFormatter<T>{
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * C formatter.
 	 */
 	Formatter<C> codeFormatter;

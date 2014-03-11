@@ -8,6 +8,11 @@ import interamerican.architecture.PersistentObject;
 public class SampleLegacyPo implements PersistentObject {
 	
 	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	/**
 	 * id.
 	 */
 	private Integer id;

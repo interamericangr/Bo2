@@ -41,6 +41,10 @@ implements DataTableCreator<BeanWithOrderedFields> {
 
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * rows per page.
 	 */
 	public Integer rowsPerPage = 0;

@@ -21,6 +21,10 @@ import gr.interamerican.bo2.utils.meta.formatters.ObjectFormatter;
 public class NrObjectFormatter extends NullReturningFormatter<Object> {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * Singleton.
 	 */
 	public static final NrObjectFormatter INSTANCE = new NrObjectFormatter();

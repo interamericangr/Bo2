@@ -22,6 +22,11 @@ public class NfMultiFormatter
 extends NullFilteringFormatter<Object> {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Creates a new NfMultiFormatter object.
 	 */
 	public NfMultiFormatter() {

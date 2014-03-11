@@ -22,6 +22,10 @@ import org.apache.wicket.markup.html.form.Form;
 public class CallbackWrapper implements CallbackAction {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * Callback action wrapped by this wrapper.
 	 */
 	CallbackAction action;

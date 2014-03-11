@@ -33,6 +33,10 @@ import org.apache.wicket.util.resource.IResourceStream;
  */
 public class ComponentFactoryPage extends WebPage implements IMarkupResourceStreamProvider,IMarkupCacheKeyProvider{
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * A dummy Bean.
 	 */
 	@SuppressWarnings("unused")

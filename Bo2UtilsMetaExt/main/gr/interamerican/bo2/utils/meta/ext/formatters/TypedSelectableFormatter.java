@@ -27,6 +27,11 @@ import gr.interamerican.bo2.utils.meta.formatters.Formatter;
 public class TypedSelectableFormatter 
 implements Formatter<TypedSelectable<?>> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public String format(TypedSelectable<?> t) {			
 		return StringUtils.concat(
 				StringUtils.toString(t.getTypeId()),

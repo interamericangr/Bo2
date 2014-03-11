@@ -25,6 +25,11 @@ import java.text.DecimalFormat;
 public class NrDecimalFormatter<T extends Number> extends NullReturningFormatter<T> {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Creates a new NfDecimalFormatter object. 
 	 *
 	 * @param df

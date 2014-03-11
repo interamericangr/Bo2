@@ -20,6 +20,11 @@ import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
  */
 public class StringParser implements Parser<String>{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public String parse(String value) throws ParseException {
 		return value;
 	}

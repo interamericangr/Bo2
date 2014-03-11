@@ -20,6 +20,11 @@ import gr.interamerican.bo2.utils.adapters.Flag;
 public abstract class AbstractSampleFlag implements Flag {
 	
 	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	/**
 	 * Up message.
 	 */
 	public static String UP_MESSAGE = "up"; //$NON-NLS-1$

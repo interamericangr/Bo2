@@ -19,6 +19,10 @@ import gr.interamerican.bo2.utils.StringConstants;
  */
 public class BooleanFormatter implements Formatter<Boolean> {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * Literal for true.
 	 */
 	String trueLiteral;

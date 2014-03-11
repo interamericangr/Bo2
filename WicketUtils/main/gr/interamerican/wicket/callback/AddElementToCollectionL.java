@@ -26,6 +26,10 @@ import java.util.Collection;
 public class AddElementToCollectionL<B extends Serializable> 
 extends AddElementToCollection<B> {
 	
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;	
 	
 	/**
 	 * Creates a new AddElementToCollectionAction object. 

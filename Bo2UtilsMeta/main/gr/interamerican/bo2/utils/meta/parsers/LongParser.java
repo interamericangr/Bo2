@@ -21,6 +21,11 @@ import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
  */
 public class LongParser extends AbstractParser<Long>{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	protected Long mainParse(String value) throws ParseException {
 		if(MIN_VALUE.equalsIgnoreCase(value)){

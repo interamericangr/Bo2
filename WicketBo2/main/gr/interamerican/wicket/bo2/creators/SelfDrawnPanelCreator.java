@@ -36,6 +36,11 @@ import org.apache.wicket.model.CompoundPropertyModel;
 public class SelfDrawnPanelCreator<B extends Serializable> implements PanelCreator<B> {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * B descriptor.
 	 */
 	BusinessObjectDescriptor<B> beanDescriptor; //TODO: transient or make serializable

@@ -26,6 +26,10 @@ import java.math.RoundingMode;
 public class BigDecimalParser extends AbstractParser<BigDecimal> {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * Decimal digits.
 	 */
 	int decimalDigits = -1;

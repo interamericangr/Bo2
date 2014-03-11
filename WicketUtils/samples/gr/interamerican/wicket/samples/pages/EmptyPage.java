@@ -18,5 +18,10 @@ import org.apache.wicket.markup.html.WebPage;
  * Empty page.
  */
 public class EmptyPage extends WebPage {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/* empty */
 }

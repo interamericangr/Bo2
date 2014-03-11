@@ -21,6 +21,11 @@ public class NrBooleanFormatter extends NullReturningFormatter<Boolean> {
 
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Creates a new NfBooleanFormatter object. 
 	 *
 	 * @param trueLiteral

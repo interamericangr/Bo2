@@ -24,6 +24,10 @@ public class ThrowingExceptionHandler
 implements ExceptionHandler {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * Instance.
 	 */
 	public static final ThrowingExceptionHandler INSTANCE = 

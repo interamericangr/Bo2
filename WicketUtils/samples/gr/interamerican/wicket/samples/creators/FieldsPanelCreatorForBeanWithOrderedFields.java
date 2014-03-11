@@ -25,6 +25,11 @@ import org.apache.wicket.markup.html.panel.Panel;
 public class FieldsPanelCreatorForBeanWithOrderedFields 
 implements PanelCreator<BeanWithOrderedFields> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public Panel createPanel(ModeAwareBeanPanelDef<BeanWithOrderedFields> definition) {
 		return new BeanWithOrderedFieldsFormPanel(definition.getWicketId(), definition.getBeanModel());
 	}

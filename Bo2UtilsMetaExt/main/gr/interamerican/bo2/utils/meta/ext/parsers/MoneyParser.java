@@ -29,6 +29,10 @@ public class MoneyParser
 implements Parser<Money> {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * Big decimal parser
 	 */
 	private BigDecimalParser bdParser;

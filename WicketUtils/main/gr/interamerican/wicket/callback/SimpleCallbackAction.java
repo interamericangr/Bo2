@@ -26,6 +26,11 @@ public abstract class SimpleCallbackAction
 extends AbstractCallbackAction {
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public void callBack(AjaxRequestTarget target) {
 		work();
 	}

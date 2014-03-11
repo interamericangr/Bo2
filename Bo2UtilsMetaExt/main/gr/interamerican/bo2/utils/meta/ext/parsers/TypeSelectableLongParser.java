@@ -28,6 +28,11 @@ public class  TypeSelectableLongParser
 implements Parser<TypedSelectable<Long>> {
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public TypedSelectable<Long> parse(String value) throws ParseException {
 		String[] splitValues = value.split(StringConstants.COMMA);
 		Long typeId = convertToLong(splitValues[0]) ;

@@ -530,6 +530,11 @@ extends PickerPanel<B> {
 	private class DeleteItemAction extends CallbackWrapper {
 		
 		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		/**
 		 * Creates a new CrudPickerPanel.DeleteItemAction object. 
 		 * @param action 
 		 */
@@ -561,6 +566,11 @@ extends PickerPanel<B> {
 	 */
 	private class EditItemAction extends CallbackWrapper {
 		
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		/**
 		 * Creates a new CrudPickerPanel.DeleteItemAction object. 
 		 * @param action 
@@ -601,6 +611,11 @@ extends PickerPanel<B> {
 	private class NewItemAction extends CallbackWrapper {
 		
 		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		/**
 		 * Creates a new CrudPickerPanel.NewItemAction object.
 		 * 
 		 * @param action 
@@ -624,6 +639,11 @@ extends PickerPanel<B> {
 	 * Hides the <code>newOrEditPanel</code>.
 	 */
 	private class HideBeanPanelAction implements CallbackAction {
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 
 		public void callBack(AjaxRequestTarget target) { hide(target); }
 		public void callBack(AjaxRequestTarget target, Form<?> form) { hide(target); }

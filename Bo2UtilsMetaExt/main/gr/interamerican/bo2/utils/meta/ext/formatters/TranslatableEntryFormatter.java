@@ -14,6 +14,11 @@ import gr.interamerican.bo2.utils.meta.formatters.Formatter;
  */
 public class TranslatableEntryFormatter<L> implements Formatter<TranslatableEntry<?, ?, L>> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	public String format(TranslatableEntry<?, ?, L> t) {
 		L languageId = Bo2Session.<Object, L>getSession().getLanguageId();

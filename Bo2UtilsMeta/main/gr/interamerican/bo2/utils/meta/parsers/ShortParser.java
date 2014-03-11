@@ -21,6 +21,11 @@ import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
  */
 public class ShortParser extends AbstractParser<Short>{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	protected Short mainParse(String value) throws ParseException {
 		if(MIN_VALUE.equalsIgnoreCase(value)){

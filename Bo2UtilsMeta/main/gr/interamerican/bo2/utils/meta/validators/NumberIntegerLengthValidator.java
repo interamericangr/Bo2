@@ -26,6 +26,10 @@ extends AbstractValidator
 implements Validator<T> {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * Maximum length of integer part.
 	 */
 	private int maxIntegerLength;

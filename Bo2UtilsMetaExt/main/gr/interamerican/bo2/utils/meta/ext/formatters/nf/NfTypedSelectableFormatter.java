@@ -22,6 +22,11 @@ import gr.interamerican.bo2.utils.meta.formatters.nf.NullFilteringFormatter;
 public class NfTypedSelectableFormatter extends NullFilteringFormatter<TypedSelectable<?>> {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Creates a new NfObjectFormatter object. 
 	 */
 	public NfTypedSelectableFormatter() {

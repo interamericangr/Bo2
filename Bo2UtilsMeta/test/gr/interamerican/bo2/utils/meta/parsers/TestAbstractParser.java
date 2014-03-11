@@ -28,6 +28,10 @@ public class TestAbstractParser {
 	 * IntegerParser
 	 */
 	AbstractParser<String> parser = new AbstractParser<String>() {
+		/**
+		 * serialVersionUID
+		 */
+		private static final long serialVersionUID = 1L;
 		@Override
 		protected String mainParse(String value) throws ParseException {			
 			return value;

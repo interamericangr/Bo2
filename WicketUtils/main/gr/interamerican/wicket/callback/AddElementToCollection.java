@@ -26,6 +26,11 @@ public abstract class AddElementToCollection<B extends Serializable>
 extends SimpleCallbackAction {
 	
 	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	/**
 	 * Collection.
 	 */
 	Collection<B> collection;

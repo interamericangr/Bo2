@@ -20,6 +20,11 @@ import gr.interamerican.bo2.utils.meta.formatters.ObjectFormatter;
 public class NfObjectFormatter extends NullFilteringFormatter<Object> {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Creates a new NfObjectFormatter object. 
 	 */
 	public NfObjectFormatter() {

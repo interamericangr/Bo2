@@ -20,9 +20,9 @@ package gr.interamerican.bo2.arch.exceptions;
 public class RuleException extends LogicException {
 	
 	/**
-	 * Universal version identifier for serialized class.
+	 * serialVersionUID
 	 */
-	public static final long serialVersionUID = 2L;
+	private static final long serialVersionUID = 1L;
 
     /**
      * Creates a new RuleException.

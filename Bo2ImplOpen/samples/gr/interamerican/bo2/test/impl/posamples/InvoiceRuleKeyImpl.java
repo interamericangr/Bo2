@@ -8,6 +8,10 @@ import gr.interamerican.bo2.test.def.posamples.InvoiceRuleKey;
  */
 public class InvoiceRuleKeyImpl extends AbstractKey implements InvoiceRuleKey {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	String invoiceNo;
 	Long ruleCd;
 	

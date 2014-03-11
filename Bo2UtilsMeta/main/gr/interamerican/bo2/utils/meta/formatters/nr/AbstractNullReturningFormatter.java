@@ -24,6 +24,11 @@ import gr.interamerican.bo2.utils.meta.formatters.Formatter;
  */
 public abstract  class AbstractNullReturningFormatter<T> 
 implements Formatter<T> {
+	
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
 		
 	public String format(T t) {
 		if (t==null) {

@@ -22,12 +22,12 @@ import gr.interamerican.bo2.arch.TransactionManager;
  */
 public abstract class TransactionManagerException extends Exception {
 
-	/**
-	 * Universal version identifier for serialized class. 
-	 */
-	public static final long serialVersionUID = 1L;
-     
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	/**
      * Creates a new DataException with a message.
      * 
      * @param message 

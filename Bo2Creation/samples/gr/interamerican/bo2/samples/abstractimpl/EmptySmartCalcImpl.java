@@ -12,23 +12,16 @@
  ******************************************************************************/
 package gr.interamerican.bo2.samples.abstractimpl;
 
-import gr.interamerican.bo2.creation.annotations.DelegateMethods;
-import gr.interamerican.bo2.creation.annotations.DelegateProperties;
-import gr.interamerican.bo2.creation.annotations.Property;
-import gr.interamerican.bo2.samples.bean.IBeanWithIdAndNameImpl;
-import gr.interamerican.bo2.samples.ibean.IBeanWithIdAndName;
 import gr.interamerican.bo2.samples.interfaces.SmartCalc;
-import gr.interamerican.bo2.utils.beans.BdCalculator;
-import gr.interamerican.bo2.utils.beans.Range;
-
-import java.math.BigDecimal;
-import java.util.List;
 
 /**
  * Abstract implementation of {@link SmartCalc}.
  */
 public abstract class EmptySmartCalcImpl 
 implements SmartCalc {
-	
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
 
 }

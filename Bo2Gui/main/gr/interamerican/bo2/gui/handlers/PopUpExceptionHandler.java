@@ -28,6 +28,12 @@ import gr.interamerican.bo2.utils.handlers.ThrowingExceptionHandler;
 public class PopUpExceptionHandler 
 extends ThrowingExceptionHandler
 implements ExceptionHandler {
+	
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	/**
 	 * Instance.
 	 */

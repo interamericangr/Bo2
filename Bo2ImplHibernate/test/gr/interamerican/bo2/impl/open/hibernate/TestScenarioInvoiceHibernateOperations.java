@@ -53,6 +53,7 @@ import org.hibernate.LazyInitializationException;
 import org.hibernate.LockOptions;
 import org.hibernate.ReplicationMode;
 import org.hibernate.Session;
+import org.hibernate.proxy.HibernateProxy;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -756,6 +757,48 @@ public class TestScenarioInvoiceHibernateOperations {
 		invoice.setInvoiceNo(invoiceNo);
 		readOp2.setPo(invoice);
 		Execute.transactional(readOp2);
+	}
+	
+	/**
+	 * Tests re-attaching an object graph containing uninitialized HibernateProxy instances
+	 * after serializing and de-serializing it with the standard Java serialization
+	 * mechanism. After re-attaching the proxies are initialized.
+	 * 
+	 * @throws UnexpectedException
+	 * @throws DataException
+	 * @throws LogicException
+	 */
+	@Test
+	public void testReattachToSession_deSerializedInstance() 
+	throws UnexpectedException, DataException, LogicException {
+		
+		/* first, store the samples - including a Customer */
+		new AbstractBo2RuntimeCmd() {
+			@Override public void work() throws LogicException,
+			DataException, InitializationException, UnexpectedException {
+				customer = factory.sampleCustomer(taxId);
+				customer.setCustomerNo(customerNo);
+				PersistenceWorker<Customer> cpw = openPw(Customer.class);
+				cpw.store(customer);
+				
+				invoice = factory.sampleInvoiceFull(4);
+				invoice.setInvoiceNo(invoiceNo);
+				invoice.getCustomer().setCustomer(customer);
+				PersistenceWorker<Invoice> ipw = openPw(Invoice.class);
+				ipw.store(invoice);
+			}
+		}.execute();
+		
+		new AbstractBo2RuntimeCmd() {
+			@Override
+			public void work() throws LogicException, DataException, InitializationException, UnexpectedException {
+				invoice = Factory.create(Invoice.class);
+				invoice.setInvoiceNo(invoiceNo);
+				invoice = openPw(Invoice.class).read(invoice);
+			}
+		}.execute();
+		Customer c = invoice.getCustomer().getCustomer();
+		Assert.assertTrue(c instanceof HibernateProxy);
 	}
 	
 	/**

@@ -26,6 +26,11 @@ public class RemoveElementFromCollection<B extends Serializable>
 extends SimpleCallbackAction {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Collection.
 	 */
 	Collection<B> collection;

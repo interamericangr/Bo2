@@ -20,6 +20,11 @@ import gr.interamerican.bo2.impl.open.po.AbstractBasePo;
 public class MyPo 
 extends AbstractBasePo<PoPoKey>
 {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	
 

@@ -23,6 +23,11 @@ import java.util.Date;
 public class NfDateFormatter extends NullFilteringFormatter<Date> {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Creates a new NfDateFormatter object. 
 	 *
 	 * @param df

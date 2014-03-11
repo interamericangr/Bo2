@@ -352,6 +352,11 @@ public class TestCrudPickerPanel extends WicketTest {
 	 */
 	static abstract class AbstractAction extends AbstractCallbackAction {
 		
+		/**
+		 * serialVersionUID
+		 */
+		private static final long serialVersionUID = 1L;
+		
 		public void callBack(AjaxRequestTarget target) {
 			target.add(panel);
 			work();
@@ -374,6 +379,11 @@ public class TestCrudPickerPanel extends WicketTest {
 	 * Save action.
 	 */
 	static class SaveAction extends AbstractAction {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		@Override 
 		protected void work() {
 //			BeanWithOrderedFields bwof = panel.getDefinition().getBeanModel().getObject();
@@ -387,6 +397,11 @@ public class TestCrudPickerPanel extends WicketTest {
 	 * Update action.
 	 */
 	static class UpdateAction extends AbstractAction {		
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		@Override 
 		protected void work() {
 			BeanWithOrderedFields bwof = panel.getDefinition().getBeanModel().getObject();
@@ -400,6 +415,11 @@ public class TestCrudPickerPanel extends WicketTest {
 	 * Delete action.
 	 */
 	static class DeleteAction extends AbstractAction {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		@Override 
 		protected void work() {
 			/* delete from the database here */
@@ -413,6 +433,11 @@ public class TestCrudPickerPanel extends WicketTest {
 	 * calling Component as an error.
 	 */
 	static class PickAction extends AbstractAction {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		@Override
 		protected void work() {
 			getCaller().error(ERROR_MSG);

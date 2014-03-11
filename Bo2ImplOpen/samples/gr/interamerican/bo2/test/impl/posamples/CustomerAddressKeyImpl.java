@@ -8,6 +8,10 @@ import gr.interamerican.bo2.test.def.posamples.CustomerAddressKey;
  */
 public class CustomerAddressKeyImpl extends AbstractKey implements CustomerAddressKey {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	String customerNo;
 	Integer addressNo;
 	

@@ -22,6 +22,12 @@ public class PoPo extends AbstractBasePo<PoPoKey> {
 
 	
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
 	public PoPo() {
 		super();
 		this.key = (PoPoKey) Factory.create(PoPoKey.class);

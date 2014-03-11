@@ -24,6 +24,10 @@ import gr.interamerican.bo2.utils.adapters.Transformation;
 public class TransformationBasedFormatter<T>
 implements Formatter<T> {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * Transformation to String.
 	 */
 	Transformation<T, String> transformation;

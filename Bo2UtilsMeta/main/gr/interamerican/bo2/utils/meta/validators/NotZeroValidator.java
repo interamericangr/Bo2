@@ -22,6 +22,10 @@ extends AbstractValidator
 implements Validator<Number> {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * Singleton.
 	 */
 	public static final NotZeroValidator INSTANCE = new NotZeroValidator();

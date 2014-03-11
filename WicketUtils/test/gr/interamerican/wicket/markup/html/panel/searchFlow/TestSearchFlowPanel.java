@@ -837,6 +837,11 @@ public class TestSearchFlowPanel extends WicketTest {
 	 */
 	class QueryAction extends AbstractCallbackAction {
 		
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		public void callBack(AjaxRequestTarget target) {
 			target.add(panel);
 			query();
@@ -860,6 +865,11 @@ public class TestSearchFlowPanel extends WicketTest {
 	 */
 	abstract class CrudAction extends AbstractCallbackAction {
 		
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		public void callBack(AjaxRequestTarget target) {
 			target.add(panel.resultsPanel);
 			work();
@@ -881,6 +891,11 @@ public class TestSearchFlowPanel extends WicketTest {
 	 * Update action.
 	 */
 	class SaveAction extends CrudAction {		
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		@Override
 		protected void work() {
 			BeanWithOrderedFields bwof = panel.getDefinition().getBeanModel().getObject();
@@ -894,6 +909,11 @@ public class TestSearchFlowPanel extends WicketTest {
 	 * Update action.
 	 */
 	class UpdateAction extends CrudAction {		
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		@Override
 		protected void work() {
 			BeanWithOrderedFields bwof = panel.getDefinition().getBeanModel().getObject();
@@ -907,6 +927,11 @@ public class TestSearchFlowPanel extends WicketTest {
 	 * Delete action.
 	 */
 	class DeleteAction extends CrudAction {		
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		@Override
 		protected void work() {
 			/* code that performs a delete SQL operation */
@@ -917,6 +942,11 @@ public class TestSearchFlowPanel extends WicketTest {
 	 * Multiple selections action.
 	 */
 	class MultipleSelectionsAction extends CrudAction {		
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		@Override
 		protected void work() {
 			/* code that gets the selections from the definition and does something */

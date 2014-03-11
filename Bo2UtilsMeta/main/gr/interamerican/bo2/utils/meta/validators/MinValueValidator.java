@@ -25,6 +25,10 @@ extends AbstractValidator
 implements Validator<T> {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * minimum value.
 	 */
 	private T minimum;

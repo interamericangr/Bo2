@@ -27,7 +27,10 @@ public class TestAbstractNullReturningFormatter {
 	 * writer to test
 	 */
 	AbstractNullReturningFormatter<Object> formatter = new AbstractNullReturningFormatter<Object>() {
-		
+		/**
+		 * serialVersionUID
+		 */
+		private static final long serialVersionUID = 1L;
 		@Override
 		protected String mainFormat(Object t) {
 			return "not null"; //$NON-NLS-1$

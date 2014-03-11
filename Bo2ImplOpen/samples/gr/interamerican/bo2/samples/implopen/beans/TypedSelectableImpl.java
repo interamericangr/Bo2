@@ -22,6 +22,11 @@ import gr.interamerican.bo2.impl.open.annotations.TypedSelectableProperties;
 //@TypedSelectableProperties(code="codebar", name = "descr", subtype = "null", type = "X")
 public abstract class TypedSelectableImpl implements TypedSelectable, TypedSelectable2{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private Long codebar;
 	
 	private Long type;

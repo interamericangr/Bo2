@@ -22,6 +22,11 @@ import gr.interamerican.bo2.utils.meta.formatters.nr.NullReturningFormatter;
 public class NrNamedFormatter extends NullReturningFormatter<Named> {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Creates a new NfObjectFormatter object. 
 	 */
 	public NrNamedFormatter() {

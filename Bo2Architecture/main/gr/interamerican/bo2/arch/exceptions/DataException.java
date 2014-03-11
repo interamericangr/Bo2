@@ -23,7 +23,7 @@ public class DataException extends Exception {
 	/**
 	 * Universal version identifier for serialized class. 
 	 */
-	public static final long serialVersionUID = 2L;
+	private static final long serialVersionUID = 2L;
     
 
     /**

@@ -25,6 +25,10 @@ import java.util.Date;
  */
 public class DateFormatter implements Formatter<Date> {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * Date format.
 	 */
 	DateFormat df;

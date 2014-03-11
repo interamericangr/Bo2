@@ -25,6 +25,11 @@ import gr.interamerican.bo2.test.impl.samples.SampleCalculatorImpl;
 public abstract class SampleClassImpl implements SampleClass , SampleClass2, SampleCalculator, TypedSelectable{
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * a sample key field declared as an inteface
 	 */
 	@SuppressWarnings({ "unused", "cast" })

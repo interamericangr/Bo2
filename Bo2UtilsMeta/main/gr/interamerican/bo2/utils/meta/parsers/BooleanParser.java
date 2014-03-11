@@ -21,6 +21,11 @@ import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
 public class BooleanParser 
 extends AbstractParser<Boolean> {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	protected Boolean mainParse(String value) throws ParseException {			
 		return StringUtils.string2Bool(value);

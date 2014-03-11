@@ -29,6 +29,10 @@ public class CachedEntryOwnerFormatter
 implements Formatter<T> {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * C formatter.
 	 */
 	Formatter<C> codeFormatter;

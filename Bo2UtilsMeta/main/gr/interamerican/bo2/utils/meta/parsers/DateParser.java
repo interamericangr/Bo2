@@ -22,6 +22,11 @@ import java.util.Date;
  */
 public class DateParser extends AbstractParser<Date>{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Override
 	protected Date mainParse(String value) throws ParseException {		
 		try {

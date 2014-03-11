@@ -24,6 +24,10 @@ public class ShortFormatter
 implements Formatter<Short> {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * Formatter.
 	 */
 	Formatter<Short> kf = NrObjectFormatter.<Short>getInstance();

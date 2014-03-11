@@ -16,6 +16,10 @@ import java.util.Map;
 public class BeanCsvFormatter<B> implements Formatter<B> {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * Extracts the values of the properties.
 	 */
 	GetProperties get;

@@ -36,6 +36,10 @@ public class MultiFormatter
 implements Formatter<Object>{
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * Formatters.
 	 */
 	TypeBasedSelection<Formatter<?>> formatters;

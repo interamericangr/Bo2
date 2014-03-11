@@ -89,6 +89,11 @@ public class TestBo2ButtonFactory extends Bo2WicketTest{
 	 */
 	private class SampleFeedbackOwner implements FeedbackOwner{
 
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		public FeedbackPanel getFeedBackPanel() {
 			FeedbackPanel panel = new FeedbackPanel("testPanel"); //$NON-NLS-1$
 			return panel;

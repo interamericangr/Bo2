@@ -23,6 +23,10 @@ import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
 public class FloatParser extends AbstractParser<Float>{
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * Decimal digits.
 	 */
 	int decimalDigits = -1;

@@ -22,6 +22,10 @@ extends AbstractValidator
 implements Validator<String> {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * Regular expression.
 	 */
 	private String expression;

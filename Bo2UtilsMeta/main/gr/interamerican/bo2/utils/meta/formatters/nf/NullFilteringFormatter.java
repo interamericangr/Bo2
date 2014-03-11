@@ -26,6 +26,10 @@ import gr.interamerican.bo2.utils.meta.formatters.Formatter;
 public class NullFilteringFormatter<T> 
 extends AbstractNullFilteringFormatter<T> {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * Formatter.
 	 */
 	Formatter<T> formatter;

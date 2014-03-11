@@ -545,6 +545,11 @@ extends ServicePanelWithBack {
 	 * This action will hide the resultsPanel and show the criteriaPanel.
 	 */
 	public class BackToCriteriaAction implements CallbackAction {
+		
+		/**
+		 * serialVersionUID
+		 */
+		private static final long serialVersionUID = 1L;
 
 		public void callBack(AjaxRequestTarget target) {
 			work(target);
@@ -576,6 +581,11 @@ extends ServicePanelWithBack {
 	 * the callback action of the criteriaPanel with the resultsPanel.
 	 */
 	private class QueryWrapperAction extends CallbackWrapper {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		/**
 		 * Creates a new QueryAction object.
 		 *

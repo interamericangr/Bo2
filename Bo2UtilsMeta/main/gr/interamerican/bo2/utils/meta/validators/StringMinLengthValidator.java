@@ -24,6 +24,10 @@ extends AbstractValidator
 implements Validator<String> {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * minimum length.
 	 */
 	private int minLength=0;

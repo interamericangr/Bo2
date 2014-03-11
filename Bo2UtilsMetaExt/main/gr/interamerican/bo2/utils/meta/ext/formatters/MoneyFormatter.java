@@ -24,6 +24,11 @@ import java.math.BigDecimal;
 public class MoneyFormatter implements Formatter<Money> {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Singleton instance
 	 */
 	public static final MoneyFormatter INSTANCE = new MoneyFormatter();

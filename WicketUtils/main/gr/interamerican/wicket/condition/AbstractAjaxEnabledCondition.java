@@ -27,6 +27,11 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
  */
 public abstract class AbstractAjaxEnabledCondition<T> 
 implements AjaxEnabledCondition<T>{
+	
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Caller component.

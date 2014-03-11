@@ -22,6 +22,11 @@ import java.text.DecimalFormat;
 public class NfDecimalFormatter extends NullFilteringFormatter<Number> {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Creates a new NfDecimalFormatter object. 
 	 *
 	 * @param df

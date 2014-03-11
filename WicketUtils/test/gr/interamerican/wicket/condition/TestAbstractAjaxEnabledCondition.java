@@ -29,7 +29,12 @@ public class TestAbstractAjaxEnabledCondition {
 	@Test
 	public void testSetCaller() {		
 		AbstractAjaxEnabledCondition<Object> cond = 
-			new AbstractAjaxEnabledCondition<Object>() {				
+			new AbstractAjaxEnabledCondition<Object>() {
+				/**
+				 * serialVersionUID
+				 */
+				private static final long serialVersionUID = 1L;
+				
 				@Override
 				public boolean check(Object t, AjaxRequestTarget target) {
 					return false;

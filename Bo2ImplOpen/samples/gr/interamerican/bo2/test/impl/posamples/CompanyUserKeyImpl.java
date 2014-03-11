@@ -8,6 +8,10 @@ import gr.interamerican.bo2.test.def.posamples.CompanyUserKey;
  */
 public class CompanyUserKeyImpl extends AbstractKey implements CompanyUserKey {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	Long id;
 	
 	@Override

@@ -28,6 +28,10 @@ import org.apache.wicket.util.resource.IResourceStream;
 public class LinkPage extends WebPage implements IMarkupResourceStreamProvider,IMarkupCacheKeyProvider{
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * �he wicket id of component that we are going to test.
 	 */
 	private String wicketId;

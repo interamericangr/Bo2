@@ -131,6 +131,10 @@ public class Meta {
 	 */	
 	public static <T> Formatter<T> getFormatter(final BoPropertyDescriptor<T> boPD) {
 		Formatter<T> formatter = new Formatter<T>() {
+			/**
+			 * serialVersionUID
+			 */
+			private static final long serialVersionUID = 1L;
 			public String format(T t) {				
 				return boPD.format(t);
 			}

@@ -23,7 +23,7 @@ public class CouldNotBeginException extends TransactionManagerException {
 	/**
 	 * Universal version identifier for serialized class. 
 	 */
-	public static final long serialVersionUID = 2L;
+	private static final long serialVersionUID = 1L;
 
     /**
      * Creates a new DataException with a message.

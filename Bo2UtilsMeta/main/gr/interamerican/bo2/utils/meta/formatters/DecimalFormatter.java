@@ -28,6 +28,10 @@ public class DecimalFormatter<T extends Number>
 implements Formatter<T> {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * Decimal format.
 	 */
 	final DecimalFormat df;

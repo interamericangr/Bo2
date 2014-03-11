@@ -25,6 +25,11 @@ public class TestAbstractCallbackAction {
 	 * Action to test.
 	 */
 	AbstractCallbackAction action = new AbstractCallbackAction() {		
+		/**
+		 * serialVersionUID
+		 */
+		private static final long serialVersionUID = 1L;
+		
 		public void callBack(AjaxRequestTarget target, Form<?> form) {
 			/* empty */
 		}		

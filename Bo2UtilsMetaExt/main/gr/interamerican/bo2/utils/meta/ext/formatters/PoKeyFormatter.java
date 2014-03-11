@@ -25,6 +25,10 @@ public class PoKeyFormatter
 implements Formatter<PersistentObject<?>> {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * Formatter.
 	 */
 	Formatter<Object> kf = new NullReturningFormatter<Object>(ObjectFormatter.<Object>getInstance());

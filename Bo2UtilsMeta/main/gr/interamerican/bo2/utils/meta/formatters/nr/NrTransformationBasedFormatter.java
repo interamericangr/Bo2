@@ -29,6 +29,10 @@ import gr.interamerican.bo2.utils.meta.formatters.nf.NullFilteringFormatter;
 public class NrTransformationBasedFormatter<T> 
 extends AbstractNullReturningFormatter<T> {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * Formatter.
 	 */
 	Formatter<T> formatter;

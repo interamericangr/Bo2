@@ -275,6 +275,11 @@ extends ServicePanelWithBack {
 	 * This validator always returns true (success).
 	 */
 	private class EmptyValidator implements AjaxEnabledCondition<B> {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		public boolean check(B b, AjaxRequestTarget t) { return true; }
 	}
 	
@@ -283,6 +288,11 @@ extends ServicePanelWithBack {
 	 */
 	private class ClearFormAction extends AbstractCallbackAction {
 		
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		public void callBack(AjaxRequestTarget target) { 
 			clearForm(target); 
 		}

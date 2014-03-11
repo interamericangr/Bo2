@@ -35,6 +35,11 @@ extends WicketTest {
 	 * Action to test.
 	 */
 	SimpleCallbackAction action = new SimpleCallbackAction() {		
+		/**
+		 * serialVersionUID
+		 */
+		private static final long serialVersionUID = 1L;
+		
 		@Override 
 		protected void work() {
 			flag = true;

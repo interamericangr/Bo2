@@ -19,6 +19,11 @@ import gr.interamerican.bo2.utils.meta.formatters.ObjectFormatter;
  * 
  */
 public class SampleFormatter implements Formatter<String> {
+	
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Override
 	public String format(String t) {

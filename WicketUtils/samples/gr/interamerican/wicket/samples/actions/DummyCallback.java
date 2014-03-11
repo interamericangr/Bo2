@@ -26,6 +26,10 @@ import org.apache.wicket.markup.html.form.Form;
  */
 public class DummyCallback implements CallbackAction {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * Shows if it has been excuted.
 	 */
 	private boolean executed = false;

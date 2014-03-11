@@ -47,6 +47,11 @@ import org.apache.wicket.model.Model;
 public class WicketPage extends WebPage{
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * button for sumbission of a form
 	 */
 	@SuppressWarnings("unused")

@@ -8,6 +8,10 @@ import gr.interamerican.bo2.test.def.posamples.InvoiceSubLineKey;
  */
 public class InvoiceSubLineKeyImpl extends AbstractKey implements InvoiceSubLineKey {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	String invoiceNo;
 	Integer lineNo;
 	Integer subLineNo;
