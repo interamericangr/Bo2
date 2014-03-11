@@ -13,12 +13,11 @@
 package gr.interamerican.bo2.utils.meta.ext.descriptors;
 
 import static org.junit.Assert.assertNotNull;
-import gr.interamerican.bo2.arch.ext.Cache;
 import gr.interamerican.bo2.arch.ext.TypedSelectable;
-import gr.interamerican.bo2.arch.utils.beans.CacheImpl;
 import gr.interamerican.bo2.arch.utils.beans.TypedSelectableImpl;
 import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
 import gr.interamerican.bo2.utils.meta.exceptions.ValidationException;
+import gr.interamerican.bo2.utils.meta.ext.AbstractCacheRelatedTest;
 import gr.interamerican.bo2.utils.meta.formatters.Formatter;
 import gr.interamerican.bo2.utils.meta.formatters.ObjectFormatter;
 import gr.interamerican.bo2.utils.meta.parsers.LongParser;
@@ -29,7 +28,7 @@ import org.junit.Test;
 /**
  * Unit test for {@link CachedEntryBoPropertyDescriptor}.
  */
-public class TestCachedEntryBoPropertyDescriptor {
+public class TestCachedEntryBoPropertyDescriptor extends AbstractCacheRelatedTest {
 
 	/**
 	 * TYPE
@@ -39,10 +38,6 @@ public class TestCachedEntryBoPropertyDescriptor {
 	 * SUBTYPE
 	 */
 	private static final Long SUBTYPE = 1L;
-	/**
-	 * CACHE
-	 */
-	private static final Cache<Long> CACHE = new CacheImpl<Long>();
 	/**
 	 * PARSER
 	 */
@@ -67,10 +62,10 @@ public class TestCachedEntryBoPropertyDescriptor {
 		value.setCode(CODE);
 		value.setTypeId(TYPE);
 		value.setSubTypeId(SUBTYPE);
-		CACHE.put(value);
+		cache().put(value);
 
 		CachedEntryBoPropertyDescriptor<TypedSelectable<Long>, Long> cashedDesc = 
-			new CachedEntryBoPropertyDescriptor<TypedSelectable<Long>, Long>(TYPE, SUBTYPE, CACHE, PARSER, FORMATTER);
+			new CachedEntryBoPropertyDescriptor<TypedSelectable<Long>, Long>(TYPE, SUBTYPE, TEST_CACHE_NAME, PARSER, FORMATTER);
 		return cashedDesc;
 	}
 

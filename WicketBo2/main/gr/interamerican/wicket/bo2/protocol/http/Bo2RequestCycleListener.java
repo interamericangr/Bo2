@@ -75,16 +75,22 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 		Throwable t = ExceptionUtils.unwrap(ex);
 		Bo2WicketRequestCycle.stats.updateExceptionStats(t);
 		Bo2WicketRequestCycle.get().error = true;
-		try {
-			TransactionManager manager = Bo2WicketRequestCycle.get().provider.getTransactionManager();
-			if(manager!=null) {
-				manager.rollback();
-				debug("rolled back the transaction.");
+		
+		//CouldNotCommitException will not require rollback here
+		if(!ExceptionUtils.isCausedBy(t, CouldNotCommitException.class)) {
+			try {
+				TransactionManager manager = Bo2WicketRequestCycle.get().provider.getTransactionManager();
+				if(manager!=null) {
+					manager.rollback();
+					debug("rolled back the transaction.");
+				}
+			} catch (CouldNotRollbackException cnrbex) {
+				cnrbex.setInitial(t);
+				emergencyLogAndEmail("CouldNotRollbackException");
+				Bo2WicketRequestCycle.LOGGER.error("CouldNotRollbackException: " + ExceptionUtils.getThrowableStackTrace(cnrbex));
 			}
-		} catch (CouldNotRollbackException cnrbex) {
-			cnrbex.setInitial(t);
-			emergencyLogAndEmail("CouldNotRollbackException");
-			Bo2WicketRequestCycle.LOGGER.error("CouldNotRollbackException: " + ExceptionUtils.getThrowableStackTrace(cnrbex));
+		} else {
+			debug("Exception was CouldNotCommitException, will not attempt rollback");
 		}
 		
 		/*

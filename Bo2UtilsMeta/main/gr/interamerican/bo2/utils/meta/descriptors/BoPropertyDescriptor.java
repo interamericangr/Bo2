@@ -17,6 +17,8 @@ import gr.interamerican.bo2.utils.attributes.Named;
 import gr.interamerican.bo2.utils.meta.BusinessObjectDescriptor;
 import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
 import gr.interamerican.bo2.utils.meta.exceptions.ValidationException;
+import gr.interamerican.bo2.utils.meta.parsers.Parser;
+import gr.interamerican.bo2.utils.meta.validators.Validator;
 
 import java.io.Serializable;
 
@@ -237,5 +239,15 @@ extends Named, Labeled {
 	 * @return Returns the name of the affected {@link BoPropertyDescriptor}.
 	 */
 	String getAffected();
+	
+	/**
+	 * @return Returns the parser of this BoPropertyDescriptor
+	 */
+	Parser<T> getParser();
+	
+	/**
+	 * @return Returns the validator of this BoPropertyDescriptor
+	 */
+	Validator<T> getValidator();
 
 }

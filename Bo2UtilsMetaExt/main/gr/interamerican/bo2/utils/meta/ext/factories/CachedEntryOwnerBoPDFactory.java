@@ -12,7 +12,6 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.meta.ext.factories;
 
-import gr.interamerican.bo2.arch.ext.Cache;
 import gr.interamerican.bo2.arch.ext.TranslatableEntryOwner;
 import gr.interamerican.bo2.arch.utils.CacheRegistry;
 import gr.interamerican.bo2.utils.StringUtils;
@@ -48,11 +47,11 @@ public class CachedEntryOwnerBoPDFactory {
 	@SuppressWarnings("nls")
 	public static <T extends TranslatableEntryOwner<C, ?, ?>, C extends Comparable<? super C>> 
 	CachedEntryOwnerBoPropertyDescriptor<T, C> create(PropertyDefinition pd) throws ParseException {
-		Cache<C> cache = CacheRegistry.<C>getRegisteredCache(pd.getCacheName());
+		
 		Parser<C> parser = ParserResolver.<C>getParser(CacheRegistry.<C>getRegisteredCacheCodeType(pd.getCacheName()));
 		Formatter<C> formatter = FormatterResolver.<C>getFormatter(CacheRegistry.<C>getRegisteredCacheCodeType(pd.getCacheName()));
 		
-		CachedEntryOwnerBoPropertyDescriptor<T, C> result = new CachedEntryOwnerBoPropertyDescriptor<T, C>(pd.getListCd(), null, cache, parser, formatter);
+		CachedEntryOwnerBoPropertyDescriptor<T, C> result = new CachedEntryOwnerBoPropertyDescriptor<T, C>(pd.getListCd(), null, pd.getCacheName(), parser, formatter);
 		
 		if(pd.getHasDefault()) {
 			String value = pd.getDefaultValue();

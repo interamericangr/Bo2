@@ -121,10 +121,7 @@ public class SelfDrawnUtils {
 	public static <T> void standardSelfDrawnFormComponentStuff(FormComponent<T> component, BoPropertyDescriptor<T> descriptor) {
 		component.setOutputMarkupPlaceholderTag(true);
 		component.add(ValidationStyleBehavior.INSTANCE);
-		/*
-		 * TODO: BoPropertyDescriptorValidatorWrapper is not Serializable
-		 */
-//		component.add(new BoPropertyDescriptorValidatorWrapper<T>(descriptor));
+		component.add(new BoPropertyDescriptorValidatorWrapper<T>(descriptor));
     	if(descriptor.isHasDefault() && component.getDefaultModelObject()==null){
     		component.setDefaultModelObject(descriptor.getDefaultValue());
         }

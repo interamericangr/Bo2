@@ -12,7 +12,6 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.meta.ext.validators;
 
-import gr.interamerican.bo2.arch.ext.Cache;
 import gr.interamerican.bo2.arch.ext.TypedSelectable;
 import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.meta.exceptions.ValidationException;
@@ -33,16 +32,20 @@ public class CachedEntriesValidator
 implements Validator<Collection<T>> {
 	
 	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * Validator of a single entry.
 	 */
 	private CachedEntryValidator<TypedSelectable<C>, C> delegate;
 	
 	/**
 	 * Creates a new CachedEntriesValidator object. 
-	 * @param cache 
+	 * @param cacheName 
 	 */
-	public CachedEntriesValidator(Cache<C> cache) {
-		this.delegate = new CachedEntryValidator<TypedSelectable<C>, C>(cache);
+	public CachedEntriesValidator(String cacheName) {
+		this.delegate = new CachedEntryValidator<TypedSelectable<C>, C>(cacheName);
 	}
 
 	public void validate(Collection<T> value) throws ValidationException {

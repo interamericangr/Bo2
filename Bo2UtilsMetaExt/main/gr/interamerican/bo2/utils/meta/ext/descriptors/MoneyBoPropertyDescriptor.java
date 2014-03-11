@@ -12,8 +12,6 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.meta.ext.descriptors;
 
-import java.math.BigDecimal;
-
 import gr.interamerican.bo2.arch.Money;
 import gr.interamerican.bo2.arch.utils.beans.MoneyImpl;
 import gr.interamerican.bo2.utils.meta.descriptors.AbstractBoPropertyDescriptor;
@@ -21,6 +19,8 @@ import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
 import gr.interamerican.bo2.utils.meta.ext.formatters.MoneyFormatter;
 import gr.interamerican.bo2.utils.meta.ext.parsers.MoneyParser;
 import gr.interamerican.bo2.utils.meta.formatters.Formatter;
+
+import java.math.BigDecimal;
 
 /**
  * Property description for a {@link Money} property.

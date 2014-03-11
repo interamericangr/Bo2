@@ -13,20 +13,19 @@
 package gr.interamerican.bo2.utils.meta.ext.descriptors;
 
 import static org.junit.Assert.assertEquals;
-import gr.interamerican.bo2.arch.ext.Cache;
 import gr.interamerican.bo2.arch.ext.TypedSelectable;
-import gr.interamerican.bo2.arch.utils.CacheRegistry;
-import gr.interamerican.bo2.arch.utils.beans.CacheImpl;
 import gr.interamerican.bo2.arch.utils.beans.TypedSelectableImpl;
 import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
 import gr.interamerican.bo2.utils.meta.exceptions.ValidationException;
+import gr.interamerican.bo2.utils.meta.ext.AbstractCacheRelatedTest;
 import gr.interamerican.bo2.utils.meta.formatters.Formatter;
 import gr.interamerican.bo2.utils.meta.formatters.ObjectFormatter;
+import gr.interamerican.bo2.utils.meta.parsers.LongParser;
 import gr.interamerican.bo2.utils.meta.parsers.Parser;
-import gr.interamerican.bo2.utils.meta.parsers.StringParser;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
@@ -36,7 +35,7 @@ import org.junit.Test;
 /**
  * Unit test for {@link MultipleCachedEntriesBoPropertyDescriptor}.
  */
-public class TestMultipleCachedEntriesBoPropertyDescriptor {
+public class TestMultipleCachedEntriesBoPropertyDescriptor extends AbstractCacheRelatedTest {
 
 	/**
 	 * TYPE_ID
@@ -49,50 +48,44 @@ public class TestMultipleCachedEntriesBoPropertyDescriptor {
 	static final Long SUBTYPE_ID = 1000l;
 	
 	/**
-	 * cache
-	 */
-	Cache<String> cache =  new CacheImpl<String>();
-	
-	/**
 	 * codesParser
 	 */
-	Parser<String> codesParser = new  StringParser();
+	Parser<Long> codesParser = new  LongParser();
 	/**
 	 * Formatter
 	 */
-	Formatter<String> formatter = ObjectFormatter.<String>getInstance();
+	Formatter<Long> formatter = ObjectFormatter.<Long>getInstance();
 	
 	/**
 	 * MultipleCachedEntriesBoPropertyDescriptor
 	 */
-	MultipleCachedEntriesBoPropertyDescriptor<TypedSelectable<String>, String> descriptor = 
-		new MultipleCachedEntriesBoPropertyDescriptor<TypedSelectable<String>, String>(TYPE_ID,SUBTYPE_ID,cache,codesParser, formatter);
+	MultipleCachedEntriesBoPropertyDescriptor<TypedSelectable<Long>, Long> descriptor = 
+		new MultipleCachedEntriesBoPropertyDescriptor<TypedSelectable<Long>, Long>(TYPE_ID,SUBTYPE_ID,TEST_CACHE_NAME,codesParser, formatter);
 	
 	/**
 	 * TypedSelectable
 	 */
-	TypedSelectable<String> typed = new TypedSelectableImpl<String>();
+	TypedSelectable<Long> typed = new TypedSelectableImpl<Long>();
 	
 	/**
 	 * TypedSelectable
 	 */
-	TypedSelectable<String> typed2 = new TypedSelectableImpl<String>();
+	TypedSelectable<Long> typed2 = new TypedSelectableImpl<Long>();
 	
 	/**
 	 */
-	@SuppressWarnings("nls")
 	@Before
 	public void initialize(){
 		
-		typed.setCode("code1");
+		typed.setCode(1L);
 		typed.setTypeId(1L);
 		typed.setSubTypeId(1000L);
-		cache.put(typed);
+		cache().put(typed);
 		
-		typed2.setCode("code2");
+		typed2.setCode(2L);
 		typed2.setTypeId(2L);
 		typed2.setTypeId(2000L);
-		cache.put(typed2);
+		cache().put(typed2);
 	}
 	
 	/**
@@ -102,9 +95,7 @@ public class TestMultipleCachedEntriesBoPropertyDescriptor {
 	@SuppressWarnings("nls")
 	@Test
 	public void testParse() throws ParseException{
-	
-		CacheRegistry.registerCache("myCache", cache, String.class);
-		List<TypedSelectable<String>> list = descriptor.parse("code1,code2");
+		Collection<TypedSelectable<Long>> list = descriptor.parse("1,2");
 		assertEquals(2,list.size());
 	}
 	
@@ -115,7 +106,7 @@ public class TestMultipleCachedEntriesBoPropertyDescriptor {
 	@Test
 	public void testValidate() throws ValidationException{
 		
-		List<TypedSelectable<String>> list = new ArrayList<TypedSelectable<String>>();
+		List<TypedSelectable<Long>> list = new ArrayList<TypedSelectable<Long>>();
 		list.add(typed);
 		list.add(typed2);
 		descriptor.validate(list);
@@ -126,7 +117,7 @@ public class TestMultipleCachedEntriesBoPropertyDescriptor {
 	 */
 	@Test
 	public void testGetSelectableValues(){
-		Set<TypedSelectable<String>> selectableSet = descriptor.getSelectableValues();
+		Set<TypedSelectable<Long>> selectableSet = descriptor.getSelectableValues();
 		assertEquals(selectableSet.size(),1);
 	}
 	
@@ -139,10 +130,10 @@ public class TestMultipleCachedEntriesBoPropertyDescriptor {
 	@Test
 	public void testFormat() {
 		assertEquals(StringConstants.EMPTY , descriptor.format(null));
-		assertEquals(StringConstants.EMPTY , descriptor.format(new ArrayList<TypedSelectable<String>>()));
+		assertEquals(StringConstants.EMPTY , descriptor.format(new ArrayList<TypedSelectable<Long>>()));
 		
-		Set<TypedSelectable<String>> selectableSet = descriptor.getSelectableValues();
-		assertEquals("code1", descriptor.format(selectableSet));
+		Set<TypedSelectable<Long>> selectableSet = descriptor.getSelectableValues();
+		assertEquals("1", descriptor.format(selectableSet));
 	}
 	
 }

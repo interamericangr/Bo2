@@ -12,7 +12,6 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.meta.ext.descriptors;
 
-import gr.interamerican.bo2.arch.ext.Cache;
 import gr.interamerican.bo2.arch.ext.TypedSelectable;
 import gr.interamerican.bo2.utils.meta.formatters.Formatter;
 import gr.interamerican.bo2.utils.meta.parsers.Parser;
@@ -35,13 +34,13 @@ extends MultipleCachedEntriesBoPropertyDescriptor<T, C>{
 	 *
 	 * @param typeId
 	 * @param subTypeId
-	 * @param cache
+	 * @param cacheName
 	 * @param codeParser 
 	 * @param codeFormatter 
 	 */
 	public PalleteCachedEntriesBoPropertyDescriptor(
-	Long typeId, Long subTypeId, Cache<C> cache, Parser<C> codeParser, Formatter<C> codeFormatter) {
-		super(typeId, subTypeId, cache, codeParser, codeFormatter);
+	Long typeId, Long subTypeId, String cacheName, Parser<C> codeParser, Formatter<C> codeFormatter) {
+		super(typeId, subTypeId, cacheName, codeParser, codeFormatter);
 	}
 
 }

@@ -12,11 +12,10 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.meta.ext.validators;
 
-import gr.interamerican.bo2.arch.ext.Cache;
 import gr.interamerican.bo2.arch.ext.TypedSelectable;
-import gr.interamerican.bo2.arch.utils.beans.CacheImpl;
 import gr.interamerican.bo2.arch.utils.beans.TypedSelectableImpl;
 import gr.interamerican.bo2.utils.meta.exceptions.ValidationException;
+import gr.interamerican.bo2.utils.meta.ext.AbstractCacheRelatedTest;
 
 import java.util.Arrays;
 
@@ -25,21 +24,19 @@ import org.junit.Test;
 /**
  * Unit test for {@link CachedEntriesValidator}.
  */
-public class TestCachedEntriesValidator {
+public class TestCachedEntriesValidator extends AbstractCacheRelatedTest {
 	/**
 	 * Creates a CachedObjectValidator
 	 * @return CachedObjectValidator
 	 */
 	private CachedEntriesValidator<TypedSelectable<Long>, Long> createCachedEntriesObjectValidator(){
-		
-		Cache<Long> cache = new CacheImpl<Long>();
 		TypedSelectable<Long> value = new TypedSelectableImpl<Long>();
 		value.setCode(1L);
 		value.setTypeId(1000L);
 		value.setSubTypeId(1L);
-		cache.put(value);
+		cache().put(value);
 		CachedEntriesValidator<TypedSelectable<Long>, Long> cashedVal = 
-			new CachedEntriesValidator<TypedSelectable<Long>, Long>(cache);
+			new CachedEntriesValidator<TypedSelectable<Long>, Long>(TEST_CACHE_NAME);
 		return cashedVal;
 	}
 	

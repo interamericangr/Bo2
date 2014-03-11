@@ -16,9 +16,9 @@ import gr.interamerican.bo2.arch.ext.Cache;
 import gr.interamerican.bo2.arch.ext.OwnedEntry;
 import gr.interamerican.bo2.arch.ext.TranslatableEntryOwner;
 import gr.interamerican.bo2.arch.ext.TypedSelectable;
-import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
 import gr.interamerican.bo2.utils.meta.ext.formatters.CachedEntryOwnerFormatter;
 import gr.interamerican.bo2.utils.meta.ext.formatters.nr.NrCachedEntryOwnerFormatter;
+import gr.interamerican.bo2.utils.meta.ext.parsers.CachedEntryOwnerParser;
 import gr.interamerican.bo2.utils.meta.ext.validators.CachedEntryOwnerValidator;
 import gr.interamerican.bo2.utils.meta.formatters.Formatter;
 import gr.interamerican.bo2.utils.meta.parsers.Parser;
@@ -44,23 +44,18 @@ extends AbstractCacheRelatedObjectBoPropertyDescriptor<T, C>{
 	 *
 	 * @param typeId
 	 * @param subTypeId
-	 * @param cache
+	 * @param cacheName
 	 * @param codeParser
 	 * @param codeFormatter
 	 */
 	public CachedEntryOwnerBoPropertyDescriptor(
-	Long typeId, Long subTypeId, Cache<C> cache, Parser<C> codeParser, Formatter<C> codeFormatter) {
-		super(typeId, subTypeId, cache, codeParser, codeFormatter);
+	Long typeId, Long subTypeId, String cacheName, Parser<C> codeParser, Formatter<C> codeFormatter) {
+		super(typeId, subTypeId, cacheName, codeParser, codeFormatter);
 	}
 	
 	@Override
-	public T parse(String value) throws ParseException {		
-		C code = codeParser.parse(value);
-		TypedSelectable<C> typedSelectable = cache.get(typeId, code);	
-		if (typedSelectable==null) {
-			return null;
-		}
-		return getOwner(typedSelectable);
+	public Parser<T> getParser() {
+		return new CachedEntryOwnerParser<T, C>(cacheName, typeId, codeParser);
 	}
 	
 	/**
@@ -68,30 +63,20 @@ extends AbstractCacheRelatedObjectBoPropertyDescriptor<T, C>{
 	 * 
 	 * @return Returns a set containing the possible values for the entry.
 	 */
+	@SuppressWarnings("unchecked")
 	public Set<TranslatableEntryOwner<C,?,?>> getValues() {
-		Set<TypedSelectable<C>> entries = cache.getSubCache(typeId, subTypeId);
+		Set<TypedSelectable<C>> entries = cache().getSubCache(typeId, subTypeId);
 		Set<TranslatableEntryOwner<C, ?, ?>> owners = new HashSet<TranslatableEntryOwner<C,?,?>>();
 		for (TypedSelectable<C> typedSelectable : entries) {
-			owners.add(getOwner(typedSelectable));
+			OwnedEntry<C, ?, ?> entry = (OwnedEntry<C, ?, ?>) typedSelectable;
+			owners.add(entry.getOwner());
 		}
 		return owners;
 	}
 	
-	/**
-	 * Gets the owner of an entry.
-	 * 
-	 * @param typedSelectable
-	 * @return Returns the owner of an entry.
-	 */
-	@SuppressWarnings("unchecked")
-	private T getOwner(TypedSelectable<C> typedSelectable) {
-		OwnedEntry<C, ?, ?> entry = (OwnedEntry<C, ?, ?>) typedSelectable;
-		return (T) entry.getOwner();
-	}
-
 	@Override
-	protected Validator<T> getValidator() {
-		return new CachedEntryOwnerValidator<T, C>(cache);
+	protected Validator<T> getCacheRelatedValidator() {
+		return new CachedEntryOwnerValidator<T, C>(cacheName);
 	}
 
 	@Override

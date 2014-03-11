@@ -12,7 +12,6 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.meta.ext.factories;
 
-import gr.interamerican.bo2.arch.ext.Cache;
 import gr.interamerican.bo2.arch.ext.TypedSelectable;
 import gr.interamerican.bo2.arch.utils.CacheRegistry;
 import gr.interamerican.bo2.utils.StringUtils;
@@ -49,12 +48,11 @@ public class CachedEntryBoPDFactory {
 	create(PropertyDefinition pd) 
 	throws ParseException {
 
-		Cache<C> cache = CacheRegistry.<C>getRegisteredCache(pd.getCacheName());
 		Parser<C> parser = ParserResolver.<C>getParser(CacheRegistry.<C>getRegisteredCacheCodeType(pd.getCacheName()));
 		Formatter<C> formatter = FormatterResolver.<C>getFormatter(CacheRegistry.<C>getRegisteredCacheCodeType(pd.getCacheName()));
 		
 		CachedEntryBoPropertyDescriptor<TypedSelectable<C>, C> result = 
-			new CachedEntryBoPropertyDescriptor<TypedSelectable<C>, C>(pd.getListCd(), pd.getSubListCd(), cache, parser, formatter);
+			new CachedEntryBoPropertyDescriptor<TypedSelectable<C>, C>(pd.getListCd(), pd.getSubListCd(), pd.getCacheName(), parser, formatter);
 		
 		if(pd.getHasDefault()) {
 			String value = pd.getDefaultValue();

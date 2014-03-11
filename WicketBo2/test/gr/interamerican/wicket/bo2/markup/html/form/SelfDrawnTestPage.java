@@ -15,6 +15,7 @@ package gr.interamerican.wicket.bo2.markup.html.form;
 import gr.interamerican.bo2.arch.ext.Cache;
 import gr.interamerican.bo2.arch.ext.TranslatableEntry;
 import gr.interamerican.bo2.arch.ext.TypedSelectable;
+import gr.interamerican.bo2.arch.utils.CacheRegistry;
 import gr.interamerican.bo2.arch.utils.beans.CacheImpl;
 import gr.interamerican.bo2.arch.utils.beans.TypedSelectableImpl;
 import gr.interamerican.bo2.samples.utils.meta.Bean1;
@@ -56,8 +57,8 @@ import org.apache.wicket.model.Model;
 /**
  * Page for testing SelfDrawnComponents.
  */
-public class SelfDrawnTestPage extends WebPage{
-	
+public class SelfDrawnTestPage extends WebPage {
+
 	/**
 	 * serialVersionUID
 	 */
@@ -66,10 +67,9 @@ public class SelfDrawnTestPage extends WebPage{
 	/**
 	 * Descriptors.
 	 */
-	private static final Map<Class<? extends BoPropertyDescriptor<?> >,BoPropertyDescriptor<?>> map = 
-		new HashMap<Class<? extends BoPropertyDescriptor<?> >,BoPropertyDescriptor<?> >();
+	private static final Map<Class<? extends BoPropertyDescriptor<?>>, BoPropertyDescriptor<?>> map = new HashMap<Class<? extends BoPropertyDescriptor<?>>, BoPropertyDescriptor<?>>();
 
-	static {		
+	static {
 		initializeDescriptors();
 	}
 
@@ -77,213 +77,206 @@ public class SelfDrawnTestPage extends WebPage{
 	 * Feedback panel.
 	 */
 	private FeedbackPanel feedbackPanel = new FeedbackPanel("feedBackPanel"); //$NON-NLS-1$
-	
-	
+
 	/**
 	 * 
 	 */
-	private AjaxButton ajaxButton = new AjaxButton("submit"){ //$NON-NLS-1$
+	private AjaxButton ajaxButton = new AjaxButton("submit") { //$NON-NLS-1$
 
 		/**
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
-    	
+
 		@Override
 		protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-			//empty
+			// empty
 		}
+
 		@Override
 		protected void onError(AjaxRequestTarget target, Form<?> form) {
 			target.add(feedbackPanel);
 		}
-    };
-	
+	};
 
 	/**
-	 * Creates a new WicketPage object. 
+	 * Creates a new WicketPage object.
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public SelfDrawnTestPage(){
+	public SelfDrawnTestPage() {
 		add(feedbackPanel);
-		
-		//BigDecimal
-		NumberBoPropertyDescriptor<BigDecimal> boPropDescr =(NumberBoPropertyDescriptor<BigDecimal>) 
-		map.get(BigDecimalBoPropertyDescriptor.class);	
-		SelfDrawnBigDecimalTextField bdTxtField = new 
-			SelfDrawnBigDecimalTextField("selfDrawnBigDecimalTextField",boPropDescr); //$NON-NLS-1$
+
+		// BigDecimal
+		NumberBoPropertyDescriptor<BigDecimal> boPropDescr = (NumberBoPropertyDescriptor<BigDecimal>) map
+				.get(BigDecimalBoPropertyDescriptor.class);
+		SelfDrawnBigDecimalTextField bdTxtField = new SelfDrawnBigDecimalTextField(
+				"selfDrawnBigDecimalTextField", boPropDescr); //$NON-NLS-1$
 		bdTxtField.setDefaultModelObject(new BigDecimal(3.000));
 		add(bdTxtField);
-		
-		//Boolean		
-		BooleanBoPropertyDescriptor booleanPropDescr = 
-			(BooleanBoPropertyDescriptor) map.get(BooleanBoPropertyDescriptor.class);
+
+		// Boolean
+		BooleanBoPropertyDescriptor booleanPropDescr = (BooleanBoPropertyDescriptor) map
+				.get(BooleanBoPropertyDescriptor.class);
 		SelfDrawnCheckBox selfDrawnCheckBox = new SelfDrawnCheckBox("selfDrawnBooleanCheckBox", booleanPropDescr); //$NON-NLS-1$
 		selfDrawnCheckBox.setDefaultModelObject(new Boolean(true));
 		add(selfDrawnCheckBox);
 
-		//Date
-		DateBoPropertyDescriptor dateDescr =(DateBoPropertyDescriptor) map.get(DateBoPropertyDescriptor.class);			
-		SelfDrawnDateField selfDrawnDateField = new SelfDrawnDateField("selfDrawnDateField",dateDescr); //$NON-NLS-1$
+		// Date
+		DateBoPropertyDescriptor dateDescr = (DateBoPropertyDescriptor) map.get(DateBoPropertyDescriptor.class);
+		SelfDrawnDateField selfDrawnDateField = new SelfDrawnDateField("selfDrawnDateField", dateDescr); //$NON-NLS-1$
 		selfDrawnDateField.setDefaultModelObject(DateUtils.getDate(2011, Calendar.NOVEMBER, 25));
 		add(selfDrawnDateField);
 
-		//Double
-		NumberBoPropertyDescriptor<Double> doubleDescr =(NumberBoPropertyDescriptor<Double>) 
-		map.get(DoubleBoPropertyDescriptor.class);
-		SelfDrawnDoubleTextField selfDrawnDoubleTextField= new SelfDrawnDoubleTextField("selfDrawnDoubleTextField",doubleDescr); //$NON-NLS-1$
+		// Double
+		NumberBoPropertyDescriptor<Double> doubleDescr = (NumberBoPropertyDescriptor<Double>) map
+				.get(DoubleBoPropertyDescriptor.class);
+		SelfDrawnDoubleTextField selfDrawnDoubleTextField = new SelfDrawnDoubleTextField(
+				"selfDrawnDoubleTextField", doubleDescr); //$NON-NLS-1$
 		selfDrawnDoubleTextField.setDefaultModelObject(4.2);
 		add(selfDrawnDoubleTextField);
-		
-		SelfDrawnDoubleTextField selfDrawnDoubleTextField1= new SelfDrawnDoubleTextField("selfDrawnDoubleTextField1",doubleDescr); //$NON-NLS-1$
-        Form selfDrawnDoubleForm = new Form("selfDrawnDoubleForm");  //$NON-NLS-1$
-        selfDrawnDoubleForm.add(selfDrawnDoubleTextField1);        
-        selfDrawnDoubleForm.add(ajaxButton);     
-        add(selfDrawnDoubleForm);
-		
-		
-		//DropDownChoice
-		CachedEntryBoPropertyDescriptor<?,?> ceBoPd = createDescriptor();
-		List<TypedSelectable<?>> choices = new ArrayList<TypedSelectable<?>>(ceBoPd.getValues());		
-		Bo2WicketSession bo2 = new Bo2WicketSession(getRequest());				
-		SelfDrawnDropDownChoiceForEntry selfDrawnDropDownChoice = new 
-			SelfDrawnDropDownChoiceForEntry("selfDrawnDrowDownChoice", ceBoPd, choices,bo2); //$NON-NLS-1$
-		
-		Model<TypedSelectable<?>> model = 
-			new Model<TypedSelectable<?>>(ceBoPd.getValues().iterator().next());
-		SelfDrawnDropDownChoiceForEntry selfDrawnDropDownChoice1 = 
-			new SelfDrawnDropDownChoiceForEntry("selfDrawnDrowDownChoice1",model,ceBoPd,choices,bo2);				 //$NON-NLS-1$
+
+		SelfDrawnDoubleTextField selfDrawnDoubleTextField1 = new SelfDrawnDoubleTextField(
+				"selfDrawnDoubleTextField1", doubleDescr); //$NON-NLS-1$
+		Form selfDrawnDoubleForm = new Form("selfDrawnDoubleForm"); //$NON-NLS-1$
+		selfDrawnDoubleForm.add(selfDrawnDoubleTextField1);
+		selfDrawnDoubleForm.add(ajaxButton);
+		add(selfDrawnDoubleForm);
+
+		// DropDownChoice
+		CachedEntryBoPropertyDescriptor<?, ?> ceBoPd = createDescriptor();
+		List<TypedSelectable<?>> choices = new ArrayList<TypedSelectable<?>>(ceBoPd.getValues());
+		Bo2WicketSession bo2 = new Bo2WicketSession(getRequest());
+		SelfDrawnDropDownChoiceForEntry selfDrawnDropDownChoice = new SelfDrawnDropDownChoiceForEntry(
+				"selfDrawnDrowDownChoice", ceBoPd, choices, bo2); //$NON-NLS-1$
+
+		Model<TypedSelectable<?>> model = new Model<TypedSelectable<?>>(ceBoPd.getValues().iterator().next());
+		SelfDrawnDropDownChoiceForEntry selfDrawnDropDownChoice1 = new SelfDrawnDropDownChoiceForEntry(
+				"selfDrawnDrowDownChoice1", model, ceBoPd, choices, bo2); //$NON-NLS-1$
 		add(selfDrawnDropDownChoice);
 		add(selfDrawnDropDownChoice1);
-		
-								     
-		//Float
-		NumberBoPropertyDescriptor<Float> floatDescr =(NumberBoPropertyDescriptor<Float>) 
-		map.get(FloatBoPropertyDescriptor.class);		
-		SelfDrawnFloatTextField selfDrawnFloatTextField = 
-			new SelfDrawnFloatTextField("selfDrawnFloatTextField",floatDescr); //$NON-NLS-1$
+
+		// Float
+		NumberBoPropertyDescriptor<Float> floatDescr = (NumberBoPropertyDescriptor<Float>) map
+				.get(FloatBoPropertyDescriptor.class);
+		SelfDrawnFloatTextField selfDrawnFloatTextField = new SelfDrawnFloatTextField(
+				"selfDrawnFloatTextField", floatDescr); //$NON-NLS-1$
 		selfDrawnFloatTextField.setDefaultModelObject(new Float(4.2));
 		add(selfDrawnFloatTextField);
 
-//		SeflDrawnForm
+		// SeflDrawnForm
 		Bean1 bean1 = new Bean1();
 		Bean1descriptor bean1Desc = new Bean1descriptor();
 		BasicBusinessObjectDescriptor<Bean1> busDesc = new BasicBusinessObjectDescriptor<Bean1>();
 		busDesc.setPropertyDescriptors(bean1Desc.getPropertyDescriptors());
-		SelfDrawnForm<Bean1> selfDrawnForm = new SelfDrawnForm<Bean1>("selfDrawnForm", new CompoundPropertyModel<Bean1>(bean1), busDesc); //$NON-NLS-1$
-		add(selfDrawnForm);  
+		SelfDrawnForm<Bean1> selfDrawnForm = new SelfDrawnForm<Bean1>(
+				"selfDrawnForm", new CompoundPropertyModel<Bean1>(bean1), busDesc); //$NON-NLS-1$
+		add(selfDrawnForm);
 
-		//Integer
-		NumberBoPropertyDescriptor<Integer> integerDescr =(NumberBoPropertyDescriptor<Integer>) 
-		map.get(IntegerBoPropertyDescriptor.class);		
-		SelfDrawnIntegerTextField selfDrawnIntegerTextField = 
-			new SelfDrawnIntegerTextField("selfDrawnIntegerTextField",integerDescr); //$NON-NLS-1$
+		// Integer
+		NumberBoPropertyDescriptor<Integer> integerDescr = (NumberBoPropertyDescriptor<Integer>) map
+				.get(IntegerBoPropertyDescriptor.class);
+		SelfDrawnIntegerTextField selfDrawnIntegerTextField = new SelfDrawnIntegerTextField(
+				"selfDrawnIntegerTextField", integerDescr); //$NON-NLS-1$
 		selfDrawnIntegerTextField.setDefaultModelObject(new Integer(4));
 		add(selfDrawnIntegerTextField);
 
-		//Label
+		// Label
 		SelfDrawnLabel selfDrawnLabel = new SelfDrawnLabel("selfDrawnLabel", "This is a test"); //$NON-NLS-1$ //$NON-NLS-2$
 		add(selfDrawnLabel);
 
-		//Long
-		NumberBoPropertyDescriptor<Long> longDescr =(NumberBoPropertyDescriptor<Long>) 
-		map.get(LongBoPropertyDescriptor.class);		
-		SelfDrawnLongTextField selfDrawnLongTextField = 
-			new SelfDrawnLongTextField("selfDrawnLongTextField",longDescr); //$NON-NLS-1$
+		// Long
+		NumberBoPropertyDescriptor<Long> longDescr = (NumberBoPropertyDescriptor<Long>) map
+				.get(LongBoPropertyDescriptor.class);
+		SelfDrawnLongTextField selfDrawnLongTextField = new SelfDrawnLongTextField("selfDrawnLongTextField", longDescr); //$NON-NLS-1$
 		selfDrawnLongTextField.setDefaultModelObject(4L);
 		add(selfDrawnLongTextField);
 
-		//String
-		BoPropertyDescriptor<String> stringDescr = (BoPropertyDescriptor<String>)
-		map.get(StringBoPropertyDescriptor.class);		
-		SelfDrawnStringTextField selfDrawnStringTextField = new 
-		SelfDrawnStringTextField("selfDrawnStringTextField",(StringBoPropertyDescriptor)stringDescr); //$NON-NLS-1$
+		// String
+		BoPropertyDescriptor<String> stringDescr = (BoPropertyDescriptor<String>) map
+				.get(StringBoPropertyDescriptor.class);
+		SelfDrawnStringTextField selfDrawnStringTextField = new SelfDrawnStringTextField(
+				"selfDrawnStringTextField", (StringBoPropertyDescriptor) stringDescr); //$NON-NLS-1$
 		selfDrawnStringTextField.setDefaultModelObject("This is a test"); //$NON-NLS-1$
-        add(selfDrawnStringTextField);
-        
-       //String TextArea
-		BoPropertyDescriptor<String> textAreaDescr = (BoPropertyDescriptor<String>)
-		map.get(StringBoPropertyDescriptor.class);		
-		SelfDrawnTextArea selfDrawnStringTextArea = 
-			new SelfDrawnTextArea("selfDrawnStringTextArea",(StringBoPropertyDescriptor)textAreaDescr); //$NON-NLS-1$
-		selfDrawnStringTextArea.setDefaultModelObject("This is a test"); //$NON-NLS-1$
-        add(selfDrawnStringTextArea);
-        
-	}
+		add(selfDrawnStringTextField);
 
+		// String TextArea
+		BoPropertyDescriptor<String> textAreaDescr = (BoPropertyDescriptor<String>) map
+				.get(StringBoPropertyDescriptor.class);
+		SelfDrawnTextArea selfDrawnStringTextArea = new SelfDrawnTextArea(
+				"selfDrawnStringTextArea", (StringBoPropertyDescriptor) textAreaDescr); //$NON-NLS-1$
+		selfDrawnStringTextArea.setDefaultModelObject("This is a test"); //$NON-NLS-1$
+		add(selfDrawnStringTextArea);
+
+	}
 
 	/**
 	 * 
 	 */
-	private static void initializeDescriptors(){
-		Bean1descriptor descriptor =  new Bean1descriptor();
-		List<BoPropertyDescriptor<?>> descriptors = 
-			descriptor.getPropertyDescriptors();		 
-		for(BoPropertyDescriptor<?> desc : descriptors){			 
-			if(desc instanceof BigDecimalBoPropertyDescriptor){
+	private static void initializeDescriptors() {
+		Bean1descriptor descriptor = new Bean1descriptor();
+		List<BoPropertyDescriptor<?>> descriptors = descriptor.getPropertyDescriptors();
+		for (BoPropertyDescriptor<?> desc : descriptors) {
+			if (desc instanceof BigDecimalBoPropertyDescriptor) {
 				map.put(BigDecimalBoPropertyDescriptor.class, desc);
-			}else if(desc instanceof BooleanBoPropertyDescriptor){
+			} else if (desc instanceof BooleanBoPropertyDescriptor) {
 				map.put(BooleanBoPropertyDescriptor.class, desc);
-			}else if(desc instanceof DoubleBoPropertyDescriptor){
-				map.put(DoubleBoPropertyDescriptor.class,desc);
-			}else if(desc instanceof DateBoPropertyDescriptor){
+			} else if (desc instanceof DoubleBoPropertyDescriptor) {
+				map.put(DoubleBoPropertyDescriptor.class, desc);
+			} else if (desc instanceof DateBoPropertyDescriptor) {
 				map.put(DateBoPropertyDescriptor.class, desc);
-			}else if(desc instanceof IntegerBoPropertyDescriptor){
+			} else if (desc instanceof IntegerBoPropertyDescriptor) {
 				map.put(IntegerBoPropertyDescriptor.class, desc);
-			}else if(desc instanceof FloatBoPropertyDescriptor){
+			} else if (desc instanceof FloatBoPropertyDescriptor) {
 				map.put(FloatBoPropertyDescriptor.class, desc);
-			}else if(desc instanceof StringBoPropertyDescriptor){
+			} else if (desc instanceof StringBoPropertyDescriptor) {
 				map.put(StringBoPropertyDescriptor.class, desc);
-			}else if(desc instanceof LongBoPropertyDescriptor){
+			} else if (desc instanceof LongBoPropertyDescriptor) {
 				map.put(LongBoPropertyDescriptor.class, desc);
 			}
-		}	
-	} 
+		}
+	}
 
 	/**
 	 * Create CachedEntryBoPropertyDescriptor
+	 * 
 	 * @return CachedEntryBoPropertyDescriptor
 	 * 
 	 */
-	private CachedEntryBoPropertyDescriptor<?,?> createDescriptor(){
+	private CachedEntryBoPropertyDescriptor<?, ?> createDescriptor() {
 		Cache<Long> CACHE = new CacheImpl<Long>();
 		Parser<Long> PARSER = new LongParser();
-		Formatter<Long> FORMATTER = ObjectFormatter.<Long>getInstance();
-		
+		Formatter<Long> FORMATTER = ObjectFormatter.<Long> getInstance();
 
-		 Entry value = new Entry();
-		 value.setCode(1L);
-		 value.setTypeId(1000L);
-		 value.setSubTypeId(1L);
-		 CACHE.put(value);		 		    
-         CachedEntryBoPropertyDescriptor<Entry, Long> cashedDesc = new CachedEntryBoPropertyDescriptor<Entry, Long>(
-        		 1000L, 1L,CACHE, PARSER, FORMATTER);
-         
-         
+		Entry value = new Entry();
+		value.setCode(1L);
+		value.setTypeId(1000L);
+		value.setSubTypeId(1L);
+		CACHE.put(value);
+
+		CacheRegistry.registerCache(this.getClass().getName(), CACHE, Long.class);
+		CachedEntryBoPropertyDescriptor<Entry, Long> cashedDesc = new CachedEntryBoPropertyDescriptor<Entry, Long>(
+				1000L, 1L, this.getClass().getName(), PARSER, FORMATTER);
+
 		return cashedDesc;
 	}
-	
-	
+
 	/**
 	 * Entry.
 	 */
-	private class Entry
-	extends TypedSelectableImpl<Long>
-	implements TranslatableEntry<Long, Long, Long> {
-		
+	private class Entry extends TypedSelectableImpl<Long> implements TranslatableEntry<Long, Long, Long> {
+
 		/**
 		 * UID.
 		 */
 		private static final long serialVersionUID = 1L;
 
-		public String getTranslation(Long languageId) {			
+		public String getTranslation(Long languageId) {
 			return getName();
 		}
-		
-		public Long getTranslationResourceId() {			
-			return getCode();
-		}		
-	}
 
+		public Long getTranslationResourceId() {
+			return getCode();
+		}
+	}
 
 }

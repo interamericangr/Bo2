@@ -12,9 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.wicket.bo2.factories.meta;
 
-import gr.interamerican.bo2.arch.ext.Cache;
 import gr.interamerican.bo2.arch.ext.TranslatableEntry;
-import gr.interamerican.bo2.arch.utils.beans.CacheImpl;
 import gr.interamerican.bo2.arch.utils.beans.TypedSelectableImpl;
 import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.meta.ext.descriptors.MultipleCachedEntriesBoPropertyDescriptor;
@@ -43,10 +41,6 @@ public class TestMultipleChoiceCachedEntryBoPDFactory extends BaseClassForTestin
 	 * SUBTYPE
 	 */
 	private static final Long SUBTYPE = 1L;
-	/**
-	 * CACHE
-	 */
-	private static final Cache<Long> CACHE = new CacheImpl<Long>();
 	/**
 	 * PARSER
 	 */
@@ -98,22 +92,22 @@ public class TestMultipleChoiceCachedEntryBoPDFactory extends BaseClassForTestin
 		 value_1.setCode(1L);
 		 value_1.setTypeId(TYPE);
 		 value_1.setSubTypeId(SUBTYPE);
-		 CACHE.put(value_1);
+		 cache().put(value_1);
 		 
 		 Entry value_2 = new Entry();
 		 value_2.setCode(2L);
 		 value_2.setTypeId(TYPE);
 		 value_2.setSubTypeId(SUBTYPE);
-		 CACHE.put(value_2);
+		 cache().put(value_2);
 		 
 		 Entry value_3 = new Entry();
 		 value_3.setCode(3L);
 		 value_3.setTypeId(TYPE);
 		 value_3.setSubTypeId(SUBTYPE);
-		 CACHE.put(value_3);
+		 cache().put(value_3);
 		 
 		 MultipleCachedEntriesBoPropertyDescriptor<?,?> cd = new MultipleCachedEntriesBoPropertyDescriptor<Entry, Long>(
-        		 1000L, 1L,CACHE, PARSER, FORMATTER);
+        		 1000L, 1L,TEST_CACHE_NAME, PARSER, FORMATTER);
 		 cd.setName("multipleChoiceField"); //$NON-NLS-1$
 		 return cd;
 	}

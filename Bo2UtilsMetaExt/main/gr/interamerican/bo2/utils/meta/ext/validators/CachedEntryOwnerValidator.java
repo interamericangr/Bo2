@@ -12,8 +12,8 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.meta.ext.validators;
 
-import gr.interamerican.bo2.arch.ext.Cache;
 import gr.interamerican.bo2.arch.ext.TranslatableEntryOwner;
+import gr.interamerican.bo2.arch.utils.cache.NamedCacheProvider;
 import gr.interamerican.bo2.utils.meta.exceptions.ValidationException;
 import gr.interamerican.bo2.utils.meta.validators.AbstractValidator;
 import gr.interamerican.bo2.utils.meta.validators.Validator;
@@ -32,21 +32,28 @@ public class CachedEntryOwnerValidator
 extends AbstractValidator implements Validator<T> {
 	
 	/**
-	 * Cache.
+	 * serialVersionUID
 	 */
-	private Cache<C> cache;
-	
+	private static final long serialVersionUID = 1L;
+
 	/**
-	 * Creates a new CachedEntryOwnerValidator object. 
-	 * @param cache 
+	 * NamedCacheProvider
 	 */
-	public CachedEntryOwnerValidator(Cache<C> cache) {
-		this.cache = cache;
+	NamedCacheProvider<C> namedCacheProvider;
+		
+	/**
+	 * Creates a new CachedObjectValidator object. 
+	 *
+	 * @param cacheName
+	 */
+	public CachedEntryOwnerValidator(String cacheName) {
+		super();
+		namedCacheProvider = new NamedCacheProvider<C>(cacheName);
 	}
 
 	public void validate(T value) throws ValidationException {
 		if(value!=null && value.getEntry() !=null) {
-			if(cache.get(value.getEntry().getTypeId(), value.getEntry().getCode())==null) {
+			if(namedCacheProvider.cache().get(value.getEntry().getTypeId(), value.getEntry().getCode())==null) {
 				throw invalid();
 			}
 		}

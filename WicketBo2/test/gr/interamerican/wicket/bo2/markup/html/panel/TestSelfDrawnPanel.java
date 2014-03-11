@@ -26,6 +26,7 @@ import java.util.List;
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.serialize.java.JavaSerializer;
 import org.apache.wicket.util.tester.FormTester;
 import org.junit.Assert;
 import org.junit.Test;
@@ -46,6 +47,9 @@ public class TestSelfDrawnPanel extends WicketTest {
 	@Test
 	public void testSelfDrawnPanel() {
 		tester.startPage(getTestPage());
+		
+		new JavaSerializer(tester.getApplication().getApplicationKey()).serialize(getTestSubject());
+		
 		@SuppressWarnings("unchecked")
 		TextField<Long> tf =  (TextField<Long>) tester.getComponentFromLastRenderedPage(path("field2")); //$NON-NLS-1$
 		
@@ -69,7 +73,7 @@ public class TestSelfDrawnPanel extends WicketTest {
 	 * Unit test for submitting the form of a selfdrawnpanel when
 	 * the validation fails.
 	 */
-//	@Test
+	@Test
 	@SuppressWarnings("nls")
 	public void testSelfDrawnPanel_componentValidators() {
 		tester.startPage(getTestPage());

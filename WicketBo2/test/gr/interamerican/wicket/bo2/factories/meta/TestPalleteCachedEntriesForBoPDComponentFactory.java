@@ -42,10 +42,6 @@ public class TestPalleteCachedEntriesForBoPDComponentFactory extends BaseClassFo
 	 */
 	private static final Long SUBTYPE = 1L;
 	/**
-	 * CACHE
-	 */
-	private static final Cache<Long> CACHE = new CacheImpl<Long>();
-	/**
 	 * PARSER
 	 */
 	private static final Parser<Long> PARSER = new LongParser();
@@ -99,22 +95,22 @@ public class TestPalleteCachedEntriesForBoPDComponentFactory extends BaseClassFo
 		 value_1.setCode(1L);
 		 value_1.setTypeId(TYPE);
 		 value_1.setSubTypeId(SUBTYPE);
-		 CACHE.put(value_1);
+		 cache().put(value_1);
 		 
 		 Entry value_2 = new Entry();
 		 value_2.setCode(2L);
 		 value_2.setTypeId(TYPE);
 		 value_2.setSubTypeId(SUBTYPE);
-		 CACHE.put(value_2);
+		 cache().put(value_2);
 		 
 		 Entry value_3 = new Entry();
 		 value_3.setCode(3L);
 		 value_3.setTypeId(TYPE);
 		 value_3.setSubTypeId(SUBTYPE);
-		 CACHE.put(value_3);
+		 cache().put(value_3);
 		 
 		 PalleteCachedEntriesBoPropertyDescriptor<?,?> cd = new PalleteCachedEntriesBoPropertyDescriptor<Entry, Long>(
-        		 1000L, 1L,CACHE, PARSER, FORMATTER);
+        		 1000L, 1L,TEST_CACHE_NAME, PARSER, FORMATTER);
 		 cd.setName("multipleChoiceField"); //$NON-NLS-1$
 		 return cd;
 	}

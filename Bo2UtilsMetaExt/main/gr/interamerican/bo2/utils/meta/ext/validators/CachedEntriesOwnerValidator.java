@@ -12,7 +12,6 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.meta.ext.validators;
 
-import gr.interamerican.bo2.arch.ext.Cache;
 import gr.interamerican.bo2.arch.ext.TranslatableEntryOwner;
 import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.meta.exceptions.ValidationException;
@@ -35,16 +34,21 @@ C extends Comparable<? super C>>
 implements Validator<Collection<T>> {
 	
 	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	/**
 	 * Validator of a single entry.
 	 */
 	private CachedEntryOwnerValidator<TranslatableEntryOwner<C,?,?>, C> delegate;
 	
 	/**
 	 * Creates a new CachedEntriesValidator object. 
-	 * @param cache 
+	 * @param cacheName 
 	 */
-	public CachedEntriesOwnerValidator(Cache<C> cache) {
-		this.delegate = new CachedEntryOwnerValidator<TranslatableEntryOwner<C,?,?>, C>(cache);
+	public CachedEntriesOwnerValidator(String cacheName) {
+		this.delegate = new CachedEntryOwnerValidator<TranslatableEntryOwner<C,?,?>, C>(cacheName);
 	}
 
 	public void validate(Collection<T> value) throws ValidationException {

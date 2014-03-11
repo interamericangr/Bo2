@@ -12,11 +12,10 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.meta.ext.validators;
 
-import gr.interamerican.bo2.arch.ext.Cache;
-import gr.interamerican.bo2.arch.utils.beans.CacheImpl;
 import gr.interamerican.bo2.samples.utils.meta.ext.EnumElement;
 import gr.interamerican.bo2.samples.utils.meta.ext.ObjectType;
 import gr.interamerican.bo2.utils.meta.exceptions.ValidationException;
+import gr.interamerican.bo2.utils.meta.ext.AbstractCacheRelatedTest;
 
 import java.util.Arrays;
 
@@ -25,7 +24,8 @@ import org.junit.Test;
 /**
  * Unit test for {@link CachedEntriesOwnerValidator}.
  */
-public class TestCachedEntriesOwnerValidator {
+public class TestCachedEntriesOwnerValidator extends AbstractCacheRelatedTest {
+	
 	/**
 	 * TYPE
 	 */
@@ -48,20 +48,18 @@ public class TestCachedEntriesOwnerValidator {
 	 * @return CachedEntryOwnerValidator
 	 */
 	private CachedEntriesOwnerValidator<ObjectType, Long> createCachedEntriesOwnerValidator(){
-		
-		Cache<Long> cache = new CacheImpl<Long>();
 		EnumElement enumElement = new EnumElement(TYPE, ObjectType.OBJECT1);
 		enumElement.setCode(CODE_1);
 		enumElement.setSubTypeId(SUBTYPE);
-		cache.put(enumElement);
+		cache().put(enumElement);
 		
 		EnumElement enumElement2 = new EnumElement(TYPE, ObjectType.OBJECT2);
 		enumElement2.setCode(CODE_2);
 		enumElement2.setSubTypeId(SUBTYPE);
-		cache.put(enumElement2);
+		cache().put(enumElement2);
 		
 		CachedEntriesOwnerValidator<ObjectType, Long> cashedVal = 
-			new CachedEntriesOwnerValidator<ObjectType, Long>(cache);
+			new CachedEntriesOwnerValidator<ObjectType, Long>(TEST_CACHE_NAME);
 		return cashedVal;
 	}
 	

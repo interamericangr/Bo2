@@ -12,6 +12,8 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.meta.parsers;
 
+import java.io.Serializable;
+
 import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
 
 /**
@@ -19,7 +21,7 @@ import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
  * @param <T> 
  * 
  */
-public interface Parser<T> {
+public interface Parser<T> extends Serializable {
 	
 	/**
 	 * Parses a string.

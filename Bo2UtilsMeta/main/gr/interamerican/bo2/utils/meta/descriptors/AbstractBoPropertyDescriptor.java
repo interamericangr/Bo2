@@ -24,6 +24,7 @@ import gr.interamerican.bo2.utils.meta.validators.NotNullValidator;
 import gr.interamerican.bo2.utils.meta.validators.Validator;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 
 /**
@@ -169,7 +170,7 @@ implements BoPropertyDescriptor<T> {
 	
 	@Override
 	public void validate(T value) throws ValidationException {
-		new MultipleValidatorsValidator<T>(validators.values(), getLabel()).validate(value);
+		getValidator().validate(value);
 	}
 	
 	@Override
@@ -216,7 +217,7 @@ implements BoPropertyDescriptor<T> {
 
 	@Override
 	public T parse(String value) throws ParseException {		
-		return parser.parse(value);
+		return getParser().parse(value);
 	}	
 	
 	@Override
@@ -311,6 +312,14 @@ implements BoPropertyDescriptor<T> {
 
 	public void setAffected(String affected) {
 		this.affected = affected;
+	}
+	
+	public Parser<T> getParser() {
+		return parser;
+	}
+	
+	public Validator<T> getValidator() {
+		return new MultipleValidatorsValidator<T>(new HashSet<Validator<T>>(validators.values()), getLabel());
 	}
 
 }

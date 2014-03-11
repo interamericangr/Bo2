@@ -28,6 +28,11 @@ import java.util.Collection;
 public class MultipleValidatorsValidator<T> implements Validator<T> {
 	
 	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * {@link Validator}s.
 	 */
 	private Collection<Validator<T>> validators;

@@ -12,6 +12,11 @@
  ******************************************************************************/
 package gr.interamerican.wicket.bo2.factories.meta;
 
+import org.junit.Before;
+
+import gr.interamerican.bo2.arch.ext.Cache;
+import gr.interamerican.bo2.arch.utils.CacheRegistry;
+import gr.interamerican.bo2.arch.utils.beans.CacheImpl;
 import gr.interamerican.bo2.samples.utils.meta.Bean1;
 import gr.interamerican.bo2.samples.utils.meta.Bean1descriptor;
 import gr.interamerican.wicket.bo2.test.Bo2WicketTest;
@@ -39,5 +44,28 @@ public class BaseClassForTestingComponentFactory extends Bo2WicketTest{
 	 */
 	protected Bean1descriptor bean1descriptor = new Bean1descriptor();
 	
-
+	/**
+	 * Cache name.
+	 */
+	protected static final String TEST_CACHE_NAME = "TEST_CACHE"; //$NON-NLS-1$
+	
+	/**
+	 * cache registration fixture.
+	 */
+	@Before
+	public void before() {
+		if(CacheRegistry.getRegisteredCache(TEST_CACHE_NAME)!=null) {
+			CacheRegistry.getRegisteredCache(TEST_CACHE_NAME).clear();
+		} else {
+			CacheRegistry.registerCache(TEST_CACHE_NAME, new CacheImpl<Long>(), Long.class);
+		}
+	}
+	
+	/**
+	 * @return Returns the test cache
+	 */
+	protected Cache<Long> cache() {
+		return CacheRegistry.<Long>getRegisteredCache(TEST_CACHE_NAME);
+	}
+	
 }

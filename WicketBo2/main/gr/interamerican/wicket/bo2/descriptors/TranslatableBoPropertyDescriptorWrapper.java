@@ -18,6 +18,8 @@ import gr.interamerican.bo2.utils.meta.descriptors.BoPropertyDescriptor;
 import gr.interamerican.bo2.utils.meta.descriptors.BoPropertyDescriptorWrapper;
 import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
 import gr.interamerican.bo2.utils.meta.exceptions.ValidationException;
+import gr.interamerican.bo2.utils.meta.parsers.Parser;
+import gr.interamerican.bo2.utils.meta.validators.Validator;
 import gr.interamerican.wicket.bo2.protocol.http.Bo2WicketSession;
 
 /**
@@ -200,6 +202,14 @@ implements BoPropertyDescriptor<T>, BoPropertyDescriptorWrapper<T> {
 
 	public String getAffected() {
 		return descriptor.getAffected();
+	}
+	
+	public Parser<T> getParser() {
+		return descriptor.getParser();
+	}
+	
+	public Validator<T> getValidator() {
+		return descriptor.getValidator();
 	}
 
 }

@@ -12,6 +12,8 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.meta.validators;
 
+import java.io.Serializable;
+
 import gr.interamerican.bo2.utils.meta.exceptions.ValidationException;
 
 /**
@@ -19,7 +21,7 @@ import gr.interamerican.bo2.utils.meta.exceptions.ValidationException;
  * 
  * @param <T> Type of object to validate. 
  */
-public interface Validator<T> {
+public interface Validator<T> extends Serializable {
 	
 	/**
 	 * Validates the value.

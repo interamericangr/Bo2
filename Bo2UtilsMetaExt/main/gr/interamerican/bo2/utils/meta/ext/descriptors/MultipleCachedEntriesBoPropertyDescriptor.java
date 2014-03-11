@@ -12,20 +12,16 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.meta.ext.descriptors;
 
-import gr.interamerican.bo2.arch.ext.Cache;
 import gr.interamerican.bo2.arch.ext.TypedSelectable;
 import gr.interamerican.bo2.utils.CollectionUtils;
 import gr.interamerican.bo2.utils.StringConstants;
-import gr.interamerican.bo2.utils.TokenUtils;
-import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
+import gr.interamerican.bo2.utils.meta.ext.parsers.MultipleCachedEntriesParser;
 import gr.interamerican.bo2.utils.meta.ext.validators.CachedEntriesValidator;
 import gr.interamerican.bo2.utils.meta.formatters.Formatter;
 import gr.interamerican.bo2.utils.meta.parsers.Parser;
 import gr.interamerican.bo2.utils.meta.validators.Validator;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -49,25 +45,18 @@ extends AbstractCacheRelatedObjectBoPropertyDescriptor<Collection<T>, C> {
 	 *
 	 * @param typeId
 	 * @param subTypeId
-	 * @param cache
+	 * @param cacheName
 	 * @param codeParser
 	 * @param codeFormatter 
 	 */
 	public MultipleCachedEntriesBoPropertyDescriptor(
-	Long typeId, Long subTypeId, Cache<C> cache, Parser<C> codeParser, Formatter<C> codeFormatter) {
-		super(typeId, subTypeId, cache, codeParser, codeFormatter);
+	Long typeId, Long subTypeId, String cacheName, Parser<C> codeParser, Formatter<C> codeFormatter) {
+		super(typeId, subTypeId, cacheName, codeParser, codeFormatter);
 	}
 	
 	@Override
-	@SuppressWarnings("unchecked")
-	public List<T> parse(String value) throws ParseException {
-		String[] tokens = TokenUtils.splitTrim(value, StringConstants.COMMA);
-		List<T> list = new ArrayList<T>();
-		for(String token : tokens) {
-			C code = codeParser.parse(token);
-			list.add((T) cache.get(typeId, code));
-		}
-		return list;
+	public Parser<Collection<T>> getParser() {
+		return new MultipleCachedEntriesParser<T, C>(cacheName, typeId, codeParser);
 	}
 	
 	@Override
@@ -88,8 +77,8 @@ extends AbstractCacheRelatedObjectBoPropertyDescriptor<Collection<T>, C> {
 	}
 	
 	@Override
-	protected Validator<Collection<T>> getValidator() {
-		return new CachedEntriesValidator<T, C>(cache);
+	protected Validator<Collection<T>> getCacheRelatedValidator() {
+		return new CachedEntriesValidator<T, C>(cacheName);
 	}
 	
 	/**
@@ -98,7 +87,7 @@ extends AbstractCacheRelatedObjectBoPropertyDescriptor<Collection<T>, C> {
 	 * @return Returns a set containing all the values that can be selected.
 	 */
 	public Set<TypedSelectable<C>> getSelectableValues() {
-		return cache.getSubCache(typeId, subTypeId);
+		return cache().getSubCache(typeId, subTypeId);
 	}
 
 	@Override

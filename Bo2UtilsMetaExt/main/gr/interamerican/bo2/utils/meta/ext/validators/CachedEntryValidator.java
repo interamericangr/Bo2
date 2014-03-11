@@ -12,8 +12,8 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.meta.ext.validators;
 
-import gr.interamerican.bo2.arch.ext.Cache;
 import gr.interamerican.bo2.arch.ext.TypedSelectable;
+import gr.interamerican.bo2.arch.utils.cache.NamedCacheProvider;
 import gr.interamerican.bo2.utils.meta.exceptions.ValidationException;
 import gr.interamerican.bo2.utils.meta.validators.AbstractValidator;
 import gr.interamerican.bo2.utils.meta.validators.Validator;
@@ -32,22 +32,27 @@ public class CachedEntryValidator
 extends AbstractValidator implements Validator<T> {
 	
 	/**
-	 * Cache.
+	 * serialVersionUID
 	 */
-	private Cache<C> cache;
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * NamedCacheProvider
+	 */
+	NamedCacheProvider<C> namedCacheProvider;
 		
 	/**
 	 * Creates a new CachedObjectValidator object. 
 	 *
-	 * @param cache
+	 * @param cacheName
 	 */
-	public CachedEntryValidator(Cache<C> cache) {
+	public CachedEntryValidator(String cacheName) {
 		super();
-		this.cache = cache;
+		namedCacheProvider = new NamedCacheProvider<C>(cacheName);
 	}
 	
 	public void validate(T value) throws ValidationException {
-		if (value!=null && cache.get(value.getTypeId(), value.getCode())==null) {
+		if (value!=null && namedCacheProvider.cache().get(value.getTypeId(), value.getCode())==null) {
 			throw invalid();
 		}
 	}

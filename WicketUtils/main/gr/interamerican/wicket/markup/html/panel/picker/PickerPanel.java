@@ -176,7 +176,6 @@ extends ListTablePanel<B> {
 		tableForm.add(selectButton);
 		tableForm.add(secondSelectButton);
 		tableForm.add(backButton);
-		tableForm.setMultiPart(true);
 		add(tableForm);		
 		add(feedBackPanel);
 		if(getDefinition().getItemSelectedAction() == null) {
@@ -208,6 +207,11 @@ extends ListTablePanel<B> {
 	 */
 	protected class RefreshTableAction extends CallbackWrapper {
 		
+		/**
+		 * serialVersionUID
+		 */
+		private static final long serialVersionUID = 1L;
+
 		/**
 		 * Creates a new CrudPickerPanel.NewItemAction object.
 		 * 

@@ -13,6 +13,7 @@
 package gr.interamerican.bo2.utils.meta.ext.descriptors;
 
 import gr.interamerican.bo2.arch.ext.Cache;
+import gr.interamerican.bo2.arch.utils.CacheRegistry;
 import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.meta.descriptors.AbstractBoPropertyDescriptor;
 import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
@@ -45,7 +46,7 @@ extends AbstractBoPropertyDescriptor<T>{
 	/**
 	 * Cache.
 	 */
-	protected Cache<C> cache;
+	protected String cacheName;
 	
 	/**
 	 * Parser for cache code.
@@ -58,28 +59,33 @@ extends AbstractBoPropertyDescriptor<T>{
 	protected Formatter<C> codeFormatter;
 	
 	/**
+	 * Cache
+	 */
+	private transient Cache<C> cache;
+	
+	/**
 	 * Creates a new AbstractCacheRelatedObjectBoPropertyDescriptor object. 
 	 *
 	 * @param typeId 
 	 *        TypeId used to identify the list of valid values in the cache.
 	 * @param subTypeId 
 	 *        SubTypeId used to identify the list of valid values in the cache.
-	 * @param cache
-	 *        {@link Cache} that keeps the possible values of the property.
+	 * @param cacheName
+	 *        Name of the cache that keeps the possible values of the property.
 	 * @param codeParser 
 	 *        Parser used to parse the code.
 	 * @param codeFormatter
 	 *        Formatter used to format the code. 
 	 */
 	public AbstractCacheRelatedObjectBoPropertyDescriptor(
-	Long typeId, Long subTypeId, Cache<C> cache, Parser<C> codeParser, Formatter<C> codeFormatter) {
+	Long typeId, Long subTypeId, String cacheName, Parser<C> codeParser, Formatter<C> codeFormatter) {
 		super(null);
 		this.typeId = typeId;
 		this.subTypeId = subTypeId;
-		this.cache = cache;
+		this.cacheName = cacheName;
 		this.codeParser = codeParser;
 		this.codeFormatter = codeFormatter;
-		validators.put(AbstractCacheRelatedObjectBoPropertyDescriptor.class, getValidator());
+		validators.put(AbstractCacheRelatedObjectBoPropertyDescriptor.class, getCacheRelatedValidator());
 	}
 	
 	/**
@@ -87,21 +93,36 @@ extends AbstractBoPropertyDescriptor<T>{
 	 * 
 	 * @return Returns the appropriate validator.
 	 */
-	protected abstract Validator<T> getValidator();
+	protected abstract Validator<T> getCacheRelatedValidator();
 	
-	
-	@SuppressWarnings("unchecked")
 	@Override
 	public T valueOf(Number value) {
 		Long lvalue = value.longValue();
 		String strCode = StringUtils.toString(lvalue);
 		try {
-			C code = codeParser.parse(strCode);
-			return (T) cache.get(typeId, code);
+			return getParser().parse(strCode);
 		} catch (ParseException e) {
 			return null;
 		}
-		
+	}
+	
+	@Override
+	public Parser<T> getParser() {
+		throw new IllegalStateException(
+			"getParser() must be overriden by concrete sub-classes of "  //$NON-NLS-1$
+		  + AbstractCacheRelatedObjectBoPropertyDescriptor.class.getName());
+	}
+	
+	/**
+	 * Initializes (if needed) and returns the transient field {@link #cache} 
+	 * 
+	 * @return returns the {@link Cache} of this AbstractCacheRelatedObjectBoPropertyDescriptor
+	 */
+	protected Cache<C> cache() {
+		if(cache == null) {
+			cache = CacheRegistry.getRegisteredCache(cacheName);
+		}
+		return cache;
 	}
 	
 }

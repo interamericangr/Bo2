@@ -12,23 +12,19 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.meta.ext.descriptors;
 
-import gr.interamerican.bo2.arch.ext.Cache;
 import gr.interamerican.bo2.arch.ext.OwnedEntry;
 import gr.interamerican.bo2.arch.ext.TranslatableEntryOwner;
 import gr.interamerican.bo2.arch.ext.TypedSelectable;
 import gr.interamerican.bo2.utils.CollectionUtils;
 import gr.interamerican.bo2.utils.StringConstants;
-import gr.interamerican.bo2.utils.TokenUtils;
-import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
+import gr.interamerican.bo2.utils.meta.ext.parsers.MultipleCachedEntryOwnersParser;
 import gr.interamerican.bo2.utils.meta.ext.validators.CachedEntriesOwnerValidator;
 import gr.interamerican.bo2.utils.meta.formatters.Formatter;
 import gr.interamerican.bo2.utils.meta.parsers.Parser;
 import gr.interamerican.bo2.utils.meta.validators.Validator;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -52,24 +48,18 @@ extends AbstractCacheRelatedObjectBoPropertyDescriptor<Collection<T>, C> {
 	 *
 	 * @param typeId
 	 * @param subTypeId
-	 * @param cache
+	 * @param cacheName
 	 * @param codeParser
 	 * @param codeFormatter 
 	 */
 	public MultipleCachedEntriesOwnersBoPropertyDescriptor(
-	Long typeId, Long subTypeId, Cache<C> cache, Parser<C> codeParser, Formatter<C> codeFormatter) {
-		super(typeId, subTypeId, cache, codeParser, codeFormatter);
+	Long typeId, Long subTypeId, String cacheName, Parser<C> codeParser, Formatter<C> codeFormatter) {
+		super(typeId, subTypeId, cacheName, codeParser, codeFormatter);
 	}
 	
 	@Override
-	public List<T> parse(String value) throws ParseException {
-		String[] tokens = TokenUtils.splitTrim(value, StringConstants.COMMA);
-		List<T> list = new ArrayList<T>();
-		for(String token : tokens) {
-			C code = codeParser.parse(token);
-			list.add(getOwner(cache.get(typeId, code)));
-		}
-		return list;
+	public Parser<Collection<T>> getParser() {
+		return new MultipleCachedEntryOwnersParser<T, C>(cacheName, typeId, codeParser);
 	}
 	
 	@Override
@@ -90,8 +80,8 @@ extends AbstractCacheRelatedObjectBoPropertyDescriptor<Collection<T>, C> {
 	}
 	
 	@Override
-	protected Validator<Collection<T>> getValidator() {
-		return new CachedEntriesOwnerValidator<T, C>(cache);
+	protected Validator<Collection<T>> getCacheRelatedValidator() {
+		return new CachedEntriesOwnerValidator<T, C>(cacheName);
 	}
 	
 	/**
@@ -100,7 +90,7 @@ extends AbstractCacheRelatedObjectBoPropertyDescriptor<Collection<T>, C> {
 	 * @return Returns a set containing all the values that can be selected.
 	 */
 	public Set<TranslatableEntryOwner<C,?,?>> getSelectableValues() {
-		Set<TypedSelectable<C>> entries = cache.getSubCache(typeId, subTypeId);
+		Set<TypedSelectable<C>> entries = cache().getSubCache(typeId, subTypeId);
 		Set<TranslatableEntryOwner<C, ?, ?>> owners = new HashSet<TranslatableEntryOwner<C,?,?>>();
 		for (TypedSelectable<C> typedSelectable : entries) {
 			owners.add(getOwner(typedSelectable));

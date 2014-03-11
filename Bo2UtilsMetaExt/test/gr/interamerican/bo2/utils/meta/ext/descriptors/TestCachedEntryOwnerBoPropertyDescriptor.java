@@ -13,12 +13,11 @@
 package gr.interamerican.bo2.utils.meta.ext.descriptors;
 
 import static org.junit.Assert.assertNotNull;
-import gr.interamerican.bo2.arch.ext.Cache;
-import gr.interamerican.bo2.arch.utils.beans.CacheImpl;
 import gr.interamerican.bo2.samples.utils.meta.ext.EnumElement;
 import gr.interamerican.bo2.samples.utils.meta.ext.ObjectType;
 import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
 import gr.interamerican.bo2.utils.meta.exceptions.ValidationException;
+import gr.interamerican.bo2.utils.meta.ext.AbstractCacheRelatedTest;
 import gr.interamerican.bo2.utils.meta.formatters.Formatter;
 import gr.interamerican.bo2.utils.meta.formatters.ObjectFormatter;
 import gr.interamerican.bo2.utils.meta.parsers.LongParser;
@@ -29,7 +28,7 @@ import org.junit.Test;
 /**
  * 
  */
-public class TestCachedEntryOwnerBoPropertyDescriptor {
+public class TestCachedEntryOwnerBoPropertyDescriptor extends AbstractCacheRelatedTest {
 
 	/**
 	 * TYPE
@@ -39,10 +38,6 @@ public class TestCachedEntryOwnerBoPropertyDescriptor {
 	 * SUBTYPE
 	 */
 	private static final Long SUBTYPE = 1L;
-	/**
-	 * CACHE
-	 */
-	private static final Cache<Long> CACHE = new CacheImpl<Long>();
 	/**
 	 * PARSER
 	 */
@@ -60,16 +55,15 @@ public class TestCachedEntryOwnerBoPropertyDescriptor {
 	 * Create CachedEntryBoPropertyDescriptor
 	 * 
 	 * @return CachedEntryBoPropertyDescriptor
-	 * 
 	 */
 	public CachedEntryOwnerBoPropertyDescriptor<ObjectType, Long> createDescriptor() {
 		EnumElement value = new EnumElement(TYPE, ObjectType.OBJECT1);
 		value.setCode(CODE);
 		value.setSubTypeId(SUBTYPE);
-		CACHE.put(value);
+		cache().put(value);
 
 		CachedEntryOwnerBoPropertyDescriptor<ObjectType, Long> cashedDesc = 
-			new CachedEntryOwnerBoPropertyDescriptor<ObjectType, Long>(TYPE, SUBTYPE, CACHE, PARSER, FORMATTER);
+			new CachedEntryOwnerBoPropertyDescriptor<ObjectType, Long>(TYPE, SUBTYPE, TEST_CACHE_NAME, PARSER, FORMATTER);
 		return cashedDesc;
 	}
 

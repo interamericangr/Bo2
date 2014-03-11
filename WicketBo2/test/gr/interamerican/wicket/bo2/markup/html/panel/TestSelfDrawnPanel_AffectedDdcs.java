@@ -13,6 +13,7 @@
 package gr.interamerican.wicket.bo2.markup.html.panel;
 
 import gr.interamerican.bo2.arch.ext.Cache;
+import gr.interamerican.bo2.arch.utils.CacheRegistry;
 import gr.interamerican.bo2.utils.meta.BasicBusinessObjectDescriptor;
 import gr.interamerican.bo2.utils.meta.BusinessObjectDescriptor;
 import gr.interamerican.bo2.utils.meta.descriptors.BoPropertyDescriptor;
@@ -169,10 +170,15 @@ public class TestSelfDrawnPanel_AffectedDdcs extends Bo2WicketTest {
 	 * @return Mocked cache.
 	 */
 	@SuppressWarnings("unchecked")
-	Cache<Long> mockCache() {
+	String mockCache() {
+		String cacheName = "mockCache";
+		if(CacheRegistry.getRegisteredCache(cacheName)!=null) {
+			return cacheName;
+		}
 		Cache<Long> cache = Mockito.mock(Cache.class);
 		Mockito.when(cache.get(Mockito.anyLong(), Mockito.anyLong())).thenReturn(new TranslatableEntryImpl(1L, 1L, 1L, ""));
-		return cache;
+		CacheRegistry.registerCache(cacheName, cache, Long.class);
+		return cacheName;
 	}
 	
 	/**

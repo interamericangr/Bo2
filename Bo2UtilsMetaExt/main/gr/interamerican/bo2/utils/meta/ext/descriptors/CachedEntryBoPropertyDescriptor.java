@@ -17,6 +17,7 @@ import gr.interamerican.bo2.arch.ext.TypedSelectable;
 import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
 import gr.interamerican.bo2.utils.meta.ext.formatters.CachedEntryFormatter;
 import gr.interamerican.bo2.utils.meta.ext.formatters.nr.NrCachedEntryFormatter;
+import gr.interamerican.bo2.utils.meta.ext.parsers.CachedEntryParser;
 import gr.interamerican.bo2.utils.meta.ext.validators.CachedEntryValidator;
 import gr.interamerican.bo2.utils.meta.formatters.Formatter;
 import gr.interamerican.bo2.utils.meta.parsers.Parser;
@@ -40,22 +41,21 @@ extends AbstractCacheRelatedObjectBoPropertyDescriptor<T, C> {
 	 *
 	 * @param typeId
 	 * @param subTypeId
-	 * @param cache
-	 *        {@link Cache} that keeps the cached entries.
+	 * @param cacheName
 	 * @param codeParser
-	 *        Parser 
 	 * @param codeFormatter 
 	 */
 	public CachedEntryBoPropertyDescriptor(
-	Long typeId, Long subTypeId, Cache<C> cache, Parser<C> codeParser, Formatter<C> codeFormatter) {
-		super(typeId, subTypeId, cache, codeParser, codeFormatter);
+	Long typeId, Long subTypeId, String cacheName, Parser<C> codeParser, Formatter<C> codeFormatter) {
+		super(typeId, subTypeId, cacheName, codeParser, codeFormatter);
+		
 	}
 	
 	@Override
 	@SuppressWarnings("unchecked")
 	public T parse(String value) throws ParseException {
 		C code = codeParser.parse(value);
-		return (T) cache.get(typeId, code);
+		return (T) cache().get(typeId, code);
 	}
 	
 	/**
@@ -64,7 +64,7 @@ extends AbstractCacheRelatedObjectBoPropertyDescriptor<T, C> {
 	 * @return Returns a set containing the possible values for the entry.
 	 */
 	public Set<T> getValues() {
-		return cache.getSubCache(typeId, subTypeId);
+		return cache().getSubCache(typeId, subTypeId);
 	}
 	
 	/**
@@ -75,12 +75,17 @@ extends AbstractCacheRelatedObjectBoPropertyDescriptor<T, C> {
 	 * @return Returns a set containing the possible values for the entry for a given subTypeId.
 	 */
 	public Set<T> getValues(Long subListCd) {
-		return cache.getSubCache(typeId, subListCd);
+		return cache().getSubCache(typeId, subListCd);
 	}
 
 	@Override
-	protected Validator<T> getValidator() {
-		return new CachedEntryValidator<T, C>(cache);
+	protected Validator<T> getCacheRelatedValidator() {
+		return new CachedEntryValidator<T, C>(cacheName);
+	}
+	
+	@Override
+	public Parser<T> getParser() {
+		return new CachedEntryParser<T, C>(cacheName, typeId, codeParser);
 	}
 
 	@Override

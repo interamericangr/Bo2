@@ -13,9 +13,8 @@
 package gr.interamerican.bo2.utils.meta.ext.descriptors;
 
 import static org.junit.Assert.assertEquals;
-import gr.interamerican.bo2.arch.ext.Cache;
-import gr.interamerican.bo2.arch.utils.beans.CacheImpl;
 import gr.interamerican.bo2.arch.utils.beans.TypedSelectableImpl;
+import gr.interamerican.bo2.utils.meta.ext.AbstractCacheRelatedTest;
 import gr.interamerican.bo2.utils.meta.formatters.Formatter;
 import gr.interamerican.bo2.utils.meta.formatters.ObjectFormatter;
 import gr.interamerican.bo2.utils.meta.parsers.LongParser;
@@ -27,7 +26,7 @@ import org.junit.Test;
 /**
  * Unit test for {@link AbstractCacheRelatedObjectBoPropertyDescriptor}.
  */
-public class TestAbstractCacheRelatedObjectBoPropertyDescriptor {
+public class TestAbstractCacheRelatedObjectBoPropertyDescriptor extends AbstractCacheRelatedTest {
 	/**
 	 * TYPE
 	 */
@@ -36,10 +35,6 @@ public class TestAbstractCacheRelatedObjectBoPropertyDescriptor {
 	 * SUBTYPE
 	 */
 	private static final Long SUBTYPE = 1L;
-	/**
-	 * CACHE
-	 */
-	private static final Cache<Long> CACHE = new CacheImpl<Long>();
 	/**
 	 * PARSER
 	 */
@@ -57,7 +52,7 @@ public class TestAbstractCacheRelatedObjectBoPropertyDescriptor {
 		Descriptor d = new Descriptor();
 		assertEquals(TYPE, d.typeId);
 		assertEquals(SUBTYPE, d.subTypeId);
-		assertEquals(CACHE, d.cache);
+		assertEquals(TEST_CACHE_NAME, d.cacheName);
 		assertEquals(PARSER, d.codeParser);
 		assertEquals(FORMATTER, d.codeFormatter);
 	}	
@@ -70,11 +65,11 @@ public class TestAbstractCacheRelatedObjectBoPropertyDescriptor {
 		 * Creates a new Descriptor object. 
 		 */
 		public Descriptor() {
-			super(TYPE,SUBTYPE,CACHE,PARSER,FORMATTER);			
+			super(TYPE,SUBTYPE,TEST_CACHE_NAME,PARSER,FORMATTER);			
 		}
 
 		@Override
-		protected Validator<TypedSelectableImpl<Long>> getValidator() {
+		protected Validator<TypedSelectableImpl<Long>> getCacheRelatedValidator() {
 			return null;
 		}
 		

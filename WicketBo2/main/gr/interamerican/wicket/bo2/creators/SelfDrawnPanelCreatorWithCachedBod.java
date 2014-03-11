@@ -22,7 +22,6 @@ import gr.interamerican.wicket.creators.PanelCreator;
 import gr.interamerican.wicket.markup.html.panel.service.ModeAwareBeanPanelDef;
 
 import java.io.Serializable;
-import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.wicket.markup.html.panel.Panel;
@@ -73,7 +72,7 @@ implements PanelCreator<B> {
 	 * value is subListCd for the {@link CachedEntryBoPropertyDescriptor}
 	 * that corresponds to the name.
 	 */
-	private HashMap<String, Long> dropDownFix;
+	private Map<String, Long> dropDownFix;
 
 	/**
 	 * Creates a new SelfDrawnPanelCreator object.
@@ -113,11 +112,7 @@ implements PanelCreator<B> {
 		this.descriptorTypeId = descriptorTypeId;
 		this.descriptorCode = descriptorCode;
 		this.columns = columns;
-		if(dropDownFix!=null) {
-			this.dropDownFix = new HashMap<String, Long>(dropDownFix);
-		} else {
-			this.dropDownFix = null;
-		}
+		this.dropDownFix = dropDownFix;
 	}
 
 	public Panel createPanel(ModeAwareBeanPanelDef<B> definition) {

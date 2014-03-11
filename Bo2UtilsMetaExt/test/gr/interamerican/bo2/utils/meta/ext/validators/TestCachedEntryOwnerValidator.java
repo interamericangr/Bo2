@@ -12,18 +12,17 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.meta.ext.validators;
 
-import gr.interamerican.bo2.arch.ext.Cache;
-import gr.interamerican.bo2.arch.utils.beans.CacheImpl;
 import gr.interamerican.bo2.samples.utils.meta.ext.EnumElement;
 import gr.interamerican.bo2.samples.utils.meta.ext.ObjectType;
 import gr.interamerican.bo2.utils.meta.exceptions.ValidationException;
+import gr.interamerican.bo2.utils.meta.ext.AbstractCacheRelatedTest;
 
 import org.junit.Test;
 
 /**
  * Unit test for {@link CachedEntryOwnerValidator}.
  */
-public class TestCachedEntryOwnerValidator {
+public class TestCachedEntryOwnerValidator extends AbstractCacheRelatedTest {
 	
 	/**
 	 * TYPE
@@ -43,15 +42,13 @@ public class TestCachedEntryOwnerValidator {
 	 * @return CachedEntryOwnerValidator
 	 */
 	private CachedEntryOwnerValidator<ObjectType, Long> createCachedEntryOwnerValidator(){
-		
-		Cache<Long> cache = new CacheImpl<Long>();
 		EnumElement enumElement = new EnumElement(TYPE, ObjectType.OBJECT1);
 		enumElement.setCode(CODE_1);
 		enumElement.setSubTypeId(SUBTYPE);
-		cache.put(enumElement);
+		cache().put(enumElement);
 		
 		CachedEntryOwnerValidator<ObjectType, Long> cashedVal = 
-			new CachedEntryOwnerValidator<ObjectType, Long>(cache);
+			new CachedEntryOwnerValidator<ObjectType, Long>(TEST_CACHE_NAME);
 		return cashedVal;
 	}
 	

@@ -81,7 +81,7 @@ public class TestSelfDrawnTextArea extends WicketTest {
 	/**
 	 * Test creation with regular expression.
 	 */
-//	@Test
+	@Test
 	public void testCreation_withExpression() {
 		String expression = "[^b]at"; //$NON-NLS-1$
 		descriptor.setExpression(expression);

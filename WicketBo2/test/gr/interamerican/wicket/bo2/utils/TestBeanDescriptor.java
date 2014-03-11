@@ -14,6 +14,7 @@ package gr.interamerican.wicket.bo2.utils;
 
 import gr.interamerican.bo2.arch.ext.Cache;
 import gr.interamerican.bo2.arch.ext.TranslatableEntry;
+import gr.interamerican.bo2.arch.utils.CacheRegistry;
 import gr.interamerican.bo2.arch.utils.beans.CacheImpl;
 import gr.interamerican.bo2.arch.utils.beans.TypedSelectableImpl;
 import gr.interamerican.bo2.utils.meta.BasicBusinessObjectDescriptor;
@@ -29,7 +30,7 @@ import java.util.Arrays;
 /**
  * 
  */
-public class TestBeanDescriptor extends BasicBusinessObjectDescriptor<TestBean>{
+public class TestBeanDescriptor extends BasicBusinessObjectDescriptor<TestBean> {
 
 	/**
 	 * TYPE
@@ -58,100 +59,104 @@ public class TestBeanDescriptor extends BasicBusinessObjectDescriptor<TestBean>{
 	/**
 	 * FORMATTER
 	 */
-	private static final Formatter<Long> FORMATTER = ObjectFormatter.<Long>getInstance();
+	private static final Formatter<Long> FORMATTER = ObjectFormatter.<Long> getInstance();
 	/**
 	 * CODE
 	 */
 	private static final Long CODE = 1L;
-	
+
 	/**
-	 * Creates a new TestBeanDescriptor object. 
-	 *
+	 * Creates a new TestBeanDescriptor object.
+	 * 
 	 */
 	public TestBeanDescriptor() {
 		super();
-		BoPropertyDescriptor<?>[] descriptors = {
-				firstAttributeDescriptor(),
-				secondAttributeDescriptor(),
-				thirdAttributeDescriptor()
-		};
+		
+		if (CacheRegistry.getRegisteredCache(this.getClass().getName()) == null) {
+			CacheRegistry.registerCache(this.getClass().getName(), CACHE, Long.class);
+		}
+		
+		BoPropertyDescriptor<?>[] descriptors = { firstAttributeDescriptor(), secondAttributeDescriptor(),
+				thirdAttributeDescriptor() };
 		this.setPropertyDescriptors(Arrays.asList(descriptors));
 	}
-	
-	
+
 	/**
 	 * Create CachedEntryBoPropertyDescriptor
+	 * 
 	 * @return CachedEntryBoPropertyDescriptor
 	 */
-	public CachedEntryBoPropertyDescriptor<?,?> firstAttributeDescriptor(){
+	public CachedEntryBoPropertyDescriptor<?, ?> firstAttributeDescriptor() {
 
-		 Entry value = new Entry();
-		 value.setCode(CODE);
-		 value.setTypeId(TYPE);
-		 value.setSubTypeId(SUBTYPE);
-		 CACHE.put(value);		 		    
-		 CachedEntryBoPropertyDescriptor<?,?> cd = new CachedEntryBoPropertyDescriptor<Entry, Long>(
-        		 1000L, 1L,CACHE, PARSER, FORMATTER);
-		 cd.setName("firstAttribute"); //$NON-NLS-1$
-		 return cd;
+		Entry value = new Entry();
+		value.setCode(CODE);
+		value.setTypeId(TYPE);
+		value.setSubTypeId(SUBTYPE);
+		CACHE.put(value);
+
+		CachedEntryBoPropertyDescriptor<?, ?> cd = new CachedEntryBoPropertyDescriptor<Entry, Long>(1000L, 1L,
+				this.getClass().getName(), PARSER, FORMATTER);
+
+		cd.setName("firstAttribute"); //$NON-NLS-1$
+		return cd;
 	}
-	
+
 	/**
 	 * Create CachedEntryBoPropertyDescriptor
+	 * 
 	 * @return CachedEntryBoPropertyDescriptor
 	 */
-	public CachedEntryBoPropertyDescriptor<?,?> secondAttributeDescriptor(){
+	public CachedEntryBoPropertyDescriptor<?, ?> secondAttributeDescriptor() {
 
-		 Entry value = new Entry();
-		 value.setCode(CODE);
-		 value.setTypeId(SEC_TYPE);
-		 value.setSubTypeId(SUBTYPE);
-		 CACHE.put(value);		 		    
-		 CachedEntryBoPropertyDescriptor<?,?> cd = new CachedEntryBoPropertyDescriptor<Entry, Long>(
-        		 1001L, 1L,CACHE, PARSER, FORMATTER);
-		 cd.setName("secondAttribute"); //$NON-NLS-1$
-		 return cd;
+		Entry value = new Entry();
+		value.setCode(CODE);
+		value.setTypeId(SEC_TYPE);
+		value.setSubTypeId(SUBTYPE);
+		CACHE.put(value);
+		
+		
+		CachedEntryBoPropertyDescriptor<?, ?> cd = new CachedEntryBoPropertyDescriptor<Entry, Long>(1001L, 1L,
+				this.getClass().getName(), PARSER, FORMATTER);
+		cd.setName("secondAttribute"); //$NON-NLS-1$
+		return cd;
 	}
-	
+
 	/**
 	 * Create CachedEntryBoPropertyDescriptor
+	 * 
 	 * @return CachedEntryBoPropertyDescriptor
 	 */
-	public CachedEntryBoPropertyDescriptor<?,?> thirdAttributeDescriptor(){
+	public CachedEntryBoPropertyDescriptor<?, ?> thirdAttributeDescriptor() {
 
-		 Entry value = new Entry();
-		 value.setCode(CODE);
-		 value.setTypeId(THRD_TYPE);
-		 value.setSubTypeId(SUBTYPE);
-		 CACHE.put(value);		 		    
-		 CachedEntryBoPropertyDescriptor<?,?> cd = new CachedEntryBoPropertyDescriptor<Entry, Long>(
-        		 1002L, 1L,CACHE, PARSER, FORMATTER);
-		 cd.setName("thirdAttribute"); //$NON-NLS-1$
-		 return cd;
+		Entry value = new Entry();
+		value.setCode(CODE);
+		value.setTypeId(THRD_TYPE);
+		value.setSubTypeId(SUBTYPE);
+		CACHE.put(value);
+		CachedEntryBoPropertyDescriptor<?, ?> cd = new CachedEntryBoPropertyDescriptor<Entry, Long>(1002L, 1L,
+				this.getClass().getName(), PARSER, FORMATTER);
+		cd.setName("thirdAttribute"); //$NON-NLS-1$
+		return cd;
 	}
-	
 
 	/**
 	 * Entry.
 	 */
-	private class Entry
-	extends TypedSelectableImpl<Long>
-	implements TranslatableEntry<Long, Long, Long> {
-		
+	private class Entry extends TypedSelectableImpl<Long> implements TranslatableEntry<Long, Long, Long> {
+
 		/**
 		 * UID.
 		 */
 		private static final long serialVersionUID = 1L;
 
-		public String getTranslation(Long languageId) {			
+		public String getTranslation(Long languageId) {
 			return getName();
-			//+ StringConstants.SPACE + languageId.toString();
+			// + StringConstants.SPACE + languageId.toString();
 		}
-		
-		public Long getTranslationResourceId() {			
+
+		public Long getTranslationResourceId() {
 			return getCode();
-		}		
+		}
 	}
-	
 
 }

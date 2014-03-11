@@ -12,7 +12,6 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.meta.ext.factories;
 
-import gr.interamerican.bo2.arch.ext.Cache;
 import gr.interamerican.bo2.arch.ext.TypedSelectable;
 import gr.interamerican.bo2.arch.utils.CacheRegistry;
 import gr.interamerican.bo2.utils.StringUtils;
@@ -26,7 +25,7 @@ import gr.interamerican.bo2.utils.meta.formatters.FormatterResolver;
 import gr.interamerican.bo2.utils.meta.parsers.Parser;
 import gr.interamerican.bo2.utils.meta.parsers.ParserResolver;
 
-import java.util.List;
+import java.util.Collection;
 
 /**
  * Factory for {@link PalleteCachedEntriesBoPropertyDescriptor}s.
@@ -52,17 +51,16 @@ public class PalleteCachedEntriesBoPDFactory {
 	public static <T extends TypedSelectable<C>, C extends Comparable<? super C>> 
 	PalleteCachedEntriesBoPropertyDescriptor<T, C> create(PropertyDefinition pd) throws ParseException {
 		
-		Cache<C> cache = CacheRegistry.<C>getRegisteredCache(pd.getCacheName());
 		Parser<C> parser = ParserResolver.<C>getParser(CacheRegistry.<C>getRegisteredCacheCodeType(pd.getCacheName()));
 		Formatter<C> formatter = FormatterResolver.<C>getFormatter(CacheRegistry.<C>getRegisteredCacheCodeType(pd.getCacheName()));
 		
 		PalleteCachedEntriesBoPropertyDescriptor<T, C> result = 
-			new PalleteCachedEntriesBoPropertyDescriptor<T, C>(pd.getListCd(), pd.getSubListCd(), cache, parser, formatter);
+			new PalleteCachedEntriesBoPropertyDescriptor<T, C>(pd.getListCd(), pd.getSubListCd(), pd.getCacheName(), parser, formatter);
 		
 		if(pd.getHasDefault()) {
 			String value = pd.getDefaultValue();
 			try {
-				List<T> ts = result.parse(value);
+				Collection<T> ts = result.parse(value);
 				result.setDefaultValue(ts);
 			} catch (ParseException e) {
 				String msg = StringUtils.concat(
