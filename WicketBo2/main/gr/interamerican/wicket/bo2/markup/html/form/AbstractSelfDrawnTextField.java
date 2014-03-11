@@ -37,11 +37,6 @@ public abstract class AbstractSelfDrawnTextField<T extends Serializable> extends
     private static final long serialVersionUID = 1L;
     
     /**
-     * BoPropertyDescriptor.
-     */
-    protected BoPropertyDescriptor<T> descriptor;
-      
-    /**
      * Creates a new SelfDrawnTextField object.
      *
      * @param id
@@ -51,7 +46,6 @@ public abstract class AbstractSelfDrawnTextField<T extends Serializable> extends
      */
     public AbstractSelfDrawnTextField(String id, IModel<T> model, BoPropertyDescriptor<T> descriptor, Class<T> type) {
         super(id, model, type);
-        this.descriptor = descriptor;
         SelfDrawnUtils.<T>standardSelfDrawnFormComponentStuff(this, descriptor);
     }
    
@@ -64,7 +58,6 @@ public abstract class AbstractSelfDrawnTextField<T extends Serializable> extends
      */
     public AbstractSelfDrawnTextField(String id, BoPropertyDescriptor<T> descriptor, Class<T> type) {
         super(id, new Model<T>(), type);
-        this.descriptor = descriptor;
         SelfDrawnUtils.<T>standardSelfDrawnFormComponentStuff(this, descriptor);
     }
 

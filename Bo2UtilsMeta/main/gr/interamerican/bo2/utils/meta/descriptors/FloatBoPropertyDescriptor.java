@@ -17,19 +17,12 @@ import gr.interamerican.bo2.utils.meta.formatters.DecimalFormatter;
 import gr.interamerican.bo2.utils.meta.formatters.Formatter;
 import gr.interamerican.bo2.utils.meta.parsers.FloatParser;
 
-import java.io.Serializable;
-
 /**
  * {@link BoPropertyDescriptor} for Float.
  */
 public class FloatBoPropertyDescriptor 
-extends AbstractNumberBoPropertyDescriptor<Float> implements Serializable {
+extends AbstractNumberBoPropertyDescriptor<Float> {
 	
-	/**
-	 * serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
-
 	/**
 	 * Creates a new DoubleBoPropertyDescriptor object.
 	 */

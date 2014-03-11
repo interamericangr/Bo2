@@ -17,20 +17,14 @@ import gr.interamerican.bo2.utils.meta.formatters.FormatterResolver;
 import gr.interamerican.bo2.utils.meta.parsers.Parser;
 import gr.interamerican.bo2.utils.meta.parsers.ParserResolver;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
  * {@link BoPropertyDescriptor} for dates.
  */
 public class DateBoPropertyDescriptor 
-extends AbstractBoPropertyDescriptor<Date> implements Serializable {
+extends AbstractBoPropertyDescriptor<Date> {
 	
-	/**
-	 * serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
-
 	/**
 	 * Creates a new DateBoPropertyDescriptor object. 
 	 */

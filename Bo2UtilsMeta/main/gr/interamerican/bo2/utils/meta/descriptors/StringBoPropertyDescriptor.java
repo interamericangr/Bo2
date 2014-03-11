@@ -21,25 +21,16 @@ import gr.interamerican.bo2.utils.meta.validators.ExpressionValidator;
 import gr.interamerican.bo2.utils.meta.validators.StringMaxLengthValidator;
 import gr.interamerican.bo2.utils.meta.validators.StringMinLengthValidator;
 
-import java.io.Serializable;
-
 /**
  * {@link BoPropertyDescriptor} implementation for String properties.
  */
 public class StringBoPropertyDescriptor 
-extends AbstractBoPropertyDescriptor<String> 
-implements Serializable {
-	
-	/**
-	 * serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
+extends AbstractBoPropertyDescriptor<String> {
 	
 	/**
 	 * min length.
 	 */
 	int minLength;
-
 	
 	/**
 	 * Creates a new StringBoPropertyDescriptor object. 

@@ -32,10 +32,10 @@ public class SelfDrawnTextArea extends TextArea<String>{
     private static final long serialVersionUID = 1L;
     
     /**
-     * Descriptor.
+     * maxLength
      */
-    private StringBoPropertyDescriptor descriptor;
-   
+    int maxLength;
+    
     /**
      * Creates a new SelfDrawnTextArea object.
      *
@@ -44,7 +44,7 @@ public class SelfDrawnTextArea extends TextArea<String>{
      */
     public SelfDrawnTextArea(String id, StringBoPropertyDescriptor descriptor) {
         super(id, new Model<String>());
-        this.descriptor = descriptor;
+        this.maxLength = descriptor.getMaxLength();
         SelfDrawnUtils.<String>standardSelfDrawnFormComponentStuff(this, descriptor);
     }
       
@@ -57,7 +57,7 @@ public class SelfDrawnTextArea extends TextArea<String>{
      */
     public SelfDrawnTextArea(String id, IModel<String> model, StringBoPropertyDescriptor descriptor) {
         super(id, model);
-        this.descriptor = descriptor;
+        this.maxLength = descriptor.getMaxLength();
         SelfDrawnUtils.<String>standardSelfDrawnFormComponentStuff(this, descriptor);
     }
 
@@ -68,7 +68,7 @@ public class SelfDrawnTextArea extends TextArea<String>{
     protected void onComponentTag(ComponentTag tag) {
         tag.setName(MarkupConstants.TEXTAREA);
         tag.put(MarkupConstants.COLS, MarkupConstants.COLS_VALUE);
-        int rowsValue = Math.round(descriptor.getMaxLength()/MarkupConstants.COLS_VALUE);
+        int rowsValue = Math.round(maxLength/MarkupConstants.COLS_VALUE);
         rowsValue = (rowsValue>MarkupConstants.MAX_ROWS ? MarkupConstants.MAX_ROWS : rowsValue);
         tag.put(MarkupConstants.ROWS, rowsValue);
         super.onComponentTag(tag);

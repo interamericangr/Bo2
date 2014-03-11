@@ -30,16 +30,6 @@ import org.apache.wicket.model.CompoundPropertyModel;
 public class SelfDrawnForm<T extends Serializable> extends Form<T> {
 	
 	/**
-	 * Form validator.
-	 */
-	BusinessObjectFormValidator boFormValidator;
-	
-	/**
-	 * Self drawn panel.
-	 */
-	SelfDrawnPanel<T> selfDrawnPanel;
-	
-	/**
 	 * serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
@@ -48,7 +38,7 @@ public class SelfDrawnForm<T extends Serializable> extends Form<T> {
 	 * Wicket id.
 	 */
 	public static final String PANEL_WICKET_ID = "selfDrawnPanel"; //$NON-NLS-1$
-
+	
 	/**
 	 * Creates a new SelfDrawnForm object. 
 	 *
@@ -58,10 +48,13 @@ public class SelfDrawnForm<T extends Serializable> extends Form<T> {
 	 */
 	public SelfDrawnForm(String id, CompoundPropertyModel<T> model, BusinessObjectDescriptor<T> beanDescriptor) {		
 		super(id, model);				
-		this.selfDrawnPanel = new SelfDrawnPanel<T>(PANEL_WICKET_ID, model, beanDescriptor); 
+		SelfDrawnPanel<T> selfDrawnPanel = new SelfDrawnPanel<T>(PANEL_WICKET_ID, model, beanDescriptor); 
 		add(selfDrawnPanel);
-		this.boFormValidator = new BusinessObjectFormValidator(this, beanDescriptor);
-		add(boFormValidator);
+		BusinessObjectFormValidator boFormValidator = new BusinessObjectFormValidator(this, beanDescriptor);
+		/*
+		 * TODO: check serializability or remove from API
+		 */
+//		add(boFormValidator);
 	}
 	
 }

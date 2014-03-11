@@ -16,19 +16,12 @@ import gr.interamerican.bo2.utils.meta.formatters.Formatter;
 import gr.interamerican.bo2.utils.meta.formatters.FormatterResolver;
 import gr.interamerican.bo2.utils.meta.parsers.ParserResolver;
 
-import java.io.Serializable;
-
 /**
  * {@link BoPropertyDescriptor} for Integer properties.
  */
 public class IntegerBoPropertyDescriptor 
-extends AbstractIntTypesBoPropertyDescriptor<Integer> implements Serializable {
+extends AbstractIntTypesBoPropertyDescriptor<Integer> {
 	
-	/**
-	 * serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
-
 	/**
 	 * Creates a new IntegerBoPropertyDescriptor object. 
 	 */

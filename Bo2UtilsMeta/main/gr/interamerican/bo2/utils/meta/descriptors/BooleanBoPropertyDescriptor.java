@@ -16,19 +16,12 @@ import gr.interamerican.bo2.utils.meta.formatters.Formatter;
 import gr.interamerican.bo2.utils.meta.formatters.FormatterResolver;
 import gr.interamerican.bo2.utils.meta.parsers.ParserResolver;
 
-import java.io.Serializable;
-
 /**
  * {@link BoPropertyDescriptor} for boolean values.
  */
 public class BooleanBoPropertyDescriptor 
-extends AbstractBoPropertyDescriptor<Boolean> implements Serializable {
+extends AbstractBoPropertyDescriptor<Boolean> {
 	
-	/**
-	 * serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
-
 	/**
 	 * Creates a new DateBoPropertyDescriptor object. 
 	 */

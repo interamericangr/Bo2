@@ -20,8 +20,6 @@ import gr.interamerican.bo2.utils.meta.exceptions.ValidationException;
 import gr.interamerican.bo2.utils.meta.parsers.Parser;
 import gr.interamerican.bo2.utils.meta.validators.Validator;
 
-import java.io.Serializable;
-
 /**
  * Generic interface for the specification of a business property.
  * 
@@ -35,8 +33,6 @@ import java.io.Serializable;
  * user. <br/>
  * The name BoPropertyDescriptor stands for Business Object Property
  * Descriptor.
- * 
- * TODO: Extend {@link Serializable}.
  * 
  * @param <T> Type of property.
  */

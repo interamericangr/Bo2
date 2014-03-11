@@ -21,7 +21,6 @@ import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
 import gr.interamerican.bo2.utils.meta.formatters.Formatter;
 import gr.interamerican.bo2.utils.meta.parsers.LongParser;
 
-import java.io.Serializable;
 import java.util.Set;
 
 /**
@@ -33,14 +32,8 @@ import java.util.Set;
  *        Type of Selectable code.
  */
 public class SelectableBoPropertyDescriptor<C extends Comparable<? super C>> 
-extends AbstractBoPropertyDescriptor<Selectable<C>> 
-implements Serializable{
+extends AbstractBoPropertyDescriptor<Selectable<C>> {
 
-	/**
-	 * serialVersionUID
-	 */
-	private static final long serialVersionUID = 1L;
-	
 	/**
 	 * set of values.
 	 */

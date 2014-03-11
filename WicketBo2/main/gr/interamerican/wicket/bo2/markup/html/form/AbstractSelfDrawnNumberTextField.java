@@ -34,6 +34,11 @@ extends AbstractSelfDrawnTextField<T> {
 	 * serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * lengthOfDecimalPart
+	 */
+	int lengthOfDecimalPart;
 
 	/**
 	 * Creates a new AbstractSelfDrawnNumberTextField object. 
@@ -44,6 +49,7 @@ extends AbstractSelfDrawnTextField<T> {
 	 */
 	public AbstractSelfDrawnNumberTextField(String id, NumberBoPropertyDescriptor<T> descriptor, Class<T> type) {
 		super(id, descriptor, type);
+		this.lengthOfDecimalPart = descriptor.getLengthOfDecimalPart();
 	}
 	
 	/**
@@ -56,6 +62,7 @@ extends AbstractSelfDrawnTextField<T> {
      */
     public AbstractSelfDrawnNumberTextField(String id, IModel<T> model, NumberBoPropertyDescriptor<T> descriptor, Class<T> type) {
         super(id, model, descriptor, type);
+        this.lengthOfDecimalPart = descriptor.getLengthOfDecimalPart();
     }
     
 	@Override
@@ -66,7 +73,7 @@ extends AbstractSelfDrawnTextField<T> {
 			return super.getConverter(type);
 		}
 		NumberFormat nf = new DecimalFormat();
-		int maxFractionDigits = ((NumberBoPropertyDescriptor<T>)descriptor).getLengthOfDecimalPart();
+		int maxFractionDigits = lengthOfDecimalPart;
 		nf.setMaximumFractionDigits(maxFractionDigits+1);
 		result.setNumberFormat(getLocale(), nf);
 		return (IConverter<C>) result;

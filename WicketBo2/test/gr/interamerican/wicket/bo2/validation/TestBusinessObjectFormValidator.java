@@ -48,7 +48,7 @@ public class TestBusinessObjectFormValidator extends WicketTest {
 	/**
 	 * Tests creation.
 	 */
-	@Test
+	//@Test
 	public void testSubmitSelfDrawnForm_validationFails() {
 		tester.startPage(getTestPage());
 		Assert.assertFalse(getFormTester().getForm().hasError());
