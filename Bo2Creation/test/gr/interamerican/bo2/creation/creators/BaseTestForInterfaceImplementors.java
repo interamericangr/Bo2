@@ -14,10 +14,12 @@ package gr.interamerican.bo2.creation.creators;
 
 import gr.interamerican.bo2.creation.exception.ClassCreationException;
 import gr.interamerican.bo2.samples.bean.IBeanWithIdAndNameImpl;
+import gr.interamerican.bo2.samples.ibean.IBeanWith2Strings;
 import gr.interamerican.bo2.samples.ibean.IBeanWithAllTypesOfPropertyNames;
 import gr.interamerican.bo2.samples.ibean.IBeanWithIdAndName;
 import gr.interamerican.bo2.samples.ibean.IBeanWithOddProperties;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.junit.Assert;
@@ -61,6 +63,20 @@ public class BaseTestForInterfaceImplementors {
 		String name = "name"; //$NON-NLS-1$
 		bean.setBeanName(name);
 		Assert.assertEquals(name, bean.getBeanName());
+		
+		Assert.assertTrue(Serializable.class.isAssignableFrom(clazz)); 
+	}
+	
+	/**
+	 * Unit test for create.
+	 * 
+	 * @throws ClassCreationException 
+	 */
+	@Test
+	public void testCreate_withInterfacethatIsNotSerializable() 
+	throws ClassCreationException {
+		Class<?> clazz = creator.create(IBeanWith2Strings.class);
+		Assert.assertTrue(Serializable.class.isAssignableFrom(clazz)); 
 	}
 	
 	/**
@@ -120,7 +136,6 @@ public class BaseTestForInterfaceImplementors {
 	throws ClassCreationException {
 		creator.create(IBeanWithIdAndNameImpl.class);		
 	}
-	
 	
 	
 }

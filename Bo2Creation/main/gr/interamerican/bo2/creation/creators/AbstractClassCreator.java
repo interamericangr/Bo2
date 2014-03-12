@@ -186,6 +186,22 @@ implements ClassCreator {
 	}
 	
 	/**
+	 * Decides if the implementation will be Serializable.
+	 * 
+	 * The default implementation of this method, returns true only 
+	 * if the class being created and analyzed by the <code>analysis</code>
+	 * field is serializable. <br/>
+	 * Sub-classes can override this behavior.
+	 * 
+	 * @return Returns true if the implementation class
+	 *         is going to be Serializable.
+	 */
+	protected boolean mustImplementSerializable() {
+		return analysis.isSerializable();
+	}
+	
+	
+	/**
 	 * Support for the type.
 	 * 
 	 * 1. add serial version Uid field.

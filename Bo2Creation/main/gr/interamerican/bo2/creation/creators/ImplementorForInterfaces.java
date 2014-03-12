@@ -20,6 +20,7 @@ import gr.interamerican.bo2.creation.util.CodeGenerationUtilities;
 import gr.interamerican.bo2.utils.TokenUtils;
 import gr.interamerican.bo2.utils.reflect.beans.BeanPropertyDefinition;
 
+import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.Set;
@@ -35,6 +36,12 @@ import java.util.Set;
  */
 public class ImplementorForInterfaces 
 extends AbstractClassCreator {
+	
+	
+	@Override
+	protected boolean mustImplementSerializable() {	
+		return true;
+	}
 	
 	
 	
@@ -87,7 +94,10 @@ extends AbstractClassCreator {
 	
 	@Override
 	protected String[] interfaces() {	
-		String[] types = {analysis.getClazz().getCanonicalName()};
+		String[] types = {
+				analysis.getClazz().getCanonicalName(),
+				Serializable.class.getCanonicalName(),				
+		};
 		return types;
 	}
 	
