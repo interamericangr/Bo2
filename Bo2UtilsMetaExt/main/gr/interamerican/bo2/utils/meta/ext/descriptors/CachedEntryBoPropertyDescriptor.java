@@ -67,17 +67,6 @@ extends AbstractCacheRelatedObjectBoPropertyDescriptor<T, C> {
 		return cache().getSubCache(typeId, subTypeId);
 	}
 	
-	/**
-	 * Gets the set of possible values for the entry for a given subTypeId.
-	 * 
-	 * @param subListCd The specified subTypeId.
-	 * 
-	 * @return Returns a set containing the possible values for the entry for a given subTypeId.
-	 */
-	public Set<T> getValues(Long subListCd) {
-		return cache().getSubCache(typeId, subListCd);
-	}
-
 	@Override
 	protected Validator<T> getCacheRelatedValidator() {
 		return new CachedEntryValidator<T, C>(cacheName);

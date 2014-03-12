@@ -160,7 +160,6 @@ public class TestSelfDrawnPanel_AffectedDdcs extends Bo2WicketTest {
 		
 		ibpd = Mockito.spy(ibpd);
 		
-		Mockito.doReturn(field2Values()).when(ibpd).getValues(2L); //selection of field1 on #testOnChangeBehavior()
 		Mockito.doReturn(new HashSet<TranslatableEntryImpl>()).when(ibpd).getValues();
 		
         return ibpd;
@@ -178,6 +177,7 @@ public class TestSelfDrawnPanel_AffectedDdcs extends Bo2WicketTest {
 		Cache<Long> cache = Mockito.mock(Cache.class);
 		Mockito.when(cache.get(Mockito.anyLong(), Mockito.anyLong())).thenReturn(new TranslatableEntryImpl(1L, 1L, 1L, ""));
 		CacheRegistry.registerCache(cacheName, cache, Long.class);
+		Mockito.doReturn(field2Values()).when(cache).getSubCache(1L, 2L); //selection of field1 on #testOnChangeBehavior()
 		return cacheName;
 	}
 	

@@ -125,4 +125,18 @@ extends AbstractBoPropertyDescriptor<T>{
 		return cache;
 	}
 	
+	/**
+	 * @return Returns the cache name of this descriptor.
+	 */
+	public String getCacheName() {
+		return cacheName;
+	}
+	
+	/**
+	 * @return Returns the typeId of the entries for the values of this descriptor.
+	 */
+	public Long getTypeId() {
+		return typeId;
+	}
+	
 }

@@ -13,6 +13,7 @@
 package gr.interamerican.wicket.bo2.markup.html.panel;
 
 import gr.interamerican.bo2.arch.ext.TranslatableEntry;
+import gr.interamerican.bo2.arch.utils.CacheRegistry;
 import gr.interamerican.bo2.utils.CollectionUtils;
 import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.StreamUtils;
@@ -336,7 +337,9 @@ implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 	 */
 	<E extends TranslatableEntry<Long, ?, Long>>
 	void setChoicesToFixedDropDown(CachedEntryBoPropertyDescriptor<E, Long> fixedPd, DropDownChoiceForEntry<Long,E> fixedDdc, Long subListCd) {
-		Set<E> choices = fixedPd.getValues(subListCd);
+		String cacheName = fixedPd.getCacheName();
+		Long typeId = fixedPd.getTypeId();
+		Set<E> choices = CacheRegistry.<Long>getRegisteredCache(cacheName).getSubCache(typeId, subListCd);
 		List<E> choicesList = new ArrayList<E>(choices);
 		fixedDdc.setChoices(choicesList);
 		SelfDrawnUtils.<Long, E>sortCachedEntries(fixedDdc);
@@ -541,9 +544,14 @@ implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 		DropDownChoiceForEntry<Long,E> affectedDdc;
 		
 		/**
-		 * CachedEntryBoPropertyDescriptor of the affected drop down choice
+		 * Cache name of the affectedDescriptor 
 		 */
-		CachedEntryBoPropertyDescriptor<E,?> affectedDescriptor;
+		String cacheName;
+		
+		/**
+		 * Type id of the affectedDescriptor 
+		 */
+		Long typeId;
 		
 		/**
 		 * Creates a new SelfDrawnPanel.AffectingDdcBehavior object. 
@@ -554,7 +562,8 @@ implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 		public AffectingDdcBehavior(DropDownChoiceForEntry<Long,E> affectingDdc, DropDownChoiceForEntry<Long,E> affectedDdc, CachedEntryBoPropertyDescriptor<E,?> affectedDescriptor) {
 			super("onchange"); //$NON-NLS-1$
 			this.affectedDdc = affectedDdc;
-			this.affectedDescriptor = affectedDescriptor;
+			this.cacheName = affectedDescriptor.getCacheName();
+			this.typeId = affectedDescriptor.getTypeId();
 			this.affectingDdc = affectingDdc;
 		}
 		
@@ -566,7 +575,7 @@ implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 			if(affectingChoice != null) {
 				affectedSubListCd = affectingChoice.getCode();
 			}
-			Set<E> choices = affectedDescriptor.getValues(affectedSubListCd);
+			Set<E> choices = CacheRegistry.<Long>getRegisteredCache(cacheName).getSubCache(typeId, affectedSubListCd);
 			List<E> choicesList = new ArrayList<E>(choices);
 			affectedDdc.setChoices(choicesList);
 			SelfDrawnUtils.<Long, E>sortCachedEntries(affectedDdc);
