@@ -16,10 +16,7 @@ import gr.interamerican.bo2.arch.ext.Cache;
 import gr.interamerican.bo2.arch.ext.EnhancedCache;
 import gr.interamerican.bo2.arch.ext.Translator;
 import gr.interamerican.bo2.arch.utils.CacheRegistry;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import gr.interamerican.bo2.arch.utils.TranslatorRegistry;
 
 /**
  * Implementation of {@link EnhancedCache}
@@ -41,20 +38,16 @@ implements gr.interamerican.bo2.arch.ext.EnhancedCache<C,R,L> {
 	/**
 	 * Translator.
 	 */
-	private Translator<R,L> translator = new TranslatorImpl<R,L>();
-	
-	/**
-	 * modules
-	 */
-	Map<C, Set<C>> modules = new HashMap<C, Set<C>>();
+	private Translator<R,L> translator;
 	
 	/**
 	 * Creates a new ControlPanelImpl object. 
-	 *
+	 * Used on tests.
 	 */
-	public EnhancedCacheImpl() {
+	EnhancedCacheImpl() {
 		super();
 		cache = new CacheImpl<C>();
+		translator = new TranslatorImpl<R, L>();
 	}
 	
 	/**
@@ -66,7 +59,10 @@ implements gr.interamerican.bo2.arch.ext.EnhancedCache<C,R,L> {
 	public EnhancedCacheImpl(String cacheName, Class<C> codeType) {
 		super();
 		cache = new CacheImpl<C>();
-		CacheRegistry.registerCache(cacheName, cache, codeType);		
+		CacheRegistry.registerCache(cacheName, cache, codeType);
+		
+		translator = new TranslatorImpl<R,L>();
+		TranslatorRegistry.registerTranslator(cacheName, translator);
 	}
 
 	public Cache<C> getCache() {		

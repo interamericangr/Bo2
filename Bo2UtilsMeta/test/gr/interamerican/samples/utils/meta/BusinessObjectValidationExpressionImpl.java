@@ -21,6 +21,11 @@ public class BusinessObjectValidationExpressionImpl
 implements BusinessObjectValidationExpression {
 	
 	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * expression.
 	 */
 	private String expression;

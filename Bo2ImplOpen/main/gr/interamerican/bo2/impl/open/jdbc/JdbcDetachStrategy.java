@@ -40,6 +40,8 @@ public class JdbcDetachStrategy implements DetachStrategy {
 	}
 
 	public void reattach(Object object, Provider provider) {/* do nothing */}
+	
+	public void reattachForUpdate(Object object, Provider provider) {/* do nothing */}
 
 	public void detach(Object object, Provider provider) {/* do nothing */}	
 	

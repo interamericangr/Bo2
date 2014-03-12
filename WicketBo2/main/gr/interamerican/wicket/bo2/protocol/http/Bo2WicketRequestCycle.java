@@ -251,6 +251,19 @@ public class Bo2WicketRequestCycle {
 	public static final void reattach(Object object) {
 		PoUtils.reattach(object, provider());
 	}
+	
+	/**
+	 * This method will reattach a dettached object to the current hibernate
+	 * session. In the unit of work that this is called, it is mandatory to perform
+	 * a database update.
+	 * 
+	 * 
+	 * @param object
+	 *        The object to re-attach
+	 */
+	public static final void reattachForUpdate(Object object) {
+		PoUtils.reattachForUpdate(object, provider());
+	}
 
 	/**
 	 * Gets the provider of the {@link Bo2WicketRequestCycle} associated

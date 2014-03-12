@@ -55,9 +55,25 @@ public abstract class AbstractHibernateDetachStrategy implements DetachStrategy 
 			hProv.setExcluded(object);
 		}
 	}
-
-	@SuppressWarnings("nls")
+	
 	public void reattach(Object object, Provider provider) {
+		reattach(object, provider, false);
+	}
+	
+	public void reattachForUpdate(Object object, Provider provider) {
+		reattach(object, provider, true);
+	}
+	
+	
+	/**
+	 * Internal implementation
+	 * 
+	 * @param object
+	 * @param provider
+	 * @param forUpdate
+	 */
+	@SuppressWarnings("nls")
+	private void reattach(Object object, Provider provider, boolean forUpdate) {
 		if(object == null) { 
 			return; 
 		}
@@ -101,6 +117,9 @@ public abstract class AbstractHibernateDetachStrategy implements DetachStrategy 
 		 */
 		int j = 0;
 		for(Object obj : transientObjects) {
+			if(forUpdate) {
+				break; //do not detach transient objects if a db update will happen in this unit of work
+			}
 			boolean detachTransientObjectAttachedByCascade = detachTransientObjectAttachedByCascade(obj, session);
 			if(detachTransientObjectAttachedByCascade) {
 				LOGGER.debug("detached transient: " + obj.getClass().getName() + obj.toString()); 

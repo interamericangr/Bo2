@@ -46,11 +46,8 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -809,6 +806,22 @@ public class PoUtils {
 		DetachStrategy strategy = getDetachStrategy(object);
 		if (strategy!=null) {
 			strategy.reattach(object, provider);
+		}
+	}
+	
+	/**
+	 * In the unit of work that this is called, it is mandatory to perform
+	 * a database update.
+	 * 
+	 * @param object
+	 *        The object to re-attach
+	 * @param provider 
+	 *        Provider to re-attach the object.
+	 */
+	public static final void reattachForUpdate(Object object, Provider provider) {		
+		DetachStrategy strategy = getDetachStrategy(object);
+		if (strategy!=null) {
+			strategy.reattachForUpdate(object, provider);
 		}
 	}	
 	

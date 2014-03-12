@@ -16,6 +16,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import gr.interamerican.bo2.arch.ext.Translator;
+import gr.interamerican.bo2.arch.utils.TranslatorRegistry;
 import gr.interamerican.bo2.arch.utils.ext.Bo2Session;
 import gr.interamerican.bo2.utils.meta.BusinessObjectValidationExpression;
 import gr.interamerican.wicket.bo2.protocol.http.Bo2WicketRequestCycle;
@@ -39,14 +40,11 @@ extends Bo2WicketTest {
 		Object resourceId = new Object();		
 		BusinessObjectValidationExpression expression = 
 			mock(BusinessObjectValidationExpression.class);		
-		@SuppressWarnings("unchecked")
-		Translator<Object, Object> translator = mock(Translator.class);
 		TranslatableBusinessObjectValidationExpression<Object, Object> exp = 
 			new TranslatableBusinessObjectValidationExpression<Object, Object>
-		    (expression, resourceId, translator);
+		    (expression, resourceId, "translatorName"); //$NON-NLS-1$
 		assertEquals(resourceId, exp.resourceId);
 		assertEquals(expression, exp.expression);
-		assertEquals(translator, exp.translator);		
 	}
 	
 	/**
@@ -61,12 +59,9 @@ extends Bo2WicketTest {
 			mock(BusinessObjectValidationExpression.class);
 		when(expression.getExpression()).thenReturn(expressionString);
 		
-		@SuppressWarnings("unchecked")
-		Translator<Object, Object> translator = mock(Translator.class);
-		
 		TranslatableBusinessObjectValidationExpression<Object, Object> exp = 
 			new TranslatableBusinessObjectValidationExpression<Object, Object>
-		    (expression, resourceId, translator);
+		    (expression, resourceId, "translatorName"); //$NON-NLS-1$
 			
 		String actual = exp.getExpression();
 		Assert.assertEquals(expressionString, actual);
@@ -90,10 +85,11 @@ extends Bo2WicketTest {
 		
 		Object languageId = Bo2Session.getSession().getLanguageId();		
 		when(translator.translate(resourceId, languageId)).thenReturn(expected);
+		TranslatorRegistry.registerTranslator("translatorName", translator); //$NON-NLS-1$
 		
 		TranslatableBusinessObjectValidationExpression<Object, Object> exp = 
 			new TranslatableBusinessObjectValidationExpression<Object, Object>
-		    (expression, resourceId, translator);		
+		    (expression, resourceId, "translatorName");		 //$NON-NLS-1$
 		String actual = exp.getMessage();		
 		assertEquals(expected, actual);
 		

@@ -51,10 +51,7 @@ public class SelfDrawnForm<T extends Serializable> extends Form<T> {
 		SelfDrawnPanel<T> selfDrawnPanel = new SelfDrawnPanel<T>(PANEL_WICKET_ID, model, beanDescriptor); 
 		add(selfDrawnPanel);
 		BusinessObjectFormValidator boFormValidator = new BusinessObjectFormValidator(this, beanDescriptor);
-		/*
-		 * TODO: check serializability or remove from API
-		 */
-//		add(boFormValidator);
+		add(boFormValidator);
 	}
 	
 }

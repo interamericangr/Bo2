@@ -58,6 +58,18 @@ public interface DetachStrategy extends Serializable {
 	public void reattach(Object object, Provider provider);
 	
 	/**
+	 * Reattach that will not detach transient objects attached by cascade.
+	 * In the unit of work that this is called, it is mandatory to perform
+	 * a database update.
+	 * 
+	 * @see #reattach(Object, Provider)
+	 * 
+	 * @param object
+	 * @param provider
+	 */
+	public void reattachForUpdate(Object object, Provider provider);
+	
+	/**
 	 * Detaches the object.
 	 * 
 	 * @param object

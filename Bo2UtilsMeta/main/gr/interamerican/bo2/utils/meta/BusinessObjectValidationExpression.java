@@ -12,11 +12,13 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.meta;
 
+import java.io.Serializable;
+
 /**
  * A {@link BusinessObjectValidationExpression} contains an expression
  * that can be evaluated against a business object instance.
  */
-public interface BusinessObjectValidationExpression {
+public interface BusinessObjectValidationExpression extends Serializable {
 	
 	/**
 	 * Gets the expression.

@@ -12,7 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.wicket.bo2.descriptors;
 
-import gr.interamerican.bo2.arch.ext.Translator;
+import gr.interamerican.bo2.arch.utils.TranslatorRegistry;
 import gr.interamerican.bo2.utils.Utils;
 import gr.interamerican.bo2.utils.meta.BusinessObjectValidationExpression;
 import gr.interamerican.wicket.bo2.protocol.http.Bo2WicketSession;
@@ -30,13 +30,18 @@ public class TranslatableBusinessObjectValidationExpression<R, L>
 implements BusinessObjectValidationExpression {
 	
 	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	/**
 	 * Descriptor.
 	 */
 	BusinessObjectValidationExpression expression;
 	/**
-	 * translator.
+	 * translator name.
 	 */
-	Translator<R, L> translator;
+	String translatorName;
 	/**
 	 * translation resource id.
 	 */
@@ -46,15 +51,15 @@ implements BusinessObjectValidationExpression {
 	 * Creates a new TranslatableBusinessObjectEvaluationExpression object. 
 	 * @param expression 
 	 * @param resourceId 
-	 * @param translator 
+	 * @param translatorName 
 	 */
 	public TranslatableBusinessObjectValidationExpression(
 			BusinessObjectValidationExpression expression,
 			R resourceId,
-			Translator<R, L> translator) {
+			String translatorName) {
 		this.expression = expression;
 		this.resourceId = resourceId;
-		this.translator = translator;
+		this.translatorName = translatorName;
 	}
 	
 	public String getExpression() {
@@ -68,7 +73,7 @@ implements BusinessObjectValidationExpression {
 		 */
 		@SuppressWarnings("unchecked")
 		L languageId = (L) Bo2WicketSession.get().getLanguageId();
-		String message = translator.translate(resourceId, languageId);
+		String message = TranslatorRegistry.getRegisteredTranslator(translatorName).translate(resourceId, languageId);
 		message = Utils.notNull(message, expression.getMessage());
 		return message;
 	}

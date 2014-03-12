@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.MarkupContainer;
@@ -68,9 +69,9 @@ public class BusinessObjectFormValidator implements IFormValidator {
 	private Map<String, FormComponent<?>> index = new HashMap<String, FormComponent<?>>();
 	
 	/**
-	 * {@link BusinessObjectDescriptor} of the Form's model object.
+	 * Validation expressions.
 	 */
-	private BusinessObjectDescriptor<?> descriptor;
+	private Set<BusinessObjectValidationExpression> expressions;
 
 	/**
 	 * Creates a new BusinessObjectFormValidator object.
@@ -78,7 +79,7 @@ public class BusinessObjectFormValidator implements IFormValidator {
 	 * @param descriptor 
 	 */
 	public BusinessObjectFormValidator(Form<?> formToValidate, BusinessObjectDescriptor<?> descriptor) {
-		this.descriptor = descriptor;
+		this.expressions = descriptor.getExpressions();
 		if(!(formToValidate instanceof SelfDrawnForm)) {
 			throw new RuntimeException("BusinessObjectFormValidator will not work for a Form that is not a SelfDrawnForm"); //$NON-NLS-1$
 		}
@@ -111,7 +112,7 @@ public class BusinessObjectFormValidator implements IFormValidator {
 		}
 		
 		String msg = StringConstants.EMPTY;
-		for(BusinessObjectValidationExpression expression : descriptor.getExpressions()) {
+		for(BusinessObjectValidationExpression expression : expressions) {
 			try {
 				ExpressionEngine.INSTANCE.evaluate(
 					expression.getExpression(), context, expression.getMessage());
