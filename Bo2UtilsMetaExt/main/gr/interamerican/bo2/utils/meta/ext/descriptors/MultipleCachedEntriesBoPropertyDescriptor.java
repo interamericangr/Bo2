@@ -41,6 +41,11 @@ public class MultipleCachedEntriesBoPropertyDescriptor
 extends AbstractCacheRelatedObjectBoPropertyDescriptor<Collection<T>, C> {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Creates a new MultipleChoiceCachedEntryBoPropertyDescriptor object. 
 	 *
 	 * @param typeId

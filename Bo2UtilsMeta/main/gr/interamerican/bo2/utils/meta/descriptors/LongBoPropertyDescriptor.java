@@ -23,6 +23,11 @@ public class LongBoPropertyDescriptor
 extends AbstractIntTypesBoPropertyDescriptor<Long> {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Creates a new IntegerBoPropertyDescriptor object.
 	 */
 	public LongBoPropertyDescriptor() {

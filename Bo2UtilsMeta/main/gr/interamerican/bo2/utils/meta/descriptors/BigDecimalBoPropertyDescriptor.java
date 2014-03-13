@@ -27,6 +27,11 @@ public class BigDecimalBoPropertyDescriptor
 extends AbstractNumberBoPropertyDescriptor<BigDecimal> {
 		
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Creates a new BigDecimalBoPropertyDescriptor object. 
 	 */
 	public BigDecimalBoPropertyDescriptor() {

@@ -24,6 +24,11 @@ public class DoubleBoPropertyDescriptor
 extends AbstractNumberBoPropertyDescriptor<Double> {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Creates a new DoubleBoPropertyDescriptor object.
 	 */
 	public DoubleBoPropertyDescriptor() {

@@ -33,6 +33,10 @@ import java.util.Arrays;
 public class TestBeanDescriptor extends BasicBusinessObjectDescriptor<TestBean> {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * TYPE
 	 */
 	private static final Long TYPE = 1000L;

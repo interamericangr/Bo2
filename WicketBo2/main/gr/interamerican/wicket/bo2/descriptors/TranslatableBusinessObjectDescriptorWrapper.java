@@ -12,7 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.wicket.bo2.descriptors;
 
-import gr.interamerican.bo2.arch.ext.Translator;
+import gr.interamerican.bo2.arch.utils.TranslatorRegistry;
 import gr.interamerican.bo2.utils.Utils;
 import gr.interamerican.bo2.utils.meta.BusinessObjectDescriptor;
 import gr.interamerican.bo2.utils.meta.BusinessObjectValidationExpression;
@@ -38,13 +38,17 @@ import java.util.Set;
 public class TranslatableBusinessObjectDescriptorWrapper<T, R, L> 
 implements BusinessObjectDescriptor<T>{
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * Descriptor.
 	 */
 	BusinessObjectDescriptor<T> descriptor;
 	/**
-	 * translator.
+	 * translator name.
 	 */
-	Translator<R, L> translator;
+	String translatorName;
 	/**
 	 * translation resource id.
 	 */
@@ -59,16 +63,16 @@ implements BusinessObjectDescriptor<T>{
 	 *            BusinessObjectDescriptor that describes the object.
 	 * @param resourceId
 	 *            Translation resource id.
-	 * @param translator
-	 *            Translator used to translate the label.
+	 * @param translatorName
+	 *            Name of the translator used to translate the label.
 	 */
 	public TranslatableBusinessObjectDescriptorWrapper(
 			BusinessObjectDescriptor<T> descriptor,
 			R resourceId,
-			Translator<R, L> translator) {
+			String translatorName) {
 		super();
 		this.descriptor = descriptor;
-		this.translator = translator;
+		this.translatorName = translatorName;
 		this.resourceId = resourceId;
 	}
 
@@ -79,7 +83,7 @@ implements BusinessObjectDescriptor<T>{
 		 */
 		@SuppressWarnings("unchecked")
 		L languageId = (L) Bo2WicketSession.get().getLanguageId();
-		String label = translator.translate(resourceId, languageId);
+		String label = TranslatorRegistry.getRegisteredTranslator(translatorName).translate(resourceId, languageId);
 		label = Utils.notNull(label, descriptor.getLabel());
 		return label;
 	}

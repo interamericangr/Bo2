@@ -29,6 +29,10 @@ public class MoneyBoPropertyDescriptor
 extends AbstractBoPropertyDescriptor<Money> {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * zero allowed flag.
 	 */
 	boolean zeroAllowed=true;

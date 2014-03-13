@@ -37,6 +37,11 @@ public class CachedEntryBoPropertyDescriptor<T extends TypedSelectable<C>, C ext
 extends AbstractCacheRelatedObjectBoPropertyDescriptor<T, C> {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Creates a new CachedEntryBoPropertyDescriptor object. 
 	 *
 	 * @param typeId

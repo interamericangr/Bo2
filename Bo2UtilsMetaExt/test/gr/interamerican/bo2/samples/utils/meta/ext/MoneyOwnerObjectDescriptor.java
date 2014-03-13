@@ -25,6 +25,11 @@ public class MoneyOwnerObjectDescriptor
 extends BasicBusinessObjectDescriptor<MoneyOwnerObject> {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Creates a new Bean1descriptor object. 
 	 *
 	 */

@@ -37,6 +37,10 @@ import gr.interamerican.wicket.bo2.protocol.http.Bo2WicketSession;
 public class TranslatableBoPropertyDescriptorWrapper<T, R, L>
 implements BoPropertyDescriptor<T>, BoPropertyDescriptorWrapper<T> {
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * Descriptor.
 	 */
 	BoPropertyDescriptor<T> descriptor;

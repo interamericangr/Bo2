@@ -34,6 +34,11 @@ public abstract class AbstractCacheRelatedObjectBoPropertyDescriptor<T, C extend
 extends AbstractBoPropertyDescriptor<T>{
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * type id.
 	 */	
 	protected Long typeId;

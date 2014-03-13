@@ -35,6 +35,10 @@ public class SelectableBoPropertyDescriptor<C extends Comparable<? super C>>
 extends AbstractBoPropertyDescriptor<Selectable<C>> {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * set of values.
 	 */
 	 Set<Selectable<C>> choices;

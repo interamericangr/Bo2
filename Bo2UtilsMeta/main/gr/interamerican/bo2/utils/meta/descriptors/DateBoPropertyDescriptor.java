@@ -26,6 +26,11 @@ public class DateBoPropertyDescriptor
 extends AbstractBoPropertyDescriptor<Date> {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Creates a new DateBoPropertyDescriptor object. 
 	 */
 	public DateBoPropertyDescriptor() {

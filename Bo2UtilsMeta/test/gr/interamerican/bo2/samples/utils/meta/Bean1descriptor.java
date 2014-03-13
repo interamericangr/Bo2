@@ -39,6 +39,10 @@ public class Bean1descriptor
 extends BasicBusinessObjectDescriptor<Bean1> {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * Creates a new Bean1descriptor object. 
 	 *
 	 */

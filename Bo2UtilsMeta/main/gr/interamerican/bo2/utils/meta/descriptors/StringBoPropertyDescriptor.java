@@ -28,6 +28,10 @@ public class StringBoPropertyDescriptor
 extends AbstractBoPropertyDescriptor<String> {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * min length.
 	 */
 	int minLength;

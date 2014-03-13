@@ -234,6 +234,11 @@ public class TestAbstractBoPropertyDescriptor {
 	 */
 	private class Descriptor extends AbstractBoPropertyDescriptor<String> {
 		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		/**
 		 * Creates a new Descriptor object. 
 		 */
 		public Descriptor() {

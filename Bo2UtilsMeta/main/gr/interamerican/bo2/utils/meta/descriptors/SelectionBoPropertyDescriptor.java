@@ -28,6 +28,11 @@ public class SelectionBoPropertyDescriptor<T>
 extends AbstractBoPropertyDescriptor<T> {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Creates a new SelectionBoPropertyDescriptor object. 
 	 */
 	public SelectionBoPropertyDescriptor() {

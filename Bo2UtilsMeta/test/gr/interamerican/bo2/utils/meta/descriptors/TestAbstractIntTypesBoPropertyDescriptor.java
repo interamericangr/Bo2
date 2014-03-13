@@ -38,6 +38,11 @@ public class TestAbstractIntTypesBoPropertyDescriptor {
 	 */
 	private class Descriptor extends AbstractIntTypesBoPropertyDescriptor<Integer> {
 		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
+		/**
 		 * Creates a new Descriptor object. 
 		 */
 		public Descriptor() {

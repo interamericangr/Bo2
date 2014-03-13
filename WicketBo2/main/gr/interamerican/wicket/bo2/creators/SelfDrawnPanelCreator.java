@@ -26,13 +26,12 @@ import org.apache.wicket.model.CompoundPropertyModel;
 
 /**
  * {@link PanelCreator} implementation based on {@link SelfDrawnPanel}
+ * Use this for {@link BusinessObjectDescriptor}s created programmatically.
+ * For cached BusinessObjectDescriptors see {@link SelfDrawnPanelCreatorWithCachedBod}
  * 
  * @param <B>
  *            type of Bean
- *            
- * @deprecated Use SelfDrawnPanelCreatorWithCachedBod because of this being non-Serializable
  */
-@Deprecated
 public class SelfDrawnPanelCreator<B extends Serializable> implements PanelCreator<B> {
 
 	/**
@@ -43,7 +42,7 @@ public class SelfDrawnPanelCreator<B extends Serializable> implements PanelCreat
 	/**
 	 * B descriptor.
 	 */
-	BusinessObjectDescriptor<B> beanDescriptor; //TODO: transient or make serializable
+	BusinessObjectDescriptor<B> beanDescriptor;
 	
 	/**
 	 * Number of columns.

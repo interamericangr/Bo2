@@ -27,6 +27,12 @@ public class ChildBeanDescriptor
 	extends BasicBusinessObjectDescriptor<ChildBean> {
 
 		/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
+		/**
 		 * Creates a new Bean1descriptor object. 
 		 *
 		 */

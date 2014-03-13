@@ -37,6 +37,11 @@ public abstract class AbstractBoPropertyDescriptor<T>
 implements BoPropertyDescriptor<T> {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * {@link Validator}s associated with this descriptor instance.
 	 */
 	protected Map<Class<?>, Validator<T>> validators = new HashMap<Class<?>, Validator<T>>();

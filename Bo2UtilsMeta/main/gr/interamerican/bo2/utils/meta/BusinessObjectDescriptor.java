@@ -17,6 +17,7 @@ import gr.interamerican.bo2.utils.attributes.Named;
 import gr.interamerican.bo2.utils.meta.descriptors.BoPropertyDescriptor;
 import gr.interamerican.bo2.utils.meta.exceptions.MultipleValidationsException;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -28,7 +29,7 @@ import java.util.Set;
  * @param <T> Type of business object.
  */
 public interface BusinessObjectDescriptor<T> 
-extends Named, Labeled {
+extends Named, Labeled, Serializable {
 
 	/**
 	 * Gets the propertyDescriptors.

@@ -30,6 +30,11 @@ public class PalleteCachedEntriesOwnersBoPropertyDescriptor
 extends MultipleCachedEntriesOwnersBoPropertyDescriptor<T, C>{
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Creates a new PalleteCachedEntriesOwnersBoPropertyDescriptor object. 
 	 *
 	 * @param typeId

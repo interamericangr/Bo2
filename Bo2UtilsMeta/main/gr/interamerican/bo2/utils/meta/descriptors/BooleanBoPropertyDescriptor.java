@@ -23,6 +23,11 @@ public class BooleanBoPropertyDescriptor
 extends AbstractBoPropertyDescriptor<Boolean> {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Creates a new DateBoPropertyDescriptor object. 
 	 */
 	public BooleanBoPropertyDescriptor() {

@@ -23,6 +23,11 @@ public abstract class AbstractIntTypesBoPropertyDescriptor<T extends Number>
 extends AbstractNumberBoPropertyDescriptor<T> {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Creates a new IntegerBoPropertyDescriptor object.
 	 * @param parser 
 	 */

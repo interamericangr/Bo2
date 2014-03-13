@@ -29,6 +29,10 @@ extends AbstractBoPropertyDescriptor<T>
 implements NumberBoPropertyDescriptor<T> {
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * zero allowed flag.
 	 */
 	boolean zeroAllowed=true;

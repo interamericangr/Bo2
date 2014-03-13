@@ -12,6 +12,8 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.meta.descriptors;
 
+import java.io.Serializable;
+
 import gr.interamerican.bo2.utils.attributes.Labeled;
 import gr.interamerican.bo2.utils.attributes.Named;
 import gr.interamerican.bo2.utils.meta.BusinessObjectDescriptor;
@@ -37,7 +39,7 @@ import gr.interamerican.bo2.utils.meta.validators.Validator;
  * @param <T> Type of property.
  */
 public interface BoPropertyDescriptor<T> 
-extends Named, Labeled {
+extends Named, Labeled, Serializable {
 	
 	/**
 	 * Gets the index of the property.
