@@ -30,9 +30,9 @@ import gr.interamerican.wicket.markup.html.panel.searchFlow.SearchFlowPanel;
 public class WellKnownResourceIds {
 	
 	/**
-	 * Clear button of {@link FilePanel}.
+	 * Upload button of {@link FilePanel}.
 	 */
-	public static final String FP_CLEAR_BTN_LABEL = "fp_clearButtonLabel";
+	public static final String FP_UPLOAD_BTN_LABEL = "fp_uploadButtonLabel";
 	
 	/**
 	 * Select column label of data table with radios

@@ -16,6 +16,7 @@ import gr.interamerican.wicket.markup.html.TestPage;
 import gr.interamerican.wicket.test.WicketTest;
 
 import org.apache.wicket.Component;
+import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.util.file.File;
@@ -40,17 +41,26 @@ public class TestFilePanel extends WicketTest {
 		
 		FilePanel subject = (FilePanel) tester.getComponentFromLastRenderedPage(subjectPath());
 		
+		//FORM submit not coming from uploadButton is void
 		FormTester formTester = getFormTester();
 		File file = new File(getClass().getResource("/gr/interamerican/wicket/samples/img/delete.jpeg").getFile());
 		String fcPath = TestPage.TEST_ID + ":" + FilePanel.FORM_ID + ":" + FilePanel.FILE_CHOOSER_ID;
-		
 		Assert.assertNull(subject.getDefaultModelObject());
-		
 		formTester.setFile(fcPath, file, "image/jpeg");
 		formTester.submit(TestPage.SUBMIT_BUTTON_ID);
+		Assert.assertNull(subject.getDefaultModelObject());
+		Assert.assertNull(subject.getFileName());
+		
+		//Button submit uploads file to model
+		formTester = getFormTester();
+		formTester.setFile(fcPath, file, "image/jpeg");
+		AjaxButton button = (AjaxButton)
+				tester.getComponentFromLastRenderedPage(path("form:uploadButton"));
+		tester.executeAjaxEvent(button, "onclick");
 		
 		Assert.assertTrue(subject.getDefaultModelObject() instanceof byte[]);
 		Assert.assertTrue(((byte[]) subject.getDefaultModelObject()).length > 0);
+		Assert.assertNotNull(subject.getFileName());
 	}
 	
 	@Override
