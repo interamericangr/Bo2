@@ -13,6 +13,7 @@ import gr.interamerican.bo2.arch.ext.Session;
 import gr.interamerican.bo2.arch.utils.ext.Bo2Session;
 import gr.interamerican.bo2.impl.open.utils.Bo2;
 import gr.interamerican.bo2.utils.ExceptionUtils;
+import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.Utils;
 import gr.interamerican.bo2.utils.beans.Timer;
 import gr.interamerican.bo2.utils.mail.MailMessage;
@@ -115,21 +116,28 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 			page = pageHandler.getPage();
 		}
 		
+		/* 
+		 * If this runs because of a CouldNotCommitException during #onRequestHandlerExecuted() invocation
+		 * there is no next IRequestHandler and null is returned. In this case, Wicket should redirect to
+		 * the configured ErrorPage.
+		 */
+		IRequestHandler nextTarget = RequestCycle.get().getRequestHandlerScheduledAfterCurrent();
+		
 		if (page instanceof WicketOutputMedium) {
 			WicketOutputMedium outputMedium = (WicketOutputMedium) page;
-			/*
-			 * TODO: why? This is also the last handler. Are there any cases this is not true?
-			 */
-			IRequestHandler target = RequestCycle.get().getRequestHandlerScheduledAfterCurrent();
-			if(target instanceof AjaxRequestTarget) {
-				AjaxRequestTarget art = (AjaxRequestTarget) target;
-				outputMedium.showError(t, art);
+			
+			AjaxRequestTarget ajaxRequestTarget = AjaxRequestTarget.get();
+			
+			if(ajaxRequestTarget != null) {
+				outputMedium.showError(t, ajaxRequestTarget);
 			} else {
-				Bo2WicketRequestCycle.LOGGER.error("Failed to display error from Throwable " + t.toString());
+				Bo2WicketRequestCycle.LOGGER.error(
+					"Failed to display error from Throwable " + t.toString() 
+				  + StringConstants.NEWLINE + ExceptionUtils.getThrowableStackTrace(t));
 			}
-			return target;
 		}
-		return null;
+		
+		return nextTarget;
 		
 	}
 	
