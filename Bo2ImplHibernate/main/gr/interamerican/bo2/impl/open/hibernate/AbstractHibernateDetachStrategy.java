@@ -80,9 +80,9 @@ public abstract class AbstractHibernateDetachStrategy implements DetachStrategy 
 		if (!(object instanceof PersistentObject)) { 
 			return; 
 		}
-		if(HibernateBo2Utils.isTransient((PersistentObject<?>) object)) {
-			return;
-		}
+		
+		boolean objectIsTransient = HibernateBo2Utils.isTransient((PersistentObject<?>) object);
+		
 		HibernateSessionProvider hProv = HibernateBo2Utils.getHibernateSessionProvider(object, provider);
 		if(hProv==null) {
 			return;
@@ -94,10 +94,12 @@ public abstract class AbstractHibernateDetachStrategy implements DetachStrategy 
 		if(object instanceof AbstractBasePo) {
 			PoReattachAnalysisResult poInspectionResult = PoReattachAnalysis.get().execute((AbstractBasePo<?>) object);
 			objectsToReattachManually = poInspectionResult.getPosToReattachManually();
-			transientObjects = poInspectionResult.getTransientPos();
+			if(!objectIsTransient) { //If the original object is transient we will not care for transient Child objects
+				transientObjects = poInspectionResult.getTransientPos();
+			}
 		}
 		
-		LOGGER.debug("------------------------------------------------>reattach " + object.getClass().getName() + object);
+		LOGGER.debug("------------------------------------------------>reattach " + object.getClass().getName() + object.toString());
 		
 		if(!HibernateBo2Utils.isTransient((PersistentObject<?>) object)) {
 			try {
@@ -136,8 +138,8 @@ public abstract class AbstractHibernateDetachStrategy implements DetachStrategy 
 			try {
 				boolean mayLockOrUpdate = mayLockOrUpdate(obj, session);
 				if(mayLockOrUpdate) {
-					LOGGER.debug("reattached by locking: " + obj.getClass().getName() + obj.toString()); 
 					session.buildLockRequest(LockOptions.NONE).lock(obj); 
+					LOGGER.debug("reattached by locking: " + obj.getClass().getName() + obj.toString()); 
 					i++;
 				}
 			}catch (HibernateException he) {

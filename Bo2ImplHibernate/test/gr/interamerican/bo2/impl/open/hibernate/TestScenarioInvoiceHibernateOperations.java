@@ -830,6 +830,61 @@ public class TestScenarioInvoiceHibernateOperations {
 	}
 	
 	/**
+	 * Tests re-attaching an object graph of a deep copied object. Many-to-one associations
+	 * should be reattached for reading.
+	 * 
+	 * @throws UnexpectedException
+	 * @throws DataException
+	 * @throws LogicException
+	 */
+	@Test
+	public void testReattachToSession_deepCopiedInstance() 
+	throws UnexpectedException, DataException, LogicException {
+		
+		/* first, store the samples - including a Customer */
+		new AbstractBo2RuntimeCmd() {
+			@Override public void work() throws LogicException,
+			DataException, InitializationException, UnexpectedException {
+				customer = factory.sampleCustomer(taxId);
+				customer.setCustomerNo(customerNo);
+				PersistenceWorker<Customer> cpw = openPw(Customer.class);
+				cpw.store(customer);
+				
+				invoice = factory.sampleInvoiceFull(4);
+				invoice.setInvoiceNo(invoiceNo);
+				invoice.getCustomer().setCustomer(customer);
+				PersistenceWorker<Invoice> ipw = openPw(Invoice.class);
+				ipw.store(invoice);
+			}
+		}.execute();
+		
+		new AbstractBo2RuntimeCmd() {
+			@Override
+			public void work() throws LogicException, DataException, InitializationException, UnexpectedException {
+				invoice = Factory.create(Invoice.class);
+				invoice.setInvoiceNo(invoiceNo);
+				invoice = openPw(Invoice.class).read(invoice);
+				invoice = PoUtils.deepCopy(invoice);
+			}
+		}.execute();
+		
+		Customer c = invoice.getCustomer().getCustomer();
+		Assert.assertNull(invoice.getLastModified());
+		Assert.assertTrue(HibernateBo2Utils.isTransient(invoice));
+		Assert.assertTrue(c instanceof HibernateProxy);
+		Assert.assertTrue(((HibernateProxy)c).getHibernateLazyInitializer().isUninitialized());
+		
+        new AbstractBo2RuntimeCmd() {
+			@Override
+			public void work() throws LogicException, DataException, InitializationException, UnexpectedException {
+				PoUtils.reattach(invoice, getProvider());
+				Assert.assertEquals(taxId, invoice.getCustomer().getCustomer().getTaxId());
+			}
+		}.execute();
+		
+	}
+	
+	/**
 	 * Tests re-attaching a detached MODIFIED instance.
 	 * 
 	 * <li>transaction1: store
