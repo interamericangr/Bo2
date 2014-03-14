@@ -14,6 +14,7 @@ package gr.interamerican.wicket.bo2.descriptors;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import gr.interamerican.bo2.arch.utils.TranslatorRegistry;
 import gr.interamerican.bo2.arch.utils.beans.TranslatorImpl;
 import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.StringUtils;
@@ -89,7 +90,6 @@ public class TestTranslatableBoPropertyDescriptorWrapper extends Bo2WicketTest{
 	 */
 	private TranslatableBoPropertyDescriptorWrapper<Integer, String, ?> wrapper; 
 	
-	
 	/**
 	 * Init
 	 */
@@ -108,7 +108,11 @@ public class TestTranslatableBoPropertyDescriptorWrapper extends Bo2WicketTest{
 		session.setLanguageId(1L);
 		translator.learn(resourceId, 1L, TRANSLATION);
 		
-		wrapper = new TranslatableBoPropertyDescriptorWrapper(descriptor,resourceId,translator);
+		if(TranslatorRegistry.getRegisteredTranslator(this.getClass().getName())==null) {
+			TranslatorRegistry.registerTranslator(this.getClass().getName(), translator);
+		}
+		
+		wrapper = new TranslatableBoPropertyDescriptorWrapper(descriptor,resourceId,this.getClass().getName());
 	}
 	
 	
