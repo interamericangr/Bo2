@@ -17,6 +17,7 @@ import gr.interamerican.bo2.arch.ext.TypedSelectable;
 import gr.interamerican.bo2.utils.Utils;
 import gr.interamerican.bo2.utils.beans.Pair;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -29,8 +30,14 @@ import java.util.Set;
  * @param <C> 
  */
 public class CacheImpl<C extends Comparable<? super C>> 
-implements Cache<C> {
+implements Cache<C>, Serializable {
 	
+	/**
+	 * serialVersionUID.
+	 */
+	private static final long serialVersionUID = 1L;
+
+
 	/**
 	 * Creates a new CacheImpl object.
 	 */
@@ -172,9 +179,7 @@ implements Cache<C> {
 		}		
 	}
 	
-	/* (non-Javadoc)
-	 * @see gr.interamerican.bo2.arch.ext.Cache#refill(java.lang.Long, java.util.Collection)
-	 */
+	@Override
 	public void refill(Long typeId,
 			Collection<? extends TypedSelectable<C>> values) {
 		clearTypeId(typeId);
@@ -185,9 +190,7 @@ implements Cache<C> {
 		}
 	}
 	
-	/* (non-Javadoc)
-	 * @see gr.interamerican.bo2.arch.ext.Cache#getSubCacheAsList(java.lang.Long, java.lang.Long)
-	 */
+	@Override
 	public <T extends TypedSelectable<C>> List<T> getSubCacheAsList(
 			Long typeId, Long subTypeId) {
 		Set<T> set = getSubCache(typeId, subTypeId);
