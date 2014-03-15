@@ -12,12 +12,10 @@
  ******************************************************************************/
 package gr.interamerican.bo2.creation.creators;
 
-import gr.interamerican.bo2.creation.annotations.ComparableThrough;
 import gr.interamerican.bo2.creation.code.templatebean.PropertyWithDirectAccessCodeTemplates;
 import gr.interamerican.bo2.creation.code.templatebean.Variables;
 import gr.interamerican.bo2.creation.exception.ClassCreationException;
 import gr.interamerican.bo2.creation.util.CodeGenerationUtilities;
-import gr.interamerican.bo2.utils.TokenUtils;
 import gr.interamerican.bo2.utils.reflect.beans.BeanPropertyDefinition;
 
 import java.io.Serializable;
