@@ -22,6 +22,7 @@ import gr.interamerican.wicket.def.WicketOutputMedium;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 
+import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.request.IRequestHandler;
 import org.apache.wicket.request.component.IRequestablePage;
@@ -116,17 +117,23 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 			page = pageHandler.getPage();
 		}
 		
-		/* 
-		 * If this runs because of a CouldNotCommitException during #onRequestHandlerExecuted() invocation
-		 * there is no next IRequestHandler and null is returned. In this case, Wicket should redirect to
-		 * the configured ErrorPage.
-		 */
 		IRequestHandler nextTarget = RequestCycle.get().getRequestHandlerScheduledAfterCurrent();
 		
 		if (page instanceof WicketOutputMedium) {
+			
 			WicketOutputMedium outputMedium = (WicketOutputMedium) page;
 			
 			AjaxRequestTarget ajaxRequestTarget = AjaxRequestTarget.get();
+			
+			/*
+			 * If there is no AjaxRequestTarget scheduled we schedule one in order to render
+			 * the error.
+			 */
+			if(ajaxRequestTarget==null) {
+				RequestCycle.get().scheduleRequestHandlerAfterCurrent(new AjaxRequestTarget((Page) page));
+				ajaxRequestTarget = AjaxRequestTarget.get();
+				nextTarget = ajaxRequestTarget;
+			}
 			
 			if(ajaxRequestTarget != null) {
 				outputMedium.showError(t, ajaxRequestTarget);

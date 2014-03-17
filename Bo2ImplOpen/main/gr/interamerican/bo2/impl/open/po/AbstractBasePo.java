@@ -31,11 +31,10 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -104,7 +103,12 @@ implements PersistentObject<K> {
 	/**
 	 * Non children fields per class cache.
 	 */
-	private static Map<Class<?>, List<Field>> nonChildFieldsCache = new HashMap<Class<?>, List<Field>>();
+	private static ConcurrentHashMap<Class<?>, List<Field>> nonChildFieldsCache = new ConcurrentHashMap<Class<?>, List<Field>>();
+	
+	/**
+	 * Child fields per class cache.
+	 */
+	private static ConcurrentHashMap<Class<?>, List<Field>> childFieldsCache = new ConcurrentHashMap<Class<?>, List<Field>>();
 
 	/**
 	 * List with the fields of the class of this object that
@@ -300,6 +304,11 @@ implements PersistentObject<K> {
 	 * childFields field is used. 
 	 */
 	private void resolveChildFields() {
+		childFields = childFieldsCache.get(this.getClass());
+		if(childFields!=null) {
+			return;
+		}
+		
 		childFields = new ArrayList<Field>();
 		TypeAnalysis analysis = TypeAnalysis.analyze(this.getClass());
 		Set<Field> children = analysis.getAnnotated(Child.class);		
@@ -309,6 +318,8 @@ implements PersistentObject<K> {
 				ReflectionUtils.setAccessible(field);
 			}
 		}
+		
+		childFieldsCache.putIfAbsent(this.getClass(), childFields);
 	}
 	
 	/**
@@ -346,7 +357,8 @@ implements PersistentObject<K> {
 				}
 			}
 		}
-		nonChildFieldsCache.put(this.getClass(), nonChildFields);
+		
+		nonChildFieldsCache.putIfAbsent(this.getClass(), nonChildFields);
 	}
 	
 	/**

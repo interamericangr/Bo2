@@ -2,7 +2,7 @@ package gr.interamerican.bo2.utils.beans;
 
 import gr.interamerican.bo2.utils.StringUtils;
 
-import java.util.Collection;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -27,16 +27,17 @@ import java.util.TreeSet;
  * @param <V> 
  *        Type of value.
  */
-public class SegmentedDistance<A extends Comparable<? super A>,V> {
+public class SegmentedDistance<A extends Comparable<? super A>,V> implements Serializable {
+	
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	/**
 	 * Map that keeps the ranges.
 	 */
 	Map<Range<A>, V> ranges = new HashMap<Range<A>, V>();
-	
-	
-	
-	
 
 	/**
 	 * Adds a new range to the area.

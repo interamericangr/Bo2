@@ -1,12 +1,12 @@
 package gr.interamerican.bo2.utils.beans;
 
-import java.util.Collection;
+import gr.interamerican.bo2.utils.StringUtils;
+
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
-
-import gr.interamerican.bo2.utils.StringUtils;
 
 
 /**
@@ -22,7 +22,13 @@ import gr.interamerican.bo2.utils.StringUtils;
  *        Type of values. 
  */
 public class SegmentedArea
-<X extends Comparable<? super X>, Y extends Comparable<? super Y>, V> {
+<X extends Comparable<? super X>, Y extends Comparable<? super Y>, V>
+implements Serializable {
+	
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	/**
 	 * Segments of X.
