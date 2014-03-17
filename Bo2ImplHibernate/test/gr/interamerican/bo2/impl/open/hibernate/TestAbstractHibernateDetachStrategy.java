@@ -15,6 +15,7 @@ package gr.interamerican.bo2.impl.open.hibernate;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import gr.interamerican.bo2.arch.DetachStrategy;
+import gr.interamerican.bo2.arch.Provider;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
@@ -219,6 +220,10 @@ public class TestAbstractHibernateDetachStrategy {
 		@Override
 		protected void doReattach(Object object, Session session) {
 			session.update(object);
+		}
+
+		public void detach(Object object, Provider provider) {
+			/* empty */
 		}
 		
 	}

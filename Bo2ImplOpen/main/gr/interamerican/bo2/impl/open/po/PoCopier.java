@@ -19,10 +19,10 @@ import gr.interamerican.bo2.arch.PersistentObject;
 import gr.interamerican.bo2.arch.ext.Copier;
 import gr.interamerican.bo2.arch.utils.beans.ModificationRecordImpl;
 import gr.interamerican.bo2.arch.utils.copiers.DateCopier;
+import gr.interamerican.bo2.arch.utils.copiers.DetachStrategyCopier;
 import gr.interamerican.bo2.arch.utils.copiers.ImmutableObjectCopier;
 import gr.interamerican.bo2.arch.utils.copiers.KeyCopier;
 import gr.interamerican.bo2.arch.utils.copiers.MoneyCopier;
-import gr.interamerican.bo2.arch.utils.copiers.NullCopier;
 import gr.interamerican.bo2.impl.open.transformations.Copy;
 import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.adapters.Modification;
@@ -113,7 +113,7 @@ public class PoCopier {
 
 		copiers.registerSelection(Money.class, new MoneyCopier());
 		copiers.registerSelection(Key.class, new KeyCopier());
-		copiers.registerSelection(DetachStrategy.class, new NullCopier<DetachStrategy>());
+		copiers.registerSelection(DetachStrategy.class, new DetachStrategyCopier());
 	}
 
 	/**

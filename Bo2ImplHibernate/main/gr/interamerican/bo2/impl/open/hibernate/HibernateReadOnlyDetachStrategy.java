@@ -12,6 +12,8 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.hibernate;
 
+import gr.interamerican.bo2.arch.Provider;
+
 import org.hibernate.LockOptions;
 import org.hibernate.Session;
 
@@ -32,6 +34,10 @@ extends AbstractHibernateDetachStrategy {
 	 */
 	public static HibernateReadOnlyDetachStrategy INSTANCE = 
 		new HibernateReadOnlyDetachStrategy();
+
+	public void detach(Object object, Provider provider) {
+		/* Don't do anything special */
+	}
 	
 	@Override
 	protected void doReattach(Object object, Session session) {

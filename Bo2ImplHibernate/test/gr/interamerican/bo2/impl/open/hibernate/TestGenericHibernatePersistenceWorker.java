@@ -13,7 +13,7 @@
 package gr.interamerican.bo2.impl.open.hibernate;
 
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import gr.interamerican.bo2.arch.PersistenceWorker;
 import gr.interamerican.bo2.arch.Provider;
 import gr.interamerican.bo2.arch.exceptions.DataException;
@@ -148,7 +148,7 @@ public class TestGenericHibernatePersistenceWorker {
 	 */
 	@Test
 	public void testGetDetachStrategy() {
-		assertEquals(HibernateDetachStrategy.INSTANCE, userPw.getDetachStrategy());
+		assertTrue(userPw.getDetachStrategy() instanceof HibernateDetachStrategy);
 	}
 	
 	/**

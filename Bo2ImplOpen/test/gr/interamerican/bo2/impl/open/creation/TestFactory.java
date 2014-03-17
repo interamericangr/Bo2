@@ -72,18 +72,6 @@ public class TestFactory {
 	}
 	
 	/**
-	 * Unit test for getDetachStrategy.
-	 */
-	@Test
-	public void testGetDefaultDetachStrategy() {
-		DetachStrategy strategy = 
-			Factory.getDefaultDetachStrategy(User.class);
-		assertNotNull(strategy);
-		strategy = Factory.getDefaultDetachStrategy(AlmostEmpty1.class);
-		assertNull(strategy);
-	}
-	
-	/**
 	 * Tests compileJavaBean().
 	 * 
 	 * @throws NoSuchFieldException 

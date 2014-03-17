@@ -23,8 +23,10 @@ import java.io.Serializable;
 public interface DetachStrategy extends Serializable {
 	
 	/**
-	 * Re-attaches an object. For environments with managed entities, such as ORM
-	 * implementations, the semantics of this are as follows:
+	 * Re-attaches an object. 
+	 * <br/><br/>
+	 * For environments with managed entities, such as ORM implementations, the 
+	 * semantics of this are as follows:
 	 * <br/><br/>
 	 * <li>Re-attaching a detached object includes the re-attaching of referenced
 	 * (i.e. not owned) detached entities and collections of detached entities, 
@@ -71,6 +73,16 @@ public interface DetachStrategy extends Serializable {
 	
 	/**
 	 * Detaches the object.
+	 * <br/><br/>
+	 * For environments with managed entities, such as ORM implementations, the 
+	 * semantics of this are as follows:
+	 * <br/><br/>
+	 * <li>A previous call to {@link #reattach(Object, Provider)} or {@link #reattachForUpdate(Object, Provider)
+	 * has been performed.
+	 * <br/><br/>
+	 * <li>Side-effects of this call on the object are reset here.
+	 * <br/><br/>
+	 * <li>The goal is to leave the state of the object as if no reattach call was performed.
 	 * 
 	 * @param object
 	 *        Object to detach.

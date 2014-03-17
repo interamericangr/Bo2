@@ -14,13 +14,14 @@ package gr.interamerican.bo2.impl.open.creation;
 
 
 import static org.junit.Assert.assertEquals;
-import gr.interamerican.bo2.arch.DetachStrategy;
 import gr.interamerican.bo2.arch.PersistenceWorker;
+import gr.interamerican.bo2.impl.open.jdbc.JdbcDetachStrategy;
 import gr.interamerican.bo2.samples.archutil.po.User;
 import gr.interamerican.bo2.samples.implopen.pw.UserPwImpl;
 
 import java.util.Properties;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 
@@ -114,9 +115,8 @@ public class TestPersistenceWorkerFactoryImpl {
 	 */
 	@Test
 	public void testGetDetachStrategy() {
-		DetachStrategy actual = factory.getDetachStrategy(User.class);
 		PersistenceWorker<User> pw = factory.createPw(User.class);
-		assertEquals(pw.getDetachStrategy(), actual);
+		Assert.assertTrue(pw.getDetachStrategy() instanceof JdbcDetachStrategy);
 	}
 	
 	/**

@@ -16,11 +16,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import gr.interamerican.bo2.arch.DetachStrategy;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.impl.open.creation.Factory;
-import gr.interamerican.bo2.impl.open.po.PoUtils;
 import gr.interamerican.bo2.test.def.posamples.Invoice;
 import gr.interamerican.bo2.test.utils.UtilityForBo2Test;
 import gr.interamerican.bo2.utils.ReflectionUtils;
@@ -80,8 +78,6 @@ public class TestHibernateSessionProviderImpl {
 		Invoice o = Factory.create(Invoice.class);//All three implementations are AbstractBasePo		
 		manager.register(o);
 		assertTrue(manager.entities.contains(o));
-		DetachStrategy strategy = PoUtils.getDetachStrategy(o);
-		assertEquals(HibernateDetachStrategy.INSTANCE, strategy);
 	}
 	
 	/**

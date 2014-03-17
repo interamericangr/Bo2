@@ -126,29 +126,19 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 			AjaxRequestTarget ajaxRequestTarget = AjaxRequestTarget.get();
 			
 			/*
-			 * If there is no AjaxRequestTarget scheduled we schedule one in order to render
-			 * the error.
+			 * If there is no AjaxRequestTarget scheduled we schedule one in order to render the error.
 			 */
 			if(ajaxRequestTarget==null) {
-				/*
-				 * TODO: write this properly
-				 * 
-				 * ajaxRequestTarget = new AjaxRequestTarget((Page) page);
-				 * RequestCycle.get().scheduleRequestHandlerAfterCurrent(ajaxRequestTarget);
-				 * nextTarget = ajaxRequestTarget;
-				 */
-				RequestCycle.get().scheduleRequestHandlerAfterCurrent(new AjaxRequestTarget((Page) page));
-				ajaxRequestTarget = AjaxRequestTarget.get(); //Makes sure the previous call worked 
+				ajaxRequestTarget = new AjaxRequestTarget((Page) page);
+				RequestCycle.get().scheduleRequestHandlerAfterCurrent(ajaxRequestTarget);
 				nextTarget = ajaxRequestTarget;
 			}
 			
-			if(ajaxRequestTarget != null) {
-				outputMedium.showError(t, ajaxRequestTarget);
-			} else {
-				Bo2WicketRequestCycle.LOGGER.error(
-					"Failed to display error from Throwable " + t.toString() 
-				  + StringConstants.NEWLINE + ExceptionUtils.getThrowableStackTrace(t));
-			}
+			outputMedium.showError(t, ajaxRequestTarget);
+		} else {
+			Bo2WicketRequestCycle.LOGGER.error(
+				"Could not display error from Throwable " + t.toString() 
+			  + StringConstants.NEWLINE + ExceptionUtils.getThrowableStackTrace(t));
 		}
 		
 		return nextTarget;

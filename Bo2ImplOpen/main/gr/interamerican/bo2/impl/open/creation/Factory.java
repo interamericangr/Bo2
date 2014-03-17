@@ -12,7 +12,6 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.creation;
 
-import gr.interamerican.bo2.arch.DetachStrategy;
 import gr.interamerican.bo2.arch.PersistenceWorker;
 import gr.interamerican.bo2.arch.PersistenceWorkerFactory;
 import gr.interamerican.bo2.arch.PersistentObject;
@@ -23,7 +22,6 @@ import gr.interamerican.bo2.creation.creators.NewJavabeanClassCreator;
 import gr.interamerican.bo2.creation.exception.ClassCreationException;
 import gr.interamerican.bo2.impl.open.utils.Bo2;
 import gr.interamerican.bo2.utils.CollectionUtils;
-import gr.interamerican.bo2.utils.Utils;
 import gr.interamerican.bo2.utils.reflect.beans.VariableDefinition;
 
 import java.util.Properties;
@@ -221,27 +219,6 @@ public class Factory {
 			return create(type);
 		}
 		return value;
-	}
-	
-
-	/**
-	 * Gets the default detach strategy of objects of the specified class. <br/>.
-	 *   
-	 * @param clazz
-	 *        Class 
-	 *        
-	 * @return Returns the detach strategy of the specified object.
-	 */	
-	public static DetachStrategy getDefaultDetachStrategy (Class<?> clazz) {
-		if (!PersistentObject.class.isAssignableFrom(clazz)) {
-			return null;
-		}
-		Class<?> declarationType = currentFactory.getDeclarationType(clazz);
-		if (declarationType==null) {
-			declarationType = clazz;
-		}
-		Class<? extends PersistentObject<?>> poClass = Utils.cast(clazz);
-		return defaultPwFactory.getDetachStrategy(poClass);		
 	}
 	
 	/**

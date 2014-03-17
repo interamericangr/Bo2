@@ -14,7 +14,6 @@ package gr.interamerican.bo2.impl.open.hibernate;
 
 
 import static org.junit.Assert.assertEquals;
-import gr.interamerican.bo2.arch.DetachStrategy;
 import gr.interamerican.bo2.arch.PersistenceWorker;
 import gr.interamerican.bo2.samples.archutil.po.User;
 import gr.interamerican.bo2.samples.implopen.pw.UserPwImpl;
@@ -22,6 +21,7 @@ import gr.interamerican.bo2.test.def.posamples.Invoice;
 
 import java.util.Properties;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 
@@ -64,6 +64,9 @@ public class TestPersistenceWorkerFactoryImpl {
 		PersistenceWorker<User> pw = factory.createPw(User.class);
 		Class<?> pwclass = pw.getClass();
 		assertEquals(UserPwImpl.class,pwclass);
+		
+		PersistenceWorker<User> pw2 = factory.createPw(User.class);
+		Assert.assertNotSame(pw, pw2);
 	}
 	
 	/**
@@ -75,6 +78,9 @@ public class TestPersistenceWorkerFactoryImpl {
 		PersistenceWorker<Invoice> pw = factory.createPw(Invoice.class);
 		Class<?> pwclass = pw.getClass();
 		assertEquals(GenericHibernatePersistenceWorker.class,pwclass);
+		
+		PersistenceWorker<Invoice> pw2 = factory.createPw(Invoice.class);
+		Assert.assertNotSame(pw, pw2);
 	}
 	
 	/**
@@ -82,9 +88,8 @@ public class TestPersistenceWorkerFactoryImpl {
 	 */
 	@Test
 	public void testGetDetachStrategy() {
-		DetachStrategy actual = factory.getDetachStrategy(Invoice.class);
 		PersistenceWorker<Invoice> pw = factory.createPw(Invoice.class);
-		assertEquals(pw.getDetachStrategy(), actual);
+		Assert.assertTrue(pw.getDetachStrategy() instanceof HibernateDetachStrategy);
 	}
 
 }

@@ -22,7 +22,7 @@ import gr.interamerican.bo2.arch.Rule;
  * @param <P> Type of persistent object validated by this validator.  
  */
 public abstract class AbstractPoValidator<P extends PersistentObject<?>> 
-extends AbstractBaseWorker
+extends AbstractResourceConsumer
 implements PoDependent<P>, Rule {
 	
 	/**
@@ -37,8 +37,5 @@ implements PoDependent<P>, Rule {
 	public void setPo(P po) {
 		this.po = po;
 	}
-	
-	
-	
 
 }

@@ -12,6 +12,9 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.hibernate;
 
+import gr.interamerican.bo2.arch.ModificationRecord;
+import gr.interamerican.bo2.arch.Provider;
+
 import org.hibernate.Session;
 
 /**
@@ -25,21 +28,18 @@ extends AbstractHibernateDetachStrategy {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	/**
-	 * Singleton instance.
-	 */
-	public static final HibernateDetachStrategy INSTANCE = new HibernateDetachStrategy();
+	public void detach(Object object, Provider provider) {
+		for (Object o : transientObjectsOnLastReattach) {
+			if (o instanceof ModificationRecord) {
+				((ModificationRecord) o).setLastModified(null);
+			}
+		}
+		transientObjectsOnLastReattach.clear();
+	}
 	
 	@Override
 	protected void doReattach(Object object, Session session) {
 		session.update(object);
 	}
 	
-	/**
-	 * Use singleton.
-	 */
-	private HibernateDetachStrategy() { 
-		super();
-	}
-
 }

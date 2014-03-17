@@ -44,10 +44,12 @@ public abstract class AbstractHibernateDetachStrategy implements DetachStrategy 
 	 */
 	private static Logger LOGGER = LoggerFactory.getLogger(AbstractHibernateDetachStrategy.class.getName());
 	
-	public void detach(Object object, Provider provider) {
-		/* Don't do anything special */
-	}
-
+	/**
+	 * Transient Objects found on last {@link #reattach(Object, Provider, boolean)} execution
+	 * Needed for proper {@link #detach(Object, Provider)} implementation.
+	 */
+	protected Set<Object> transientObjectsOnLastReattach = new HashSet<Object>();
+	
 	public void markExplicitSave(Object object, Provider provider) {
 		HibernateSessionProvider hProv = HibernateBo2Utils.getHibernateSessionProvider(object, provider);
 		if(hProv!=null) {
@@ -94,6 +96,7 @@ public abstract class AbstractHibernateDetachStrategy implements DetachStrategy 
 		if(object instanceof AbstractBasePo) {
 			PoReattachAnalysisResult poInspectionResult = PoReattachAnalysis.get().execute((AbstractBasePo<?>) object);
 			objectsToReattachManually = poInspectionResult.getPosToReattachManually();
+			transientObjectsOnLastReattach = poInspectionResult.getTransientPos();
 			if(!objectIsTransient) { //If the original object is transient we will not care for transient Child objects
 				transientObjects = poInspectionResult.getTransientPos();
 			}

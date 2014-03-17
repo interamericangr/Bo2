@@ -70,7 +70,11 @@ implements Provider {
 			Properties p = CollectionUtils.readEnhancedProperties(resourceManagerDefPaths[i]);
 			String name = p.getProperty("resourceWrappersManagerName"); //$NON-NLS-1$
 			ObjectFactory factory = new ObjectFactoryImpl(p);
-			factories.put(name, factory);
+			ObjectFactory existing = factories.put(name, factory);
+			if(existing != null) {
+				String msg = "Duplicate manager declaration on Bo2 configuration: " + name; //$NON-NLS-1$
+				throw new RuntimeException(msg);
+			}
 		}
 		return factories;
 	}
