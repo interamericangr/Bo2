@@ -20,7 +20,7 @@ import gr.interamerican.bo2.impl.open.po.PoUtils;
 import gr.interamerican.bo2.utils.adapters.Modification;
 
 /**
- * Initializes a hibernate proxy.
+ * Sets the DetachStrategy of a PO to HibernateReadOnlyDetachStrategy
  */
 public class SetReadDetachStrategy implements Modification<PersistentObject<?>>{
 	
