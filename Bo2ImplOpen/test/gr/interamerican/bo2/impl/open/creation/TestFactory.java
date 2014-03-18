@@ -182,7 +182,17 @@ public class TestFactory {
 		assertEquals(IBeanWith2Strings.class.getName(),name);
 	}
 	
-	
+	/**
+	 * Unit test for getDetachStrategy.
+	 */
+	@Test
+	public void testGetDefaultDetachStrategy() {
+		DetachStrategy strategy = 
+			Factory.getDefaultDetachStrategy(User.class);
+		assertNotNull(strategy);
+		strategy = Factory.getDefaultDetachStrategy(AlmostEmpty1.class);
+		assertNull(strategy);
+	}
 	
 
 }

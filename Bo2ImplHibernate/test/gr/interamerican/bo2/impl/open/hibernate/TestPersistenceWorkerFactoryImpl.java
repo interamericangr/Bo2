@@ -14,6 +14,7 @@ package gr.interamerican.bo2.impl.open.hibernate;
 
 
 import static org.junit.Assert.assertEquals;
+import gr.interamerican.bo2.arch.DetachStrategy;
 import gr.interamerican.bo2.arch.PersistenceWorker;
 import gr.interamerican.bo2.samples.archutil.po.User;
 import gr.interamerican.bo2.samples.implopen.pw.UserPwImpl;
@@ -88,8 +89,9 @@ public class TestPersistenceWorkerFactoryImpl {
 	 */
 	@Test
 	public void testGetDetachStrategy() {
-		PersistenceWorker<Invoice> pw = factory.createPw(Invoice.class);
-		Assert.assertTrue(pw.getDetachStrategy() instanceof HibernateDetachStrategy);
+		DetachStrategy ds = factory.getDetachStrategy(Invoice.class);
+		Assert.assertTrue(ds instanceof HibernateDetachStrategy);
+		
 	}
 
 }

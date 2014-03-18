@@ -274,6 +274,7 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 	 */
 	void emergencyLogAndEmail(String exceptionType) {
 		String msg = exceptionType + " for user " + Bo2Session.getUserId() + " and workers: " + workerNames() + " on " + new Date();
+		msg += "\nTransaction was active for " + Bo2WicketRequestCycle.get().timer.get() + " ms";
 		Bo2WicketRequestCycle.LOGGER.error(msg);
 		
 		try {

@@ -352,7 +352,7 @@ public class TestPoUtils {
 		PoUtils.setDetachStrategy(o, strategy); //Nothing bad should happen.
 		
 		InvoiceImpl po2 = PoUtils.deepCopy(po);
-		Assert.assertNotNull(po2.getDetachStrategy());
+		Assert.assertNull(po2.getDetachStrategy());
 	}
 	
 	/**
@@ -368,6 +368,10 @@ public class TestPoUtils {
 		
 		actual = PoUtils.getDetachStrategy(new Object());
 		assertNull(actual);
+		
+		user = new User();
+		actual = PoUtils.getDetachStrategy(user);
+		Assert.assertNull(actual);
 	}
 	
 	/**

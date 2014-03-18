@@ -20,6 +20,7 @@ import gr.interamerican.bo2.arch.Provider;
 import gr.interamerican.bo2.arch.utils.beans.ModificationRecordImpl;
 import gr.interamerican.bo2.arch.utils.ext.Bo2Session;
 import gr.interamerican.bo2.impl.open.annotations.Bo2AnnoUtils;
+import gr.interamerican.bo2.impl.open.creation.Factory;
 import gr.interamerican.bo2.utils.CollectionUtils;
 import gr.interamerican.bo2.utils.GenericsUtils;
 import gr.interamerican.bo2.utils.JavaBeanUtils;
@@ -723,6 +724,10 @@ public class PoUtils {
 		if (bpd.getGetter()!=null) {
 			strategy = (DetachStrategy)
 				ReflectionUtils.invoke(bpd.getGetter(), object, new Object[0]);
+		}
+		if (strategy==null) {
+			strategy = Factory.getDefaultDetachStrategy(object.getClass());
+			setDetachStrategy(object, strategy);
 		}
 		return strategy;
 	}

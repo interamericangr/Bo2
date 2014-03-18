@@ -440,6 +440,12 @@ public class TestPoUtils_Hibernate {
 		
 		actual = PoUtils.getDetachStrategy(new Object());
 		assertNull(actual);
+		
+		po = new InvoiceImpl();
+		actual = PoUtils.getDetachStrategy(po);
+		Assert.assertNotNull(actual);
+		DetachStrategy expected = ((AbstractBasePo<?>) po).getDetachStrategy();
+		assertEquals(expected, actual);
 	}
 	
 	/**

@@ -12,6 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.creation;
 
+import gr.interamerican.bo2.arch.DetachStrategy;
 import gr.interamerican.bo2.arch.PersistenceWorker;
 import gr.interamerican.bo2.arch.PersistenceWorkerFactory;
 import gr.interamerican.bo2.arch.PersistentObject;
@@ -314,6 +315,12 @@ public class PersistenceWorkerFactoryImpl implements PersistenceWorkerFactory {
 			}
 		}
 		return new Properties();
+	}
+	
+	public <M extends PersistentObject<?>> 
+	DetachStrategy getDetachStrategy(Class<M> type) {
+		PersistenceWorker<M> pw = createPw(type);
+		return pw.getDetachStrategy();
 	}
 
 }
