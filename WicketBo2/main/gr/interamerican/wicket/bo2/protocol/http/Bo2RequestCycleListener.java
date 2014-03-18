@@ -131,7 +131,11 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 			if(ajaxRequestTarget==null) {
 				ajaxRequestTarget = new AjaxRequestTarget((Page) page);
 				RequestCycle.get().scheduleRequestHandlerAfterCurrent(ajaxRequestTarget);
-				nextTarget = ajaxRequestTarget;
+				
+				boolean b = false;
+				if(b) {
+					nextTarget = ajaxRequestTarget;
+				}
 			}
 			
 			outputMedium.showError(t, ajaxRequestTarget);
