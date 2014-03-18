@@ -162,9 +162,7 @@ public class HibernateConfigurations {
 	/**
 	 * Extracts a list of hibernate mapping files given a resource path.
 	 * The resource path points to a file. The file is plain text and 
-	 * each line contains one resource path that points to a another file.
-	 * These files are plain text and each line contains the resource path
-	 * of a single hibernate mapping file.  
+	 * each line contains one resource path that points to an hbm.xml file.
 	 * 
 	 * @param managerHbmIndex
 	 *        Resource path. Null tolerant.
