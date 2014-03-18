@@ -31,6 +31,7 @@ import org.apache.wicket.request.cycle.IRequestCycleListener;
 import org.apache.wicket.request.cycle.PageRequestHandlerTracker;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.handler.IPageRequestHandler;
+import org.apache.wicket.util.lang.WicketObjects;
 
 /**
  * {@link IRequestCycleListener} implementation that facilitates transaction management
@@ -49,6 +50,11 @@ import org.apache.wicket.request.handler.IPageRequestHandler;
  */
 @SuppressWarnings("nls")
 public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
+	
+	/**
+	 * Deployment environment.
+	 */
+	static final TargetEnvironment TARGET_ENVIRONMENT = Bo2.getDefaultDeployment().getDeploymentBean().getTargetEnvironment();
 	
 	@Override
 	public void onBeginRequest(RequestCycle cycle) {
@@ -107,7 +113,7 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 		/*
 		 * Facilitate debugging of unit tests run on DEVELOPMENT environment.
 		 */
-		if(Bo2.getDefaultDeployment().getDeploymentBean().getTargetEnvironment()==TargetEnvironment.DEVELOPMENT) {
+		if(TARGET_ENVIRONMENT == TargetEnvironment.DEVELOPMENT) {
 			Bo2WicketRequestCycle.LOGGER.error(ExceptionUtils.getThrowableStackTrace(t));
 		}
 		
@@ -132,8 +138,10 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 				ajaxRequestTarget = new AjaxRequestTarget((Page) page);
 				RequestCycle.get().scheduleRequestHandlerAfterCurrent(ajaxRequestTarget);
 				
-				boolean b = false;
-				if(b) {
+				/*
+				 * set the next target, only if none exists
+				 */
+				if(nextTarget == null) {
 					nextTarget = ajaxRequestTarget;
 				}
 			}
@@ -185,6 +193,7 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 	@Override
 	public void onEndRequest(RequestCycle cycle) {
 		try {
+			Bo2WicketRequestCycle.stats.sessionSize = getSessionSize();
 			Bo2WicketRequestCycle.stats.logForDebugging(workerNames(), Bo2WicketRequestCycle.get().timer);
 			debug("performing cleanup.");
 			Bo2WicketRequestCycle.get().cleanup();
@@ -196,6 +205,23 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 			Bo2Session.setSession(null);
 			Bo2Session.setProvider(null);
 			Bo2WicketRequestCycle.release();
+		}
+	}
+	
+	/**
+	 * Get session size in bytes estimation safely.
+	 * 
+	 * @return Returns a session size estimation
+	 */
+	long getSessionSize() {
+		if(TARGET_ENVIRONMENT == TargetEnvironment.PRODUCTION) {
+			return 0L;
+		}
+		try {
+			return WicketObjects.sizeof(Bo2WicketSession.get());
+		} catch (RuntimeException ex) {
+			debug("Exception while getting session size estimation " + ex.getClass().getName() + " " + ex.getMessage());
+			return 0L;
 		}
 	}
 	
@@ -273,7 +299,7 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 	 * @return Emergency email recepients
 	 */
 	String[] recepients() {
-		switch(Bo2.getDefaultDeployment().getDeploymentBean().getTargetEnvironment()) {
+		switch(TARGET_ENVIRONMENT) {
 			case UAT:
 				return new String[]{"skondrasp", "katerosd", "sofrasth", "nakoss", "milonakisv"};
 			case PRODUCTION:

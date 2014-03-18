@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.wicket.util.lang.Bytes;
 import org.hibernate.HibernateException;
 import org.hibernate.StaleObjectStateException;
 import org.slf4j.Logger;
@@ -74,6 +75,11 @@ public class RequestCycleStats {
 	 * Number of cycles where an untracked exception was caught.
 	 */
 	long cyclesUntrackedEx = 0L;
+	
+	/**
+	 * Http session size in bytes.
+	 */
+	long sessionSize = 0L;
 	
 	/**
 	 * Creates a new RequestCycleStats object. 
@@ -135,7 +141,8 @@ public class RequestCycleStats {
 	 */
 	@SuppressWarnings("nls")
 	void doLogForDebugging(String workerNames, Timer timer) {
-		logger.debug("Cycles so far: " + cycles);		
+		logger.debug("Cycles so far: " + cycles);
+		logger.debug("Http session size estimation: " + Bytes.bytes(sessionSize).kilobytes() + " KB");
 		SystemState state = new SystemState();
 		logger.debug("Used memory = " + Double.toString(state.getUsedMemory()));
 		long cycleDuration = timer.get();
