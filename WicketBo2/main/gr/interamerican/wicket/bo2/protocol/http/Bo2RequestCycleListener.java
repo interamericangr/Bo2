@@ -31,7 +31,6 @@ import org.apache.wicket.request.cycle.IRequestCycleListener;
 import org.apache.wicket.request.cycle.PageRequestHandlerTracker;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.handler.IPageRequestHandler;
-import org.apache.wicket.util.lang.WicketObjects;
 
 /**
  * {@link IRequestCycleListener} implementation that facilitates transaction management
@@ -217,12 +216,8 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 		if(TARGET_ENVIRONMENT == TargetEnvironment.PRODUCTION) {
 			return 0L;
 		}
-		try {
-			return WicketObjects.sizeof(Bo2WicketSession.get());
-		} catch (RuntimeException ex) {
-			debug("Exception while getting session size estimation " + ex.getClass().getName() + " " + ex.getMessage());
-			return 0L;
-		}
+		long size = Bo2WicketSession.get().getSizeInBytes();
+		return size > 0 ? size : 0L;
 	}
 	
 	/**

@@ -18,6 +18,7 @@ import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
 import gr.interamerican.bo2.utils.meta.formatters.Formatter;
 import gr.interamerican.bo2.utils.meta.parsers.Parser;
 
+import java.io.Serializable;
 import java.util.Map;
 
 /**
@@ -29,7 +30,11 @@ import java.util.Map;
  *        Output type of the mapping. The type of the result.
  */
 public class Mapper<L,R> 
-implements Converter<L, R> {
+implements Converter<L, R>, Serializable {
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * Writer used to get string representations of mapped objects.
 	 */
