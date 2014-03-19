@@ -26,6 +26,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * Cache that can store multiple {@link TypedSelectable} types.
  * @param <C> 
@@ -38,7 +41,11 @@ implements Cache<C>, Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-
+	/**
+	 * Logger.
+	 */
+	static final Logger LOGGER = LoggerFactory.getLogger(CacheImpl.class.getName()); 
+	
 	/**
 	 * Creates a new CacheImpl object.
 	 */
@@ -125,12 +132,13 @@ implements Cache<C>, Serializable {
 		return getSubset(key, subCaches);
 	}
 	
-	
-	
-	
 	@Override
+	@SuppressWarnings("nls")
 	public void put(TypedSelectable<C> value) {
-		cache.put(key(value), value);
+		TypedSelectable<C> existing = cache.put(key(value), value);
+		if(existing != null) {
+			LOGGER.warn("Replaced [" + existing.getTypeId() + "," + existing.getCode() + "].");
+		}
 		putToSubCache(value);
 		putToTypeEntries(value);
 		
