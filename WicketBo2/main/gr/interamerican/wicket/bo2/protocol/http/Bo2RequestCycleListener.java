@@ -109,13 +109,6 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 			t = Utils.notNull(itex.getTargetException(), t);
 		}
 		
-		/*
-		 * Facilitate debugging of unit tests run on DEVELOPMENT environment.
-		 */
-		if(TARGET_ENVIRONMENT == TargetEnvironment.DEVELOPMENT) {
-			Bo2WicketRequestCycle.LOGGER.error(ExceptionUtils.getThrowableStackTrace(t));
-		}
-		
 		IRequestablePage page = null;
 		IPageRequestHandler pageHandler = PageRequestHandlerTracker.getLastHandler(RequestCycle.get());
 		if(pageHandler!=null) {
@@ -125,6 +118,11 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 		IRequestHandler nextTarget = RequestCycle.get().getRequestHandlerScheduledAfterCurrent();
 		
 		if (page instanceof WicketOutputMedium) {
+			
+			/*
+			 * log the error first.
+			 */
+			Bo2WicketRequestCycle.LOGGER.error(ExceptionUtils.getThrowableStackTrace(t));
 			
 			WicketOutputMedium outputMedium = (WicketOutputMedium) page;
 			
