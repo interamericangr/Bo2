@@ -194,16 +194,19 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 		try {
 			Bo2WicketRequestCycle.stats.sessionSize = getSessionSize();
 			Bo2WicketRequestCycle.stats.logForDebugging(workerNames(), Bo2WicketRequestCycle.get().timer);
-			debug("performing cleanup.");
-			Bo2WicketRequestCycle.get().cleanup();
-			debug("cleaned up.");
-		}catch (DataException de) {
-			Bo2WicketRequestCycle.LOGGER.error("DataException on cleanup: " + ExceptionUtils.getThrowableStackTrace(de));
-			throw new RuntimeException(de);		
 		} finally {
-			Bo2Session.setSession(null);
-			Bo2Session.setProvider(null);
-			Bo2WicketRequestCycle.release();
+			try { //A bit complex, but cleanup won't be skipped if an exception is thrown while logging stuff.
+				debug("performing resources cleanup.");
+				Bo2WicketRequestCycle.get().cleanup();
+				debug("cleaned up.");
+			} catch (DataException de) {
+				Bo2WicketRequestCycle.LOGGER.error("DataException on cleanup: " + ExceptionUtils.getThrowableStackTrace(de));
+				throw new RuntimeException(de);		
+			} finally {
+				Bo2Session.setSession(null);
+				Bo2Session.setProvider(null);
+				Bo2WicketRequestCycle.release();
+			}
 		}
 	}
 	
@@ -217,7 +220,7 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 			return 0L;
 		}
 		long size = Bo2WicketSession.get().getSizeInBytes();
-		return size > 0 ? size : 0L;
+		return size > 0 ? size : 0L; //session serialization exception will return size -1L
 	}
 	
 	/**
