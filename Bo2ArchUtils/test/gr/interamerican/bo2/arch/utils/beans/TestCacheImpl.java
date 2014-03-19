@@ -25,7 +25,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -36,7 +35,7 @@ public class TestCacheImpl {
 	/**
 	 * named cache
 	 */
-	private static Cache<Long> cache = new CacheImpl<Long>();
+	private static CacheImpl<Long> cache = new CacheImpl<Long>();
 	
 	/**
 	 * sample role
@@ -126,6 +125,17 @@ public class TestCacheImpl {
 	}
 	
 	/**
+	 * tests getSubCache()
+	 */
+	@Test
+	public void testGetSubCache_ForAllEntries() {
+		Set<TypedSelectable<Long>> roles1 = cache.getSubCache(1L, Cache.SUBTYPEID_FOR_ALL_TYPE_ENTRIES);
+		Set<TypedSelectable<Long>> roles2 = cache.getTypeEntries(1L);
+		assertEquals(roles1, roles1);
+	}
+	
+	
+	/**
 	 * tests getAllTypeEntries()
 	 */
 	@Test
@@ -167,6 +177,8 @@ public class TestCacheImpl {
 		assertFalse(cache.getSubCache(role1.getTypeId(), role1.getSubTypeId()).contains(role1));
 		assertEquals(1, cache.getSubCache(1L, null).size());
 		assertEquals(2, cache.getSubCache(2L, null).size());
+		assertEquals(1, cache.getTypeEntries(1L).size());
+		assertEquals(2, cache.getTypeEntries(2L).size());
 		
 		cache.remove(role2);
 		assertNull(cache.get(role2.getTypeId(), role2.getCode()));
@@ -175,6 +187,7 @@ public class TestCacheImpl {
 		assertFalse(cache.getSubCache(role2.getTypeId(), role2.getSubTypeId()).contains(role2));
 		assertEquals(0, cache.getSubCache(1L, null).size());
 		assertEquals(2, cache.getSubCache(2L, null).size());
+		assertEquals(0, cache.getTypeEntries(1L).size());
 		
 		cache.remove(role3);
 		assertNull(cache.get(role3.getTypeId(), role3.getCode()));
@@ -188,8 +201,9 @@ public class TestCacheImpl {
 		assertFalse(cache.getSubCache(role4.getTypeId(), role4.getSubTypeId()).contains(role4));
 		assertEquals(0, cache.getSubCache(1L, null).size());
 		assertEquals(0, cache.getSubCache(2L, null).size());
-		
 	}
+	
+	
 	
 	/**
 	 * tests clear()

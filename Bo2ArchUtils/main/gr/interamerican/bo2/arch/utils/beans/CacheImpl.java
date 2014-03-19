@@ -71,13 +71,6 @@ implements Cache<C>, Serializable {
 		new HashMap<Pair<Long, Long>, Set<TypedSelectable<C>>>();
 	
 	/**
-	 * Type sets.	
-	 */
-	private Map<Long, Set<TypedSelectable<C>>> typeEntries = 
-		new HashMap<Long, Set<TypedSelectable<C>>>();
-	
-	
-	/**
 	 * Creates a unique key for a pair of typeId and subTypeId.
 	 *  
 	 * @param typeId Type id.
@@ -159,9 +152,9 @@ implements Cache<C>, Serializable {
 	 * <code>typeEntries</code> map.
 	 * @param value
 	 */
-	void putToTypeEntries(TypedSelectable<C> value) {	
-		Long typeId = Utils.notNull(value.getTypeId(), 0L);
-		putToSubset(typeEntries, value, typeId);
+	void putToTypeEntries(TypedSelectable<C> value) {
+		Pair<Long, Long> key = subKey(value.getTypeId(), SUBTYPEID_FOR_ALL_TYPE_ENTRIES);
+		putToSubset(subCaches, value, key);
 	}
 	
 	/**
@@ -183,9 +176,14 @@ implements Cache<C>, Serializable {
 	}
 	
 	@Override
-	public void remove(TypedSelectable<C> value) {		
-		if (cache.remove(key(value))!=null) {
-			subCaches.get(subKey(value)).remove(value);
+	public void remove(TypedSelectable<C> value) {
+		Pair<Long, C> k = key(value);
+		if (cache.remove(k)!=null) {
+			Pair<Long,Long> subCacheKey = subKey(value); 
+			subCaches.get(subCacheKey).remove(value);
+			Pair<Long,Long> allEntriesKey = 
+				subKey(value.getTypeId(), SUBTYPEID_FOR_ALL_TYPE_ENTRIES);
+			subCaches.get(allEntriesKey).remove(value);			
 		}
 	}
 
@@ -204,7 +202,6 @@ implements Cache<C>, Serializable {
 	public void clear() {
 		cache.clear();
 		subCaches.clear();
-		typeEntries.clear();
 	}
 	
 	/**
@@ -265,10 +262,9 @@ implements Cache<C>, Serializable {
 		return new HashSet<T>(set);
 	}
 
-	
-	public <T extends TypedSelectable<C>> Set<T> getTypeEntries(Long typeId) {	
-		Long key = Utils.notNull(typeId, 0L);
-		return getSubset(key, typeEntries);
+	@Override
+	public <T extends TypedSelectable<C>> Set<T> getTypeEntries(Long typeId) {
+		return getSubCache(typeId, SUBTYPEID_FOR_ALL_TYPE_ENTRIES);
 	}
 	
 }

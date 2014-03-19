@@ -30,6 +30,24 @@ import java.util.Set;
 public interface Cache<C extends Comparable<? super C>> {
 	
 	/**
+	 * The <code>subTypeId</code> value <b>4627583221L</b> is reserved 
+	 * for the representation of all entries of a type as a sub-type.
+	 * The code: 
+	 * <p>  
+	 * <code>
+	 * Set<T> set = cache.getTypeEntries(typeId);	  
+	 * </code>
+	 * </p>
+	 * Has the same result as the code:
+	 * <p>  
+	 * <code>
+	 * Set<T> set = cache.getSubCache(typeId, SUBTYPEID_FOR_ALL_TYPE_ENTRIES);	  
+	 * </code>
+	 * </p> 
+	 */
+	public static final Long SUBTYPEID_FOR_ALL_TYPE_ENTRIES = 4627583221L;
+	
+	/**
 	 * Gets an object from the cache.
 	 * 
 	 * @param typeId Id of the selected type.
