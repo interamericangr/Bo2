@@ -12,6 +12,10 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.meta.ext.formatters;
 
+import gr.interamerican.bo2.utils.DateUtils;
+
+import java.sql.Time;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -39,5 +43,26 @@ public class TestMultiFormatter {
 		String s = mf.format(new Object());
 		Assert.assertNotNull(s);		
 	}
+	
+	/**
+	 * Tests format(o).
+	 */
+	@Test
+	public void testFormat_Time() {
+		MultiFormatter mf = new MultiFormatter();
+		String actual = mf.format(new Time(DateUtils.today().getTime()+60000));
+		Assert.assertEquals("00:01:00", actual); //$NON-NLS-1$
+	}
+	
+	/**
+	 * Tests format(o).
+	 */
+	@Test
+	public void testFormat_Date() {
+		MultiFormatter mf = new MultiFormatter();
+		String actual = mf.format(DateUtils.getDay1AD());
+		Assert.assertEquals("01/01/0001", actual); //$NON-NLS-1$
+	}
+	
 
 }
