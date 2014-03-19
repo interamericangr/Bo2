@@ -52,6 +52,11 @@ implements Parser<T> {
 		if (typedSelectable==null) {
 			return null;
 		}
+		if(!(typedSelectable instanceof OwnedEntry)) {
+			@SuppressWarnings("nls")
+			String msg = "Entry [" + typedSelectable.getTypeId() + ", " + typedSelectable.getCode() + "] is not an OwnedEntry";
+			throw new RuntimeException(msg);
+		}
 		OwnedEntry<C, ?, ?> entry = (OwnedEntry<C, ?, ?>) typedSelectable;
 		return (T) entry.getOwner();
 	}
