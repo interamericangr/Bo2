@@ -163,6 +163,10 @@ public class HibernateConfigurations {
 	 * Extracts a list of hibernate mapping files given a resource path.
 	 * The resource path points to a file. The file is plain text and 
 	 * each line contains one resource path that points to an hbm.xml file.
+	 * If an indexed hdm.xml file does not exist on the classpath an error
+	 * is logged, but no exception is thrown. This is meant to facilitate
+	 * tests that need to create a SessionFactory and do not have all indexed
+	 * hibernate mapping files in their running classpath.
 	 * 
 	 * @param managerHbmIndex
 	 *        Resource path. Null tolerant.
