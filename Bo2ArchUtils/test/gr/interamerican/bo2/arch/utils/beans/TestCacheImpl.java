@@ -25,6 +25,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -77,15 +78,21 @@ public class TestCacheImpl {
 		String name = "newRole2-4"; //$NON-NLS-1$
 		TypedSelectable<Long> newRole4 = new TypedSelectableImpl<Long>(2L, null, 2L, name);
 		cache.put(newRole4);
-		assertEquals(name, cache.get(2L, 2L).getName());
+		assertEquals(name, cache.get(2L, 2L).getName()); //Assert was put in cache properly.		
+		
 		boolean found = false;
 		for(TypedSelectable<Long> ts : cache.getSubCacheAsList(2L, null)) {
 			if(ts.getCode().equals(2L)) {
 				found = true;
-				assertEquals(name, ts.getName());
+				assertEquals(name, ts.getName()); //Assert was put properly in subcache.
 			}
 		}
-		assertTrue(found);
+		assertTrue(found); //Assert was put properly in subcache.
+		
+		Set<TypedSelectable<Long>> entries = cache.getTypeEntries(2L);
+		assertTrue(entries.contains(newRole4));
+		
+		
 	}
 	
 	/**
@@ -115,6 +122,19 @@ public class TestCacheImpl {
 		while(iter.hasNext()) {
 			TypedSelectable<Long> role = iter.next();
 			assertTrue(role.equals(role3)||role.equals(role4));
+		}
+	}
+	
+	/**
+	 * tests getAllTypeEntries()
+	 */
+	@Test
+	public void testGetTypeEntries() {
+		Set<TypedSelectable<Long>> roles = cache.getTypeEntries(1L);
+		Iterator<TypedSelectable<Long>> iter = roles.iterator();
+		while(iter.hasNext()) {
+			TypedSelectable<Long> role = iter.next();
+			assertTrue(role.equals(role1)||role.equals(role2));
 		}
 	}
 	
@@ -188,6 +208,8 @@ public class TestCacheImpl {
 		assertNull(cache.get(1L, 1L));
 		assertNull(cache.get(1L, 2L));
 		
+		assertEquals(0, cache.getTypeEntries(1L).size());
+		assertEquals(0, cache.getTypeEntries(2L).size());
 	}
 	
 	/**

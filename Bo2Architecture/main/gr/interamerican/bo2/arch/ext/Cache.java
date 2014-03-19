@@ -108,6 +108,18 @@ public interface Cache<C extends Comparable<? super C>> {
 	 */
 	public void refill(Long typeId, Collection<? extends TypedSelectable<C>> values);
 	
+	/**
+	 * Gets the set of entries that holds objects categorized
+	 * to a type.
+	 * 
+	 * @param typeId type Id.
+	 * @param <T> Type of elements in the set.
+	 * 
+	 * @return Returns a set containing all object categorized to the specified type.
+	 */
+	public <T extends TypedSelectable<C>> Set<T> getTypeEntries(Long typeId);
+	
+	
 	
 		
 }

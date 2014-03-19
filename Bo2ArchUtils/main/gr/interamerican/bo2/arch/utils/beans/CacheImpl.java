@@ -23,6 +23,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -53,14 +54,20 @@ implements Cache<C>, Serializable {
 	/**
 	 * Cache.	
 	 */
-	private HashMap<Pair<Long, C>, TypedSelectable<C>> cache = 
+	private Map<Pair<Long, C>, TypedSelectable<C>> cache = 
 		new HashMap<Pair<Long, C>, TypedSelectable<C>>();
 	
 	/**
 	 * Sub-caches.	
 	 */
-	private HashMap<Pair<Long, Long>, Set<TypedSelectable<C>>> subCaches = 
+	private Map<Pair<Long, Long>, Set<TypedSelectable<C>>> subCaches = 
 		new HashMap<Pair<Long, Long>, Set<TypedSelectable<C>>>();
+	
+	/**
+	 * Type sets.	
+	 */
+	private Map<Long, Set<TypedSelectable<C>>> typeEntries = 
+		new HashMap<Long, Set<TypedSelectable<C>>>();
 	
 	
 	/**
@@ -111,52 +118,85 @@ implements Cache<C>, Serializable {
 		return new Pair<Long, C>(typeId, code);
 	}
 
-	@SuppressWarnings("unchecked")
-	public <T extends TypedSelectable<C>> Set<T> getSubCache(Long typeId,
-			Long subTypeId) {
-		
-		Set<T> set = new HashSet<T>();		
-		Set<TypedSelectable<C>> subCache = subCaches.get(subKey(typeId, subTypeId));
-		if (subCache!=null) {
-			for (TypedSelectable<C> ts : subCache) {				
-				set.add((T) ts);				
-			}
-		}
-		return set;
+	@Override	
+	public <T extends TypedSelectable<C>> 
+	Set<T> getSubCache(Long typeId,	Long subTypeId) {
+		Pair<Long, Long> key = subKey(typeId,subTypeId);
+		return getSubset(key, subCaches);
 	}
 	
+	
+	
+	
+	@Override
 	public void put(TypedSelectable<C> value) {
 		cache.put(key(value), value);
-		Pair<Long, Long> subCacheKey = subKey(value); 
-		Set<TypedSelectable<C>> subCache = subCaches.get(subCacheKey);
-		if (subCache==null) {
-			subCache = new HashSet<TypedSelectable<C>>();
-		}
-		if(subCache.contains(value)) {
-			subCache.remove(value);
-		}
-		subCache.add(value);
-		subCaches.put(subCacheKey, subCache);
+		putToSubCache(value);
+		putToTypeEntries(value);
+		
 	}
 	
+	/**
+	 * Puts the specified value to the appropriate set in the
+	 * <code>subCaches</code> map.
+	 * @param value
+	 */
+	void putToSubCache(TypedSelectable<C> value) {
+		Pair<Long, Long> key = subKey(value); 
+		putToSubset(subCaches, value, key);		
+	}
+	
+	/**
+	 * Puts the specified value to the appropriate set in the
+	 * <code>typeEntries</code> map.
+	 * @param value
+	 */
+	void putToTypeEntries(TypedSelectable<C> value) {	
+		Long typeId = Utils.notNull(value.getTypeId(), 0L);
+		putToSubset(typeEntries, value, typeId);
+	}
+	
+	/**
+	 * Puts the specified entry to a sub-set.
+	 * 
+	 * @param map
+	 * @param value
+	 * @param key
+	 */
+	<K> void putToSubset(Map<K, Set<TypedSelectable<C>>> map, TypedSelectable<C> value, K key) {
+		Set<TypedSelectable<C>> set = map.get(key);
+		if (set==null) {
+			set = new HashSet<TypedSelectable<C>>();
+			map.put(key, set);
+		} else {
+			set.remove(value);
+		}
+		set.add(value);
+	}
+	
+	@Override
 	public void remove(TypedSelectable<C> value) {		
 		if (cache.remove(key(value))!=null) {
 			subCaches.get(subKey(value)).remove(value);
 		}
 	}
 
+	@Override
 	@Deprecated
 	public TypedSelectable<C> get(Long typeId, Long subTypeId, C code) {		
 		return get(typeId, code);
 	}
 	
+	@Override
 	public TypedSelectable<C> get(Long typeId, C code) {		
 		return cache.get(key(typeId, code));
 	}	
 
+	@Override
 	public void clear() {
 		cache.clear();
 		subCaches.clear();
+		typeEntries.clear();
 	}
 	
 	/**
@@ -197,6 +237,30 @@ implements Cache<C>, Serializable {
 		List<T> list = new ArrayList<T>();
 		list.addAll(set);	
 		return list;
+	}
+	
+	
+	/**
+	 * Gets a subset from a map.
+	 * 
+	 * @param key
+	 * @param map
+	 * @return Returns the subset.
+	 */
+	<T extends TypedSelectable<C>, K> 
+	Set<T> getSubset(K key, Map<K, Set<TypedSelectable<C>>> map) {
+		Set<TypedSelectable<C>> subset = map.get(key);
+		if (subset==null) {
+			return new HashSet<T>();
+		}
+		Set<T> set = Utils.cast(subset);
+		return new HashSet<T>(set);
+	}
+
+	
+	public <T extends TypedSelectable<C>> Set<T> getTypeEntries(Long typeId) {	
+		Long key = Utils.notNull(typeId, 0L);
+		return getSubset(key, typeEntries);
 	}
 	
 }
