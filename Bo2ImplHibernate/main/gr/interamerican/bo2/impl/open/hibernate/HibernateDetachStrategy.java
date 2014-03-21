@@ -13,6 +13,7 @@
 package gr.interamerican.bo2.impl.open.hibernate;
 
 import gr.interamerican.bo2.arch.ModificationRecord;
+import gr.interamerican.bo2.arch.PersistentObject;
 import gr.interamerican.bo2.arch.Provider;
 
 import org.hibernate.Session;
@@ -39,6 +40,7 @@ extends AbstractHibernateDetachStrategy {
 	
 	@Override
 	protected void doReattach(Object object, Session session) {
+		((PersistentObject<?>)object).tidy();
 		session.update(object);
 	}
 	
