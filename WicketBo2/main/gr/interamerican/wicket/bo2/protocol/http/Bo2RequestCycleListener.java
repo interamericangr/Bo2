@@ -1,6 +1,7 @@
 package gr.interamerican.wicket.bo2.protocol.http;
 
 import static gr.interamerican.bo2.utils.StringConstants.COMMA;
+import static gr.interamerican.bo2.utils.StringConstants.NULL;
 import gr.interamerican.bo2.arch.TransactionManager;
 import gr.interamerican.bo2.arch.Worker;
 import gr.interamerican.bo2.arch.enums.TargetEnvironment;
@@ -94,7 +95,7 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 			} catch (CouldNotRollbackException cnrbex) {
 				cnrbex.setInitial(t);
 				emergencyLogAndEmail("CouldNotRollbackException");
-				Bo2WicketRequestCycle.LOGGER.error("CouldNotRollbackException: " + ExceptionUtils.getThrowableStackTrace(cnrbex));
+				error("CouldNotRollbackException: " + ExceptionUtils.getThrowableStackTrace(cnrbex));
 			}
 		} else {
 			debug("Exception was CouldNotCommitException, will not attempt rollback");
@@ -122,7 +123,7 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 			/*
 			 * log the error first.
 			 */
-			Bo2WicketRequestCycle.LOGGER.error(ExceptionUtils.getThrowableStackTrace(t));
+			error(ExceptionUtils.getThrowableStackTrace(t));
 			
 			WicketOutputMedium outputMedium = (WicketOutputMedium) page;
 			
@@ -145,8 +146,7 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 			
 			outputMedium.showError(t, ajaxRequestTarget);
 		} else {
-			Bo2WicketRequestCycle.LOGGER.error(
-				"Could not display error from Throwable " + t.toString() 
+			error("Could not display error from Throwable " + t.toString() 
 			  + StringConstants.NEWLINE + ExceptionUtils.getThrowableStackTrace(t));
 		}
 		
@@ -182,7 +182,7 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 			}
 		} catch (CouldNotCommitException cnce) {
 			emergencyLogAndEmail("CouldNotCommitException");
-			Bo2WicketRequestCycle.LOGGER.error("CouldNotCommitException: " + ExceptionUtils.getThrowableStackTrace(cnce));
+			error("CouldNotCommitException: " + ExceptionUtils.getThrowableStackTrace(cnce));
 			throw new RuntimeException(cnce);		
 		}
 	}
@@ -198,7 +198,7 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 				Bo2WicketRequestCycle.get().cleanup();
 				debug("cleaned up.");
 			} catch (DataException de) {
-				Bo2WicketRequestCycle.LOGGER.error("DataException on cleanup: " + ExceptionUtils.getThrowableStackTrace(de));
+				error("DataException on cleanup: " + ExceptionUtils.getThrowableStackTrace(de));
 				throw new RuntimeException(de);		
 			} finally {
 				Bo2Session.setSession(null);
@@ -257,6 +257,18 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 	void debug(String msg) {
 		if (Bo2WicketRequestCycle.LOGGER.isDebugEnabled()) {
 			Bo2WicketRequestCycle.LOGGER.debug(msg);
+		}
+	}
+	
+	/**
+	 * Writes an error message through the logger.
+	 * 
+	 * @param msg
+	 */
+	void error(String msg) {
+		if (Bo2WicketRequestCycle.LOGGER.isErrorEnabled()) {
+			String userid = Utils.notNull(Bo2Session.getUserId(), NULL);
+			Bo2WicketRequestCycle.LOGGER.error(userid + ": " + msg);
 		}
 	}
 	

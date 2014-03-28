@@ -16,6 +16,7 @@ import gr.interamerican.bo2.arch.DetachStrategy;
 import gr.interamerican.bo2.arch.ModificationRecord;
 import gr.interamerican.bo2.arch.PersistentObject;
 import gr.interamerican.bo2.arch.Provider;
+import gr.interamerican.bo2.arch.utils.ext.Bo2Session;
 import gr.interamerican.bo2.impl.open.po.AbstractBasePo;
 import gr.interamerican.bo2.impl.open.po.PoReattachAnalysis;
 import gr.interamerican.bo2.impl.open.po.PoReattachAnalysis.PoReattachAnalysisResult;
@@ -99,6 +100,11 @@ public abstract class AbstractHibernateDetachStrategy implements DetachStrategy 
 			transientObjectsOnLastReattach = poInspectionResult.getTransientPos();
 			if(!objectIsTransient) { //If the original object is transient we will not care for transient Child objects
 				transientObjects = poInspectionResult.getTransientPos();
+				
+				//set lastModifiedBy to all transient children of a non-transient PO being reattached before #doReattach() runs.
+				for(Object o : transientObjects) {
+					setLastModifiedBy(o);
+				}
 			}
 		}
 		
@@ -210,6 +216,20 @@ public abstract class AbstractHibernateDetachStrategy implements DetachStrategy 
 			return false;
 		}
 		return true;
+	}
+	
+	/**
+	 * Sets the current user as the last modifier of a ModificationRecord po.
+	 * @param o
+	 */
+	void setLastModifiedBy(Object o) {
+		if(!(o instanceof ModificationRecord)) {
+			return;
+		}
+		String userId = Bo2Session.getUserId();
+		if(userId!=null) {
+			((ModificationRecord)o).setLastModifiedBy(userId);
+		}
 	}
 
 }

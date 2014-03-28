@@ -17,11 +17,10 @@ import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
 import gr.interamerican.bo2.arch.exceptions.PoNotFoundException;
 import gr.interamerican.bo2.arch.exceptions.RuleException;
-import gr.interamerican.bo2.arch.ext.Session;
-import gr.interamerican.bo2.arch.ext.User;
 import gr.interamerican.bo2.arch.utils.ext.Bo2Session;
 import gr.interamerican.bo2.utils.ExceptionUtils;
 import gr.interamerican.bo2.utils.StringUtils;
+import gr.interamerican.bo2.utils.Utils;
 import gr.interamerican.bo2.utils.beans.SystemState;
 import gr.interamerican.bo2.utils.beans.Timer;
 
@@ -147,20 +146,10 @@ public class RequestCycleStats {
 		logger.debug("Used memory = " + Double.toString(state.getUsedMemory()));
 		long cycleDuration = timer.get();
 		if (cycleDuration>TOO_SLOW) {
-			Session<?,?> bo2session = Bo2Session.getSession();
-			String userid = null;
-			if(bo2session!=null) {
-				User<?> user = bo2session.getUser();
-				if (user!=null) {
-					userid = user.getUserId();
-				}
-			}
-			if(userid==null) {
-				userid = NULL;
-			}
+			String userid = Utils.notNull(Bo2Session.getUserId(), NULL);
 			
 			String msg = StringUtils.concat(
-				"Slow cycle: ", this.toString(),
+				"Slow cycle: ",
 				" duration: ", StringUtils.toString(cycleDuration),
 				" user: ", userid, 
 				" workers: ", workerNames);
