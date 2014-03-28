@@ -219,7 +219,8 @@ public abstract class AbstractHibernateDetachStrategy implements DetachStrategy 
 	}
 	
 	/**
-	 * Sets the current user as the last modifier of a ModificationRecord po.
+	 * Sets the current user as the last modifier of a ModificationRecord po
+	 * if there is no lastModifiedBy set.
 	 * @param o
 	 */
 	void setLastModifiedBy(Object o) {
@@ -227,8 +228,9 @@ public abstract class AbstractHibernateDetachStrategy implements DetachStrategy 
 			return;
 		}
 		String userId = Bo2Session.getUserId();
-		if(userId!=null) {
-			((ModificationRecord)o).setLastModifiedBy(userId);
+		ModificationRecord mdf = (ModificationRecord) o;
+		if(userId!=null && mdf.getLastModifiedBy()==null) {
+			mdf.setLastModifiedBy(userId);
 		}
 	}
 
