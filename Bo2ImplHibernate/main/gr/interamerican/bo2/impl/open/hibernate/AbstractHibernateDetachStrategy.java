@@ -108,7 +108,7 @@ public abstract class AbstractHibernateDetachStrategy implements DetachStrategy 
 			}
 		}
 		
-		LOGGER.debug("------------------------------------------------>reattach " + object.getClass().getName() + object.toString());
+		LOGGER.debug("--->reattach " + object.getClass().getName() + object.toString());
 		
 		if(!HibernateBo2Utils.isTransient((PersistentObject<?>) object)) {
 			try {
@@ -158,7 +158,7 @@ public abstract class AbstractHibernateDetachStrategy implements DetachStrategy 
 		
 		LOGGER.debug("Manual reattach candidates: " + objectsToReattachManually.size() + ". Reattached: " + i);
 		LOGGER.debug("Transient objects: " + transientObjects.size() + ". Detached manually: " + j);
-		LOGGER.debug("reattached " + object.getClass().getName() + object + "<----------------------------------------------");
+		LOGGER.debug("reattached " + object.getClass().getName() + object + "<---");
 		
 	}
 	
