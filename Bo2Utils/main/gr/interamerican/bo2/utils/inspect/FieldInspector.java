@@ -11,7 +11,12 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * 
+ * General purpose utility that inspects an object graph at the field level.
+ * For every inspected object all fields of the object super class hierarchy
+ * are considered. The user may narrow the type of fields considered by implementing
+ * {@link #shouldInspectField(Field)}. The user can also decide when a field's value 
+ * is included in the report by implementing {@link #shouldReportFieldValue(Object)}.
+ * Array and collection objects are iterated to inspect their elements.
  */
 public abstract class FieldInspector {
 	
