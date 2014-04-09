@@ -238,12 +238,25 @@ extends PickerPanel<B> {
 				if(preEditValidator !=null && !preEditValidator.check(selection, target)) {
 					return;
 				}
+				
+				/*
+				 * When copying we do not update the definition list. The point
+				 * is to leave it intact. If the  update succeeds the updated
+				 * instance will be properly replaced. If not, the original instance
+				 * will still be on the list.
+				 */
 				selection = copyBean(selection);
 				getDefinition().getBeanModel().setObject(selection);
+				
+				/*
+				 * the instance might be changed here, so we resynch
+				 */
 				if(getDefinition().getReadBeforeEdit()) {
-					selection = readBean();
-					getDefinition().getBeanModel().setObject(selection);
+					B updatedSelection = selection;
+					updatedSelection = readBean();
+					resynchDefinition(selection, updatedSelection);
 				}
+				
 				AjaxEnabledCondition<B> formValidator = getDefinition().getUpdateValidator();
 				SingleBeanPanelDef<B> sbpDef = createSingleBeanPanelDef(
 						new RefreshTableAction(new EditItemAction(getDefinition().getUpdateAction())), formValidator, PanelCreatorMode.EDIT);
@@ -520,6 +533,29 @@ extends PickerPanel<B> {
 	}
 	
 	/**
+	 * Updates the model object and the list in case a new instance is created.
+	 * <br/>
+	 * The case where the object equality between a list element and the oldInstance
+	 * is true for more than one of the list elements is not checked. This should not
+	 * happen.
+	 * 
+	 * @param oldInstance
+	 * @param newInstance
+	 */
+	void resynchDefinition(B oldInstance, B newInstance) {
+		if(oldInstance == newInstance) {
+			return; //nothing to do
+		}
+		
+		getDefinition().getBeanModel().setObject(newInstance);
+		
+		List<B> list = getDefinition().getList();
+		
+		int index = list.indexOf(oldInstance);
+		getDefinition().getList().set(index, newInstance); //an exception may be thrown here; this is intentional
+	}
+	
+	/**
 	 * Wrapper around the delete action that is supplied by the service
 	 * panel client. This wrapper is responsible for repainting the 
 	 * panel's data table with the updated data.
@@ -570,6 +606,11 @@ extends PickerPanel<B> {
 		 * 
 		 */
 		private static final long serialVersionUID = 1L;
+		
+		/**
+		 * Placeholder for model object when before() runs.
+		 */
+		B oldInstance;
 
 		/**
 		 * Creates a new CrudPickerPanel.DeleteItemAction object. 
@@ -577,28 +618,24 @@ extends PickerPanel<B> {
 		 */
 		public EditItemAction(CallbackAction action) {
 			super(action);
-		} 
+		}
+		
+		@Override public void before(AjaxRequestTarget target) {
+			oldInstance = getDefinition().getBeanModel().getObject();
+		}
 
 		@Override public void after(AjaxRequestTarget target) {
-			/*
-			 * REMOVED to distribute other changes. Work in progress.
-			 */
-//			if(CrudPickerPanel.this.getFeedBackPanel().anyErrorMessage()) {
-//				return;
-//			}
-			B item = getDefinition().getBeanModel().getObject();
+			B newInstance = getDefinition().getBeanModel().getObject();
 			beanPanel.setVisible(false);
-			if(item == null) { return; }
+			if(newInstance == null) { return; }
 			CallbackAction refreshAction = getDefinition().getRefreshAfterDataOpAction();
 			if(refreshAction != null) {
 				 refreshAction.callBack(target);
 				 return;
 			}
-			List<B> list = getDefinition().getList();
-			if(list.contains(item)) {
-				int idx = list.indexOf(item);
-				list.set(idx, item);
-			}
+			
+			resynchDefinition(oldInstance, newInstance);
+			oldInstance = null;
 		}
 	}
 	
