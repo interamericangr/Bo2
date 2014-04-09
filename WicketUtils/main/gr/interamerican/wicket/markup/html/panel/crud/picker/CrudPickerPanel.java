@@ -552,7 +552,8 @@ extends PickerPanel<B> {
 		List<B> list = getDefinition().getList();
 		
 		int index = list.indexOf(oldInstance);
-		getDefinition().getList().set(index, newInstance); //an exception may be thrown here; this is intentional
+		//an exception may be thrown here, if index=-1; this is intentional and should never happen
+		getDefinition().getList().set(index, newInstance); 
 	}
 	
 	/**
