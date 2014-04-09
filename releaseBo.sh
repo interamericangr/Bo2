@@ -1,4 +1,6 @@
 #!/bin/sh
+svn update
+
 mvn -q clean install 
 
 e="$?"
@@ -11,6 +13,8 @@ fi
 snapshot=`mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | grep -v '\['`
 release=${snapshot/"-SNAPSHOT"/}
 
+echo "preparing release version $release"
+
 mvn -q --batch-mode release:prepare -Darguments="-DskipTests"
  
 e="$?"
@@ -20,8 +24,13 @@ then
 	exit -1
 fi
 
-echo "prepared release version $release"
-
 mvn -q release:perform -Darguments="-DskipTests"
+
+e="$?"
+if [ $e -ne 0 ]
+then
+        echo "release failed exiting..."
+        exit -1
+fi
 
 echo $release | mail -s "Bo2 $release released" `cat recipientsOne.txt`
