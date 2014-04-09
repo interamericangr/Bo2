@@ -1,5 +1,5 @@
 #!/bin/sh
-mvn clean install 
+mvn -q clean install 
 
 e="$?"
 if [ $e -ne 0 ]
@@ -8,7 +8,7 @@ then
         exit -1
 fi
 
-mvn --batch-mode release:prepare -Darguments="-DskipTests"
+mvn -q --batch-mode release:prepare -Darguments="-DskipTests"
  
 e="$?"
 if [ $e -ne 0 ]
@@ -21,6 +21,6 @@ v=`mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=pr
 
 echo "prepared release version $v"
 
-mvn release:perform -Darguments="-DskipTests"
+mvn -q release:perform -Darguments="-DskipTests"
 
 mail -s "Bo2 $v released" `cat recipientsOne.txt`
