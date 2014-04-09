@@ -48,7 +48,7 @@ public class TestFieldInspector {
 		
 		@Override
 		protected boolean shouldInspectField(Field field) {
-			return !Modifier.isStatic(field.getModifiers());
+			return !Modifier.isStatic(field.getModifiers()) && !field.getType().isPrimitive();
 		}
 	}
 
