@@ -6,7 +6,9 @@ import gr.interamerican.bo2.utils.adapters.Transformation;
 import gr.interamerican.bo2.utils.beans.TypeBasedSelection;
 
 /**
+ * {@link Transformation} that returns the absolute value of the argument.
  * 
+ * The transformation can be applied to any type of {@link Number}.
  */
 public class AbsoluteValue 
 implements Transformation<Number, Number>{
@@ -31,6 +33,7 @@ implements Transformation<Number, Number>{
 	    calculators.registerSelection(Float.class, new AbsoluteValueFloat());
 		calculators.registerSelection(Integer.class, new AbsoluteValueInt());
 		calculators.registerSelection(Long.class, new AbsoluteValueLong());
+		calculators.registerSelection(Short.class, new AbsoluteValueShort());
 	}	
 	
 	public Number execute(Number a) {

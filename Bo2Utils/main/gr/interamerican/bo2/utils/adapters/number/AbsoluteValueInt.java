@@ -12,7 +12,7 @@ public class AbsoluteValueInt
 extends InvokeMethod<Integer,Integer> {
 
 	/**
-	 * Creates a new AbsoluteValueDouble object. 
+	 * Creates a new AbsoluteValueInt object. 
 	 *	
 	 */
 	public AbsoluteValueInt() {

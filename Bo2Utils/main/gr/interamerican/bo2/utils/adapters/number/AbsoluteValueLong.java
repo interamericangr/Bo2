@@ -12,7 +12,7 @@ public class AbsoluteValueLong
 extends InvokeMethod<Long,Long> {
 
 	/**
-	 * Creates a new AbsoluteValueDouble object. 
+	 * Creates a new AbsoluteValueLong object. 
 	 *	
 	 */
 	public AbsoluteValueLong() {

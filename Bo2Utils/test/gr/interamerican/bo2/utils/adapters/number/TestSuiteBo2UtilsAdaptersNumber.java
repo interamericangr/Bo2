@@ -32,8 +32,16 @@ import org.junit.runners.Suite.SuiteClasses;
 		TestAbsoluteValueDouble.class,
 		TestAbsoluteValueFloat.class,
 		TestAbsoluteValueInt.class,
+		TestAbsoluteValueShort.class,
 		TestAbsoluteValueLong.class,
 		TestAbsoluteValue.class,
+		TestNegativeToZeroBigDecimal.class,
+		TestNegativeToZeroDouble.class,
+		TestNegativeToZeroFloat.class,
+		TestNegativeToZeroInteger.class,
+		TestNegativeToZeroLong.class,
+		TestNegativeToZeroShort.class,
+		TestNegativeToZero.class,
 		
 	}
 )

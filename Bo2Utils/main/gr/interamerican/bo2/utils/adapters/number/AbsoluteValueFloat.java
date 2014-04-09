@@ -12,7 +12,7 @@ public class AbsoluteValueFloat
 extends InvokeMethod<Float,Float> {
 
 	/**
-	 * Creates a new AbsoluteValueDouble object. 
+	 * Creates a new AbsoluteValueFloat object. 
 	 *	
 	 */
 	public AbsoluteValueFloat() {
