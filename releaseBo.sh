@@ -33,4 +33,8 @@ then
         exit -1
 fi
 
-echo $release | mail -s "Bo2 $release released" `cat recipientsOne.txt`
+echo $(cat changelog.txt) | mail -s "Bo2 $release released" `cat recipientsOne.txt`
+
+:>changelog.txt
+
+svn commit changelog.txt -m ""
