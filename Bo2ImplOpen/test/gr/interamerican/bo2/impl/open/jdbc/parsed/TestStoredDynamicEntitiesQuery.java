@@ -46,12 +46,6 @@ public class TestStoredDynamicEntitiesQuery {
 	private static final String NAME = "George Using"; //$NON-NLS-1$
 	
 	/**
-	 * provider.
-	 */
-	protected Provider provider;
-		
-	
-	/**
 	 * Unit test for the whole life cycle.
 	 * 
 	 * @throws InitializationException 
@@ -83,7 +77,7 @@ public class TestStoredDynamicEntitiesQuery {
 		}.execute();
 		
 		Provider provider = Bo2.getDeployment(UtilityForBo2Test.BATCH_NO_TRAN).getProvider();		
-		String path = "/gr/interamerican/rsrc/sql/SelectIdAndNameFromUsers.sql"; //$NON-NLS-1$
+		String path = "/gr/interamerican/rsrc/sql/SelectIdAndNameFromUsers2.sql"; //$NON-NLS-1$
 		StoredDynamicEntitiesQuery q = new StoredDynamicEntitiesQuery(path);
 		q.setManagerName("LOCALDB"); //$NON-NLS-1$
 		q.init(provider);
@@ -128,11 +122,14 @@ public class TestStoredDynamicEntitiesQuery {
 	 */
 	@Test(expected=InitializationException.class)
 	public void testInit_Fail() throws InitializationException, DataException {
-		Provider provider = Bo2.getDeployment(UtilityForBo2Test.BATCH_NO_TRAN).getProvider();
+		Provider prov = Bo2.getDeployment(UtilityForBo2Test.BATCH_NO_TRAN).getProvider();
 		String path = "/com/foo/bar.sql"; //$NON-NLS-1$
 		StoredDynamicEntitiesQuery q = new StoredDynamicEntitiesQuery(path);
-		q.init(provider);
-		provider.close();
+		try {
+			q.init(prov);
+		} finally {
+			prov.close();
+		}
 	}
 
 	
