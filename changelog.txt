@@ -1,0 +1,3 @@
+Added WorkerUtils.<A, B extends A> queryResultsAsConvertedList(EntitiesQuery<A> query) : List<B>
+
+Fixed a bug in GenericStoredDynamicEntitiesQuery that would prevent PredefinedReport caching.
