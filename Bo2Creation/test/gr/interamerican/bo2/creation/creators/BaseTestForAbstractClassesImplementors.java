@@ -31,7 +31,9 @@ import gr.interamerican.bo2.samples.abstractimpl.AbstractBeanWithWrongDelegateTo
 import gr.interamerican.bo2.samples.abstractimpl.AbstractClassWithOddProperties;
 import gr.interamerican.bo2.samples.abstractimpl.AbstractComparableBeanWithIdAndName;
 import gr.interamerican.bo2.samples.abstractimpl.AbstractSmartCalcImpl;
+import gr.interamerican.bo2.samples.abstractimpl.CriteriaImpl;
 import gr.interamerican.bo2.samples.abstractimpl.MyCriteriaKeeper;
+import gr.interamerican.bo2.utils.DateUtils;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -442,7 +444,22 @@ public class BaseTestForAbstractClassesImplementors {
 		Assert.assertEquals(Integer.valueOf(5), keeper.getCriteria());
 	}
 	
-	
-	
+	/**
+	 * Unit test for create
+	 * 
+	 * TODO: do we want this test case to pass?
+	 * 
+	 * @throws ClassCreationException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 */
+//	@Test
+	public void testCreate_withOddProperties_covariantGetter()
+	throws ClassCreationException, InstantiationException, IllegalAccessException {
+		Class<?> type = creator.create(CriteriaImpl.class);
+		CriteriaImpl impl = (CriteriaImpl) type.newInstance();
+		impl.setCriteria(DateUtils.today());
+		Assert.assertEquals(DateUtils.today(), impl.getCriteria());
+	}
 	
 }
