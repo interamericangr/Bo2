@@ -120,21 +120,6 @@ NamedFieldsContainer, OrderedNamedFieldsContainer, TransformationSpec {
 	}
 	
 	/**
-	 * Initializes this object's criteria with the specified parameter.
-	 * 
-	 * @param initializationCriteria
-	 *        Criteria used to initialize this object.
-	 */
-	private void initializeCriteria(C initializationCriteria) {
-		if (initializationCriteria!=null) {
-			this.criteria = initializationCriteria;
-			if (query!=null) {
-				query.setCriteria(initializationCriteria);				
-			}
-		}
-	}
-	
-	/**
 	 * Creates a new GenericStoredDynamicEntitiesQuery object. 
 	 *
 	 * @param sql
@@ -157,6 +142,21 @@ NamedFieldsContainer, OrderedNamedFieldsContainer, TransformationSpec {
 			query = new PredefinedReportQuery(report);
 		}
 		initializeCriteria(criteria);
+	}
+	
+	/**
+	 * Initializes this object's criteria with the specified parameter.
+	 * 
+	 * @param initializationCriteria
+	 *        Criteria used to initialize this object.
+	 */
+	private void initializeCriteria(C initializationCriteria) {
+		if (initializationCriteria!=null) {
+			this.criteria = initializationCriteria;
+			if (query!=null) {
+				query.setCriteria(initializationCriteria);				
+			}
+		}
 	}
 	
 	@Override
@@ -198,9 +198,12 @@ NamedFieldsContainer, OrderedNamedFieldsContainer, TransformationSpec {
 			cmd.setManagerName(this.getManagerName());
 			cmd.init(this.getProvider());
 			cmd.open();
-			cmd.setManagerName(this.getManagerName());
 			cmd.setSql(sql);
-			cmd.execute();
+			try {
+				cmd.execute();
+			} finally {
+				cmd.close();
+			}
 			report = cmd.getReport();
 			if(path != null) {
 				id = StringUtils.removeCharacter(path, '/');
@@ -220,12 +223,14 @@ NamedFieldsContainer, OrderedNamedFieldsContainer, TransformationSpec {
 				 */
 			}
 			
-			if(path == null) {
-				reports.put(id, report);
-			} else if (id == null) {
+			/*
+			 * Cache with path if it exists, else cache with id
+			 */
+			if(path != null) {
 				reports.put(path, report);
+			} else {
+				reports.put(id, report);
 			}
-			cmd.close();
 		} catch (DataException e) {
 			throw new InitializationException(e);
 		}

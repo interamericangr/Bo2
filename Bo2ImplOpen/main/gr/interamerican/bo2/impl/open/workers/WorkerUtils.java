@@ -22,6 +22,7 @@ import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
 import gr.interamerican.bo2.impl.open.creation.Factory;
+import gr.interamerican.bo2.utils.CollectionUtils;
 import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.adapters.Transformation;
 
@@ -55,6 +56,31 @@ public class WorkerUtils {
 			list.add(query.getEntity());
 		}
 		return list;
+	}
+	
+	/**
+	 * Fetches all results of an {@link EntitiesQuery} query as a list of a 
+	 * specific sub-type of the query's return type.
+	 * <br/>
+	 * This is unsafe and should be used with caution.
+	 * 
+	 * @param query
+	 *        Query who's results are put in the list.
+	 * @param <A>
+	 *        Type of entities returned by the query.
+	 * @param <B>
+	 *        Type of entities to downcast to.
+	 * 
+	 * @return Returns a list that contains all objects fetched by the 
+	 *         query.
+	 * @throws DataAccessException
+	 */
+	public static <A, B extends A> List<B> 
+	queryResultsAsConvertedList(EntitiesQuery<A> query)
+	throws DataAccessException {		
+		List<A> list = queryResultsAsList(query);
+		List<B> casted = CollectionUtils.convert(list);
+		return casted;
 	}
 	
 	/**
