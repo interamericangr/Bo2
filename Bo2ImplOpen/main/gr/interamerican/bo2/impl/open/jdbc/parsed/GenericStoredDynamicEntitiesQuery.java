@@ -63,18 +63,12 @@ NamedFieldsContainer, OrderedNamedFieldsContainer, TransformationSpec {
 	/**
 	 * Static map with all reports.
 	 */
-	private static HashMap<String, PredefinedReport> reports = 
-		new HashMap<String, PredefinedReport>();	
+	static HashMap<String, PredefinedReport> reports = new HashMap<String, PredefinedReport>();	
 	
 	/**
 	 * Wrapped query.
 	 */
 	PredefinedReportQuery query;
-	
-	/**
-	 * Predefined report for the query. 
-	 */
-	PredefinedReport report;
 	
 	/**
 	 * Path to the statement.
@@ -112,7 +106,7 @@ NamedFieldsContainer, OrderedNamedFieldsContainer, TransformationSpec {
 	public GenericStoredDynamicEntitiesQuery(String path, C criteria) {
 		super();				
 		this.path = path;
-		this.report = reports.get(path);
+		PredefinedReport report = reports.get(path);
 		if (report!=null) {
 			query = new PredefinedReportQuery(report);
 		}
@@ -137,7 +131,7 @@ NamedFieldsContainer, OrderedNamedFieldsContainer, TransformationSpec {
 			String msg = "Cannot store a report with null/empty id"; //$NON-NLS-1$
 			throw new RuntimeException(msg);
 		}
-		this.report = reports.get(id);
+		PredefinedReport report = reports.get(id);
 		if (report!=null) {
 			query = new PredefinedReportQuery(report);
 		}
@@ -168,10 +162,12 @@ NamedFieldsContainer, OrderedNamedFieldsContainer, TransformationSpec {
 	}
 	
 	@Override
-	public void init(Provider parent) throws InitializationException {		
+	public void init(Provider parent) throws InitializationException {
 		super.init(parent);
 		if (query==null) {
 			initPredefinedReportQuery();
+		} else if (query.getManagerName() == null) {
+			query.setManagerName(managerName);
 		}
 		query.init(parent);
 	}
@@ -204,7 +200,7 @@ NamedFieldsContainer, OrderedNamedFieldsContainer, TransformationSpec {
 			} finally {
 				cmd.close();
 			}
-			report = cmd.getReport();
+			PredefinedReport report = cmd.getReport();
 			if(path != null) {
 				id = StringUtils.removeCharacter(path, '/');
 			}
