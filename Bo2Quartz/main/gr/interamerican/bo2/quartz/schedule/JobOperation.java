@@ -2,9 +2,10 @@ package gr.interamerican.bo2.quartz.schedule;
 
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
+import gr.interamerican.bo2.impl.open.creation.Factory;
+import gr.interamerican.bo2.impl.open.job.JobDescription;
+import gr.interamerican.bo2.impl.open.job.JobScheduler;
 import gr.interamerican.bo2.impl.open.job.JobStatus;
-import gr.interamerican.bo2.quartz.QuartzJobDescritpionBean;
-import gr.interamerican.bo2.quartz.QuartzUtils;
 import gr.interamerican.bo2.utils.CollectionUtils;
 import gr.interamerican.bo2.utils.concurrent.ThreadUtils;
 
@@ -21,7 +22,7 @@ public class JobOperation {
 	/**
 	 * bean to give to the {@link GenericQuartzJob}
 	 */
-	List<QuartzJobDescritpionBean> quartzJobDescritpionBeans = new ArrayList<QuartzJobDescritpionBean>();
+	List<JobDescription> quartzJobDescritpionBeans = new ArrayList<JobDescription>();
 	/**
 	 * job names that have been scheduled with the given Operation.
 	 */
@@ -38,7 +39,7 @@ public class JobOperation {
 	/**
 	 * @return the quartzJobDescritpionBean
 	 */
-	public List<QuartzJobDescritpionBean> getQuartzJobDescritpionBeans() {
+	public List<JobDescription> getJobDescriptions() {
 		return quartzJobDescritpionBeans;
 	}
 
@@ -74,9 +75,9 @@ public class JobOperation {
 	 * @return a set of the current job statuses
 	 * @throws DataException
 	 */
-	Set<JobStatus> testjobStatus(List<QuartzJobDescritpionBean> beans) throws DataException {
+	Set<JobStatus> testjobStatus(List<JobDescription> beans) throws DataException {
 		Set<JobStatus> status = new HashSet<JobStatus>();
-		for (QuartzJobDescritpionBean bean : beans) {
+		for (JobDescription bean : beans) {
 			if (failOnException && JobStatus.ERROR.equals(bean.getExecutionStatus())) {
 				throw new DataException("Job " + bean.getJobName() + " failed to execute " + bean.getParameters()); //$NON-NLS-1$//$NON-NLS-2$
 			}
@@ -102,7 +103,7 @@ public class JobOperation {
 	}
 
 	/**
-	 * execute the jobs described in {@link QuartzJobDescritpionBean}s
+	 * execute the jobs described in {@link JobDescription}s
 	 * 
 	 * @throws LogicException
 	 * @throws DataException
@@ -112,8 +113,9 @@ public class JobOperation {
 			return;
 		}
 		jobNames = new HashSet<String>();
-		for (QuartzJobDescritpionBean bean : quartzJobDescritpionBeans) {
-			jobNames.add(QuartzUtils.submitJob(bean));
+		JobScheduler jobScheduler = Factory.create(JobScheduler.class);
+		for (JobDescription bean : quartzJobDescritpionBeans) {
+			jobNames.add(jobScheduler.submitJob(bean));
 		}
 		while ((wait2complete) && (runningScheduledJobs(testjobStatus(quartzJobDescritpionBeans)))) {
 			ThreadUtils.sleep(1);

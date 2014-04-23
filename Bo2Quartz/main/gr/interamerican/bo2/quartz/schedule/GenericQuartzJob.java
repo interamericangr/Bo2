@@ -7,11 +7,11 @@ import gr.interamerican.bo2.arch.exceptions.UnexpectedException;
 import gr.interamerican.bo2.arch.ext.Session;
 import gr.interamerican.bo2.arch.utils.ext.Bo2Session;
 import gr.interamerican.bo2.impl.open.creation.Factory;
+import gr.interamerican.bo2.impl.open.job.JobDescription;
 import gr.interamerican.bo2.impl.open.job.JobStatus;
 import gr.interamerican.bo2.impl.open.runtime.RuntimeCommand;
 import gr.interamerican.bo2.impl.open.utils.Bo2;
 import gr.interamerican.bo2.quartz.QuartzConstants;
-import gr.interamerican.bo2.quartz.QuartzJobDescritpionBean;
 import gr.interamerican.bo2.utils.ExceptionUtils;
 import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.StringConstants;
@@ -42,7 +42,7 @@ public class GenericQuartzJob implements Job {
 	 * @param bean
 	 * @return {@link Operation}
 	 */
-	Operation generateOperationFromBean(QuartzJobDescritpionBean bean) {
+	Operation generateOperationFromBean(JobDescription bean) {
 		Operation op = Factory.create(bean.getOperationClass());
 		Map<String, Object> parameterMap = bean.getParameters();
 		for (String param : parameterMap.keySet()) {
@@ -60,7 +60,7 @@ public class GenericQuartzJob implements Job {
 	 * @param bean
 	 * @throws JobExecutionException
 	 */
-	void logMe(Throwable e, QuartzJobDescritpionBean bean) throws JobExecutionException {
+	void logMe(Throwable e, JobDescription bean) throws JobExecutionException {
 		String trace = ExceptionUtils.getThrowableStackTrace(e);
 		String msg = "Quartz job " + bean.getJobName() + " failed. " + bean.getParameters(); //$NON-NLS-1$ //$NON-NLS-2$
 		LOGGER.warn(msg);
@@ -72,7 +72,7 @@ public class GenericQuartzJob implements Job {
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
 		JobDataMap map = context.getJobDetail().getJobDataMap();
-		QuartzJobDescritpionBean bean = (QuartzJobDescritpionBean) map.get(QuartzConstants.BEAN_PROP);
+		JobDescription bean = (JobDescription) map.get(QuartzConstants.BEAN_PROP);
 		Bo2Session.setSession((Session<?, ?>) map.get(QuartzConstants.SESSION_PROP));
 		Operation op = generateOperationFromBean(bean);
 		RuntimeCommand cmd = null;

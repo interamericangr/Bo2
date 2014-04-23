@@ -1,11 +1,8 @@
 package gr.interamerican.bo2.quartz;
 
-import static org.quartz.JobBuilder.newJob;
 import gr.interamerican.bo2.arch.Operation;
 import gr.interamerican.bo2.arch.exceptions.DataException;
-import gr.interamerican.bo2.arch.utils.ext.Bo2Session;
-import gr.interamerican.bo2.impl.open.job.JobStatus;
-import gr.interamerican.bo2.quartz.schedule.GenericQuartzJob;
+import gr.interamerican.bo2.impl.open.job.JobDescription;
 import gr.interamerican.bo2.utils.NumberUtils;
 import gr.interamerican.bo2.utils.StringConstants;
 
@@ -18,13 +15,9 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
-import org.quartz.JobDataMap;
-import org.quartz.JobDetail;
 import org.quartz.JobKey;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
-import org.quartz.Trigger;
-import org.quartz.TriggerBuilder;
 import org.quartz.impl.matchers.GroupMatcher;
 
 
@@ -41,7 +34,7 @@ public class QuartzUtils {
 	 * @param bean
 	 * @return the unique name composed by the properties of quartz description bean
 	 */
-	public static String getJobName(QuartzJobDescritpionBean bean) {
+	public static String getJobName(JobDescription bean) {
 		String name = StringConstants.EMPTY;
 		name += bean.getOperationClass().getName();
 		Map<String, Object> map = bean.getParameters();
@@ -59,7 +52,7 @@ public class QuartzUtils {
 	 * @param bean
 	 * @return the name of the group that the given job should be.
 	 */
-	public static String getJobGroupName(QuartzJobDescritpionBean bean) {
+	public static String getJobGroupName(JobDescription bean) {
 		return getJobGroupName(bean.getOperationClass());
 	}
 
@@ -143,30 +136,30 @@ public class QuartzUtils {
 		return false;
 	}
 
-	/**
-	 * method to submit {@link QuartzJobDescritpionBean} as {@link GenericQuartzJob}
-	 * 
-	 * @param bean
-	 * @return the job name scheduled.
-	 * @throws DataException
-	 */
-	public static String submitJob(QuartzJobDescritpionBean bean) throws DataException {
-		Scheduler scheduler = QuartzSchedulerRegistry.getScheduler();
-		bean.setExecutionStatus(JobStatus.SCHEDULED);
-		JobDataMap map = new JobDataMap();
-		map.put(QuartzConstants.BEAN_PROP, bean);
-		map.put(QuartzConstants.SESSION_PROP, Bo2Session.getSession());
-		String jobName = QuartzUtils.getJobName(bean);
-		String groupName = QuartzUtils.getJobGroupName(bean);
-		JobDetail job = newJob().withIdentity(jobName, groupName).withDescription(groupName)
-				.usingJobData(map).ofType(GenericQuartzJob.class).build();
-		Trigger trigger = TriggerBuilder.newTrigger().startNow().build();
-		try {
-			scheduler.scheduleJob(job, trigger);
-		} catch (SchedulerException e) {
-			throw new DataException(e);
-		}
-		bean.setJobName(jobName);
-		return jobName;
-	}
+	// /**
+	// * method to submit {@link QuartzJobDescritpionBean} as {@link GenericQuartzJob}
+	// *
+	// * @param bean
+	// * @return the job name scheduled.
+	// * @throws DataException
+	// */
+	// public static String submitJob(QuartzJobDescritpionBean bean) throws DataException {
+	// Scheduler scheduler = QuartzSchedulerRegistry.getScheduler();
+	// bean.setExecutionStatus(JobStatus.SCHEDULED);
+	// JobDataMap map = new JobDataMap();
+	// map.put(QuartzConstants.BEAN_PROP, bean);
+	// map.put(QuartzConstants.SESSION_PROP, Bo2Session.getSession());
+	// String jobName = QuartzUtils.getJobName(bean);
+	// String groupName = QuartzUtils.getJobGroupName(bean);
+	// JobDetail job = newJob().withIdentity(jobName, groupName).withDescription(groupName)
+	// .usingJobData(map).ofType(GenericQuartzJob.class).build();
+	// Trigger trigger = TriggerBuilder.newTrigger().startNow().build();
+	// try {
+	// scheduler.scheduleJob(job, trigger);
+	// } catch (SchedulerException e) {
+	// throw new DataException(e);
+	// }
+	// bean.setJobName(jobName);
+	// return jobName;
+	// }
 }
