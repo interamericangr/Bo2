@@ -5,6 +5,8 @@ import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.impl.open.job.JobDescription;
 import gr.interamerican.bo2.utils.NumberUtils;
 import gr.interamerican.bo2.utils.StringConstants;
+import gr.interamerican.bo2.utils.beans.Pair;
+import gr.interamerican.bo2.utils.concurrent.ThreadUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -95,6 +97,20 @@ public class QuartzUtils {
 	/**
 	 * @param groupName
 	 *            name of the group to search, If null searches all groups.
+	 * @return the set of Pairs each containing a group name as left and a job name as right.
+	 * @throws DataException
+	 */
+	public static Set<Pair<String, String>> getScheduledJobNames(String groupName) throws DataException {
+		Set<Pair<String, String>> names = new HashSet<Pair<String, String>>();
+		Set<JobKey> s = getScheduledJobKeys(groupName);
+		for (JobKey key : s) {
+			names.add(new Pair<String, String>(key.getGroup(), key.getName()));
+		}
+		return names;
+	}
+	/**
+	 * @param groupName
+	 *            name of the group to search, If null searches all groups.
 	 * @return the number of scheduled jobs. Uses the above.
 	 * @throws DataException
 	 */
@@ -136,30 +152,42 @@ public class QuartzUtils {
 		return false;
 	}
 
-	// /**
-	// * method to submit {@link QuartzJobDescritpionBean} as {@link GenericQuartzJob}
-	// *
-	// * @param bean
-	// * @return the job name scheduled.
-	// * @throws DataException
-	// */
-	// public static String submitJob(QuartzJobDescritpionBean bean) throws DataException {
-	// Scheduler scheduler = QuartzSchedulerRegistry.getScheduler();
-	// bean.setExecutionStatus(JobStatus.SCHEDULED);
-	// JobDataMap map = new JobDataMap();
-	// map.put(QuartzConstants.BEAN_PROP, bean);
-	// map.put(QuartzConstants.SESSION_PROP, Bo2Session.getSession());
-	// String jobName = QuartzUtils.getJobName(bean);
-	// String groupName = QuartzUtils.getJobGroupName(bean);
-	// JobDetail job = newJob().withIdentity(jobName, groupName).withDescription(groupName)
-	// .usingJobData(map).ofType(GenericQuartzJob.class).build();
-	// Trigger trigger = TriggerBuilder.newTrigger().startNow().build();
-	// try {
-	// scheduler.scheduleJob(job, trigger);
-	// } catch (SchedulerException e) {
-	// throw new DataException(e);
-	// }
-	// bean.setJobName(jobName);
-	// return jobName;
-	// }
+	/**
+	 * pauses the main thread until the given job has been completed.
+	 * 
+	 * @param groupName
+	 *            name of the group that the job is registered. if null searches all groups.
+	 * @param jobName
+	 * @throws DataException
+	 */
+	public static void waitJobToComplete(String groupName, String jobName) throws DataException {
+		while (isJobScheduled(groupName, jobName)) {
+			ThreadUtils.sleep(1);
+		}
+	}
+
+	/**
+	 * pauses the main thread until the given job has no job scheduled.
+	 * 
+	 * @param groupName
+	 *            name of the group. if null waits all jobs to finish.
+	 * @throws DataException
+	 */
+	public static void waitGroupToComplete(String groupName) throws DataException {
+		while (getNumberOfScheduledJobs(groupName) > 0) {
+			ThreadUtils.sleep(1);
+		}
+	}
+
+	/**
+	 * pauses the main thread until the given job has been completed.
+	 * 
+	 * @param bean
+	 *            the job to wait
+	 * 
+	 * @throws DataException
+	 */
+	public static void waitJobToComplete(JobDescription bean) throws DataException {
+		waitJobToComplete(getJobGroupName(bean), getJobName(bean));
+	}
 }

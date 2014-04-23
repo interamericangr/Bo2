@@ -3,7 +3,6 @@
  */
 package gr.interamerican.bo2.quartz;
 
-import static org.junit.Assert.fail;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.impl.open.creation.Factory;
 import gr.interamerican.bo2.impl.open.job.JobDescription;
@@ -12,9 +11,11 @@ import gr.interamerican.bo2.quartz.samples.SampleOperation;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.quartz.JobKey;
 
 
 /**
@@ -43,7 +44,7 @@ public class TestQuartzUtils {
 	}
 
 	/**
-	 * Test method for {@link gr.interamerican.bo2.quartz.QuartzUtils#getJobName(JobDescription))}.
+	 * Test method for {@link gr.interamerican.bo2.quartz.QuartzUtils#getJobName(JobDescription)}.
 	 * 
 	 * @throws DataException
 	 */
@@ -58,54 +59,82 @@ public class TestQuartzUtils {
 		Assert.assertNotEquals(beanWithParams.getOperationClass().getName(), QuartzUtils.getJobName(beanWithParams));
 		Assert.assertTrue(QuartzUtils.getJobName(beanWithParams).contains("100")); //$NON-NLS-1$
 		Assert.assertTrue(QuartzUtils.getJobName(beanWithParams).contains("waitTime")); //$NON-NLS-1$
+		QuartzUtils.waitJobToComplete(bean);
 	}
 
 	/**
-	 * Test method for
-	 * {@link gr.interamerican.bo2.quartz.QuartzUtils#getJobGroupName(gr.interamerican.bo2.quartz.JobDescription)}.
+	 * Test method for {@link gr.interamerican.bo2.quartz.QuartzUtils#getJobGroupName(JobDescription)}.
+	 * 
+	 * @throws DataException
 	 */
 	@Test
-	public void testGetJobGroupNameJobDescription() {
-		fail("Not yet implemented");
+	public void testGetJobGroupNameJobDescription() throws DataException {
+		Assert.assertNotNull(QuartzUtils.getJobGroupName(bean));
+		Assert.assertEquals(bean.getOperationClass().getName(), QuartzUtils.getJobGroupName(bean));
 	}
 
 	/**
 	 * Test method for {@link gr.interamerican.bo2.quartz.QuartzUtils#getJobGroupName(java.lang.Class)}.
+	 * 
+	 * @throws DataException
 	 */
 	@Test
-	public void testGetJobGroupNameClassOfQextendsOperation() {
-		fail("Not yet implemented");
+	public void testGetJobGroupNameClassOfQextendsOperation() throws DataException {
+		Assert.assertNotNull(QuartzUtils.getJobGroupName(SampleOperation.class));
+		Assert.assertEquals(SampleOperation.class.getName(), QuartzUtils.getJobGroupName(SampleOperation.class));
 	}
 
 	/**
 	 * Test method for {@link gr.interamerican.bo2.quartz.QuartzUtils#getScheduledJobKeys(java.lang.String)}.
+	 * 
+	 * @throws DataException
 	 */
 	@Test
-	public void testGetScheduledJobKeys() {
-		fail("Not yet implemented");
+	public void testGetScheduledJobKeys() throws DataException {
+		JobScheduler jobScheduler = Factory.create(JobScheduler.class);
+		jobScheduler.submitJob(bean);
+		Set<JobKey> s = QuartzUtils.getScheduledJobKeys(QuartzUtils.getJobGroupName(bean));
+		Assert.assertNotNull(s);
+		QuartzUtils.waitJobToComplete(bean);
 	}
 
 	/**
 	 * Test method for {@link gr.interamerican.bo2.quartz.QuartzUtils#getNumberOfScheduledJobs(java.lang.String)}.
+	 * 
+	 * @throws DataException
 	 */
 	@Test
-	public void testGetNumberOfScheduledJobs() {
-		fail("Not yet implemented");
+	public void testGetNumberOfScheduledJobs() throws DataException {
+		JobScheduler jobScheduler = Factory.create(JobScheduler.class);
+		jobScheduler.submitJob(bean);
+		Assert.assertEquals(1, QuartzUtils.getNumberOfScheduledJobs(QuartzUtils.getJobGroupName(bean)));
+		Assert.assertEquals(1, QuartzUtils.getNumberOfScheduledJobs(null));
+		QuartzUtils.waitJobToComplete(bean);
 	}
 
 	/**
 	 * Test method for {@link gr.interamerican.bo2.quartz.QuartzUtils#getMaximumNumberOfThreads()}.
+	 * 
+	 * @throws DataException
 	 */
 	@Test
-	public void testGetMaximumNumberOfThreads() {
-		fail("Not yet implemented");
+	public void testGetMaximumNumberOfThreads() throws DataException {
+		Assert.assertEquals(QuartzUtils.getMaximumNumberOfThreads(), 50);
 	}
 
 	/**
-	 * Test method for {@link gr.interamerican.bo2.quartz.QuartzUtils#isJobScheduled(java.lang.String, java.lang.String)}.
+	 * Test method for
+	 * {@link gr.interamerican.bo2.quartz.QuartzUtils#isJobScheduled(java.lang.String, java.lang.String)}.
+	 * 
+	 * @throws DataException
 	 */
 	@Test
-	public void testIsJobScheduled() {
-		fail("Not yet implemented");
+	public void testIsJobScheduled() throws DataException {
+		JobScheduler jobScheduler = Factory.create(JobScheduler.class);
+		jobScheduler.submitJob(bean);
+		Assert.assertTrue(QuartzUtils.isJobScheduled(QuartzUtils.getJobGroupName(SampleOperation.class),
+				bean.getJobName()));
+		Assert.assertTrue(QuartzUtils.isJobScheduled(null, bean.getJobName()));
+		QuartzUtils.waitJobToComplete(bean);
 	}
 }
