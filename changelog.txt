@@ -1,5 +1,5 @@
 Added Bo2Quartz
-
+This project is a facade project for the Quartz library fitted into our needs. Any job need to be sent in an other thread uses this project to perform the submission. 
 
 Users may schedule jobs associated with a specific unit of work using
 
