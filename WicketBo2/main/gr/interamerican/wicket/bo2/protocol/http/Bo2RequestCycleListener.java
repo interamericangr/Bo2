@@ -225,9 +225,11 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 	 */
 	void submitScheduledJobs() throws DataException {
 		JobScheduler jobScheduler = Factory.create(JobScheduler.class);
-		for(JobDescription jobDescription : Bo2WicketRequestCycle.get().jobs) {
-			jobScheduler.submitJob(jobDescription);
-		}
+		/*
+		 * synchronous jobs last
+		 */
+		jobScheduler.submitJobs(Bo2WicketRequestCycle.get().jobs, false);
+		jobScheduler.submitJobs(Bo2WicketRequestCycle.get().synchronousJobs, true);
 	}
 
 	/**

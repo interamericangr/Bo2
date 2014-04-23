@@ -133,9 +133,16 @@ public class Bo2WicketRequestCycle {
 	 * this unit of work commits successfully.
 	 * 
 	 * @param description
+	 * 
+	 * @param synchronous 
+	 *        If this is true, the scheduler will wait for the jobs to finish
 	 */
-	protected final void schedule(JobDescription description) {
-		get().jobs.add(description);
+	protected final void schedule(JobDescription description, boolean synchronous) {
+		if(synchronous) {
+			get().synchronousJobs.add(description);
+		} else {
+			get().jobs.add(description);
+		}
 	}
 
 	/**
@@ -299,6 +306,11 @@ public class Bo2WicketRequestCycle {
 	 * Jobs scheduled by this operation.
 	 */
 	List<JobDescription> jobs = new ArrayList<JobDescription>();
+	
+	/**
+	 * Jobs scheduled by this operation to be executed synchronously.
+	 */
+	List<JobDescription> synchronousJobs = new ArrayList<JobDescription>();
 
 	/**
 	 * Workers managed by this request cycle.

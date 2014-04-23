@@ -161,6 +161,9 @@ extends RuntimeCommand {
 	@Override
 	protected void onCommittedSuccessfully() throws DataException {
 		JobScheduler jobScheduler = Factory.create(JobScheduler.class);
+		/*
+		 * synchronous jobs last
+		 */
 		jobScheduler.submitJobs(((RuntimeLayerAdapter)operation).jobs, false);
 		jobScheduler.submitJobs(((RuntimeLayerAdapter)operation).synchronousJobs, true);
 	}
