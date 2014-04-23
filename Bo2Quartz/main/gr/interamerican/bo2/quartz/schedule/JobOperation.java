@@ -2,7 +2,7 @@ package gr.interamerican.bo2.quartz.schedule;
 
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
-import gr.interamerican.bo2.quartz.JobStatus;
+import gr.interamerican.bo2.impl.open.job.JobStatus;
 import gr.interamerican.bo2.quartz.QuartzJobDescritpionBean;
 import gr.interamerican.bo2.quartz.QuartzUtils;
 import gr.interamerican.bo2.utils.CollectionUtils;

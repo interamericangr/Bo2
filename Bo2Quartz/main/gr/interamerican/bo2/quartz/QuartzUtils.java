@@ -4,6 +4,7 @@ import static org.quartz.JobBuilder.newJob;
 import gr.interamerican.bo2.arch.Operation;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.utils.ext.Bo2Session;
+import gr.interamerican.bo2.impl.open.job.JobStatus;
 import gr.interamerican.bo2.quartz.schedule.GenericQuartzJob;
 import gr.interamerican.bo2.utils.NumberUtils;
 import gr.interamerican.bo2.utils.StringConstants;

@@ -1,6 +1,7 @@
 package gr.interamerican.bo2.quartz;
 
 import gr.interamerican.bo2.arch.Operation;
+import gr.interamerican.bo2.impl.open.job.JobStatus;
 
 import java.util.Map;
 
