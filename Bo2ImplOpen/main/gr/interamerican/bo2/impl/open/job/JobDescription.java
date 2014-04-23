@@ -14,7 +14,7 @@ public interface JobDescription {
 	 *
 	 * @return Returns the operationClass
 	 */
-	Class<?> getOperationClass();
+	Class<? extends Operation> getOperationClass();
 
 	/**
 	 * Assigns a new value to the operationClass.
