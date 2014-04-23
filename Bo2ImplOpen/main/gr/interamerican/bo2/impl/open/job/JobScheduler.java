@@ -13,13 +13,20 @@ public interface JobScheduler {
 	 * Submits the job.
 	 * 
 	 * @param jobDescriptions
-	 * @param synchronous 
-	 *        If this is true, the scheduler will wait for the jobs to finish
+	 * @param synchronous
+	 *            If this is true, the scheduler will wait for the jobs to finish
 	 * 
-	 * @return the job name scheduled.
 	 * 
 	 * @throws DataException
 	 */
-	public String submitJobs(List<JobDescription> jobDescriptions, boolean synchronous) throws DataException;
+	public void submitJobs(List<JobDescription> jobDescriptions, boolean synchronous) throws DataException;
+
+	/**
+	 * submits an asynchronous single job
+	 * 
+	 * @param jobDescription
+	 * @throws DataException
+	 */
+	public void submitJob(JobDescription jobDescription) throws DataException;
 
 }
