@@ -4,6 +4,7 @@ import gr.interamerican.bo2.arch.Operation;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
 import gr.interamerican.bo2.arch.exceptions.UnexpectedException;
+import gr.interamerican.bo2.arch.ext.Session;
 import gr.interamerican.bo2.arch.utils.ext.Bo2Session;
 import gr.interamerican.bo2.impl.open.creation.Factory;
 import gr.interamerican.bo2.impl.open.runtime.RuntimeCommand;
@@ -72,7 +73,7 @@ public class GenericQuartzJob implements Job {
 	public void execute(JobExecutionContext context) throws JobExecutionException {
 		JobDataMap map = context.getJobDetail().getJobDataMap();
 		QuartzJobDescritpionBean bean = (QuartzJobDescritpionBean) map.get(QuartzConstants.BEAN_PROP);
-		Bo2Session.setSession(bean.getSession());
+		Bo2Session.setSession((Session<?, ?>) map.get(QuartzConstants.SESSION_PROP));
 		Operation op = generateOperationFromBean(bean);
 		RuntimeCommand cmd = null;
 		String depl = Bo2.getDefaultDeployment().getDeploymentBean().getPathToSecondaryBatchDeployment();

@@ -21,4 +21,8 @@ public class QuartzConstants {
 	 * 
 	 */
 	public static final String BEAN_PROP = "Bean"; //$NON-NLS-1$
+	/**
+	 * 
+	 */
+	public static final String SESSION_PROP = "Session"; //$NON-NLS-1$
 }

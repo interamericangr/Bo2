@@ -1,7 +1,6 @@
 package gr.interamerican.bo2.quartz;
 
 import gr.interamerican.bo2.arch.Operation;
-import gr.interamerican.bo2.arch.ext.Session;
 
 import java.util.Map;
 
@@ -34,18 +33,6 @@ public interface QuartzJobDescritpionBean {
 	 * @param params
 	 */
 	void setParameters(Map<String, Object> params);
-
-	/**
-	 * @return the session
-	 */
-	Session<String, Long> getSession();
-
-	/**
-	 * sets the session. (optional)
-	 * 
-	 * @param session
-	 */
-	void setSession(Session<String, Long> session);
 
 	/**
 	 * @return execution status.

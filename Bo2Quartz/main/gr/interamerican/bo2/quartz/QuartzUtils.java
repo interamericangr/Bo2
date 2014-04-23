@@ -151,12 +151,10 @@ public class QuartzUtils {
 	 */
 	public static String submitJob(QuartzJobDescritpionBean bean) throws DataException {
 		Scheduler scheduler = QuartzSchedulerRegistry.getScheduler();
-		if (bean.getSession() == null) {
-			bean.setSession(Bo2Session.<String, Long> getSession());
-		}
 		bean.setExecutionStatus(JobStatus.SCHEDULED);
 		JobDataMap map = new JobDataMap();
 		map.put(QuartzConstants.BEAN_PROP, bean);
+		map.put(QuartzConstants.SESSION_PROP, Bo2Session.getSession());
 		String jobName = QuartzUtils.getJobName(bean);
 		String groupName = QuartzUtils.getJobGroupName(bean);
 		JobDetail job = newJob().withIdentity(jobName, groupName).withDescription(groupName)
