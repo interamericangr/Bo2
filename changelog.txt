@@ -1,0 +1,34 @@
+Class creation now supports covariant properties for abstract classes
+
+For example this is created now
+
+/**
+ * ICriteriaDependent implementation with covariant getter
+ */
+public abstract class CriteriaDependentImpl implements ICriteriaDependent<Object> {
+
+	/**
+	 * criteria
+	 */
+	@Property Object criteria;
+	
+	//covariant getter for getter inherited from ICriteriaDependent<Object>
+	public Date getCriteria() {
+		return (Date) criteria;
+	}
+
+}
+
+OnE people might want to see the following as proper use examples of dynamic queries extending StoredDynamicEntitiesQuery
+
+gr.interamerican.bo.def.pc.policy.issue.data.queries.GetUnderWritersForUserQuery
+gr.interamerican.bo.impl.pc.policy.issue.data.queries.GetUnderWritersForUserQueryImpl
+
+gr.interamerican.bo.def.pc.policy.issue.data.queries.InwardReinsurancePoliciesQuery
+gr.interamerican.bo.impl.pc.policy.issue.data.queries.InwardReinsurancePoliciesQueryImpl
+
+Each one of these has a unit and an integration test
+
+Reminders: 
+WorkerUtils#queryResultsAsConvertedList(EntitiesQuery<A>) : List<B> has been added to the API
+gr.interamerican.bo2.impl.open.jdbc.parsed.StoredDynamicPoQuery<P> is deprecated for some months now and will be removed from the API soon
