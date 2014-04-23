@@ -11,6 +11,7 @@ import gr.interamerican.bo2.quartz.samples.SampleOperation;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 
@@ -48,7 +49,14 @@ public class TestQuartzUtils {
 	@Test
 	public void testGetJobName() throws DataException {
 		QuartzUtils.submitJob(bean);
-		System.out.println(QuartzUtils.getJobName(bean));
+		Assert.assertNotNull(QuartzUtils.getJobName(bean));
+		Assert.assertEquals(bean.getOperationClass().getName(), QuartzUtils.getJobName(bean));
+		QuartzUtils.submitJob(beanWithParams);
+		Assert.assertNotNull(QuartzUtils.getJobName(beanWithParams));
+		Assert.assertNotEquals(beanWithParams.getOperationClass().getName(), QuartzUtils.getJobName(beanWithParams));
+		Assert.assertTrue(QuartzUtils.getJobName(beanWithParams).contains("100")); //$NON-NLS-1$
+		Assert.assertTrue(QuartzUtils.getJobName(beanWithParams).contains("waitTime")); //$NON-NLS-1$
+		System.out.println(QuartzUtils.getJobName(beanWithParams));
 	}
 
 	/**
