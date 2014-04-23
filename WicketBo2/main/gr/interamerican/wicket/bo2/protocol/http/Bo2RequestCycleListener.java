@@ -53,12 +53,12 @@ import org.apache.wicket.request.handler.IPageRequestHandler;
  */
 @SuppressWarnings("nls")
 public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
-	
+
 	/**
 	 * Deployment environment.
 	 */
 	static final TargetEnvironment TARGET_ENVIRONMENT = Bo2.getDefaultDeployment().getDeploymentBean().getTargetEnvironment();
-	
+
 	@Override
 	public void onBeginRequest(RequestCycle cycle) {
 		Bo2WicketRequestCycle.stats.cycles++;
@@ -78,15 +78,15 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 		} catch (InitializationException e) {
 			throw new RuntimeException(e);
 		}
-		
+
 	}
-	
+
 	@Override
 	public IRequestHandler onException(RequestCycle cycle, Exception ex) {
 		Throwable t = ExceptionUtils.unwrap(ex);
 		Bo2WicketRequestCycle.stats.updateExceptionStats(t);
 		Bo2WicketRequestCycle.get().error = true;
-		
+
 		//CouldNotCommitException will not require rollback here
 		if(!ExceptionUtils.isCausedBy(t, CouldNotCommitException.class)) {
 			try {
@@ -103,7 +103,7 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 		} else {
 			debug("Exception was CouldNotCommitException, will not attempt rollback");
 		}
-		
+
 		/*
 		 * If an invocation target exception is somewhere in the chain,
 		 * use its (non null) target to render the error stack trace.
@@ -112,33 +112,33 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 			InvocationTargetException itex = ExceptionUtils.causeInTheChain(t, InvocationTargetException.class);
 			t = Utils.notNull(itex.getTargetException(), t);
 		}
-		
+
 		IRequestablePage page = null;
 		IPageRequestHandler pageHandler = PageRequestHandlerTracker.getLastHandler(RequestCycle.get());
 		if(pageHandler!=null) {
 			page = pageHandler.getPage();
 		}
-		
+
 		IRequestHandler nextTarget = RequestCycle.get().getRequestHandlerScheduledAfterCurrent();
-		
+
 		if (page instanceof WicketOutputMedium) {
-			
+
 			/*
 			 * log the error first.
 			 */
 			error(ExceptionUtils.getThrowableStackTrace(t));
-			
+
 			WicketOutputMedium outputMedium = (WicketOutputMedium) page;
-			
+
 			AjaxRequestTarget ajaxRequestTarget = AjaxRequestTarget.get();
-			
+
 			/*
 			 * If there is no AjaxRequestTarget scheduled we schedule one in order to render the error.
 			 */
 			if(ajaxRequestTarget==null) {
 				ajaxRequestTarget = new AjaxRequestTarget((Page) page);
 				RequestCycle.get().scheduleRequestHandlerAfterCurrent(ajaxRequestTarget);
-				
+
 				/*
 				 * set the next target, only if none exists
 				 */
@@ -146,27 +146,27 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 					nextTarget = ajaxRequestTarget;
 				}
 			}
-			
+
 			outputMedium.showError(t, ajaxRequestTarget);
 		} else {
-			error("Could not display error from Throwable " + t.toString() 
-			  + StringConstants.NEWLINE + ExceptionUtils.getThrowableStackTrace(t));
+			error("Could not display error from Throwable " + t.toString()
+					+ StringConstants.NEWLINE + ExceptionUtils.getThrowableStackTrace(t));
 		}
-		
+
 		return nextTarget;
-		
+
 	}
-	
+
 	@Override
 	public void onRequestHandlerScheduled(RequestCycle cycle, IRequestHandler handler) {
 		clearErrorPanel();
 	}
-	
+
 	@Override
 	public void onRequestHandlerResolved(RequestCycle cycle, IRequestHandler handler) {
 		clearErrorPanel();
 	}
-	
+
 	@Override
 	public void onRequestHandlerExecuted(RequestCycle cycle, IRequestHandler handler) {
 		/*
@@ -176,27 +176,27 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 			debug("Nothing to do, an error was registered in the cycle.");
 			return;
 		}
-		
+
 		try {
 			TransactionManager manager = Bo2WicketRequestCycle.get().provider.getTransactionManager();
 			if(manager!=null) {
 				manager.commit();
-				debug("committed the transaction.");					
+				debug("committed the transaction.");
 			}
 		} catch (CouldNotCommitException cnce) {
 			emergencyLogAndEmail("CouldNotCommitException");
 			error("CouldNotCommitException: " + ExceptionUtils.getThrowableStackTrace(cnce));
-			throw new RuntimeException(cnce);		
+			throw new RuntimeException(cnce);
 		}
-		
+
 		try {
 			submitScheduledJobs();
 		} catch (DataException e) {
 			throw new RuntimeException(e);
 		}
-		
+
 	}
-	
+
 	@Override
 	public void onEndRequest(RequestCycle cycle) {
 		try {
@@ -209,7 +209,7 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 				debug("cleaned up.");
 			} catch (DataException de) {
 				error("DataException on cleanup: " + ExceptionUtils.getThrowableStackTrace(de));
-				throw new RuntimeException(de);		
+				throw new RuntimeException(de);
 			} finally {
 				Bo2Session.setSession(null);
 				Bo2Session.setProvider(null);
@@ -217,7 +217,7 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 			}
 		}
 	}
-	
+
 	/**
 	 * Submits any scheduled jobs in this unit of work IF it commits successfully.
 	 * 
@@ -226,10 +226,10 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 	void submitScheduledJobs() throws DataException {
 		JobScheduler jobScheduler = Factory.create(JobScheduler.class);
 		for(JobDescription jobDescription : Bo2WicketRequestCycle.get().jobs) {
-			jobScheduler.sumbitJob(jobDescription);
+			jobScheduler.submitJob(jobDescription);
 		}
 	}
-	
+
 	/**
 	 * Get session size in bytes estimation safely.
 	 * 
@@ -242,14 +242,14 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 		long size = Bo2WicketSession.get().getSizeInBytes();
 		return size > 0 ? size : 0L; //session serialization exception will return size -1L
 	}
-	
+
 	/**
 	 * Clears any messages from the error panel. This happens on the next Ajax request
 	 * after the error appeared.
 	 */
 	void clearErrorPanel() {
 		IPageRequestHandler pageHandler = PageRequestHandlerTracker.getLastHandler(RequestCycle.get());
-		if (pageHandler!=null && pageHandler.getPage() instanceof WicketOutputMedium) {
+		if ((pageHandler!=null) && (pageHandler.getPage() instanceof WicketOutputMedium)) {
 			WicketOutputMedium outputMedium = (WicketOutputMedium) pageHandler.getPage();
 			if(pageHandler instanceof AjaxRequestTarget) {
 				AjaxRequestTarget art = (AjaxRequestTarget) pageHandler;
@@ -257,7 +257,7 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 			}
 		}
 	}
-	
+
 	/**
 	 * Closes any worker opened during this cycle.
 	 * @return Returns the worker type names.
@@ -270,7 +270,7 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 		}
 		return sb.toString();
 	}
-	
+
 	/**
 	 * Writes a debug message through the logger.
 	 * 
@@ -281,7 +281,7 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 			Bo2WicketRequestCycle.LOGGER.debug(msg);
 		}
 	}
-	
+
 	/**
 	 * Writes an error message through the logger.
 	 * 
@@ -293,20 +293,20 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 			Bo2WicketRequestCycle.LOGGER.error(userid + ": " + msg);
 		}
 	}
-	
+
 	/*
 	 * These methods are temporary. Wicket 1.5 should not require these
 	 */
-	
+
 	/**
 	 * EMERGENCY LOG AND EMAIL
-	 * @param exceptionType 
+	 * @param exceptionType
 	 */
 	void emergencyLogAndEmail(String exceptionType) {
 		String msg = exceptionType + " for user " + Bo2Session.getUserId() + " and workers: " + workerNames() + " on " + new Date();
 		msg += "\nTransaction was active for " + Bo2WicketRequestCycle.get().timer.get() + " ms";
 		Bo2WicketRequestCycle.LOGGER.error(msg);
-		
+
 		try {
 			String[] recipients = recepients();
 			if(recipients == null) {
@@ -325,18 +325,18 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 			Bo2WicketRequestCycle.LOGGER.error("Failed to notify " + exceptionType + " by email due to: " + e.getMessage());
 		}
 	}
-	
+
 	/**
 	 * @return Emergency email recepients
 	 */
 	String[] recepients() {
 		switch(TARGET_ENVIRONMENT) {
-			case UAT:
-				return new String[]{"skondrasp", "katerosd", "sofrasth", "nakoss", "milonakisv"};
-			case PRODUCTION:
-				return new String[]{"zabelid", "katerosd", "sofrasth", "nakoss", "milonakisv"};
-			default:
-				return null;
+		case UAT:
+			return new String[]{"skondrasp", "katerosd", "sofrasth", "nakoss", "milonakisv"};
+		case PRODUCTION:
+			return new String[]{"zabelid", "katerosd", "sofrasth", "nakoss", "milonakisv"};
+		default:
+			return null;
 		}
 	}
 }
