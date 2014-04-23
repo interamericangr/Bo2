@@ -5,7 +5,10 @@ import gr.interamerican.bo2.arch.Operation;
 import java.util.Map;
 
 /**
- * 
+ * Description of a job that is scheduled. This includes:
+ * <li/> the class of an {@link Operation}
+ * <li/> the operation named parameters
+ * <li/> the name of the job
  */
 public interface JobDescription {
 
