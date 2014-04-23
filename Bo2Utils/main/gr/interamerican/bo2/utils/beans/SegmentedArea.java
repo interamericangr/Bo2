@@ -53,10 +53,26 @@ implements Serializable {
 			return null;
 		}
 		return ySegment.getValue(yDimension);
-		
-		
 	}
 	
+	/**
+	 * Indicates if this area contains the point that is defined by the specified 
+	 * x and y dimensions. 
+	 * 
+	 * @param xDimension
+	 * @param yDimension
+	 * 
+	 * @return Returns true if the point belongs to this area, otherwise 
+	 *         returns false.
+	 */
+	public boolean contains(X xDimension, Y yDimension) {
+		SegmentedDistance<Y, V> ySegment = xSegments.getValue(xDimension);
+		if (ySegment==null) {
+			return false;
+		}
+		return ySegment.contains(yDimension);		
+	}	
+		
 	/**
 	 * Defines a new segment of the area, that is defined by the specified
 	 * limits in the x and y dimensions.

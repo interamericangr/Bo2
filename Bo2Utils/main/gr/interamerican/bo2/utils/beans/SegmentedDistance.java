@@ -65,6 +65,8 @@ public class SegmentedDistance<A extends Comparable<? super A>,V> implements Ser
 		ranges.put(range,value);
 	}
 	
+	
+	
 	/**
 	 * Checks if the specified {@link Range} overlaps with any of the
 	 * ranges that compose this {@link SegmentedDistance}.
@@ -100,11 +102,39 @@ public class SegmentedDistance<A extends Comparable<? super A>,V> implements Ser
 	public V getValue(A dimension) {
 		Range<A> range = getRange(dimension);
 		if (range!=null) {
-			return ranges.get(range);
-			
+			return ranges.get(range);			
 		}
 		return null;
 	}
+	
+	/**
+	 * Gets the value that is associated with the specified range. 
+	 * 
+	 * @param range 
+	 * 
+	 * @return Returns the value associated with the specified range.
+	 *         If there is no value associated with the specified range,
+	 *         then returns null.  
+	 */
+	public V getValue(Range<A> range) {
+		return ranges.get(range);
+	}
+	
+	/**
+	 * Indicates if the specified dimension belongs to this SegmentedDistance. 
+	 * 
+	 * @param dimension
+	 * 
+	 * @return Returns <code>true</code>> if there this distance contains
+	 * a {@link Range} that contains the specified <code>dimension</code>
+	 * value. Otherwise returns <code>false</code>.  
+	 */
+	public boolean contains(A dimension) {
+		Range<A> range = getRange(dimension);
+		return range!=null;
+	}
+	
+	
 	
 	/**
 	 * Gets the value that is associated with the range that

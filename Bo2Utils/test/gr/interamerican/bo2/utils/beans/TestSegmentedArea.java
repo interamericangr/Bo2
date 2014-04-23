@@ -72,7 +72,7 @@ public class TestSegmentedArea {
 	}
 	
 	/**
-	 * tests setValue().
+	 * tests getValue(x,y).
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -98,6 +98,20 @@ public class TestSegmentedArea {
 	}
 	
 	/**
+	 * tests getContains(x,y).
+	 */	
+	@Test
+	public void testContains() {
+		SegmentedArea<Integer, Long, String> area = 
+				new SegmentedArea<Integer, Long, String>();
+		fixArea(area);
+		Assert.assertTrue(area.contains(2, 2L));
+		Assert.assertTrue(area.contains(4, 2L));
+		Assert.assertFalse(area.contains(-6, 12L));
+		Assert.assertFalse(area.contains(2, 52L));	
+	}
+	
+	/**
 	 * tests setValue().
 	 */
 	@SuppressWarnings("nls")
@@ -117,6 +131,35 @@ public class TestSegmentedArea {
 		Assert.assertTrue(values.contains("B"));
 		Assert.assertTrue(values.contains("C"));
 		Assert.assertTrue(values.contains(null));
+	}
+	
+	/**
+	 * tests getSegmentsX().
+	 */	
+	@Test
+	public void testGetSegmentsX() {
+		SegmentedArea<Integer, Long, String> area = 
+				new SegmentedArea<Integer, Long, String>();
+		fixArea(area);
+		Set<Range<Integer>> xseg = area.getSegmentsX();
+		Assert.assertEquals(3, xseg.size());
+		Assert.assertTrue(xseg.contains(new Range<Integer>(0,5)));
+		Assert.assertTrue(xseg.contains(new Range<Integer>(6,10)));
+		Assert.assertTrue(xseg.contains(new Range<Integer>(11,15)));
+	}
+	
+	/**
+	 * tests getSegmentsY().
+	 */	
+	@Test
+	public void testGetSegmentsY() {
+		SegmentedArea<Integer, Long, String> area = 
+				new SegmentedArea<Integer, Long, String>();
+		fixArea(area);
+		Set<Range<Long>> yseg = area.getSegmentsY();
+		Assert.assertEquals(2, yseg.size());
+		Assert.assertTrue(yseg.contains(new Range<Long>(0L,5L)));
+		Assert.assertTrue(yseg.contains(new Range<Long>(6L,20L)));
 	}
 
 }

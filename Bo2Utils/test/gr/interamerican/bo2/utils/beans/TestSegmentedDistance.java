@@ -65,10 +65,10 @@ public class TestSegmentedDistance {
 	}
 	
 	/**
-	 * Tests setRange.
+	 * Tests getValue(a).
 	 */
 	@Test
-	public void testGetValue() {
+	public void testGetValue_A() {
 		SegmentedDistance<Integer, Object> distance = new SegmentedDistance<Integer, Object>();
 		Object o1 = new Object();
 		Object o2 = new Object();
@@ -78,6 +78,22 @@ public class TestSegmentedDistance {
 		Assert.assertEquals(o1, distance.getValue(5));
 		Assert.assertEquals(o2, distance.getValue(10));
 		Assert.assertNull(distance.getValue(25));
+	}
+	
+	/**
+	 * Tests getValue(a).
+	 */
+	@Test
+	public void testContains() {
+		SegmentedDistance<Integer, Object> distance = new SegmentedDistance<Integer, Object>();
+		Object o1 = new Object();
+		Object o2 = new Object();
+		distance.setValue(0, 5, o1);
+		distance.setValue(6, 13, o2);
+		Assert.assertTrue(distance.contains(3));
+		Assert.assertTrue(distance.contains(5));
+		Assert.assertTrue(distance.contains(10));
+		Assert.assertFalse(distance.contains(25));		
 	}
 	
 	/**
@@ -138,6 +154,28 @@ public class TestSegmentedDistance {
 		Assert.assertTrue(values.contains(o1));
 		Assert.assertTrue(values.contains(null));
 	}
+	
+	/**
+	 * Tests getValue(range).
+	 */
+	@Test
+	public void testGetValue_Range() {
+		SegmentedDistance<Integer, Object> distance = new SegmentedDistance<Integer, Object>();
+		Object o1 = new Object();
+		Object o2 = new Object();
+		distance.setValue(0, 5, o1);
+		distance.setValue(6, 13, o2);
+		Range<Integer> r1 = new Range<Integer>(0,5);
+		Range<Integer> r2 = new Range<Integer>(6,13);
+		Range<Integer> r3 = new Range<Integer>(0,13);
+		
+		Assert.assertEquals(o1, distance.getValue(r1));
+		Assert.assertEquals(o2, distance.getValue(r2));
+		Assert.assertNull(distance.getValue(r3));		
+	}
+	
+	
+	
 	
 	
 	
