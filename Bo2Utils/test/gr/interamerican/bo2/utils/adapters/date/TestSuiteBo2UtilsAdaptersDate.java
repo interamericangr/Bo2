@@ -12,11 +12,6 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.adapters.date;
 
-import gr.interamerican.bo2.utils.adapters.date.TestDayOfMonth;
-import gr.interamerican.bo2.utils.adapters.date.TestDaysDiffFromEpoch;
-import gr.interamerican.bo2.utils.adapters.date.TestMonth;
-import gr.interamerican.bo2.utils.adapters.date.TestYear;
-
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;

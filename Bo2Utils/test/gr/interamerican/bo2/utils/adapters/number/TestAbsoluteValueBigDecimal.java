@@ -1,7 +1,5 @@
 package gr.interamerican.bo2.utils.adapters.number;
 
-import gr.interamerican.bo2.utils.adapters.number.AbsoluteValueBigDecimal;
-
 import java.math.BigDecimal;
 
 import org.junit.Assert;

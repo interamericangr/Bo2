@@ -1,9 +1,9 @@
 package gr.interamerican.bo2.utils.adapters.number;
 
-import java.math.BigDecimal;
-
 import gr.interamerican.bo2.utils.adapters.Transformation;
 import gr.interamerican.bo2.utils.beans.TypeBasedSelection;
+
+import java.math.BigDecimal;
 
 /**
  * {@link Transformation} that returns the absolute value of the argument.

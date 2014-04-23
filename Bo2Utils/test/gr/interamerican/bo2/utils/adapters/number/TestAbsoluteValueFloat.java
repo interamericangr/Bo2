@@ -1,7 +1,5 @@
 package gr.interamerican.bo2.utils.adapters.number;
 
-import gr.interamerican.bo2.utils.adapters.number.AbsoluteValueFloat;
-
 import org.junit.Assert;
 import org.junit.Test;
 

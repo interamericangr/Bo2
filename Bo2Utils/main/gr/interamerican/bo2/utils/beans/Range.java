@@ -12,9 +12,9 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.beans;
 
-import java.util.Collection;
-
 import gr.interamerican.bo2.utils.Utils;
+
+import java.util.Collection;
 
 
 /**

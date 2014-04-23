@@ -1,7 +1,6 @@
 package gr.interamerican.bo2.utils.adapters.date;
 
 import gr.interamerican.bo2.utils.DateUtils;
-import gr.interamerican.bo2.utils.adapters.date.Year;
 
 import java.util.Calendar;
 import java.util.Date;

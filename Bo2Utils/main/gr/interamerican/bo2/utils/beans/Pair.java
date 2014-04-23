@@ -12,10 +12,10 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.beans;
 
-import java.io.Serializable;
-
 import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.Utils;
+
+import java.io.Serializable;
 
 /**
  * A pair of two objects, the left and right objects.

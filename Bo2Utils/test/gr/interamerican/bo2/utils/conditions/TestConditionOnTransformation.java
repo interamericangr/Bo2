@@ -12,8 +12,8 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.conditions;
 
-import gr.interamerican.bo2.utils.adapters.Transformation;
 import gr.interamerican.bo2.utils.adapters.GetTheSame;
+import gr.interamerican.bo2.utils.adapters.Transformation;
 import gr.interamerican.bo2.utils.comparators.SpecificNumberComparator;
 
 import org.junit.Assert;

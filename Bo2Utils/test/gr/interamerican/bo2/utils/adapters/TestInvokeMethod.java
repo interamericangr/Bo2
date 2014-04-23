@@ -1,9 +1,8 @@
 package gr.interamerican.bo2.utils.adapters;
 
-import org.junit.Assert;
-
 import gr.interamerican.bo2.samples.bean.BeanWithString;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 

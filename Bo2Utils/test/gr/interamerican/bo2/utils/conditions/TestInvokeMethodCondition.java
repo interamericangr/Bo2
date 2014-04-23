@@ -1,10 +1,8 @@
 package gr.interamerican.bo2.utils.conditions;
 
-import org.junit.Assert;
-
-import gr.interamerican.bo2.samples.bean.BeanWithString;
 import gr.interamerican.bo2.utils.StringUtils;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
 
