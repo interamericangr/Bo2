@@ -67,5 +67,19 @@ public interface JobDescription {
 	 * @param jobName the jobName to set
 	 */
 	void setJobName(String jobName);
+	
+	/**
+	 * Gets the synchronous.
+	 * 
+	 * @return synchronous
+	 */
+	boolean isSynchronous();
+	
+	/**
+	 * Assigns a new value to the synchronous.
+	 * 
+	 * @param synchronous
+	 */
+	void setSynchronous(boolean synchronous);
 
 }
