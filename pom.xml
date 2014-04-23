@@ -35,6 +35,7 @@
 		<version.wicket>1.5.11</version.wicket>
 		<version.servlet-api>2.5</version.servlet-api>
 		<version.hibernate-core>3.6.8.Final</version.hibernate-core>
+		<version.quartz-all>2.2.1</version.quartz-all>
 
 		<version.nbda-bo>1.5.0003</version.nbda-bo>
 		<version.jwf>1.0.0001</version.jwf>
@@ -426,6 +427,12 @@
 				<version>${version.jwf}</version>
 			</dependency>
 
+			<dependency>
+				<groupId>org.quartz-scheduler</groupId>
+				<artifactId>quartz</artifactId>
+				<version>${version.quartz-all}</version>
+			</dependency>
+
 		</dependencies>
 	</dependencyManagement>
 
@@ -449,6 +456,7 @@
 		<module>Bo2ImplJee</module>
 		<module>Bo2ImplJotm</module>
 		<module>Bo2Gui</module>
+		<module>Bo2Quartz</module>
 		<module>WicketUtils</module>
 		<module>WicketBo2</module>
 		<module>Bo2TestsDeploymentHibernate</module>
