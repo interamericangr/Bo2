@@ -13,7 +13,6 @@ import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.arch.ext.Session;
 import gr.interamerican.bo2.arch.utils.ext.Bo2Session;
 import gr.interamerican.bo2.impl.open.creation.Factory;
-import gr.interamerican.bo2.impl.open.job.JobDescription;
 import gr.interamerican.bo2.impl.open.job.JobScheduler;
 import gr.interamerican.bo2.impl.open.utils.Bo2;
 import gr.interamerican.bo2.utils.ExceptionUtils;
@@ -225,11 +224,7 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 	 */
 	void submitScheduledJobs() throws DataException {
 		JobScheduler jobScheduler = Factory.create(JobScheduler.class);
-		/*
-		 * synchronous jobs last
-		 */
 		jobScheduler.submitJobs(Bo2WicketRequestCycle.get().jobs, false);
-		jobScheduler.submitJobs(Bo2WicketRequestCycle.get().synchronousJobs, true);
 	}
 
 	/**
