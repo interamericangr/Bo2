@@ -23,6 +23,12 @@ import org.quartz.TriggerBuilder;
  */
 public class JobSchedulerImpl implements JobScheduler {
 
+	/**
+	 * submits a single job.
+	 * 
+	 * @param jobDescription
+	 * @throws DataException
+	 */
 	void submitJob(JobDescription jobDescription) throws DataException {
 		Scheduler scheduler = QuartzSchedulerRegistry.getScheduler();
 		jobDescription.setExecutionStatus(JobStatus.SCHEDULED);
