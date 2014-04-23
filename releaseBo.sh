@@ -33,7 +33,7 @@ then
         exit -1
 fi
 
-echo $(cat changelog.txt) | mail -s "Bo2 $release released" `cat recipientsOne.txt`
+mail -s "Bo2 $release released" `cat recipientsOne.txt` < changelog.txt
 
 :>changelog.txt
 
