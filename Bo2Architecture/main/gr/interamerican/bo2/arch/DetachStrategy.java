@@ -77,7 +77,7 @@ public interface DetachStrategy extends Serializable {
 	 * For environments with managed entities, such as ORM implementations, the 
 	 * semantics of this are as follows:
 	 * <br/><br/>
-	 * <li>A previous call to {@link #reattach(Object, Provider)} or {@link #reattachForUpdate(Object, Provider)
+	 * <li>A previous call to {@link #reattach(Object, Provider)} or {@link #reattachForUpdate(Object, Provider)}
 	 * has been performed.
 	 * <br/><br/>
 	 * <li>Side-effects of this call on the object are reset here.
