@@ -48,7 +48,7 @@ public class QuartzUtils {
 			List<String> sortedKeys = new ArrayList<String>(map.keySet());
 			Collections.sort(sortedKeys);
 			for (String key : sortedKeys) {
-				name += NAME_DELIMITER + NAME_DELIMITER + map.get(key);
+				name += NAME_DELIMITER + key + NAME_DELIMITER + map.get(key);
 			}
 		}
 		return name;
