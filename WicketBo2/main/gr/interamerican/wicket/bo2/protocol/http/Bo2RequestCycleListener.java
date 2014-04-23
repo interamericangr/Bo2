@@ -12,8 +12,6 @@ import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.arch.ext.Session;
 import gr.interamerican.bo2.arch.utils.ext.Bo2Session;
-import gr.interamerican.bo2.impl.open.creation.Factory;
-import gr.interamerican.bo2.impl.open.job.JobScheduler;
 import gr.interamerican.bo2.impl.open.utils.Bo2;
 import gr.interamerican.bo2.utils.ExceptionUtils;
 import gr.interamerican.bo2.utils.StringConstants;
@@ -188,12 +186,6 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 			throw new RuntimeException(cnce);
 		}
 
-		try {
-			submitScheduledJobs();
-		} catch (DataException e) {
-			throw new RuntimeException(e);
-		}
-
 	}
 
 	@Override
@@ -215,16 +207,6 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 				Bo2WicketRequestCycle.release();
 			}
 		}
-	}
-
-	/**
-	 * Submits any scheduled jobs in this unit of work IF it commits successfully.
-	 * 
-	 * @throws DataException
-	 */
-	void submitScheduledJobs() throws DataException {
-		JobScheduler jobScheduler = Factory.create(JobScheduler.class);
-		jobScheduler.submitJobs(Bo2WicketRequestCycle.get().jobs, false);
 	}
 
 	/**

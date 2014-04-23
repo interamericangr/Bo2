@@ -140,15 +140,6 @@ public class RuntimeCommand {
 	}
 	
 	/**
-	 * Work to do only if the unit of work commits successfully.
-	 * 
-	 * @throws DataException 
-	 */
-	protected void onCommittedSuccessfully() throws DataException {
-		/* empty */
-	}
-	
-	/**
 	 * Executable method of the command.
 	 * 
 	 * @throws DataException
@@ -258,11 +249,7 @@ public class RuntimeCommand {
 	void commit() throws UnexpectedException {
 		try {
 			transactionManager.commit();
-			onCommittedSuccessfully();
 		} catch (CouldNotCommitException e) {			
-			e.printStackTrace();
-			throw new UnexpectedException(e);
-		} catch(DataException e) {
 			e.printStackTrace();
 			throw new UnexpectedException(e);
 		}

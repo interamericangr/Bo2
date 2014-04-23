@@ -22,7 +22,6 @@ import gr.interamerican.bo2.arch.exceptions.LogicException;
 import gr.interamerican.bo2.arch.exceptions.UnexpectedException;
 import gr.interamerican.bo2.impl.open.creation.Factory;
 import gr.interamerican.bo2.impl.open.job.JobDescription;
-import gr.interamerican.bo2.impl.open.job.JobScheduler;
 import gr.interamerican.bo2.impl.open.workers.AbstractOperation;
 
 import java.util.ArrayList;
@@ -158,16 +157,6 @@ extends RuntimeCommand {
 		((RuntimeLayerAdapter)operation).workers.add(w);
 	}
 	
-	@Override
-	protected void onCommittedSuccessfully() throws DataException {
-		JobScheduler jobScheduler = Factory.create(JobScheduler.class);
-		/*
-		 * synchronous jobs last
-		 */
-		jobScheduler.submitJobs(((RuntimeLayerAdapter)operation).jobs, false);
-		jobScheduler.submitJobs(((RuntimeLayerAdapter)operation).synchronousJobs, true);
-	}
-		
 	/**
 	 * main method.
 	 * 
