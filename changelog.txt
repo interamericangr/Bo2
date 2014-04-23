@@ -3,7 +3,7 @@ This project is a facade project for the Quartz library fitted into our needs. A
 
 Users may schedule jobs associated with a specific unit of work using
 
-+ AbstractBo2RuntimeCommand#schedule(JobDescription description) : void (batch)
-+ Bo2WicketRequestCycle#schedule(JobDescription description) : void (web)
++ AbstractBo2RuntimeCommand#schedule(JobDescription description, boolean synchronous) : void (batch)
++ Bo2WicketRequestCycle#schedule(JobDescription description, boolean synchronous) : void (web)
 
-The scheduled jobs are submitted to the scheduler if and only if the UOW commits successfully.
+The scheduled jobs are submitted to the scheduler if and only if the UOW commits successfully. Synchronous jobs, if any, are submitted last.
