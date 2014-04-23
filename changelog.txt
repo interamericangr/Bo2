@@ -1,0 +1,9 @@
+Added Bo2Quartz
+
+
+Users may schedule jobs associated with a specific unit of work using
+
++ AbstractBo2RuntimeCommand#schedule(JobDescription description) : void (batch)
++ Bo2WicketRequestCycle#schedule(JobDescription description) : void (web)
+
+The scheduled jobs are submitted to the scheduler if and only if the UOW commits successfully.
