@@ -1,6 +1,3 @@
-/**
- * 
- */
 package gr.interamerican.bo2.quartz;
 
 import gr.interamerican.bo2.arch.exceptions.DataException;
