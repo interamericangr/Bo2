@@ -8,6 +8,8 @@ import gr.interamerican.bo2.impl.open.job.JobScheduler;
 import gr.interamerican.bo2.impl.open.job.JobStatus;
 import gr.interamerican.bo2.quartz.schedule.GenericQuartzJob;
 
+import java.util.List;
+
 import org.quartz.JobDataMap;
 import org.quartz.JobDetail;
 import org.quartz.Scheduler;
@@ -22,7 +24,7 @@ import org.quartz.TriggerBuilder;
 public class JobSchedulerImpl implements JobScheduler {
 
 	@Override
-	public String submitJob(JobDescription jobDescription) throws DataException {
+	public void submitJob(JobDescription jobDescription) throws DataException {
 		Scheduler scheduler = QuartzSchedulerRegistry.getScheduler();
 		jobDescription.setExecutionStatus(JobStatus.SCHEDULED);
 		JobDataMap map = new JobDataMap();
@@ -39,6 +41,17 @@ public class JobSchedulerImpl implements JobScheduler {
 			throw new DataException(e);
 		}
 		jobDescription.setJobName(jobName);
-		return jobName;
+	}
+
+	@Override
+	public void submitJobs(List<JobDescription> jobDescriptions, boolean synchronous) throws DataException {
+		for (JobDescription description : jobDescriptions) {
+			submitJob(description);
+		}
+		if (synchronous) {
+			for (JobDescription description : jobDescriptions) {
+				QuartzUtils.waitJobToComplete(description);
+			}
+		}
 	}
 }
