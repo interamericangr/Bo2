@@ -6,7 +6,9 @@ import gr.interamerican.bo2.impl.open.job.JobDescription;
 import gr.interamerican.bo2.impl.open.job.JobScheduler;
 import gr.interamerican.bo2.quartz.samples.SampleOperation;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -41,6 +43,24 @@ public class TestQuartzUtils {
 	}
 
 	/**
+	 * single bean list
+	 */
+	public static final List<JobDescription> singleBeanList;
+	static{
+		singleBeanList=new ArrayList<JobDescription>();
+		singleBeanList.add(bean);
+	}
+	/**
+	 * single bean list
+	 */
+	public static final List<JobDescription> dualBeanList;
+	static{
+		dualBeanList=new ArrayList<JobDescription>();
+		dualBeanList.add(bean);
+		dualBeanList.add(beanWithParams);
+	}
+
+	/**
 	 * Test method for {@link gr.interamerican.bo2.quartz.QuartzUtils#getJobName(JobDescription)}.
 	 * 
 	 * @throws DataException
@@ -48,10 +68,9 @@ public class TestQuartzUtils {
 	@Test
 	public void testGetJobName() throws DataException {
 		JobScheduler jobScheduler = Factory.create(JobScheduler.class);
-		jobScheduler.submitJob(bean);
+		jobScheduler.submitJobs(dualBeanList);
 		Assert.assertNotNull(QuartzUtils.getJobName(bean));
 		Assert.assertEquals(bean.getOperationClass().getName(), QuartzUtils.getJobName(bean));
-		jobScheduler.submitJob(beanWithParams);
 		Assert.assertNotNull(QuartzUtils.getJobName(beanWithParams));
 		Assert.assertNotEquals(beanWithParams.getOperationClass().getName(), QuartzUtils.getJobName(beanWithParams));
 		Assert.assertTrue(QuartzUtils.getJobName(beanWithParams).contains("100")); //$NON-NLS-1$
@@ -89,7 +108,7 @@ public class TestQuartzUtils {
 	@Test
 	public void testGetScheduledJobKeys() throws DataException {
 		JobScheduler jobScheduler = Factory.create(JobScheduler.class);
-		jobScheduler.submitJob(bean);
+		jobScheduler.submitJobs(singleBeanList);
 		Set<JobKey> s = QuartzUtils.getScheduledJobKeys(QuartzUtils.getJobGroupName(bean));
 		Assert.assertNotNull(s);
 		QuartzUtils.waitJobToComplete(bean);
@@ -103,7 +122,7 @@ public class TestQuartzUtils {
 	@Test
 	public void testGetNumberOfScheduledJobs() throws DataException {
 		JobScheduler jobScheduler = Factory.create(JobScheduler.class);
-		jobScheduler.submitJob(bean);
+		jobScheduler.submitJobs(singleBeanList);
 		Assert.assertEquals(1, QuartzUtils.getNumberOfScheduledJobs(QuartzUtils.getJobGroupName(bean)));
 		Assert.assertEquals(1, QuartzUtils.getNumberOfScheduledJobs(null));
 		QuartzUtils.waitJobToComplete(bean);
@@ -128,7 +147,7 @@ public class TestQuartzUtils {
 	@Test
 	public void testIsJobScheduled() throws DataException {
 		JobScheduler jobScheduler = Factory.create(JobScheduler.class);
-		jobScheduler.submitJob(bean);
+		jobScheduler.submitJobs(singleBeanList);
 		Assert.assertTrue(QuartzUtils.isJobScheduled(QuartzUtils.getJobGroupName(SampleOperation.class),
 				bean.getJobName()));
 		Assert.assertTrue(QuartzUtils.isJobScheduled(null, bean.getJobName()));

@@ -23,8 +23,7 @@ import org.quartz.TriggerBuilder;
  */
 public class JobSchedulerImpl implements JobScheduler {
 
-	@Override
-	public void submitJob(JobDescription jobDescription) throws DataException {
+	void submitJob(JobDescription jobDescription) throws DataException {
 		Scheduler scheduler = QuartzSchedulerRegistry.getScheduler();
 		jobDescription.setExecutionStatus(JobStatus.SCHEDULED);
 		JobDataMap map = new JobDataMap();
@@ -44,12 +43,12 @@ public class JobSchedulerImpl implements JobScheduler {
 	}
 
 	@Override
-	public void submitJobs(List<JobDescription> jobDescriptions, boolean synchronous) throws DataException {
+	public void submitJobs(List<JobDescription> jobDescriptions) throws DataException {
 		for (JobDescription description : jobDescriptions) {
 			submitJob(description);
 		}
-		if (synchronous) {
-			for (JobDescription description : jobDescriptions) {
+		for (JobDescription description : jobDescriptions) {
+			if (description.isSynchronous()) {
 				QuartzUtils.waitJobToComplete(description);
 			}
 		}
