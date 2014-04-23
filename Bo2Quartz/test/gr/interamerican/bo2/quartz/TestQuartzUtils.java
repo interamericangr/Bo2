@@ -56,7 +56,6 @@ public class TestQuartzUtils {
 		Assert.assertNotEquals(beanWithParams.getOperationClass().getName(), QuartzUtils.getJobName(beanWithParams));
 		Assert.assertTrue(QuartzUtils.getJobName(beanWithParams).contains("100")); //$NON-NLS-1$
 		Assert.assertTrue(QuartzUtils.getJobName(beanWithParams).contains("waitTime")); //$NON-NLS-1$
-		System.out.println(QuartzUtils.getJobName(beanWithParams));
 	}
 
 	/**
