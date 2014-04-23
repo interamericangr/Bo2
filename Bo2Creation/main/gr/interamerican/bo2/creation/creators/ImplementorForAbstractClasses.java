@@ -607,7 +607,8 @@ extends AbstractClassCreator {
 		if (!ReflectionUtils.isAbstractClass(type)) {
 			throw CodeGenerationUtilities.typeNotSupported(type);
 		}
-		if (analysis.isContainsOddProperties()) {
+		
+		if (analysis.isContainsOddProperties() && !canSupportOddProperties()) {
 			throw cantSupportOddProperties();
 		}
 	}

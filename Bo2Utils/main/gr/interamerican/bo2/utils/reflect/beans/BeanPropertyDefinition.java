@@ -222,5 +222,19 @@ public class BeanPropertyDefinition<T> extends VariableDefinition<T> {
 	public boolean isGeneric() {
 		return (genericType instanceof TypeVariable);
 	}
+	
+	/**
+	 * @return True, if this property is read only
+	 */
+	public boolean isReadOnly() {
+		return getGetter()!=null && getSetter()==null;
+	}
+	
+	/**
+	 * @return True, if this property is write only
+	 */
+	public boolean isWriteOnly() {
+		return getGetter()==null && getSetter()!=null;
+	}
 
 }

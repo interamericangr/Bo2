@@ -483,6 +483,60 @@ implements ClassCreator {
 	}
 	
 	/**
+	 * Maybe odd properties can be supported after all
+	 * 
+	 * @see #covariant(BeanPropertyDefinition, BeanPropertyDefinition)
+	 * 
+	 * @return True, if we can support all the odd properties
+	 */
+	protected boolean canSupportOddProperties() {
+		for(BeanPropertyDefinition<?> bpd : analysis.getOddProperties()) {
+			List<BeanPropertyDefinition<?>> sameNamed = analysis.getPropertiesByName(bpd.getName());
+			sameNamed.remove(bpd);
+			for(BeanPropertyDefinition<?> bpd2 : sameNamed) {
+				if(!covariant(bpd, bpd2)) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	
+	/**
+	 * Two BeanPropertyDefinitions that: 
+	 * <li>have the same name
+	 * <li>one is readOnly and the other writeOnly
+	 * <li>the getter retrun type is a sub-type of the setter argument type
+	 * are covariant
+	 * 
+	 * @param one
+	 * @param two
+	 * 
+	 * TODO: add this to BeanPropertyDefinition api?
+	 * 
+	 * @return True, if they are covariant.
+	 */
+	private boolean covariant(BeanPropertyDefinition<?> one, BeanPropertyDefinition<?> two) {
+		boolean couldBeCov = one.getName().equals(two.getName()) && (one.isReadOnly() && two.isWriteOnly()) || (one.isWriteOnly() && two.isReadOnly());
+		if(!couldBeCov) {
+			return false;
+		}
+		
+		Class<?> getterType = null;
+		Class<?> setterType = null;
+		
+		if(one.isReadOnly()) {
+			getterType = one.getGetter().getReturnType();
+			setterType = two.getSetter().getParameterTypes()[0];
+		} else {
+			getterType = two.getGetter().getReturnType();
+			setterType = one.getSetter().getParameterTypes()[0];
+		}
+		
+		return setterType.isAssignableFrom(getterType);
+	}
+	
+	/**
 	 * Checks if all methods have been implemented and if not
 	 * returns a ClassCreationException, otherwise returns null.
 	 * 

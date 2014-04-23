@@ -84,7 +84,7 @@ extends AbstractClassCreator {
 		if (analysis.isContainsAbstractMethods()) {
 			throw cantImplementAllMethods(analysis.getAbstractMethods());
 		}		
-		if (analysis.isContainsOddProperties()) {
+		if (analysis.isContainsOddProperties() && !canSupportOddProperties()) {
 			throw cantSupportOddProperties();
 		}
 	}
