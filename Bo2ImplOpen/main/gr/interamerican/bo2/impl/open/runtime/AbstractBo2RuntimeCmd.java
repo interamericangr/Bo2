@@ -118,9 +118,16 @@ extends RuntimeCommand {
 	 * this unit of work commits successfully.
 	 * 
 	 * @param description
+	 * 
+	 * @param synchronous 
+	 *        If this is true, the scheduler will wait for the jobs to finish
 	 */
-	protected final void schedule(JobDescription description) {
-		((RuntimeLayerAdapter)operation).jobs.add(description);
+	protected final void schedule(JobDescription description, boolean synchronous) {
+		if(synchronous) {
+			((RuntimeLayerAdapter)operation).synchronousJobs.add(description);
+		} else {
+			((RuntimeLayerAdapter)operation).jobs.add(description);
+		}
 	}
 
 	/**
@@ -154,9 +161,8 @@ extends RuntimeCommand {
 	@Override
 	protected void onCommittedSuccessfully() throws DataException {
 		JobScheduler jobScheduler = Factory.create(JobScheduler.class);
-		for(JobDescription jobDescription : ((RuntimeLayerAdapter)operation).jobs) {
-			jobScheduler.submitJob(jobDescription);
-		}
+		jobScheduler.submitJobs(((RuntimeLayerAdapter)operation).jobs, false);
+		jobScheduler.submitJobs(((RuntimeLayerAdapter)operation).synchronousJobs, true);
 	}
 		
 	/**
@@ -178,14 +184,19 @@ extends RuntimeCommand {
 	extends AbstractOperation {
 		
 		/**
-		 * Workers created by this operation. 
+		 * Workers created in this uow
 		 */
 		List<Worker> workers = new ArrayList<Worker>();
 		
 		/**
-		 * Jobs scheduled by this operation.
+		 * Jobs scheduled in this uow
 		 */
 		List<JobDescription> jobs = new ArrayList<JobDescription>();
+		
+		/**
+		 * Jobs scheduled in this uow that must be executed synchronously.
+		 */
+		List<JobDescription> synchronousJobs = new ArrayList<JobDescription>();
 	
 		@Override
 		public void close() throws DataException {
