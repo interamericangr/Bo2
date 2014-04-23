@@ -12,9 +12,9 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.records;
 
-import java.nio.charset.Charset;
-
 import gr.interamerican.bo2.arch.records.Record;
+
+import java.nio.charset.Charset;
 
 /**
  * Simple implementation of {@link Record}.

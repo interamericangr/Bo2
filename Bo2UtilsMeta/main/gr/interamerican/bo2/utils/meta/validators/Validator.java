@@ -12,9 +12,9 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.meta.validators;
 
-import java.io.Serializable;
-
 import gr.interamerican.bo2.utils.meta.exceptions.ValidationException;
+
+import java.io.Serializable;
 
 /**
  * A Validator validates a value, according to some validation rules.

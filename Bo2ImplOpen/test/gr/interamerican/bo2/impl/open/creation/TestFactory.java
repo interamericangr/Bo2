@@ -13,8 +13,8 @@
 package gr.interamerican.bo2.impl.open.creation;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import gr.interamerican.bo2.arch.DetachStrategy;
@@ -27,11 +27,6 @@ import gr.interamerican.bo2.samples.interfaces.SmartCalc;
 import gr.interamerican.bo2.utils.reflect.beans.VariableDefinition;
 
 import java.lang.reflect.Field;
-
-
-
-
-
 
 import org.junit.Test;
 import org.mockito.Mockito;

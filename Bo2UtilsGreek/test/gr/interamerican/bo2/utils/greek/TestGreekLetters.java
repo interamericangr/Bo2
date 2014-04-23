@@ -3,7 +3,6 @@ package gr.interamerican.bo2.utils.greek;
 import java.util.Set;
 
 import org.junit.Assert;
-
 import org.junit.Test;
 
 /**

@@ -1,13 +1,18 @@
 package gr.interamerican.bo2.arch.utils;
 
-import static gr.interamerican.bo2.arch.utils.Bo2ExceptionUtils.*;
-
-import org.junit.Test;
-
+import static gr.interamerican.bo2.arch.utils.Bo2ExceptionUtils.throwDataLogicOrUnexpectedException;
+import static gr.interamerican.bo2.arch.utils.Bo2ExceptionUtils.throwDataOrLogicException;
+import static gr.interamerican.bo2.arch.utils.Bo2ExceptionUtils.throwIfIsDataException;
+import static gr.interamerican.bo2.arch.utils.Bo2ExceptionUtils.throwIfIsError;
+import static gr.interamerican.bo2.arch.utils.Bo2ExceptionUtils.throwIfIsInitializationException;
+import static gr.interamerican.bo2.arch.utils.Bo2ExceptionUtils.throwIfIsLogicException;
+import static gr.interamerican.bo2.arch.utils.Bo2ExceptionUtils.throwInitDataLogicBo2dliException;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
 import gr.interamerican.bo2.arch.exceptions.UnexpectedException;
+
+import org.junit.Test;
 
 /**
  * Tests for {@link Bo2ExceptionUtils}.

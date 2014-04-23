@@ -18,8 +18,8 @@ import gr.interamerican.bo2.odftoolkit.OdfToolkitTextDocument;
 import gr.interamerican.bo2.utils.AdapterUtils;
 import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.StringUtils;
-import gr.interamerican.bo2.utils.adapters.Transformation;
 import gr.interamerican.bo2.utils.adapters.GetProperty;
+import gr.interamerican.bo2.utils.adapters.Transformation;
 import gr.interamerican.bo2.utils.doc.BusinessDocument;
 import gr.interamerican.bo2.utils.doc.DocumentEngineException;
 

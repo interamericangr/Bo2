@@ -1,6 +1,10 @@
 package gr.interamerican.bo2.utils.greek;
 
-import static gr.interamerican.bo2.utils.greek.GreekUtils.*;
+import static gr.interamerican.bo2.utils.greek.GreekUtils.containsNonGreekLetters;
+import static gr.interamerican.bo2.utils.greek.GreekUtils.removeEverythingButGreekLetters;
+import static gr.interamerican.bo2.utils.greek.GreekUtils.removeGreekLetters;
+import static gr.interamerican.bo2.utils.greek.GreekUtils.removeSymbolsAndReplaceLatinWithSimilarGreekChars;
+import static gr.interamerican.bo2.utils.greek.GreekUtils.toLatin;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;

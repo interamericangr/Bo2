@@ -12,9 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.wicket.bo2.factories.meta;
 
-import gr.interamerican.bo2.arch.ext.Cache;
 import gr.interamerican.bo2.arch.ext.TranslatableEntry;
-import gr.interamerican.bo2.arch.utils.beans.CacheImpl;
 import gr.interamerican.bo2.arch.utils.beans.TypedSelectableImpl;
 import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.meta.ext.descriptors.PalleteCachedEntriesBoPropertyDescriptor;

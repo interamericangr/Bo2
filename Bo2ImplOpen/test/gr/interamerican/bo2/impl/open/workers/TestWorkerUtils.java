@@ -12,8 +12,8 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.workers;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
@@ -27,20 +27,11 @@ import gr.interamerican.bo2.samples.operations.EmptyOperation;
 import gr.interamerican.bo2.samples.providers.EmptyProvider;
 import gr.interamerican.bo2.samples.queries.TsEntitiesQueryImpl;
 import gr.interamerican.bo2.samples.workers.EmptyRule;
-import gr.interamerican.bo2.samples.workers.EmptyWorker;
 import gr.interamerican.bo2.samples.workers.Increment;
 import gr.interamerican.bo2.utils.Utils;
 import gr.interamerican.bo2.utils.adapters.Transformation;
 
 import java.util.List;
-
-
-
-
-
-
-
-import junit.framework.Assert;
 
 import org.junit.Test;
 

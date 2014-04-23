@@ -12,9 +12,9 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.meta.parsers;
 
-import java.io.Serializable;
-
 import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
+
+import java.io.Serializable;
 
 /**
  * A {@link Parser} parses string values.

@@ -12,8 +12,6 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.meta.descriptors;
 
-import java.io.Serializable;
-
 import gr.interamerican.bo2.utils.attributes.Labeled;
 import gr.interamerican.bo2.utils.attributes.Named;
 import gr.interamerican.bo2.utils.meta.BusinessObjectDescriptor;
@@ -21,6 +19,8 @@ import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
 import gr.interamerican.bo2.utils.meta.exceptions.ValidationException;
 import gr.interamerican.bo2.utils.meta.parsers.Parser;
 import gr.interamerican.bo2.utils.meta.validators.Validator;
+
+import java.io.Serializable;
 
 /**
  * Generic interface for the specification of a business property.

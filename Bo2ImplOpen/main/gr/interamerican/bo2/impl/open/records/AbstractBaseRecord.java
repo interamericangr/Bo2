@@ -1,10 +1,10 @@
 package gr.interamerican.bo2.impl.open.records;
 
-import java.nio.charset.Charset;
-
 import gr.interamerican.bo2.arch.records.Record;
 import gr.interamerican.bo2.utils.Bo2UtilsEnvironment;
 import gr.interamerican.bo2.utils.Utils;
+
+import java.nio.charset.Charset;
 
 /**
  * Base {@link Record} implementation

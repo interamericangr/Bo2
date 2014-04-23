@@ -1,7 +1,6 @@
 package gr.interamerican.bo2.creation.beans;
 
 import org.junit.Assert;
-
 import org.junit.Test;
 
 /**

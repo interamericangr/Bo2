@@ -12,10 +12,10 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.namedstreams;
 
-import java.nio.charset.Charset;
-
 import gr.interamerican.bo2.arch.records.Record;
 import gr.interamerican.bo2.impl.open.records.CsvRecord;
+
+import java.nio.charset.Charset;
 
 /**
  * NamedStreamBasicQuery that fetches CSV records.

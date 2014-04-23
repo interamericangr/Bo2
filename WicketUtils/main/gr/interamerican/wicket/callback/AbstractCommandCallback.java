@@ -16,8 +16,6 @@ import gr.interamerican.bo2.utils.attributes.SimpleCommand;
 import gr.interamerican.bo2.utils.handlers.AbstractEventHandler;
 import gr.interamerican.bo2.utils.handlers.ThrowingExceptionHandler;
 
-import java.io.Serializable;
-
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.form.Form;

@@ -12,9 +12,9 @@
  ******************************************************************************/
 package gr.interamerican.wicket.callback;
 
-import java.io.Serializable;
-
 import gr.interamerican.bo2.utils.handlers.Called;
+
+import java.io.Serializable;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;

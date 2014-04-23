@@ -14,7 +14,6 @@ package gr.interamerican.bo2.creation.creators;
 
 import gr.interamerican.bo2.creation.exception.ClassCreationException;
 import gr.interamerican.bo2.samples.abstractimpl.AbstractBeanWithIdAndNameHavingNameFieldNotAnnotated;
-import gr.interamerican.bo2.samples.abstractimpl.AbstractComparableBeanWithIdAndName;
 
 import org.junit.Assert;
 import org.junit.Test;

@@ -1,9 +1,9 @@
 package gr.interamerican.bo2.arch.utils.cache;
 
-import java.io.Serializable;
-
 import gr.interamerican.bo2.arch.ext.Cache;
 import gr.interamerican.bo2.arch.utils.CacheRegistry;
+
+import java.io.Serializable;
 
 /**
  * Utility class for {@link Serializable} classes that need to access a {@link Cache}

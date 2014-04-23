@@ -15,10 +15,9 @@ package gr.interamerican.wicket.bo2.callbacks;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import gr.interamerican.bo2.arch.exceptions.LogicException;
 
 import java.io.Serializable;
-
-import gr.interamerican.bo2.arch.exceptions.LogicException;
 
 import org.junit.Test;
 

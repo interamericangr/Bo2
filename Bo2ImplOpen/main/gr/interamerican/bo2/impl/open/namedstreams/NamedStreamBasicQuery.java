@@ -12,8 +12,6 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.namedstreams;
 
-import java.nio.charset.Charset;
-
 import gr.interamerican.bo2.arch.Provider;
 import gr.interamerican.bo2.arch.Query;
 import gr.interamerican.bo2.arch.exceptions.DataAccessException;
@@ -21,6 +19,8 @@ import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.arch.records.Record;
 import gr.interamerican.bo2.utils.Bo2UtilsEnvironment;
+
+import java.nio.charset.Charset;
 
 /**
  * Basic query that browses a sequential file.

@@ -12,14 +12,14 @@
  ******************************************************************************/
 package gr.interamerican.wicket.bo2.factories.meta;
 
-import org.junit.Before;
-
 import gr.interamerican.bo2.arch.ext.Cache;
 import gr.interamerican.bo2.arch.utils.CacheRegistry;
 import gr.interamerican.bo2.arch.utils.beans.CacheImpl;
 import gr.interamerican.bo2.samples.utils.meta.Bean1;
 import gr.interamerican.bo2.samples.utils.meta.Bean1descriptor;
 import gr.interamerican.wicket.bo2.test.Bo2WicketTest;
+
+import org.junit.Before;
 
 /**
  * 

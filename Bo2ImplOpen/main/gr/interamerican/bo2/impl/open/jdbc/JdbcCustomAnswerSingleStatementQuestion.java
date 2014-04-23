@@ -1,5 +1,12 @@
 package gr.interamerican.bo2.impl.open.jdbc;
 
+import gr.interamerican.bo2.arch.Question;
+import gr.interamerican.bo2.arch.def.NamedFieldsContainer;
+import gr.interamerican.bo2.arch.def.OrderedFieldsContainer;
+import gr.interamerican.bo2.arch.exceptions.DataAccessException;
+import gr.interamerican.bo2.arch.exceptions.DataException;
+import gr.interamerican.bo2.arch.exceptions.LogicException;
+
 import java.math.BigDecimal;
 import java.sql.Blob;
 import java.sql.ResultSet;
@@ -8,13 +15,6 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-
-import gr.interamerican.bo2.arch.Question;
-import gr.interamerican.bo2.arch.def.NamedFieldsContainer;
-import gr.interamerican.bo2.arch.def.OrderedFieldsContainer;
-import gr.interamerican.bo2.arch.exceptions.DataAccessException;
-import gr.interamerican.bo2.arch.exceptions.DataException;
-import gr.interamerican.bo2.arch.exceptions.LogicException;
 
 /**
  * {@link Question} implementation used in cases where:

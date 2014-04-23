@@ -12,11 +12,11 @@
  ******************************************************************************/
 package gr.interamerican.wicket.callback;
 
-import java.io.Serializable;
-
 import gr.interamerican.bo2.utils.handlers.EventHandlerComponent;
 import gr.interamerican.bo2.utils.handlers.MethodInvocator;
 import gr.interamerican.bo2.utils.handlers.ThrowingExceptionHandler;
+
+import java.io.Serializable;
 
 /**
  * A {@link MethodBasedCallbackAction} is a Bo2WicketBlock that 

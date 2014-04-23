@@ -3,8 +3,6 @@ package gr.interamerican.bo2.utils.greek;
 import org.junit.Assert;
 import org.junit.Test;
 
-import gr.interamerican.bo2.utils.greek.VisuallySimilarLatin;
-
 /**
  * Tests for {@link VisuallySimilarLatin}.
  */

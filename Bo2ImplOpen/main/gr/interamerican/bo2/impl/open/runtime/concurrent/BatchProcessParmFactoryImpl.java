@@ -24,10 +24,10 @@ import static gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessParm
 import static gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessParmNames.PRE_PROCESSING_CLASS;
 import static gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessParmNames.PROCESSORS_COUNT;
 import static gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessParmNames.QUERY_CLASS;
+import static gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessParmNames.REATTEMPT_ON_TMEX;
 import static gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessParmNames.SHARED_STREAM_NAMES;
 import static gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessParmNames.TIDY_INTERVAL;
 import static gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessParmNames.UI_CAN_ADD_THREADS;
-import static gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessParmNames.REATTEMPT_ON_TMEX;
 import static gr.interamerican.bo2.utils.CollectionUtils.getMandatoryProperty;
 import static gr.interamerican.bo2.utils.StringConstants.COMMA;
 import static gr.interamerican.bo2.utils.StringUtils.isNullOrBlank;

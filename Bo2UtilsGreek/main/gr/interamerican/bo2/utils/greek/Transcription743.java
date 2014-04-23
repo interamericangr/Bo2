@@ -1,19 +1,13 @@
 package gr.interamerican.bo2.utils.greek;
 
-import static java.lang.Character.toUpperCase;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.TokenUtils;
-import gr.interamerican.bo2.utils.Utils;
-import gr.interamerican.bo2.utils.beans.AssociationTable;
 import gr.interamerican.bo2.utils.beans.Pair;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Transcripts Greek names to Latin according to the
