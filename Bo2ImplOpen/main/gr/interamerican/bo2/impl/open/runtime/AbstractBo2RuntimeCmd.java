@@ -21,6 +21,8 @@ import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
 import gr.interamerican.bo2.arch.exceptions.UnexpectedException;
 import gr.interamerican.bo2.impl.open.creation.Factory;
+import gr.interamerican.bo2.impl.open.job.JobDescription;
+import gr.interamerican.bo2.impl.open.job.JobScheduler;
 import gr.interamerican.bo2.impl.open.workers.AbstractOperation;
 
 import java.util.ArrayList;
@@ -110,12 +112,22 @@ extends RuntimeCommand {
 		W w = Factory.create(clazz);
 		return open(w);
 	}
+	
+	/**
+	 * Schedules a job. The job will be submitted if and only if
+	 * this unit of work commits successfully.
+	 * 
+	 * @param description
+	 */
+	protected final void schedule(JobDescription description) {
+		((RuntimeLayerAdapter)operation).jobs.add(description);
+	}
 
 	/**
 	 * Gets an open {@link Worker} object of a specified instance.
 	 * 
 	 * @param w
-	 * @return
+	 * @return w
 	 * @throws InitializationException
 	 * @throws DataException
 	 */
@@ -139,7 +151,13 @@ extends RuntimeCommand {
 		((RuntimeLayerAdapter)operation).workers.add(w);
 	}
 	
-	
+	@Override
+	protected void onCommittedSuccessfully() throws DataException {
+		JobScheduler jobScheduler = Factory.create(JobScheduler.class);
+		for(JobDescription jobDescription : ((RuntimeLayerAdapter)operation).jobs) {
+			jobScheduler.sumbitJob(jobDescription);
+		}
+	}
 		
 	/**
 	 * main method.
@@ -163,6 +181,11 @@ extends RuntimeCommand {
 		 * Workers created by this operation. 
 		 */
 		List<Worker> workers = new ArrayList<Worker>();
+		
+		/**
+		 * Jobs scheduled by this operation.
+		 */
+		List<JobDescription> jobs = new ArrayList<JobDescription>();
 	
 		@Override
 		public void close() throws DataException {

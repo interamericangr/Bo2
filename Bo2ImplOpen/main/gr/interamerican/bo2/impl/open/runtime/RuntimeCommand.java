@@ -130,7 +130,7 @@ public class RuntimeCommand {
 	}
 	
 	/**
-	 * Preparation before the main execution.
+	 * Work to do after the main execution.
 	 * 
 	 * @throws DataException 
 	 * @throws LogicException 
@@ -139,7 +139,14 @@ public class RuntimeCommand {
 		/* empty */
 	}
 	
-	
+	/**
+	 * Work to do only if the unit of work commits successfully.
+	 * 
+	 * @throws DataException 
+	 */
+	protected void onCommittedSuccessfully() throws DataException {
+		/* empty */
+	}
 	
 	/**
 	 * Executable method of the command.
@@ -243,15 +250,19 @@ public class RuntimeCommand {
 	}
 	
 	/**
-	 * Begins the transaction.
+	 * Ends the transaction.
 	 * 
 	 * @throws UnexpectedException
-	 *         If the transactionManager fails to begin the transaction.
+	 *         If the transactionManager fails to commit the transaction.
 	 */
 	void commit() throws UnexpectedException {
 		try {
 			transactionManager.commit();
+			onCommittedSuccessfully();
 		} catch (CouldNotCommitException e) {			
+			e.printStackTrace();
+			throw new UnexpectedException(e);
+		} catch(DataException e) {
 			e.printStackTrace();
 			throw new UnexpectedException(e);
 		}
