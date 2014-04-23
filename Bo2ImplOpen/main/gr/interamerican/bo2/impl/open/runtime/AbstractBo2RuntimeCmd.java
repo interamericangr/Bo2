@@ -155,7 +155,7 @@ extends RuntimeCommand {
 	protected void onCommittedSuccessfully() throws DataException {
 		JobScheduler jobScheduler = Factory.create(JobScheduler.class);
 		for(JobDescription jobDescription : ((RuntimeLayerAdapter)operation).jobs) {
-			jobScheduler.sumbitJob(jobDescription);
+			jobScheduler.submitJob(jobDescription);
 		}
 	}
 		
