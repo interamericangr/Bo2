@@ -14,23 +14,23 @@ import java.util.Properties;
  * Implementation of {@link JobSchedulerProvider} for Quartz.
  */
 public class QuartzJobSchedulerProviderImpl implements JobSchedulerProvider {
-	
+
 	/**
 	 * Scheduled jobs
 	 */
 	List<JobDescription> jobs = new ArrayList<JobDescription>();
-	
+
 	/**
 	 * Concrete scheduler
 	 */
 	JobScheduler scheduler;
-	
+
 	/**
 	 * Creates a new JobSchedulerProviderImpl object.
-	 *  
-	 * @param p 
+	 * 
+	 * @param p
 	 */
-	public QuartzJobSchedulerProviderImpl(@SuppressWarnings("unused") Properties p) {
+	public QuartzJobSchedulerProviderImpl(Properties p) {
 		scheduler = new QuartzJobSchedulerImpl();
 	}
 
@@ -41,11 +41,11 @@ public class QuartzJobSchedulerProviderImpl implements JobSchedulerProvider {
 	public void clearJobs() {
 		jobs.clear();
 	}
-	
+
 	public void close() throws DataException {
 		clearJobs();
 	}
-	
+
 	public JobScheduler getScheduler() {
 		return scheduler;
 	}
@@ -53,5 +53,5 @@ public class QuartzJobSchedulerProviderImpl implements JobSchedulerProvider {
 	public void scheduleJob(JobDescription job) {
 		jobs.add(job);
 	}
-	
+
 }
