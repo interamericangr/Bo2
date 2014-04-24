@@ -47,5 +47,10 @@ public class TestQuartzSchedulerRegistry {
 				.getJobDescriptionBasedOnStatus(JobStatus.RUNNING).size()) == 1);
 		QuartzUtils.waitGroupToComplete(null);
 		Assert.assertTrue(QuartzSchedulerRegistry.getJobDescriptionBasedOnStatus(JobStatus.OK).size() == 1);
+		jobScheduler.submitJobs(TestQuartzUtils.dualBeanList);
+		Assert.assertTrue((QuartzSchedulerRegistry.getJobDescriptionBasedOnStatus(JobStatus.SCHEDULED).size() + QuartzSchedulerRegistry
+				.getJobDescriptionBasedOnStatus(JobStatus.RUNNING).size()) == 2);
+		QuartzUtils.waitGroupToComplete(null);
+		Assert.assertTrue(QuartzSchedulerRegistry.getJobDescriptionBasedOnStatus(JobStatus.OK).size() == 3);
 	}
 }
