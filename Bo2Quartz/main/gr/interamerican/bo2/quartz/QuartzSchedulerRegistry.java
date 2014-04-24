@@ -31,7 +31,7 @@ public class QuartzSchedulerRegistry {
 	/**
 	 * job descriptions that have been scheduled.
 	 */
-	private static List<JobDescription> scheduledJobDescriptions = new ArrayList<JobDescription>();
+	private static List<QuartzjobDescription> scheduledJobDescriptions = new ArrayList<QuartzjobDescription>();
 
 	/**
 	 * @return the one scheduler.
@@ -61,20 +61,29 @@ public class QuartzSchedulerRegistry {
 	 * 
 	 * @param descriptions
 	 */
-	public static synchronized void appendJobDescription(Collection<JobDescription> descriptions) {
+	public static synchronized void appendJobDescription(Collection<QuartzjobDescription> descriptions) {
 		scheduledJobDescriptions.addAll(descriptions);
+	}
+
+	/**
+	 * appends a collection of {@link JobDescription}s to the list.
+	 * 
+	 * @param descriptions
+	 */
+	public static synchronized void appendJobDescription(QuartzjobDescription descriptions) {
+		scheduledJobDescriptions.add(descriptions);
 	}
 
 	/**
 	 * @param status
 	 * @return the list of job descriptions that much the given status.
 	 */
-	public static synchronized List<JobDescription> getJobDescriptionBasedOnStatus(JobStatus status) {
+	public static synchronized List<QuartzjobDescription> getJobDescriptionBasedOnStatus(JobStatus status) {
 		if (status==null){
 			return null;
 		}
-		List<JobDescription> descriptions = SelectionUtils.selectByProperty("executionStatus", status, //$NON-NLS-1$
-				scheduledJobDescriptions, JobDescription.class);
+		List<QuartzjobDescription> descriptions = SelectionUtils.selectByProperty("executionStatus", status, //$NON-NLS-1$
+				scheduledJobDescriptions, QuartzjobDescription.class);
 		return descriptions;
 	}
 }

@@ -150,8 +150,8 @@ public class TestQuartzUtils {
 		JobScheduler jobScheduler = new QuartzJobSchedulerImpl();
 		jobScheduler.submitJobs(singleBeanList);
 		Assert.assertTrue(QuartzUtils.isJobScheduled(QuartzUtils.getJobGroupName(SampleOperation.class),
-				bean.getJobName()));
-		Assert.assertTrue(QuartzUtils.isJobScheduled(null, bean.getJobName()));
+				QuartzUtils.getJobName(bean)));
+		Assert.assertTrue(QuartzUtils.isJobScheduled(null, QuartzUtils.getJobName(bean)));
 		QuartzUtils.waitJobToComplete(bean);
 	}
 }

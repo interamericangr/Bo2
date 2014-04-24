@@ -12,6 +12,7 @@ import gr.interamerican.bo2.impl.open.job.JobStatus;
 import gr.interamerican.bo2.impl.open.runtime.RuntimeCommand;
 import gr.interamerican.bo2.impl.open.utils.Bo2;
 import gr.interamerican.bo2.quartz.QuartzConstants;
+import gr.interamerican.bo2.quartz.QuartzjobDescription;
 import gr.interamerican.bo2.utils.ExceptionUtils;
 import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.StringConstants;
@@ -62,7 +63,7 @@ public class GenericQuartzJob implements Job {
 	 * @param bean
 	 * @throws JobExecutionException
 	 */
-	void logMe(Throwable e, JobDescription bean) throws JobExecutionException {
+	void logMe(Throwable e, QuartzjobDescription bean) throws JobExecutionException {
 		String trace = ExceptionUtils.getThrowableStackTrace(e);
 		String msg = "Quartz job " + bean.getJobName() + " failed. " + bean.getParameters(); //$NON-NLS-1$ //$NON-NLS-2$
 		LOGGER.warn(msg);
@@ -75,7 +76,7 @@ public class GenericQuartzJob implements Job {
 	public void execute(JobExecutionContext context) throws JobExecutionException {
 		LOGGER.trace("Starting Generic QuartzJob"); //$NON-NLS-1$
 		JobDataMap map = context.getJobDetail().getJobDataMap();
-		JobDescription bean = (JobDescription) map.get(QuartzConstants.BEAN_PROP);
+		QuartzjobDescription bean = (QuartzjobDescription) map.get(QuartzConstants.BEAN_PROP);
 		Bo2Session.setSession((Session<?, ?>) map.get(QuartzConstants.SESSION_PROP));
 		Operation op = generateOperationFromBean(bean);
 		RuntimeCommand cmd = null;
