@@ -5,7 +5,7 @@ import gr.interamerican.bo2.arch.exceptions.DataException;
 import java.util.List;
 
 /**
- * Job scheduler.
+ * Job scheduler. Submits a job to a job execution API.
  */
 public interface JobScheduler {
 
