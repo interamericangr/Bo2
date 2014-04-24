@@ -13,15 +13,18 @@ public enum JobStatus {
 	 */
 	RUNNING,
 	/**
-	 * job have finished. set automatically when job finishes.
+	 * job have finished. set automatically when job finishes.<br>
+	 * Not used by quartz
 	 */
 	FINISHED,
 	/**
-	 * job has finished normally. Set by the Operator.
+	 * job has finished normally. Set by the Operator.<br>
+	 * for quartz it is set automatically if the job finishes normally
 	 */
 	OK,
 	/**
-	 * job has finished abnormally. Set by the Operator.
+	 * job has finished abnormally. Set by the Operator.<br>
+	 * for quartz it is set automatically if the job finishes abnormally
 	 */
 	ERROR
 }
