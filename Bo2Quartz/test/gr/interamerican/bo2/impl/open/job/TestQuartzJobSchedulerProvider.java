@@ -8,6 +8,7 @@ import gr.interamerican.bo2.impl.open.creation.Factory;
 import gr.interamerican.bo2.impl.open.runtime.AbstractBo2RuntimeCmd;
 import gr.interamerican.bo2.impl.open.workers.AbstractOperation;
 import gr.interamerican.bo2.quartz.QuartzJobSchedulerProviderImpl;
+import gr.interamerican.bo2.quartz.util.QuartzUtils;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -53,7 +54,6 @@ public class TestQuartzJobSchedulerProvider {
 				Assert.assertEquals(0, tm.schedulerHandlers.size());
 				
 				JobSchedulerProvider prov = getProvider().getResource("LOCALDB", JobSchedulerProvider.class); //$NON-NLS-1$
-				prov.scheduleJob(job);
 				Assert.assertTrue(prov instanceof QuartzJobSchedulerProviderImpl);
 				Assert.assertEquals(1, tm.schedulerHandlers.size());
 				
@@ -64,39 +64,49 @@ public class TestQuartzJobSchedulerProvider {
 		}.execute();
 		
 		Assert.assertEquals(0, tm.schedulerHandlers.size());
+		
+		QuartzUtils.waitJobToComplete(job);
+		
 		Assert.assertTrue(TestOperation.executed);
+		
+		
 	}
 	
 	/**
 	 * integration test
-	 * @throws DataException
-	 * @throws LogicException
-	 * @throws UnexpectedException
+	 * @throws LogicException 
+	 * @throws DataException 
 	 */
 	@Test
-	public void integrationTest_rollback() throws DataException, LogicException, UnexpectedException {
-		new AbstractBo2RuntimeCmd() { 			
-			@Override public void work() throws LogicException, 
-			DataException, InitializationException, UnexpectedException {
-				tm = (JobCapableTransactionManager) getProvider().getTransactionManager();
-				
-				Assert.assertEquals(0, tm.schedulerHandlers.size());
-				
-				JobSchedulerProvider prov = getProvider().getResource("LOCALDB", JobSchedulerProvider.class); //$NON-NLS-1$
-				
-				Assert.assertTrue(prov instanceof QuartzJobSchedulerProviderImpl);
-				Assert.assertEquals(1, tm.schedulerHandlers.size());
-				
-				prov.scheduleJob(job);
-				
-				Assert.assertFalse(TestOperation.executed);
-				
-				throw new RuntimeException(); //fail the uow
-			}
-		}.execute();
+	public void integrationTest_rollback() throws DataException, LogicException {
+		try {
+			new AbstractBo2RuntimeCmd() { 			
+				@Override public void work() throws LogicException, 
+				DataException, InitializationException, UnexpectedException {
+					tm = (JobCapableTransactionManager) getProvider().getTransactionManager();
+					
+					Assert.assertEquals(0, tm.schedulerHandlers.size());
+					
+					JobSchedulerProvider prov = getProvider().getResource("LOCALDB", JobSchedulerProvider.class); //$NON-NLS-1$
+					
+					Assert.assertTrue(prov instanceof QuartzJobSchedulerProviderImpl);
+					Assert.assertEquals(1, tm.schedulerHandlers.size());
+					
+					prov.scheduleJob(job);
+					
+					Assert.assertFalse(TestOperation.executed);
+					
+					throw new RuntimeException(); //fail the uow
+				}
+			}.execute();
+		} catch(UnexpectedException rtex) {/* ok */}
 		
 		Assert.assertEquals(0, tm.schedulerHandlers.size());
+		
+		QuartzUtils.waitJobToComplete(job);
+		
 		Assert.assertFalse(TestOperation.executed);
+		
 	}
 	
 	@SuppressWarnings("javadoc")
