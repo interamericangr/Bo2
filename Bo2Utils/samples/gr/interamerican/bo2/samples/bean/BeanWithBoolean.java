@@ -1,13 +1,13 @@
 /*******************************************************************************
- * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A. 
+ * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/copyleft/lesser.html
  * 
- * This library is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
 package gr.interamerican.bo2.samples.bean;
@@ -22,28 +22,37 @@ public class BeanWithBoolean implements Serializable {
 	 * serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * 
 	 */
 	private boolean bool;
-	
-	private Boolean wrappedBool;
-	
-	boolean hacky;
-	
-	boolean isLala;
-	
+
 	/**
-	 * Creates a new BeanWithBoolean object. 
+	 * 
+	 */
+	private Boolean wrappedBool;
+
+	/**
+	 * 
+	 */
+	boolean hacky;
+
+	/**
+	 * 
+	 */
+	boolean isLala;
+
+	/**
+	 * Creates a new BeanWithBoolean object.
 	 */
 	public BeanWithBoolean() {
 		super();
 	}
-	
+
 	/**
-	 * Creates a new BeanWithBoolean object. 
-	 * @param bool 
+	 * Creates a new BeanWithBoolean object.
+	 * @param bool
 	 */
 	public BeanWithBoolean(boolean bool) {
 		super();
@@ -122,7 +131,7 @@ public class BeanWithBoolean implements Serializable {
 		this.isLala = isLala;
 	}
 
-	
+
 
 
 }

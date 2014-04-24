@@ -4,10 +4,14 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * 
+ */
 public class CollectionFields {
 	/**
 	 * List
 	 */
+	@SuppressWarnings("rawtypes")
 	List rawList;
 	/**
 	 * List of String
@@ -21,12 +25,13 @@ public class CollectionFields {
 	 * Collection of (Set of String)
 	 */
 	Collection<Set<String>> setsCollection;
-	
+
 	/**
 	 * Gets the rawList.
 	 *
 	 * @return Returns the rawList
 	 */
+	@SuppressWarnings("rawtypes")
 	public List getRawList() {
 		return rawList;
 	}
@@ -35,10 +40,11 @@ public class CollectionFields {
 	 *
 	 * @param rawList the rawList to set
 	 */
+	@SuppressWarnings("rawtypes")
 	public void setRawList(List rawList) {
 		this.rawList = rawList;
 	}
-	
+
 	/**
 	 * Assigns a new value to the stringList.
 	 *
@@ -55,7 +61,7 @@ public class CollectionFields {
 	public List<String> getStringList() {
 		return stringList;
 	}
-	
+
 	/**
 	 * Gets the string.
 	 *
