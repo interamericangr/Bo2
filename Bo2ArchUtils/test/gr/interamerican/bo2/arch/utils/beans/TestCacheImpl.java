@@ -1,13 +1,13 @@
 /*******************************************************************************
- * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A. 
+ * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/copyleft/lesser.html
  * 
- * This library is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
 package gr.interamerican.bo2.arch.utils.beans;
@@ -31,32 +31,32 @@ import org.junit.Test;
 /**
  * Unit tests for {@link CacheImpl}
  */
-public class TestCacheImpl {	
+public class TestCacheImpl {
 	/**
 	 * named cache
 	 */
 	private static CacheImpl<Long> cache = new CacheImpl<Long>();
-	
+
 	/**
 	 * sample role
 	 */
 	private static TypedSelectableImpl<Long> role1 = new TypedSelectableImpl<Long>(1L, null, 1L, "role1-1"); //$NON-NLS-1$
-	
+
 	/**
 	 * sample role
 	 */
 	private static TypedSelectableImpl<Long> role2 = new TypedSelectableImpl<Long>(1L, null, 2L, "role1-2"); //$NON-NLS-1$
-	
+
 	/**
-	 * sample role 
+	 * sample role
 	 */
 	private static TypedSelectableImpl<Long> role3 = new TypedSelectableImpl<Long>(2L, null, 1L, "role2-3"); //$NON-NLS-1$
-	
+
 	/**
 	 * sample role
 	 */
 	private static TypedSelectableImpl<Long> role4 = new TypedSelectableImpl<Long>(2L, null, 2L, "role2-4"); //$NON-NLS-1$
-	
+
 	/**
 	 * test setup
 	 */
@@ -68,7 +68,7 @@ public class TestCacheImpl {
 		cache.put(role3);
 		cache.put(role4);
 	}
-	
+
 	/**
 	 * Tests putting an existing entry in cache.
 	 */
@@ -77,8 +77,8 @@ public class TestCacheImpl {
 		String name = "newRole2-4"; //$NON-NLS-1$
 		TypedSelectable<Long> newRole4 = new TypedSelectableImpl<Long>(2L, null, 2L, name);
 		cache.put(newRole4);
-		assertEquals(name, cache.get(2L, 2L).getName()); //Assert was put in cache properly.		
-		
+		assertEquals(name, cache.get(2L, 2L).getName()); //Assert was put in cache properly.
+
 		boolean found = false;
 		for(TypedSelectable<Long> ts : cache.getSubCacheAsList(2L, null)) {
 			if(ts.getCode().equals(2L)) {
@@ -87,13 +87,13 @@ public class TestCacheImpl {
 			}
 		}
 		assertTrue(found); //Assert was put properly in subcache.
-		
+
 		Set<TypedSelectable<Long>> entries = cache.getTypeEntries(2L);
 		assertTrue(entries.contains(newRole4));
-		
-		
+
+
 	}
-	
+
 	/**
 	 * tests get()
 	 */
@@ -104,7 +104,7 @@ public class TestCacheImpl {
 		assertEquals(role3, cache.get(role3.getTypeId(), role3.getCode()));
 		assertEquals(role4, cache.get(role4.getTypeId(), role4.getCode()));
 	}
-	
+
 	/**
 	 * tests getSubCache()
 	 */
@@ -123,9 +123,10 @@ public class TestCacheImpl {
 			assertTrue(role.equals(role3)||role.equals(role4));
 		}
 	}
-	
+
 	/**
-	 * tests getSubCache()
+	 * tests getSubCache() <br>
+	 * TODO dummy test, roles1 and roles1 will always be equal....
 	 */
 	@Test
 	public void testGetSubCache_ForAllEntries() {
@@ -133,8 +134,8 @@ public class TestCacheImpl {
 		Set<TypedSelectable<Long>> roles2 = cache.getTypeEntries(1L);
 		assertEquals(roles1, roles1);
 	}
-	
-	
+
+
 	/**
 	 * tests getAllTypeEntries()
 	 */
@@ -147,7 +148,7 @@ public class TestCacheImpl {
 			assertTrue(role.equals(role1)||role.equals(role2));
 		}
 	}
-	
+
 	/**
 	 * tests getSubCacheAsList()
 	 */
@@ -162,13 +163,13 @@ public class TestCacheImpl {
 			assertTrue(role.equals(role3)||role.equals(role4));
 		}
 	}
-	
+
 	/**
 	 * tests remove()
 	 */
 	@Test
 	public void testRemove() {
-		
+
 		cache.remove(role1);
 		assertNull(cache.get(role1.getTypeId(), role1.getCode()));
 		assertNotNull(cache.get(role2.getTypeId(), role2.getCode()));
@@ -179,7 +180,7 @@ public class TestCacheImpl {
 		assertEquals(2, cache.getSubCache(2L, null).size());
 		assertEquals(1, cache.getTypeEntries(1L).size());
 		assertEquals(2, cache.getTypeEntries(2L).size());
-		
+
 		cache.remove(role2);
 		assertNull(cache.get(role2.getTypeId(), role2.getCode()));
 		assertNotNull(cache.get(role3.getTypeId(), role3.getCode()));
@@ -188,23 +189,23 @@ public class TestCacheImpl {
 		assertEquals(0, cache.getSubCache(1L, null).size());
 		assertEquals(2, cache.getSubCache(2L, null).size());
 		assertEquals(0, cache.getTypeEntries(1L).size());
-		
+
 		cache.remove(role3);
 		assertNull(cache.get(role3.getTypeId(), role3.getCode()));
 		assertNotNull(cache.get(role4.getTypeId(), role4.getCode()));
 		assertFalse(cache.getSubCache(role3.getTypeId(), role3.getSubTypeId()).contains(role3));
 		assertEquals(0, cache.getSubCache(1L, null).size());
 		assertEquals(1, cache.getSubCache(2L, null).size());
-		
+
 		cache.remove(role4);
 		assertNull(cache.get(role4.getTypeId(), role4.getCode()));
 		assertFalse(cache.getSubCache(role4.getTypeId(), role4.getSubTypeId()).contains(role4));
 		assertEquals(0, cache.getSubCache(1L, null).size());
 		assertEquals(0, cache.getSubCache(2L, null).size());
 	}
-	
-	
-	
+
+
+
 	/**
 	 * tests clear()
 	 */
@@ -221,30 +222,30 @@ public class TestCacheImpl {
 		assertEquals(0, cache.getSubCache(1L, 2L).size());
 		assertNull(cache.get(1L, 1L));
 		assertNull(cache.get(1L, 2L));
-		
+
 		assertEquals(0, cache.getTypeEntries(1L).size());
 		assertEquals(0, cache.getTypeEntries(2L).size());
 	}
-	
+
 	/**
 	 * tests refill()
 	 */
 	@Test
 	public void testRefill() {
-		
+
 		Set<TypedSelectable<Long>> roles = new HashSet<TypedSelectable<Long>>();
 		cache.refill(1L, roles);
 		assertNull(cache.get(1L, 1L));
 		assertNull(cache.get(1L, 2L));
 		assertEquals(0, cache.getSubCache(1L, null).size());
-		
+
 		roles.add(role1);
 		roles.add(role2);
 		cache.refill(1L, roles);
 		assertNotNull(cache.get(1L, 1L));
 		assertNotNull(cache.get(1L, 2L));
 		assertEquals(2, cache.getSubCache(1L, null).size());
-		
+
 		roles.clear();
 		cache.clear();
 		roles.add(role1);
@@ -254,13 +255,13 @@ public class TestCacheImpl {
 		assertNull(cache.get(2L, 1L));
 		assertEquals(1, cache.getSubCache(1L, null).size());
 		assertEquals(0, cache.getSubCache(2L, null).size());
-		
-		
+
+
 	}
-	
-	
-	
-	
+
+
+
+
 
 }
 
