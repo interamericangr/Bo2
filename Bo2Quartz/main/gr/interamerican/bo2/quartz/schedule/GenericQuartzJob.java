@@ -73,7 +73,7 @@ public class GenericQuartzJob implements Job {
 
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
-		LOGGER.trace("Starting QuartzJob"); //$NON-NLS-1$
+		LOGGER.trace("Starting Generic QuartzJob"); //$NON-NLS-1$
 		JobDataMap map = context.getJobDetail().getJobDataMap();
 		JobDescription bean = (JobDescription) map.get(QuartzConstants.BEAN_PROP);
 		Bo2Session.setSession((Session<?, ?>) map.get(QuartzConstants.SESSION_PROP));
