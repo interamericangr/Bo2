@@ -42,34 +42,6 @@ public interface JobDescription {
 	void setParameters(Map<String, Object> parameters);
 
 	/**
-	 * Gets the executionStatus.
-	 *
-	 * @return Returns the executionStatus
-	 */
-	JobStatus getExecutionStatus();
-
-	/**
-	 * Assigns a new value to the executionStatus.
-	 *
-	 * @param executionStatus the executionStatus to set
-	 */
-	void setExecutionStatus(JobStatus executionStatus);
-
-	/**
-	 * Gets the jobName.
-	 *
-	 * @return Returns the jobName
-	 */
-	String getJobName();
-
-	/**
-	 * Assigns a new value to the jobName.
-	 *
-	 * @param jobName the jobName to set
-	 */
-	void setJobName(String jobName);
-	
-	/**
 	 * Gets the synchronous.
 	 * 
 	 * @return synchronous
