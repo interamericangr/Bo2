@@ -7,7 +7,7 @@ import gr.interamerican.bo2.arch.ResourceWrapper;
 /**
  * Means to schedule jobs in a unit of work. This resource wrapper
  * is enListed to the current transaction and the jobs are fired
- * using the {@link JobScheduler} provided by this provider.
+ * using the {@link JobScheduler} provided by this provider only
  * if the commit succeeds. The jobs are cleared after they are fired
  * or in case of a rollback.
  */
