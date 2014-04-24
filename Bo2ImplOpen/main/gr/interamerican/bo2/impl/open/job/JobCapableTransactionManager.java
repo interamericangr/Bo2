@@ -38,8 +38,8 @@ public abstract class JobCapableTransactionManager implements TransactionManager
 	public void deList(ResourceWrapper resource) throws CouldNotDelistException {
 		if(resource instanceof JobSchedulerProvider) {
 			JobSchedulerProvider scheduler = (JobSchedulerProvider) resource;
-			scheduler.clearJobs();
 			schedulerHandlers.remove(scheduler);
+			scheduler.clearJobs(); //TODO: should we do this here?
 		}
 	}
 
