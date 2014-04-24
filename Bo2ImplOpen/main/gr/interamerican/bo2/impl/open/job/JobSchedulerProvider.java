@@ -15,11 +15,20 @@ public interface JobSchedulerProvider extends ResourceWrapper {
 	
 	/**
 	 * Gets the scheduler that will be used to submit all scheduled jobs
-	 * to the underlying scheduling implementation.
+	 * to the underlying scheduling implementation. This method is for
+	 * internal use only and is not part of the public API.
 	 *
 	 * @return Returns the scheduler
 	 */
 	JobScheduler getScheduler();
+	
+	/**
+	 * API users use this to schedule a job to be executed after the end 
+	 * of the current unit of work.
+	 * 
+	 * @param job
+	 */
+	void scheduleJob(JobDescription job);
 	
 	/**
 	 * @return Returns all scheduled jobs
@@ -27,7 +36,7 @@ public interface JobSchedulerProvider extends ResourceWrapper {
 	List<JobDescription> getScheduledJobs();
 	
 	/**
-	 * Clears all scheduled jobs.
+	 * Clears all scheduled jobs. Again, this is not meant for API users.
 	 */
 	void clearJobs();
 

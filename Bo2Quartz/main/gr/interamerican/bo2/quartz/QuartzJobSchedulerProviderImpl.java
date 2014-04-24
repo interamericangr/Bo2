@@ -49,5 +49,9 @@ public class QuartzJobSchedulerProviderImpl implements JobSchedulerProvider {
 	public JobScheduler getScheduler() {
 		return scheduler;
 	}
+
+	public void scheduleJob(JobDescription job) {
+		jobs.add(job);
+	}
 	
 }
