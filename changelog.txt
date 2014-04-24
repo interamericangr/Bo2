@@ -8,4 +8,4 @@ Users may schedule jobs associated with a specific unit of work using
 	job.setParameters(operationParameters);
 	getProvider().getResource(getManagerName(), JobSchedulerProvider.class).scheduleJob(job);
 
-The scheduled jobs are submitted to the underlying scheduler (e.g. quartz) if and only if the UOW commits successfully. 
+The scheduled jobs are submitted to the underlying scheduler (e.g. quartz) if and only if the current UOW commits successfully. 
