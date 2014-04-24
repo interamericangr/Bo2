@@ -22,7 +22,7 @@ import org.quartz.TriggerBuilder;
 /**
  * implementation of {@link JobScheduler}
  */
-public class JobSchedulerImpl implements JobScheduler {
+public class QuartzJobSchedulerImpl implements JobScheduler {
 
 	/**
 	 * submits a single job.
