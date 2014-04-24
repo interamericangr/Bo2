@@ -43,7 +43,8 @@ public class TestQuartzSchedulerRegistry {
 	public void testGetJobDescriptionBasedOnStatus() throws DataException {
 		JobScheduler jobScheduler = new QuartzJobSchedulerImpl();
 		jobScheduler.submitJobs(TestQuartzUtils.singleBeanList);
-		Assert.assertTrue(QuartzSchedulerRegistry.getJobDescriptionBasedOnStatus(JobStatus.SCHEDULED).size() == 1);
+		Assert.assertTrue((QuartzSchedulerRegistry.getJobDescriptionBasedOnStatus(JobStatus.SCHEDULED).size() + QuartzSchedulerRegistry
+				.getJobDescriptionBasedOnStatus(JobStatus.RUNNING).size()) == 1);
 		QuartzUtils.waitGroupToComplete(null);
 		Assert.assertTrue(QuartzSchedulerRegistry.getJobDescriptionBasedOnStatus(JobStatus.OK).size() == 1);
 	}
