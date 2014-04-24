@@ -22,7 +22,6 @@ import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
 import gr.interamerican.bo2.impl.open.creation.Factory;
-import gr.interamerican.bo2.impl.open.job.JobDescription;
 import gr.interamerican.bo2.impl.open.namedstreams.NamedStreamsProvider;
 import gr.interamerican.bo2.impl.open.po.PoUtils;
 import gr.interamerican.bo2.impl.open.streams.StreamsProvider;
@@ -128,16 +127,6 @@ public class Bo2WicketRequestCycle {
 		return Factory.create(clazz);
 	}
 	
-	/**
-	 * Schedules a job. The job will be submitted if and only if
-	 * this unit of work commits successfully.
-	 * 
-	 * @param description
-	 */
-	protected final void schedule(JobDescription description) {
-		get().jobs.add(description);
-	}
-
 	/**
 	 * Initializes and opens the specified worker.
 	 * 
@@ -294,11 +283,6 @@ public class Bo2WicketRequestCycle {
 	 * Resource manager for the operation.
 	 */
 	Provider provider;
-	
-	/**
-	 * Jobs scheduled by this operation.
-	 */
-	List<JobDescription> jobs = new ArrayList<JobDescription>();
 
 	/**
 	 * Workers managed by this request cycle.
