@@ -5,7 +5,6 @@ package gr.interamerican.bo2.quartz;
 
 
 import gr.interamerican.bo2.arch.exceptions.DataException;
-import gr.interamerican.bo2.impl.open.creation.Factory;
 import gr.interamerican.bo2.impl.open.job.JobScheduler;
 import gr.interamerican.bo2.impl.open.job.JobStatus;
 import gr.interamerican.bo2.quartz.util.QuartzUtils;
@@ -42,7 +41,7 @@ public class TestQuartzSchedulerRegistry {
 	 */
 	@Test
 	public void testGetJobDescriptionBasedOnStatus() throws DataException {
-		JobScheduler jobScheduler = Factory.create(JobScheduler.class);
+		JobScheduler jobScheduler = new QuartzJobSchedulerImpl();
 		jobScheduler.submitJobs(TestQuartzUtils.singleBeanList);
 		Assert.assertTrue(QuartzSchedulerRegistry.getJobDescriptionBasedOnStatus(JobStatus.SCHEDULED).size() == 1);
 		QuartzUtils.waitGroupToComplete(null);
