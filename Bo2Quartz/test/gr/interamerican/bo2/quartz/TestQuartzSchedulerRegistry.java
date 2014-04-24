@@ -9,7 +9,6 @@ import gr.interamerican.bo2.impl.open.creation.Factory;
 import gr.interamerican.bo2.impl.open.job.JobScheduler;
 import gr.interamerican.bo2.impl.open.job.JobStatus;
 import gr.interamerican.bo2.quartz.util.QuartzUtils;
-import gr.interamerican.bo2.utils.concurrent.ThreadUtils;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -47,7 +46,6 @@ public class TestQuartzSchedulerRegistry {
 		jobScheduler.submitJobs(TestQuartzUtils.singleBeanList);
 		Assert.assertTrue(QuartzSchedulerRegistry.getJobDescriptionBasedOnStatus(JobStatus.SCHEDULED).size() == 1);
 		QuartzUtils.waitGroupToComplete(null);
-		ThreadUtils.sleep(10);
 		Assert.assertTrue(QuartzSchedulerRegistry.getJobDescriptionBasedOnStatus(JobStatus.OK).size() == 1);
 	}
 }
