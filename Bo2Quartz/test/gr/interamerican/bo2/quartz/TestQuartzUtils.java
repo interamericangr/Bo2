@@ -5,6 +5,7 @@ import gr.interamerican.bo2.impl.open.creation.Factory;
 import gr.interamerican.bo2.impl.open.job.JobDescription;
 import gr.interamerican.bo2.impl.open.job.JobScheduler;
 import gr.interamerican.bo2.quartz.samples.SampleOperation;
+import gr.interamerican.bo2.quartz.util.QuartzUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -61,7 +62,7 @@ public class TestQuartzUtils {
 	}
 
 	/**
-	 * Test method for {@link gr.interamerican.bo2.quartz.QuartzUtils#getJobName(JobDescription)}.
+	 * Test method for {@link gr.interamerican.bo2.quartz.util.QuartzUtils#getJobName(JobDescription)}.
 	 * 
 	 * @throws DataException
 	 */
@@ -79,7 +80,7 @@ public class TestQuartzUtils {
 	}
 
 	/**
-	 * Test method for {@link gr.interamerican.bo2.quartz.QuartzUtils#getJobGroupName(JobDescription)}.
+	 * Test method for {@link gr.interamerican.bo2.quartz.util.QuartzUtils#getJobGroupName(JobDescription)}.
 	 * 
 	 * @throws DataException
 	 */
@@ -90,7 +91,7 @@ public class TestQuartzUtils {
 	}
 
 	/**
-	 * Test method for {@link gr.interamerican.bo2.quartz.QuartzUtils#getJobGroupName(java.lang.Class)}.
+	 * Test method for {@link gr.interamerican.bo2.quartz.util.QuartzUtils#getJobGroupName(java.lang.Class)}.
 	 * 
 	 * @throws DataException
 	 */
@@ -101,7 +102,7 @@ public class TestQuartzUtils {
 	}
 
 	/**
-	 * Test method for {@link gr.interamerican.bo2.quartz.QuartzUtils#getScheduledJobKeys(java.lang.String)}.
+	 * Test method for {@link gr.interamerican.bo2.quartz.util.QuartzUtils#getScheduledJobKeys(java.lang.String)}.
 	 * 
 	 * @throws DataException
 	 */
@@ -115,7 +116,7 @@ public class TestQuartzUtils {
 	}
 
 	/**
-	 * Test method for {@link gr.interamerican.bo2.quartz.QuartzUtils#getNumberOfScheduledJobs(java.lang.String)}.
+	 * Test method for {@link gr.interamerican.bo2.quartz.util.QuartzUtils#getNumberOfScheduledJobs(java.lang.String)}.
 	 * 
 	 * @throws DataException
 	 */
@@ -129,7 +130,7 @@ public class TestQuartzUtils {
 	}
 
 	/**
-	 * Test method for {@link gr.interamerican.bo2.quartz.QuartzUtils#getMaximumNumberOfThreads()}.
+	 * Test method for {@link gr.interamerican.bo2.quartz.util.QuartzUtils#getMaximumNumberOfThreads()}.
 	 * 
 	 * @throws DataException
 	 */
@@ -140,7 +141,7 @@ public class TestQuartzUtils {
 
 	/**
 	 * Test method for
-	 * {@link gr.interamerican.bo2.quartz.QuartzUtils#isJobScheduled(java.lang.String, java.lang.String)}.
+	 * {@link gr.interamerican.bo2.quartz.util.QuartzUtils#isJobScheduled(java.lang.String, java.lang.String)}.
 	 * 
 	 * @throws DataException
 	 */

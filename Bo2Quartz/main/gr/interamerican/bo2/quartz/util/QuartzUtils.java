@@ -1,8 +1,9 @@
-package gr.interamerican.bo2.quartz;
+package gr.interamerican.bo2.quartz.util;
 
 import gr.interamerican.bo2.arch.Operation;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.impl.open.job.JobDescription;
+import gr.interamerican.bo2.quartz.QuartzSchedulerRegistry;
 import gr.interamerican.bo2.utils.NumberUtils;
 import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.beans.Pair;

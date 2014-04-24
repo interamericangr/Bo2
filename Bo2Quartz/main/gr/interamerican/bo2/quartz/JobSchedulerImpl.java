@@ -7,6 +7,7 @@ import gr.interamerican.bo2.impl.open.job.JobDescription;
 import gr.interamerican.bo2.impl.open.job.JobScheduler;
 import gr.interamerican.bo2.impl.open.job.JobStatus;
 import gr.interamerican.bo2.quartz.schedule.GenericQuartzJob;
+import gr.interamerican.bo2.quartz.util.QuartzUtils;
 
 import java.util.List;
 
