@@ -3,7 +3,9 @@ This project is a facade project for the Quartz library fitted into our needs. A
 
 Users may schedule jobs associated with a specific unit of work using
 
-+ AbstractBo2RuntimeCommand#schedule(JobDescription description, boolean synchronous) : void (batch)
-+ Bo2WicketRequestCycle#schedule(JobDescription description, boolean synchronous) : void (web)
+	JobDescription job = Factory.create(JobDescription.class);
+	job.setOperationClass(someOperationClass);
+	job.setParameters(operationParameters);
+	getProvider().getResource(getManagerName(), JobSchedulerProvider.class).scheduleJob(job);
 
-The scheduled jobs are submitted to the scheduler if and only if the UOW commits successfully. Synchronous jobs, if any, are submitted last.
+The scheduled jobs are submitted to the underlying scheduler (e.g. quartz) if and only if the UOW commits successfully. 
