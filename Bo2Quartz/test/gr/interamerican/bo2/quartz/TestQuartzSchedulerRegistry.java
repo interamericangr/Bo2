@@ -4,6 +4,13 @@
 package gr.interamerican.bo2.quartz;
 
 
+import gr.interamerican.bo2.arch.exceptions.DataException;
+import gr.interamerican.bo2.impl.open.creation.Factory;
+import gr.interamerican.bo2.impl.open.job.JobScheduler;
+import gr.interamerican.bo2.impl.open.job.JobStatus;
+import gr.interamerican.bo2.quartz.util.QuartzUtils;
+import gr.interamerican.bo2.utils.concurrent.ThreadUtils;
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.quartz.Scheduler;
@@ -26,5 +33,21 @@ public class TestQuartzSchedulerRegistry {
 		Assert.assertNotNull(s);
 		Assert.assertEquals(QuartzConstants.SCHEDULER_NAME, s.getSchedulerName());
 		Assert.assertTrue(s.isStarted());
+	}
+
+	/**
+	 * test method for
+	 * {@link QuartzSchedulerRegistry#getJobDescriptionBasedOnStatus(gr.interamerican.bo2.impl.open.job.JobStatus)}
+	 * 
+	 * @throws DataException
+	 */
+	@Test
+	public void testGetJobDescriptionBasedOnStatus() throws DataException {
+		JobScheduler jobScheduler = Factory.create(JobScheduler.class);
+		jobScheduler.submitJobs(TestQuartzUtils.singleBeanList);
+		Assert.assertTrue(QuartzSchedulerRegistry.getJobDescriptionBasedOnStatus(JobStatus.SCHEDULED).size() == 1);
+		QuartzUtils.waitGroupToComplete(null);
+		ThreadUtils.sleep(10);
+		Assert.assertTrue(QuartzSchedulerRegistry.getJobDescriptionBasedOnStatus(JobStatus.OK).size() == 1);
 	}
 }

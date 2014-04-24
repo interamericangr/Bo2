@@ -54,6 +54,7 @@ public class JobSchedulerImpl implements JobScheduler {
 		for (JobDescription description : jobDescriptions) {
 			submitJob(description);
 		}
+		QuartzSchedulerRegistry.appendJobDescription(jobDescriptions);
 		for (JobDescription description : jobDescriptions) {
 			if (description.isSynchronous()) {
 				QuartzUtils.waitJobToComplete(description);

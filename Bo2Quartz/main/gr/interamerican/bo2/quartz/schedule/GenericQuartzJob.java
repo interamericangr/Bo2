@@ -45,10 +45,12 @@ public class GenericQuartzJob implements Job {
 	Operation generateOperationFromBean(JobDescription bean) {
 		Operation op = Factory.create(bean.getOperationClass());
 		Map<String, Object> parameterMap = bean.getParameters();
-		for (String param : parameterMap.keySet()) {
-			Object p = parameterMap.get(param);
-			ReflectionUtils.setProperty(param, p, op);
-			LOGGER.trace("setting " + param + " with value " + p); //$NON-NLS-1$ //$NON-NLS-2$
+		if (parameterMap != null) {
+			for (String param : parameterMap.keySet()) {
+				Object p = parameterMap.get(param);
+				ReflectionUtils.setProperty(param, p, op);
+				LOGGER.trace("setting " + param + " with value " + p); //$NON-NLS-1$ //$NON-NLS-2$
+			}
 		}
 		return op;
 	}
@@ -71,6 +73,7 @@ public class GenericQuartzJob implements Job {
 
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
+		LOGGER.trace("Starting QuartzJob"); //$NON-NLS-1$
 		JobDataMap map = context.getJobDetail().getJobDataMap();
 		JobDescription bean = (JobDescription) map.get(QuartzConstants.BEAN_PROP);
 		Bo2Session.setSession((Session<?, ?>) map.get(QuartzConstants.SESSION_PROP));
