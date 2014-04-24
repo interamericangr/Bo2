@@ -8,7 +8,8 @@ import java.util.Map;
  * Description of a job that is scheduled. This includes:
  * <li/> the class of an {@link Operation}
  * <li/> the operation named parameters
- * <li/> the name of the job
+ * <li/> whether the job should be executed synchronously, i.e. the application
+ *       should wait for it to finish. By default jobs are asynchronous.
  */
 public interface JobDescription {
 
