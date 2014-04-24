@@ -108,6 +108,7 @@ public class JotmTransactionManager extends JtaTransactionManager  {
 
 	@Override
 	public void enList(ResourceWrapper resource) throws CouldNotEnlistException {
+		super.enList(resource);
 		if (resource instanceof JdbcConnectionProvider) {
 			JdbcConnectionProvider jdbc = (JdbcConnectionProvider) resource;
 			Connection connection = jdbc.getConnection();
@@ -130,6 +131,7 @@ public class JotmTransactionManager extends JtaTransactionManager  {
 	
 	@Override
 	public void close() {
+		super.close();
 		synchronized (JotmTransactionManager.class) {
 			for(StandardXAConnectionHandle c : pooledConnections) {
 				closePhysicalConnection(c);

@@ -19,6 +19,9 @@ import gr.interamerican.bo2.arch.exceptions.CouldNotCommitException;
 import gr.interamerican.bo2.arch.exceptions.CouldNotDelistException;
 import gr.interamerican.bo2.arch.exceptions.CouldNotEnlistException;
 import gr.interamerican.bo2.arch.exceptions.CouldNotRollbackException;
+import gr.interamerican.bo2.arch.exceptions.DataException;
+import gr.interamerican.bo2.impl.open.job.JobCapableTransactionManager;
+import gr.interamerican.bo2.impl.open.job.JobSchedulerProvider;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -32,6 +35,7 @@ import java.util.Set;
  * This is a temporary solution until a proper JTA implementation is in place.
  */
 public class JdbcConnectionsTransactionManager 
+extends JobCapableTransactionManager
 implements TransactionManager {
 	
 	/**
@@ -71,10 +75,18 @@ implements TransactionManager {
 			for (Connection connection : connections) {
 				connection.commit();
 				connection.setAutoCommit(true);
-			}			
+			}
+			
+			submitScheduledJobs();
+			
 		} catch (SQLException e) {
 			throw new CouldNotCommitException(e);
+		} catch (DataException e) { //job submission
+			throw new RuntimeException(e);
+		} finally {
+			clearScheduledJobs();
 		}
+		
 	}
 	
 	public void rollback() throws CouldNotRollbackException {
@@ -85,10 +97,14 @@ implements TransactionManager {
 			}
 		} catch (SQLException e) {
 			throw new CouldNotRollbackException(e);
+		} finally {
+			clearScheduledJobs();
 		}
 	}
 	
+	@Override
 	public void enList(ResourceWrapper resource) throws CouldNotEnlistException {
+		super.enList(resource);
 		if (resource instanceof JdbcConnectionProvider) {
 			JdbcConnectionProvider jdbc = (JdbcConnectionProvider) resource;
 			Connection connection = jdbc.getConnection();
@@ -103,7 +119,9 @@ implements TransactionManager {
 		}
 	}
 
+	@Override
 	public void deList(ResourceWrapper resource) throws CouldNotDelistException {
+		super.deList(resource);
 		if (resource instanceof JdbcConnectionProvider) {
 			JdbcConnectionProvider jdbc = (JdbcConnectionProvider) resource;
 			Connection connection = jdbc.getConnection();
@@ -114,10 +132,6 @@ implements TransactionManager {
 				throw new CouldNotDelistException(e);
 			}
 		}
-	}
-
-	public void close() { 
-		/* do nothing */ 
 	}
 
 }

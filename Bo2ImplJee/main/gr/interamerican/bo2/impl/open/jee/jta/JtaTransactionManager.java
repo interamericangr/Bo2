@@ -12,13 +12,12 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.jee.jta;
 
-import gr.interamerican.bo2.arch.ResourceWrapper;
 import gr.interamerican.bo2.arch.TransactionManager;
 import gr.interamerican.bo2.arch.exceptions.CouldNotBeginException;
 import gr.interamerican.bo2.arch.exceptions.CouldNotCommitException;
-import gr.interamerican.bo2.arch.exceptions.CouldNotDelistException;
-import gr.interamerican.bo2.arch.exceptions.CouldNotEnlistException;
 import gr.interamerican.bo2.arch.exceptions.CouldNotRollbackException;
+import gr.interamerican.bo2.arch.exceptions.DataException;
+import gr.interamerican.bo2.impl.open.job.JobCapableTransactionManager;
 
 import javax.transaction.HeuristicMixedException;
 import javax.transaction.HeuristicRollbackException;
@@ -30,7 +29,9 @@ import javax.transaction.UserTransaction;
 /**
  * JTA based implementation of {@link TransactionManager}.
  */
-public class JtaTransactionManager implements TransactionManager {
+public class JtaTransactionManager 
+extends JobCapableTransactionManager
+implements TransactionManager {
 	
 	/**
 	 * JTA user transaction.
@@ -52,6 +53,7 @@ public class JtaTransactionManager implements TransactionManager {
 	public void commit() throws CouldNotCommitException {
 		try {
 			ut.commit();
+			submitScheduledJobs();
 		} catch (SecurityException se) {
 			throw new CouldNotCommitException(se);
 		} catch (IllegalStateException ise) {
@@ -64,6 +66,10 @@ public class JtaTransactionManager implements TransactionManager {
 			throw new CouldNotCommitException(hre);
 		} catch (SystemException syse) {
 			throw new CouldNotCommitException(syse);
+		} catch (DataException e) { //job submission
+			throw new RuntimeException(e);
+		} finally {
+			clearScheduledJobs();
 		}
 		
 	}
@@ -78,20 +84,9 @@ public class JtaTransactionManager implements TransactionManager {
 			throw new CouldNotRollbackException(se);
 		} catch (SystemException syse) {
 			throw new CouldNotRollbackException(syse);
+		} finally {
+			clearScheduledJobs();
 		}
-	}
-
-	
-	public void enList(ResourceWrapper resource) throws CouldNotEnlistException {
-		/* do nothing */
-	}
-
-	public void deList(ResourceWrapper resource) throws CouldNotDelistException {
-		/* do nothing */
-	}
-
-	public void close() {
-		/* do nothing */
 	}
 
 }
