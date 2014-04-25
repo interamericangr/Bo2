@@ -4,7 +4,7 @@ Added a test fixtures facility on PanelFactory
 	
 	public static void resetFixtures()
 	
-Suggested usage
+Suggested usage (e.g. with JUnit)
 
 	@BeforeClass
 	public static void setup() {
