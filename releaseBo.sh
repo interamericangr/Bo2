@@ -35,6 +35,9 @@ fi
 
 mail -s "Bo2 $release released" `cat recipientsOne.txt` < changelog.txt
 
+printf "\n\n$release\n--------\n\n" >> history.txt
+cat changelog.txt >> history.txt
+
 :>changelog.txt
 
-svn commit changelog.txt -m ""
+svn commit changelog.txt history.txt -m "added to release history"
