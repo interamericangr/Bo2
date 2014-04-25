@@ -1,0 +1,19 @@
+Added a test fixtures facility on PanelFactory
+
+	public static <M extends ServicePanel> void registerFixture(String panelId, M fixture)
+	
+	public static void resetFixtures()
+	
+Suggested usage
+
+	@BeforeClass
+	public static void setup() {
+		PanelFactory.registerFixture(...)
+	}
+	
+	@AfterClass
+	public static void setup() {
+		PanelFactory.resetFixtures();
+	}
+	
+Fixture registration/resolution is thread-safe for parallel test execution.
