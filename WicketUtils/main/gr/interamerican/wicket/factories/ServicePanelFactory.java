@@ -42,5 +42,12 @@ public interface ServicePanelFactory {
 	 * @return Returns a service panel.
 	 */
 	public <P extends ServicePanel> P createPanel(ServicePanelDef definition);
+	
+	/**
+	 * Gets the fixture resolver associated with this ServicePanelFactory
+	 * 
+	 * @return Returns the fixture resolver associated with this ServicePanelFactory
+	 */
+	public ServicePanelFixtureResolver getFixtureResolver();
 
 }

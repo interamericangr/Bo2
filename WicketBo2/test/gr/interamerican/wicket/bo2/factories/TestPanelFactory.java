@@ -12,19 +12,25 @@
  ******************************************************************************/
 package gr.interamerican.wicket.bo2.factories;
 
+import gr.interamerican.bo2.impl.open.creation.Factory;
+import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.wicket.markup.html.panel.back.ServicePanelWithBack;
 import gr.interamerican.wicket.markup.html.panel.back.ServicePanelWithBackDef;
 import gr.interamerican.wicket.markup.html.panel.back.ServicePanelWithBackDefImpl;
+import gr.interamerican.wicket.markup.html.panel.service.ServicePanel;
+import gr.interamerican.wicket.markup.html.panel.service.ServicePanelDef;
 import gr.interamerican.wicket.samples.factories.ServicePanelIdProvider;
+import gr.interamerican.wicket.test.WicketTest;
 
 import org.apache.wicket.markup.html.panel.Panel;
 import org.junit.Assert;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
  * Tests for {@link PanelFactory}.
  */
-public class TestPanelFactory {
+public class TestPanelFactory extends WicketTest {
 	
 	/**
 	 * Unit test for create()
@@ -37,5 +43,17 @@ public class TestPanelFactory {
 		Panel panel = PanelFactory.create(def);
 		Assert.assertTrue(panel instanceof ServicePanelWithBack);
 	}
-
+	
+	/**
+	 * test registerFixture
+	 */
+	@Test
+	public void testRegisterFixture() {
+		ServicePanel fixture = Mockito.mock(ServicePanel.class);
+		PanelFactory.registerFixture(StringConstants.COLON, fixture);
+		ServicePanelDef def = Factory.create(ServicePanelDef.class);
+		def.setPanelId(StringConstants.COLON);
+		Assert.assertTrue(PanelFactory.create(def) == fixture);
+	}
+	
 }

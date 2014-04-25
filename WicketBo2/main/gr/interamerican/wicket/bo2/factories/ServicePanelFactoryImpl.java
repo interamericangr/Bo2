@@ -18,6 +18,7 @@ import gr.interamerican.bo2.utils.CollectionUtils;
 import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.wicket.factories.ServicePanelFactory;
+import gr.interamerican.wicket.factories.ServicePanelFixtureResolver;
 import gr.interamerican.wicket.markup.html.panel.service.ServicePanel;
 import gr.interamerican.wicket.markup.html.panel.service.ServicePanelDef;
 
@@ -67,14 +68,26 @@ public class ServicePanelFactoryImpl implements ServicePanelFactory {
 			throw new ExceptionInInitializerError(e);
 		}
 	}
+	
+	/**
+	 * Fixture resolver (for tests).
+	 */
+	ServicePanelFixtureResolver resolver = new DefaultServicePanelFixtureResolver();
 
 	@SuppressWarnings("unchecked")
 	public <P extends ServicePanel> P createPanel(ServicePanelDef definition) {
 		String panelId = definition.getPanelId();
+		
+		P fixture = getFixtureResolver().resolveFixture(panelId);
+		if(fixture != null) { //possible fixture
+			return fixture;
+		}
+		
 		Class<P> panelCls = (Class<P>) servicePanelAssociations.get(panelId);
 		if(panelCls == null) {
 			creationFailed(definition);
 		}
+		
 		Constructor<P> constructor = null;
 		Constructor<P>[] constructors = (Constructor<P>[])panelCls.getConstructors();
 		for (Constructor<P> c : constructors) {
@@ -86,6 +99,7 @@ public class ServicePanelFactoryImpl implements ServicePanelFactory {
 		if(constructor==null) {
 			creationFailed(definition);
 		}
+		
 		return ReflectionUtils.newInstance(constructor, definition);
 	}
 	
@@ -100,6 +114,10 @@ public class ServicePanelFactoryImpl implements ServicePanelFactory {
 				"Failed to create panel with input definition of type ",
 				def.getClass().getName() + " and panelId " + def.getPanelId());
 		throw new RuntimeException(msg);
+	}
+
+	public ServicePanelFixtureResolver getFixtureResolver() {
+		return resolver;
 	}
 
 }
