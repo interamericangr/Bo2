@@ -86,4 +86,11 @@ public class QuartzSchedulerRegistry {
 				scheduledJobDescriptions, QuartzjobDescription.class);
 		return descriptions;
 	}
+
+	/**
+	 * clears the list of scheduled job descriptions.
+	 */
+	public static synchronized void clearScheduledJobDescriptions() {
+		scheduledJobDescriptions.clear();
+	}
 }

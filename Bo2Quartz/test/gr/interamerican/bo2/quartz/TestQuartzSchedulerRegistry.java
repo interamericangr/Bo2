@@ -41,6 +41,7 @@ public class TestQuartzSchedulerRegistry {
 	 */
 	@Test
 	public void testGetJobDescriptionBasedOnStatus() throws DataException {
+		QuartzSchedulerRegistry.clearScheduledJobDescriptions();
 		JobScheduler jobScheduler = new QuartzJobSchedulerImpl();
 		jobScheduler.submitJobs(TestQuartzUtils.singleBeanList);
 		Assert.assertTrue((QuartzSchedulerRegistry.getJobDescriptionBasedOnStatus(JobStatus.SCHEDULED).size() + QuartzSchedulerRegistry
