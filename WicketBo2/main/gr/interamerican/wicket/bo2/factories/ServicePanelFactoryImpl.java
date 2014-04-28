@@ -69,14 +69,38 @@ public class ServicePanelFactoryImpl implements ServicePanelFactory {
 					for (Map.Entry<Object, Object> entry : properties.entrySet()) {
 						String left = StringUtils.trim((String) entry.getKey());			
 						String right = StringUtils.trim((String) entry.getValue());
-						Class<?> panelClass = Class.forName(right);
-						servicePanelAssociations.put(left, panelClass);
+						Class<?> panelClass = loadClassIfPossible(right);
+						if(panelClass != null) {
+							servicePanelAssociations.put(left, panelClass);
+						}
 					}
 				}
 			}	
 		} catch (Exception e) {
 			throw new ExceptionInInitializerError(e);
 		}
+	}
+	
+	/**
+	 * Loads a class if it is available in the classpath. If unavailable,
+	 * a warning is printed. This is not normally acceptable and should be 
+	 * considered a fatal error when in production. 
+	 * 
+	 * @param name
+	 * @return panel implementation class with the supplied name
+	 */
+	@SuppressWarnings("nls")
+	static Class<?> loadClassIfPossible(String name) {
+		try {
+			return Class.forName(name);
+		} catch (ClassNotFoundException cnfe) {
+			String msg = StringUtils.concat(
+					"Non existant class name: ",
+					name,
+					". This is acceptable for unit tests, but FATAL in every other case and should be investigated.");
+			LOGGER.error(msg);
+		}
+		return null;
 	}
 	
 	/**
