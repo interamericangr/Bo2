@@ -15,6 +15,7 @@ package gr.interamerican.wicket.bo2.factories;
 import gr.interamerican.bo2.impl.open.utils.Bo2;
 import gr.interamerican.bo2.impl.open.utils.Util;
 import gr.interamerican.bo2.utils.CollectionUtils;
+import gr.interamerican.bo2.utils.ExceptionUtils;
 import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.wicket.factories.ServicePanelFactory;
@@ -22,10 +23,14 @@ import gr.interamerican.wicket.factories.ServicePanelFixtureResolver;
 import gr.interamerican.wicket.markup.html.panel.service.ServicePanel;
 import gr.interamerican.wicket.markup.html.panel.service.ServicePanelDef;
 
+import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Implementation of {@link ServicePanelFactory}.
@@ -36,6 +41,11 @@ import java.util.Properties;
  * and ServicePanel implementation classes.
  */
 public class ServicePanelFactoryImpl implements ServicePanelFactory {
+	
+	/**
+	 * Logger.
+	 */
+	private static Logger LOGGER = LoggerFactory.getLogger(ServicePanelFactoryImpl.class);
 	
 	/**
 	 * Service panel associations found in the current deployment.
@@ -55,7 +65,7 @@ public class ServicePanelFactoryImpl implements ServicePanelFactory {
 			for (int i = 0; i < paths.length; i++) {
 				String path = paths[i].trim();
 				if(path.length()>0) {
-					Properties properties = CollectionUtils.readProperties(path);
+					Properties properties = loadPropertiesIfAvailable(path);
 					for (Map.Entry<Object, Object> entry : properties.entrySet()) {
 						String left = StringUtils.trim((String) entry.getKey());			
 						String right = StringUtils.trim((String) entry.getValue());
@@ -67,6 +77,35 @@ public class ServicePanelFactoryImpl implements ServicePanelFactory {
 		} catch (Exception e) {
 			throw new ExceptionInInitializerError(e);
 		}
+	}
+	
+	/**
+	 * Loads a properties file resource, if it is available. If unavailable,
+	 * a warning is printed. This is not normally acceptable and should be 
+	 * considered a fatal error when in production. 
+	 * 
+	 * @param path
+	 *        Resource path.
+	 * 
+	 * @return loaded properties.
+	 */
+	@SuppressWarnings("nls")
+	static Properties loadPropertiesIfAvailable(String path) {
+		try {
+			Properties p = CollectionUtils.readProperties(path);
+			return p;
+		} catch(RuntimeException rtex) {
+			if(ExceptionUtils.isCausedBy(rtex, IOException.class)) {
+				String msg = StringUtils.concat(
+						"Non existant mappings file: ",
+						path,
+						". This is acceptable for unit tests, but FATAL in every other case and should be investigated.");
+				LOGGER.error(msg);
+			} else {
+				throw rtex;
+			}
+		}
+		return new Properties();
 	}
 	
 	/**
