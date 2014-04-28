@@ -28,3 +28,8 @@ Added EnumParser and EnumFormatter
 2.1.0040
 --------
 
+
+
+2.1.0041
+--------
+
