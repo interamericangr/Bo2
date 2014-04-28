@@ -17,3 +17,5 @@ Suggested usage (e.g. with JUnit)
 	}
 	
 Fixture registration/resolution is thread-safe for parallel test execution.
+
+Added EnumParser and EnumFormatter
