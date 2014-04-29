@@ -1,13 +1,13 @@
 /*******************************************************************************
- * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A. 
+ * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/copyleft/lesser.html
  * 
- * This library is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.po;
@@ -32,12 +32,12 @@ import java.util.Map;
  * This class fetches persistent objects from the database and keeps
  * them in a cache so that the next time the same object is asked, it
  * can be fetched from the local cache. <br/>
- * The purpose of this class is to keep objects that are not expected 
- * to be modified. 
+ * The purpose of this class is to keep objects that are not expected
+ * to be modified.
  * 
  * @param <P>
- *        Type of {@link PersistentObject}. 
- * @param <K> 
+ *        Type of {@link PersistentObject}.
+ * @param <K>
  *        Type of PersistentObject key.
  */
 public class PoCache
@@ -46,42 +46,33 @@ public class PoCache
 	 * Indicates if the cache is enabled.
 	 */
 	boolean isCacheEnabled = false;
-	
+
 	/**
 	 * Transformation to be applied on objects after reading them.
 	 */
-	Modification<P> modification; 
-	
+	Modification<P> modification;
+
 	/**
 	 * Map.
 	 */
 	Map<K, P> map = new HashMap<K,P>();
-	
+
 	/**
 	 * Class of Persistent object.
 	 */
 	Class<P> poClass;
-	
+
 	/**
 	 * Max cache size.
 	 */
 	int maxSize;
-	
-	
-		
-	
-	
-	
-	
-	
-	
 
 	/**
-	 * Creates a new PoCache object. 
+	 * Creates a new PoCache object.
 	 *
 	 * @param modification
 	 *        Modification to apply to the objects being read.
-	 *        Optional, this can be null.	  
+	 *        Optional, this can be null.
 	 * @param poClass
 	 *        Persistent class.
 	 * @param maxSize
@@ -105,12 +96,12 @@ public class PoCache
 	 * to the current session.
 	 * 
 	 * @param key
-	 *        Key of the persistent object being searched. 
+	 *        Key of the persistent object being searched.
 	 * 
 	 * @return Returns the persistent object with the specified key.
 	 *         If there is no {@link PersistentObject} found with the
-	 *         specified key, then returns null. 
-	 *         
+	 *         specified key, then returns null.
+	 * 
 	 * @throws RuntimeException
 	 *         That wraps any {@link InitializationException} or
 	 *         {@link DataException} caught during the read operation.
@@ -118,11 +109,11 @@ public class PoCache
 	public P get(K key) {
 		P po = map.get(key);
 		if (po==null) {
-			po = read(key);			
-		}		
+			po = read(key);
+		}
 		return po;
 	}
-	
+
 	/**
 	 * Puts the specified persistent object in the cache, so that
 	 * future calls to <code>get(key)</code> will return this element
@@ -130,43 +121,49 @@ public class PoCache
 	 * 
 	 * This method is useful in unit testing by putting fixture objects
 	 * in the cache and thus imitating the behavior of a system that would
-	 * read these fixtures from the database. 
+	 * read these fixtures from the database.
 	 * 
 	 * @param po
-	 *        Persistent object to put in the cache. 
-	 * 
-	 *         
-	 * @throws RuntimeException
-	 *         That wraps any {@link InitializationException} or
-	 *         {@link DataException} caught during the read operation.
+	 *        Persistent object to put in the cache.
 	 */
 	public void set(P po) {
 		K key = po.getKey();
 		map.put(key, po);
 	}
-	
+
+	/**
+	 * Removes the persistent object from the PoCache. This method is useful if you want to remove specific objects from
+	 * this cache. The object may re-enter in the cache on future put calls.
+	 * 
+	 * @param key
+	 *            the keys that will be removed from the PoCache
+	 */
+	public void remove(K key) {
+		map.remove(key);
+	}
+
 	/**
 	 * Reads the persistent object from the database.
 	 * 
 	 * @param key
-	 *        Key of the persistent object being searched. 
+	 *        Key of the persistent object being searched.
 	 * 
 	 * @return Returns the persistent object with the specified key.
 	 *         If there is no {@link PersistentObject} found with the
-	 *         specified key, then returns null. 
-	 *         
+	 *         specified key, then returns null.
+	 * 
 	 * @throws RuntimeException
 	 *         That wraps any {@link InitializationException} or
 	 *         {@link DataException} caught during the read operation.
 	 */
-	P read(K key) {		
+	P read(K key) {
 		P po = readFromDB(key);
-		if (po!=null && isCacheEnabled) {
-			map.put(key, po);		
+		if ((po!=null) && isCacheEnabled) {
+			map.put(key, po);
 		}
 		return po;
 	}
-	
+
 	/**
 	 * Reads the persistent object from the database.
 	 * 
@@ -180,25 +177,25 @@ public class PoCache
 	 * 
 	 * @return Returns the persistent object with the specified key.
 	 *         If there is no {@link PersistentObject} found with the
-	 *         specified key, then returns null. 
-	 *         
+	 *         specified key, then returns null.
+	 * 
 	 * @throws RuntimeException
 	 *         That wraps any {@link InitializationException} or
 	 *         {@link DataException} caught during the read operation.
 	 */
 	P readFromDB(K key) {
-		try {		
+		try {
 			PersistenceWorker<P> pw = Factory.createPw(poClass);
 			Provider provider = Bo2Session.getProvider();
 			if(provider==null) {
-				throw new RuntimeException("PoCache: NULL Provider on Bo2Session");
+				throw new RuntimeException("PoCache: NULL Provider on Bo2Session"); //$NON-NLS-1$
 			}
 			pw.init(provider);
 			pw.open();
 			P po = Factory.create(poClass);
 			po.setKey(key);
 			po = pw.read(po);
-			pw.close();				
+			pw.close();
 			if (modification!=null) {
 				po = modification.execute(po);
 			}
