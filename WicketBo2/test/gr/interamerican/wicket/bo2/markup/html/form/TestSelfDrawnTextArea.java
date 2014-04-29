@@ -16,10 +16,12 @@ import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.meta.descriptors.StringBoPropertyDescriptor;
 import gr.interamerican.wicket.markup.html.TestPage;
 import gr.interamerican.wicket.test.WicketTest;
+import gr.interamerican.wicket.utils.MarkupConstants;
 
 import java.util.List;
 
 import org.apache.wicket.Component;
+import org.apache.wicket.Page;
 import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.util.tester.FormTester;
@@ -61,6 +63,8 @@ public class TestSelfDrawnTextArea extends WicketTest {
 		TextArea<String> tf = (TextArea<String>) getTestSubject();		
 		Assert.assertNull(tf.getModelObject());
 		Assert.assertFalse(getFeedbackPanel().anyErrorMessage());
+		
+		Assert.assertFalse(tester.getLastResponse().getDocument().contains(MarkupConstants.READONLY));
 	}
 	
 	/**
@@ -76,6 +80,8 @@ public class TestSelfDrawnTextArea extends WicketTest {
 		Assert.assertNotNull(tf.getModelObject());
 		Assert.assertEquals(StringConstants.EMPTY, tf.getModelObject());
 		Assert.assertFalse(getFeedbackPanel().anyErrorMessage());
+		
+		Assert.assertFalse(tester.getLastResponse().getDocument().contains(MarkupConstants.READONLY));
 	}
 	
 	/**
@@ -100,6 +106,21 @@ public class TestSelfDrawnTextArea extends WicketTest {
 		Assert.assertEquals(1, messages.size());
 		String msg = messages.get(0).toString();
 		Assert.assertTrue(msg.contains(expression));
+		
+		Assert.assertFalse(tester.getLastResponse().getDocument().contains(MarkupConstants.READONLY));
+	}
+	
+	/**
+	 * test disable
+	 */
+	@Test
+	public void testDisable() {
+		Page page = getTestPage();
+		page.setEnabled(false);
+		
+		tester.startPage(page);
+		
+		Assert.assertTrue(tester.getLastResponse().getDocument().contains(MarkupConstants.READONLY));
 	}
 	
 	@Override

@@ -73,5 +73,10 @@ public class SelfDrawnTextArea extends TextArea<String>{
         tag.put(MarkupConstants.ROWS, rowsValue);
         super.onComponentTag(tag);
     }
+    
+    @Override
+    protected void onDisabled(ComponentTag tag) {
+    	tag.put(MarkupConstants.READONLY, MarkupConstants.READONLY);
+    }
    
 }
