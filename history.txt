@@ -40,3 +40,10 @@ Added EnumParser and EnumFormatter
 
 PoCache:
 	added remove
+
+
+2.1.0043
+--------
+
+PoFetcher:
+ 	added unload
