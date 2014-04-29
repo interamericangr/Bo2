@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if [ ! -z $(svn status | wc -l) ]
+if [ ! -z "$(svn status)" ]
 then
 	echo "You have local uncommitted changes"
 	exit -1
