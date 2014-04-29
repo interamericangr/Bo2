@@ -1,0 +1,1 @@
+properly handle disable event on self drawn text areas
