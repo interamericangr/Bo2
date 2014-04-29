@@ -1,4 +1,11 @@
 #!/bin/sh
+
+if [ ! -z $(svn status | wc -l) ]
+then
+	echo "You have local uncommitted changes"
+	exit -1
+fi
+
 svn update
 
 mvn -q clean install 
