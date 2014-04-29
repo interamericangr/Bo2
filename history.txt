@@ -33,3 +33,10 @@ Added EnumParser and EnumFormatter
 2.1.0041
 --------
 
+
+
+2.1.0042
+--------
+
+PoCache:
+	added remove
