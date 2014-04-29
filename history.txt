@@ -47,3 +47,9 @@ PoCache:
 
 PoFetcher:
  	added unload
+
+
+2.1.0044
+--------
+
+properly handle disable event on self drawn text areas
