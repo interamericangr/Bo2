@@ -138,7 +138,7 @@ public class PoCache
 	 * @param key
 	 *            the keys that will be removed from the PoCache
 	 */
-	public void remove(K key) {
+	void remove(K key) {
 		map.remove(key);
 	}
 

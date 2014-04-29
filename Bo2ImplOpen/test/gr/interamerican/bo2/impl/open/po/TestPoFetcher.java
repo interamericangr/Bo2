@@ -1,13 +1,13 @@
 /*******************************************************************************
- * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A. 
+ * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/copyleft/lesser.html
  * 
- * This library is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.po;
@@ -43,21 +43,21 @@ import org.junit.Test;
  * Unit tests for cache.
  */
 public class TestPoFetcher {
-	
+
 	/**
 	 * Test for get.
 	 * 
 	 * Tests that an object can be fetched.
 	 * Tests that when a cache has been defined for a class, then
-	 * subsequent fetches of an element with the same id 
+	 * subsequent fetches of an element with the same id
 	 * 
 	 * @throws UnexpectedException
 	 * @throws DataException
 	 * @throws LogicException
 	 */
 	@Test
-	public void testGet_withoutCache() throws UnexpectedException, DataException, LogicException {					
-		new AbstractBo2RuntimeCmd() {			
+	public void testGet_withoutCache() throws UnexpectedException, DataException, LogicException {
+		new AbstractBo2RuntimeCmd() {
 			@Override
 			public void work() throws LogicException, DataException, InitializationException, UnexpectedException {
 				UserKey uk = Factory.create(UserKey.class);
@@ -66,40 +66,52 @@ public class TestPoFetcher {
 				Assert.assertNull(user);
 			}
 		}.execute();
-		
+
 	}
-	
-	
+
+
 	/**
 	 * Test for get.
 	 * 
 	 * Tests that an object can be fetched.
 	 * Tests that when a cache has been defined for a class, then
-	 * subsequent fetches of an element with the same id 
+	 * subsequent fetches of an element with the same id
 	 */
 	@Test
 	public void testSet() {
 		Bo2AnnoUtils.setManagerName(User.class, "LOCALDB"); //$NON-NLS-1$
-		User expected = new User();		
+		User expected = new User();
 		expected.setId(50);
 		PoFetcher.set(User.class, expected);
 		UserKey key = Factory.create(UserKey.class);
 		key.setId(50);
 		User actual = PoFetcher.get(User.class, key);
-		Assert.assertEquals(expected, actual);	
+		Assert.assertEquals(expected, actual);
 	}
-	
-	
-	
-	
-	
-	
+
+	/**
+	 * test for unload.
+	 */
+	@Test
+	public void testunload() {
+		Bo2AnnoUtils.setManagerName(User.class, "LOCALDB"); //$NON-NLS-1$
+		User expected = new User();
+		expected.setId(50);
+		PoFetcher.set(User.class, expected);
+		UserKey key = Factory.create(UserKey.class);
+		key.setId(50);
+		User actual = PoFetcher.get(User.class, key);
+		Assert.assertEquals(expected, actual);
+		PoFetcher.unload(User.class, expected);
+		Assert.assertFalse(PoFetcher.getCache(User.class).map.containsKey(key));
+	}
+
 	/**
 	 * Test for get.
 	 * 
 	 * Tests that an object can be fetched.
 	 * Tests that when a cache has been defined for a class, then
-	 * subsequent fetches of an element with the same id 
+	 * subsequent fetches of an element with the same id
 	 * 
 	 * @throws UnexpectedException
 	 * @throws DataException
@@ -108,50 +120,50 @@ public class TestPoFetcher {
 	@Test
 	public void testGet() throws UnexpectedException, DataException, LogicException {
 		Bo2AnnoUtils.setManagerName(User.class, "LOCALDB"); //$NON-NLS-1$
-		
+
 		final User[] users = new User[3];
-		
+
 		final UserKey exists = Factory.create(UserKey.class);
 		exists.setId(UtilityForBo2Test.getExistingUserId());
 		final UserKey notExists = Factory.create(UserKey.class);
 		notExists.setId(UtilityForBo2Test.getNotExistingUserId());
-		
-		
-		new AbstractBo2RuntimeCmd() {			
+
+
+		new AbstractBo2RuntimeCmd() {
 			@Override
-			public void work() throws LogicException, DataException, InitializationException, UnexpectedException {				
+			public void work() throws LogicException, DataException, InitializationException, UnexpectedException {
 				users[0] = PoFetcher.get(User.class, exists);
 			}
 		}.execute();
-		new AbstractBo2RuntimeCmd() {			
+		new AbstractBo2RuntimeCmd() {
 			@Override
-			public void work() throws LogicException, DataException, InitializationException, UnexpectedException {				
+			public void work() throws LogicException, DataException, InitializationException, UnexpectedException {
 				users[1] = PoFetcher.get(User.class, exists);
 				users[2] = PoFetcher.get(User.class, notExists);
 			}
 		}.execute();
 		Assert.assertNotNull(users[0]);
 		Assert.assertNotSame(users[0], users[1]);
-		Assert.assertNull(users[2]);		
+		Assert.assertNull(users[2]);
 	}
-	
+
 	/**
 	 * Test for get throwing an exception.
 	 */
 	@Test(expected=RuntimeException.class)
-	public void testGet_withoutProvider() {		
+	public void testGet_withoutProvider() {
 		UserKey k = new UserKey(5);
 		PoFetcher.get(User.class,k);
 	}
-	
+
 	/**
 	 * Test for get throwing an exception.
 	 */
 	@SuppressWarnings("nls")
 	@Test()
-	public void testSetGetChildMethod() {		
+	public void testSetGetChildMethod() {
 		PoFetcher.setGetChildMethod(InvoiceLine.class, Invoice.class, "getLineByNo", "lineNo");
-		
+
 		MethodCall mc = PoFetcher.fetchMethods.get(InvoiceLine.class);
 		Assert.assertNotNull(mc);
 		Assert.assertEquals(Invoice.class, mc.poClass);
@@ -160,26 +172,26 @@ public class TestPoFetcher {
 		String[] argNames = {"lineNo"};
 		Assert.assertArrayEquals(argNames, mc.argNames);
 	}
-	
+
 	/**
 	 * Test for get throwing an exception.
 	 */
 	@Test()
-	public void testSetCache() {		
+	public void testSetCache() {
 		PoFetcher.setCacheSize(Invoice.class, 5);
 		@SuppressWarnings("unchecked")
 		PoCache<InvoiceKey, Invoice> pocache =
-			(PoCache<InvoiceKey, Invoice>) PoFetcher.caches.get(Invoice.class);
+		(PoCache<InvoiceKey, Invoice>) PoFetcher.caches.get(Invoice.class);
 		Assert.assertNotNull(pocache);
 		Assert.assertEquals(5, pocache.maxSize);
 	}
-	
+
 	/**
 	 * Test for get.
 	 * 
 	 * Tests that an object can be fetched.
 	 * Tests that when a cache has been defined for a class, then
-	 * subsequent fetches of an element with the same id 
+	 * subsequent fetches of an element with the same id
 	 * 
 	 * @throws UnexpectedException
 	 * @throws DataException
@@ -189,32 +201,32 @@ public class TestPoFetcher {
 	@Test
 	public void testGet_withMethod() throws UnexpectedException, DataException, LogicException {
 		final Integer userId = 555;
-		
-		PoFetcher.setCacheSize(User.class, 5);		
+
+		PoFetcher.setCacheSize(User.class, 5);
 		PoFetcher.setGetChildMethod(UserProfile.class, User.class, "getProfileById", "profileId");
-		
+
 		CrudCmd<User> crud = new CrudCmd<User>(Factory.createPw(User.class),true);
 		User user = SamplesFactory.getBo2Factory().sampleUser(userId,2);
-		crud.delete(user);		
+		crud.delete(user);
 		crud.store(user);
-		
+
 		final UserProfile[] profiles = new UserProfile[1];
-		
-		
-		new AbstractBo2RuntimeCmd() {			
+
+
+		new AbstractBo2RuntimeCmd() {
 			@Override
-			public void work() throws LogicException, DataException, InitializationException, UnexpectedException {	
+			public void work() throws LogicException, DataException, InitializationException, UnexpectedException {
 				UserProfileKey key = Factory.create(UserProfileKey.class);
 				key.setId(userId);
 				key.setProfileId(1);
-				profiles[0] = PoFetcher.get(UserProfile.class, key); //Fetched using method	
+				profiles[0] = PoFetcher.get(UserProfile.class, key); //Fetched using method
 				Assert.assertNotNull(profiles[0]);
 			}
 		}.execute();
-		
-		new AbstractBo2RuntimeCmd() {			
+
+		new AbstractBo2RuntimeCmd() {
 			@Override
-			public void work() throws LogicException, DataException, InitializationException, UnexpectedException {	
+			public void work() throws LogicException, DataException, InitializationException, UnexpectedException {
 				UserKey key = Factory.create(UserKey.class);
 				key.setId(userId);
 				User inv = PoFetcher.get(User.class, key);
@@ -223,41 +235,41 @@ public class TestPoFetcher {
 				Assert.assertSame(profiles[0], up);
 			}
 		}.execute();
-		
-		crud.delete(user);	
+
+		crud.delete(user);
 	}
-	
+
 	/**
 	 * Test for registerModification.
 	 */
 	@Test()
-	public void testRegisterModification_beforeCacheCreation() {		
+	public void testRegisterModification_beforeCacheCreation() {
 		Modification<Invoice> modification = new DeepCopy<Invoice>();
 		PoFetcher.registerModification(Invoice.class, modification);
 		PoFetcher.setCacheSize(Invoice.class, 5);
 		@SuppressWarnings("unchecked")
 		PoCache<InvoiceKey, Invoice> pocache =
-			(PoCache<InvoiceKey, Invoice>) PoFetcher.caches.get(Invoice.class);				
+		(PoCache<InvoiceKey, Invoice>) PoFetcher.caches.get(Invoice.class);
 		Assert.assertNotNull(pocache);
-		Assert.assertEquals(modification, pocache.modification);		
+		Assert.assertEquals(modification, pocache.modification);
 	}
-	
+
 	/**
 	 * Test for registerModification.
 	 */
 	@Test()
-	public void testRegisterModification_afterCacheCreation() {		
+	public void testRegisterModification_afterCacheCreation() {
 		Modification<Invoice> modification = new DeepCopy<Invoice>();
 		cleanUp();
 		PoFetcher.setCacheSize(Invoice.class, 5);
 		PoFetcher.registerModification(Invoice.class, modification);
 		@SuppressWarnings("unchecked")
 		PoCache<InvoiceKey, Invoice> pocache =
-			(PoCache<InvoiceKey, Invoice>) PoFetcher.caches.get(Invoice.class);				
+		(PoCache<InvoiceKey, Invoice>) PoFetcher.caches.get(Invoice.class);
 		Assert.assertNotNull(pocache);
-		Assert.assertEquals(modification, pocache.modification);		
+		Assert.assertEquals(modification, pocache.modification);
 	}
-	
+
 	/**
 	 * Cleans up PoFetched caches.
 	 */
