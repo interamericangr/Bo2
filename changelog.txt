@@ -1,7 +1,0 @@
-Added schedulerManagerName to Bo2 deployment.properties to indicate the name of the default manager that has a JobSchedulerProvider resource wrapper
-
-Bo2DeploymentParams#getSchedulerManagerName() : String
-
-Example usage
-
-Bo2.getDefaultDeployment().getDeploymentBean().getSchedulerManagerName()

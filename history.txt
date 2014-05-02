@@ -68,3 +68,14 @@ bo2 configuration now has docEngineUtilityClass property instead of pdfEngineCla
 docEngineUtilityClass built-in implementations:
 - gr.interamerican.bo2.odftoolkit.jod.JodDocumentEngineUtility connects to a LibreOffice daemon with TCP/IP
 - gr.interamerican.bo2.odftoolkit.ejb.EjbDocumentEngineUtility delegates to an EJB
+
+2.1.0046
+--------
+
+Added schedulerManagerName to Bo2 deployment.properties to indicate the name of the default manager that has a JobSchedulerProvider resource wrapper
+
+Bo2DeploymentParams#getSchedulerManagerName() : String
+
+Example usage
+
+Bo2.getDefaultDeployment().getDeploymentBean().getSchedulerManagerName()
