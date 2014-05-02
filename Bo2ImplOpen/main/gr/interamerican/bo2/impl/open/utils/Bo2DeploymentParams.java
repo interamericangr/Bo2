@@ -118,6 +118,11 @@ extends PropertiesInitializedBean {
 	private String streamsManagerName;
 	
 	/**
+	 * name of default resource manager for scheduling jobs
+	 */
+	private String schedulerManagerName;
+	
+	/**
 	 * Class name of TransactionManager.
 	 */
 	private String transactionManagerClass;
@@ -220,6 +225,15 @@ extends PropertiesInitializedBean {
 	 */
 	public String getStreamsManagerName() {
 		return streamsManagerName;
+	}
+
+	/**
+	 * Gets the schedulerManagerName.
+	 *
+	 * @return Returns the schedulerManagerName
+	 */
+	public String getSchedulerManagerName() {
+		return schedulerManagerName;
 	}
 
 	/**
