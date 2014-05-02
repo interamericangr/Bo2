@@ -132,6 +132,17 @@ public interface DocumentEngine {
 	 */
 	byte[] toPdf(BusinessDocument doc) throws DocumentEngineException;
 	
-	
+	/**
+	 * Gets the business document in HTML format.
+	 * 
+	 * @param doc
+	 *        Business document to convert to HTML.
+	 *        
+	 * @return Returns a String containing the specified business
+	 *         document in HTML format.
+	 *         
+	 * @throws DocumentEngineException 
+	 */
+	String toHtml(BusinessDocument doc) throws DocumentEngineException;
 
 }

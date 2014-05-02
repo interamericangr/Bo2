@@ -12,50 +12,12 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.doc;
 
+import javax.ejb.Remote;
+
 /**
- * Exception thrown from a PdfEngine.
+ * EJB definition for a {@link DocumentEngineUtility}.
  */
-public class PdfEngineException extends Exception {
-
-	/**
-	 * serialVersionUID.
-	 */
-	private static final long serialVersionUID = 1L;
-	
-	/**
-	 * Creates a new DocumentEngineException object. 
-	 *
-	 */
-	public PdfEngineException() {
-		super();
-	}
-
-	/**
-	 * Creates a new DocumentEngineException object. 
-	 *
-	 * @param message
-	 * @param cause
-	 */
-	public PdfEngineException(String message, Throwable cause) {
-		super(message, cause);
-	}
-
-	/**
-	 * Creates a new DocumentEngineException object. 
-	 *
-	 * @param message
-	 */
-	public PdfEngineException(String message) {
-		super(message);
-	}
-
-	/**
-	 * Creates a new DocumentEngineException object. 
-	 *
-	 * @param cause
-	 */
-	public PdfEngineException(Throwable cause) {
-		super(cause);
-	}
-
+@Remote
+public interface DocumentEngineUtilityEjb extends DocumentEngineUtility {
+	/* empty */
 }

@@ -12,7 +12,6 @@
  ******************************************************************************/
 package gr.interamerican.bo2.odftoolkit;
 
-import gr.interamerican.bo2.odftoolkit.pdf.TestJodPdfEngine;
 import gr.interamerican.bo2.odftoolkit.span.TestSuiteBo2OdftoolkitSpan;
 import gr.interamerican.bo2.odftoolkit.utils.TestSuiteBo2OdftoolkitUtils;
 
@@ -29,7 +28,6 @@ import org.junit.runners.Suite.SuiteClasses;
 		TestOdfToolkitEngine.class,
 		TestOdfToolkitTextDocument.class,
 		TestOdfToolkitTable.class,        
-		TestJodPdfEngine.class,
 		TestSuiteBo2OdftoolkitUtils.class,	
 		TestSuiteBo2OdftoolkitSpan.class,
 	}

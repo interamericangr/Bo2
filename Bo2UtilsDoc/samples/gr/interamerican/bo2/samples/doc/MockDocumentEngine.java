@@ -76,11 +76,15 @@ public class MockDocumentEngine implements DocumentEngine {
 		return null;
 	}
 	
+	public String toHtml(BusinessDocument doc) throws DocumentEngineException {
+		return null;
+	}
+	
 	/**
 	 * Creates a new MockDocumentEngine object. 
 	 * @param properties 
 	 */
-	public MockDocumentEngine(Properties properties) {
+	public MockDocumentEngine(@SuppressWarnings("unused") Properties properties) {
 		this();
 	}
 	

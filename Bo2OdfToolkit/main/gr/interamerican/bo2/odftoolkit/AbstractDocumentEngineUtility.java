@@ -10,18 +10,17 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
-package gr.interamerican.bo2.odftoolkit.pdf;
+package gr.interamerican.bo2.odftoolkit;
 
 import gr.interamerican.bo2.utils.CollectionUtils;
-import gr.interamerican.bo2.utils.doc.PdfEngine;
-import gr.interamerican.bo2.utils.doc.PdfEngineException;
+import gr.interamerican.bo2.utils.doc.DocumentEngineUtility;
 
 import java.util.Properties;
 
 /**
- * Abstract base class of {@link PdfEngine} implementations.
+ * Abstract base class of {@link DocumentEngineUtility} implementations.
  */
-public abstract class AbstractPdfEngine implements PdfEngine {
+public abstract class AbstractDocumentEngineUtility implements DocumentEngineUtility {
 	
 	/**
 	 * Host running the open office process.
@@ -63,7 +62,7 @@ public abstract class AbstractPdfEngine implements PdfEngine {
 	 *
 	 * @param properties
 	 */
-	protected AbstractPdfEngine(Properties properties) {
+	public AbstractDocumentEngineUtility(Properties properties) {
 		host = CollectionUtils.getOptionalProperty(properties, "host"); //$NON-NLS-1$
 		port = CollectionUtils.getOptionalProperty(properties, "port"); //$NON-NLS-1$
 		wsdlLocation = CollectionUtils.getOptionalProperty(properties, "wsdlLocation"); //$NON-NLS-1$
@@ -72,7 +71,5 @@ public abstract class AbstractPdfEngine implements PdfEngine {
 		ejbName = CollectionUtils.getOptionalProperty(properties, "ejbName"); //$NON-NLS-1$
 		initialCtxFactory = CollectionUtils.getOptionalProperty(properties, "initialCtxFactory"); //$NON-NLS-1$
 	}
-
-	public abstract byte[] toPdf(byte[] odf) throws PdfEngineException;
 
 }

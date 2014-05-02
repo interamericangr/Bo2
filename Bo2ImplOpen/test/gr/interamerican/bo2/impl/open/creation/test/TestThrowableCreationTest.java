@@ -30,7 +30,6 @@ import gr.interamerican.bo2.arch.exceptions.UnexpectedException;
 import gr.interamerican.bo2.arch.exceptions.WebServiceException;
 import gr.interamerican.bo2.creation.exception.ClassCreationException;
 import gr.interamerican.bo2.utils.doc.DocumentEngineException;
-import gr.interamerican.bo2.utils.doc.PdfEngineException;
 import gr.interamerican.bo2.utils.ftp.FtpException;
 import gr.interamerican.bo2.utils.sql.exceptions.SqlParseException;
 
@@ -97,7 +96,6 @@ public class TestThrowableCreationTest extends ThrowableCreationTest {
 			
 			/* Bo2UtilsDoc */
 			{DocumentEngineException.class.getName()},
-			{PdfEngineException.class.getName()},
 			
 		};
 		return Arrays.asList(classNames);

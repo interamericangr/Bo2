@@ -12,15 +12,14 @@
  ******************************************************************************/
 package gr.interamerican.bo2.odftoolkit;
 
-import gr.interamerican.bo2.odftoolkit.pdf.JodPdfEngine;
+import gr.interamerican.bo2.odftoolkit.jod.JodDocumentEngineUtility;
 import gr.interamerican.bo2.odftoolkit.utils.OdfUtils;
 import gr.interamerican.bo2.utils.CollectionUtils;
 import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.doc.BusinessDocument;
 import gr.interamerican.bo2.utils.doc.DocumentEngine;
 import gr.interamerican.bo2.utils.doc.DocumentEngineException;
-import gr.interamerican.bo2.utils.doc.PdfEngine;
-import gr.interamerican.bo2.utils.doc.PdfEngineException;
+import gr.interamerican.bo2.utils.doc.DocumentEngineUtility;
 
 import java.io.File;
 import java.io.InputStream;
@@ -36,8 +35,8 @@ public class OdfToolkitEngine implements DocumentEngine {
 	/**
 	 * PDF engine.
 	 */
-	private PdfEngine pdfEngine;
-		
+	private DocumentEngineUtility utility;
+	
 	/**
 	 * Creates a new OdfToolkitEngine object. 
 	 * 
@@ -46,10 +45,10 @@ public class OdfToolkitEngine implements DocumentEngine {
 	 */
 	public OdfToolkitEngine(Properties properties) {
 		super();
-		String engineClass = CollectionUtils.getMandatoryProperty(properties, "pdfEngineClass"); //$NON-NLS-1$
+		String utilityClass = CollectionUtils.getMandatoryProperty(properties, "docEngineUtilityClass"); //$NON-NLS-1$
 		try {
-			Class<?> engineClazz = Class.forName(engineClass);
-			pdfEngine = (PdfEngine) ReflectionUtils.newInstance(engineClazz, properties);
+			Class<?> utilityClazz = Class.forName(utilityClass);
+			utility = (DocumentEngineUtility) ReflectionUtils.newInstance(utilityClazz, properties);
 		}catch(ClassNotFoundException cnfe) {
 			throw new RuntimeException(cnfe);
 		}
@@ -61,7 +60,7 @@ public class OdfToolkitEngine implements DocumentEngine {
 	 */
 	public OdfToolkitEngine() {
 		super();
-		pdfEngine = new JodPdfEngine(new Properties());
+		utility = new JodDocumentEngineUtility(new Properties());
 	}
 
 	public String getEngineName() {		
@@ -162,15 +161,18 @@ public class OdfToolkitEngine implements DocumentEngine {
 		if(doc==null) {
 			throw new DocumentEngineException("Input document was null."); //$NON-NLS-1$
 		}
-		try {
-			OdfToolkitTextDocument odf = OdfToolkitEngine.safeCast(doc);
-			byte[] odfAsBytes = odf.asByteArray();
-			return pdfEngine.toPdf(odfAsBytes);
-		} catch (PdfEngineException e) {
-			throw new DocumentEngineException(e);
-		}
+		OdfToolkitTextDocument odf = OdfToolkitEngine.safeCast(doc);
+		byte[] odfAsBytes = odf.asByteArray();
+		return utility.toPdf(odfAsBytes);
 	}
-	
-	
+
+	public String toHtml(BusinessDocument doc) throws DocumentEngineException {
+		if(doc==null) {
+			throw new DocumentEngineException("Input document was null."); //$NON-NLS-1$
+		}
+		OdfToolkitTextDocument odf = OdfToolkitEngine.safeCast(doc);
+		byte[] odfAsBytes = odf.asByteArray();
+		return utility.toHtml(odfAsBytes);
+	}
 
 }

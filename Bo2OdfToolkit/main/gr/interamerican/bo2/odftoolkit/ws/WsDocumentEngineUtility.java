@@ -10,11 +10,11 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
-package gr.interamerican.bo2.odftoolkit.pdf;
+package gr.interamerican.bo2.odftoolkit.ws;
 
-import gr.interamerican.bo2.utils.doc.PdfEngine;
-import gr.interamerican.bo2.utils.doc.PdfEngineException;
-import gr.interamerican.bo2.utils.doc.PdfEngineWebService;
+import gr.interamerican.bo2.odftoolkit.AbstractDocumentEngineUtility;
+import gr.interamerican.bo2.utils.doc.DocumentEngineException;
+import gr.interamerican.bo2.utils.doc.DocumentEngineUtility;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -24,10 +24,9 @@ import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
 /**
- * {@link PdfEngine} that delegates the conversion to a web service.
+ * Implementation of {@link DocumentEngineUtility} based on a WebService
  */
-public class ServiceClientPdfEngine extends AbstractPdfEngine
-implements PdfEngine {
+public class WsDocumentEngineUtility extends AbstractDocumentEngineUtility {
 	
 	/**
 	 * {@link Service} instance.
@@ -39,7 +38,7 @@ implements PdfEngine {
 	 *
 	 * @param properties
 	 */
-	public ServiceClientPdfEngine(Properties properties) {
+	public WsDocumentEngineUtility(Properties properties) {
 		super(properties);
 		try {
 			initService();
@@ -59,11 +58,13 @@ implements PdfEngine {
 			WS = Service.create(wsdlURL, serviceQName);
 		}
 	}
-	
-	@Override
-	public byte[] toPdf(byte[] odf) throws PdfEngineException {
-		PdfEngineWebService pdfEngineWebService = WS.getPort(PdfEngineWebService.class);
-		return pdfEngineWebService.toPdf(odf);
+
+	public String toHtml(byte[] odf) throws DocumentEngineException {
+		throw new UnsupportedOperationException("not implemented"); //$NON-NLS-1$
+	}
+
+	public byte[] toPdf(byte[] odf) throws DocumentEngineException {
+		throw new UnsupportedOperationException("not implemented"); //$NON-NLS-1$
 	}
 
 }
