@@ -137,7 +137,7 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 				RequestCycle.get().scheduleRequestHandlerAfterCurrent(ajaxRequestTarget);
 
 				/*
-				 * set the next target, only if none exists
+				 * set the scheduled target as the next target (to be returned by this method), only if none exists
 				 */
 				if(nextTarget == null) {
 					nextTarget = ajaxRequestTarget;
