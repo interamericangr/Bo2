@@ -30,7 +30,7 @@ public class QuartzJobSchedulerProviderImpl implements JobSchedulerProvider {
 	 * 
 	 * @param p
 	 */
-	public QuartzJobSchedulerProviderImpl(Properties p) {
+	public QuartzJobSchedulerProviderImpl(@SuppressWarnings("unused") Properties p) {
 		scheduler = new QuartzJobSchedulerImpl();
 	}
 
