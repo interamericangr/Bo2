@@ -12,11 +12,17 @@
  ******************************************************************************/
 package gr.interamerican.wicket.callback;
 
+import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.handlers.EventHandlerComponent;
 import gr.interamerican.bo2.utils.handlers.MethodInvocator;
 import gr.interamerican.bo2.utils.handlers.ThrowingExceptionHandler;
+import gr.interamerican.wicket.WicketConstants;
 
 import java.io.Serializable;
+
+import org.apache.wicket.protocol.http.WebSession;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A {@link MethodBasedCallbackAction} is a Bo2WicketBlock that 
@@ -29,6 +35,11 @@ extends AbstractCommandCallback {
 	 * serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * Logger.
+	 */
+	private static final Logger LOG = LoggerFactory.getLogger(MethodBasedCallbackAction.class.getName());
 	
 	/**
 	 * Event handler.
@@ -75,8 +86,14 @@ extends AbstractCommandCallback {
 	}
 	
 	@Override
-	public void execute() {		
-		mi.invoke();
+	public void execute() {
+		WebSession session = WebSession.get();
+		String userId = null;
+		if(session != null) {
+			userId = (String) session.getAttribute(WicketConstants.USER_ID_ATTR);
+		}
+		LOG.info(userId + " invoked " + owner.getClass().getName() + StringConstants.SHARP + methodName); //$NON-NLS-1$
+		methodInvocator().invoke();
 	}
 	
 	@Override
