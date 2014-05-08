@@ -1227,4 +1227,18 @@ public class StringUtils {
 		return new String[0];
 	}
 	
+	/**
+	 * This utility is meant to help identify the unicode codepoint
+	 * of all chars in a supplied String
+	 * @param s
+	 */
+	public static void mapStringCharsToUnicodeCodepoints(String s) {
+		if(s==null) {
+			return;
+		}
+		for (char c : s.toCharArray()) {
+			System.out.println(String.valueOf(c) + StringConstants.TAB + Integer.toHexString(c));
+		}
+	}
+	
 }
