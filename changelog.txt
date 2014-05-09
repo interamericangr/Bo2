@@ -4,3 +4,9 @@
  * @param s
  */
 StringUtils#mapStringCharsToUnicodeCodepoints(String s) : void
+
+/**
+ * Register this ServletContextListener to your application 
+ * to shutdown quartz properly.
+ */
+public class Bo2QuartzServletContextListener 
