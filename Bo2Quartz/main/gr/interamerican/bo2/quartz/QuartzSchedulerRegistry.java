@@ -10,7 +10,6 @@ import java.util.List;
 
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
-import org.quartz.SchedulerFactory;
 import org.quartz.impl.StdSchedulerFactory;
 
 
@@ -18,13 +17,9 @@ import org.quartz.impl.StdSchedulerFactory;
  * scheduler registry.
  */
 public class QuartzSchedulerRegistry {
-
+	
 	/**
-	 * singleton factory for scheduler.
-	 */
-	private static final SchedulerFactory SCHEDULER_FACTORY = new StdSchedulerFactory();
-	/**
-	 * 
+	 * Scheduler
 	 */
 	private static Scheduler oneScheduler;
 
@@ -41,7 +36,7 @@ public class QuartzSchedulerRegistry {
 			synchronized (QuartzSchedulerRegistry.class) {
 				if (oneScheduler == null) {
 					try {
-						Scheduler s = SCHEDULER_FACTORY.getScheduler();
+						Scheduler s = new StdSchedulerFactory().getScheduler();
 						if (s == null) {
 							throw new RuntimeException("SCHEDULER IS NULL"); //$NON-NLS-1$
 						}
@@ -54,6 +49,12 @@ public class QuartzSchedulerRegistry {
 			}
 		}
 		return oneScheduler;
+	}
+	
+	public static void shutdown() throws SchedulerException {
+		if(oneScheduler!=null && oneScheduler.isStarted()) {
+			oneScheduler.shutdown();
+		}
 	}
 
 	/**
