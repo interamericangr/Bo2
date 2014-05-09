@@ -13,12 +13,5 @@ public interface Input<I> {
 	 * @param input
 	 */
 	public void setInput(I input);
-	
-	/**
-	 * Gets the input.
-	 * 
-	 * @return returns the input.
-	 */
-	public I getInput();
 
 }
