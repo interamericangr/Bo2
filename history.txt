@@ -79,3 +79,19 @@ Bo2DeploymentParams#getSchedulerManagerName() : String
 Example usage
 
 Bo2.getDefaultDeployment().getDeploymentBean().getSchedulerManagerName()
+
+2.1.0047
+--------
+
+/**
+ * This utility is meant to help identify the unicode codepoint
+ * of all chars in a supplied String
+ * @param s
+ */
+StringUtils#mapStringCharsToUnicodeCodepoints(String s) : void
+
+/**
+ * Register this ServletContextListener to your application 
+ * to shutdown quartz properly.
+ */
+public class Bo2QuartzServletContextListener 
