@@ -95,3 +95,10 @@ StringUtils#mapStringCharsToUnicodeCodepoints(String s) : void
  * to shutdown quartz properly.
  */
 public class Bo2QuartzServletContextListener 
+
+2.1.0048
+--------
+
+Added JaxwsUtils#fixEndPointAddress(Object port, UrlModifier mod)
+Also a UrlModifier implementation
+ 
