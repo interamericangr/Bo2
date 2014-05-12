@@ -1,0 +1,3 @@
+Added JaxwsUtils#fixEndPointAddress(Object port, UrlModifier mod)
+Also a UrlModifier implementation
+ 
