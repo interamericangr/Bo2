@@ -112,3 +112,8 @@ Also a UrlModifier implementation
 --------
 
 Added ZipUtils
+
+2.1.0051
+--------
+
+Added ZipUtils#zipFlatDir(String dirPath) : ByteArrayOutputStream
