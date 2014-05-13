@@ -106,3 +106,9 @@ Also a UrlModifier implementation
 2.1.0049
 --------
 
+
+
+2.1.0050
+--------
+
+Added ZipUtils
