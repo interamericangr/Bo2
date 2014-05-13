@@ -170,7 +170,8 @@ public class TestTypedSelectableImpl {
 	 */
 	@Test
 	public void testToString(){
-		String expected="[typeId, subTypeId, code, name]=[1,1,1,name]"; //$NON-NLS-1$
+		selectable.setSubTypeId(null);
+		String expected="[typeId, subTypeId, code, name]=[1,null,1,name]"; //$NON-NLS-1$
 		assertEquals(expected, selectable.toString());
 	}
 	
