@@ -1,8 +1,8 @@
 package gr.interamerican.bo2.utils;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -18,28 +18,26 @@ public class ZipUtils {
 	 * 
 	 * @param folderPath
 	 *            Directory
-	 * @param zipFilePath
-	 *            Zip file path
+	 * @return A stream with the bytes of the zip
 	 *            
 	 * @throws RuntimeException
 	 *         If the supplied <code>folderPath</code> is not a directory
 	 *         If an IOException occurs
 	 */
-	public static void zipFlatDir(String folderPath, String zipFilePath) {
+	public static ByteArrayOutputStream zipFlatDir(String folderPath) {
 		byte[] buffer = new byte[1024];
-		FileOutputStream fos = null;
+		ByteArrayOutputStream baos = null;
 		ZipOutputStream zos = null;
 
 		try {
 			File folder = new File(folderPath);
-			File zipFile = new File(zipFilePath);
 			
 			if (!folder.isDirectory()) {
 				throw new RuntimeException("not a directory " + folderPath); //$NON-NLS-1$
 			}
 
-			fos = new FileOutputStream(zipFile);
-			zos = new ZipOutputStream(fos);
+			baos = new ByteArrayOutputStream();
+			zos = new ZipOutputStream(baos);
 
 			FileInputStream in = null;
 			
@@ -70,13 +68,11 @@ public class ZipUtils {
 			zos.flush();
 			zos.finish();
 			
+			return baos;
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		} finally {
 			try {
-				if(fos!=null) {
-					fos.close();
-				}
 				if(zos != null) {
 					zos.close();
 				}

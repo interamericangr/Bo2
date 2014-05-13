@@ -1,0 +1,1 @@
+Added ZipUtils#zipFlatDir(String dirPath) : ByteArrayOutputStream
