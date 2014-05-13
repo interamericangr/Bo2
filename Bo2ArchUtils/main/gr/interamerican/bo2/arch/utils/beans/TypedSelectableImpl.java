@@ -14,6 +14,8 @@ package gr.interamerican.bo2.arch.utils.beans;
 
 import gr.interamerican.bo2.arch.ext.Codified;
 import gr.interamerican.bo2.arch.ext.TypedSelectable;
+import gr.interamerican.bo2.utils.StringConstants;
+import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.Utils;
 
 /**
@@ -122,6 +124,21 @@ implements TypedSelectable<C> {
 	public int compareTo(Codified<C> o) {
 		if(o==null) { return 1; }
 		return Utils.nullSafeCompare(o.getCode(), this.getCode());
+	}
+	
+	@Override
+	public String toString() {
+		return StringUtils.concat(
+				"[typeId, subTypeId, code, name]=[", //$NON-NLS-1$
+				StringUtils.toString(getTypeId()),
+				StringConstants.COMMA,
+				StringUtils.toString(getSubTypeId()),
+				StringConstants.COMMA,
+				StringUtils.toString(getCode()),
+				StringConstants.COMMA,
+				StringUtils.toString(getName()),
+				StringConstants.RIGHT_BRACKET);	
+		
 	}
 
 }
