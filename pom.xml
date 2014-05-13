@@ -3,7 +3,7 @@
 
 	<groupId>gr.interamerican.bo2</groupId>
 	<artifactId>Bo2</artifactId>
-	<version>2.1.0051</version>
+	<version>2.1.0052-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<properties>
@@ -468,7 +468,7 @@
 	</modules>
 
 	<scm>
-		<developerConnection>scm:svn:http://svn-srv/svn/bo2/tags/Bo2-2.1.0051</developerConnection>
+		<developerConnection>scm:svn:http://svn-srv/svn/bo2/trunk/Bo2</developerConnection>
 	</scm>
  
 	<repositories>
