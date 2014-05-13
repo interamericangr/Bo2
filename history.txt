@@ -102,3 +102,7 @@ public class Bo2QuartzServletContextListener
 Added JaxwsUtils#fixEndPointAddress(Object port, UrlModifier mod)
 Also a UrlModifier implementation
  
+
+2.1.0049
+--------
+
