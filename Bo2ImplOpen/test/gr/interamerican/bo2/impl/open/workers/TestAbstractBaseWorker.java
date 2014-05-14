@@ -50,6 +50,9 @@ public class TestAbstractBaseWorker {
 			father.init(new EmptyProvider());
 			assertTrue(father.isInitialized());
 			assertTrue(father.getChild().isInitialized());
+			assertTrue(father.otherChildren[0].isInitialized());
+			assertTrue(father.otherChildren[1].isInitialized());
+						
 		} catch (InitializationException e) {
 			fail(e.toString());
 		}
@@ -106,6 +109,8 @@ public class TestAbstractBaseWorker {
 			father.open();
 			assertTrue(father.isOpen());
 			assertTrue(father.getChild().isOpen());
+			assertTrue(father.otherChildren[0].isOpen());
+			assertTrue(father.otherChildren[1].isOpen());
 		
 		} catch (Exception e) {
 			fail(e.toString());
@@ -166,6 +171,9 @@ public class TestAbstractBaseWorker {
 			father.close();
 			assertFalse(father.isOpen());
 			assertFalse(father.getChild().isOpen());
+			assertFalse(father.otherChildren[0].isOpen());
+			assertFalse(father.otherChildren[1].isOpen());
+			
 		} catch (Exception e) {
 			fail(e.toString());
 		}
@@ -328,6 +336,20 @@ public class TestAbstractBaseWorker {
 		 * parameter field.
 		 */
 		@Parameter Integer integer = 12;
+		
+		/**
+		 * Other children.
+		 */
+		BaseWorkerEmptyImpl[] otherChildren =
+			{new BaseWorkerEmptyImpl(), new BaseWorkerEmptyImpl()};
+		
+		/**
+		 * Creates a new TestAbstractBaseWorker.BaseWorkerBasicImpl object. 
+		 *
+		 */
+		public BaseWorkerBasicImpl() {
+			markAsChildren(otherChildren);
+		}
 		
 
 		/**

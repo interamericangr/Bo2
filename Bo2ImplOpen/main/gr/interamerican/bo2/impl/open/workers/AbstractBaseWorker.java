@@ -94,6 +94,11 @@ implements Worker {
 	 */
 	Set<Field> parameterBeanFields;
 	
+	/**
+	 * Other workers marked as children.
+	 */
+	List<Worker> markedChildren=new ArrayList<Worker>();
+	
 
 	/**
 	 * indicates if the worker is in state open.
@@ -131,7 +136,6 @@ implements Worker {
 	}
 	
 	
-	
 	/**
 	 * Gets the children workers.
 	 * 
@@ -139,8 +143,10 @@ implements Worker {
 	 *         worker. 
 	 */
 	List<Worker> getChildren() {
-		return ReflectionUtils.getValuesOfFields
+		List<Worker> list = ReflectionUtils.getValuesOfFields
 			(this, childFields, Worker.class, false);
+		list.addAll(markedChildren);
+		return list;
 	}
 	
 	/**
@@ -272,6 +278,27 @@ implements Worker {
 	protected String[] getParameterNamesArray() {
 		return Bo2AnnoUtils.getParameterNames(this.getClass());
 	}
+	
+	/**
+	 * Marks the specified worker as a child.
+	 * 
+	 * @param child
+	 */
+	protected void markAsChild(Worker child) {
+		markedChildren.add(child);
+	}
+	
+	/**
+	 * Marks the specified workers as a children.
+	 * 
+	 * @param children
+	 */
+	protected <T extends Worker> void markAsChildren(T[] children) {
+		for (T t : children) {
+			markAsChild(t);			
+		}		
+	}
+
 
 
 }
