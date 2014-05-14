@@ -7,6 +7,8 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -23,6 +25,11 @@ import javax.xml.transform.stream.StreamResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.traversal.DocumentTraversal;
+import org.w3c.dom.traversal.NodeFilter;
+import org.w3c.dom.traversal.NodeIterator;
 import org.xml.sax.SAXException;
 
 /**
@@ -35,6 +42,12 @@ public class SoapLoggingFilter extends AbstractBaseLoggingFilter {
 	 * Logger.
 	 */
 	private static final Logger LOGGER = LoggerFactory.getLogger(SoapLoggingFilter.class.getName());
+	
+	/**
+	 * UPPERCASE regex for elements to omit from logging (e.g. passwords)
+	 */
+	@SuppressWarnings("nls")
+	static final String[] OMITTED_ELEMENTS_REGEX = new String[]{".*PASSWORD.*", ".*PASS.*", ".*PASSWD.*"};
 
 	@Override
 	protected void doLog(String url, Charset requestEncoding, Charset responseEncoding, byte[] request, byte[] response) {
@@ -66,6 +79,14 @@ public class SoapLoggingFilter extends AbstractBaseLoggingFilter {
 			ByteArrayInputStream bis = new ByteArrayInputStream(soap);
 			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 			Document document = builder.parse(bis);
+			
+			for(String omit : OMITTED_ELEMENTS_REGEX) {
+				List<Node> matchedNodes = matchedNodes(document, omit);
+				for(Node node : matchedNodes) {
+					node.getParentNode().removeChild(node);
+				}
+			}
+			
 			StringWriter sw = new StringWriter();
 			TransformerFactory tf = TransformerFactory.newInstance();
 			Transformer transformer = tf.newTransformer();
@@ -109,6 +130,20 @@ public class SoapLoggingFilter extends AbstractBaseLoggingFilter {
 	String handle(Throwable e, byte[] soap) {
 		LOGGER.error(e.getMessage() + " while parsing SOAP. Returned as UTF-8");
 		return new String(soap, Charset.forName("UTF-8"));
+	}
+	
+	static List<Node> matchedNodes(Document doc, String regex) {
+		List<Node> matchedNodes = new ArrayList<Node>();
+		DocumentTraversal traversal = (DocumentTraversal) doc;
+        NodeIterator iterator = traversal.createNodeIterator(
+          doc.getDocumentElement(), NodeFilter.SHOW_ELEMENT, null, true);
+        for (Node n = iterator.nextNode(); n != null; n = iterator.nextNode()) {
+            String tagname = ((Element) n).getTagName();
+            if(tagname.toUpperCase().matches(regex)) {
+            	matchedNodes.add(n);
+            }
+        }
+        return matchedNodes;
 	}
 	
 }

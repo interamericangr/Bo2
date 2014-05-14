@@ -8,6 +8,10 @@
 <ns2:customerAddressNo>01</ns2:customerAddressNo>
 <ns2:customerNo>000032430</ns2:customerNo>
 </ns2:customerDTO>
+<ns2:userDTO>
+<ns2:userid>auser</ns2:userid>
+<ns2:password>012345</ns2:password>
+</ns2:userDTO>
 </ns2:PolicyInput>
 </S:Body>
 </S:Envelope>

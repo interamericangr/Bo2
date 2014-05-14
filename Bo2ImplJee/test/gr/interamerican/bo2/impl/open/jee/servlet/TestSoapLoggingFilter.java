@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -33,7 +34,12 @@ public class TestSoapLoggingFilter {
 		}
 		byte[] bytes = document.getBytes(Bo2UtilsEnvironment.getDefaultResourceFileCharset());
 
-		subject.logSoap(bytes);
+		String s = subject.logSoap(bytes);
+		
+		for(String omittedRegex : SoapLoggingFilter.OMITTED_ELEMENTS_REGEX) {
+			Assert.assertFalse(s.matches(omittedRegex));
+		}
+		
 	}
 
 }
