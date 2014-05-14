@@ -10,9 +10,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
-package gr.interamerican.bo2.arch.utils.adapters;
-
-import gr.interamerican.bo2.arch.utils.adapters.number.TestSuiteBo2ArchUtilsAdaptersNumber;
+package gr.interamerican.bo2.arch.utils.adapters.number;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -24,12 +22,11 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses(
 	{
-		TestCalculatePercentageOfMoney.class,
-		TestSetModificationRecord.class,
-		TestResetModificationRecord.class,
-		TestSuiteBo2ArchUtilsAdaptersNumber.class,
+		TestMoneyAwareNumberTransformation.class,
+		TestAbsoluteValue.class,
+		TestNegativeToZero.class,
 	}
 )
-public class TestSuiteArchUtilsAdapters {
+public class TestSuiteBo2ArchUtilsAdaptersNumber {
 	/* empty */
 }
