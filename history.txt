@@ -117,3 +117,8 @@ Added ZipUtils
 --------
 
 Added ZipUtils#zipFlatDir(String dirPath) : ByteArrayOutputStream
+
+
+2.1.0052
+--------
+
