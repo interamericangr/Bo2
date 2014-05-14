@@ -47,7 +47,7 @@ public class SoapLoggingFilter extends AbstractBaseLoggingFilter {
 	 * UPPERCASE regex for elements to omit from logging (e.g. passwords)
 	 */
 	@SuppressWarnings("nls")
-	static final String[] OMITTED_ELEMENTS_REGEX = new String[]{".*PASSWORD.*", ".*PASS.*", ".*PASSWD.*"};
+	static final String[] OMITTED_ELEMENTS_REGEX = new String[]{".*PASSWORD.*", ".*PASS.*", ".*PASSWD"};
 
 	@Override
 	protected void doLog(String url, Charset requestEncoding, Charset responseEncoding, byte[] request, byte[] response) {
@@ -117,6 +117,8 @@ public class SoapLoggingFilter extends AbstractBaseLoggingFilter {
 			return handle(e, soap);
 		} catch (TransformerException e) {
 			return handle(e, soap);
+		} catch (Exception e) {
+			return handle(e, "Failed to manipulate SOAP for logging".getBytes());
 		}
 	}
 	
@@ -132,6 +134,12 @@ public class SoapLoggingFilter extends AbstractBaseLoggingFilter {
 		return new String(soap, Charset.forName("UTF-8"));
 	}
 	
+	/**
+	 * TODO move this elsewhere
+	 * @param doc
+	 * @param regex
+	 * @return
+	 */
 	static List<Node> matchedNodes(Document doc, String regex) {
 		List<Node> matchedNodes = new ArrayList<Node>();
 		DocumentTraversal traversal = (DocumentTraversal) doc;
