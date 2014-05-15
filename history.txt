@@ -127,3 +127,10 @@ Added ZipUtils#zipFlatDir(String dirPath) : ByteArrayOutputStream
 2.1.0053
 --------
 
+
+
+2.1.0054
+--------
+
+WsUtils
+First touch of BComboBox
