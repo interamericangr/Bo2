@@ -1,0 +1,3 @@
+Added some DOM utilities (DomUtils)
+
+SoapLoggingFilter improvements
