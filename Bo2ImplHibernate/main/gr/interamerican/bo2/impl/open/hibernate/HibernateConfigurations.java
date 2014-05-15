@@ -88,6 +88,16 @@ public class HibernateConfigurations {
 		return sessionFactory;
 	}
 	
+	/**
+	 * Closes opened session factories. A web application should call this before
+	 * unloading or stopping.
+	 */
+	public static void flushConfigurations() {
+		for(Map.Entry<String, SessionFactory> e : sessionFactories.entrySet()) {
+			e.getValue().close();
+		}
+		sessionFactories.clear();
+	}
 	
 	/**
 	 * Creates a SessionFactory.

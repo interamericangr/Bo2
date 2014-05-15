@@ -66,23 +66,17 @@ extends AbstractUserType {
 	protected Long typeId;
 
 	/**
-	 * the named cache
+	 * Cache name.
 	 */
-	protected Cache<C> cache;
-
-	@SuppressWarnings("unchecked")
+	private String cacheName;
+	
 	public void setParameterValues(Properties parameters) {
 		String entryClassName = parameters.getProperty("entryClassName"); //$NON-NLS-1$
 		String strTypeId = parameters.getProperty("entryTypeId"); //$NON-NLS-1$
 		this.typeId = NumberUtils.string2Long(strTypeId);
 
-		String cacheNm = parameters.getProperty("cacheName"); //$NON-NLS-1$
-		this.cache = (Cache<C>) CacheRegistry.getRegisteredCache(cacheNm);
+		this.cacheName = parameters.getProperty("cacheName"); //$NON-NLS-1$
 		
-		if(this.cache == null) {
-			throw Exceptions.runtime(CACHE_NOT_INITIALIZED, cacheNm);
-		}
-
 		if (typeId == 0) {
 			String msg = "Invalid typeId parameter for class" + entryClassName; //$NON-NLS-1$
 			throw new RuntimeException(msg);
@@ -95,7 +89,7 @@ extends AbstractUserType {
 	@SuppressWarnings({ "nls" })
 	public Object nullSafeGet(ResultSet rs, String[] names, Object owner) throws HibernateException, SQLException {
 		C code = getCode(rs, names[0]);
-		Selectable<C> result = this.cache.get(this.typeId, code);
+		Selectable<C> result = this.cache().get(this.typeId, code);
 		if(result==null) {
 			String msg = "(" + typeId + "," + code + ")"; 
 			Exceptions.runtime(NOT_EXISTING_CACHED_OBJECT, msg);
@@ -123,5 +117,17 @@ extends AbstractUserType {
 	 * @throws SQLException
 	 */
 	protected abstract C getCode(ResultSet rs, String name) throws SQLException;
+	
+	/**
+	 * @return Returns the named cache
+	 */
+	@SuppressWarnings("unchecked")
+	protected Cache<C> cache() {
+		Cache<C> cache = (Cache<C>) CacheRegistry.getRegisteredCache(cacheName);
+		if(cache == null) {
+			throw Exceptions.runtime(CACHE_NOT_INITIALIZED, cacheName);
+		}
+		return cache;
+	}
 	
 }

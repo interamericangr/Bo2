@@ -56,7 +56,7 @@ extends EntryUserType<String> {
     }
     
     public Object fromXMLString(String xmlValue) {
-		return this.cache.get(typeId, xmlValue);
+		return this.cache().get(typeId, xmlValue);
 	}
  
 }

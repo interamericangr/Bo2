@@ -57,7 +57,7 @@ extends EntryUserType<Long> {
     
     public Object fromXMLString(String xmlValue) {
 		Long code = NumberUtils.string2Long(xmlValue);
-		return this.cache.get(typeId, code);
+		return this.cache().get(typeId, code);
 	}
  
 }

@@ -63,21 +63,15 @@ extends AbstractUserType {
 	private Long typeId;
 
 	/**
-	 * the named cache
+	 * Cache name.
 	 */
-	private Cache<C> cache;
+	private String cacheName;
 	
 	@SuppressWarnings({ "unchecked", "nls" })
 	public void setParameterValues(Properties parameters) {
 		String strTypeId = parameters.getProperty("entryTypeId");
-		typeId = NumberUtils.string2Long(strTypeId);
-
-		String cacheNm = parameters.getProperty("cacheName");
-		cache = (Cache<C>) CacheRegistry.getRegisteredCache(cacheNm);
-		
-		if(cache == null) {
-			throw Exceptions.runtime(CACHE_NOT_INITIALIZED, cacheNm);
-		}
+		this.typeId = NumberUtils.string2Long(strTypeId);
+		this.cacheName = parameters.getProperty("cacheName");
 	}
 
 	public int[] sqlTypes() {
@@ -153,7 +147,7 @@ extends AbstractUserType {
 		List<C> codes = getCodes(value);
 		ArrayList<TypedSelectable<C>> results = new ArrayList<TypedSelectable<C>>();
 		for(C code : codes) {
-			TypedSelectable<C> result = this.cache.get(typeId, code);
+			TypedSelectable<C> result = this.cache().get(typeId, code);
 			if(result == null) {
 				String msg = "(" + typeId + "," + code + ")";
 				throw Exceptions.runtime(NOT_EXISTING_CACHED_OBJECT, msg);
@@ -193,6 +187,18 @@ extends AbstractUserType {
 			codes[input.indexOf(element)] = slctbl.getCode();
 		}
 		return StringUtils.array2String(codes, StringConstants.COMMA);
+	}
+	
+	/**
+	 * @return Returns the named cache
+	 */
+	@SuppressWarnings("unchecked")
+	protected Cache<C> cache() {
+		Cache<C> cache = (Cache<C>) CacheRegistry.getRegisteredCache(cacheName);
+		if(cache == null) {
+			throw Exceptions.runtime(CACHE_NOT_INITIALIZED, cacheName);
+		}
+		return cache;
 	}
 	
 }

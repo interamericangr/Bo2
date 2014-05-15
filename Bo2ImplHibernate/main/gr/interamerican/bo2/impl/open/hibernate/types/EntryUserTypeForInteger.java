@@ -57,7 +57,7 @@ extends EntryUserType<Integer> {
     
     public Object fromXMLString(String xmlValue) {
 		Integer code = NumberUtils.string2Int(xmlValue);
-		return this.cache.get(typeId, code);
+		return this.cache().get(typeId, code);
 	}
  
 }
