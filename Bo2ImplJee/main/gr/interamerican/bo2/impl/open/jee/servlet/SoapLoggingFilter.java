@@ -67,6 +67,8 @@ public class SoapLoggingFilter extends AbstractBaseLoggingFilter {
 			return "Empty document";
 		}
 		
+		boolean mayLog = false;
+		
 		try {
 			ByteArrayInputStream bis = new ByteArrayInputStream(soap);
 			Document document = DomUtils.getDocument(bis);
@@ -78,6 +80,11 @@ public class SoapLoggingFilter extends AbstractBaseLoggingFilter {
 					node.getParentNode().removeChild(node);
 				}
 			}
+			
+			/*
+			 * Now the soap may be logged regardless of what happens next.
+			 */
+			mayLog = true;
 			
 			StringWriter sw = new StringWriter();
 			TransformerFactory tf = TransformerFactory.newInstance();
@@ -96,15 +103,13 @@ public class SoapLoggingFilter extends AbstractBaseLoggingFilter {
 			transformer.transform(new DOMSource(document), new StreamResult(sw));
 			return sw.toString();
 		} catch (TransformerConfigurationException e) {
-			return handle(e, soap);
+			return handle(e, soap, mayLog);
 		} catch (IllegalArgumentException e) {
-			return handle(e, soap);
+			return handle(e, soap, mayLog);
 		} catch (TransformerFactoryConfigurationError e) {
-			return handle(e, soap);
+			return handle(e, soap, mayLog);
 		} catch (TransformerException e) {
-			return handle(e, soap);
-		} catch (Exception e) { //DO NOT LOG THE SOAP IN THIS CASE
-			return handle(e, "Failed to manipulate SOAP for logging".getBytes());
+			return handle(e, soap, mayLog);
 		}
 	}
 	
@@ -112,12 +117,16 @@ public class SoapLoggingFilter extends AbstractBaseLoggingFilter {
 	 * Handle SOAP parsing exception.
 	 * @param e
 	 * @param soap
+	 * @param mayLog 
 	 * @return SOAP string assuming bytes encoded as UTF-8
 	 */
 	@SuppressWarnings("nls")
-	String handle(Throwable e, byte[] soap) {
+	String handle(Throwable e, byte[] soap, boolean mayLog) {
 		LOGGER.error(e.getMessage() + " while parsing SOAP. Returned as UTF-8");
-		return new String(soap, Charset.forName("UTF-8"));
+		if(mayLog) {
+			return new String(soap, Charset.forName("UTF-8"));
+		}
+		return "Failed to manipulate SOAP for logging";
 	}
 	
 }
