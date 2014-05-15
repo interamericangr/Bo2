@@ -142,3 +142,9 @@ First touch of BComboBox
 Added some DOM utilities (DomUtils)
 
 SoapLoggingFilter improvements
+
+
+2.1.0056
+--------
+
+Added HibernateConfigurations#flushConfigurations()
