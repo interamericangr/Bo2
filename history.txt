@@ -134,3 +134,11 @@ Added ZipUtils#zipFlatDir(String dirPath) : ByteArrayOutputStream
 
 WsUtils
 First touch of BComboBox
+
+
+2.1.0055
+--------
+
+Added some DOM utilities (DomUtils)
+
+SoapLoggingFilter improvements
