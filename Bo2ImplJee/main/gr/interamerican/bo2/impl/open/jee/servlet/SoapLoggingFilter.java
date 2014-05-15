@@ -12,10 +12,7 @@ import java.util.List;
 
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
@@ -102,13 +99,7 @@ public class SoapLoggingFilter extends AbstractBaseLoggingFilter {
 //			transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
 			transformer.transform(new DOMSource(document), new StreamResult(sw));
 			return sw.toString();
-		} catch (TransformerConfigurationException e) {
-			return handle(e, soap, mayLog);
-		} catch (IllegalArgumentException e) {
-			return handle(e, soap, mayLog);
-		} catch (TransformerFactoryConfigurationError e) {
-			return handle(e, soap, mayLog);
-		} catch (TransformerException e) {
+		} catch (Exception e) {
 			return handle(e, soap, mayLog);
 		}
 	}
