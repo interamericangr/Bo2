@@ -228,47 +228,34 @@
 
 	<dependencies>
 
-		<!-- 
-		Junit is required by some Bo2 utility classes for tests.
-		This code should never need to run on an application server.
-		 -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>${version.junit}</version>
-			<scope>provided</scope>
 		</dependency>
 
-		<!-- 
-		Mockito is required by some Bo2 utility classes for mock creation.
-		This code should never need to run on an application server.
-		 -->
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-all</artifactId>
 			<version>${version.mockito-all}</version>
-			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>
 			<version>${version.slf4j-api}</version>
-			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>${version.log4j}</version>
-			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>${version.slf4j-log4j12}</version>
-			<scope>provided</scope>
 		</dependency>
 
 	</dependencies>
