@@ -1,18 +1,15 @@
 package gr.interamerican.bo2.impl.open.jee.servlet;
 
+import gr.interamerican.bo2.utils.RegexUtils;
 import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.StringUtils;
+import gr.interamerican.bo2.utils.xml.DomUtils;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.StringWriter;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
@@ -25,12 +22,7 @@ import javax.xml.transform.stream.StreamResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import org.w3c.dom.traversal.DocumentTraversal;
-import org.w3c.dom.traversal.NodeFilter;
-import org.w3c.dom.traversal.NodeIterator;
-import org.xml.sax.SAXException;
 
 /**
  * Concrete extension of {@link AbstractBaseLoggingFilter} for
@@ -47,7 +39,7 @@ public class SoapLoggingFilter extends AbstractBaseLoggingFilter {
 	 * UPPERCASE regex for elements to omit from logging (e.g. passwords)
 	 */
 	@SuppressWarnings("nls")
-	static final String[] OMITTED_ELEMENTS_REGEX = new String[]{".*PASSWORD.*", ".*PASS.*", ".*PASSWD"};
+	static final String[] OMITTED_ELEMENTS = new String[]{"PASSWORD", "PASSWD"};
 
 	@Override
 	protected void doLog(String url, Charset requestEncoding, Charset responseEncoding, byte[] request, byte[] response) {
@@ -77,11 +69,11 @@ public class SoapLoggingFilter extends AbstractBaseLoggingFilter {
 		
 		try {
 			ByteArrayInputStream bis = new ByteArrayInputStream(soap);
-			DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-			Document document = builder.parse(bis);
+			Document document = DomUtils.getDocument(bis);
 			
-			for(String omit : OMITTED_ELEMENTS_REGEX) {
-				List<Node> matchedNodes = matchedNodes(document, omit);
+			for(String omit : OMITTED_ELEMENTS) {
+				String omitRegex = RegexUtils.ZERO_OR_MORE_CHARS + omit; //may be something like ns2:password
+				List<Node> matchedNodes = DomUtils.matchedNodes(document, omitRegex);
 				for(Node node : matchedNodes) {
 					node.getParentNode().removeChild(node);
 				}
@@ -107,17 +99,13 @@ public class SoapLoggingFilter extends AbstractBaseLoggingFilter {
 			return handle(e, soap);
 		} catch (IllegalArgumentException e) {
 			return handle(e, soap);
-		} catch (ParserConfigurationException e) {
-			return handle(e, soap);
-		} catch (SAXException e) {
-			return handle(e, soap);
-		} catch (IOException e) {
-			return handle(e, soap);
 		} catch (TransformerFactoryConfigurationError e) {
 			return handle(e, soap);
 		} catch (TransformerException e) {
 			return handle(e, soap);
-		} catch (Exception e) {
+		} catch (RuntimeException rtex) {
+			return handle(rtex, soap);
+		} catch (Exception e) { //DO NOT LOG THE SOAP IN THIS CASE
 			return handle(e, "Failed to manipulate SOAP for logging".getBytes());
 		}
 	}
@@ -132,26 +120,6 @@ public class SoapLoggingFilter extends AbstractBaseLoggingFilter {
 	String handle(Throwable e, byte[] soap) {
 		LOGGER.error(e.getMessage() + " while parsing SOAP. Returned as UTF-8");
 		return new String(soap, Charset.forName("UTF-8"));
-	}
-	
-	/**
-	 * TODO move this elsewhere
-	 * @param doc
-	 * @param regex
-	 * @return
-	 */
-	static List<Node> matchedNodes(Document doc, String regex) {
-		List<Node> matchedNodes = new ArrayList<Node>();
-		DocumentTraversal traversal = (DocumentTraversal) doc;
-        NodeIterator iterator = traversal.createNodeIterator(
-          doc.getDocumentElement(), NodeFilter.SHOW_ELEMENT, null, true);
-        for (Node n = iterator.nextNode(); n != null; n = iterator.nextNode()) {
-            String tagname = ((Element) n).getTagName();
-            if(tagname.toUpperCase().matches(regex)) {
-            	matchedNodes.add(n);
-            }
-        }
-        return matchedNodes;
 	}
 	
 }

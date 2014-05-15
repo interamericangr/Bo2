@@ -23,6 +23,11 @@ import java.util.regex.Pattern;
 public class RegexUtils {
 	
 	/**
+	 * Regex for zero or more chars.
+	 */
+	public static final String ZERO_OR_MORE_CHARS = ".*"; //$NON-NLS-1$
+	
+	/**
 	 * Returns all matches of a pattern in a given string.
 	 * 
 	 * @param value

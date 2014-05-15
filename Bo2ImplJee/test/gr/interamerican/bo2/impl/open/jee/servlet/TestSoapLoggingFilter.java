@@ -36,8 +36,8 @@ public class TestSoapLoggingFilter {
 
 		String s = subject.logSoap(bytes);
 		
-		for(String omittedRegex : SoapLoggingFilter.OMITTED_ELEMENTS_REGEX) {
-			Assert.assertFalse(s.matches(omittedRegex));
+		for(String omitted : SoapLoggingFilter.OMITTED_ELEMENTS) {
+			Assert.assertFalse(s.contains(omitted));
 		}
 		
 	}

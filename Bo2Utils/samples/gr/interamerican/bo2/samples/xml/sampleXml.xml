@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/">
+<S:Body>
+<ns2:PolicyInput xmlns="http://www.interamerican.gr/ws/one/common" xmlns:ns2="http://www.interamerican.gr/ws/one/policy" xmlns:ns3="http://www.interamerican.gr/ws/one/claim">
+<ns2:agentCd>ASDA</ns2:agentCd>
+<ns2:branchId>1</ns2:branchId>
+<ns2:customerDTO>
+<ns2:customerAddressNo>01</ns2:customerAddressNo>
+<ns2:customerNo>000032430</ns2:customerNo>
+</ns2:customerDTO>
+<ns2:userDTO>
+<ns2:userid>auser</ns2:userid>
+<ns2:password>012345</ns2:password>
+</ns2:userDTO>
+</ns2:PolicyInput>
+</S:Body>
+</S:Envelope>
