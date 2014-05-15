@@ -103,8 +103,6 @@ public class SoapLoggingFilter extends AbstractBaseLoggingFilter {
 			return handle(e, soap);
 		} catch (TransformerException e) {
 			return handle(e, soap);
-		} catch (RuntimeException rtex) {
-			return handle(rtex, soap);
 		} catch (Exception e) { //DO NOT LOG THE SOAP IN THIS CASE
 			return handle(e, "Failed to manipulate SOAP for logging".getBytes());
 		}
