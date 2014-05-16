@@ -148,3 +148,17 @@ SoapLoggingFilter improvements
 --------
 
 Added HibernateConfigurations#flushConfigurations()
+
+
+2.1.0057
+--------
+
+Various additions to support safer application unloading
+
+Bo2Creation#flushClassPool()
+PoFetcher#flushCaches()
+HibernateConfigurations#flushConfigurations()
+QuartzSchedulerRegistry#shutdown()
+CacheRegistry#flushCaches()
+
+You may call these for example when destroying an application Filter or Servlet
