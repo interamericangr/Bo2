@@ -77,6 +77,12 @@ implements TransactionManager {
 	
 	public void rollback() throws CouldNotRollbackException {
 		try {
+			/*
+			 * TODO: avoid most CouldNotRollbackExceptions?
+			 */
+//			if(ut.getStatus() == Status.STATUS_MARKED_ROLLBACK) {
+//				return;
+//			}
 			ut.rollback();
 		} catch (IllegalStateException ise) {
 			throw new CouldNotRollbackException(ise);

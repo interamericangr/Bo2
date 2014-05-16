@@ -408,5 +408,11 @@ public class PoFetcher {
 		String[] argNames;
 	}
 
+	/**
+	 * Clears all the caches referenced by the PoFetcher.
+	 */
+	public static void flushCaches() {
+		caches.clear();
+	}
 
 }

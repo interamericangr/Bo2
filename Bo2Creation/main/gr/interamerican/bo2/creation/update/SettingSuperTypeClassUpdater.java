@@ -16,8 +16,6 @@ import gr.interamerican.bo2.creation.Bo2Creation;
 import gr.interamerican.bo2.creation.exception.ClassCreationException;
 import gr.interamerican.bo2.utils.StringUtils;
 import javassist.CannotCompileException;
-import javassist.ClassClassPath;
-import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.CtConstructor;
 import javassist.CtNewConstructor;
@@ -54,18 +52,17 @@ extends AbstractClassUpdater {
 	@Override
 	public void updateType(CtClass typeToUpdate) 
 	throws CannotCompileException, NotFoundException, ClassCreationException {
-		ClassPool cp = Bo2Creation.getBo2ClassPool();
 
 		try {
 			Class<?> superClazz = Class.forName(superType);
 			if(Object.class!=superClazz) {
-				cp.appendClassPath(new ClassClassPath(superClazz));
+				Bo2Creation.appendClassPath(superClazz);
 			}
 		} catch (ClassNotFoundException e1) {
 			throw new ClassCreationException(e1);
 		}
 		
-		CtClass superClass = cp.get(superType);
+		CtClass superClass = Bo2Creation.get(superType);
 		if (superClass.isInterface()) {
 			@SuppressWarnings("nls")
 			String msg = StringUtils.concat(superType, " is an interface");

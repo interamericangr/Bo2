@@ -16,8 +16,6 @@ import gr.interamerican.bo2.creation.Bo2Creation;
 import gr.interamerican.bo2.creation.exception.ClassCreationException;
 import gr.interamerican.bo2.utils.StringUtils;
 import javassist.CannotCompileException;
-import javassist.ClassClassPath;
-import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.NotFoundException;
 
@@ -47,11 +45,10 @@ public abstract class AbstractClassUpdater {
 	 */
 	public Class<?> update(Class<?> typeToUpdate, String newName) 
 	throws ClassCreationException {
- 		ClassPool cp = Bo2Creation.getBo2ClassPool();
-		cp.appendClassPath(new ClassClassPath(typeToUpdate)); //TODO should we keep this?
+		Bo2Creation.appendClassPath(typeToUpdate);
 		
 		try{	
-			CtClass cc = cp.get(typeToUpdate.getName());
+			CtClass cc = Bo2Creation.get(typeToUpdate.getName());
 			updateType(cc);			
 			cc.setName(newName);			
 			Class<?> updatedType = cc.toClass();

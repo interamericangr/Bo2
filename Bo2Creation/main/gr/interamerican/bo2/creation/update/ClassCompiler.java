@@ -19,7 +19,6 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import javassist.CannotCompileException;
-import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.NotFoundException;
 
@@ -75,14 +74,14 @@ public class ClassCompiler {
 	 */
 	public Class<?> createType(String className) 
 	throws ClassCreationException {
-		ClassPool cp = Bo2Creation.getBo2ClassPool();
+//		ClassPool cp = Bo2Creation.getBo2ClassPool();
 		
 		Class<?> candidate = possiblyExistingInClassPool(className);
 		if(candidate!=null) {
 			return candidate;
 		}
 		
-		CtClass newClass = cp.makeClass(className);
+		CtClass newClass = Bo2Creation.makeClass(className);
 		try {
 			for (AbstractClassUpdater updater : updaters) {
 				updater.updateType(newClass);
@@ -108,9 +107,8 @@ public class ClassCompiler {
 	 * @throws ClassCreationException
 	 */
 	private Class<?> possiblyExistingInClassPool(String className) throws ClassCreationException {
-		ClassPool cp = Bo2Creation.getBo2ClassPool();
 		try {
-			CtClass ctClass = cp.get(className);
+			CtClass ctClass = Bo2Creation.get(className);
 			if(ctClass!=null) {
 				Class<?> fromClassLoader = getFromClassLoader(className);
 				if(fromClassLoader!=null) {

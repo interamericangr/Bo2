@@ -86,4 +86,15 @@ public class CacheRegistry {
 		codeTypeRegistry.put(name, codeType);
 	}
 	
+	/**
+	 * Clears all the caches referenced by the PoFetcher.
+	 */
+	public static void flushCaches() {
+		for(Cache<?> cache : registry.values()) {
+			cache.clear();
+		}
+		registry.clear();
+	}
+
+	
 }

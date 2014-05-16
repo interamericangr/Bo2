@@ -16,7 +16,6 @@ import gr.interamerican.bo2.creation.Bo2Creation;
 import gr.interamerican.bo2.creation.exception.ClassCreationException;
 import gr.interamerican.bo2.utils.StringUtils;
 import javassist.CannotCompileException;
-import javassist.ClassPool;
 import javassist.CtClass;
 import javassist.NotFoundException;
 
@@ -45,9 +44,8 @@ extends AbstractClassUpdater {
 	@Override
 	public void updateType(CtClass typeToUpdate) 
 	throws CannotCompileException, NotFoundException, ClassCreationException {
-		ClassPool cp = Bo2Creation.getBo2ClassPool();
 		for(String interfaceName : interfaceNames) {			
-			CtClass interfaceToAdd = cp.get(interfaceName);
+			CtClass interfaceToAdd = Bo2Creation.get(interfaceName);
 			if (!interfaceToAdd.isInterface()) {
 				@SuppressWarnings("nls")
 				String msg = StringUtils.concat(interfaceName, " is not an interface");

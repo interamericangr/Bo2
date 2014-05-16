@@ -28,8 +28,6 @@ import gr.interamerican.bo2.utils.reflect.beans.VariableDefinition;
 
 import java.util.Properties;
 
-import javassist.ClassClassPath;
-
 /**
  * Utility class that serves as a facade hiding the default object factory.
  */
@@ -56,7 +54,7 @@ public class Factory {
 		} catch (RuntimeException rtex) {
 			throw new ExceptionInInitializerError(rtex);
 		}
-		Bo2Creation.getBo2ClassPool().appendClassPath(new ClassClassPath(Factory.class));
+		Bo2Creation.appendClassPath(Factory.class);
 	}	
 	
 	/**
