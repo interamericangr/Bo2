@@ -135,6 +135,20 @@ public interface BusinessDocument {
 	 */
 	public void insertAt(String positionLabel, BusinessDocument document) 
 	throws DocumentEngineException;
+	
+	/**
+	 * Gets the value of a custom property of the business document.
+	 * 
+	 * @param propertyName
+	 *        Name of the property.
+	 * 
+	 * @return Returns the value of the custom property, or null
+	 *         if this BusinessDocument does not have a property with 
+	 *         the specified property name.
+	 *         
+	 * @throws DocumentEngineException 
+	 */
+	public Object getProperty(String propertyName) throws DocumentEngineException;
 
 
 }

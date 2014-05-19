@@ -88,6 +88,12 @@ public class MockDocument implements BusinessDocument {
 	throws DocumentEngineException {
 		/* empty */		
 	}
+
+
+	@Override
+	public Object getProperty(String propertyName) {
+		return null;
+	}
 		
 	
 
