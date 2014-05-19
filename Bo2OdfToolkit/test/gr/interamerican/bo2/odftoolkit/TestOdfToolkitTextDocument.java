@@ -12,6 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.bo2.odftoolkit;
 
+import gr.interamerican.bo2.odftoolkit.utils.OdfUtils;
 import gr.interamerican.bo2.odftoolkit.utils.ResourceUtils;
 import gr.interamerican.bo2.samples.bean.Samples;
 import gr.interamerican.bo2.samples.bean.TripInfo;
@@ -285,6 +286,27 @@ public class TestOdfToolkitTextDocument {
 		template.insertAt("Section2", small);
 		engine.saveDocument(template, outPath);
 	}
+	
+	/**
+	 * Test for insertAt().
+	 * @throws Exception 
+	 */	
+	@SuppressWarnings("nls")
+	@Test
+	public void testGetProperty() throws Exception {
+		OdfToolkitEngine engine = new OdfToolkitEngine();
+		String templatePath = ResourceUtils.inputPath("DocTestGetProperty.odt");
+		String propertyName = "table1.minLength";
+		String outPath = ResourceUtils.outputPath("OdfToolkitTextDocument_GetProperty.odt");
+		BusinessDocument template = engine.openDocument(templatePath);
+		OdfToolkitTextDocument odfText = (OdfToolkitTextDocument) template;
+		OdfUtils.saveContentAsXml(odfText.document);
+		Object expected = 10;
+		Object actual = template.getProperty(propertyName);
+		Assert.assertEquals(expected, actual);
+
+	}
+
 
 
 }
