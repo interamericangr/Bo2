@@ -148,7 +148,7 @@ public interface BusinessDocument {
 	 *         
 	 * @throws DocumentEngineException 
 	 */
-	public Object getProperty(String propertyName) throws DocumentEngineException;
+	public String getProperty(String propertyName) throws DocumentEngineException;
 
 
 }

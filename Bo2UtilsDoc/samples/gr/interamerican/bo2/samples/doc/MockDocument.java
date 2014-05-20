@@ -91,7 +91,7 @@ public class MockDocument implements BusinessDocument {
 
 
 	@Override
-	public Object getProperty(String propertyName) {
+	public String getProperty(String propertyName) {
 		return null;
 	}
 		
