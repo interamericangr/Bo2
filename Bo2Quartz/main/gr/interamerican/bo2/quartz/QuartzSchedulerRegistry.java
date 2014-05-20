@@ -17,7 +17,7 @@ import org.quartz.impl.StdSchedulerFactory;
  * scheduler registry.
  */
 public class QuartzSchedulerRegistry {
-	
+
 	/**
 	 * Scheduler
 	 */
@@ -50,9 +50,14 @@ public class QuartzSchedulerRegistry {
 		}
 		return oneScheduler;
 	}
-	
+
+	/**
+	 * shutdowns the scheduler.
+	 * 
+	 * @throws SchedulerException
+	 */
 	public static void shutdown() throws SchedulerException {
-		if(oneScheduler!=null && oneScheduler.isStarted()) {
+		if((oneScheduler!=null) && oneScheduler.isStarted()) {
 			oneScheduler.shutdown();
 		}
 	}
