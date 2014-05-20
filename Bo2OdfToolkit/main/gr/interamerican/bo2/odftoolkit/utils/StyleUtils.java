@@ -28,16 +28,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-
 import org.odftoolkit.odfdom.dom.element.OdfStylableElement;
 import org.odftoolkit.odfdom.incubator.doc.style.OdfStyle;
 import org.odftoolkit.odfdom.pkg.OdfElement;
-import org.odftoolkit.odfdom.pkg.OdfFileDom;
 import org.odftoolkit.simple.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 
 /**
  * Utilities about styles.
@@ -82,7 +76,7 @@ public class StyleUtils {
 	 */
 	static List<OdfStyle> getStyles(Document doc) throws Exception {
 		String xpathExpr =styleNames();
-		List<OdfElement> nodes = getXpath(doc,xpathExpr);
+		List<OdfElement> nodes = OdfUtils.getXpath(doc.getContentDom(),xpathExpr);
 		List<OdfStyle> styles = new ArrayList<OdfStyle>();
 		for (OdfElement node : nodes) {
 			if (node instanceof OdfStyle) {
@@ -104,7 +98,7 @@ public class StyleUtils {
 	public static boolean styleExists(Document doc, String styleName) 
 	throws Exception {	
 		String xpathExpr =stylesWithName(styleName);
-		List<OdfElement> nodes = getXpath(doc,xpathExpr);
+		List<OdfElement> nodes = OdfUtils.getXpath(doc.getContentDom(),xpathExpr);
 		List<OdfStyle> styles = new ArrayList<OdfStyle>();
 		for (OdfElement node : nodes) {
 			if (node instanceof OdfStyle) {
@@ -251,46 +245,11 @@ public class StyleUtils {
 	 */
 	static List<OdfElement> getNodesWithStyleName(Document doc, String styleName, String type) 
 	throws Exception {				
-		String xpathExpr = nodesWithStyleName(styleName,type);				
-		return getXpath(doc,xpathExpr);
+		String xpathExpr = nodesWithStyleName(styleName,type);
+		return OdfUtils.getXpath(doc.getContentDom(),xpathExpr);
 	}
 	
-	/**
-	 * Converts a NodeList to ArrayList.
-	 * 
-	 * @param nodeList
-	 * 
-	 * @return Returns the ArrayList.
-	 */
-	static List<OdfElement> toList(NodeList nodeList) {
-		List<OdfElement> list = new ArrayList<OdfElement>();
-		for (int i = 0; i < nodeList.getLength(); i++) {
-			Node node = nodeList.item(i);
-			OdfElement odf = (OdfElement) node;
-			list.add(odf);
-		}		
-		return list;
-	}
 	
-	/**
-	 * Evaluates an Xpath expression and fetches its results
-	 * as a list of {@link OdfElement}s.
-	 *  
-	 * @param doc
-	 * @param expression
-	 * 
-	 * @return Returns the list.
-	 * 
-	 * @throws Exception
-	 */
-	static List<OdfElement> getXpath(Document doc, String expression) 
-	throws Exception {
-		OdfFileDom dom = doc.getContentDom();
-		XPath xpath = dom.getXPath();				
-		NodeList nodeList = (NodeList) 
-			xpath.evaluate(expression, dom, XPathConstants.NODESET);
-		return toList(nodeList);	
-	}
 	
 	/**
 	 * Gets the clean name of the specified name.

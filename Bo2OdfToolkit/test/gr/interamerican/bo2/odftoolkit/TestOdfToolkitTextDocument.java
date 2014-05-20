@@ -296,15 +296,12 @@ public class TestOdfToolkitTextDocument {
 	public void testGetProperty() throws Exception {
 		OdfToolkitEngine engine = new OdfToolkitEngine();
 		String templatePath = ResourceUtils.inputPath("DocTestGetProperty.odt");
-		String propertyName = "table1.minLength";
-		String outPath = ResourceUtils.outputPath("OdfToolkitTextDocument_GetProperty.odt");
+		String propertyName = "table1.minLength";		
 		BusinessDocument template = engine.openDocument(templatePath);
-		OdfToolkitTextDocument odfText = (OdfToolkitTextDocument) template;
-		OdfUtils.saveContentAsXml(odfText.document);
-		Object expected = 10;
-		Object actual = template.getProperty(propertyName);
+		OdfToolkitTextDocument odfText = OdfToolkitEngine.safeCast(template);		
+		String expected = "30";
+		Object actual = odfText.getProperty(propertyName);
 		Assert.assertEquals(expected, actual);
-
 	}
 
 

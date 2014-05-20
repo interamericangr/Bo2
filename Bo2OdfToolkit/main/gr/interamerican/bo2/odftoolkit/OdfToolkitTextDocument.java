@@ -13,6 +13,7 @@
 package gr.interamerican.bo2.odftoolkit;
 
 import gr.interamerican.bo2.odftoolkit.utils.FieldUtils;
+import gr.interamerican.bo2.odftoolkit.utils.MetaUtils;
 import gr.interamerican.bo2.odftoolkit.utils.OdfUtils;
 import gr.interamerican.bo2.odftoolkit.utils.StyleUtils;
 import gr.interamerican.bo2.odftoolkit.utils.VariableContainerUtils;
@@ -229,15 +230,13 @@ public class OdfToolkitTextDocument implements BusinessDocument {
 	}
 
 	
-	public Object getProperty(String propertyName) 
+	public String getProperty(String propertyName) 
 	throws DocumentEngineException {
 		try {
-			OdfMetaDom metaDom = document.getMetaDom();
+			return MetaUtils.getProperty(document, propertyName);			
 		} catch (Exception e) {
 			throw new DocumentEngineException(e);
 		}
-		
-		return null;
 	}
 	
 	

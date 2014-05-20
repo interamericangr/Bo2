@@ -22,6 +22,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+
 import org.odftoolkit.odfdom.dom.element.office.OfficeTextElement;
 import org.odftoolkit.odfdom.dom.element.text.TextSequenceDeclsElement;
 import org.odftoolkit.odfdom.dom.element.text.TextVariableDeclsElement;
@@ -375,6 +378,25 @@ public class OdfUtils {
 		} catch (Exception e) {
 			throw new DocumentEngineException(e);
 		}
+	}
+	
+	/**
+	 * Evaluates an Xpath expression and fetches its results
+	 * as a list of {@link OdfElement}s.
+	 *  
+	 * @param dom
+	 * @param expression
+	 * 
+	 * @return Returns the list.
+	 * 
+	 * @throws Exception
+	 */
+	public static List<OdfElement> getXpath(OdfFileDom dom, String expression) 
+	throws Exception {		
+		XPath xpath = dom.getXPath();				
+		NodeList nodeList = (NodeList) 
+			xpath.evaluate(expression, dom, XPathConstants.NODESET);
+		return XmlUtils.asList(nodeList);	
 	}
 	
 
