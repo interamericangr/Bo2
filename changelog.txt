@@ -1,1 +1,3 @@
 mock user
+
+added getproperty functionality to bo2odftoolkit
