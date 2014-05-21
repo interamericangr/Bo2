@@ -12,7 +12,6 @@
  ******************************************************************************/
 package gr.interamerican.bo2.odftoolkit;
 
-import gr.interamerican.bo2.odftoolkit.utils.OdfUtils;
 import gr.interamerican.bo2.odftoolkit.utils.ResourceUtils;
 import gr.interamerican.bo2.samples.bean.Samples;
 import gr.interamerican.bo2.samples.bean.TripInfo;
@@ -296,7 +295,7 @@ public class TestOdfToolkitTextDocument {
 	public void testGetProperty() throws Exception {
 		OdfToolkitEngine engine = new OdfToolkitEngine();
 		String templatePath = ResourceUtils.inputPath("DocTestGetProperty.odt");
-		String propertyName = "table1.minLength";		
+		String propertyName = "Table1.minLength";		
 		BusinessDocument template = engine.openDocument(templatePath);
 		OdfToolkitTextDocument odfText = OdfToolkitEngine.safeCast(template);		
 		String expected = "30";
