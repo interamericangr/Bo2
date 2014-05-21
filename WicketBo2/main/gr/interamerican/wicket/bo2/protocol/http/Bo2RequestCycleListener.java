@@ -94,7 +94,7 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 				}
 			} catch (CouldNotRollbackException cnrbex) {
 				cnrbex.setInitial(t);
-				emergencyLogAndEmail("CouldNotRollbackException");
+				//emergencyLogAndEmail("CouldNotRollbackException");
 				error("CouldNotRollbackException: " + ExceptionUtils.getThrowableStackTrace(cnrbex));
 			}
 		} else {
