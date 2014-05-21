@@ -1,1 +1,0 @@
-added 2nd selfdranwform constructor to align with selfdrawnpanel constructors

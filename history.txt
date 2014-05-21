@@ -170,3 +170,9 @@ You may call these for example when destroying an application Filter or Servlet
 mock user
 
 added getproperty functionality to bo2odftoolkit
+
+
+2.1.0059
+--------
+
+added 2nd selfdranwform constructor to align with selfdrawnpanel constructors
