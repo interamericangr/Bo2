@@ -162,3 +162,11 @@ QuartzSchedulerRegistry#shutdown()
 CacheRegistry#flushCaches()
 
 You may call these for example when destroying an application Filter or Servlet
+
+
+2.1.0058
+--------
+
+mock user
+
+added getproperty functionality to bo2odftoolkit
