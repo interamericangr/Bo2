@@ -16,7 +16,6 @@ import gr.interamerican.bo2.arch.ext.Session;
 import gr.interamerican.bo2.arch.ext.TranslatableEntry;
 import gr.interamerican.bo2.arch.ext.TranslatableEntryOwner;
 import gr.interamerican.bo2.arch.ext.User;
-import gr.interamerican.wicket.WicketConstants;
 import gr.interamerican.wicket.bo2.markup.html.form.DropDownChoiceForEntry;
 import gr.interamerican.wicket.bo2.markup.html.form.DropDownChoiceForEntryOwner;
 
@@ -88,9 +87,6 @@ implements Session<A, L> {
 	 */
 	public void setUser(User<A> user) {
 		this.user = user;
-		if(user!=null) {
-			setAttribute(WicketConstants.USER_ID_ATTR, user.getUserId());
-		}
 	}
 	
 	public L getLanguageId() {		

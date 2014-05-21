@@ -16,11 +16,10 @@ import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.handlers.EventHandlerComponent;
 import gr.interamerican.bo2.utils.handlers.MethodInvocator;
 import gr.interamerican.bo2.utils.handlers.ThrowingExceptionHandler;
-import gr.interamerican.wicket.WicketConstants;
 
 import java.io.Serializable;
 
-import org.apache.wicket.protocol.http.WebSession;
+import org.apache.log4j.MDC;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -40,6 +39,11 @@ extends AbstractCommandCallback {
 	 * Logger.
 	 */
 	private static final Logger LOG = LoggerFactory.getLogger(MethodBasedCallbackAction.class.getName());
+	
+	/**
+	 * key for MDC callback method
+	 */
+	private static final String MDC_CALLBACKMETHOD = "callback"; //$NON-NLS-1$
 	
 	/**
 	 * Event handler.
@@ -87,13 +91,14 @@ extends AbstractCommandCallback {
 	
 	@Override
 	public void execute() {
-		WebSession session = WebSession.get();
-		String userId = null;
-		if(session != null) {
-			userId = (String) session.getAttribute(WicketConstants.USER_ID_ATTR);
+		try {
+			String callback = owner.getClass().getSimpleName() + StringConstants.SHARP + methodName;
+			MDC.put(MDC_CALLBACKMETHOD, callback);
+			LOG.debug("executing callback"); //$NON-NLS-1$
+			methodInvocator().invoke();
+		} finally {
+			MDC.remove(MDC_CALLBACKMETHOD);
 		}
-		LOG.info(userId + " invoked " + owner.getClass().getName() + StringConstants.SHARP + methodName); //$NON-NLS-1$
-		methodInvocator().invoke();
 	}
 	
 	@Override

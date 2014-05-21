@@ -15,8 +15,11 @@ package gr.interamerican.bo2.arch.utils.ext;
 import gr.interamerican.bo2.arch.Provider;
 import gr.interamerican.bo2.arch.ext.Session;
 import gr.interamerican.bo2.arch.ext.User;
+import gr.interamerican.bo2.utils.StringUtils;
 
 import java.util.Locale;
+
+import org.apache.log4j.MDC;
 
 /**
  * Bo2Session keeps a {@link Session} in a ThreadLocal variable.
@@ -34,10 +37,14 @@ import java.util.Locale;
 public class Bo2Session {
 	
 	/**
+	 * key for MDC userid
+	 */
+	static final String MDC_USERID = "userid"; //$NON-NLS-1$
+	
+	/**
 	 * Threadlocal session.
 	 */
-	static ThreadLocal<Session<?, ?>> tlSession = 
-		new ThreadLocal<Session<?,?>>();
+	static ThreadLocal<Session<?, ?>> tlSession = new ThreadLocal<Session<?,?>>();
 	
 	/**
 	 * Threadlocal state.
@@ -67,8 +74,13 @@ public class Bo2Session {
 	 *
 	 * @param session the session to set
 	 */
-	public static void setSession(Session<?,?> session) {		
+	public static void setSession(Session<?,?> session) {
 		tlSession.set(session);
+		if(session==null) {
+			MDC.remove(MDC_USERID);
+		} else {
+			MDC.put(MDC_USERID, StringUtils.toString(getUserId()));
+		}
 	}
 	
 	/**
