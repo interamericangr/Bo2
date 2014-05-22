@@ -185,3 +185,8 @@ Used MDC for logging (slf4j)
 
 the expressions %X{userid} and %X{callback} evaluate to the current userid (Bo2Session) and currently executing
 method based callback (MethodBasedCallbackAction)
+
+
+2.1.0061
+--------
+
