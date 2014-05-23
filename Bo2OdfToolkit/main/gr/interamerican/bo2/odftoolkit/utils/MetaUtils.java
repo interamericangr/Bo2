@@ -1,13 +1,13 @@
 package gr.interamerican.bo2.odftoolkit.utils;
 
+import gr.interamerican.bo2.utils.StringConstants;
+import gr.interamerican.bo2.utils.StringUtils;
+
 import java.util.List;
 
 import org.odftoolkit.odfdom.dom.element.meta.MetaUserDefinedElement;
 import org.odftoolkit.odfdom.pkg.OdfElement;
 import org.odftoolkit.simple.Document;
-
-import gr.interamerican.bo2.utils.StringConstants;
-import gr.interamerican.bo2.utils.StringUtils;
 
 /**
  * 

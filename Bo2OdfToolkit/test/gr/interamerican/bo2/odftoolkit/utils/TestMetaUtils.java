@@ -1,7 +1,6 @@
 package gr.interamerican.bo2.odftoolkit.utils;
 
 import gr.interamerican.bo2.odftoolkit.OdfToolkitEngine;
-import gr.interamerican.bo2.odftoolkit.OdfToolkitTextDocument;
 import gr.interamerican.bo2.utils.doc.BusinessDocument;
 
 import org.junit.Assert;

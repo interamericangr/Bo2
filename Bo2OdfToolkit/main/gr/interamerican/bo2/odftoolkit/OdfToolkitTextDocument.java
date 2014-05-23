@@ -30,7 +30,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.List;
 
-import org.odftoolkit.odfdom.dom.OdfMetaDom;
 import org.odftoolkit.odfdom.dom.element.text.TextUserFieldDeclElement;
 import org.odftoolkit.odfdom.dom.element.text.TextVariableDeclElement;
 import org.odftoolkit.odfdom.pkg.OdfElement;
