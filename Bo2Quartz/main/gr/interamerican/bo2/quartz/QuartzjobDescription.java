@@ -37,4 +37,16 @@ public interface QuartzjobDescription extends JobDescription {
 	 *            the jobName to set
 	 */
 	void setJobName(String jobName);
+
+	/**
+	 * @return the throwable.
+	 */
+	Throwable getThrowable();
+
+	/**
+	 * sets the throwable.
+	 * 
+	 * @param t
+	 */
+	void setThroawble(Throwable t);
 }

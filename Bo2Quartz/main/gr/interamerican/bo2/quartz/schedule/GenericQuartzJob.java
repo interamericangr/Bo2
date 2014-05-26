@@ -69,6 +69,7 @@ public class GenericQuartzJob implements Job {
 		LOGGER.warn(msg);
 		LOGGER.error(trace);
 		bean.setExecutionStatus(JobStatus.ERROR);
+		bean.setThroawble(e);
 		throw new JobExecutionException(msg + StringConstants.NEWLINE + e);
 	}
 

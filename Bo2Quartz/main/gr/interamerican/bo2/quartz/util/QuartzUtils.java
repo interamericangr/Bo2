@@ -4,6 +4,7 @@ import gr.interamerican.bo2.arch.Operation;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.impl.open.job.JobDescription;
 import gr.interamerican.bo2.quartz.QuartzSchedulerRegistry;
+import gr.interamerican.bo2.quartz.QuartzjobDescription;
 import gr.interamerican.bo2.utils.NumberUtils;
 import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.beans.Pair;
@@ -190,5 +191,16 @@ public class QuartzUtils {
 	 */
 	public static void waitJobToComplete(JobDescription bean) throws DataException {
 		waitJobToComplete(getJobGroupName(bean), getJobName(bean));
+	}
+
+	/**
+	 * @param bean
+	 * @param param
+	 * @return the param from the bean.
+	 */
+	public static Object getParamFromQuartzDescriptionBean(QuartzjobDescription bean, String param) {
+		Map<String, Object> map = bean.getParameters();
+		Object obj = map.get(param);
+		return obj;
 	}
 }

@@ -140,8 +140,7 @@ public class TestQuartzUtils {
 	}
 
 	/**
-	 * Test method for
-	 * {@link gr.interamerican.bo2.quartz.util.QuartzUtils#isJobScheduled(java.lang.String, java.lang.String)}.
+	 * Test method for {@link QuartzUtils#isJobScheduled(String, String)}.
 	 * 
 	 * @throws DataException
 	 */
@@ -153,5 +152,19 @@ public class TestQuartzUtils {
 				QuartzUtils.getJobName(bean)));
 		Assert.assertTrue(QuartzUtils.isJobScheduled(null, QuartzUtils.getJobName(bean)));
 		QuartzUtils.waitJobToComplete(bean);
+	}
+
+	/**
+	 * test method for {@link QuartzUtils#getParamFromQuartzDescriptionBean(QuartzjobDescription, String)}
+	 */
+	@Test
+	public void testGetParamFromQuartzDescriptionBean() {
+		String keyName = "a";//$NON-NLS-1$
+		QuartzjobDescription bean = Factory.create(QuartzjobDescription.class);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put(keyName, new Long(1));
+		bean.setParameters(map);
+		Long a = (Long) QuartzUtils.getParamFromQuartzDescriptionBean(bean, keyName);
+		Assert.assertEquals(a, new Long(1));
 	}
 }
