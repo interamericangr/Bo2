@@ -190,3 +190,9 @@ method based callback (MethodBasedCallbackAction)
 2.1.0061
 --------
 
+
+
+2.1.0062
+--------
+
+quartzutils#getParamFromQuartzDescriptionBean
