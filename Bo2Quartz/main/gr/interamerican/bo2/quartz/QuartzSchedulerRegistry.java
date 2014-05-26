@@ -82,11 +82,11 @@ public class QuartzSchedulerRegistry {
 
 	/**
 	 * @param status
-	 * @return the list of job descriptions that much the given status.
+	 * @return the list of job descriptions that much the given status. If status == null returns all descriptions
 	 */
 	public static synchronized List<QuartzjobDescription> getJobDescriptionBasedOnStatus(JobStatus status) {
 		if (status==null){
-			return null;
+			return scheduledJobDescriptions;
 		}
 		List<QuartzjobDescription> descriptions = SelectionUtils.selectByProperty("executionStatus", status, //$NON-NLS-1$
 				scheduledJobDescriptions, QuartzjobDescription.class);
