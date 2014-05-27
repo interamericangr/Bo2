@@ -36,6 +36,7 @@
 		<version.servlet-api>2.5</version.servlet-api>
 		<version.hibernate-core>3.6.8.Final</version.hibernate-core>
 		<version.quartz-all>2.2.1</version.quartz-all>
+		<version.freemarker>2.3.16</version.freemarker>
 
 		<version.nbda-bo>1.5.0003</version.nbda-bo>
 		<version.jwf>1.0.0001</version.jwf>
@@ -442,6 +443,7 @@
 		<module>Bo2TestsDeploymentBase</module>
 		<module>Bo2TestsDeploymentJdbc</module>
 		<module>Bo2Utils</module>
+		<module>Bo2TextTemplates</module>
 		<module>Bo2UtilsGreek</module>
 		<module>Bo2Architecture</module>
 		<module>Bo2Creation</module>
