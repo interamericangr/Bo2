@@ -1,4 +1,4 @@
-package gr.interamerican.bo2.texttemplate.utils;
+package gr.interamerican.bo2.utils.text;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -10,9 +10,9 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
 /**
- * 
+ * TemplateEngine based on FreeMarker.
  */
-public class FreemarkerUtility {
+public class TemplateEngine {
 
 	/**
 	 * Template name.
@@ -34,7 +34,7 @@ public class FreemarkerUtility {
 	 * @throws IOException
 	 * @throws TemplateException
 	 */
-	static String fix(String template, Object model) throws IOException, TemplateException {
+	static String fill(String template, Object model) throws IOException, TemplateException {
 		Template t = new Template(TEMPLATE_NAME, new StringReader(template), cfg);
 		Writer out = new StringWriter();
 		t.process(model, out);
