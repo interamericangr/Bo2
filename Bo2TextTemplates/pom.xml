@@ -1,0 +1,168 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>gr.interamerican.bo2</groupId>
+		<artifactId>Bo2</artifactId>
+		<version>2.1.0063-SNAPSHOT</version>
+	</parent>
+
+	<artifactId>Bo2TextTemplates</artifactId>
+
+	<dependencies>
+
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+			<version>${version.freemarker}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>javassist</groupId>
+			<artifactId>javassist</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.derby</groupId>
+			<artifactId>derbyclient</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- +++ -->
+
+		<dependency>
+			<groupId>gr.interamerican.bo2</groupId>
+			<artifactId>Bo2Architecture</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>gr.interamerican.bo2</groupId>
+			<artifactId>Bo2Architecture</artifactId>
+			<version>${project.version}</version>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>gr.interamerican.bo2</groupId>
+			<artifactId>Bo2ArchUtils</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>gr.interamerican.bo2</groupId>
+			<artifactId>Bo2ArchUtils</artifactId>
+			<version>${project.version}</version>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>gr.interamerican.bo2</groupId>
+			<artifactId>Bo2Creation</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>gr.interamerican.bo2</groupId>
+			<artifactId>Bo2Creation</artifactId>
+			<version>${project.version}</version>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>gr.interamerican.bo2</groupId>
+			<artifactId>Bo2Utils</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>gr.interamerican.bo2</groupId>
+			<artifactId>Bo2Utils</artifactId>
+			<version>${project.version}</version>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>gr.interamerican.bo2</groupId>
+			<artifactId>Bo2UtilsDoc</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>gr.interamerican.bo2</groupId>
+			<artifactId>Bo2UtilsDoc</artifactId>
+			<version>${project.version}</version>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>gr.interamerican.bo2</groupId>
+			<artifactId>Bo2UtilsMeta</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>gr.interamerican.bo2</groupId>
+			<artifactId>Bo2UtilsMeta</artifactId>
+			<version>${project.version}</version>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>gr.interamerican.bo2</groupId>
+			<artifactId>Bo2UtilsSql</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>gr.interamerican.bo2</groupId>
+			<artifactId>Bo2UtilsSql</artifactId>
+			<version>${project.version}</version>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>gr.interamerican.bo2</groupId>
+			<artifactId>Bo2OdfToolkit</artifactId>
+			<version>${project.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>gr.interamerican.bo2</groupId>
+			<artifactId>Bo2JsqlParser</artifactId>
+			<version>${project.version}</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>gr.interamerican.bo2</groupId>
+			<artifactId>Bo2TestsDeploymentBase</artifactId>
+			<version>${project.version}</version>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>gr.interamerican.bo2</groupId>
+			<artifactId>Bo2TestsDeploymentJdbc</artifactId>
+			<version>${project.version}</version>
+			<type>test-jar</type>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+
+</project>
