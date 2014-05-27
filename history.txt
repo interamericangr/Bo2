@@ -196,3 +196,9 @@ method based callback (MethodBasedCallbackAction)
 --------
 
 quartzutils#getParamFromQuartzDescriptionBean
+
+
+2.1.0063
+--------
+
+New project added: Bo2TextTemplates
