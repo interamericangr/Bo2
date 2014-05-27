@@ -48,5 +48,5 @@ public interface QuartzjobDescription extends JobDescription {
 	 * 
 	 * @param t
 	 */
-	void setThroawble(Throwable t);
+	void setThrowable(Throwable t);
 }
