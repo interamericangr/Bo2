@@ -202,3 +202,7 @@ quartzutils#getParamFromQuartzDescriptionBean
 --------
 
 New project added: Bo2TextTemplates
+
+2.1.0064
+--------
+
