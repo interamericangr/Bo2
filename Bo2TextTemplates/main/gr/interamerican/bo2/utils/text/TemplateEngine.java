@@ -34,7 +34,7 @@ public class TemplateEngine {
 	 * @throws IOException
 	 * @throws TemplateException
 	 */
-	static String fill(String template, Object model) throws IOException, TemplateException {
+	public static String fill(String template, Object model) throws IOException, TemplateException {
 		Template t = new Template(TEMPLATE_NAME, new StringReader(template), cfg);
 		Writer out = new StringWriter();
 		t.process(model, out);
