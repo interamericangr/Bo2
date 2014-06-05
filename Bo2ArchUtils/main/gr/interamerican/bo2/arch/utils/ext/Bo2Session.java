@@ -19,7 +19,7 @@ import gr.interamerican.bo2.utils.StringUtils;
 
 import java.util.Locale;
 
-import org.apache.log4j.MDC;
+import org.slf4j.MDC;
 
 /**
  * Bo2Session keeps a {@link Session} in a ThreadLocal variable.

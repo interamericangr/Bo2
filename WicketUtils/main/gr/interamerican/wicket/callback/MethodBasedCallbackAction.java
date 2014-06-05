@@ -19,9 +19,9 @@ import gr.interamerican.bo2.utils.handlers.ThrowingExceptionHandler;
 
 import java.io.Serializable;
 
-import org.apache.log4j.MDC;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 
 /**
  * A {@link MethodBasedCallbackAction} is a Bo2WicketBlock that 
