@@ -120,7 +120,7 @@ implements PersistenceUtility<P> {
 		@SuppressWarnings("unchecked") 
 		P po = (P) mode.getOnRead().get(session, uid, poClass);		
 		if (po==null) {
-			String message = StringUtils.toString(uid);
+			String message = poClass.getSimpleName() + " not found: " + StringUtils.toString(uid); //$NON-NLS-1$
 			throw new PoNotFoundException(message);
 		}	
 		register(po);
