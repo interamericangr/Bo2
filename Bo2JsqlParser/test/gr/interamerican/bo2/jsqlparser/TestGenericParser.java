@@ -959,6 +959,41 @@ public class TestGenericParser extends AbstractParserTest {
 				"on A.doy = B.doy ",
 				"where A.surname like :surname");
 		checkStatement(expected, actual);
+		
+		/*
+		 * remove same column on two different tables
+		 */
+		sql = StringUtils.concat( 
+				"select A.id,A.name,A.doy,B.doyNm ",
+				"from xxxx.PEOPLE as A ",
+				"inner join xxxx.DOY as B ",
+				"on A.doy = B.doy ",
+				"where A.surname like :surname ",
+				"or A.name like :name ",
+				"union ",
+				"select A.id,A.name,A.doy,B.doyNm ",
+				"from xxxx.PEOPLE as A ",
+				"inner join xxxx.DOY as B ",
+				"on A.doy = B.doy ",
+				"where B.surname like :surname ",
+				"or A.surname like :surname ",
+				"or A.years like :years");
+
+		actual = parser.removeParameter("surname", sql);
+		expected = StringUtils.concat( 
+				"select A.id,A.name,A.doy,B.doyNm ",
+				"from xxxx.PEOPLE as A ",
+				"inner join xxxx.DOY as B ",
+				"on A.doy = B.doy ",
+				"where A.name like :name ",
+				"union ",
+				"select A.id,A.name,A.doy,B.doyNm ",
+				"from xxxx.PEOPLE as A ",
+				"inner join xxxx.DOY as B ",
+				"on A.doy = B.doy ",
+				"where A.years like :years");
+		checkStatement(expected, actual);
+		
 	}
 	
 	/**
