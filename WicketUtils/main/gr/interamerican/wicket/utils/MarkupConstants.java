@@ -41,7 +41,7 @@ public interface MarkupConstants {
 	/**
 	 * 
 	 */
-	public static final String WIDTH="width:150px"; 
+	public static final String WIDTH="width:200px"; 
 
 	/**
 	 * 
