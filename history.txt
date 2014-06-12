@@ -211,3 +211,9 @@ New project added: Bo2TextTemplates
 2.1.0065
 --------
 
+
+
+2.1.0066
+--------
+
+changed ponotfoundexception message
