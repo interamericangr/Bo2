@@ -17,6 +17,7 @@ import static org.junit.Assert.assertNull;
 import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import org.junit.Test;
 
@@ -65,6 +66,19 @@ public class TestBigDecimalBoPropertyDescriptor {
 		assertEquals("350.000,446", bigDecDesc.format(bd3)); //$NON-NLS-1$
 
 		assertNull(bigDecDesc.format(null));
+	}
+	
+	/**
+	 * Test valueOf().
+	 */
+	@Test
+	public void testValueOf() {
+		BigDecimal bd = new BigDecimal(350000.44578);
+		int decimal = 2;
+		bigDecDesc.setLengthOfDecimalPart(decimal);
+		BigDecimal expected = bd.setScale(decimal, RoundingMode.HALF_EVEN);
+		BigDecimal actual = bigDecDesc.valueOf(bd); 
+		assertEquals(expected, actual);
 	}
 
 }

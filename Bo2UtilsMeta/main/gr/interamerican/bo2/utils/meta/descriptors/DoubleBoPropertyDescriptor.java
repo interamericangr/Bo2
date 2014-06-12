@@ -12,6 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.meta.descriptors;
 
+import gr.interamerican.bo2.utils.NumberUtils;
 import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
 import gr.interamerican.bo2.utils.meta.formatters.DecimalFormatter;
 import gr.interamerican.bo2.utils.meta.formatters.Formatter;
@@ -46,8 +47,10 @@ extends AbstractNumberBoPropertyDescriptor<Double> {
 	}	
 	
 	@Override
-	public Double valueOf(Number value) {	
-		return value.doubleValue();
+	public Double valueOf(Number value) {
+		int dcml = getLengthOfDecimalPart();
+		double d = value.doubleValue();
+		return NumberUtils.round(d, dcml);
 	}
 
 }

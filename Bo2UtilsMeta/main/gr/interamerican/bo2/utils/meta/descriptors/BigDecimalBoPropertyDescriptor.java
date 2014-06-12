@@ -19,6 +19,7 @@ import gr.interamerican.bo2.utils.meta.formatters.nr.NrDecimalFormatter;
 import gr.interamerican.bo2.utils.meta.parsers.BigDecimalParser;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 /**
  * {@link BoPropertyDescriptor} for BigDecimal.
@@ -53,10 +54,14 @@ extends AbstractNumberBoPropertyDescriptor<BigDecimal> {
 	
 	@Override
 	public BigDecimal valueOf(Number value) {
+		int dcml = getLengthOfDecimalPart();
+		BigDecimal bd;
 		if (value instanceof BigDecimal) {
-			return (BigDecimal)value;
+			bd = (BigDecimal)value;
+		} else {
+			bd = new BigDecimal(value.doubleValue());
 		}
-		return new BigDecimal(value.doubleValue());
+		return bd.setScale(dcml, RoundingMode.HALF_EVEN) ;
 	}
 	
 	

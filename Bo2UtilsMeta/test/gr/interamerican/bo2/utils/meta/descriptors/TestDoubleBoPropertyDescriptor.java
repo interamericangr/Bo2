@@ -63,5 +63,17 @@ public class TestDoubleBoPropertyDescriptor {
 		assertEquals("5,788", doubleDesc.format(db2)); //$NON-NLS-1$
 		assertEquals(StringConstants.NULL,doubleDesc.format(null));
 	}
+	
+	/**
+	 * Test valueOf().
+	 */
+	@Test
+	public void testValueOf() {
+		Double db = new Double(13.9688);
+		doubleDesc.setLengthOfDecimalPart(3);
+		Double expected = 13.969;
+		Double actual = doubleDesc.valueOf(db); 
+		assertEquals(expected, actual);
+	}
 
 }
