@@ -1,5 +1,8 @@
 package gr.interamerican.bo2.utils.caching;
 
+import java.util.Collections;
+import java.util.Map;
+
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -11,7 +14,7 @@ public class TestLruCache {
 	/**
 	 * test subject
 	 */
-	LruCache<String, Integer> subject = new LruCache<String, Integer>(3);
+	Map<String, Integer> subject = new LruCache<String, Integer>(3);
 	
 	/**
 	 * test
@@ -34,6 +37,16 @@ public class TestLruCache {
 		subject.put("e", 5); //d should be removed now
 		Assert.assertEquals(3, subject.size());
 		Assert.assertFalse(subject.containsKey("d"));
+	}
+	
+
+	/**
+	 * test concurrent version
+	 */
+	@Test
+	public void test_withConcurrentHashMap() {
+		subject = Collections.synchronizedMap(subject);
+		test();
 	}
 
 }
