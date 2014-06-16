@@ -225,3 +225,11 @@ changed ponotfoundexception message
 EjbDocumentEngineUtility
 	Possible to initialize context without lookup url and initial context factory. Will initialize local initial context instead
 	
+
+2.1.0068
+--------
+
+Added a least recently used cache implementation, LruCache
+
+Suggested usage (for multi-threaded access): Collections.synchronizedMap(new LruCache(maxSize))
+

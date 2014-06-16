@@ -1,4 +1,0 @@
-Added a least recently used cache implementation, LruCache
-
-Suggested usage (for multi-threaded access): Collections.synchronizedMap(new LruCache(maxSize))
-
