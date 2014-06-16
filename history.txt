@@ -217,3 +217,11 @@ New project added: Bo2TextTemplates
 --------
 
 changed ponotfoundexception message
+
+
+2.1.0067
+--------
+
+EjbDocumentEngineUtility
+	Possible to initialize context without lookup url and initial context factory. Will initialize local initial context instead
+	
