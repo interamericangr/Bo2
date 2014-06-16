@@ -1,6 +1,7 @@
 package gr.interamerican.bo2.odftoolkit.ejb;
 
 import gr.interamerican.bo2.odftoolkit.AbstractDocumentEngineUtility;
+import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.doc.DocumentEngineException;
 import gr.interamerican.bo2.utils.doc.DocumentEngineUtility;
 
@@ -40,10 +41,15 @@ public class EjbDocumentEngineUtility extends AbstractDocumentEngineUtility {
 	 */
 	private DocumentEngineUtility getProxy() throws DocumentEngineException {
 		try {
-			Properties props = new Properties();
-			props.put(Context.INITIAL_CONTEXT_FACTORY, initialCtxFactory);
-			props.put(Context.PROVIDER_URL, ejbLookupUrl);
-			Context context = new InitialContext(props);
+			boolean locallyAccessible = StringUtils.isNullOrBlank(ejbLookupUrl) || StringUtils.isNullOrBlank(initialCtxFactory);
+			Context context = null;
+			if(locallyAccessible) {
+				context = new InitialContext();
+			} else {
+				Properties props = new Properties();
+				props.put(Context.INITIAL_CONTEXT_FACTORY, initialCtxFactory);
+				props.put(Context.PROVIDER_URL, ejbLookupUrl);
+			}
 			return (DocumentEngineUtility) context.lookup(ejbName);
 		} catch (NamingException ne) {
 			throw new DocumentEngineException(ne);
