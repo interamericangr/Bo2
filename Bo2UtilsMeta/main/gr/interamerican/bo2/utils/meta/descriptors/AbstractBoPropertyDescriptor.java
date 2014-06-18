@@ -326,5 +326,10 @@ implements BoPropertyDescriptor<T> {
 	public Validator<T> getValidator() {
 		return new MultipleValidatorsValidator<T>(new HashSet<Validator<T>>(validators.values()), getLabel());
 	}
+	
+	@Override
+	public String toString() {
+		return getClassName() + StringConstants.DOT + getName();
+	}
 
 }
