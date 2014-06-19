@@ -8,8 +8,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.junit.Assert;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
  * Unit tests of {@link SoapLoggingFilter}
@@ -40,6 +47,23 @@ public class TestSoapLoggingFilter {
 			Assert.assertFalse(s.contains(omitted));
 		}
 		
+	}
+	
+	/**
+	 * Test doFilter()
+	 * 
+	 * @throws IOException
+	 * @throws ServletException
+	 */
+	@Test
+	public void testDoFilter() throws IOException, ServletException {
+		SoapLoggingFilter subject = new SoapLoggingFilter();
+		
+		HttpServletRequest request = Mockito.mock(HttpServletRequest.class);
+		Mockito.when(request.getRequestURL()).thenReturn(new StringBuffer());
+		ServletResponse response = Mockito.mock(HttpServletResponse.class);
+		FilterChain chain = Mockito.mock(FilterChain.class);
+		subject.doFilter(request, response, chain);
 	}
 
 }

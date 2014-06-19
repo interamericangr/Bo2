@@ -42,11 +42,12 @@ public class SoapLoggingFilter extends AbstractBaseLoggingFilter {
 	protected void doLog(String url, Charset requestEncoding, Charset responseEncoding, byte[] request, byte[] response) {
 		@SuppressWarnings("nls")
 		String msg = StringUtils.concat(
-			"REQUEST" + StringConstants.NEWLINE,
-			url + StringConstants.NEWLINE,
+			"REQUEST " + url + StringConstants.NEWLINE,
 			logSoap(request),
-			"RESPONSE" + StringConstants.NEWLINE,
-			logSoap(response));
+			StringConstants.NEWLINE + "RESPONSE" + StringConstants.NEWLINE,
+			logSoap(response) + StringConstants.NEWLINE,
+			"-------------------------------------------------------------------------------",
+			StringConstants.NEWLINE);
 		
 		LOGGER.info(msg);
 	}
