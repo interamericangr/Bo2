@@ -11,7 +11,8 @@ import java.util.Properties;
  * Abstract implementation of a Question that loads a Properties instance from
  * a table. Each row is a single property. The first column of the table is the 
  * key and the second the value. A 3rd column may, optionally, indicate if the 
- * value is obfuscated. The concrete decoding mechanism is left to the implementor.
+ * value is obfuscated. In this case, the concrete decoding mechanism is left 
+ * to the implementor.
  */
 public abstract class JdbcPropertiesLoaderQuestion 
 extends JdbcSingleStatementQuestion<Properties>{
