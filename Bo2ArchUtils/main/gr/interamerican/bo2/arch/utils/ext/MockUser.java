@@ -100,7 +100,7 @@ implements User<A>{
 			if (branchCd.equals("02")) {
 				authToken = "69";
 			} else if (branchCd.equals("03")) {
-				authToken = "81";
+				authToken = "91";
 			}
 		}
 		return authToken;
