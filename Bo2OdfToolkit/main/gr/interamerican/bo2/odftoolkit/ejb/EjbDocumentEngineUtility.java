@@ -49,6 +49,7 @@ public class EjbDocumentEngineUtility extends AbstractDocumentEngineUtility {
 				Properties props = new Properties();
 				props.put(Context.INITIAL_CONTEXT_FACTORY, initialCtxFactory);
 				props.put(Context.PROVIDER_URL, ejbLookupUrl);
+				context = new InitialContext(props);
 			}
 			return (DocumentEngineUtility) context.lookup(ejbName);
 		} catch (NamingException ne) {
