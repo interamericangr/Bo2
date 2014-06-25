@@ -1,7 +1,9 @@
 package gr.interamerican.bo2.arch.utils.ext;
 
 import gr.interamerican.bo2.arch.ext.User;
+import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.StringUtils;
+import gr.interamerican.bo2.utils.TokenUtils;
 
 /**
  * Mock user.<br>
@@ -17,24 +19,6 @@ implements User<A>{
 	 * serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	/**
-	 * User id.
-	 */
-	String userId;
-	/**
-	 * Password.
-	 */
-	String password;
-	/**
-	 * indication if the user is authorized.
-	 */
-	boolean authorized;
-
-	/**
-	 * used for checking user authorization regarding amounts.
-	 */
-	String authToken;
 
 	/**
 	 * Creates a new MockUser object.
@@ -76,15 +60,52 @@ implements User<A>{
 		this.password = password;
 	}
 
+	/**
+	 * User id.
+	 */
+	String userId;
+	/**
+	 * Password.
+	 */
+	String password;
+	/**
+	 * indication if the user is authorized.
+	 */
+	boolean authorized;
+
+	/**
+	 * used for checking user authorization regarding amounts.
+	 */
+	String authToken;
+
 	@Override
 	public boolean isAuthorized(A authorizationId) {
 		return authorized;
 	}
 
+	/**
+	 * include pml authorization.
+	 */
+	@SuppressWarnings("nls")
 	@Override
 	public String getAuthorizationToken(A authorizationId) {
+		String[] auth = TokenUtils.splitTrim((String) authorizationId, StringConstants.MINUS);
+		if (((String) authorizationId).length() < 3) {
+			String msg = "Invalid authorization id: " + authorizationId; //$NON-NLS-1$
+			throw new RuntimeException(msg);
+		}
+		String branchCd = auth[1];
+		String authCd = auth[2];
+		if (authCd.equals("419")) {
+			if (branchCd.equals("02")) {
+				authToken = "69";
+			} else if (branchCd.equals("03")) {
+				authToken = "91";
+			}
+		}
 		return authToken;
 	}
+
 
 	@Override
 	public String authorizationDescription(A authorizationId) {
