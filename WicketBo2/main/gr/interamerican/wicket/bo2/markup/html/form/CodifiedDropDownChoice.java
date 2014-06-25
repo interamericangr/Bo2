@@ -65,7 +65,7 @@ public class CodifiedDropDownChoice<C extends Comparable<? super C>, P extends S
 	public CodifiedDropDownChoice(String id, Collection<P> values, Class<P> clz) {
 		super(id);
 		@SuppressWarnings("nls")
-		List<P> sortedValues = CollectionUtils.sort(values, clz, "name", "code");
+		List<P> sortedValues = CollectionUtils.sort(values, clz, "name");
 		valuesMapping = new HashMap<C, String>();
 		List<C> list = new ArrayList<C>();
 		for (P singleValue : sortedValues) {
