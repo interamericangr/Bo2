@@ -505,6 +505,8 @@ public class CollectionUtils {
 	 * The returned collection is first sorted with property1 and then with property2.
 	 * This means that the result is sorted by property1 and that each sub-collection
 	 * that has a specific value for property1 is sorted by property2.
+	 * 
+	 * Use with caution, as this has a severe performance issues
 	 *        
 	 * @param collection
 	 *        Collection to sort.
@@ -522,7 +524,10 @@ public class CollectionUtils {
         
 	 *        
 	 * @return Sorted List<T>.
+	 * 
+	 * @deprecated Because of slow performance on large lists.
 	 */
+	@Deprecated
 	public static <P,T extends P> List<T> sort(Collection<T> collection, Class<P> clazz, String property1, String property2) {
 		List<T> result = new ArrayList<T>();
 		if(collection==null) {
