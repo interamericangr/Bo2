@@ -251,3 +251,8 @@ Suggested usage (for multi-threaded access): Collections.synchronizedMap(new Lru
  * to the implementor
  */
 public abstract class JdbcPropertiesLoaderQuestion
+
+
+2.1.0071
+--------
+
