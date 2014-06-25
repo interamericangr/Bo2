@@ -85,9 +85,12 @@ implements User<A>{
 
 	/**
 	 * include pml authorization.
+	 * 
+	 * @deprecated TODO Will just return authToken as soon OnE goes live for motor
 	 */
 	@SuppressWarnings("nls")
 	@Override
+	@Deprecated
 	public String getAuthorizationToken(A authorizationId) {
 		String[] auth = TokenUtils.splitTrim((String) authorizationId, StringConstants.MINUS);
 		if (((String) authorizationId).length() < 3) {
