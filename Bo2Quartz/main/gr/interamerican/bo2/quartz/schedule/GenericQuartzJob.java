@@ -68,39 +68,42 @@ public class GenericQuartzJob implements Job {
 		String msg = "Quartz job " + bean.getJobName() + " failed. " + bean.getParameters(); //$NON-NLS-1$ //$NON-NLS-2$
 		LOGGER.warn(msg);
 		LOGGER.error(trace);
-		bean.setExecutionStatus(JobStatus.ERROR);
 		bean.setThrowable(e);
+		bean.setExecutionStatus(JobStatus.ERROR);
 		throw new JobExecutionException(msg + StringConstants.NEWLINE + e);
 	}
 
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
-		LOGGER.trace("Starting Generic QuartzJob"); //$NON-NLS-1$
-		JobDataMap map = context.getJobDetail().getJobDataMap();
-		QuartzjobDescription bean = (QuartzjobDescription) map.get(QuartzConstants.BEAN_PROP);
-		Bo2Session.setSession((Session<?, ?>) map.get(QuartzConstants.SESSION_PROP));
-		Operation op = generateOperationFromBean(bean);
-		RuntimeCommand cmd = null;
-		String depl = Bo2.getDefaultDeployment().getDeploymentBean().getPathToSecondaryBatchDeployment();
-		if (!StringUtils.isNullOrBlank(depl)) {
-			cmd = new RuntimeCommand(depl, op);
-		} else {
-			cmd = new RuntimeCommand(op);
-		}
-		LOGGER.debug("Starting " + bean.getJobName() + " with params " + bean.getParameters()); //$NON-NLS-1$ //$NON-NLS-2$
+		QuartzjobDescription bean = null;
 		try {
+			LOGGER.trace("Starting Generic QuartzJob"); //$NON-NLS-1$
+			JobDataMap map = context.getJobDetail().getJobDataMap();
+			bean = (QuartzjobDescription) map.get(QuartzConstants.BEAN_PROP);
+			Bo2Session.setSession((Session<?, ?>) map.get(QuartzConstants.SESSION_PROP));
+			Operation op = generateOperationFromBean(bean);
+			RuntimeCommand cmd = null;
+			String depl = Bo2.getDefaultDeployment().getDeploymentBean().getPathToSecondaryBatchDeployment();
+			if (!StringUtils.isNullOrBlank(depl)) {
+				cmd = new RuntimeCommand(depl, op);
+			} else {
+				cmd = new RuntimeCommand(op);
+			}
+			LOGGER.debug("Starting " + bean.getJobName() + " with params " + bean.getParameters()); //$NON-NLS-1$ //$NON-NLS-2$
 			bean.setExecutionStatus(JobStatus.RUNNING);
 			cmd.execute();
+			LOGGER.debug("Ended " + bean.getJobName() + " with params " + bean.getParameters()); //$NON-NLS-1$ //$NON-NLS-2$
 		} catch (DataException e) {
 			logMe(e, bean);
 		} catch (LogicException e) {
 			logMe(e, bean);
 		} catch (UnexpectedException e) {
 			logMe(e, bean);
+		} catch (RuntimeException e) {
+			logMe(e, bean);
 		} catch (Error e) {
 			logMe(e, bean);
 		}
-		LOGGER.debug("Ended " + bean.getJobName() + " with params " + bean.getParameters()); //$NON-NLS-1$ //$NON-NLS-2$
 		bean.setExecutionStatus(JobStatus.OK);
 	}
 }
