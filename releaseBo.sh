@@ -10,7 +10,7 @@ fi
 
 svn update
 
-mvn -q clean install 
+mvn -q clean install -DsktipTests=true 
 
 e="$?"
 if [ $e -ne 0 ]
