@@ -10,7 +10,7 @@ fi
 
 svn update
 
-mvn -q clean install -DskipTests
+mvn -q clean install 
 
 e="$?"
 if [ $e -ne 0 ]
