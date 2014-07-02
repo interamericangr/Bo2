@@ -18,6 +18,7 @@ import gr.interamerican.bo2.odftoolkit.utils.OdfUtils;
 import gr.interamerican.bo2.odftoolkit.utils.StyleUtils;
 import gr.interamerican.bo2.odftoolkit.utils.VariableContainerUtils;
 import gr.interamerican.bo2.utils.AdapterUtils;
+import gr.interamerican.bo2.utils.IllegalCharacterFilter;
 import gr.interamerican.bo2.utils.adapters.GetProperty;
 import gr.interamerican.bo2.utils.adapters.Transformation;
 import gr.interamerican.bo2.utils.doc.BusinessDocument;
@@ -184,8 +185,9 @@ public class OdfToolkitTextDocument implements BusinessDocument {
 	
 	
 	public void addText(String text) throws DocumentEngineException {
+		String txt = IllegalCharacterFilter.SINGLETON.filter(text);
 		Paragraph paragraph = document.getParagraphByReverseIndex(0, false);
-		paragraph.appendTextContent(text);
+		paragraph.appendTextContent(txt);
 	}
 	
 	public void addParagraph(String text) throws DocumentEngineException {

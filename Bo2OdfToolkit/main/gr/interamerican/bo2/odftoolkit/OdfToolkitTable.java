@@ -13,6 +13,7 @@
 package gr.interamerican.bo2.odftoolkit;
 
 import gr.interamerican.bo2.odftoolkit.utils.OdfUtils;
+import gr.interamerican.bo2.utils.IllegalCharacterFilter;
 import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.doc.BusinessDocument;
@@ -171,7 +172,8 @@ public class OdfToolkitTable implements DocumentTable {
 		if (p==null) {
 			p = Paragraph.newParagraph(cell);
 		}
-		p.setTextContent(value);
+		String txt = IllegalCharacterFilter.SINGLETON.filter(value);
+		p.setTextContent(txt);
 	}	
 	
 	public void setCell(int row, int column, BusinessDocument doc) 
