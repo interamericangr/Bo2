@@ -14,6 +14,7 @@ package gr.interamerican.bo2.utils.meta.ext.descriptors;
 
 import gr.interamerican.bo2.arch.ext.Cache;
 import gr.interamerican.bo2.arch.ext.TypedSelectable;
+import gr.interamerican.bo2.utils.CollectionUtils;
 import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
 import gr.interamerican.bo2.utils.meta.ext.formatters.CachedEntryFormatter;
 import gr.interamerican.bo2.utils.meta.ext.formatters.nr.NrCachedEntryFormatter;
@@ -69,6 +70,13 @@ extends AbstractCacheRelatedObjectBoPropertyDescriptor<T, C> {
 	 * @return Returns a set containing the possible values for the entry.
 	 */
 	public Set<T> getValues() {
+		/*
+		 * If subTypeId is null and there are no entries with null subTypeId
+		 * then return all entries for typeId
+		 */
+		if(subTypeId==null && CollectionUtils.isNullOrEmpty(cache().getSubCache(typeId, subTypeId))) {
+			return cache().getTypeEntries(typeId);
+		}
 		return cache().getSubCache(typeId, subTypeId);
 	}
 	
