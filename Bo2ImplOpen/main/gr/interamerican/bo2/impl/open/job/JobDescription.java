@@ -2,6 +2,7 @@ package gr.interamerican.bo2.impl.open.job;
 
 import gr.interamerican.bo2.arch.Operation;
 
+import java.io.Serializable;
 import java.util.Map;
 
 /**
@@ -11,7 +12,7 @@ import java.util.Map;
  * <li/> whether the job should be executed synchronously, i.e. the application
  *       should wait for it to finish. By default jobs are asynchronous.
  */
-public interface JobDescription {
+public interface JobDescription extends Serializable {
 
 	/**
 	 * Gets the operationClass.
@@ -47,7 +48,7 @@ public interface JobDescription {
 	 * @return synchronous
 	 */
 	boolean isSynchronous();
-	
+
 	/**
 	 * Assigns a new value to the synchronous.
 	 * 
