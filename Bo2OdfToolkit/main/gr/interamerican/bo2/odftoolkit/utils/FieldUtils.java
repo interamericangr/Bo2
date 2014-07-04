@@ -105,9 +105,9 @@ public class FieldUtils {
 	/**
 	 * prefix for {@link #nastyHack(String)} 
 	 * 
-	 * The 'X' is Greek unicode 3a7
+	 * The first char is Greek 'X' unicode 3a7
 	 */
-	public static final String BAD_PREFIX = "×] "; //$NON-NLS-1$
+	public static final String BAD_PREFIX = "\u03a7] "; //$NON-NLS-1$
 	
 	/**
 	 * Hack for a corner case of OnE that has to do with inactive brands and models... 
