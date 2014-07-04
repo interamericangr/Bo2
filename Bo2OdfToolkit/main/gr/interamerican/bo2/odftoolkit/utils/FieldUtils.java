@@ -97,8 +97,25 @@ public class FieldUtils {
 			String fieldName = field.getTextNameAttribute();
 			String value = ExpressionEvaluator.getInstance().getValue(fieldName, model);
 			value = IllegalCharacterFilter.SINGLETON.filter(value);
+			value = nastyHack(value);
 			replaceField(dom, field, value);			
 		}
+	}
+	
+	/**
+	 * prefix for {@link #nastyHack(String)} 
+	 * 
+	 * The 'X' is Greek unicode 3a7
+	 */
+	public static final String BAD_PREFIX = "×] "; //$NON-NLS-1$
+	
+	/**
+	 * Hack for a corner case of OnE that has to do with inactive brands and models... 
+	 * @param value
+	 * @return the string value without the {@value #BAD_PREFIX}
+	 */
+	static String nastyHack(String value) {
+		return StringUtils.removePrefix(value, BAD_PREFIX);
 	}
 	
 	/**
@@ -117,6 +134,4 @@ public class FieldUtils {
 		setFields(doc.getStylesDom(), model);		
 	}
 	
-	
-
 }

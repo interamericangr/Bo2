@@ -372,6 +372,18 @@ public class TestStringUtils {
 		assertEquals("string", StringUtils.addPrefix("string", null));
 		assertEquals(null, StringUtils.addPrefix(null, "pre "));		
 	}
+	
+	/**
+	 * Unit test for removePrefix
+	 */
+	@Test
+	public void testRemovePrefix() {
+		assertEquals("mazda", StringUtils.removePrefix("×] mazda", "×] "));
+		assertEquals("mazda", StringUtils.removePrefix("mazda", "×] "));
+		assertEquals("string", StringUtils.addPrefix("string", null));
+		assertEquals(null, StringUtils.addPrefix(null, "pre "));
+		assertEquals(null, StringUtils.addPrefix(null, null));
+	}
 
 	/**
 	 * Unit test for addPostfix

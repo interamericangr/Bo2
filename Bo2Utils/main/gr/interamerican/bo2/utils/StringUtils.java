@@ -700,6 +700,25 @@ public class StringUtils {
 	}
 	
 	/**
+	 * Removes a prefix from a String if this String starts with this prefix.
+	 * 
+	 * @param string
+	 *        String form which a prefix is removed.
+	 * @param prefix
+	 *        prefix to remove from the string.
+	 * 
+	 * @return Returns the string without the prefix.
+	 */
+	public static String removePrefix(String string, String prefix) {
+		boolean modify = string!=null && prefix!=null && string.startsWith(prefix);
+		if (!modify) {
+			return string;
+		}
+		int prefixLength = prefix.length();
+		return string.substring(prefixLength);
+	}
+	
+	/**
 	 * Adds a string to the right of an other string, only if 
 	 * none of the strings is null.
 	 * 
