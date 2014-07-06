@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Properties;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -35,7 +36,7 @@ public class TestJodDocumentEngineUtility {
 	/**
 	 * Test subject
 	 */
-	DocumentEngineUtility subject = new JodDocumentEngineUtility(new Properties());
+	JodDocumentEngineUtility subject = new JodDocumentEngineUtility(new Properties());
 	
 	/**
 	 * Unit test for toPdf.
@@ -77,6 +78,7 @@ public class TestJodDocumentEngineUtility {
 		FileOutputStream fos = new FileOutputStream(new File(outPath));
 		fos.write(xhtml);
 		fos.close();
+		Assert.assertFalse(subject.caughtException);
 	}
 
 }

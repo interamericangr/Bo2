@@ -55,10 +55,11 @@ public class JodDocumentEngineUtility extends AbstractDocumentEngineUtility {
 			connection.connect();
 			DefaultDocumentFormatRegistry registry = new DefaultDocumentFormatRegistry();
 			DocumentFormat inFormat = registry.getFormatByFileExtension("odt"); //$NON-NLS-1$
-			DocumentFormat outFormat = registry.getFormatByFileExtension("XHTML"); //$NON-NLS-1$			
+			DocumentFormat outFormat = registry.getFormatByFileExtension("XHTML"); //$NON-NLS-1$
 			DocumentConverter converter = new OpenOfficeDocumentConverter(connection);			
 			converter.convert(in, inFormat, out, outFormat);
 			String xhtml = new String(out.toByteArray(), Charset.forName("UTF-8")); //$NON-NLS-1$
+			xhtml = embedCssToElements(xhtml);
 			return xhtml;
 		} catch (Exception e) { //log and rethrow all exceptions
 			LOG.error(ExceptionUtils.getThrowableStackTrace(e));
@@ -69,6 +70,28 @@ public class JodDocumentEngineUtility extends AbstractDocumentEngineUtility {
 			}
 		}
 	}
+	
+	boolean caughtException = false; //for testing; change this
+	String embedCssToElements(String xhtml) {
+		try {
+			return embedCssToElements0(xhtml);
+		} catch (Exception e) {
+			caughtException = true;
+			e.printStackTrace();
+			return xhtml;
+		}
+	}
+	
+	/**
+	 * Internal impl
+	 * @param xhtml
+	 * @return xhtml
+	 * @throws Exception
+	 */
+	String embedCssToElements0(String xhtml) throws Exception {
+		return new CssInliner().inlineCss(xhtml);
+	}
+	
 
 	public byte[] toPdf(byte[] odf) throws DocumentEngineException {
 		OpenOfficeConnection connection = null;
