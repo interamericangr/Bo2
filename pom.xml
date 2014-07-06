@@ -37,6 +37,7 @@
 		<version.hibernate-core>3.6.8.Final</version.hibernate-core>
 		<version.quartz-all>2.2.1</version.quartz-all>
 		<version.freemarker>2.3.16</version.freemarker>
+		<version.jsoup>1.7.3</version.jsoup>
 
 		<version.nbda-bo>1.5.0003</version.nbda-bo>
 		<version.jwf>1.0.0001</version.jwf>
@@ -435,6 +436,12 @@
 				<artifactId>quartz</artifactId>
 				<version>${version.quartz-all}</version>
 			</dependency>
+			
+			<dependency>
+			<groupId>org.jsoup</groupId>
+			<artifactId>jsoup</artifactId>
+			<version>${version.jsoup}</version>
+		</dependency>
 
 		</dependencies>
 	</dependencyManagement>
