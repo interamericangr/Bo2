@@ -175,7 +175,11 @@ implements BoPropertyDescriptor<T> {
 	
 	@Override
 	public void validate(T value) throws ValidationException {
-		getValidator().validate(value);
+		try {
+			getValidator().validate(value);
+		} catch (RuntimeException e) {
+			throw new RuntimeException("Exception in validation of property " + getFullyQualifiedName(), e); //$NON-NLS-1$
+		}
 	}
 	
 	@Override
