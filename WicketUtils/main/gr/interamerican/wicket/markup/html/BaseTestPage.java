@@ -12,10 +12,15 @@
  ******************************************************************************/
 package gr.interamerican.wicket.markup.html;
 
+import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.wicket.def.FeedbackOwner;
+import gr.interamerican.wicket.def.WicketOutputMedium;
 
+import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.util.tester.WicketTester;
 
 /**
@@ -26,7 +31,7 @@ import org.apache.wicket.util.tester.WicketTester;
  */
 public abstract class BaseTestPage 
 extends WebPage 
-implements FeedbackOwner {
+implements FeedbackOwner, WicketOutputMedium {
 	
 	/**
 	 * serial id.
@@ -52,6 +57,15 @@ implements FeedbackOwner {
 	 * feedback panel
 	 */
 	protected FeedbackPanel feedbackPanel = new FeedbackPanel(FEEDBACK_PANEL_ID);
+	
+	/**
+	 * Model of label.
+	 */
+	private Model<String> errorLabelModel = new Model<String>();
+	/**
+	 * Error label.
+	 */
+	private Label errorLabel = new Label("errorLabel", errorLabelModel); //$NON-NLS-1$
 
 	/**
 	 * Creates a new BaseTestPage object.
@@ -60,10 +74,21 @@ implements FeedbackOwner {
 		super();
 		feedbackPanel.setOutputMarkupId(true);
 		add(feedbackPanel);
+		add(errorLabel);
 	}
 	
 	public FeedbackPanel getFeedBackPanel() {
 		return feedbackPanel;
+	}
+	
+	public void clearMessages(AjaxRequestTarget target) {
+		target.add(errorLabel);
+		errorLabelModel.setObject(StringConstants.EMPTY);
+	}
+	
+	public void showError(Throwable t, AjaxRequestTarget target) {
+		target.add(errorLabel);
+		errorLabelModel.setObject(t.getMessage());
 	}
 
 }

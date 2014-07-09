@@ -23,6 +23,7 @@ import gr.interamerican.wicket.def.WicketOutputMedium;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 
+import org.apache.wicket.Application;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.request.IRequestHandler;
@@ -32,6 +33,7 @@ import org.apache.wicket.request.cycle.IRequestCycleListener;
 import org.apache.wicket.request.cycle.PageRequestHandlerTracker;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.handler.IPageRequestHandler;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 /**
  * {@link IRequestCycleListener} implementation that facilitates transaction management
@@ -98,7 +100,16 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 				error("CouldNotRollbackException: " + ExceptionUtils.getThrowableStackTrace(cnrbex));
 			}
 		} else {
-			debug("Exception was CouldNotCommitException, will not attempt rollback");
+			debug("Exception was CouldNotCommitException, will not attempt rollback. Redirecting to home page with error message.");
+			
+			Page homePage = homePage();
+			AjaxRequestTarget ajaxRequestTarget = new AjaxRequestTarget(homePage);
+			if(homePage instanceof WicketOutputMedium) {
+				WicketOutputMedium outputMedium = (WicketOutputMedium) homePage;
+				outputMedium.showError(t, ajaxRequestTarget);
+			}
+			RequestCycle.get().scheduleRequestHandlerAfterCurrent(ajaxRequestTarget);
+			return ajaxRequestTarget;
 		}
 
 		/*
@@ -152,6 +163,18 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 
 		return nextTarget;
 
+	}
+	
+	/**
+	 * @return Return a new home page instance, if possible.
+	 */
+	Page homePage() {
+		Class<? extends Page> pageClazz = Application.get().getHomePage();
+		try {
+			return pageClazz.newInstance();
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	@Override
