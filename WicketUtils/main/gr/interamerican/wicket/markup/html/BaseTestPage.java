@@ -73,6 +73,7 @@ implements FeedbackOwner, WicketOutputMedium {
 	public BaseTestPage() {
 		super();
 		feedbackPanel.setOutputMarkupId(true);
+		errorLabel.setOutputMarkupId(true);
 		add(feedbackPanel);
 		add(errorLabel);
 	}
