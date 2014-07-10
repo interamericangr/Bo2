@@ -54,7 +54,10 @@ extends gr.interamerican.bo2.impl.open.creation.PersistenceWorkerFactoryImpl {
 	public <M extends PersistentObject<?>> 
 	PersistenceWorker<M> createPw(Class<M> poClass) {
 		PersistenceWorker<M> pw = createMappedPw(poClass);
-		if (pw==null) {
+		if (pw == null) {
+			// TODO: Ο Validator δουλεύει μονάχα στην πρώτη φορά που γίνεται
+			// create ο PW. Στις επόμενες περιπτώσεις ο validator δεν
+			// χρησιμοποιείτε επειδή θα τον έχει ήδη βρει από κάτω.
 			Validator<M> validator = ValidatorRegistry.getValidator(poClass);			
 			pw = GenericHibernatePersistenceWorker.newInstance(poClass, validator);
 			@SuppressWarnings("unchecked") Class<? extends PersistenceWorker<?>> pwType = 
