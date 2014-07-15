@@ -26,7 +26,7 @@ public class TestQuartzUtils {
 	/**
 	 * bean without parameters
 	 */
-	public static final JobDescription bean;
+	static final JobDescription bean;
 	static {
 		bean = Factory.create(JobDescription.class);
 		bean.setOperationClass(SampleOperation.class);

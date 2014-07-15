@@ -17,6 +17,7 @@ import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.creation.ObjectFactory;
 import gr.interamerican.bo2.impl.open.runtime.ProviderImpl;
 import gr.interamerican.bo2.utils.CollectionUtils;
+import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.StreamUtils;
 import gr.interamerican.bo2.utils.StringUtils;
 
@@ -122,7 +123,7 @@ public class Bo2Deployment {
 	private static void loadClass(String className) throws ClassNotFoundException {
 		if (!StringUtils.isNullOrBlank(className)) {
 			logger.info("About to load initializer class " + className); //$NON-NLS-1$
-			Class.forName(className);
+			ReflectionUtils.forName(className);
 		}
 	}
 

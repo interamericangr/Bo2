@@ -1500,8 +1500,7 @@ public class ReflectionUtils {
 	 */
 	public static <T> T newInstance(String className) {
 		try {
-			@SuppressWarnings("unchecked")
-			Class<T> clazz = (Class<T>)Class.forName(className);
+			Class<T> clazz = forName(className);
 			return clazz.newInstance();
 		} catch (ClassNotFoundException cnfe) {
 			throw new RuntimeException(cnfe);			
@@ -1509,6 +1508,36 @@ public class ReflectionUtils {
 			throw new RuntimeException(ie);
 		} catch (IllegalAccessException iae) {
 			throw new RuntimeException(iae);
+		}
+	}
+	
+	/**
+	 * Searches for the class with the specified name in the classloader of
+	 * this class and then in the context classloader if the first search fails.
+	 * 
+	 * @param className
+	 * @return Class with the specified name.
+	 * @throws ClassNotFoundException
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> Class<T> forName(String className) throws ClassNotFoundException {
+		ClassNotFoundException cnfe = null;
+		try {
+			return (Class<T>) Class.forName(className);
+		} catch (ClassNotFoundException e) {
+			ClassLoader contextCl = Thread.currentThread().getContextClassLoader();
+			if(contextCl==null) {
+				throw e;
+			}
+			/*
+			 * try once more with the context classloader
+			 */
+			cnfe = e;
+			try {
+				return (Class<T>) Class.forName(className, true, Thread.currentThread().getContextClassLoader());
+			} catch (ClassNotFoundException e1) {
+				throw cnfe;
+			}
 		}
 	}
 	
