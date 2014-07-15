@@ -985,6 +985,8 @@ public class CollectionUtils {
 	 * Partition a list to a list that contains sub-lists of the list with a specified size.
 	 * The last sub-list may be of size less than {@code size}. The sub-lists maintain the
 	 * initial ordering.
+	 * <br/>
+	 * The supplied argument is neither altered nor returned as part of the result.
 	 * @param list
 	 * @param size
 	 * @return a list that contains sub-lists of specific size.
