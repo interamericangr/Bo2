@@ -991,8 +991,10 @@ public class CollectionUtils {
 	 */
 	public static <T> List<List<T>> partition(List<T> list, int size) {
 		List<List<T>> result = new ArrayList<List<T>>();
-		if(list.size() < size) {
-			result.add(list);
+		if(list.size() < size) { //only return 1 partition
+			List<T> part = new ArrayList<T>();
+			part.addAll(list); //defensively copy input
+			result.add(part);
 			return result;
 		}
 		int ctr=0;
