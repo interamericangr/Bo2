@@ -19,13 +19,14 @@ import gr.interamerican.bo2.arch.exceptions.LogicException;
 /**
  * An operation is a command object that performs a business 
  * operation.
- * 
+ * <br/>
  * Any inputs to the operation must be provided with setters. 
  * The method throws any errors that might be thrown during it.
  * Any output, must be returned through a getter.
- *  
- * 
- *
+ * <br/> 
+ * An Operation execution should be <i>consistent</i>. This 
+ * means that multiple invocations of {@link #execute()} with 
+ * the same input must produce the same output. 
  */
 public interface Operation extends Worker {
     
@@ -37,6 +38,5 @@ public interface Operation extends Worker {
      */
     public abstract void execute() 
     throws LogicException, DataException;
-    
     
 }
