@@ -1,0 +1,23 @@
+Improved resource loading by using the context classloader as fallback for the resource lookup (e.g. in StreamUtils) 
+
+Added TransactionManager#hasBeenMarkedRollbackOnly(): boolean. Follows JTA semantics
+
+Added StaleTransactionException. All AbstractResourceConsumer sub-classes that handle transactional 
+resources will throw this, if they detect that the current unit of work has been marked rollback only
+after they finish their work
+
+Added AbstractResourceConsumer#checkTransactionHealth(WorkerExecutionDetails details) throws StaleTransactionException : void for convenience
+
+Bo2 will not treat StaleTransactionExceptions specially, other than checking the cause chain before 
+throwing a CouldNotRollbackException in order to provide a more helpful message for debug purposes
+
+Affected AbstractResourceConsumer sub-classes:
+
+AbstractHibernatePersistenceUtility
+AbstractHibernateQuery
+AbstractJdbcWorker
+
+LegacyOperationAdapter
+LegacyPwAdapter
+LegacyQueryAdapter
+LegacyQuestionAdapter
