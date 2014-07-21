@@ -16,6 +16,8 @@ import gr.interamerican.bo2.arch.Provider;
 import gr.interamerican.bo2.arch.Worker;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
+import gr.interamerican.bo2.arch.exceptions.StaleTransactionException;
+import gr.interamerican.bo2.arch.utils.ext.WorkerExecutionDetails;
 import gr.interamerican.bo2.impl.open.utils.Exceptions;
 import gr.interamerican.bo2.impl.open.utils.Messages;
 import gr.interamerican.bo2.impl.open.utils.Util;
@@ -323,9 +325,12 @@ extends AbstractResourceConsumer {
 	 *            parameters used for the sql statement (for error logging)
 	 * @return Returns the count of lines.
 	 * @throws SQLException
+	 * @throws StaleTransactionException 
 	 */
 	protected int executeUpdatePs(PreparedStatement ps, String statement, Object[] params)
-			throws SQLException {
+	throws SQLException, StaleTransactionException {
+		WorkerExecutionDetails details = new WorkerExecutionDetails();
+		details.setTaskInfo("Executing statement " + showPreparedStatement(statement, params)); //$NON-NLS-1$
 		try {
 			Debug.setActiveModule(ps);
 			int count = ps.executeUpdate();
@@ -336,6 +341,7 @@ extends AbstractResourceConsumer {
 			throw e;
 		} finally {
 			Debug.resetActiveModule();
+			checkTransactionHealth(details);
 		}
 	}
 
@@ -350,9 +356,12 @@ extends AbstractResourceConsumer {
 	 *            (for logging purposes)
 	 * @return Returns the resultset.
 	 * @throws SQLException
+	 * @throws StaleTransactionException 
 	 */
 	protected ResultSet executeQueryPs(PreparedStatement ps, String statement, Object[] params)
-			throws SQLException {
+	throws SQLException, StaleTransactionException {
+		WorkerExecutionDetails details = new WorkerExecutionDetails();
+		details.setTaskInfo("Executing statement " + showPreparedStatement(statement, params)); //$NON-NLS-1$
 		try {
 			Debug.setActiveModule(ps);
 			ResultSet rs = ps.executeQuery();
@@ -363,6 +372,7 @@ extends AbstractResourceConsumer {
 			throw e;
 		} finally {
 			Debug.resetActiveModule();
+			checkTransactionHealth(details);
 		}
 	}
 

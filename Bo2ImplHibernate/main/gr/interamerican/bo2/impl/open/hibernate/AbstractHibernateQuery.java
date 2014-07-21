@@ -16,7 +16,9 @@ import gr.interamerican.bo2.arch.EntitiesQuery;
 import gr.interamerican.bo2.arch.Question;
 import gr.interamerican.bo2.arch.exceptions.DataAccessException;
 import gr.interamerican.bo2.arch.exceptions.DataException;
+import gr.interamerican.bo2.arch.utils.ext.WorkerExecutionDetails;
 import gr.interamerican.bo2.utils.Debug;
+import gr.interamerican.bo2.utils.StringConstants;
 
 import java.util.Iterator;
 
@@ -114,6 +116,8 @@ implements EntitiesQuery<P>, Question<P>  {
 	}
 
 	public final void execute() throws DataException {
+		WorkerExecutionDetails details = new WorkerExecutionDetails();
+		details.setTaskInfo("Executing a hibernate query"); //$NON-NLS-1$
 		try {
 			Debug.setActiveModule(this);
 			row = 0;
@@ -123,6 +127,8 @@ implements EntitiesQuery<P>, Question<P>  {
 			logger.error(he.toString());
 			Debug.resetActiveModule();
 			throw new DataException (he);
+		} finally {
+			checkTransactionHealth(details);
 		}
 	}
 	

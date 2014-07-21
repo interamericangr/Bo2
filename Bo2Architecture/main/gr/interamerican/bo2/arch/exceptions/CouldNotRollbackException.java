@@ -95,5 +95,15 @@ extends TransactionManagerException {
 	public void setInitial(Throwable initial) {
 		this.initial = initial;
 	}
+	
+	@Override
+	public String getMessage() {
+		if(initial == null) {
+			return super.getMessage();
+		} else {
+			return super.getMessage() + "caused by " + initial.toString(); //$NON-NLS-1$
+		}
+		
+	}
 
 }

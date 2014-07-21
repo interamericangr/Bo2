@@ -10,6 +10,7 @@ import gr.interamerican.bo2.arch.exceptions.CouldNotCommitException;
 import gr.interamerican.bo2.arch.exceptions.CouldNotRollbackException;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
+import gr.interamerican.bo2.arch.exceptions.StaleTransactionException;
 import gr.interamerican.bo2.arch.ext.Session;
 import gr.interamerican.bo2.arch.utils.ext.Bo2Session;
 import gr.interamerican.bo2.impl.open.utils.Bo2;
@@ -17,11 +18,9 @@ import gr.interamerican.bo2.utils.ExceptionUtils;
 import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.Utils;
 import gr.interamerican.bo2.utils.beans.Timer;
-import gr.interamerican.bo2.utils.mail.MailMessage;
 import gr.interamerican.wicket.def.WicketOutputMedium;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Date;
 
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -84,32 +83,23 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 		Bo2WicketRequestCycle.stats.updateExceptionStats(t);
 		Bo2WicketRequestCycle.get().error = true;
 
-		//CouldNotCommitException will not require rollback here
-		if(!ExceptionUtils.isCausedBy(t, CouldNotCommitException.class)) {
+		if(ExceptionUtils.isCausedBy(t, CouldNotCommitException.class)) {
+			debug("Exception was CouldNotCommitException, will not attempt rollback");
+		} else if (ExceptionUtils.isCausedBy(t, StaleTransactionException.class)) {
+			debug("Exception was StaleTransactionException, will not attempt rollback");
+		} else { //rollback
 			try {
 				TransactionManager manager = Bo2WicketRequestCycle.get().provider.getTransactionManager();
 				if(manager!=null) {
 					manager.rollback();
 					debug("rolled back the transaction.");
 				}
-			} catch (CouldNotRollbackException cnrbex) {
+			} catch (CouldNotRollbackException cnrbex) { //should not happen
 				cnrbex.setInitial(t);
-				//emergencyLogAndEmail("CouldNotRollbackException");
 				error("CouldNotRollbackException: " + ExceptionUtils.getThrowableStackTrace(cnrbex));
 			}
-		} else {
-			debug("Exception was CouldNotCommitException, will not attempt rollback. Redirecting to home page with error message.");
-			
-//			Page homePage = homePage();
-//			AjaxRequestTarget ajaxRequestTarget = new AjaxRequestTarget(homePage);
-//			if(homePage instanceof WicketOutputMedium) {
-//				WicketOutputMedium outputMedium = (WicketOutputMedium) homePage;
-//				outputMedium.showError(t, ajaxRequestTarget);
-//			}
-//			RequestCycle.get().scheduleRequestHandlerAfterCurrent(ajaxRequestTarget);
-//			return ajaxRequestTarget;
 		}
-
+		
 		/*
 		 * If an invocation target exception is somewhere in the chain,
 		 * use its (non null) target to render the error stack trace.
@@ -162,18 +152,6 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 		return nextTarget;
 
 	}
-	
-//	/**
-//	 * @return Return a new home page instance, if possible.
-//	 */
-//	Page homePage() {
-//		Class<? extends Page> pageClazz = Application.get().getHomePage();
-//		try {
-//			return pageClazz.newInstance();
-//		} catch (Exception e) {
-//			return null;
-//		}
-//	}
 
 	@Override
 	public void onRequestHandlerScheduled(RequestCycle cycle, IRequestHandler handler) {
@@ -202,7 +180,6 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 				debug("committed the transaction.");
 			}
 		} catch (CouldNotCommitException cnce) {
-			emergencyLogAndEmail("CouldNotCommitException");
 			error("CouldNotCommitException: " + ExceptionUtils.getThrowableStackTrace(cnce));
 			throw new RuntimeException(cnce);
 		}
@@ -294,49 +271,4 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 		}
 	}
 
-	/*
-	 * These methods are temporary. Wicket 1.5 should not require these
-	 */
-
-	/**
-	 * EMERGENCY LOG AND EMAIL
-	 * @param exceptionType
-	 */
-	void emergencyLogAndEmail(String exceptionType) {
-		String msg = exceptionType + " for user " + Bo2Session.getUserId() + " and workers: " + workerNames() + " on " + new Date();
-		msg += "\nTransaction was active for " + Bo2WicketRequestCycle.get().timer.get() + " ms";
-		Bo2WicketRequestCycle.LOGGER.error(msg);
-
-		try {
-			String[] recipients = recepients();
-			if(recipients == null) {
-				return;
-			}
-
-			MailMessage m = new MailMessage();
-			m.setFrom("no-reply@interamerican.gr");
-			for (String recipient : recipients) {
-				m.addTo(recipient + "@interamerican.gr");
-			}
-			m.setSubject(exceptionType);
-			m.setMessage(msg);
-			m.send();
-		} catch (Exception e) {
-			Bo2WicketRequestCycle.LOGGER.error("Failed to notify " + exceptionType + " by email due to: " + e.getMessage());
-		}
-	}
-
-	/**
-	 * @return Emergency email recepients
-	 */
-	String[] recepients() {
-		switch(TARGET_ENVIRONMENT) {
-		case UAT:
-			return new String[]{"skondrasp", "katerosd", "sofrasth", "nakoss", "milonakisv"};
-		case PRODUCTION:
-			return new String[]{"zabelid", "katerosd", "sofrasth", "nakoss", "milonakisv"};
-		default:
-			return null;
-		}
-	}
 }

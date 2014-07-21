@@ -23,6 +23,7 @@ import javax.transaction.HeuristicMixedException;
 import javax.transaction.HeuristicRollbackException;
 import javax.transaction.NotSupportedException;
 import javax.transaction.RollbackException;
+import javax.transaction.Status;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
@@ -38,7 +39,6 @@ implements TransactionManager {
 	 */
 	protected UserTransaction ut;
 
-	
 	public void begin() throws CouldNotBeginException {
 		try {
 			ut.begin();
@@ -48,7 +48,6 @@ implements TransactionManager {
 			throw new CouldNotBeginException(se);
 		}
 	}
-
 	
 	public void commit() throws CouldNotCommitException {
 		try {
@@ -74,15 +73,8 @@ implements TransactionManager {
 		
 	}
 
-	
 	public void rollback() throws CouldNotRollbackException {
 		try {
-			/*
-			 * TODO: avoid most CouldNotRollbackExceptions?
-			 */
-//			if(ut.getStatus() == Status.STATUS_MARKED_ROLLBACK) {
-//				return;
-//			}
 			ut.rollback();
 		} catch (IllegalStateException ise) {
 			throw new CouldNotRollbackException(ise);
@@ -92,6 +84,14 @@ implements TransactionManager {
 			throw new CouldNotRollbackException(syse);
 		} finally {
 			clearScheduledJobs();
+		}
+	}
+
+	public boolean hasBeenMarkedRollbackOnly() {
+		try {
+			return ut.getStatus() == Status.STATUS_MARKED_ROLLBACK;
+		} catch (SystemException e) {
+			return true; //If a SystemException is caught something is wrong anyway.
 		}
 	}
 

@@ -66,6 +66,11 @@ implements FeedbackOwner, WicketOutputMedium {
 	 * Error label.
 	 */
 	private Label errorLabel = new Label("errorLabel", errorLabelModel); //$NON-NLS-1$
+	
+	/**
+	 * Was an error rendered?
+	 */
+	private boolean error = false;
 
 	/**
 	 * Creates a new BaseTestPage object.
@@ -88,8 +93,18 @@ implements FeedbackOwner, WicketOutputMedium {
 	}
 	
 	public void showError(Throwable t, AjaxRequestTarget target) {
+		error = true;
 		target.add(errorLabel);
 		errorLabelModel.setObject(t.getMessage());
+	}
+
+	/**
+	 * Gets the error.
+	 *
+	 * @return Returns the error
+	 */
+	public boolean isError() {
+		return error;
 	}
 
 }

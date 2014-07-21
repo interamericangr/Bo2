@@ -46,7 +46,9 @@ implements Query, NamedFieldsContainer {
 			query.execute();
 		} catch (interamerican.architecture.exceptions.DataException e) {
 			throw new DataException(e);
-		}		
+		} finally {
+			checkTransactionHealth(null);
+		}
 	}
 
 	public int getRow() throws DataAccessException {

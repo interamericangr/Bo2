@@ -52,6 +52,8 @@ implements PersistenceWorker<P> {
 			throw new PoNotFoundException(pe);
 		} catch (interamerican.architecture.exceptions.DataException de) {
 			throw new DataException(de);
+		} finally {
+			checkTransactionHealth(null);
 		}
 	}
 	
@@ -67,6 +69,8 @@ implements PersistenceWorker<P> {
 			throw new PoNotFoundException(pe);
 		} catch (interamerican.architecture.exceptions.DataException de) {
 			throw new DataException(de);
+		} finally {
+			checkTransactionHealth(null);
 		}
 	}
 		
@@ -82,6 +86,8 @@ implements PersistenceWorker<P> {
 			throw new PoNotFoundException(pe);
 		} catch (interamerican.architecture.exceptions.DataException de) {
 			throw new DataException(de);
+		} finally {
+			checkTransactionHealth(null);
 		}
 	}	
 	
@@ -97,6 +103,8 @@ implements PersistenceWorker<P> {
 			throw new PoNotFoundException(pe);
 		} catch (interamerican.architecture.exceptions.DataException de) {
 			throw new DataException(de);
+		} finally {
+			checkTransactionHealth(null);
 		}
 	}	
 	

@@ -33,6 +33,7 @@ public class MockTransactionManager implements TransactionManager {
 	public void begin() throws CouldNotBeginException {/*empty*/}	
 	public void enList(ResourceWrapper resource) throws CouldNotEnlistException {/*empty*/}	
 	public void deList(ResourceWrapper resource) throws CouldNotDelistException {/*empty*/}
-	public void close() {/*empty*/}	
+	public void close() {/*empty*/}
+	public boolean hasBeenMarkedRollbackOnly() { return false; }	
 
 }

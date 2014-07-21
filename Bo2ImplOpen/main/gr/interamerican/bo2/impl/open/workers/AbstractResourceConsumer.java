@@ -14,10 +14,14 @@ package gr.interamerican.bo2.impl.open.workers;
 
 import gr.interamerican.bo2.arch.Provider;
 import gr.interamerican.bo2.arch.ResourceWrapper;
+import gr.interamerican.bo2.arch.TransactionManager;
 import gr.interamerican.bo2.arch.Worker;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
+import gr.interamerican.bo2.arch.exceptions.StaleTransactionException;
+import gr.interamerican.bo2.arch.utils.ext.WorkerExecutionDetails;
 import gr.interamerican.bo2.impl.open.annotations.Bo2AnnoUtils;
 import gr.interamerican.bo2.utils.StringUtils;
+import gr.interamerican.bo2.utils.Utils;
 
 /**
  * Resource consumer that knows the name of its resource wrapper
@@ -135,6 +139,29 @@ public class AbstractResourceConsumer extends AbstractBaseWorker {
 		initialized = true;
 	}
 	
-	
+	/**
+	 * Sub-classes that handle transactional resources may check
+	 * the transaction health (e.g. if it has been marked rollback
+	 * only) and throw an exception to force the unit of work to end
+	 * as soon as possible.
+	 * 
+	 * @param details May be null if the worker cannot supply any useful info.
+	 * 
+	 * @throws StaleTransactionException 
+	 */
+	protected void checkTransactionHealth(WorkerExecutionDetails details) throws StaleTransactionException {
+		if(getProvider()==null) { //facilitate testing
+			return;
+		}
+		TransactionManager tm = getProvider().getTransactionManager();
+		if(tm == null) {
+			return;
+		}
+		if(tm.hasBeenMarkedRollbackOnly()) {
+			WorkerExecutionDetails _details = Utils.notNull(details, new WorkerExecutionDetails());
+			_details.setWorkerClass(this.getClass());
+			throw new StaleTransactionException(_details.toString());
+		}
+	}
 
 }

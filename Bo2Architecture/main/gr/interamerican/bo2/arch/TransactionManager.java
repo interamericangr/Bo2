@@ -76,6 +76,16 @@ public interface TransactionManager {
 	public void deList(ResourceWrapper resource) throws CouldNotDelistException; 
 	
 	/**
+	 * Returns true, if the current unit of work has been marked rollback only.
+	 * <br/>
+	 * TransactionManager implementations that do not care about this JTA semantic
+	 * should always return false.
+	 * 
+	 * @return returns true, if the current unit of work has been marked rollback only.
+	 */
+	public boolean hasBeenMarkedRollbackOnly();
+	
+	/**
 	 * Cleans up any resources the TransactionManager created/modified
 	 * upon its initialization. The creator of the TransactionManager
 	 * is normally responsible for calling this, when there is no more

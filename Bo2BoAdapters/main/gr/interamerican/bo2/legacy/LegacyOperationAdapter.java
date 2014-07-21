@@ -63,13 +63,9 @@ implements Operation {
 			throw err;			
 		} catch (Throwable thr) {
 			throw new RuntimeException(thr); //Never happens.
+		} finally {
+			checkTransactionHealth(null);
 		}
 	}
 	
-	
-	
-	
-	
-	
-
 }

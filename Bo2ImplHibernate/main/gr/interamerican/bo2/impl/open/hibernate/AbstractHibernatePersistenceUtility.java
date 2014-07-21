@@ -18,6 +18,7 @@ import gr.interamerican.bo2.arch.enums.TargetEnvironment;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.PoNotFoundException;
 import gr.interamerican.bo2.arch.utils.ext.Bo2Session;
+import gr.interamerican.bo2.arch.utils.ext.WorkerExecutionDetails;
 import gr.interamerican.bo2.impl.open.creation.Factory;
 import gr.interamerican.bo2.impl.open.hibernate.utils.reflect.analyze.HibernateAwarePoAnalyzer;
 import gr.interamerican.bo2.impl.open.state.CrudStates;
@@ -128,7 +129,9 @@ implements PersistenceUtility<P> {
 	}
 
 	public P read(P o) 
-	throws DataException, PoNotFoundException {		
+	throws DataException, PoNotFoundException {
+		WorkerExecutionDetails details = new WorkerExecutionDetails();
+		details.setTaskInfo("Reading " + poClass.getSimpleName() + StringConstants.SPACE + o); //$NON-NLS-1$
 		try {
 			Debug.setActiveModule(this);
 			validateOpen();
@@ -141,11 +144,14 @@ implements PersistenceUtility<P> {
 		} finally {
 			Debug.resetActiveModule();			
 			Bo2Session.setState(null);
+			checkTransactionHealth(details);
 		}
 	}
 
 	public P delete(P o) 
 	throws DataException, PoNotFoundException {
+		WorkerExecutionDetails details = new WorkerExecutionDetails();
+		details.setTaskInfo("Deleting " + poClass.getSimpleName() + StringConstants.SPACE + o); //$NON-NLS-1$
 		try {
 			Debug.setActiveModule(this);
 			validateOpen();
@@ -163,11 +169,14 @@ implements PersistenceUtility<P> {
 		} finally {
 			Debug.resetActiveModule();
 			Bo2Session.setState(null);
+			checkTransactionHealth(details);
 		}
 	}
 
 	public P store(P o) 
 	throws DataException, PoNotFoundException {
+		WorkerExecutionDetails details = new WorkerExecutionDetails();
+		details.setTaskInfo("Storing " + poClass.getSimpleName() + StringConstants.SPACE + o); //$NON-NLS-1$
 		try {
 			Debug.setActiveModule(this);
 			validateOpen();
@@ -187,11 +196,14 @@ implements PersistenceUtility<P> {
 		} finally {
 			Debug.resetActiveModule();
 			Bo2Session.setState(null);
+			checkTransactionHealth(details);
 		}
 	}
 	
 	public P update(P o) 
 	throws DataException, PoNotFoundException {
+		WorkerExecutionDetails details = new WorkerExecutionDetails();
+		details.setTaskInfo("Updating " + poClass.getSimpleName() + StringConstants.SPACE + o); //$NON-NLS-1$
 		try {
 			Debug.setActiveModule(this);
 			validateOpen();
@@ -212,6 +224,7 @@ implements PersistenceUtility<P> {
 		} finally {
 			Debug.resetActiveModule();
 			Bo2Session.setState(null);
+			checkTransactionHealth(details);
 		}
 	}
 		

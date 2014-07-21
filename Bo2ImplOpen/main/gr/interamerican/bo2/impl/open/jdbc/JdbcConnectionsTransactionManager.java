@@ -134,4 +134,8 @@ implements TransactionManager {
 		}
 	}
 
+	public boolean hasBeenMarkedRollbackOnly() {
+		return false;
+	}
+
 }

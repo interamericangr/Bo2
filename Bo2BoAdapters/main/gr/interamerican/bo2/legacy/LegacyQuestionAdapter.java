@@ -37,6 +37,8 @@ implements Question<A>{
 			throw new DataException(e);
 		} catch (interamerican.architecture.exceptions.LogicException e) {
 			throw new LogicException(e);
+		} finally {
+			checkTransactionHealth(null);
 		}
 	}
 

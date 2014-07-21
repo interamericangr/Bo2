@@ -12,12 +12,15 @@
  ******************************************************************************/
 package gr.interamerican.wicket.markup.html;
 
+import gr.interamerican.wicket.callback.CallbackAction;
+
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.panel.EmptyPanel;
 import org.apache.wicket.util.tester.WicketTester;
+import org.mockito.Mockito;
 
 /**
  * Base class for unit test classes of Wicket components.
@@ -47,6 +50,17 @@ extends BaseTestPage  {
 		form.add(new EmptyPanel(TEST_ID));
 		form.add(new TestPageAjaxButton(SUBMIT_BUTTON_ID));
 	}
+	
+	/**
+	 * Creates a new TestPage object. 
+	 * @param callbackAction 
+	 */
+	public TestPage(CallbackAction callbackAction) {
+		Form<Void> form = new Form<Void>(FORM_ID);
+		add(form);		
+		form.add(new EmptyPanel(TEST_ID));
+		form.add(new TestPageAjaxButton(SUBMIT_BUTTON_ID, callbackAction));
+	}
 
 	/**
 	 * Creates a new WrapperPanel object.
@@ -72,16 +86,31 @@ extends BaseTestPage  {
 		private static final long serialVersionUID = 1L;
 		
 		/**
+		 * Callback
+		 */
+		private CallbackAction callbackAction = Mockito.mock(CallbackAction.class);
+		
+		/**
 		 * Creates a new TestPageAjaxButton object. 
 		 * @param id
 		 */
 		public TestPageAjaxButton(String id) {
 			super(id);
 		}
+		
+		/**
+		 * Creates a new TestPageAjaxButton object. 
+		 * @param id
+		 * @param callbackAction 
+		 */
+		public TestPageAjaxButton(String id, CallbackAction callbackAction) {
+			super(id);
+			this.callbackAction = callbackAction;
+		}
     	
 		@Override
 		protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-			/* empty */
+			callbackAction.callBack(target);
 		}
 		
 		@Override

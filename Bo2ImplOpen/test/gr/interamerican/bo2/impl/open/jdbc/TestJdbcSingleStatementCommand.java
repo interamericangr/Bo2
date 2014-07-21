@@ -14,6 +14,7 @@ package gr.interamerican.bo2.impl.open.jdbc;
 
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
+import gr.interamerican.bo2.arch.exceptions.StaleTransactionException;
 import gr.interamerican.bo2.impl.open.annotations.ManagerName;
 import gr.interamerican.bo2.impl.open.annotations.Parameter;
 import gr.interamerican.bo2.impl.open.annotations.ParametersOrder;
@@ -103,7 +104,7 @@ public class TestJdbcSingleStatementCommand extends AbstractNonTransactionalProv
 
 
 		@Override
-		protected int executeUpdatePs(PreparedStatement ps, String statement, Object[] params) throws SQLException {
+		protected int executeUpdatePs(PreparedStatement ps, String statement, Object[] params) throws SQLException, StaleTransactionException {
 			int recs = super.executeUpdatePs(ps, statement, params);
 			Assert.assertEquals(0, recs);
 			return recs;
