@@ -4,7 +4,10 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
 
+import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
+import javax.xml.ws.Service;
+import javax.xml.ws.WebServiceClient;
 
 /**
  * Utilities for jax-ws
@@ -31,6 +34,41 @@ public class JaxwsUtils {
 		} catch (MalformedURLException e) {
 			throw new RuntimeException(e);
 		}
+	}
+	
+	/**
+	 * Returns the {@link URL} a jax-ws web service would use based on the
+	 * {@link WebServiceClient} annotation present on the web service class, but
+	 * also modified by the {@link UrlModifier} that is passed as an argument.
+	 * 
+	 * @param urlModifier
+	 *            Modifies the default url of the web service
+	 * @param serviceClass
+	 *            Class of the generated web service
+	 * @return Modified {@link URL} of the web service
+	 */
+	public static <S extends Service> URL getModifiedUrl(UrlModifier urlModifier, Class<S> serviceClass) {
+		WebServiceClient annotation = serviceClass.getAnnotation(WebServiceClient.class);
+		URL baseUrl = serviceClass.getResource("."); //$NON-NLS-1$
+		try {
+			URL defaultUrl = new URL(baseUrl, annotation.wsdlLocation());
+			return urlModifier.execute(defaultUrl);
+		} catch (MalformedURLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * Returns the {@link QName} a jax-ws web service would use based on the
+	 * {@link WebServiceClient} annotation present on the web service class.
+	 * 
+	 * @param serviceClass
+	 *            Class of the generated web service
+	 * @return Corresponding QName
+	 */
+	public static <S extends Service> QName getQname(Class<S> serviceClass) {
+		WebServiceClient annotation = serviceClass.getAnnotation(WebServiceClient.class);
+		return new QName(annotation.targetNamespace(), annotation.name());
 	}
 	
 }
