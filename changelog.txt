@@ -1,0 +1,9 @@
+Added two methods to JaxwsUtils (by sigalasp)
+
+public static <S extends Service> QName getQname(Class<S> serviceClass)
+
+public static <S extends Service> URL getModifiedUrl(UrlModifier urlModifier, Class<S> serviceClass)
+
+Use these to initialize the web service client proxy factory (generated javax.xml.ws.Service sub-class) 
+without worrying about the URL the service client was generated from
+Also, always initialize the web service client proxy factory lazily and cache locally only when the initialization succeeds
