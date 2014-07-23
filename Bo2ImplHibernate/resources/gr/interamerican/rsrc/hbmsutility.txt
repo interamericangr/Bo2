@@ -1,0 +1,4 @@
+#Indexes files indexing hbm.xml files
+gr/interamerican/rsrc/hbm/FooBarTPCH.hbm.xml
+gr/interamerican/rsrc/hbm/FooBarTPSCH.hbm.xml
+aaaaa

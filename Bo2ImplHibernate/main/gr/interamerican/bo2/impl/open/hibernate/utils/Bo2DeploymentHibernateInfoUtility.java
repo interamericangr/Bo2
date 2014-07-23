@@ -1,0 +1,191 @@
+package gr.interamerican.bo2.impl.open.hibernate.utils;
+
+import gr.interamerican.bo2.creation.beans.ObjectFactoryImpl;
+import gr.interamerican.bo2.impl.open.creation.Factory;
+import gr.interamerican.bo2.impl.open.hibernate.HibernateSessionProviderImpl;
+import gr.interamerican.bo2.impl.open.utils.Bo2;
+import gr.interamerican.bo2.impl.open.utils.Bo2Deployment;
+import gr.interamerican.bo2.utils.CollectionUtils;
+import gr.interamerican.bo2.utils.StreamUtils;
+import gr.interamerican.bo2.utils.StringConstants;
+import gr.interamerican.bo2.utils.StringUtils;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Properties;
+import java.util.Set;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
+/**
+ * utility to get deployment information regarding hibernate.
+ */
+public class Bo2DeploymentHibernateInfoUtility {
+
+	/**
+	 * Logger.
+	 */
+	private static Logger LOGGER = LoggerFactory.getLogger(ObjectFactoryImpl.class);
+
+	/**
+	 * @param hbmPath
+	 * @return the class for the given hbm.
+	 */
+	String getClassFromHbm(String hbmPath) {
+		String hbm = null;
+		try{
+			hbm = StreamUtils.getStringFromResourceFile(hbmPath);
+		} catch (RuntimeException e) {
+			String msg = StringUtils.concat(
+					"Non existant mappings file: ", //$NON-NLS-1$
+					hbmPath,
+					". This is acceptable for unit tests, but FATAL in every other case and should be investigated."); //$NON-NLS-1$
+			LOGGER.warn(msg);
+			return null;
+		}
+		Document doc = Jsoup.parse(hbm);
+		Element el = doc.select("hibernate-mapping").first(); //$NON-NLS-1$
+		String pack = el.attr("package"); //$NON-NLS-1$
+		Element clazz = doc.select("class").first(); //$NON-NLS-1$
+		String c = clazz.attr("name"); //$NON-NLS-1$
+		if (StringUtils.isNullOrBlank(pack)) {
+			return c;
+		}
+		return pack + StringConstants.DOT + c;
+	}
+	/**
+	 * @param propertyValue
+	 * @return
+	 */
+	Set<Class<?>> getHibernateClassesFromFlatFile(String propertyValue) {
+		Set<Class<?>> clazzes = new HashSet<Class<?>>();
+		try {
+			String[] hbmNames = StreamUtils.readResourceFile(propertyValue);
+			for (String hbmName : hbmNames) {
+				if ((hbmName.length() == 0) || (hbmName.charAt(0) == StringConstants.SHARP.charAt(0))) {
+					continue;
+				}
+				String className = getClassFromHbm(hbmName);
+				if (StringUtils.isNullOrBlank(className)) {
+					continue;
+				}
+				Object obj = null;
+				try {
+					obj = Factory.create(className);
+				} catch (AbstractMethodError err) {
+					LOGGER.warn("Non-Creatable class " + className); //$NON-NLS-1$
+					continue;
+				}
+				clazzes.add(obj.getClass());
+			}
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		return clazzes;
+	}
+
+	/**
+	 * @param propertyValue
+	 * @return
+	 */
+	Set<Class<?>> getHibernateClassesFromCfg(String propertyValue) {
+		Set<Class<?>> clazzes = new HashSet<Class<?>>();
+		String cfg = StreamUtils.getStringFromResourceFile(propertyValue);
+		Document doc = Jsoup.parse(cfg);
+		for (Element el : doc.select("mapping")) { //$NON-NLS-1$
+			String hbmName = el.attr("resource"); //$NON-NLS-1$
+			String className = getClassFromHbm(hbmName);
+			if (StringUtils.isNullOrBlank(className)) {
+				continue;
+			}
+			Object obj = null;
+			try {
+				obj = Factory.create(className);
+			} catch (AbstractMethodError err) {
+				LOGGER.warn("Non-Creatable class " + className); //$NON-NLS-1$
+				continue;
+			}
+			clazzes.add(obj.getClass());
+		}
+		return clazzes;
+	}
+	/**
+	 * @param property
+	 * @return a set of classes that exist in the hibernate configurations/mapping of the given manager.
+	 */
+	public Set<Class<?>> getHibernateClasses(Properties property) {
+		Set<Class<?>> clazzes = new HashSet<Class<?>>();
+		if (!StringUtils.isNullOrBlank(property.getProperty(HibernateSessionProviderImpl.HIBERNATE_CFG_XML))) {
+			clazzes.addAll(getHibernateClassesFromCfg(property
+					.getProperty(HibernateSessionProviderImpl.HIBERNATE_CFG_XML)));
+		}
+		if (!StringUtils.isNullOrBlank(property.getProperty(HibernateSessionProviderImpl.HIBERNATE_MAPPINGS))) {
+			clazzes.addAll(getHibernateClassesFromFlatFile(property
+					.getProperty(HibernateSessionProviderImpl.HIBERNATE_MAPPINGS)));
+		}
+		return clazzes;
+	}
+
+	/**
+	 * Finds and returns the manager names of all managers that use hibernate resources.
+	 * 
+	 * @param deplPath
+	 *            Path of the Bo2 deployment properties
+	 * 
+	 * @return The manager names of all managers that use jdbc resources.
+	 */
+	public List<Properties> getHibernateManagers(String deplPath) {
+		try {
+			Bo2Deployment bo2Depl = Bo2.getDeployment(deplPath);
+			List<Properties> managers = new ArrayList<Properties>();
+			String path = bo2Depl.getDeploymentBean().getPathToManagersList();
+			String[] managerPaths = StreamUtils.readResourceFile(path);
+			for (String managerPath : managerPaths) {
+				Properties p = CollectionUtils.readEnhancedProperties(managerPath);
+				if (!StringUtils.isNullOrBlank(p.getProperty(HibernateSessionProviderImpl.HIBERNATE_CFG_XML))) {
+					managers.add(p);
+				} else if (!StringUtils.isNullOrBlank(p.getProperty(HibernateSessionProviderImpl.HIBERNATE_MAPPINGS))) {
+					managers.add(p);
+				}
+			}
+			return managers;
+		} catch (IOException ioe) {
+			throw new RuntimeException(ioe);
+		}
+	}
+
+	/**
+	 * Finds and returns the manager names of all managers that use hibernate resources for the default Bo2 deployment.
+	 * 
+	 * @return The manager names of all managers that use jdbc resources.
+	 */
+	public List<Properties> getHibernateManagers() {
+		return getHibernateManagers(Bo2.DEFAULT_DEPLOYMENT_PROPERTIES_PATH);
+	}
+
+	/**
+	 * @return all hibernate classes.
+	 */
+	public Set<Class<?>> getAllHibernateClasses() {
+		Set<Class<?>> clazzes = new HashSet<Class<?>>();
+		for (Properties p : getHibernateManagers()) {
+			clazzes.addAll(getHibernateClasses(p));
+		}
+		return clazzes;
+	}
+	/**
+	 * Factory method.
+	 * 
+	 * @return Bo2DeploymentInfoUtility instance.
+	 */
+	public static Bo2DeploymentHibernateInfoUtility get() {
+		return new Bo2DeploymentHibernateInfoUtility();
+	}
+}

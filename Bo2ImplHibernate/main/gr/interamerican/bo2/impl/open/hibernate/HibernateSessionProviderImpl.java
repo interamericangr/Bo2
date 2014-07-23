@@ -1,13 +1,13 @@
 /*******************************************************************************
- * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A. 
+ * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/copyleft/lesser.html
  * 
- * This library is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.hibernate;
@@ -48,26 +48,26 @@ import org.slf4j.LoggerFactory;
 public class HibernateSessionProviderImpl
 extends JdbcConnectionProviderImpl
 implements HibernateSessionProvider {
-	
+
 	static {
 		Bo2ImplHibernateInitializer.initialize();
 	}
-	
+
 	/**
 	 * logger.
 	 */
 	private static Logger logger = LoggerFactory.getLogger(HibernateSessionProviderImpl.class);
-	
+
 	/**
 	 * Input properties Property name for hibernate.cfg.xml resource path
 	 */
-	private static final String HIBERNATE_CFG_XML = "HIBERNATE_CFG_XML"; //$NON-NLS-1$
-	
+	public static final String HIBERNATE_CFG_XML = "HIBERNATE_CFG_XML"; //$NON-NLS-1$
+
 	/**
 	 * Input properties Property name for hibernate interceptor.
 	 */
 	private static final String SESSION_INTERCEPTOR = "SESSION_INTERCEPTOR"; //$NON-NLS-1$
-	
+
 	/**
 	 * Input properties Property name for hibernate mappings indexer.
 	 * The indexer lists a number of txt files that, in turn, list class
@@ -75,47 +75,47 @@ implements HibernateSessionProvider {
 	 * <br/>
 	 * This file, as well as the txt files it points to may, or may not exist.
 	 */
-	private static final String HIBERNATE_MAPPINGS = "HIBERNATE_MAPPINGS"; //$NON-NLS-1$
-	
+	public static final String HIBERNATE_MAPPINGS = "HIBERNATE_MAPPINGS"; //$NON-NLS-1$
+
 	/**
 	 * Hibernate SessionFactory used to create sessions
 	 */
 	private SessionFactory sessionFactory;
-		
+
 	/**
 	 * the hibernate session this provider provides
 	 */
 	private Session session;
-	
+
 	/**
 	 * list of loaded entities in this session.
 	 */
 	Set<Object> entities = new HashSet<Object>();
-	
+
 	/**
 	 * list of entities that should be evicted before flush().
 	 */
 	Set<Object> excluded = new HashSet<Object>();
-	
+
 	/**
 	 * Flush policy.
 	 */
 	private FlushStrategy flushStrategy = FlushStrategy.SESSION;
-	
+
 	/**
-	 * Creates a new HibernateSessionProviderImpl object. 
+	 * Creates a new HibernateSessionProviderImpl object.
 	 *
 	 * @param properties
-	 * @throws InitializationException 
+	 * @throws InitializationException
 	 */
-	public HibernateSessionProviderImpl(Properties properties) 
-	throws InitializationException {
+	public HibernateSessionProviderImpl(Properties properties)
+			throws InitializationException {
 		super(properties);
 		openSession();
 	}
-	
+
 	@Override
-	protected void parseProperties() throws InitializationException {	
+	protected void parseProperties() throws InitializationException {
 		super.parseProperties();
 		String pathToCfg = ProviderUtils.getMandatoryProperty(getProperties(), HIBERNATE_CFG_XML);
 		String dbSchema = ProviderUtils.getMandatoryProperty(getProperties(), KEY_DBSCHEMA);
@@ -123,11 +123,11 @@ implements HibernateSessionProvider {
 		String hibernateMappingsPath = getProperties().getProperty(HIBERNATE_MAPPINGS);
 		sessionFactory = HibernateConfigurations.getSessionFactory(pathToCfg, dbSchema, sessionInterceptor, hibernateMappingsPath);
 	}
-	
-	public Session getHibernateSession() {		
+
+	public Session getHibernateSession() {
 		return session;
 	}
-	
+
 	/**
 	 * Opens the session.
 	 * 
@@ -140,7 +140,7 @@ implements HibernateSessionProvider {
 			throw new InitializationException(e);
 		}
 	}
-	
+
 	/**
 	 * Closes the session.
 	 * 
@@ -148,7 +148,7 @@ implements HibernateSessionProvider {
 	 */
 	private void closeSession() throws DataException {
 		try {
-			if (session != null && session.isOpen()) {
+			if ((session != null) && session.isOpen()) {
 				session.disconnect();
 				session.close();
 				session = null;
@@ -161,7 +161,7 @@ implements HibernateSessionProvider {
 	@Override
 	public void close() throws DataException {
 		closeSession();
-		super.close();	
+		super.close();
 		entities.clear();
 		excluded.clear();
 		if(logger.isDebugEnabled()) {
@@ -172,8 +172,8 @@ implements HibernateSessionProvider {
 	public void flush(Object object) {
 		flushStrategy.flush(object, session, entities, excluded);
 	}
-	
-	public void register(Object object) {		
+
+	public void register(Object object) {
 		entities.add(object);
 	}
 
@@ -185,11 +185,11 @@ implements HibernateSessionProvider {
 	public void setExcluded(Object object) {
 		excluded.add(object);
 	}
-	
+
 	public void setNotExcluded(Object object) {
 		excluded.remove(object);
 	}
-	
+
 	public void setFlushStrategy(FlushStrategy flushStrategy) {
 		this.flushStrategy = flushStrategy;
 	}
