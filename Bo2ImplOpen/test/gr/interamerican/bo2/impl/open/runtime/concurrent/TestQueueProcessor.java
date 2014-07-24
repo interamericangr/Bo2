@@ -17,6 +17,7 @@ import gr.interamerican.bo2.arch.TransactionManager;
 import gr.interamerican.bo2.arch.exceptions.CouldNotCommitException;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
+import gr.interamerican.bo2.arch.exceptions.StaleTransactionException;
 import gr.interamerican.bo2.arch.exceptions.TransactionManagerException;
 import gr.interamerican.bo2.arch.ext.Session;
 import gr.interamerican.bo2.arch.utils.ext.Bo2Session;
@@ -635,6 +636,36 @@ public class TestQueueProcessor {
 		
 		qp.inputQueue.add(input);		
 		qp.pollAndProcess();
+		Assert.assertTrue(qp.inputQueue.contains(input));
+		Mockito.verify(qp, Mockito.times(1)).tidy();
+	}
+	
+	/**
+	 * test Process.
+	 * @throws DataException 
+	 * @throws LogicException 
+	 */
+	@SuppressWarnings({ "nls" })
+	@Test
+	public void testPollAndProcess_withStaleTransactionException() throws DataException, LogicException {		
+		NamedPrintStream nps = Mockito.mock(NamedPrintStream.class);
+		Mockito.when(nps.getStream()).thenReturn(System.out);
+		
+		String input = "input";
+		QueueProcessor<String> qp = sample();
+		Operation operation = Mockito.spy(qp.operation);
+		Mockito.doThrow(StaleTransactionException.class).when(operation).execute();
+		qp.operation = operation;
+		
+		qp = Mockito.spy(qp);
+		qp.tm = Mockito.mock(TransactionManager.class);
+		qp.failuresLog = nps;
+		qp.stacktracesLog = nps;
+		qp.successesLog = nps;
+		qp.inputQueue.add(input);
+		
+		qp.pollAndProcess();
+		
 		Assert.assertTrue(qp.inputQueue.contains(input));
 		Mockito.verify(qp, Mockito.times(1)).tidy();
 	}

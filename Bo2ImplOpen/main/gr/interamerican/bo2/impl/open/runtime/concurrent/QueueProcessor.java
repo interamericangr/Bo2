@@ -22,6 +22,7 @@ import gr.interamerican.bo2.arch.exceptions.CouldNotRollbackException;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
+import gr.interamerican.bo2.arch.exceptions.StaleTransactionException;
 import gr.interamerican.bo2.arch.exceptions.TransactionManagerException;
 import gr.interamerican.bo2.arch.ext.Session;
 import gr.interamerican.bo2.arch.utils.ext.Bo2Session;
@@ -30,6 +31,7 @@ import gr.interamerican.bo2.impl.open.namedstreams.NamedPrintStream;
 import gr.interamerican.bo2.impl.open.utils.Bo2;
 import gr.interamerican.bo2.utils.ExceptionUtils;
 import gr.interamerican.bo2.utils.ReflectionUtils;
+import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.adapters.Modification;
 import gr.interamerican.bo2.utils.concurrent.ThreadUtils;
@@ -410,8 +412,16 @@ implements Runnable, LongProcess {
 	 */
 	void handleFailure(T input, Exception ex) throws CouldNotRollbackException {
 		failuresCount++;
+		tm.rollback(); //if this throws a CouldNotRollbackException the input will be retried if reattemptOnTmex is true 
 		logFailure(input, ex);
-		tm.rollback();
+		
+		//if ex is a StaleTransactionException the input will be retried if reattemptOnTmex is true
+		if(ex instanceof StaleTransactionException) { 
+			if(reattemptOnTmex) {
+				inputQueue.add(input);
+			}
+		}
+		
 		tidy();
 	}
 	
@@ -433,15 +443,20 @@ implements Runnable, LongProcess {
 	 */
 	@SuppressWarnings("nls")
 	void logFailure(T input, Exception ex) {
-		String addendum = " REATTEMPTED AUTOMATICALLY (failure was TransactionManagerException)";
+		String addendumTmEx = " WILL BE REATTEMPTED AUTOMATICALLY (failure was TransactionManagerException)";
+		String addendumStEx = " WILL BE REATTEMPTED AUTOMATICALLY (failure was StaleTransactionException)";
+		
 		boolean tmEx = ex instanceof TransactionManagerException;
+		boolean stEx = ex instanceof StaleTransactionException;
 		String inputString = safeToString(input);
 		
 		String msg = StringUtils.concat (			 
 			inputString, SEMICOLON,
 			ex.toString(), SEMICOLON);
-		if(tmEx) {
-			msg = msg + addendum;
+		if(tmEx && reattemptOnTmex) {
+			msg = msg + addendumTmEx;
+		} else if(stEx && reattemptOnTmex) {
+			msg = msg + addendumStEx;
 		}
 		failuresLog.getStream().println(msg);
 		
@@ -449,8 +464,10 @@ implements Runnable, LongProcess {
 			String trace = StringUtils.concat (
 				inputString, NEWLINE,
 				ExceptionUtils.getThrowableStackTrace(ex), NEWLINE);
-			if(tmEx) {
-				trace = trace + addendum + NEWLINE;
+			if(tmEx && reattemptOnTmex) {
+				trace = trace + addendumTmEx + NEWLINE;
+			} else if(stEx && reattemptOnTmex) {
+				trace = trace + addendumStEx + NEWLINE;
 			}
 			stacktracesLog.getStream().println(trace);
 		}
@@ -589,8 +606,6 @@ implements Runnable, LongProcess {
 		return endTime;
 	}
 
-	
-	
 	/**
 	 * Sets a new operation to replace the current operation.
 	 * 
@@ -605,11 +620,18 @@ implements Runnable, LongProcess {
 	@Override
 	public void tidy() {
 		if (operation!=null) {
+			try {
+				operation.close();
+			} catch (DataException e) {
+				String msg = "DataException while closing main Operation on tidy() "  //$NON-NLS-1$
+						+ StringConstants.NEWLINE + ExceptionUtils.getThrowableStackTrace(e);
+				if(stacktracesLog != null) {
+					stacktracesLog.getStream().println(msg);
+				}
+			}
 			Operation op = Factory.create(operation.getClass());
 			setNewOperation(op);
 		}		
 	}
-	
-	
 
 }
