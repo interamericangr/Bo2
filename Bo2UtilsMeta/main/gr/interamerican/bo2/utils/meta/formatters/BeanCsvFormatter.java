@@ -1,10 +1,26 @@
+/*******************************************************************************
+ * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A. 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Lesser Public License v3
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/copyleft/lesser.html
+ * 
+ * This library is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * See the GNU Lesser General Public License for more details.
+ ******************************************************************************/
 package gr.interamerican.bo2.utils.meta.formatters;
 
+import gr.interamerican.bo2.utils.AdapterUtils;
 import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.adapters.GetProperties;
+import gr.interamerican.bo2.utils.adapters.Modification;
+import gr.interamerican.bo2.utils.adapters.string.StringReplace;
 import gr.interamerican.bo2.utils.meta.transformations.FormatArray;
 
+import java.util.Arrays;
 import java.util.Map;
 
 /**
@@ -16,7 +32,7 @@ import java.util.Map;
 public class BeanCsvFormatter<B> implements Formatter<B> {
 	
 	/**
-	 * 
+	 * Serial Version UID
 	 */
 	private static final long serialVersionUID = 1L;
 	/**
@@ -27,6 +43,15 @@ public class BeanCsvFormatter<B> implements Formatter<B> {
 	 * Formats the values of the properties.
 	 */
 	FormatArray format;
+	/**
+	 * The delimiter we used. Default is {@link StringConstants#SEMICOLON}.
+	 */
+	String delimiter = StringConstants.SEMICOLON;
+
+	/**
+	 * Option whenever to remove the delimiter from columns and replace it with SPACE
+	 */
+	boolean removeDelimiterFromColumns = true;
 	
 	/**
 	 * Creates a new BeanFormatter object. Default property value formatting.
@@ -68,12 +93,29 @@ public class BeanCsvFormatter<B> implements Formatter<B> {
 		this(properties, defaultFormatters(properties.length, specialFormatters), nullTolerant);
 	}
 
+	@Override
 	public String format(B t) {
 		Object[] values = get.execute(t);
 		String[] columns = format.execute(values);
-		return StringUtils.array2String(columns, StringConstants.SEMICOLON);
+		if (removeDelimiterFromColumns) {
+			columns = removeDelimiterFromColumns(columns);
+		}
+		return StringUtils.array2String(columns, delimiter);
 	}
-	
+
+	/**
+	 * Replaces the {@link #delimiter} from an array of String with
+	 * {@link StringConstants#SPACE}.
+	 * 
+	 * @param columns
+	 *            Values to replace from
+	 * @return Array of String with replaced values
+	 */
+	String[] removeDelimiterFromColumns(String[] columns) {
+		Modification<String> replace = new StringReplace(delimiter, StringConstants.SPACE);
+		return AdapterUtils.apply(Arrays.asList(columns), replace).toArray(new String[0]);
+	}
+
 	/**
 	 * Creates a Formatters table with the specified length.
 	 * 
@@ -96,4 +138,26 @@ public class BeanCsvFormatter<B> implements Formatter<B> {
 		return formatters;
 	}
 
+	/**
+	 * Sets the delimiter we are supposed to use.<br>
+	 * Default is {@link StringConstants#SEMICOLON}
+	 * 
+	 * @param delimiter
+	 *            Delimiter to use
+	 */
+	public void setDelimiter(String delimiter) {
+		this.delimiter = delimiter;
+	}
+
+	/**
+	 * Sets whenever we want to remove the delimiter character from the columns
+	 * themselves. (in order to avoid accidental extra columns on the csv)
+	 * 
+	 * @param removeDelimiterFromColumns
+	 *            Whenever we want to remove the delimiter character from the
+	 *            columns themselves
+	 */
+	public void setRemoveDelimiterFromColumns(boolean removeDelimiterFromColumns) {
+		this.removeDelimiterFromColumns = removeDelimiterFromColumns;
+	}
 }
