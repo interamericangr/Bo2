@@ -27,12 +27,20 @@ import javax.transaction.Status;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * JTA based implementation of {@link TransactionManager}.
  */
 public class JtaTransactionManager 
 extends JobCapableTransactionManager
 implements TransactionManager {
+	
+	/**
+	 * LOGGER
+	 */
+	Logger LOGGER = LoggerFactory.getLogger(JtaTransactionManager.class);
 	
 	/**
 	 * JTA user transaction.
@@ -91,6 +99,7 @@ implements TransactionManager {
 		try {
 			return ut.getStatus() == Status.STATUS_MARKED_ROLLBACK;
 		} catch (SystemException e) {
+			LOGGER.error("Got SystemException while querying JTA transaction status: " + e.getMessage()); //$NON-NLS-1$
 			return true; //If a SystemException is caught something is wrong anyway.
 		}
 	}

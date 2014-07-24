@@ -60,7 +60,7 @@ public class JotmTransactionManager extends JtaTransactionManager  {
 	/**
 	 * Jotm transaction management service singleton instance.
 	 */
-	private static Jotm JOTM;
+	static Jotm JOTM;
 	
 	/**
 	 * All providers (implicitly) accessing the JOTM singleton instance.
