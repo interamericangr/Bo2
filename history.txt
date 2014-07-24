@@ -342,3 +342,9 @@ public static <S extends Service> URL getModifiedUrl(UrlModifier urlModifier, Cl
 Use these to initialize the web service client proxy factory (generated javax.xml.ws.Service sub-class) 
 without worrying about the URL the service client was generated from
 Also, always initialize the web service client proxy factory lazily and cache locally only when the initialization succeeds
+
+2.1.0083
+--------
+
+BatchProcess: We now call close() on the main operation instance on QueueProcessor tidy() events
+BatchProcess: Custom handling of StaleTransactionException to make automatic re-attempt of current unit possible. 
