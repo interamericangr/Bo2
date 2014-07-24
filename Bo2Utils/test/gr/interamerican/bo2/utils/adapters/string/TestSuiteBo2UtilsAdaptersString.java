@@ -29,6 +29,7 @@ import org.junit.runners.Suite.SuiteClasses;
 	{			
 		TestLength.class,
 		TestOnlyLetters.class,
+		TestStringReplace.class
 	}
 )
 public class TestSuiteBo2UtilsAdaptersString {
