@@ -348,3 +348,7 @@ Also, always initialize the web service client proxy factory lazily and cache lo
 
 BatchProcess: We now call close() on the main operation instance on QueueProcessor tidy() events
 BatchProcess: Custom handling of StaleTransactionException to make automatic re-attempt of current unit possible. 
+
+2.1.0084
+--------
+
