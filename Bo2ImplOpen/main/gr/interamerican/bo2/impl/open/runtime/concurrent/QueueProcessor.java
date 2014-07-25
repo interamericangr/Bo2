@@ -31,7 +31,6 @@ import gr.interamerican.bo2.impl.open.namedstreams.NamedPrintStream;
 import gr.interamerican.bo2.impl.open.utils.Bo2;
 import gr.interamerican.bo2.utils.ExceptionUtils;
 import gr.interamerican.bo2.utils.ReflectionUtils;
-import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.adapters.Modification;
 import gr.interamerican.bo2.utils.concurrent.ThreadUtils;
@@ -619,16 +618,10 @@ implements Runnable, LongProcess {
 	
 	@Override
 	public void tidy() {
+		/*
+		 * no need to close the operation here. This will happen on renewPollAndProcess()
+		 */
 		if (operation!=null) {
-			try {
-				operation.close();
-			} catch (DataException e) {
-				String msg = "DataException while closing main Operation on tidy() "  //$NON-NLS-1$
-						+ StringConstants.NEWLINE + ExceptionUtils.getThrowableStackTrace(e);
-				if(stacktracesLog != null) {
-					stacktracesLog.getStream().println(msg);
-				}
-			}
 			Operation op = Factory.create(operation.getClass());
 			setNewOperation(op);
 		}		
