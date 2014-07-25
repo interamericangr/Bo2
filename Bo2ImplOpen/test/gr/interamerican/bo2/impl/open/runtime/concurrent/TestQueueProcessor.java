@@ -302,7 +302,7 @@ public class TestQueueProcessor {
 		qp.initialize();
 		qp.eod = true;
 		qp.tm = mockTm; // So an exception will be thrown.
-		qp.loop();
+		qp.loop(); //ignore the logged error on tidy; it's not a problem
 		Assert.assertFalse(qp.quit);
 		Assert.assertTrue(qp.finished);
 		Assert.assertNotNull(qp.exceptionMessage);
@@ -629,13 +629,18 @@ public class TestQueueProcessor {
 		String input = "input";
 		QueueProcessor<String> qp = sample();
 		qp = Mockito.spy(qp);
-		qp.tm = mockTm;
+		
 		qp.failuresLog = nps;
 		qp.stacktracesLog = nps;
 		qp.successesLog = nps;
 		
-		qp.inputQueue.add(input);		
+		qp.inputQueue.add(input);
+		
+		qp.initialize();
+		qp.tm = mockTm;
+		
 		qp.pollAndProcess();
+		
 		Assert.assertTrue(qp.inputQueue.contains(input));
 		Mockito.verify(qp, Mockito.times(1)).tidy();
 	}
@@ -664,6 +669,7 @@ public class TestQueueProcessor {
 		qp.successesLog = nps;
 		qp.inputQueue.add(input);
 		
+		qp.initialize(); //open operation
 		qp.pollAndProcess();
 		
 		Assert.assertTrue(qp.inputQueue.contains(input));
