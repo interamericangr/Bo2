@@ -36,11 +36,11 @@ public class Bo2DeploymentHibernateInfoUtility {
 
 	/**
 	 * @param hbmPath
-	 * @return the class for the given hbm.
+	 * @return the contents of the hdm file, null if not found.
 	 */
-	String getClassFromHbm(String hbmPath) {
+	private String getHbmContents(String hbmPath) {
 		String hbm = null;
-		try{
+		try {
 			hbm = StreamUtils.getStringFromResourceFile(hbmPath);
 		} catch (RuntimeException e) {
 			String msg = StringUtils.concat(
@@ -50,9 +50,34 @@ public class Bo2DeploymentHibernateInfoUtility {
 			LOGGER.warn(msg);
 			return null;
 		}
+		return hbm;
+	}
+
+	/**
+	 * @param hbmPath
+	 * @return the package from the given hbm
+	 */
+	private String getPackageFromHbm(String hbmPath) {
+		String hbm = getHbmContents(hbmPath);
+		if (hbm == null) {
+			return null;
+		}
 		Document doc = Jsoup.parse(hbm);
 		Element el = doc.select("hibernate-mapping").first(); //$NON-NLS-1$
 		String pack = el.attr("package"); //$NON-NLS-1$
+		return pack;
+	}
+	/**
+	 * @param hbmPath
+	 * @return the class for the given hbm.
+	 */
+	String getClassFromHbm(String hbmPath) {
+		String hbm = getHbmContents(hbmPath);
+		if (hbm == null) {
+			return null;
+		}
+		Document doc = Jsoup.parse(hbm);
+		String pack = getPackageFromHbm(hbmPath);
 		Element clazz = doc.select("class").first(); //$NON-NLS-1$
 		String c = clazz.attr("name"); //$NON-NLS-1$
 		if (StringUtils.isNullOrBlank(pack)) {
@@ -60,9 +85,57 @@ public class Bo2DeploymentHibernateInfoUtility {
 		}
 		return pack + StringConstants.DOT + c;
 	}
+
+	/**
+	 * @param hbmPath
+	 * @return the join-subclasses from the hbm
+	 */
+	Set<String> getSubClassesFromHbm(String hbmPath) {
+		Set<String> clazzes = new HashSet<String>();
+		String hbm = getHbmContents(hbmPath);
+		if (hbm == null) {
+			return clazzes;
+		}
+		Document doc = Jsoup.parse(hbm);
+		Set<Element> elements = new HashSet<Element>();
+		elements.addAll(doc.select("joined-subclass"));//$NON-NLS-1$
+		elements.addAll(doc.select("subclass"));//$NON-NLS-1$
+		for (Element el : elements) {
+			String c = el.attr("name"); //$NON-NLS-1$
+			if (c.contains(StringConstants.DOT)) {
+				clazzes.add(c);
+			} else {
+				String pack = getPackageFromHbm(hbmPath);
+				if (StringUtils.isNullOrBlank(pack)) {
+					clazzes.add(c);
+				} else {
+					clazzes.add(pack + StringConstants.DOT + c);
+				}
+			}
+		}
+		return clazzes;
+	}
+
+	/**
+	 * @param className
+	 * @return
+	 */
+	Class<?> generateClassFromString(String className) {
+		if (StringUtils.isNullOrBlank(className)) {
+			return null;
+		}
+		Object obj = null;
+		try {
+			obj = Factory.create(className);
+		} catch (AbstractMethodError err) {
+			LOGGER.warn("Non-Creatable class " + className); //$NON-NLS-1$
+			return null;
+		}
+		return obj.getClass();
+	}
 	/**
 	 * @param propertyValue
-	 * @return
+	 * @return a set of hibernate classes from the given flat file.
 	 */
 	Set<Class<?>> getHibernateClassesFromFlatFile(String propertyValue) {
 		Set<Class<?>> clazzes = new HashSet<Class<?>>();
@@ -73,17 +146,17 @@ public class Bo2DeploymentHibernateInfoUtility {
 					continue;
 				}
 				String className = getClassFromHbm(hbmName);
-				if (StringUtils.isNullOrBlank(className)) {
-					continue;
+				Class<?> c=generateClassFromString(className);
+				if (c!=null){
+					clazzes.add(c);
 				}
-				Object obj = null;
-				try {
-					obj = Factory.create(className);
-				} catch (AbstractMethodError err) {
-					LOGGER.warn("Non-Creatable class " + className); //$NON-NLS-1$
-					continue;
+				Set<String> classNames = getSubClassesFromHbm(hbmName);
+				for (String s : classNames) {
+					c = generateClassFromString(s);
+					if (c != null) {
+						clazzes.add(c);
+					}
 				}
-				clazzes.add(obj.getClass());
 			}
 		} catch (IOException e) {
 			throw new RuntimeException(e);
