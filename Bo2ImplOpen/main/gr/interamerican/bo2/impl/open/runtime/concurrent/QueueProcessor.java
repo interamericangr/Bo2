@@ -410,12 +410,18 @@ implements Runnable, LongProcess {
 	 * @throws CouldNotRollbackException 
 	 */
 	void handleFailure(T input, Exception ex) throws CouldNotRollbackException {
-		failuresCount++;
+		boolean staleTx = ex instanceof StaleTransactionException;
+		
+		//do not count failures for StaleTransactionException (same behavior with TransactionManagerException)
+		if(!staleTx) {
+			failuresCount++;
+		}
+		
 		tm.rollback(); //if this throws a CouldNotRollbackException the input will be retried if reattemptOnTmex is true 
 		logFailure(input, ex);
 		
 		//if ex is a StaleTransactionException the input will be retried if reattemptOnTmex is true
-		if(ex instanceof StaleTransactionException) { 
+		if(staleTx) { 
 			if(reattemptOnTmex) {
 				inputQueue.add(input);
 			}
