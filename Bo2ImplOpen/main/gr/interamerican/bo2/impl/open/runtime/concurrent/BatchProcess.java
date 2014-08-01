@@ -39,7 +39,6 @@ import gr.interamerican.bo2.utils.ArrayUtils;
 import gr.interamerican.bo2.utils.Bo2UtilsEnvironment;
 import gr.interamerican.bo2.utils.CollectionUtils;
 import gr.interamerican.bo2.utils.ExceptionUtils;
-import gr.interamerican.bo2.utils.SelectionUtils;
 import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.Utils;
@@ -630,20 +629,7 @@ implements Runnable, MultiThreadedLongProcess {
 	
 	@Override
 	public Date getEndTime() {	
-		if (endTime==null) {
-			calculateEndTime();
-		}		
 		return endTime;
-	}
-	
-	/**
-	 * Calculates end time.
-	 */
-	void calculateEndTime() {
-		if (isFinished()) {
-			QueueProcessor<T> last = SelectionUtils.max(queueProcessors, "endTime"); //$NON-NLS-1$
-			endTime = last.getEndTime();
-		}
 	}
 	
 	@Override
