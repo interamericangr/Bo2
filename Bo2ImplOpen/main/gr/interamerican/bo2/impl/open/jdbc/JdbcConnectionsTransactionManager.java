@@ -21,7 +21,6 @@ import gr.interamerican.bo2.arch.exceptions.CouldNotEnlistException;
 import gr.interamerican.bo2.arch.exceptions.CouldNotRollbackException;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.impl.open.job.JobCapableTransactionManager;
-import gr.interamerican.bo2.impl.open.job.JobSchedulerProvider;
 
 import java.sql.Connection;
 import java.sql.SQLException;
