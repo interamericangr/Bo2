@@ -357,3 +357,8 @@ BatchProcess: Custom handling of StaleTransactionException to make automatic re-
 2.1.0085
 --------
 
+
+
+2.1.0086
+--------
+
