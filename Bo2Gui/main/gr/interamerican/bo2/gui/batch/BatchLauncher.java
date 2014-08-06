@@ -31,7 +31,7 @@ public class BatchLauncher {
 	 */
 	public static void main(String[] args) {
 		String path = args[0];
-		Properties p = CollectionUtils.readProperties(path, true);
+		Properties p = CollectionUtils.readEnhancedProperties(path, true);
 		BatchProcessFrame frame = new BatchProcessFrame(p);
 		frame.setVisible(true);
 	}
