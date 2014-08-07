@@ -202,7 +202,13 @@ public class MoneyUtils {
 		}
 	}
 	
-	
+	/**
+	 * Returns true if the supplied Money instance is null or has zero amount.
+	 * @param money
+	 */
+	public static boolean isNullOrZero (Money money) {
+		return money==null || money.getAmount() == null || BigDecimal.ZERO.equals(money.getAmount());
+	}
 
 
 }
