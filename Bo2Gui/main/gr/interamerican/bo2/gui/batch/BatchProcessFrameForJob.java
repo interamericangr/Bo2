@@ -1,13 +1,13 @@
 /*******************************************************************************
- * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A. 
+ * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/copyleft/lesser.html
  * 
- * This library is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
 package gr.interamerican.bo2.gui.batch;
@@ -24,76 +24,88 @@ import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.concurrent.ThreadUtils;
 import gr.interamerican.bo2.utils.reflect.analyze.TypeAnalysis;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
-import javax.swing.JFrame;
-
 /**
  * BatchProcessFrameForJob.
  */
-public class BatchProcessFrameForJob 
+public class BatchProcessFrameForJob
 extends BFrame {
 
 	/**
 	 * serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * Input panel.
 	 */
 	BPanelForMap<Properties> inputPanel;
-	
+
 	/**
 	 * Process panel.
 	 */
 	MultiThreadedLongProcessPanel processPanel;
-	
+
 	/**
 	 * Batch process.
-	 * This variable takes value when the batch process starts. 
+	 * This variable takes value when the batch process starts.
 	 * Before that it is null, indicating that processing didn't
 	 * start yet.
 	 */
 	BatchProcess<?> batch;
-	
+
 	/**
-	 * Creates a new BatchProcessFrameForJob object. 
-	 * @param input 
-	 * @param criteria 
-	 * @param inputFileDefinitions 
+	 * Creates a new BatchProcessFrameForJob object.
+	 * @param input
+	 * @param criteria
+	 * @param inputFileDefinitions
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public BatchProcessFrameForJob(BatchProcessInput input, Object criteria, Map<String, String> inputFileDefinitions) {
 		super();
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+		setCloseAction();
 		BatchProcessParm<?> parameters = new BatchProcessParmFactoryImpl().createParameter(input, criteria, inputFileDefinitions);
 		batch = new BatchProcess(parameters);
-		
+
 		Properties model = createModelWithInput(input, criteria);
 		inputPanel = new BPanelForMap<Properties>(model);
 		inputPanel.addButton("start", null, this); //$NON-NLS-1$
 		Layout.layAsStackOfLabeledFields(inputPanel, 5, 5);
 		setPanel(inputPanel);
 	}
-	
+
+	/**
+	 * set the default closing action. Quit all batch processes and dispose the frame.
+	 */
+	void setCloseAction() {
+		addWindowListener(new WindowAdapter() {
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				batch.forceQuit();
+				dispose();
+			}
+		});
+	}
 	/**
 	 * Starts the batch process.
 	 */
 	public void start() {
-		new Thread(batch).start();		
+		new Thread(batch).start();
 		long interval = batch.getInitialThreads() * 10;
 		ThreadUtils.sleepMillis(interval);
 		processPanel = new MultiThreadedLongProcessPanel(batch);
-		setPanel(processPanel);		
+		setPanel(processPanel);
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Creates a Properties object with the job input. This is used as a preview
 	 * for the operator that launches the job.
@@ -113,7 +125,7 @@ extends BFrame {
 		copyMapToProperties(mapCriteria, model);
 		return model;
 	}
-	
+
 	/**
 	 * Copies a map to a properties object.
 	 * @param map
