@@ -12,16 +12,11 @@
  ******************************************************************************/
 package gr.interamerican.wicket.callback;
 
-import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.handlers.EventHandlerComponent;
 import gr.interamerican.bo2.utils.handlers.MethodInvocator;
 import gr.interamerican.bo2.utils.handlers.ThrowingExceptionHandler;
 
 import java.io.Serializable;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.slf4j.MDC;
 
 /**
  * A {@link MethodBasedCallbackAction} is a Bo2WicketBlock that 
@@ -34,16 +29,6 @@ extends AbstractCommandCallback {
 	 * serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	/**
-	 * Logger.
-	 */
-	private static final Logger LOG = LoggerFactory.getLogger(MethodBasedCallbackAction.class.getName());
-	
-	/**
-	 * key for MDC callback method
-	 */
-	private static final String MDC_CALLBACKMETHOD = "callback"; //$NON-NLS-1$
 	
 	/**
 	 * Event handler.
@@ -91,14 +76,7 @@ extends AbstractCommandCallback {
 	
 	@Override
 	public void execute() {
-		try {
-			String callback = owner.getClass().getSimpleName() + StringConstants.SHARP + methodName;
-			MDC.put(MDC_CALLBACKMETHOD, callback);
-			LOG.debug("executing callback"); //$NON-NLS-1$
-			methodInvocator().invoke();
-		} finally {
-			MDC.remove(MDC_CALLBACKMETHOD);
-		}
+		methodInvocator().invoke();
 	}
 	
 	@Override

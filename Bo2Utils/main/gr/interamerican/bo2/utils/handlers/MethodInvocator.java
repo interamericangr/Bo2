@@ -13,17 +13,32 @@
 package gr.interamerican.bo2.utils.handlers;
 
 import gr.interamerican.bo2.utils.ReflectionUtils;
+import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.Utils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
+
 /**
  * The purpose of a {@link MethodInvocator} is to invoke a method of the
  * object that owns an EventHandler.
  */
 public class MethodInvocator {
+	
+	/**
+	 * Logger.
+	 */
+	private static final Logger LOG = LoggerFactory.getLogger(MethodInvocator.class.getName());
+	
+	/**
+	 * key for MDC callback method
+	 */
+	private static final String MDC_CALLBACKMETHOD = "callback"; //$NON-NLS-1$
 
 	/**
 	 * Method of object to be invoked by this Bo2WicketBlock.
@@ -89,6 +104,11 @@ public class MethodInvocator {
 			for (int i = 0; i < parameterTypes.length; i++) {
 				args[i] = handler.getHandlerParameter(parameterTypes[i]);				
 			}
+			
+			String callback = owner.getClass().getSimpleName() + StringConstants.SHARP + methodName;
+			MDC.put(MDC_CALLBACKMETHOD, callback);
+			LOG.debug("executing callback"); //$NON-NLS-1$
+			
 			method.invoke(owner, args);
 		} catch (IllegalArgumentException ilarex) {
 			handler.handleThrown(ilarex);		
@@ -99,7 +119,9 @@ public class MethodInvocator {
 			cause = Utils.notNull(cause, intaex.getTargetException());
 			cause = Utils.notNull(cause, intaex);
 			handler.handleThrown(cause);			
-		}	
+		} finally {
+			MDC.remove(MDC_CALLBACKMETHOD);
+		}
 	}
 	
 	
