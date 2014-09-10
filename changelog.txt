@@ -1,3 +1,0 @@
-Added JaxbUtils
-
-Fixed logging of callback action method names with MDC context
