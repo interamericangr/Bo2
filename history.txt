@@ -375,3 +375,8 @@ BatchProcess: Custom handling of StaleTransactionException to make automatic re-
 Added JaxbUtils
 
 Fixed logging of callback action method names with MDC context
+
+
+2.1.0089
+--------
+
