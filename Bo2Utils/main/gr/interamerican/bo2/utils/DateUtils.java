@@ -27,6 +27,10 @@ import java.util.Set;
  * 
  */
 public class DateUtils {
+	/**
+	 * Milliseconds of a day.
+	 */
+	private static final long DAY_IN_MILLIS = 24*60*60*1000;
 
 
 	/**
@@ -201,7 +205,16 @@ public class DateUtils {
 	 *         until <code>toDate</code>
 	 * 
 	 */
-	private static int DateDif(Calendar fromDate, Calendar toDate, int type) {
+	static int dateDif(Calendar fromDate, Calendar toDate, int type) {
+		if (Calendar.DAY_OF_MONTH==type) {
+			int days=DateUtils.daysDif(fromDate, toDate);
+			if (days<0) {
+				return 0;
+			}
+			return days;
+		}
+		
+		
 		Calendar from = new GregorianCalendar();
 		from.setTime(fromDate.getTime());
 
@@ -217,12 +230,35 @@ public class DateUtils {
 		}
 		return count;
 	}
+	
+	/**
+	 * Gets the time between two dates in days.
+	 * 
+	 * @param fromDate
+	 * 
+	 * @param toDate
+	 *
+	 * 
+	 * @return Returns the days passed from <code>fromDate</code>
+	 *         until <code>toDate</code>
+	 * 
+	 */
+	static int daysDif(Calendar fromDate, Calendar toDate) {
+		long from = fromDate.getTimeInMillis();
+		long to = toDate.getTimeInMillis();
+		long dif = to - from;
+		long days = dif / DAY_IN_MILLIS;
+		return Long.valueOf(days).intValue();
+	}
+	
+	
+	
+	
+	
 
 	/**
 	 * Gets the time passed between two dates in days.
 	 * 
-	 * The time is counted in days, months or years,
-	 * according to the parameter <code>type</code> specified.
 	 * The first parameter <code>fromDate</code> must be less
 	 * or equal than the second parameter <code>toDate</code>.
 	 * Otherwise the method will return 0.
@@ -237,14 +273,12 @@ public class DateUtils {
 	 * 
 	 */
 	public static int difDays(Calendar fromDate, Calendar toDate) {
-		return DateDif(fromDate, toDate, Calendar.DATE);
+		return dateDif(fromDate, toDate, Calendar.DATE);
 	}
 
 	/**
 	 * Gets the time passed between two dates in years.
 	 * 
-	 * The time is counted in days, months or years,
-	 * according to the parameter <code>type</code> specified.
 	 * The first parameter <code>fromDate</code> must be less
 	 * or equal than the second parameter <code>toDate</code>.
 	 * Otherwise the method will return 0.
@@ -259,7 +293,7 @@ public class DateUtils {
 	 * 
 	 */
 	public static int difYears(Calendar fromDate, Calendar toDate) {
-		return DateDif(fromDate, toDate, Calendar.YEAR);
+		return dateDif(fromDate, toDate, Calendar.YEAR);
 	}
 
 	/**
@@ -281,7 +315,7 @@ public class DateUtils {
 	 * 
 	 */
 	public static int difMonths(Calendar fromDate, Calendar toDate) {
-		return DateDif(fromDate, toDate, Calendar.MONTH);
+		return dateDif(fromDate, toDate, Calendar.MONTH);
 	}
 
 	/**
@@ -308,7 +342,7 @@ public class DateUtils {
 		GregorianCalendar to=new GregorianCalendar();
 		to.setTime(toDate);
 
-		return DateDif(from, to, Calendar.DATE);
+		return dateDif(from, to, Calendar.DATE);
 	}
 
 	/**
@@ -335,7 +369,7 @@ public class DateUtils {
 		GregorianCalendar to=new GregorianCalendar();
 		to.setTime(toDate);
 
-		return DateDif(from, to, Calendar.YEAR);
+		return dateDif(from, to, Calendar.YEAR);
 	}
 
 	/**
@@ -362,7 +396,7 @@ public class DateUtils {
 		GregorianCalendar to=new GregorianCalendar();
 		to.setTime(toDate);
 
-		return DateDif(from, to, Calendar.MONTH);
+		return dateDif(from, to, Calendar.MONTH);
 	}
 
 	/**

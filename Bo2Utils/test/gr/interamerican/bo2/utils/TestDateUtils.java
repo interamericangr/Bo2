@@ -624,4 +624,53 @@ public class TestDateUtils {
 		}
 		assertFalse(DateUtils.isStandardGreekHoliday(d3));
 	}
+	
+	/**
+	 * test method for
+	 */
+	@Test
+	public void TestDaysDif() {
+		Date d1 = DateUtils.getDate(2013, Calendar.MAY, 10);
+		Calendar c1 = DateUtils.getCalendar(d1);
+		Calendar c2 = DateUtils.getCalendar(d1);
+		for (int i = 0; i < 1000; i++) {
+			c2.add(Calendar.DATE, 1);
+			int c1ToC2 = DateUtils.daysDif(c1, c2);
+			int c2ToC1 = DateUtils.daysDif(c2, c1);
+			assertEquals(i+1, c1ToC2);
+			assertEquals(-i-1, c2ToC1);
+		}
+		
+		Date d3 = DateUtils.getDate(1, Calendar.JANUARY, 1);
+		Calendar c3 = DateUtils.getCalendar(d3);
+		int c3ToC1 = DateUtils.daysDif(c3, c1);
+		assertEquals(734998, c3ToC1);
+	}
+	
+	/**
+	 * test method for
+	 */
+	@Test
+	public void TestDateDif() {
+		Date d1 = DateUtils.getDate(2013, Calendar.MAY, 10);
+		Calendar c1 = DateUtils.getCalendar(d1);
+		Calendar c2 = DateUtils.getCalendar(d1);
+		for (int i = 0; i < 1000; i++) {
+			c2.add(Calendar.DATE, 1);
+			int c1ToC2 = DateUtils.dateDif(c1, c2, Calendar.DATE);
+			int c2ToC1 = DateUtils.dateDif(c2, c1, Calendar.DATE);
+			assertEquals(i+1, c1ToC2);
+			assertEquals(0, c2ToC1);
+		}
+		Date d3 = DateUtils.getDate(1, Calendar.JANUARY, 1);
+		Calendar c3 = DateUtils.getCalendar(d3);
+		int c3ToC1 = DateUtils.dateDif(c3, c1, Calendar.DATE);
+		assertEquals(734998, c3ToC1);		
+	}
+	
+	
+	
+	
+	
+	
 }
