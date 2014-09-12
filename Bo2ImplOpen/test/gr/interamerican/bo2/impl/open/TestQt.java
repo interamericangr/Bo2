@@ -11,7 +11,7 @@ import gr.interamerican.bo2.test.impl.posamples.InvoiceImpl;
 /**
  * 
  */
-public class Qt {
+public class TestQt {
 	
 	@Test
 	public void test1() {
