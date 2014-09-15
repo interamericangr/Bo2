@@ -86,7 +86,7 @@ public class TestClassCompiler {
 		AddingFieldsClassUpdater f = new AddingFieldsClassUpdater(fields);
 		AddingMethodsClassUpdater m = new AddingMethodsClassUpdater(methods);		
 		ClassCompiler creator = new ClassCompiler(f,m);
-		Class<?> newType = creator.createType(newName);
+		Class<?> newType = creator.createType(newName, null);
 		Assert.assertEquals(newName, newType.getName());
 		Object object = newType.newInstance();		
 		Integer val = 42;
@@ -100,7 +100,7 @@ public class TestClassCompiler {
 		/*
 		 * Second creation should fetch the existing class.
 		 */
-		creator.createType(newName);
+		creator.createType(newName, null);
 	}
 	
 	

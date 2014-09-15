@@ -597,7 +597,7 @@ implements ClassCreator {
 		validateImplementation();
 		ClassCompiler compiler = getClassCompiler();		
 		String newClassName = runTimeClassName(analysis.getClazz().getCanonicalName());		
-		return compiler.createType(newClassName);	
+		return compiler.createType(newClassName, analysis.getClazz().getClassLoader());	
 	}
 	
 	

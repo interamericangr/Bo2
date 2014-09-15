@@ -91,7 +91,7 @@ public class NewJavabeanClassCreator {
 		AddingInterfacesClassUpdater setSerializable = 
 			new AddingInterfacesClassUpdater(Serializable.class.getName());
 		ClassCompiler compiler = new ClassCompiler(addFields, addMethods, setSerializable);
-		return compiler.createType(className);
+		return compiler.createType(className, null);
 	}
 	
 	

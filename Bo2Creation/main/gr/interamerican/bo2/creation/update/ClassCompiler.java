@@ -67,12 +67,14 @@ public class ClassCompiler {
 	 * 
 	 * @param className
 	 *        Name of the new class.
+	 * @param classLoader 
+	 *        Classloader that we want to load the new class. Null for not specifying it.
 	 *        
 	 * @return Returns the new class.
 	 * 
 	 * @throws ClassCreationException
 	 */
-	public Class<?> createType(String className) 
+	public Class<?> createType(String className, ClassLoader classLoader) 
 	throws ClassCreationException {
 //		ClassPool cp = Bo2Creation.getBo2ClassPool();
 		
@@ -85,8 +87,13 @@ public class ClassCompiler {
 		try {
 			for (AbstractClassUpdater updater : updaters) {
 				updater.updateType(newClass);
-			}		
-			Class<?> createdType = newClass.toClass();
+			}
+			Class<?> createdType = null;
+			if(classLoader == null) {
+				createdType = newClass.toClass();
+			} else {
+				createdType = newClass.toClass(classLoader, null);
+			}
 			return createdType;
 		} catch (CannotCompileException e) {
 			throw new ClassCreationException(e);

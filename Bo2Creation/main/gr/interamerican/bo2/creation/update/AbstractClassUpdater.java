@@ -51,7 +51,7 @@ public abstract class AbstractClassUpdater {
 			CtClass cc = Bo2Creation.get(typeToUpdate.getName());
 			updateType(cc);			
 			cc.setName(newName);			
-			Class<?> updatedType = cc.toClass();
+			Class<?> updatedType = cc.toClass(typeToUpdate.getClassLoader(), null);
 			cc.defrost();
 			return updatedType;			
 		}catch (NotFoundException e) {
