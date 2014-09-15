@@ -1,0 +1,3 @@
+(2.1.0090) When creating classes on runtime that extend abstract classes defined compile time (with javassist), 
+the newly created class is loaded explicitly with the same classloader as the abstract class
+
