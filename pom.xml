@@ -40,7 +40,7 @@
 		<version.jsoup>1.7.3</version.jsoup>
 
 		<version.nbda-bo>1.5.0003</version.nbda-bo>
-		<version.jwf>1.0.0001</version.jwf>
+		<version.jwf>1.0.0004</version.jwf>
 
 		<branchName>Bo2-br-${project.version}</branchName>
 
