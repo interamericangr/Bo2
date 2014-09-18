@@ -394,3 +394,8 @@ Fixed logging of callback action method names with MDC context
 the newly created class is loaded explicitly with the same classloader as the abstract class
 
 upgraded to new jwf 1.0.0004
+
+
+2.1.0092
+--------
+
