@@ -17,7 +17,9 @@ import gr.interamerican.bo2.arch.ext.Session;
 import gr.interamerican.bo2.arch.ext.User;
 import gr.interamerican.bo2.utils.StringUtils;
 
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import org.slf4j.MDC;
 
@@ -55,6 +57,11 @@ public class Bo2Session {
 	 * Threadlocal provider.
 	 */
 	static ThreadLocal<Provider> tlProvider =  new ThreadLocal<Provider>();
+	
+	/**
+	 * Threadlocal provider.
+	 */
+	static ThreadLocal<Map<String, Object>> tlAttributes =  new ThreadLocal<Map<String,Object>>();
 
 	/**
 	 * Gets the session.
@@ -156,6 +163,41 @@ public class Bo2Session {
 	 */
 	public static Provider getProvider() {
 		return tlProvider.get();
+	}
+	
+	
+	/**
+	 * Sets an attribute to the current Session.
+	 * 
+	 * @param key
+	 *        Attribute key.
+	 * @param value
+	 *        Attribute value.
+	 */
+	public static void setAttribute(String key, Object value) {
+		Map<String, Object> attributes = tlAttributes.get();
+		if (attributes==null) {
+			attributes = new HashMap<String, Object>();
+			tlAttributes.set(attributes);
+		}
+		attributes.put(key, value);		
+		
+	}
+	
+	/**
+	 * Gets the value of an attribute that has been set to the
+	 * current session.
+	 * 
+	 * @param key
+	 * 
+	 * @return Returns the value of the attribute.
+	 */
+	public static Object getAttribute(String key) {
+		Map<String, Object> attributes = tlAttributes.get();
+		if (attributes==null) {
+			return null;
+		}
+		return attributes.get(key);		
 	}
 	
 	

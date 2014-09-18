@@ -19,7 +19,9 @@ import gr.interamerican.bo2.arch.ext.Session;
 import gr.interamerican.bo2.arch.ext.User;
 import gr.interamerican.bo2.arch.utils.beans.SessionImpl;
 
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -129,7 +131,7 @@ public class TestBo2Session {
 	}
 	
 	/**
-	 * Unit test for set getUser().
+	 * Unit test for set getLocale().
 	 */
 	@SuppressWarnings("unchecked")
 	@Test
@@ -141,5 +143,47 @@ public class TestBo2Session {
 		Assert.assertEquals(locale, Bo2Session.getLocale());
 		Bo2Session.setSession(null);
 	}
+	
+	/**
+	 * Unit test for set getAttribute(key).
+	 */	
+	@Test
+	public void testGetAttribute_withMap() {
+		String key = "key"; //$NON-NLS-1$
+		String nokey = "nokey"; //$NON-NLS-1$
+		Object expected = new Object();
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put(key, expected);
+		Bo2Session.tlAttributes.set(map);
+		Object actual = Bo2Session.getAttribute(key);
+		Assert.assertEquals(expected, actual);
+		Object expectedNull = Bo2Session.getAttribute(nokey);
+		Assert.assertNull(expectedNull);
+	}
+	
+	/**
+	 * Unit test for set getAttribute(key).
+	 */	
+	@Test
+	public void testGetAttribute_withNoMap() {
+		String key = "key";  //$NON-NLS-1$
+		Bo2Session.tlAttributes.set(null);
+		Object expectedNull = Bo2Session.getAttribute(key);
+		Assert.assertNull(expectedNull);
+	}
+	
+	/**
+	 * Unit test for set setAttribute(key, value).
+	 */	
+	@Test
+	public void testSetAttribute() {
+		String key = "key";  //$NON-NLS-1$
+		Object expected = new Object();
+		Bo2Session.setAttribute(key, expected);
+		Object actual = Bo2Session.tlAttributes.get().get(key);
+		Assert.assertEquals(expected, actual);
+	}
+	
+	
 
 }
