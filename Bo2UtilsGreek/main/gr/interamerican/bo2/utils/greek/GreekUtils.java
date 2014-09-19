@@ -87,16 +87,13 @@ public class GreekUtils {
 	}
 	
 	/**
-	 * Writes the specified Greek name with Latin characters.
+	 * Writes the specified Greek string value to Latin, according to the ELOT 743 standard.
 	 * 
-	 * Only capital letters have a visually similar character. 
+	 * @param greek 
+	 *       Specified Greek string to convert to Latin
 	 * 
-	 * @param greek
+	 * @return Returns the Greek string value to Latin, according to the ELOT 743 standard.
 	 * 
-	 * @return Returns the Greek character that is visually similar
-	 *         with the specified character. If the specified character 
-	 *         is not a Latin capital letter, or if it has not a visually
-	 *         similar Greek character, then returns null.
 	 */
 	public static String toLatin(String greek) {
 		return tr743.transcript(greek);	
