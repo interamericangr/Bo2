@@ -3,6 +3,7 @@ package gr.interamerican.bo2.utils.greek;
 import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.Utils;
 import gr.interamerican.bo2.utils.beans.AssociationTable;
+import gr.interamerican.bo2.utils.greek.VisuallySimilarLatin;
 
 /**
  * Associates a Greek character to its Latin visually similar.
@@ -22,9 +23,6 @@ public class VisuallySimilarLatin {
 	public static VisuallySimilarLatin getInstance() {
 		return INSTANCE;
 	}
-	
-	
-	
 	
 	/**
 	 * Characters asssociation table.
@@ -101,19 +99,56 @@ public class VisuallySimilarLatin {
 	 * @return Returns the result of the process.
 	 */
 	public String removeSymbolsAndReplaceLatinWithSimilarGreekChars (String str) {
-	   String string=StringUtils.removeAllButLettersAndDigits(str).toUpperCase();	   
-	   char[] input = string.toCharArray();
-	   int len=input.length;
-	   char[] output = new char[len];
-	   
-	   for (int i = 0; i < len; i++) {
-		   char c=input[i];
-		   output[i] = Utils.notNull(getGreek(c), c);
-	   }
-	   return new String(output);
+	   return removeAndReplaceLatinWithGreekCharsAndViceVersa(str, true);
 	}
 
+	/**
+	 * Removes all characters that are not letters or digits, converts to 
+	 * upper case and then replaces any greek character that has a similar 
+	 * latin character with its latin similar (visually equal) character. <br/>
+	 * 
+	 * @param str
+	 *        String to process.
+	 * 
+	 * @return Returns the result of the process.
+	 */
+	public String removeSymbolsAndReplaceGreekWithSimilarLatinChars (String str) {
+		 return removeAndReplaceLatinWithGreekCharsAndViceVersa(str, false);
+	}
 	
 	
+
+	/**
+	 * Removes all characters that are not letters or digits, converts to 
+	 * upper case and then replaces any latin character that has a similar 
+	 * greek character with its greek similar (visually equal) character, and vice versa. <br/>
+	 * if it has not a visually similar character, then returns the character as it is.
+	 * 
+	 * @param str
+	 *        String to process.
+	 * @param latinToGreek
+	 *        if latinToGreek is true, converts to upper case and then replaces any latin character that has a similar 
+	 *        greek character with its greek similar (visually equal) character. <br/>
+	 *        if latinToGreek is false,converts to upper case and then replaces any greek character that has a similar 
+	 *        latin character with its latin similar (visually equal) character. <br/>
+	 * 
+	 * @return Returns the result of the process.
+	 */
+	private String removeAndReplaceLatinWithGreekCharsAndViceVersa(String str, boolean latinToGreek){
+		  String string=StringUtils.removeAllButLettersAndDigits(str).toUpperCase();	   
+		   char[] input = string.toCharArray();
+		   int len=input.length;
+		   char[] output = new char[len];
+		   
+		   for (int i = 0; i < len; i++) {
+			   char c=input[i];
+			   if(latinToGreek){
+				   output[i] = Utils.notNull(getGreek(c), c);
+			   }else{
+				   output[i] = Utils.notNull(getLatin(c), c);
+			   }
+		   }
+		   return new String(output);
+	}
 
 }
