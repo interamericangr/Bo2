@@ -134,7 +134,7 @@ public class VisuallySimilarLatin {
 	 * 
 	 * @return Returns the result of the process.
 	 */
-	private String removeAndReplaceLatinWithGreekCharsAndViceVersa(String str, boolean latinToGreek){
+	String removeAndReplaceLatinWithGreekCharsAndViceVersa(String str, boolean latinToGreek){
 		  String string=StringUtils.removeAllButLettersAndDigits(str).toUpperCase();	   
 		   char[] input = string.toCharArray();
 		   int len=input.length;
