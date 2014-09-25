@@ -39,8 +39,8 @@
 		<version.freemarker>2.3.16</version.freemarker>
 		<version.jsoup>1.7.3</version.jsoup>
 
-		<version.nbda-bo>1.5.0003</version.nbda-bo>
-		<version.jwf>1.0.0004</version.jwf>
+		<version.nbda-bo>1.5.0004</version.nbda-bo>
+		<version.jwf>1.0.0007</version.jwf>
 
 		<branchName>Bo2-br-${project.version}</branchName>
 
