@@ -399,3 +399,10 @@ upgraded to new jwf 1.0.0004
 2.1.0092
 --------
 
+
+
+2.1.0093
+--------
+
+new jwf and nbda-bo (intercommon) versions
+
