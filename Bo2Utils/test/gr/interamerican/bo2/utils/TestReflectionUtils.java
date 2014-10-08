@@ -250,13 +250,16 @@ public class TestReflectionUtils {
 		/*
 		 * expected:  4, get-set Left,Right (Pair)
 		 *        +   1, static pair        (Pair)
-		 *        +   3, contains, overlapsWith x 2  (Range)
+		 *        +   6, contains x 2, overlapsWith x 2, intersection, remainder  (Range)
+		 *        +   1, clone (is public on Range)
 		 *        +   1, static contains         (Range)
 		 *        +   1, static range       (Range)
+		 *   --------------------------------------
+		 *   total:   14
 		 */
 		int expected = Object.class.getMethods().length 
 		             + Comparable.class.getMethods().length 
-		             + 10; //4+1+3+1+1
+		             + 14; //total public methods
 		assertEquals(expected, methods.size());
 	}
 	
