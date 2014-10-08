@@ -12,6 +12,10 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.beans;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 
 
 /**
@@ -76,6 +80,36 @@ extends Range<T> {
 
 	@Override
 	public void setRight(T right) {/* empty */}
+	
+	
+	@Override
+	public Range<T> intersection(Range<T> other) {	
+		return other.clone();
+	}
+	
+	@Override
+	public boolean contains(Range<T> other) {	
+		return true;
+	}
+	
+	@Override
+	public boolean isPoint() {	
+		return false;
+	}
+	
+	@Override
+	public boolean overlapsWith(Collection<Range<T>> ranges) {	
+		return true;
+	}
+	
+	@Override
+	public List<Range<T>> remainder(Range<T> other) {
+		List<Range<T>> result = new ArrayList<Range<T>>();
+		result.add(new AnyRange<T>());
+		return result;
+	}
+	
+	
 
 
 

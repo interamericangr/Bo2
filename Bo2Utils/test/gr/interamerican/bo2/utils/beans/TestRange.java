@@ -213,4 +213,181 @@ public class TestRange {
 		Assert.assertEquals(right, r.getRight());
 	}
 	
+	/**
+	 * test for intersection.
+	 */
+	@Test
+	public void testIntersection_left() {
+		Range<Integer> r1020 = new Range<Integer>(10,20);		
+		Range<Integer> r0515 = new Range<Integer>(5,15);
+		Range<Integer> expected = new Range<Integer>(10,15);
+		Range<Integer> actual = r1020.intersection(r0515);
+		Assert.assertEquals(expected, actual);
+	}
+	
+	/**
+	 * test for intersection.
+	 */
+	@Test
+	public void testIntersection_right() {
+		Range<Integer> r1020 = new Range<Integer>(10,20);		
+		Range<Integer> r1525 = new Range<Integer>(15,25);
+		Range<Integer> expected = new Range<Integer>(15,20);
+		Range<Integer> actual = r1020.intersection(r1525);
+		Assert.assertEquals(expected, actual);
+	}
+	
+	/**
+	 * test for intersection.
+	 */
+	@Test
+	public void testIntersection_inside() {
+		Range<Integer> r1020 = new Range<Integer>(10,20);		
+		Range<Integer> r1518 = new Range<Integer>(15,18);		
+		Range<Integer> actual = r1020.intersection(r1518);
+		Assert.assertEquals(r1518, actual);
+	}
+	
+	/**
+	 * test for intersection.
+	 */
+	@Test
+	public void testIntersection_null() {
+		Range<Integer> r1020 = new Range<Integer>(10,20);		
+		Range<Integer> r2130 = new Range<Integer>(21,30);		
+		Range<Integer> actual = r1020.intersection(r2130);
+		Assert.assertNull(actual);
+	}
+	
+	/**
+	 * test for intersection.
+	 */
+	@Test
+	public void testIntersection_rightlimit() {
+		Range<Integer> r1020 = new Range<Integer>(10,20);		
+		Range<Integer> r2030 = new Range<Integer>(20,30);	
+		Range<Integer> r20 = new Range<Integer>(20,20);	
+		Range<Integer> actual = r1020.intersection(r2030);
+		Assert.assertEquals(r20, actual);
+	}
+	
+	/**
+	 * test for intersection.
+	 */
+	@Test
+	public void testIntersection_leftlimit() {
+		Range<Integer> r1020 = new Range<Integer>(10,20);		
+		Range<Integer> r0510 = new Range<Integer>(5,10);	
+		Range<Integer> r10 = new Range<Integer>(10,10);	
+		Range<Integer> actual = r1020.intersection(r0510);
+		Assert.assertEquals(r10, actual);
+	}
+	
+	/**
+	 * test for intersection.
+	 */
+	@Test
+	public void testIntersection_equal() {
+		Range<Integer> r1020 = new Range<Integer>(10,20);
+		Range<Integer> actual = r1020.intersection(r1020);
+		Assert.assertEquals(r1020, actual);
+	}
+	
+	/**
+	 * test for remainder.
+	 */
+	@Test
+	public void testRemainder_noIntersection() {
+		Range<Integer> r1020 = new Range<Integer>(10,20);
+		Range<Integer> r3040  = new Range<Integer>(30,40);
+		List<Range<Integer>> remainder = r1020.remainder(r3040);
+		Assert.assertEquals(1, remainder.size());
+		Assert.assertEquals(r1020, remainder.get(0));
+	}
+	
+	/**
+	 * test for remainder.
+	 */
+	@Test
+	public void testRemainder_intersectOnLimit() {
+		Range<Integer> r1020 = new Range<Integer>(10,20);
+		Range<Integer> r2040  = new Range<Integer>(20,40);
+		List<Range<Integer>> remainder = r1020.remainder(r2040);
+		Assert.assertEquals(1, remainder.size());
+		Assert.assertEquals(r1020, remainder.get(0));
+	}
+	
+	/**
+	 * test for remainder.
+	 */
+	@Test
+	public void testRemainder_point() {
+		Range<Integer> r1020 = new Range<Integer>(10,20);
+		Range<Integer> r15  = new Range<Integer>(15,15);
+		List<Range<Integer>> remainder = r1020.remainder(r15);
+		Assert.assertEquals(r1020, remainder.get(0));
+	}
+
+	
+	/**
+	 * test for remainder.
+	 */
+	@Test
+	public void testRemainder_equal() {
+		Range<Integer> r1020 = new Range<Integer>(10,20);		
+		List<Range<Integer>> remainder = r1020.remainder(r1020);
+		Assert.assertEquals(0, remainder.size());		
+	}
+	
+	/**
+	 * test for remainder.
+	 */
+	@Test
+	public void testRemainder_contained() {
+		Range<Integer> r1020 = new Range<Integer>(10,20);
+		Range<Integer> r0540  = new Range<Integer>(5,40);
+		List<Range<Integer>> remainder = r1020.remainder(r0540);
+		Assert.assertEquals(0, remainder.size());		
+	}
+	
+	/**
+	 * test for remainder.
+	 */
+	@Test
+	public void testRemainder_leftIntersection() {
+		Range<Integer> r1020 = new Range<Integer>(10,20);
+		Range<Integer> r0515  = new Range<Integer>(05,15);
+		List<Range<Integer>> remainder = r1020.remainder(r0515);
+		Assert.assertEquals(1, remainder.size());
+		Assert.assertEquals(new Range<Integer>(15,20), remainder.get(0));
+	}
+	
+	/**
+	 * test for remainder.
+	 */
+	@Test
+	public void testRemainder_rightIntersection() {
+		Range<Integer> r1020 = new Range<Integer>(10,20);
+		Range<Integer> r1525  = new Range<Integer>(15,25);
+		List<Range<Integer>> remainder = r1020.remainder(r1525);
+		Assert.assertEquals(1, remainder.size());
+		Assert.assertEquals(new Range<Integer>(10,15), remainder.get(0));
+	}
+	
+	/**
+	 * test for remainder.
+	 */
+	@Test
+	public void testRemainder_middleIntersection() {
+		Range<Integer> r1020 = new Range<Integer>(10,20);
+		Range<Integer> r1416  = new Range<Integer>(14,16);
+		List<Range<Integer>> remainder = r1020.remainder(r1416);
+		Assert.assertEquals(2, remainder.size());
+		Assert.assertEquals(new Range<Integer>(10,14), remainder.get(0));
+		Assert.assertEquals(new Range<Integer>(16,20), remainder.get(1));
+	}
+	
+	
+	
+	
 }

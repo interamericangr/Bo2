@@ -14,7 +14,9 @@ package gr.interamerican.bo2.utils.beans;
 
 import gr.interamerican.bo2.utils.Utils;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 
 /**
@@ -30,6 +32,41 @@ implements Comparable<Range<T>> {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	/**
+	 * Unsafe rawtype delegate to range.contains(t).
+	 * 
+	 * @param range Range
+	 * @param object
+	 * @return Returns true if object is contained in the range.
+	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public static boolean contains(Range range, Object object) {
+		Comparable val = (Comparable) object;
+		return range.contains(val);
+	}
+	
+	
+
+
+	/**
+	 * Type unsafe factory method.
+	 * 
+	 * Casts the specified <code>left</code> and <code>right</code> arguments
+	 * to <code>Comparable</code> and then creates a new {@link Range} with the
+	 * specified limits.
+	 * 
+	 * @param left
+	 * @param right
+	 * 
+	 * @return Returns a new Range with the specified limits.
+	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public static Range range(Object left, Object right) {
+		Comparable l = (Comparable) left;
+		Comparable r = (Comparable) right;
+		return new Range(l,r);
+	}
 
 	/**
 	 * Creates a new Range object.
@@ -145,40 +182,106 @@ implements Comparable<Range<T>> {
 		}
 		return compareLeft;
 	}
-
+	
 	/**
-	 * Unsafe rawtype delegate to range.contains(t).
+	 * Calculates the intersection of this Range with the specified Range.
 	 * 
-	 * @param range Range
-	 * @param object
-	 * @return Returns true if object is contained in the range.
+	 * @param other
+	 *        Range object being checked for intersection with this range.
+	 *        
+	 * @return Returns a new Range that contains the intersection of this Range
+	 *         with the specified Range. If this Range does not overlap with
+	 *         the specified Range, then returns null.
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public static boolean contains(Range range, Object object) {
-		Comparable val = (Comparable) object;
-		return range.contains(val);
+	public Range<T> intersection(Range<T> other) {
+		Range<T> section = null; 
+		T l = other.getLeft();
+		T r = other.getRight();
+		if (this.contains(l)) {
+			section = new Range<T>(l, this.getRight());			
+		} 
+		if (this.contains(r)) {
+			if (section==null) {
+				section = new Range<T>(this.getLeft(), r);
+			} else {
+				section.setRight(r);
+			}			
+		}
+		return section;		
 	}
-
-
+	
 	/**
-	 * Type unsafe factory method.
+	 * Indicates if this Range has its left and right limits equal.
 	 * 
-	 * Casts the specified <code>left</code> and <code>right</code> arguments
-	 * to <code>Comparable</code> and then creates a new {@link Range} with the
-	 * specified limits.
-	 * 
-	 * @param left
-	 * @param right
-	 * 
-	 * @return Returns a new Range with the specified limits.
+	 * @return Returns true if the left and right limits of this range are equal.
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public static Range range(Object left, Object right) {
-		Comparable l = (Comparable) left;
-		Comparable r = (Comparable) right;
-		return new Range(l,r);
+	public boolean isPoint() {
+		return this.getLeft().equals(this.getRight());
 	}
-
-
+	
+	/**
+	 * Gets the remainder of this Range if the specified other
+	 * Range were removed.
+	 * 
+	 * If this range does not overlap with the specified other Range,
+	 * then the method returns a {@link List} that contains only one 
+	 * {@link Range} object that is equal to this range.
+	 * If the specified range is contained within the other range,
+	 * then the method returns an empty list.
+	 * 
+	 * @param other
+	 *        Range to remove from this  range.
+	 * 
+	 * @return Returns a List that contains {@link Range} objects that 
+	 *         cover the remainder of this {@link Range} after removing
+	 *         the specified range.
+	 */
+	public List<Range<T>> remainder(Range<T> other) {
+		List<Range<T>> result = new ArrayList<Range<T>>();
+		
+		if (other.contains(this)) {
+			return result;
+		}
+		
+		Range<T> common = this.intersection(other);
+		if (common == null || common.isPoint()) {
+			result.add(this.clone());			
+		} else {
+			if (contains(other.getLeft())) {
+				Range<T> r = new Range<T>(this.getLeft(), other.getLeft());
+				if (!r.isPoint()) {
+					result.add(r);
+				}
+			}
+			if (this.contains(other.getRight())) {
+				Range<T> r = new Range<T>(other.getRight(), this.getRight());
+				if (!r.isPoint()) {
+					result.add(r);
+				}
+			}
+		}		
+		return result;
+	}
+	
+	/**
+	 * Indicates if this range contains another range.
+	 * 
+	 * @param other
+	 * 
+	 * @return Returns true if this range contains the specified
+	 *         other range.
+	 */
+	public boolean contains(Range<T> other) {
+		return contains(other.getLeft()) 
+			&& contains(other.getRight());	 
+	}
+	
+	@Override
+	public Range<T> clone() {
+		return new Range<T>(getLeft(), getRight());
+	}
+	
+	
+	
 
 }

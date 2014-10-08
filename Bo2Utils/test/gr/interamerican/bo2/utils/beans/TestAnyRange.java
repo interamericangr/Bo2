@@ -16,6 +16,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -46,7 +50,8 @@ public class TestAnyRange {
 	@Test
 	public void testContains() {		
 		assertTrue(any.contains(7));
-		assertTrue(any.contains(null));
+		Integer iNull = null;		
+		assertTrue(any.contains(iNull));
 	}
 
 	/**
@@ -102,5 +107,51 @@ public class TestAnyRange {
 	public void testHashcode() {		
 		assertTrue(any.hashCode()!=0);
 	}
+	
+	/**
+	 * test for contains(range)
+	 */
+	@Test
+	public void testContains_Range() {		
+		assertTrue(any.contains(other));
+	}
+	
+	/**
+	 * test for intersection(range)
+	 */
+	@Test
+	public void testIntersection() {		
+		assertEquals(other, any.intersection(other));
+	}
+	
+	/**
+	 * test for overlapsWith(collection)
+	 */
+	@Test
+	public void testOverlapsWith_collection() {
+		List<Range<Integer>> list = new ArrayList<Range<Integer>>();
+		list.add(other);
+		assertTrue(any.overlapsWith(list));
+	}
+	
+	/**
+	 * test for isPoint()
+	 */
+	@Test
+	public void testIsPoint() {	
+		assertFalse(any.isPoint());
+	}
+	
+	/**
+	 * test for isPoint()
+	 */
+	@Test
+	public void testRemainder() {	
+		List<Range<Integer>> list = any.remainder(other);
+		assertEquals(1, list.size());
+		assertEquals(any, list.get(0));
+	}
+	
+	
 
 }
