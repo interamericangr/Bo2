@@ -84,7 +84,9 @@ public class HibernateBo2Utils {
 			statistics.getOptimisticFailureCount(),
 			statistics.getQueryExecutionMaxTime(),
 			statistics.getQueryExecutionMaxTimeQueryString(),
-			statistics.getSessionOpenCount()
+			statistics.getSessionOpenCount(),
+			statistics.getSecondLevelCacheHitCount(),
+			statistics.getSecondLevelCacheMissCount()
 		};
 		StringBuilder sb = new StringBuilder();
 		for(Object o : stats) {
