@@ -50,7 +50,7 @@
 		<interamerican.repository>http://10.2.3.76:8081/nexus/content/repositories/interamerican/</interamerican.repository>
 		
 		<bo2.failureIgnore>false</bo2.failureIgnore>
-		<bo2.skip.tests>true</bo2.skip.tests>
+		<bo2.skip.tests>false</bo2.skip.tests>
 		
 	</properties>
 
