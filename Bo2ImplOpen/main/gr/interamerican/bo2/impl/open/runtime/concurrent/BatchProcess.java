@@ -121,6 +121,8 @@ implements Runnable, MultiThreadedLongProcess {
 	
 	/**
 	 * End time.
+	 * 
+	 * @see #isFinished()
 	 */
 	Date endTime;
 	
@@ -649,8 +651,8 @@ implements Runnable, MultiThreadedLongProcess {
 			if (!thread.isFinished()) {
 				return false;
 			}
-		}		
-		return true;
+		}
+		return endTime != null;
 	}
 	
 	@Override
