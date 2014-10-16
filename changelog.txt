@@ -1,2 +1,0 @@
-The main status panel in the BatchProcessFrame now reports correctly the BatchProcess as finished after the postProcessingOperation finishes executing
-

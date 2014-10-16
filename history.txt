@@ -411,3 +411,10 @@ new jwf and nbda-bo (intercommon) versions
 2.1.0094
 --------
 
+
+
+2.1.0095
+--------
+
+The main status panel in the BatchProcessFrame now reports correctly the BatchProcess as finished after the postProcessingOperation finishes executing
+
