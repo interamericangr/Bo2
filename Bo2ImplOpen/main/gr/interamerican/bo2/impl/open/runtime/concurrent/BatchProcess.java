@@ -495,6 +495,7 @@ implements Runnable, MultiThreadedLongProcess {
 		for (QueueProcessor<T> qp : queueProcessors) {
 			qp.forceQuit();
 		}
+		endTime = new Date();
 	}
 	
 	/**
