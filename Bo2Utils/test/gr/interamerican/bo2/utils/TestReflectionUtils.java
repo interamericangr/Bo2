@@ -275,6 +275,18 @@ public class TestReflectionUtils {
 	}
 	
 	/**
+	 * unit test for getPublicMethods.
+	 * 
+	 * Fails due to issue BOTWO-3
+	 */
+	@SuppressWarnings("nls")
+	@Test
+	public void testGetPublicMethods_overloadedMethods() {
+		List<Method> list = ReflectionUtils.getPublicMethods(Range.class);
+		assertEquals(25, list.size());
+	}
+	
+	/**
 	 * Tests testGetPublicMethods()
 	 */
 	@Test
@@ -457,6 +469,18 @@ public class TestReflectionUtils {
 			public void toString(String s) {/* empty */}
 		};		
 		ReflectionUtils.getPublicMethodByUniqueName("toString", o.getClass(), false); //$NON-NLS-1$
+	}
+	
+	/**
+	 * unit test for getPublicMethodsByName.
+	 * 
+	 * Fails due to issue BOTWO-2
+	 */
+	@SuppressWarnings("nls")
+	@Test
+	public void testGetPublicMethodsByName_overloadedMethods() {
+		List<Method> list = ReflectionUtils.getPublicMethodsByName("contains",Range.class);
+		assertEquals(3, list.size());
 	}
 	
 
