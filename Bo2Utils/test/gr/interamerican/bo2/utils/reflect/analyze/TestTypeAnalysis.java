@@ -431,7 +431,7 @@ public class TestTypeAnalysis {
 
 		Assert.assertEquals(3, analysis.getConcreteGetters().size()); //getLeft(), getRight(), isPoint()
 		Assert.assertEquals(2,analysis.getConcreteSetters().size());  //setLeft(l), setRight(r)
-		int methodsCount = OBJECT_METHODS_COUNT + COMPARABLE_METHODS_COUNT + 6; //contains x 2, overlapsWith x 2, intersection, remainder
+		int methodsCount = OBJECT_METHODS_COUNT + COMPARABLE_METHODS_COUNT + 7; //contains x 2, overlapsWith x 2, intersection, remainder, clone
 		Assert.assertEquals(methodsCount, analysis.concreteMethods.size());		
 		
 		Assert.assertEquals(3,analysis.allProperties.size()); //left,right,point
