@@ -804,9 +804,9 @@ public class ReflectionUtils {
 	 * @return Returns a list with methods.
 	 */
 	public static List<Method> getPublicMethods(Class<?> type) {		
-		Method[] all = getPublicMethodsOfType(type);		
-		List<Method> list = new ArrayList<Method>();		
-		MultipleValuesMap<String, Method> index = new MultipleValuesMap<String, Method>();		
+		Method[] all = getPublicMethodsOfType(type);	
+		List<Method> list = new ArrayList<Method>();
+		MultipleValuesMap<String, Method> index = new MultipleValuesMap<String, Method>();
 		Set<Method> genericMethods = new HashSet<Method>();
 		
 		for (Method candidate : all) {
@@ -820,17 +820,32 @@ public class ReflectionUtils {
 					if (GenericsUtils.isVariableParameterType(method)) {
 						genericMethods.add(method);
 					}
-				}
+				}			
 			}
 		}
+		
+		
 		for (Method genericMethod : genericMethods) {
 			Set<Method> named = index.get(genericMethod.getName());			
 			if (named.size()>1) {
 				named.remove(genericMethod);
 				for (Method method : named) {
-					if (GenericsUtils.isGenericParametersMatch(genericMethod, method)) {
-						list.remove(genericMethod);
-						break;
+					boolean genericParamsMatch =
+						GenericsUtils.isGenericParametersMatch(genericMethod, method);					
+					if (genericParamsMatch) {
+						boolean declaredInSameClass = 
+							method.getDeclaringClass().equals(genericMethod.getDeclaringClass());
+						if (!declaredInSameClass) {
+							/*
+							 * If both methods are declared in the same class, 
+							 * then both methods are included in the public methods
+							 * of this class.
+							 * We only want to remove overriden methods. 
+							 * Overloaded methods must be included.
+							 */
+							list.remove(genericMethod);						
+							break;
+						}						
 					}
 				}				
 			}

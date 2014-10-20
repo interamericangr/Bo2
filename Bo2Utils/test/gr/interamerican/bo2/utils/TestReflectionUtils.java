@@ -31,6 +31,7 @@ import gr.interamerican.bo2.samples.anno.ClassAnno;
 import gr.interamerican.bo2.samples.anno.MethodAnno;
 import gr.interamerican.bo2.samples.bean.BeanWith1Field;
 import gr.interamerican.bo2.samples.bean.BeanWith2Fields;
+import gr.interamerican.bo2.samples.bean.SomeComparable;
 import gr.interamerican.bo2.samples.hierarchies.AimplementsIA;
 import gr.interamerican.bo2.samples.hierarchies.BextendsAimplementsIB;
 import gr.interamerican.bo2.samples.hierarchies.CextendsBimplementsIC;
@@ -250,16 +251,22 @@ public class TestReflectionUtils {
 		/*
 		 * expected:  4, get-set Left,Right (Pair)
 		 *        +   1, static pair        (Pair)
-		 *        +   6, contains x 2, overlapsWith x 2, intersection, remainder  (Range)
-		 *        +   1, clone (is public on Range)
-		 *        +   1, static contains         (Range)
+		 *        +
+		 *        +   2, contains
+		 *        +   1, clone
+		 *        +   1, intersection
+		 *        +   2, overlapsWith
+		 *        +   1, remainder
+		 *        +   1, isPoint
+		 *        +
+		 *        +   1, static contains    (Range)
 		 *        +   1, static range       (Range)
 		 *   --------------------------------------
-		 *   total:   14
+		 *   total:   15
 		 */
-		int expected = Object.class.getMethods().length 
-		             + Comparable.class.getMethods().length 
-		             + 14; //total public methods
+		int om = Object.class.getMethods().length;
+		int cm = Comparable.class.getMethods().length;		
+		int expected = om + cm + 15; //total public methods
 		assertEquals(expected, methods.size());
 	}
 	
@@ -277,13 +284,22 @@ public class TestReflectionUtils {
 	/**
 	 * unit test for getPublicMethods.
 	 * 
-	 * Fails due to issue BOTWO-3
+	 * 
 	 */
 	@SuppressWarnings("nls")
 	@Test
 	public void testGetPublicMethods_overloadedMethods() {
-		List<Method> list = ReflectionUtils.getPublicMethods(Range.class);
-		assertEquals(25, list.size());
+		List<Method> list = ReflectionUtils.getPublicMethods(SomeComparable.class);		
+		/*
+		 * expected:  2, get-set Value 
+		 *        +   3, print
+		 *   --------------------------------------
+		 *   total:   5
+		 */
+		int om = Object.class.getMethods().length;
+		int cm = Comparable.class.getMethods().length;		
+		int expected = om + cm + 5; //total public methods
+		assertEquals(expected, list.size());
 	}
 	
 	/**
@@ -1165,8 +1181,7 @@ public class TestReflectionUtils {
 	
 	/**
 	 * Class with a field annotated
-	 */
-	@SuppressWarnings("unused")
+	 */	
 	private static class BeanWithUnique {
 		/**
 		 * field
@@ -1176,8 +1191,7 @@ public class TestReflectionUtils {
 	
 	/**
 	 * Class with two fields annotated
-	 */
-	@SuppressWarnings("unused")
+	 */	
 	private static class BeanWithTwo {
 		/**
 		 * field
