@@ -306,7 +306,7 @@ public class BaseTestForAbstractClassesImplementors {
 	 * @throws InstantiationException 
 	 */
 	@SuppressWarnings("nls")
-//	@Test
+	@Test
 	public void testCreate_withAll() 
 	throws ClassCreationException, InstantiationException, IllegalAccessException {
 		Class<?> clazz = creator.create(AbstractSmartCalcImpl.class);
