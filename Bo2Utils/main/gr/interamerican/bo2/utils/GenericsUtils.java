@@ -230,12 +230,12 @@ public class GenericsUtils {
 	 * 
 	 * @param t1
 	 * @param t2
-	 * @return Returns true if both arguments are TypeVariables or
+	 * @return Returns true if either arguments are TypeVariables or
 	 *         if they are equal.
 	 */
 	static boolean isTypesMatch(Type t1, Type t2) {
 		if ((t1 instanceof TypeVariable) 
-		||  (t1 instanceof TypeVariable)) {
+		||  (t2 instanceof TypeVariable)) {
 			return true;
 		}
 		return t1.equals(t2);
