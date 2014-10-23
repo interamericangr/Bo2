@@ -22,6 +22,7 @@ import static org.junit.Assert.assertTrue;
 import gr.interamerican.bo2.samples.Child;
 import gr.interamerican.bo2.samples.Father;
 import gr.interamerican.bo2.samples.GrandFather;
+import gr.interamerican.bo2.samples.ParameterizedChild;
 import gr.interamerican.bo2.samples.SampleBean2;
 import gr.interamerican.bo2.samples.SampleMultiConstructorClass;
 import gr.interamerican.bo2.samples.abstractimpl.AbstractSampleInterfaceImpl;
@@ -49,6 +50,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -211,6 +213,31 @@ public class TestReflectionUtils {
 		assertNull(field);
 	}
 
+	/**
+	 * tests Utils.getProtectedMethods()
+	 */
+	@Test
+	public void testGetProtectedAndDefaultMethods() {
+		List<Method> methods = ReflectionUtils.getAccessibleMethods(ParameterizedChild.class);
+		assertEquals(16, methods.size()); 
+		/*
+		 * 1 inherited protected abstract not overridden,
+		 * 1 inherited protected parameterized not overridden,
+		 * 1 inherited protected parameterized overridden
+		 * 11 protected/public from java.lang.Object
+		 * 
+		 * 2 default methods (1 abstract overridden, 1 inherited)
+		 */
+		
+		int abstrct = 0;
+		for(Method m : methods) {
+			if(Modifier.isAbstract(m.getModifiers())) {
+				abstrct++;
+			}
+		}
+		
+		assertEquals(1, abstrct); //1 inherited abstract method not implemented
+	}
 
 	/**
 	 * tests Utils.getMethods()
@@ -221,7 +248,6 @@ public class TestReflectionUtils {
 		assertEquals(3, methods.length);
 		methods = ReflectionUtils.getDeclaredMethods(new String[]{"setField6", "sampleMethod"}, Child.class); //$NON-NLS-1$ //$NON-NLS-2$
 		assertEquals(2, methods.length);
-		
 	}	
 
 	/**
@@ -283,10 +309,7 @@ public class TestReflectionUtils {
 	
 	/**
 	 * unit test for getPublicMethods.
-	 * 
-	 * 
 	 */
-	@SuppressWarnings("nls")
 	@Test
 	public void testGetPublicMethods_overloadedMethods() {
 		List<Method> list = ReflectionUtils.getPublicMethods(SomeComparable.class);		
@@ -1093,6 +1116,7 @@ public class TestReflectionUtils {
 	 * Test.
 	 */
 	@Test
+	@SuppressWarnings("nls")
 	public void testNamesOfPropertiesWithDifferentValue() {
 		BeanWith2Fields b1 = new BeanWith2Fields();
 		b1.setField1("b1");

@@ -34,6 +34,9 @@ public class AccessorUtils {
 		if (Modifier.isStatic(method.getModifiers())) {
 			return false;
 		}
+		if(!Modifier.isPublic(method.getModifiers())) {
+			return false;
+		}
 		Class<?> returnType = method.getReturnType(); 
 		if (returnType==void.class) {
 			return false;
@@ -86,6 +89,9 @@ public class AccessorUtils {
 	 */
 	public static boolean isSetter(Method method) {
 		if (Modifier.isStatic(method.getModifiers())) {
+			return false;
+		}
+		if(!Modifier.isPublic(method.getModifiers())) {
 			return false;
 		}
 		Class<?> returnType = method.getReturnType(); 

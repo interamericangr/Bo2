@@ -45,9 +45,9 @@ import org.junit.Test;
 @SuppressWarnings("nls")
 public class TestTypeAnalysis {
 	/**
-	 * Count of methods on class object.
+	 * Count of non private instance methods on class object.
 	 */
-	private static final int OBJECT_METHODS_COUNT = Object.class.getMethods().length;
+	private static final int OBJECT_METHODS_COUNT = 11;
 	
 	/**
 	 * Count of methods on class object.
@@ -431,7 +431,12 @@ public class TestTypeAnalysis {
 
 		Assert.assertEquals(3, analysis.getConcreteGetters().size()); //getLeft(), getRight(), isPoint()
 		Assert.assertEquals(2,analysis.getConcreteSetters().size());  //setLeft(l), setRight(r)
-		int methodsCount = OBJECT_METHODS_COUNT + COMPARABLE_METHODS_COUNT + 7; //contains x 2, overlapsWith x 2, intersection, remainder, clone
+		int methodsCount = OBJECT_METHODS_COUNT + COMPARABLE_METHODS_COUNT + 6; //contains x 2, overlapsWith x 2, intersection, remainder
+		
+		for(Method m : analysis.concreteMethods) {
+			System.out.println(m);
+		}
+		
 		Assert.assertEquals(methodsCount, analysis.concreteMethods.size());		
 		
 		Assert.assertEquals(3,analysis.allProperties.size()); //left,right,point

@@ -217,8 +217,8 @@ public class TypeAnalysis {
 	 * Categorizes the methods to abstract or concrete, accessors or other methods.
 	 */
 	void analyzeMethods() {
-		List<Method> methods = ReflectionUtils.getPublicMethods(clazz);		
-		for (Method method : methods) {
+		List<Method> publicMethods = ReflectionUtils.getAccessibleMethods(clazz);	
+		for (Method method : publicMethods) {
 			handleMethod(method);
 		}
 	}
