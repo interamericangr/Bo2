@@ -1,0 +1,3 @@
+http://jira.interamerican.gr/jira/browse/BOTWO-4 TypeAnalysis now analyses all methods (public, protected, default) that can be accessed outside the analysed class. As a result, class creation fails if there are any abstract protected or default methods left that are not implemented
+
+
