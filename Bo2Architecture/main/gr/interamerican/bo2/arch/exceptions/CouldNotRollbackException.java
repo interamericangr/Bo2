@@ -1,13 +1,13 @@
 /*******************************************************************************
- * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A. 
+ * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/copyleft/lesser.html
- * 
- * This library is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
 package gr.interamerican.bo2.arch.exceptions;
@@ -17,7 +17,7 @@ import gr.interamerican.bo2.arch.TransactionManager;
 /**
  * This Exception is thrown by a {@link TransactionManager}
  * when he fails to rollback a transaction.
- * 
+ *
  * This type of exception can be caused by another Throwable
  * that is thrown by the underlying implementation library
  * of the transaction manager. <br/>
@@ -27,48 +27,48 @@ import gr.interamerican.bo2.arch.TransactionManager;
  * that requires usually special handling. <br/>
  * Rollback is an action that is usually executed because of an
  * exception. The initial exception that triggered the rollback
- * is stored in the <code>initial</code> member of the 
+ * is stored in the <code>initial</code> member of the
  * {@link CouldNotRollbackException}. This enables the application
  * to present both throwables, the exception that occured during
- * the rollback, but also the initial Exception. 
+ * the rollback, but also the initial Exception.
  *
  */
-public class CouldNotRollbackException 
+public class CouldNotRollbackException
 extends TransactionManagerException {
-	
+
 	/**
 	 * Initial Exception.
 	 */
 	private Throwable initial;
-	
+
 	/**
-	 * Universal version identifier for serialized class. 
+	 * Universal version identifier for serialized class.
 	 */
 	public static final long serialVersionUID = 2L;
 
 
 	/**
 	 * Creates a new CouldNotRollbackException.
-	 * 
+	 *
 	 * The Exception is thrown because another Trhowable
 	 * occured while the underlying transaction manager
 	 * library attempted to rollback a transaction.
 	 * The cause must be passed as a parameter to this
 	 * constructor.
-	 * 
+	 *
 	 * @param cause Cause of the exception.
 	 */
 	public CouldNotRollbackException(Throwable cause) {
-		super(cause);		
+		super(cause);
 	}
-	
+
 	/**
 	 * Creates a new CouldNotRollbackException.
-	 * 
-	 * @param cause 
+	 *
+	 * @param cause
 	 *        Cause of the exception. This is the exception that made the
 	 *        rollback operation impossible.
-	 * @param initial 
+	 * @param initial
 	 *        Initial exception that caused the application to attempt
 	 *        rollback.
 	 */
@@ -87,7 +87,7 @@ extends TransactionManagerException {
 	}
 
 	/**
-	 * Sets the Throwable that caused the application to 
+	 * Sets the Throwable that caused the application to
 	 * attempt rollback.
 	 *
 	 * @param initial the initial to set
@@ -95,15 +95,12 @@ extends TransactionManagerException {
 	public void setInitial(Throwable initial) {
 		this.initial = initial;
 	}
-	
+
 	@Override
 	public String getMessage() {
 		if(initial == null) {
 			return super.getMessage();
-		} else {
-			return super.getMessage() + "caused by " + initial.toString(); //$NON-NLS-1$
 		}
-		
+		return super.getMessage() + "caused by " + initial.toString(); //$NON-NLS-1$
 	}
-
 }
