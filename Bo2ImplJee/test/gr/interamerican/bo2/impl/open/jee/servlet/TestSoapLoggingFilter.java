@@ -1,12 +1,12 @@
 package gr.interamerican.bo2.impl.open.jee.servlet;
 
-import gr.interamerican.bo2.utils.Bo2UtilsEnvironment;
 import gr.interamerican.bo2.utils.StreamUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -31,15 +31,15 @@ public class TestSoapLoggingFilter {
 	@Test
 	public void testLogSoap() throws IOException {
 		SoapLoggingFilter subject = new SoapLoggingFilter();
-		InputStream stream = StreamUtils.class.getResourceAsStream("/gr/interamerican/bo2/impl/open/jee/servlet/sampleSoapRequest.txt");
-		InputStreamReader isr = new InputStreamReader(stream, Bo2UtilsEnvironment.getDefaultResourceFileCharset());
+		InputStream stream = StreamUtils.class.getResourceAsStream("/gr/interamerican/bo2/impl/open/jee/servlet/sampleSoapRequest.xml");
+		InputStreamReader isr = new InputStreamReader(stream, Charset.forName("UTF-8"));
 		BufferedReader br = new BufferedReader(isr);
 		String document = "";
 		String str;
 		while((str = br.readLine()) != null) {
 			document += str;
 		}
-		byte[] bytes = document.getBytes(Bo2UtilsEnvironment.getDefaultResourceFileCharset());
+		byte[] bytes = document.getBytes(Charset.forName("UTF-8"));
 
 		String s = subject.logSoap(bytes);
 		
@@ -47,6 +47,63 @@ public class TestSoapLoggingFilter {
 			Assert.assertFalse(s.contains(omitted));
 		}
 		
+		s = s.trim();
+		Assert.assertTrue(s.startsWith("<"));
+		Assert.assertTrue(s.endsWith(">"));
+		
+	}
+	
+	/**
+	 * test logSoap of MIME http request
+	 * @throws IOException
+	 */
+	@SuppressWarnings("nls")
+	@Test
+	public void testLogSoap_mime() throws IOException {
+		SoapLoggingFilter subject = new SoapLoggingFilter();
+		InputStream stream = StreamUtils.class.getResourceAsStream("/gr/interamerican/bo2/impl/open/jee/servlet/sampleSoapRequest2.xml");
+		InputStreamReader isr = new InputStreamReader(stream, Charset.forName("UTF-8"));
+		BufferedReader br = new BufferedReader(isr);
+		String document = "";
+		String str;
+		while((str = br.readLine()) != null) {
+			document += str;
+		}
+		byte[] bytes = document.getBytes(Charset.forName("UTF-8"));
+
+		String s = subject.logSoap(bytes);
+		
+		for(String omitted : SoapLoggingFilter.OMITTED_ELEMENTS) {
+			Assert.assertFalse(s.contains(omitted));
+		}
+		
+		s = s.trim();
+		Assert.assertTrue(s.startsWith("<"));
+		Assert.assertTrue(s.endsWith(">"));
+		
+	}
+	
+	/**
+	 * test logSoap of MIME http request
+	 * @throws IOException
+	 */
+	@SuppressWarnings("nls")
+	@Test
+	public void testLogSoap_badInput() throws IOException {
+		SoapLoggingFilter subject = new SoapLoggingFilter();
+		InputStream stream = StreamUtils.class.getResourceAsStream("/gr/interamerican/bo2/impl/open/jee/servlet/badSoapRequest.xml");
+		InputStreamReader isr = new InputStreamReader(stream, Charset.forName("UTF-8"));
+		BufferedReader br = new BufferedReader(isr);
+		String document = "";
+		String str;
+		while((str = br.readLine()) != null) {
+			document += str;
+		}
+		byte[] bytes = document.getBytes(Charset.forName("UTF-8"));
+
+		String s = subject.logSoap(bytes);
+		
+		Assert.assertTrue(s.equals(SoapLoggingFilter.ERROR_MESSAGE));
 	}
 	
 	/**

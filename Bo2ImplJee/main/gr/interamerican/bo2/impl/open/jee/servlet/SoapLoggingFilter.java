@@ -33,6 +33,11 @@ public class SoapLoggingFilter extends AbstractBaseLoggingFilter {
 	private static final Logger LOGGER = LoggerFactory.getLogger(SoapLoggingFilter.class.getName());
 	
 	/**
+	 * Error message.
+	 */
+	static final String ERROR_MESSAGE = "Failed to manipulate SOAP for logging"; //$NON-NLS-1$
+	
+	/**
 	 * UPPERCASE regex for elements to omit from logging (e.g. passwords)
 	 */
 	@SuppressWarnings("nls")
@@ -118,7 +123,22 @@ public class SoapLoggingFilter extends AbstractBaseLoggingFilter {
 		if(mayLog) {
 			return new String(soap, Charset.forName("UTF-8"));
 		}
-		return "Failed to manipulate SOAP for logging";
+		
+		String message = new String(soap, Charset.forName("UTF-8"));
+		try {
+			int start = message.indexOf("<?xml");
+			if(start > 0) {
+				int end = message.lastIndexOf('>');
+				String actualSoapMsg = message.substring(start, end+1);
+				byte[] actualSoap = actualSoapMsg.getBytes(Charset.forName("UTF-8"));
+				return logSoap(actualSoap);
+			}
+		}
+		catch (RuntimeException rtex) {
+			//just return the default message
+		}
+		
+		return ERROR_MESSAGE;
 	}
 	
 }
