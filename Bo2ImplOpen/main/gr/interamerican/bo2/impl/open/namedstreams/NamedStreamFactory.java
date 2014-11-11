@@ -18,7 +18,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -26,6 +25,8 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
+
+import org.apache.commons.io.FileUtils;
 
 /**
  * Factory for NamedStreams.
@@ -113,11 +114,10 @@ public class NamedStreamFactory {
 	 * 
 	 * @return Returns the NamedOutputStream.
 	 * 
-	 * @throws FileNotFoundException
+	 * @throws IOException
 	 */
-	public static NamedOutputStream output(File file, String name, int recordLength, Charset encoding)
-			throws FileNotFoundException {
-		OutputStream out = new FileOutputStream(file);
+	public static NamedOutputStream output(File file, String name, int recordLength, Charset encoding) throws IOException {
+		OutputStream out = FileUtils.openOutputStream(file);
 		return new NamedOutputStream(StreamResource.FILE, out, name, recordLength, file, encoding);
 	}
 
@@ -247,7 +247,8 @@ public class NamedStreamFactory {
 	 */
 	public static NamedPrintStream print(File file, String name, Charset encoding)
 			throws IOException {
-		PrintStream out = new PrintStream(file, encoding.name());
+		OutputStream os = FileUtils.openOutputStream(file);
+		PrintStream out = new PrintStream(os, false, encoding.name());
 		return new NamedPrintStream(StreamResource.FILE, out, name, file, encoding);
 	}
 

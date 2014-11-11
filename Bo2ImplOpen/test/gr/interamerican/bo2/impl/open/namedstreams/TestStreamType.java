@@ -15,6 +15,7 @@ package gr.interamerican.bo2.impl.open.namedstreams;
 import static gr.interamerican.bo2.impl.open.namedstreams.StreamType.BUFFEREDREADER;
 import static gr.interamerican.bo2.impl.open.namedstreams.StreamType.INPUTSTREAM;
 import static gr.interamerican.bo2.impl.open.namedstreams.StreamType.PRINTSTREAM;
+import static gr.interamerican.bo2.impl.open.namedstreams.StreamType.OUTPUTSTREAM;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -45,6 +46,17 @@ public class TestStreamType {
 		Assert.assertTrue(BUFFEREDREADER.isOk(bfr));		
 		PrintStream ps = new PrintStream(out);
 		Assert.assertTrue(PRINTSTREAM.isOk(ps));
+	}
+	
+	/**
+	 * Tests isOutputStream(object)
+	 */
+	@Test
+	public void testIsOutputStream() {
+		Assert.assertFalse(INPUTSTREAM.isOutputStream());
+		Assert.assertFalse(BUFFEREDREADER.isOutputStream());
+		Assert.assertTrue(OUTPUTSTREAM.isOutputStream());
+		Assert.assertTrue(PRINTSTREAM.isOutputStream());
 	}
 	
 }

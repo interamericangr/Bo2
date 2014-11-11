@@ -26,6 +26,7 @@ import gr.interamerican.bo2.utils.Bo2UtilsEnvironment;
 import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.StringUtils;
 
+import java.io.File;
 import java.io.PrintStream;
 import java.nio.charset.Charset;
 import java.util.Properties;
@@ -34,6 +35,7 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
  * Unit tests for {@link AbstractNamedStreamsManager}
@@ -533,6 +535,9 @@ public class TestAbstractNamedStreamsManager {
 	public void testOpenSystemStream_syserr() throws InitializationException {	
 		NamedPrintStream ns = openSystemStream("SysErr");
 		Assert.assertNotNull(ns);
+		
+		File f = new File("/tmp/foo/20141103/bar-20141103000000.txt");
+		new File(f.getParent()).mkdirs();
 	}
 	
 	/**
@@ -623,6 +628,61 @@ public class TestAbstractNamedStreamsManager {
 		attribute = AbstractNamedStreamsManager.RECORD_LENGTH_PREFIX + String.valueOf(recordLength);
 		man.handleOptionalDefinitionElement(nsd, attribute);
 		assertEquals(recordLength, nsd.getRecordLength());
+	}
+	
+	/**
+	 * Tests currentTimestamp
+	 */
+	@Test
+	public void testCurrentTimestamp() {
+		Properties p = UtilityForBo2Test.getLocalFsProperties();
+		AbstractNamedStreamsManager man = new MockAbstractNamedStreamsManager(p);
+		String tmstmp = man.currentTimestamp();
+		assertEquals(tmstmp.length(), 14);
+	}
+	
+	/**
+	 * Tests currentDate
+	 */
+	@Test
+	public void testCurrentDate() {
+		Properties p = UtilityForBo2Test.getLocalFsProperties();
+		AbstractNamedStreamsManager man = new MockAbstractNamedStreamsManager(p);
+		String date = man.currentDate();
+		assertEquals(date.length(), 8);
+	}
+	
+	/**
+	 * Tests fileUri
+	 */
+	@Test
+	public void testFileUri() {
+		String definitionUri = "/foo/<DATE>/bar-<TIMESTAMP>.txt";
+		String date = "20141103";
+		String timestamp = "20141103000000";
+		Properties p = UtilityForBo2Test.getLocalFsProperties();
+		AbstractNamedStreamsManager man = new AbstractNamedStreamsManager(p) {
+			
+			public NamedStream<?> convert(String nameOfStreamToConvert, StreamType typeOfNewStream, String nameOfNewStream)
+					throws DataException {
+				return null;
+			}
+			
+			@Override
+			protected NamedStream<?> open(NamedStreamDefinition def) throws InitializationException {
+				return null;
+			}
+		};
+		
+		man = Mockito.spy(man);
+		Mockito.when(man.currentTimestamp()).thenReturn(timestamp);
+		Mockito.when(man.currentDate()).thenReturn(date);
+		
+		String result = man.fileUri(definitionUri, StreamType.BUFFEREDREADER);
+		Assert.assertEquals(result, definitionUri);
+		
+		result = man.fileUri(definitionUri, StreamType.PRINTSTREAM);
+		Assert.assertEquals(result, "/foo/20141103/bar-20141103000000.txt");
 	}
 	
 }

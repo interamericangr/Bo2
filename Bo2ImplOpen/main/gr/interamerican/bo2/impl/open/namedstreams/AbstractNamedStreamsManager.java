@@ -32,6 +32,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Properties;
 
@@ -41,6 +43,16 @@ import java.util.Properties;
  */
 public abstract class AbstractNamedStreamsManager 
 implements NamedStreamsProvider {
+	
+	/**
+	 * String that gets replaced with current timestamp when found in a stream definition file uri.
+	 */
+	static final String TIMESTAMP = "<TIMESTAMP>"; //$NON-NLS-1$
+	
+	/**
+	 * String that gets replaced with current date when found in a stream definition file uri.
+	 */
+	static final String DATE = "<DATE>"; //$NON-NLS-1$
 	
 	/**
 	 * Prefix of encoding attribute of a stream definition description.
@@ -168,7 +180,9 @@ implements NamedStreamsProvider {
 
 		NamedStreamDefinition nsd = new NamedStreamDefinition();
 		nsd.setName(name);
-		nsd.setUri(attributes[0]);		
+		String definitionUri = attributes[0];
+		definitionUri = fileUri(definitionUri, type);
+		nsd.setUri(definitionUri);		
 		nsd.setType(type);
 		nsd.setResourceType(resourceType);
 		nsd.setRecordLength(0); //initialize with zero
@@ -179,6 +193,71 @@ implements NamedStreamsProvider {
 		nsd = handleOptionalDefinitionElement(nsd, optionalAttribute);
 		
 		return nsd;
+	}
+	
+	/**
+	 * Gets the actual definitionUri. Output streams URI may be dynamic based
+	 * on the current timestamp.
+	 * 
+	 * @param definitionUri
+	 * @param streamType 
+	 * 
+	 * @return Returns the actual definitionUri
+	 */
+	String fileUri(String definitionUri, StreamType streamType) {
+		String result = fileUriModificationForWindows(definitionUri);
+		
+		if(!streamType.isOutputStream()) {
+			return result;
+		}
+		
+		if(result.contains(TIMESTAMP)) {
+			result = result.replace(TIMESTAMP, currentTimestamp());
+		}
+		
+		if(result.contains(DATE)) {
+			result = result.replace(DATE, currentDate());
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * Prepends C: if the running OS is not unix...
+	 * 
+	 * @param fileUri
+	 * @return modified URI.
+	 */
+	String fileUriModificationForWindows(String fileUri) {
+		boolean runsOnUnix = File.separator.equals("/"); //$NON-NLS-1$
+		if(!runsOnUnix && fileUri.startsWith("/")) { //$NON-NLS-1$
+			return "C:" + fileUri.trim(); //$NON-NLS-1$
+		}
+		return fileUri;
+	}
+	
+	/**
+	 * Gets a string based on the current timestamp.
+	 * 
+	 * timestamp format is yyyyMMddhhmmss, e.g. 20141103124700
+	 * 
+	 * @return Returns a string based on the current timestamp.
+	 */
+	String currentTimestamp() {
+		String tmstmp = new SimpleDateFormat("yyyyMMddhhmmss").format(Calendar.getInstance().getTime()); //$NON-NLS-1$
+		return tmstmp;
+	}
+	
+	/**
+	 * Gets a string based on the current date.
+	 * 
+	 * date format is yyyyMMdd, e.g. 20141103
+	 * 
+	 * @return Returns a string based on the current timestamp.
+	 */
+	String currentDate() {
+		String date = new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime()); //$NON-NLS-1$
+		return date;
 	}
 	
 	/**

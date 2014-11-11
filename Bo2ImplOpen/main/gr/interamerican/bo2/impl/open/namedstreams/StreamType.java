@@ -71,4 +71,10 @@ public enum StreamType {
 		return streamType.isAssignableFrom(streamClass);
 	}
 	
+	/**
+	 * @return Returns true, if this stream is an output stream.
+	 */
+	public boolean isOutputStream() {
+		return this==PRINTSTREAM || this==OUTPUTSTREAM;
+	}
 }
