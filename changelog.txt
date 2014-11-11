@@ -1,6 +1,0 @@
-http://jira.interamerican.gr/jira/browse/BOTWO-4 TypeAnalysis now analyses all methods (public, protected, default) that can be accessed outside the analysed class. As a result, class creation fails if there are any abstract protected or default methods left that are not implemented
-http://jira.interamerican.gr/jira/browse/BOTWO-5 Hack to allow Windows runtimes to use unix like file URIs declared on named streams
-http://jira.interamerican.gr/jira/browse/BOTWO-6 NamedStreams enhancements for OutputStreams file URIs
-http://jira.interamerican.gr/jira/browse/BOTWO-7 SoapLoggingFilter: MIME multipart messages have the XML extracted before parsing
-
-
