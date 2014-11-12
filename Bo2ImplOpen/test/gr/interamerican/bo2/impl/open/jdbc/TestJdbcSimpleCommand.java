@@ -17,6 +17,7 @@ import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.impl.open.annotations.ManagerName;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -34,11 +35,26 @@ public class TestJdbcSimpleCommand extends AbstractNonTransactionalProviderTest 
 	public void testExecute() throws InitializationException, DataException {
 		
 		JdbcSimpleCommandImpl w = new JdbcSimpleCommandImpl();
+		JdbcSimpleCommand cmd = w;
+		cmd.recordsAffected = Integer.MAX_VALUE;
 		w.init(provider);
 		w.open();
 		w.execute();
 		w.close();		
-		
+		Assert.assertNotEquals(Integer.MAX_VALUE, cmd.recordsAffected);
+	}
+	
+	/**
+	 * tests that a method annotated as SQL can be executed as query
+	 * @throws InitializationException 
+	 * @throws DataException 
+	 */
+	@Test
+	public void testGetEntitiesCount() throws InitializationException, DataException {
+		JdbcSimpleCommandImpl w = new JdbcSimpleCommandImpl();
+		JdbcSimpleCommand cmd = w;		
+		cmd.recordsAffected =5;
+		Assert.assertEquals(cmd.recordsAffected, cmd.getEntitiesCount());
 	}
 	
 	/**

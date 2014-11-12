@@ -13,18 +13,28 @@
 package gr.interamerican.bo2.impl.open.jdbc;
 
 import gr.interamerican.bo2.arch.DataCommand;
+import gr.interamerican.bo2.arch.EntitiesCounter;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.utils.Debug;
 
 import java.sql.SQLException;
 
 /**
- * Abstract implementation of {@link DataCommand} based on JDBC.
+ * {@link JdbcCommand} that executes only one SQL statement.
+ * 
+ * This class implements the {@link EntitiesCounter} interface.
+ * The <code>getEntitiesCount()</code> method returns the count
+ * of records updated by the last execution of the SQL statement.
  *
  */
 public abstract class JdbcSimpleCommand 
 extends JdbcCommand 
-implements DataCommand {
+implements DataCommand, EntitiesCounter {
+	
+	/**
+	 * Count of records affected by las execution.
+	 */
+	int recordsAffected = 0;
 	
 	/**
 	 * SQL statement of the query.
@@ -45,10 +55,11 @@ implements DataCommand {
 	protected abstract Object[] parameters();
 	
 	@Override
-	public final void work() throws DataException {		
+	public final void work() throws DataException {
+		recordsAffected = 0;
 		try {
-			Debug.setActiveModule(this);
-			executePreparedUpdate(sql(), parameters());
+			Debug.setActiveModule(this);			
+			recordsAffected = executePreparedUpdate(sql(), parameters());
 		} catch (SQLException e) {			
 			throw new DataException(e);
 		} finally {
@@ -60,6 +71,11 @@ implements DataCommand {
 	public void open() throws DataException {		
 		super.open();
 		prepare(sql());
+	}
+	
+	@Override
+	public int getEntitiesCount() {	
+		return recordsAffected;
 	}
 
 }
