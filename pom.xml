@@ -477,6 +477,7 @@
 		<module>Bo2ImplHibernate</module>
 		<module>Bo2BoAdapters</module>
 		<module>Bo2ImplInter</module>
+		<module>Bo2Aio</module>
 	</modules>
 
 	<scm>
