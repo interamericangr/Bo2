@@ -1,0 +1,5 @@
+Added a module that depends on all Bo2 modules (Bo2Aio)
+
+Declaring the dependency
+
+gr.interamerican.bo2:Bo2Aio:${version.bo2}:pom:compile your project gets all bo2 modules
