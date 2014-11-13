@@ -86,6 +86,35 @@ public class TestAbstractNamedStreamsManager {
 	 * Unit test for getDefinition()
 	 * @throws InitializationException 
 	 */
+	@Test
+	public void testGetDefinition_classpath_dynamic() throws InitializationException {
+		Properties properties = new Properties();
+		String path = "/home/path/file-<DATE>.txt"; //dynamic <DATE>
+		StreamType type = StreamType.OUTPUTSTREAM;
+		String resourceType = "CLASSPATH";
+		int len = 100;	
+		String defStr = StringUtils.concatSeparated
+			(StringConstants.COMMA, path, type.toString(), resourceType, Integer.toString(len));
+		String name = "SAMPLE";
+		properties.setProperty(name, defStr);		
+		AbstractNamedStreamsManager impl = new MockAbstractNamedStreamsManager(properties);
+		
+		NamedStreamDefinition def = impl.getDefinition(name);
+		assertNotNull(def);
+		assertEquals(name, def.getName()); // <DATE> not substituted, since this is a classpath stream
+		assertEquals(path, def.getUri());
+		assertEquals(type, def.getType());
+		assertEquals(Bo2UtilsEnvironment.getDefaultTextCharset(), def.getEncoding());
+		assertEquals(0, def.getRecordLength());
+		
+	}
+	
+	
+	
+	/**
+	 * Unit test for getDefinition()
+	 * @throws InitializationException 
+	 */
 	@Test(expected=InitializationException.class)
 	public void testGetDefinition_failWithNoPath() throws InitializationException {
 		Properties properties = new Properties();		
