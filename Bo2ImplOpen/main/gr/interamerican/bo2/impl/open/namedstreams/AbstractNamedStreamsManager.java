@@ -181,11 +181,14 @@ implements NamedStreamsProvider {
 		NamedStreamDefinition nsd = new NamedStreamDefinition();
 		nsd.setName(name);
 		String definitionUri = attributes[0];
-		definitionUri = fileUri(definitionUri, type);
-		nsd.setUri(definitionUri);		
 		nsd.setType(type);
 		nsd.setResourceType(resourceType);
 		nsd.setRecordLength(0); //initialize with zero
+		
+		if(resourceType == StreamResource.FILE) { //dynamic URI + windows hack
+			definitionUri = fileUri(definitionUri, type);
+		}
+		nsd.setUri(definitionUri);		
 		
 		String optionalAttribute = ArrayUtils.safeGet(attributes, 3);
 		nsd = handleOptionalDefinitionElement(nsd, optionalAttribute);
@@ -196,7 +199,7 @@ implements NamedStreamsProvider {
 	}
 	
 	/**
-	 * Gets the actual definitionUri. Output streams URI may be dynamic based
+	 * Gets the actual definitionUri if the stream is FILE based. Output streams URI may be dynamic based
 	 * on the current timestamp.
 	 * 
 	 * @param definitionUri
