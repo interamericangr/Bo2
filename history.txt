@@ -434,3 +434,8 @@ http://jira.interamerican.gr/jira/browse/BOTWO-6 NamedStreams enhancements for O
 http://jira.interamerican.gr/jira/browse/BOTWO-7 SoapLoggingFilter: MIME multipart messages have the XML extracted before parsing
 
 
+
+
+2.1.0098
+--------
+
