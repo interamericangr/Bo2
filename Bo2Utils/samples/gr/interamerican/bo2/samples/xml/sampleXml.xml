@@ -13,5 +13,6 @@
 <ns2:password>012345</ns2:password>
 </ns2:userDTO>
 </ns2:PolicyInput>
+<sampleNode attr1="">lala</sampleNode>
 </S:Body>
 </S:Envelope>

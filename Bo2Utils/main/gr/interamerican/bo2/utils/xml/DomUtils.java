@@ -11,6 +11,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.traversal.DocumentTraversal;
 import org.w3c.dom.traversal.NodeFilter;
@@ -21,6 +22,26 @@ import org.xml.sax.SAXException;
  * Utilities for DOM.
  */
 public class DomUtils {
+	
+	/**
+	 * Finds the value of an attribute in an XML element. Returns nul
+	 * if the attribute is not found.
+	 * 
+	 * @param node
+	 *        XML element
+	 * @param attributeName
+	 *        XML attribute name
+	 *        
+	 * @return XML attribute value
+	 */
+	public static String getAttributeValue(Node node, String attributeName) {
+		NamedNodeMap nnm = node.getAttributes();
+		Node attribute = nnm.getNamedItem(attributeName);
+		if (attribute != null) {
+			return attribute.getNodeValue();
+		}
+		return null;
+	}
 
 	/**
 	 * Creates a list of {@link Node}s of a {@link Document} whose tag name

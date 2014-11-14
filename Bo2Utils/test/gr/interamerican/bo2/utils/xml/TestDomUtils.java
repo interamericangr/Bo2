@@ -1,6 +1,7 @@
 package gr.interamerican.bo2.utils.xml;
 
 import gr.interamerican.bo2.utils.StreamUtils;
+import gr.interamerican.bo2.utils.StringConstants;
 
 import java.io.InputStream;
 import java.util.List;
@@ -23,6 +24,16 @@ public class TestDomUtils {
 		Document doc = DomUtils.getDocument(stream);
 		
 		Assert.assertNotNull(doc);
+	}
+	
+	@Test
+	public void testGetAttributeValue() {
+		InputStream stream = StreamUtils.class.getResourceAsStream("/gr/interamerican/bo2/samples/xml/sampleXml.xml");
+		Document doc = DomUtils.getDocument(stream);
+		Node node = doc.getElementsByTagName("sampleNode").item(0);
+		String actual = DomUtils.getAttributeValue(node, "attr1");
+		Assert.assertEquals(StringConstants.EMPTY, actual);
+		Assert.assertNull(DomUtils.getAttributeValue(node, "NA"));
 	}
 	
 	@Test
