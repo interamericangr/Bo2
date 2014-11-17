@@ -52,11 +52,11 @@ public class Bo2WicketTest extends WicketTest{
 	/**
 	 * Tests the creation of a component that requires resources (e.g. executes a Worker) 
 	 * on its constructor and that a Page can be started with it.
-	 * To use this, override {@link #initializeComponent()} and this method (add @Test too!)
+	 * To use this, override {@link #initializeComponent()} and call this method from a unit test.
 	 * 
 	 * This is hacky, but there is no other way to test such components. 
 	 */
-	public void testComponentCreationInTestPage() {
+	protected void testComponentCreationInTestPage() {
 		RequestCycle cycle = RequestCycle.get();
 		Bo2WicketRequestCycle.beginRequest(cycle);
 		
