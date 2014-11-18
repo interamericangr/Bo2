@@ -38,6 +38,7 @@
 		<version.quartz-all>2.2.1</version.quartz-all>
 		<version.freemarker>2.3.16</version.freemarker>
 		<version.jsoup>1.7.3</version.jsoup>
+		<version.jms-api>1.1-rev-1</version.jms-api>
 
 		<version.nbda-bo>1.5.0004</version.nbda-bo>
 		<version.jwf>1.0.0007</version.jwf>
@@ -267,6 +268,13 @@
 
 	<dependencyManagement>
 		<dependencies>
+		
+			<dependency>
+				<groupId>javax.jms</groupId>
+				<artifactId>jms-api</artifactId>
+				<scope>provided</scope>
+				<version>${version.jms-api}</version>
+			</dependency>
 
 			<dependency>
 				<groupId>commons-beanutils</groupId>
