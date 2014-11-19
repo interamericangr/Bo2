@@ -69,6 +69,7 @@ implements Comparator<T> {
 		}
 	}
 	
+	@Override
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public int compare(T o1, T o2) {
 		Object prop1 = null;
