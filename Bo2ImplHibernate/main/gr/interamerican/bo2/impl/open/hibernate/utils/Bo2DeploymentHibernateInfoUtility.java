@@ -1,11 +1,13 @@
 package gr.interamerican.bo2.impl.open.hibernate.utils;
 
 import gr.interamerican.bo2.creation.beans.ObjectFactoryImpl;
+import gr.interamerican.bo2.creation.exception.ClassCreationException;
 import gr.interamerican.bo2.impl.open.creation.Factory;
 import gr.interamerican.bo2.impl.open.hibernate.HibernateSessionProviderImpl;
 import gr.interamerican.bo2.impl.open.utils.Bo2;
 import gr.interamerican.bo2.impl.open.utils.Bo2Deployment;
 import gr.interamerican.bo2.utils.CollectionUtils;
+import gr.interamerican.bo2.utils.ExceptionUtils;
 import gr.interamerican.bo2.utils.StreamUtils;
 import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.StringUtils;
@@ -130,6 +132,12 @@ public class Bo2DeploymentHibernateInfoUtility {
 		} catch (AbstractMethodError err) {
 			LOGGER.warn("Non-Creatable class " + className); //$NON-NLS-1$
 			return null;
+		} catch (RuntimeException cce) {
+			if (ExceptionUtils.isCausedBy(cce, ClassCreationException.class)) {
+				LOGGER.error("Non-Creatable class " + className); //$NON-NLS-1$
+			} else {
+				throw cce;
+			}
 		}
 		return obj.getClass();
 	}
@@ -175,17 +183,10 @@ public class Bo2DeploymentHibernateInfoUtility {
 		for (Element el : doc.select("mapping")) { //$NON-NLS-1$
 			String hbmName = el.attr("resource"); //$NON-NLS-1$
 			String className = getClassFromHbm(hbmName);
-			if (StringUtils.isNullOrBlank(className)) {
-				continue;
+			Class<?> clazz = generateClassFromString(className);
+			if (clazz != null) {
+				clazzes.add(clazz);
 			}
-			Object obj = null;
-			try {
-				obj = Factory.create(className);
-			} catch (AbstractMethodError err) {
-				LOGGER.warn("Non-Creatable class " + className); //$NON-NLS-1$
-				continue;
-			}
-			clazzes.add(obj.getClass());
 		}
 		return clazzes;
 	}
@@ -208,10 +209,10 @@ public class Bo2DeploymentHibernateInfoUtility {
 
 	/**
 	 * Finds and returns the manager names of all managers that use hibernate resources.
-	 * 
+	 *
 	 * @param deplPath
 	 *            Path of the Bo2 deployment properties
-	 * 
+	 *
 	 * @return The manager names of all managers that use jdbc resources.
 	 */
 	public List<Properties> getHibernateManagers(String deplPath) {
@@ -236,7 +237,7 @@ public class Bo2DeploymentHibernateInfoUtility {
 
 	/**
 	 * Finds and returns the manager names of all managers that use hibernate resources for the default Bo2 deployment.
-	 * 
+	 *
 	 * @return The manager names of all managers that use jdbc resources.
 	 */
 	public List<Properties> getHibernateManagers() {
@@ -255,7 +256,7 @@ public class Bo2DeploymentHibernateInfoUtility {
 	}
 	/**
 	 * Factory method.
-	 * 
+	 *
 	 * @return Bo2DeploymentInfoUtility instance.
 	 */
 	public static Bo2DeploymentHibernateInfoUtility get() {
