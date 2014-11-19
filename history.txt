@@ -439,3 +439,15 @@ http://jira.interamerican.gr/jira/browse/BOTWO-7 SoapLoggingFilter: MIME multipa
 2.1.0098
 --------
 
+
+
+2.1.0099
+--------
+
+Added a module that depends on all Bo2 modules (Bo2Aio)
+
+Declaring the dependency
+
+gr.interamerican.bo2:Bo2Aio:${version.bo2}:pom:compile your project gets all bo2 modules
+
+Bo2WicketTest includes a method that helps test components that need an active request cycle when instantiated
