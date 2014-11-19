@@ -18,7 +18,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * 
+ * Tests for {@link ConditionOnProperty}.
  */
 public class TestConditionOnProperty {
 	
