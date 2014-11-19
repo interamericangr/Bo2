@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>gr.interamerican.bo2</groupId>
 		<artifactId>Bo2</artifactId>
-		<version>2.1.0099</version>
+		<version>2.1.0100-SNAPSHOT</version>
 	</parent>
 	
 	<artifactId>WicketBo2</artifactId>
