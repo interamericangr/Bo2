@@ -1,13 +1,13 @@
 /*******************************************************************************
- * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A. 
+ * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/copyleft/lesser.html
- * 
- * This library is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.hibernate.types;
@@ -35,23 +35,23 @@ import org.hibernate.HibernateException;
 /**
  * Custom type used for lists of {@link TypedSelectable} entries.
  * The entries codes are comma-separated.
- * 
- * @param <C> 
+ *
+ * @param <C>
  *        Type of code.
  */
-public abstract class EntryListUserType<C extends Comparable<? super C>> 
+public abstract class EntryListUserType<C extends Comparable<? super C>>
 extends AbstractUserType {
-	
+
 	/**
 	 * Error message for uninitialized cache.
 	 */
 	private static final String CACHE_NOT_INITIALIZED = "EntryListUserType.CACHE_NOT_INITIALIZED"; //$NON-NLS-1$
-	
+
 	/**
 	 * Error message for not existing cached object.
 	 */
 	private static final String NOT_EXISTING_CACHED_OBJECT = "EntryListUserType.NOT_EXISTING_CACHED_OBJECT"; //$NON-NLS-1$
-	
+
 	/**
 	 * Error message for invalid input.
 	 */
@@ -66,8 +66,8 @@ extends AbstractUserType {
 	 * Cache name.
 	 */
 	private String cacheName;
-	
-	@SuppressWarnings({ "unchecked", "nls" })
+
+	@SuppressWarnings({ "nls" })
 	public void setParameterValues(Properties parameters) {
 		String strTypeId = parameters.getProperty("entryTypeId");
 		this.typeId = NumberUtils.string2Long(strTypeId);
@@ -102,23 +102,23 @@ extends AbstractUserType {
 	public Object fromXMLString(String xmlValue) {
 		return convertStringToObject(xmlValue);
 	}
-	
+
 	/**
 	 * Parses a code from its string representation.
-	 * 
+	 *
 	 * @param code
 	 *        Code to parse
-	 *        
+	 *
 	 * @return Returns the parsed code value.
 	 */
 	protected abstract C parseCode(String code);
-	
+
 	/**
 	 * Coverts the persisted csv to a List of codes.
-	 * 
+	 *
 	 * @param csv
 	 *        Comma separated value.
-	 *        
+	 *
 	 * @return Returns the persisted List of codes.
 	 */
 	private List<C> getCodes(String csv) {
@@ -132,15 +132,15 @@ extends AbstractUserType {
 		}
 		return codes;
 	}
-	
+
 	/**
 	 * Converts the persisted comma-separated value to the corresponding
 	 * ArrayList of {@link TypedSelectable} entries.
-	 * 
+	 *
 	 * @param value
 	 *        Persisted csv.
-	 *        
-	 * @return Returns an ArrayList of TypedSelectable. 
+	 *
+	 * @return Returns an ArrayList of TypedSelectable.
 	 */
 	@SuppressWarnings("nls")
 	private ArrayList<TypedSelectable<C>> convertStringToObject(String value) {
@@ -156,15 +156,15 @@ extends AbstractUserType {
 		}
 		return results;
 	}
-	
+
 	/**
 	 * Converts the object value to its String representation.
 	 * In this case, a {@link List} of {@link Selectable} elements is
 	 * converted to a String with its codes separated by commas.
-	 *  
+	 *
 	 * @param value
 	 *        Object handled by this UserType.
-	 *        
+	 *
 	 * @return Returns the String representation.
 	 */
 	@SuppressWarnings("rawtypes")
@@ -172,11 +172,11 @@ extends AbstractUserType {
 		if(value==null) {
 			return StringConstants.EMPTY;
 		}
-		
+
 		if(!(value instanceof List)) {
 			throw Exceptions.runtime(EntryListUserType.INVALID_INPUT, value);
 		}
-		
+
 		List input = (List) value;
 		Object[] codes = new Object[input.size()];
 		for(Object element : input) {
@@ -188,7 +188,7 @@ extends AbstractUserType {
 		}
 		return StringUtils.array2String(codes, StringConstants.COMMA);
 	}
-	
+
 	/**
 	 * @return Returns the named cache
 	 */
@@ -200,5 +200,5 @@ extends AbstractUserType {
 		}
 		return cache;
 	}
-	
+
 }

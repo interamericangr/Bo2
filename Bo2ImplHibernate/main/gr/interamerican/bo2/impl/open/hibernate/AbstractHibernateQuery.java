@@ -18,7 +18,6 @@ import gr.interamerican.bo2.arch.exceptions.DataAccessException;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.utils.ext.WorkerExecutionDetails;
 import gr.interamerican.bo2.utils.Debug;
-import gr.interamerican.bo2.utils.StringConstants;
 
 import java.util.Iterator;
 
