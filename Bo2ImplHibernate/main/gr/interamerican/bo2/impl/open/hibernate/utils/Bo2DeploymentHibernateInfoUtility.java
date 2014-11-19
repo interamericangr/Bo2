@@ -120,7 +120,7 @@ public class Bo2DeploymentHibernateInfoUtility {
 
 	/**
 	 * @param className
-	 * @return
+	 * @return the class that will be created by the given classname.
 	 */
 	Class<?> generateClassFromString(String className) {
 		if (StringUtils.isNullOrBlank(className)) {
