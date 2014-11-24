@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 
+ * Class that owns a Map.
  */
 public class MapOwner {
 	
