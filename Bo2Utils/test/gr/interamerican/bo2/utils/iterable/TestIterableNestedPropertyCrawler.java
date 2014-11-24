@@ -4,6 +4,7 @@ import static org.mockito.Mockito.*;
 import gr.interamerican.bo2.samples.bean.BeanWith3Fields;
 import gr.interamerican.bo2.samples.bean.BeanWithCollections;
 import gr.interamerican.bo2.samples.collections.BeanCollections;
+import gr.interamerican.bo2.utils.Utils;
 import gr.interamerican.bo2.utils.adapters.VoidOperation;
 
 import java.util.ArrayList;
@@ -38,7 +39,18 @@ public class TestIterableNestedPropertyCrawler {
 	 */	
 	@Test
 	public void testConstructor_level1() {
-				
+		VoidOperation<Object> operation = mock(VoidOperation.class);
+		String property = "property"; //$NON-NLS-1$
+		IterableNestedPropertyCrawler<Object, Object> crawler = 
+			new IterableNestedPropertyCrawler<Object, Object>(operation, property);
+		
+		VoidOperation<Object> op = crawler.operation;		
+		Assert.assertTrue(op instanceof IterablePropertyCrawler);
+		
+		
+		IterablePropertyCrawler<Object, Object> ipc = Utils.cast(op);
+		Assert.assertEquals(operation, ipc.operation);
+		Assert.assertEquals(property, ipc.property);
 	}
 	
 	/**
@@ -46,16 +58,15 @@ public class TestIterableNestedPropertyCrawler {
 	 */	
 	@Test
 	public void testConstructor_level2() {
-				
+		VoidOperation<Object> operation = mock(VoidOperation.class);
+		String property = "property1.property2"; //$NON-NLS-1$
+		IterableNestedPropertyCrawler<Object, Object> crawler = 
+			new IterableNestedPropertyCrawler<Object, Object>(operation, property);
+		VoidOperation<Object> op = crawler.operation;
+		Assert.assertTrue(op instanceof IterableNestedPropertyCrawler);
 	}
 	
-	/**
-	 * Tests the constructor_level3.
-	 */	
-	@Test
-	public void testConstructor_level3() {
-				
-	}
+	
 	
 	
 	/**
@@ -96,7 +107,6 @@ public class TestIterableNestedPropertyCrawler {
 			new IterableNestedPropertyCrawler<Object, String>(operation, property);
 		
 		crawler.execute(bean);
-		
 	}
 
 	
