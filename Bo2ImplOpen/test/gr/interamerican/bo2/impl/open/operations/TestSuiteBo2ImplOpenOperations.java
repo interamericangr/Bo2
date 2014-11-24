@@ -27,6 +27,7 @@ import org.junit.runners.Suite.SuiteClasses;
 		TestLoadQueriesToCacheOperation.class,
 		TestGetPoFromBeanOperation.class,
 		TestAbstractQueryCrawlerOperation.class,
+		TestAbstractEntitiesQueryCrawlerOperation.class,
 		TestQueryExporterOperation.class,
 		TestQueryPrinterOperation.class,
 		TestCsvQuery2HtmlTableOperation.class,
