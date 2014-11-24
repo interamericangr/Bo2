@@ -50,7 +50,6 @@ public abstract class JmsProducer extends AbstractResourceConsumer {
 		try {
 			session = jmsResource.getConnection().createSession(true, Session.SESSION_TRANSACTED);
 			producer = session.createProducer(jmsResource.getDestination());
-			jmsResource.getConnection().start();
 		} catch (JMSException e) {
 			throw new InitializationException(e);
 		}
