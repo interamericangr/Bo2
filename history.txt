@@ -451,3 +451,9 @@ Declaring the dependency
 gr.interamerican.bo2:Bo2Aio:${version.bo2}:pom:compile your project gets all bo2 modules
 
 Bo2WicketTest includes a method that helps test components that need an active request cycle when instantiated
+
+
+2.1.0100
+--------
+
+JMS integration: gr.interamerican.bo2.impl.open.jee.jms.JmsProvider, gr.interamerican.bo2.impl.open.jee.jms.JmsProducer
