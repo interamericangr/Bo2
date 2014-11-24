@@ -13,7 +13,6 @@
 package gr.interamerican.bo2.impl.open.operations;
 
 import gr.interamerican.bo2.arch.EntitiesQuery;
-import gr.interamerican.bo2.arch.exceptions.DataAccessException;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
@@ -25,9 +24,9 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Test for {@link AbstractQueryCrawlerOperation}.
+ * Test for {@link AbstractEntitiesQueryCrawlerOperation}.
  */
-public class TestAbstractQueryCrawlerOperation {
+public class TestAbstractEntitiesQueryCrawlerOperation {
 	
 	
 	
@@ -64,7 +63,7 @@ public class TestAbstractQueryCrawlerOperation {
 	/**
 	 * Sample operation.
 	 */
-	class SampleOperation extends AbstractQueryCrawlerOperation<EntitiesQuery<String>> {
+	class SampleOperation extends AbstractEntitiesQueryCrawlerOperation<EntitiesQuery<String>, String> {
 
 		/**
 		 * Creates a new SampleOperation object. 
@@ -75,12 +74,10 @@ public class TestAbstractQueryCrawlerOperation {
 		}
 		
 		@Override
-		protected void handleRow() throws DataAccessException {
-			int i = query.getRow() - 1;
-			Assert.assertEquals(strings[i], query.getEntity());							
+		void handleEntity(String p) throws LogicException, DataException {
+			int row = query.getRow();
+			Assert.assertEquals(strings[row-1], query.getEntity());
 		}
-
-		
 		
 	}
 	
