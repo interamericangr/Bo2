@@ -196,8 +196,6 @@ public class ArrayUtils {
      * Such indices will exist if and only if the specified length
      * is greater than that of the original array.
      * The resulting array is of the class <tt>newType</tt>.
-     * <br/>
-     * This method is a copy from the class java.util.Arrays from JDK 1.6.
      * 
      * @param <T> 
      * @param <U> 
@@ -215,12 +213,36 @@ public class ArrayUtils {
      * 
      */
     private static <T,U> T[] copyOf(U[] original, int newLength, Class<? extends T[]> newType) {
+    	T[] copy = newArray(original, newLength, newType);
+        System.arraycopy(original, 0, copy, 0,
+                         Math.min(original.length, newLength));
+        return copy;
+    }
+    
+    /**
+     * Creates a new array that aims to be a partial or complete copy of the specified original.
+     * 
+     * <br/>
+     * This method is a copy from the class java.util.Arrays from JDK 1.6.
+
+     * 
+     * @param <T> 
+     * @param <U> 
+     *
+     * @param original the array to be copied
+     * @param newLength the length of the copy to be returned
+     * @param newType the class of the copy to be returned
+     * @return a new array with the specified length. 
+     * 
+     * @throws NegativeArraySizeException if <tt>newLength</tt> is negative
+     * @throws NullPointerException if <tt>original</tt> is null
+     * 
+     */
+    private static <T,U> T[] newArray(U[] original, int newLength, Class<? extends T[]> newType) {
         @SuppressWarnings("unchecked")
 		T[] copy = ((Object)newType == (Object)Object[].class)
             ? (T[]) new Object[newLength]
             : (T[]) Array.newInstance(newType.getComponentType(), newLength);
-        System.arraycopy(original, 0, copy, 0,
-                         Math.min(original.length, newLength));
         return copy;
     }
     
@@ -349,6 +371,44 @@ public class ArrayUtils {
 		}
 		return true;
 	}
+	
+    /**
+     * Copies the specified array, truncating or padding with nulls (if necessary)
+     * so the copy has the specified length.  For all indices that are
+     * valid in both the original array and the copy, the two arrays will
+     * contain identical values.  For any indices that are valid in the
+     * copy but not the original, the copy will contain <tt>null</tt>.
+     * Such indices will exist if and only if the specified length
+     * is greater than that of the original array.
+     * The resulting array is of exactly the same class as the original array.
+     * <br/>
+     * This method is a copy from the class java.util.Arrays from JDK 1.6.
+     * 
+     * @param <T> 
+     *
+     * @param original 
+     *        the array to be copied
+     * @param start
+     *        Index of the first element of the array to be copied.
+     *         
+     * @return a copy of the original array, that starts at the specified
+     *         position. If the specified start is greater than the actual
+     *         length of the original array, then the method returns null.
+     *     
+     * @throws NegativeArraySizeException if <tt>newLength</tt> is negative
+     * @throws NullPointerException if <tt>original</tt> is null
+     * 
+     */
+    @SuppressWarnings("unchecked")
+	public static <T> T[] right(T[] original, int start) {
+    	int newLength = original.length - start;
+    	if (newLength<=0) {
+    		return null;
+    	}
+        T[] copy = (T[]) newArray(original, newLength, original.getClass());
+        System.arraycopy(original, start, copy, 0, newLength);
+        return copy;
+    }
 	
 	
 

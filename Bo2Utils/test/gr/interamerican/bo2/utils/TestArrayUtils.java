@@ -173,6 +173,22 @@ public class TestArrayUtils {
 	}
 	
 	/**
+	 * Tests for right().
+	 */
+	@SuppressWarnings("nls")
+	@Test
+	public void testRight() {		
+		String[] original = {"one", "two", "three", "four", "five"};
+		String[] expected2 = {"three", "four", "five"};
+		String[] expected4 = {"five"};
+		
+		Assert.assertArrayEquals(expected2, ArrayUtils.right(original, 2));
+		Assert.assertArrayEquals(expected4, ArrayUtils.right(original, 4));
+		Assert.assertNull(ArrayUtils.right(original, 5));
+		Assert.assertNull(ArrayUtils.right(original, 6));
+	}
+	
+	/**
 	 * test safeGet().
 	 */
 	@Test
