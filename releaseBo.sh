@@ -24,7 +24,7 @@ release=${snapshot/"-SNAPSHOT"/}
 
 echo "preparing release version $release"
 
-mvn -q --batch-mode release:prepare -Darguments="-DskipTests"
+mvn -q --batch-mode release:prepare -Dbo2.skip.tests=true
  
 e="$?"
 if [ $e -ne 0 ]
@@ -33,7 +33,9 @@ then
 	exit -1
 fi
 
-mvn -q release:perform -Darguments="-DskipTests"
+echo "performing release of version $release"
+
+mvn -q release:perform -Dbo2.skip.tests=true
 
 e="$?"
 if [ $e -ne 0 ]
