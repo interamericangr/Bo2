@@ -22,19 +22,11 @@ import gr.interamerican.bo2.arch.exceptions.DataOperationNotSupportedException;
  * Query is a java wrapper around a cursor to the data storage layer.
  * 
  * The cursor fetches rows one at a time.  
- * 
- *
+ * Executing the query, creates the cursor.
  */
-public interface Query extends Worker  {
+public interface Query extends Worker, DataOperation  {
     
-    /**
-     * Executes the query and creates the cursor. 
-     *
-     * @throws DataException
-     */
-    public void execute() 
-    throws DataException;
-    
+       
     /**
      * Fetches the next row.
      * 

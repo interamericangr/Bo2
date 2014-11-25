@@ -16,6 +16,7 @@ import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.Utils;
+import gr.interamerican.bo2.utils.attributes.SimpleCommand;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -25,15 +26,15 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 
 /**
- * The purpose of a {@link MethodInvocator} is to invoke a method of the
+ * The purpose of a {@link AbstractMethodInvocator} is to invoke a method of the
  * object that owns an EventHandler.
  */
-public class MethodInvocator {
+public abstract class AbstractMethodInvocator implements SimpleCommand {
 	
 	/**
 	 * Logger.
 	 */
-	private static final Logger LOG = LoggerFactory.getLogger(MethodInvocator.class.getName());
+	private static final Logger LOG = LoggerFactory.getLogger(AbstractMethodInvocator.class.getName());
 	
 	/**
 	 * key for MDC callback method
@@ -43,21 +44,21 @@ public class MethodInvocator {
 	/**
 	 * Method of object to be invoked by this Bo2WicketBlock.
 	 */
-	transient Method method;
+	transient protected Method method;
 	
 	/**
 	 * Event handler using this method invocator.
 	 */
-	AbstractEventHandler<?> handler;
+	protected ExceptionHandler handler;
 	
 	/**
 	 * method name. 
 	 */
-	String methodName;
+	protected String methodName;
 	/**
 	 * method owner
 	 */
-	Object owner;
+	protected Object owner;
 	
 	/**
 	 * Creates a new MethodInvocator object. 
@@ -66,7 +67,7 @@ public class MethodInvocator {
 	 * @param methodName
 	 * @param owner 
 	 */
-	public MethodInvocator(AbstractEventHandler<?> handler, String methodName,	Object owner) {
+	public AbstractMethodInvocator(ExceptionHandler handler, String methodName,	Object owner) {
 		super();
 		this.handler = handler;
 		this.methodName = methodName;
@@ -81,7 +82,7 @@ public class MethodInvocator {
 	 * in case an instance of this class is read from a serialization
 	 * stream, it is necessary to set the method field.  
 	 */
-	void setMethod() {
+	protected void setMethod() {
 		Class<?> clazz = owner.getClass();
 		this.method = ReflectionUtils.getMethodByUniqueName(methodName, clazz);		
 		if (this.method==null) {
@@ -93,35 +94,47 @@ public class MethodInvocator {
 		}
 		this.method.setAccessible(true);
 	}		
+	
+	
+	
+	/**
+	 * Gets the arguments for the method invocation.
+	 * 
+	 * @return Returns the arguments for the method invocation.
+	 */
+	protected abstract Object[] getArguments();
 			
 	/**
 	 * Invokes the specified method on the owner object.
+	 * 
+	 * @return Returns the object returned by the method. 
 	 */
-	public void invoke() {	
-		try {
-			Class<?>[] parameterTypes = method.getParameterTypes();			
-			Object[] args = new Object[parameterTypes.length];
-			for (int i = 0; i < parameterTypes.length; i++) {
-				args[i] = handler.getHandlerParameter(parameterTypes[i]);				
-			}
-			
+	public Object invoke() {	
+		try {						
+			Object[] args = getArguments();
 			String callback = owner.getClass().getSimpleName() + StringConstants.SHARP + methodName;
 			MDC.put(MDC_CALLBACKMETHOD, callback);
 			LOG.debug("executing callback"); //$NON-NLS-1$
 			
-			method.invoke(owner, args);
+			return method.invoke(owner, args);
 		} catch (IllegalArgumentException ilarex) {
-			handler.handleThrown(ilarex);		
+			handler.handle(ilarex);		
 		} catch (IllegalAccessException ilacex) {
-			handler.handleThrown(ilacex);
+			handler.handle(ilacex);
 		} catch (InvocationTargetException intaex) {
 			Throwable cause = intaex.getCause();
 			cause = Utils.notNull(cause, intaex.getTargetException());
 			cause = Utils.notNull(cause, intaex);
-			handler.handleThrown(cause);			
+			handler.handle(cause);			
 		} finally {
 			MDC.remove(MDC_CALLBACKMETHOD);
 		}
+		return null;
+	}
+
+	@Override
+	public void execute() {
+		invoke();		
 	}
 	
 	

@@ -12,8 +12,6 @@
  ******************************************************************************/
 package gr.interamerican.bo2.arch;
 
-import gr.interamerican.bo2.arch.exceptions.DataException;
-import gr.interamerican.bo2.arch.exceptions.LogicException;
 
 
 /**
@@ -28,15 +26,6 @@ import gr.interamerican.bo2.arch.exceptions.LogicException;
  * means that multiple invocations of {@link #execute()} with 
  * the same input must produce the same output. 
  */
-public interface Operation extends Worker {
-    
-    /**
-     * Operation main body.
-     * 
-     * @throws LogicException
-     * @throws DataException
-     */
-    public abstract void execute() 
-    throws LogicException, DataException;
-    
+public interface Operation extends LogicOperation, Worker {
+	/* empty */    
 }

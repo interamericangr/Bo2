@@ -12,9 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.wicket.bo2.callbacks;
 
-import gr.interamerican.bo2.utils.handlers.EventHandlerComponent;
-import gr.interamerican.bo2.utils.handlers.MethodInvocator;
-import gr.interamerican.bo2.utils.handlers.ThrowingExceptionHandler;
+import gr.interamerican.wicket.callback.MethodBasedCallbackAction;
 
 import java.io.Serializable;
 
@@ -31,23 +29,9 @@ extends Bo2WicketBlock {
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * Event handler.
+	 * Callback action.
 	 */
-	EventHandlerComponent<Object> handler;
-	
-	/**
-	 * Method invocator.
-	 */
-	transient MethodInvocator mi;
-	
-	/**
-	 * method name. 
-	 */
-	String methodName;
-	/**
-	 * method owner.
-	 */
-	Serializable owner;
+	MethodBasedCallbackAction callback;	
 			
 	/**
 	 * Creates a new MethodBasedBo2WicketBlock object. 
@@ -57,36 +41,22 @@ extends Bo2WicketBlock {
 	 */
 	public MethodBasedBo2WicketBlock(String methodName, Serializable owner) {
 		/* don't call super() */
-		this.methodName = methodName;
-		this.owner = owner;
-		this.handler = new EventHandlerComponent<Object>(ThrowingExceptionHandler.INSTANCE);
-		methodInvocator();
-	}
-	
-	/**
-	 * Initialized transient field {@link #mi}
-	 * @return MethodInvocator.
-	 */
-	MethodInvocator methodInvocator() {
-		if(mi==null) {
-			mi = new MethodInvocator(handler, methodName, owner);
-		}
-		return mi;
+		this.callback = new MethodBasedCallbackAction(methodName, owner);
 	}
 	
 	@Override
 	public void work() {		
-		methodInvocator().invoke();
+		callback.execute();
 	}
 	
 	@Override
 	public <T> T getHandlerParameter(Class<T> paramType) {	
-		return handler.getHandlerParameter(paramType);
+		return callback.getHandlerParameter(paramType);
 	}
 	
 	@Override
 	public <T> void setHandlerParameter(java.lang.Class<T> paramType, T param) {
-		handler.setHandlerParameter(paramType, param);
+		callback.setHandlerParameter(paramType, param);
 	}
 
 }

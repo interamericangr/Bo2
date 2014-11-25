@@ -108,6 +108,7 @@ public class TestPropertyValuesChecker {
 	/**
 	 * Unit test for the adapter.
 	 */	
+	@SuppressWarnings("unused")
 	@Test(expected=RuntimeException.class)
 	public void testConstructor_withWrongArgs1() {		
 		new PropertyValuesChecker<BeanWithNestedBean>(new String[2], new Object[3], new String[2]);
@@ -115,7 +116,8 @@ public class TestPropertyValuesChecker {
 	
 	/**
 	 * Unit test for the adapter.
-	 */	
+	 */
+	@SuppressWarnings("unused")
 	@Test(expected=RuntimeException.class)
 	public void testConstructor_withWrongArgs2() {		
 		new PropertyValuesChecker<BeanWithNestedBean>(new String[2], new Object[2], new String[5]);

@@ -33,8 +33,8 @@ public class TestCopyFromMap {
 		String string = "s"; //$NON-NLS-1$
 		Date date = new Date();
 		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("string", string);
-		map.put("date", date);
+		map.put("string", string); //$NON-NLS-1$
+		map.put("date", date); //$NON-NLS-1$
 		CopyFromMap<BeanWithStringAndDate> copy = 
 			new CopyFromMap<BeanWithStringAndDate>(map);
 		

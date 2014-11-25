@@ -50,7 +50,7 @@ public class TestCreate {
 	/**
 	 * Unit test for the adapter.
 	 */
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unused" })
 	@Test(expected=RuntimeException.class)
 	public void testConstructor_fail() {		
 		new Create<String, Class>(String.class, Class.class);

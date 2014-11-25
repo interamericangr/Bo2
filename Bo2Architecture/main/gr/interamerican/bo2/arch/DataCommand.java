@@ -12,7 +12,6 @@
  ******************************************************************************/
 package gr.interamerican.bo2.arch;
 
-import gr.interamerican.bo2.arch.exceptions.DataException;
 
 
 
@@ -31,12 +30,6 @@ import gr.interamerican.bo2.arch.exceptions.DataException;
  * execute method. <p>
  *
  */
-public interface DataCommand extends Worker {
-    
-    /**
-     * Command main body
-     * @throws DataException
-     */
-    public abstract void execute() throws DataException;
-
+public interface DataCommand extends DataOperation, Worker {
+	/* empty */
 }

@@ -14,16 +14,15 @@ package gr.interamerican.bo2.utils.handlers;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+
 
 import org.junit.Test;
 
 /**
- * Unit tests for {@link MethodInvocator}.
+ * Unit tests for {@link AbstractMethodInvocator}.
  */
 @SuppressWarnings("nls")
-public class TestMethodInvocator {
+public class TestAbstractMethodInvocator {
 	
 	/**
 	 * Creates a sample MethodInvocator that invokes methods
@@ -33,10 +32,8 @@ public class TestMethodInvocator {
 	 * 
 	 * @return Returns the method invocator. 
 	 */
-	MethodInvocator sample(String methodName) {
-		EventHandlerComponent<Object> ehc = 
-			new EventHandlerComponent<Object>(this,ThrowingExceptionHandler.INSTANCE);
-		return new MethodInvocator(ehc, methodName, this);
+	MI sample(String methodName) {
+		return new MI (ThrowingExceptionHandler.INSTANCE, methodName, this);
 	}
 	
 	
@@ -73,15 +70,15 @@ public class TestMethodInvocator {
 	 * 
 	 * @param argument 
 	 */
-	void ambiguous(@SuppressWarnings("unused") Integer argument) {/* empty */}
+	void ambiguous(Integer argument) {/* empty */}
 	
 	/**
 	 * Method to be executed and throw an Exception.
 	 * 
 	 * @throws InstantiationException
 	 */
-	void doThrow() throws InstantiationException {
-		throw new InstantiationException();
+	void doThrow(Exception t) throws Exception {
+		throw t;
 	}
 
 	
@@ -91,9 +88,9 @@ public class TestMethodInvocator {
 	 */
 	@Test
 	public void testConstructor_WithExistingMethod() {
+		this.integer = 0;
 		String method = "onEvent";		
-		MethodInvocator block = sample(method);			
-		assertSame(block.handler.getCaller(), this);
+		MI block = sample(method);
 		assertEquals(block.methodName, method);
 		assertNotNull(block.method);
 	}
@@ -126,38 +123,72 @@ public class TestMethodInvocator {
 	 */
 	@Test
 	public void testInvoke_WithoutParameters() {
-		MethodInvocator block = sample("onEvent");			
-		integer = 0;
+		this.integer = 0;
+		MI block = sample("onEvent");
 		block.invoke();
 		assertEquals(Integer.valueOf(1), this.integer);
 	}
 	
 	/**
-	 * Unit test for execute, throwing an exception.
+	 * Unit test for invoke(), throwing an exception.
 	 */
 	@Test
 	public void testExecute_Throwing() {
-		MethodInvocator block = sample("doThrow");		
-		integer = 0;
+		this.integer = 0;
+		MI block = sample("doThrow");
+		Exception t = new Exception();
+		
+		Object args[] = {t};		
+		block.setArguments(args);
 		try {
-			block.invoke();
+			block.invoke(); 
 		} catch (RuntimeException e) {
 			Throwable cause = e.getCause();
-			assertTrue(cause instanceof InstantiationException);
+			assertEquals(t, cause);
 		}
 	}
 	 
 	/**
-	 * Unit test for execute, when the method being executed requires 
+	 * Unit test for invoke(), when the method being executed requires 
 	 * arguments.
 	 */
 	@Test
 	public void testExecute_WithParameters() {
-		MethodInvocator block = sample("onEventWithParams");
-		integer = 0;
-		block.handler.setHandlerParameter(Integer.class, 7);
+		this.integer = 0;
+		MI block = sample("onEventWithParams");
+		Integer param = 17;
+		Object args[] = {param};
+		block.setArguments(args);		
 		block.invoke();
-		assertEquals(Integer.valueOf(7), this.integer);
+		assertEquals(param, this.integer);
+	}
+	
+	/**
+	 * Concrete implementation of {@link AbstractMethodInvocator}.
+	 */
+	class MI extends AbstractMethodInvocator {
+		/**
+		 * Arguments.
+		 */
+		Object[] arguments;
+		
+		public MI (ExceptionHandler handler, String methodName, Object owner) {
+			super(handler, methodName, owner);
+		}
+
+		@Override
+		protected Object[] getArguments() {		
+			return arguments;
+		}
+		
+		/**
+		 * Sets the arguments.
+		 * 
+		 * @param arguments
+		 */
+		public void setArguments(Object[] arguments) {
+			this.arguments = arguments;
+		}
 	}
 
 }

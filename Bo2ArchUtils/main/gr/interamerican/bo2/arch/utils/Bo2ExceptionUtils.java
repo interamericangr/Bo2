@@ -119,6 +119,22 @@ public class Bo2ExceptionUtils {
 		throw ExceptionUtils.runtimeException(t);
 	}
 	
+	/**
+	 * Wraps and rethrows a thrown, so that it matches the signature of a 
+	 * method that throws the following checked exceptions:
+	 * {@link DataException}, {@link LogicException}. 
+	 * 
+	 * @param t
+	 * @throws DataException 
+	 * @throws LogicException
+	 */
+	public static void throwDataException(Throwable t) 
+	throws DataException  {		
+		throwIfIsDataException(t);
+		throwIfIsError(t);
+		throw ExceptionUtils.runtimeException(t);
+	}
+	
 	
 
 }

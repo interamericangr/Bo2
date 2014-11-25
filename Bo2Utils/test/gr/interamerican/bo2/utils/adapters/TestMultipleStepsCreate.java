@@ -53,6 +53,7 @@ public class TestMultipleStepsCreate {
 	/**
 	 * Unit test for the adapter.
 	 */
+	@SuppressWarnings("unused")
 	@Test(expected=RuntimeException.class)
 	public void testConstructor_fail() {
 		new MultipleStepsCreate<String, BigDecimal>

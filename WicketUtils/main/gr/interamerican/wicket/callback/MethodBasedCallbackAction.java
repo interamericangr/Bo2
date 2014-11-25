@@ -13,7 +13,7 @@
 package gr.interamerican.wicket.callback;
 
 import gr.interamerican.bo2.utils.handlers.EventHandlerComponent;
-import gr.interamerican.bo2.utils.handlers.MethodInvocator;
+import gr.interamerican.bo2.utils.handlers.EventHandlerMethodInvocator;
 import gr.interamerican.bo2.utils.handlers.ThrowingExceptionHandler;
 
 import java.io.Serializable;
@@ -38,7 +38,7 @@ extends AbstractCommandCallback {
 	/**
 	 * Method invocator.
 	 */
-	transient MethodInvocator mi;
+	transient EventHandlerMethodInvocator mi;
 	
 	/**
 	 * method name. 
@@ -67,16 +67,16 @@ extends AbstractCommandCallback {
 	 * Initialized transient field {@link #mi}
 	 * @return MethodInvocator.
 	 */
-	MethodInvocator methodInvocator() {
+	EventHandlerMethodInvocator methodInvocator() {
 		if(mi==null) {
-			mi = new MethodInvocator(handler, methodName, owner);
+			mi = new EventHandlerMethodInvocator(handler, methodName, owner);
 		}
 		return mi;
 	}
 	
 	@Override
 	public void execute() {
-		methodInvocator().invoke();
+		methodInvocator().execute();
 	}
 	
 	@Override

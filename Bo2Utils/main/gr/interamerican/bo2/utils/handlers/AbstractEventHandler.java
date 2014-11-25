@@ -27,7 +27,7 @@ import java.util.Map;
  *        Type of caller object.
  */
 public abstract class AbstractEventHandler<C> 
-implements Serializable, Called<C> {
+implements Serializable, Called<C>, ExceptionHandler {
 	
 	/**
 	 * serial uid.
@@ -107,21 +107,18 @@ implements Serializable, Called<C> {
 		return handlerParameters;
 	}
 	
+	@Override
 	public C getCaller() {
 		return caller;
 	}
 
+	@Override
 	public void setCaller(C caller) {
 		this.caller = caller;
 	}
 	
-	/**
-	 * Delegates handling of the specified thrown
-	 * exception to the exceptionHandler.
-	 * 
-	 * @param t
-	 */
-	public void handleThrown(Throwable t) {
+	@Override
+	public void handle(Throwable t) {
 		exceptionHandler.handle(t);
 	}
 

@@ -15,6 +15,7 @@ public class TestInvokeMethod {
 	/**
 	 * tests the constructor.
 	 */
+	@SuppressWarnings("unused")
 	@Test(expected=RuntimeException.class)
 	public void testConstructor_forStaticWithNoStaticMethod() {		 
 		new InvokeMethod<String, Object>(BeanWithString.class, "setString", String.class);		
@@ -23,6 +24,7 @@ public class TestInvokeMethod {
 	/**
 	 * tests the constructor.
 	 */
+	@SuppressWarnings("unused")
 	@Test(expected=RuntimeException.class)
 	public void testConstructor_forStaticWithNotExistingMethod() {		 
 		new InvokeMethod<String, Object>(BeanWithString.class, "setString", String.class);		
@@ -48,6 +50,7 @@ public class TestInvokeMethod {
 	/**
 	 * tests the constructor.
 	 */
+	@SuppressWarnings("unused")
 	@Test(expected=RuntimeException.class)
 	public void testConstructor_WithNotExistingMethod() {		 
 		new InvokeMethod<String, Object>(BeanWithString.class, "setDate", String.class);		

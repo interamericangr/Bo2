@@ -84,10 +84,8 @@ public class TestMethodBasedBo2WicketBlock implements Serializable { //HACK
 	@Test
 	public void testConstructor_WithExistingMethod() {
 		String method = "onEvent";
-		MethodBasedBo2WicketBlock block =
-				new MethodBasedBo2WicketBlock(method, this);
-		assertNotNull(block.handler);
-		assertNotNull(block.mi);
+		MethodBasedBo2WicketBlock block = new MethodBasedBo2WicketBlock(method, this);
+		assertNotNull(block.callback);
 	}
 
 	/**

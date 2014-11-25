@@ -14,7 +14,7 @@ package gr.interamerican.bo2.gui.listeners;
 
 import gr.interamerican.bo2.arch.ext.OutputMedium;
 import gr.interamerican.bo2.gui.handlers.PopUpExceptionHandler;
-import gr.interamerican.bo2.utils.handlers.MethodInvocator;
+import gr.interamerican.bo2.utils.handlers.EventHandlerMethodInvocator;
 
 /**
  * Method based action listener.
@@ -33,7 +33,7 @@ extends AbstractActionListener {
 	/**
 	 * Method invocator.
 	 */
-	MethodInvocator mi;
+	EventHandlerMethodInvocator mi;
 	/**
 	 * Show messages here, if available.
 	 */
@@ -57,7 +57,7 @@ extends AbstractActionListener {
 	@Override
 	public void setCaller(Object caller) {
 		super.setCaller(caller);
-		mi = new MethodInvocator(this, methodName, caller);
+		mi = new EventHandlerMethodInvocator(this, methodName, caller);
 	}
 
 	@Override

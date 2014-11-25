@@ -64,14 +64,14 @@ implements Serializable, CallbackAction {
 		try {
 			work();
 		} catch (InitializationException ie) {
-			handleThrown(ie);
+			handle(ie);
 		} catch (DataException de) {
-			handleThrown(de);
+			handle(de);
 		} catch (LogicException le) {
 			if(caller!=null) {
 				caller.error(le.getMessage());
 			} 
-			handleThrown(le);
+			handle(le);
 		} 
 	}	
 	
