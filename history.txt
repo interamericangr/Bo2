@@ -457,3 +457,8 @@ Bo2WicketTest includes a method that helps test components that need an active r
 --------
 
 JMS integration: gr.interamerican.bo2.impl.open.jee.jms.JmsProvider, gr.interamerican.bo2.impl.open.jee.jms.JmsProducer
+
+
+2.2.0
+--------
+
