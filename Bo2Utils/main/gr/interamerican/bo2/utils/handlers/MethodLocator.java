@@ -14,9 +14,7 @@ import java.util.List;
  * 
 
  */
-public class MethodLocator {
-	
-	
+public class MethodLocator {	
 	
 	/**
 	 * Finds the method of the specified class with the specified 
@@ -105,8 +103,8 @@ public class MethodLocator {
 	 *        
 	 * @return Returns the specified method.
 	 */
-	public Method getStatic(Class<?> clazz, String methodName) {
-		Method method = get(clazz, methodName);
+	public Method getStaticByUniqueName(Class<?> clazz, String methodName) {
+		Method method = getByUniqueName(clazz, methodName);
 		validateStatic(method);
 		return method;
 	}
@@ -127,9 +125,8 @@ public class MethodLocator {
 	 * 
 	 *        
 	 */
-	public Method getByUniqueName(Class<?> clazz, String methodName) {
-		Class<?>[] argumentTypes = {};
-		return get(clazz, methodName, argumentTypes);
+	public Method getByUniqueName(Class<?> clazz, String methodName) {		
+		return ReflectionUtils.getMethodByUniqueName(methodName, clazz);
 	}
 	
 	

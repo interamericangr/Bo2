@@ -38,13 +38,8 @@ public class TestInvokeMethod {
 		String methodName = "abs";
 		Class<?> clazz = Math.class;
 		Class<?> argType = long.class;
-		InvokeMethod<Long, Long> invoke = 
-			new InvokeMethod<Long, Long>(clazz, methodName, argType);
-		Assert.assertEquals(clazz, invoke.clazz);
-		Assert.assertEquals(argType, invoke.argumentType);
-		Assert.assertEquals(methodName, invoke.methodName);
-		Assert.assertNotNull(invoke.method);
-		Assert.assertNull(invoke.target);
+		@SuppressWarnings("unused") InvokeMethod<Long, Long> invoke = 
+			new InvokeMethod<Long, Long>(clazz, methodName, argType);		
 	}
 	
 	/**
@@ -63,15 +58,9 @@ public class TestInvokeMethod {
 	public void testConstructor_Ok() {
 		Transformation<?, ?> target = Mockito.mock(Transformation.class);
 		String methodName = "execute";
-		Class<?> clazz = Transformation.class;
 		Class<?> argType = Object.class;
-		InvokeMethod<Object, Object> invoke = 
-			new InvokeMethod<Object, Object>(clazz, methodName, argType, target);
-		Assert.assertEquals(clazz, invoke.clazz);
-		Assert.assertEquals(argType, invoke.argumentType);
-		Assert.assertEquals(methodName, invoke.methodName);
-		Assert.assertNotNull(invoke.method);
-		Assert.assertEquals(target,invoke.target);
+		@SuppressWarnings("unused") InvokeMethod<Object, Object> invoke = 
+			new InvokeMethod<Object, Object>(target, methodName, argType);
 	}
 	
 	/**
@@ -84,10 +73,9 @@ public class TestInvokeMethod {
 		Object expected = new Object();
 		Mockito.when(target.execute(Mockito.any())).thenReturn(expected);
 		String methodName = "execute";
-		Class<?> clazz = Transformation.class;
 		Class<?> argType = Object.class;
 		InvokeMethod<Object, Object> invoke = 
-			new InvokeMethod<Object, Object>(clazz, methodName, argType, target);
+			new InvokeMethod<Object, Object>(target, methodName, argType);
 		Object arg = new Object();		
 		Object actual = invoke.execute(arg);
 		Assert.assertEquals(expected, actual);

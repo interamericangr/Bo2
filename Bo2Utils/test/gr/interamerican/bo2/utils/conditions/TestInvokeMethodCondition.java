@@ -39,7 +39,7 @@ public class TestInvokeMethodCondition {
 		Class<?> clazz = Condition.class;
 		Class<?> argType = Object.class;
 		InvokeMethodCondition<Object> invoke = 
-			new InvokeMethodCondition<Object>(clazz, methodName, argType, target);
+			new InvokeMethodCondition<Object>(target, methodName, argType);
 		Assert.assertNotNull(invoke);
 	}
 	

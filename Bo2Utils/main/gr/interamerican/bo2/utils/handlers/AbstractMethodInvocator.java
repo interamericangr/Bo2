@@ -12,9 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.handlers;
 
-import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.StringConstants;
-import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.Utils;
 import gr.interamerican.bo2.utils.attributes.SimpleCommand;
 import gr.interamerican.bo2.utils.exc.ExceptionHandler;
@@ -42,10 +40,22 @@ public abstract class AbstractMethodInvocator implements SimpleCommand {
 	 */
 	private static final String MDC_CALLBACKMETHOD = "callback"; //$NON-NLS-1$
 
+
+	
 	/**
-	 * Method of object to be invoked by this Bo2WicketBlock.
+	 * method name. 
 	 */
-	transient protected Method method;
+	protected String methodName;
+	
+	/**
+	 * method owner
+	 */
+	protected Object owner;	
+
+	/**
+	 * method owner
+	 */
+	protected Class<?> ownerClass;
 	
 	/**
 	 * Event handler using this method invocator.
@@ -53,49 +63,88 @@ public abstract class AbstractMethodInvocator implements SimpleCommand {
 	protected ExceptionHandler handler;
 	
 	/**
-	 * method name. 
+	 * Method of object to be invoked by this Bo2WicketBlock.
 	 */
-	protected String methodName;
-	/**
-	 * method owner
-	 */
-	protected Object owner;
+	transient protected Method method;
+	
+	
+	
+	
+
 	
 	/**
 	 * Creates a new MethodInvocator object. 
 	 *
 	 * @param handler
 	 * @param methodName
-	 * @param owner 
+	 * @param owner
 	 */
 	public AbstractMethodInvocator(ExceptionHandler handler, String methodName,	Object owner) {
 		super();
 		this.handler = handler;
 		this.methodName = methodName;
 		this.owner = owner;
-		setMethod();
+		this.ownerClass = owner.getClass();
+		MethodLocator locator = new MethodLocator();
+		this.method = locator.getByUniqueName(ownerClass, methodName);
+		this.method.setAccessible(true);
 	}	
 	
 	/**
-	 * This method is necessary in order to support serialization.
-	 * 
-	 * The field <code>method</code> of this class is transient, so
-	 * in case an instance of this class is read from a serialization
-	 * stream, it is necessary to set the method field.  
+	 * Creates a new MethodInvocator object. 
+	 *
+	 * @param handler
+	 * @param methodName
+	 * @param owner
+	 * @param argumentTypes 
 	 */
-	protected void setMethod() {
-		Class<?> clazz = owner.getClass();
-		this.method = ReflectionUtils.getMethodByUniqueName(methodName, clazz);		
-		if (this.method==null) {
-			@SuppressWarnings("nls")
-			String msg = StringUtils.concat(
-					"Class ", clazz.getName(), 
-					" does not have any method with the name ", methodName);			
-			throw new RuntimeException(msg);
-		}
-		this.method.setAccessible(true);
-	}		
+	public AbstractMethodInvocator
+	(ExceptionHandler handler, String methodName, Object owner, Class<?>... argumentTypes) {
+		super();
+		this.handler = handler;
+		this.methodName = methodName;
+		this.owner = owner;
+		this.ownerClass = owner.getClass();
+		MethodLocator locator = new MethodLocator();		
+		this.method = locator.get(ownerClass, methodName, argumentTypes);
+	}	
 	
+	/**
+	 * Creates a new MethodInvocator object for a static method of a class. 
+	 *
+	 * @param handler
+	 * @param methodName
+	 * @param clazz
+	 */
+	public AbstractMethodInvocator(ExceptionHandler handler, String methodName,	Class<?> clazz) {
+		super();
+		this.handler = handler;
+		this.methodName = methodName;
+		this.owner = null;
+		this.ownerClass = clazz;
+		MethodLocator locator = new MethodLocator();
+		this.method = locator.getStaticByUniqueName(ownerClass, methodName);
+		this.method.setAccessible(true);
+	}	
+	
+	/**
+	 * Creates a new MethodInvocator object. 
+	 *
+	 * @param handler
+	 * @param methodName
+	 * @param clazz
+	 * @param argumentTypes 
+	 */
+	public AbstractMethodInvocator
+	(ExceptionHandler handler, String methodName, Class<?> clazz, Class<?>... argumentTypes) {
+		super();
+		this.handler = handler;
+		this.methodName = methodName;
+		this.owner = null;
+		this.ownerClass = clazz;
+		MethodLocator locator = new MethodLocator();		
+		this.method = locator.getStatic(ownerClass, methodName, argumentTypes);
+	}
 	
 	
 	/**

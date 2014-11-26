@@ -1,9 +1,9 @@
 package gr.interamerican.bo2.utils.adapters;
 
-import gr.interamerican.bo2.utils.ReflectionUtils;
+import gr.interamerican.bo2.utils.exc.ThrowingExceptionHandler;
+import gr.interamerican.bo2.utils.handlers.AbstractMethodInvocator;
 
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 
 
 /**
@@ -17,32 +17,14 @@ import java.lang.reflect.Modifier;
  *        Type of operation result.
  */
 public class InvokeMethod<A, R>
-implements Transformation<A, R> {
+extends AbstractMethodInvocator
+implements Transformation<A, R> 
+{
+	/**
+	 * Arguments.
+	 */
+	Object[] arguments;
 	
-	/**
-	 * Class that has the method to invoke.
-	 */
-	Class<?> clazz;
-
-	/**
-	 * method to be invoked.
-	 */
-	Method method;
-	
-	/**
-	 * Method name.
-	 */
-	String methodName;
-	
-	/**
-	 * Target object.
-	 */
-	Object target;
-	
-	/**
-	 * Argument type.
-	 */
-	Class<?> argumentType;
 	
 	/**
 	 * Creates a new InvokeMethod object. 
@@ -58,17 +40,8 @@ implements Transformation<A, R> {
 	 * 
 	 *        
 	 */
-	public InvokeMethod(Class<?> clazz, String methodName, Class<?> argumentType, Object target) {
-		super();
-		this.clazz = clazz;
-		this.methodName = methodName;
-		this.target = target;
-		this.argumentType = argumentType;
-		try {
-			method = clazz.getMethod(methodName, argumentType);		 
-		} catch (NoSuchMethodException e) {
-			throw new RuntimeException(e);
-		}
+	public InvokeMethod(Object target, String methodName, Class<?> argumentType) {
+		super(new ThrowingExceptionHandler(), methodName, target, argumentType);
 	}
 	
 	/**
@@ -83,19 +56,23 @@ implements Transformation<A, R> {
 	 *        
 	 */
 	public InvokeMethod(Class<?> clazz, String methodName, Class<?> argumentType) {
-		this(clazz, methodName, argumentType, null);
-		if (!Modifier.isStatic(method.getModifiers())) {
-			String msg = "Method " + methodName + " is not static"; //$NON-NLS-1$ //$NON-NLS-2$
-			throw new RuntimeException(msg);
-		}
-		
+		super(new ThrowingExceptionHandler(), methodName, clazz, argumentType);
 	}
-		
-	@Override
+
 	@SuppressWarnings("unchecked")
+	@Override
 	public R execute(A a) {
-		return (R) ReflectionUtils.invoke(method, target, a);
+		Object[] args = {a};
+		arguments = args;
+		return (R) invoke();
 	}
+
+	@Override
+	protected Object[] getArguments() {		
+		return arguments;
+	}
+		
+	
 
 	
 	
