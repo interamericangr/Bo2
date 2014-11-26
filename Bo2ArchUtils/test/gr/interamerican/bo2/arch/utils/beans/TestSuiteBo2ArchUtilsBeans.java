@@ -29,7 +29,7 @@ import org.junit.runners.Suite.SuiteClasses;
 		TestTranslatorImpl.class,
 		TestTypedSelectableImpl.class,
 		TestMoneyImpl.class,
-		TestMoneyCalculator.class,		
+		TestMoneyCalculator.class,	
 	}
 )
 public class TestSuiteBo2ArchUtilsBeans {
