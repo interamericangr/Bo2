@@ -12,6 +12,8 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.handlers;
 
+import gr.interamerican.bo2.utils.exc.ThrowingExceptionHandler;
+
 import org.junit.Assert;
 import org.junit.Test;
 

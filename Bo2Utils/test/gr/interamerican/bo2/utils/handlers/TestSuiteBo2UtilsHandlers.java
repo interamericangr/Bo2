@@ -12,6 +12,8 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.handlers;
 
+import gr.interamerican.bo2.utils.exc.TestThrowingExceptionHandler;
+
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;

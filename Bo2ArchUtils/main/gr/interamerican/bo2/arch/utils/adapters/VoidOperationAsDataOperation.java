@@ -3,8 +3,6 @@ package gr.interamerican.bo2.arch.utils.adapters;
 import gr.interamerican.bo2.arch.DataOperation;
 import gr.interamerican.bo2.arch.LogicOperation;
 import gr.interamerican.bo2.arch.exceptions.DataException;
-import gr.interamerican.bo2.arch.exceptions.LogicException;
-import gr.interamerican.bo2.arch.utils.Bo2ExceptionUtils;
 import gr.interamerican.bo2.utils.adapters.VoidOperation;
 import gr.interamerican.bo2.utils.beans.InputBean;
 import gr.interamerican.bo2.utils.exc.SimpleExceptionTranslator;
@@ -28,7 +26,8 @@ implements LogicOperation {
 	/**
 	 * ExceptionTranslator.
 	 */
-	SimpleExceptionTranslator extra = new SimpleExceptionTranslator();
+	SimpleExceptionTranslator<DataException> extra = 
+		new SimpleExceptionTranslator<DataException>(DataException.class);
 	
 	/**
 	 * Creates a new VoidOperationAsDataOperation object.
@@ -46,7 +45,7 @@ implements LogicOperation {
 	VoidOperation<T> operation;
 
 	@Override
-	public void execute() throws DataException, LogicException {
+	public void execute() throws DataException {
 		T t = getInput();
 		try {
 			operation.execute(t);

@@ -10,46 +10,47 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
-package gr.interamerican.bo2.utils.handlers;
+package gr.interamerican.bo2.utils.exc;
 
-import gr.interamerican.bo2.utils.exc.ExceptionHandler;
 
 /**
- * Concrete AbstractEventHandler without any additional method or field.
+ * <p>{@link ExceptionHandler} that re-throws the thrown
+ * it handles. <br/>
  * 
- * @param <C> 
+ * <p>If the thrown is an Error or a RuntimeException, it is 
+ * re-thrown as is. Otherwise, it is wrapped inside a 
+ * RuntimeException. 
  */
-public class EventHandlerComponent<C> 
-extends AbstractEventHandler<C> {
+public class ThrowingExceptionHandler 
+implements ExceptionHandler, ExceptionTranslator<RuntimeException> {
 	
 	/**
-	 * serialVersionUID
+	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
 	/**
-	 * Creates a new EventHandlerComponent object. 
-	 * 
-	 * @param exceptionHandler
+	 * Instance.
 	 */
-	public EventHandlerComponent(ExceptionHandler exceptionHandler) {
-		super(exceptionHandler);
+	public static final ThrowingExceptionHandler INSTANCE = 
+		new ThrowingExceptionHandler(); 
+	
+	@Override
+	public void handle(Throwable t) {
+		rethrow(t);
+	}
+
+	@Override
+	public void rethrow(Throwable t) throws RuntimeException {
+		if (t instanceof Error) {
+			throw (Error) t;
+		} 
+		if (t instanceof RuntimeException) {
+			throw (RuntimeException) t;
+		}
+		throw new RuntimeException(t);
+		
 	}
 	
-	/**
-	 * Creates a new EventHandlerComponent object. 
-	 * 
-	 * @param caller 
-	 *        Caller object.
-	 * @param exceptionHandler
-	 *        Exception handler. 
-	 */
-	public EventHandlerComponent(C caller, ExceptionHandler exceptionHandler) {
-		this(exceptionHandler);
-		setCaller(caller);
-	}
 	
-	
-
 
 }

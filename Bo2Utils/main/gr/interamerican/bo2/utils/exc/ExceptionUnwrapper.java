@@ -11,6 +11,8 @@ import java.lang.reflect.InvocationTargetException;
  */
 public class ExceptionUnwrapper<E extends Exception> 
 implements Serializable {
+	
+
 	/**
 	 * serialVersionUID
 	 */
@@ -18,7 +20,28 @@ implements Serializable {
 	/**
 	 * Exception class.
 	 */
-	Class<E> clazz;
+	Class<E> exceptionClass;
+	
+	/**
+	 * Rethrows the {@link Exception} returned by the
+	 * specified {@link ExceptionUnwrapper}, if it is not null.
+	 * 
+	 * @param unwrapper
+	 *        Unwrapper. 
+	 * @param t 
+	 *        Throwable being analyzed.
+	 *        
+	 * @throws Z
+	 *         Type of exception being rethrown.  
+	 */
+	public static <Z extends Exception> 
+	void rethrow(ExceptionUnwrapper<Z> unwrapper, Throwable t) throws Z{
+		Z z = unwrapper.get(t);
+		if (z!=null) {
+			throw z;
+		}
+	}
+	
 	
 	/**
 	 * Creates a new ExceptionUnwrapper object.
@@ -27,7 +50,7 @@ implements Serializable {
 	 */
 	public ExceptionUnwrapper(Class<E> clazz) {
 		super();
-		this.clazz = clazz;
+		this.exceptionClass = clazz;
 	}
 
 	/**
@@ -44,7 +67,7 @@ implements Serializable {
 	 */
 	@SuppressWarnings("unchecked")
 	E getMe(Throwable t) {
-		if (clazz.isAssignableFrom(t.getClass())) {
+		if (exceptionClass.isAssignableFrom(t.getClass())) {
 			return (E) t;
 		}
 		return null;
@@ -119,6 +142,15 @@ implements Serializable {
 			return getTarget(ite);
 		}		
 		return getMe(t);
+	}
+	
+	/**
+	 * Gets the clazz.
+	 *
+	 * @return Returns the clazz
+	 */
+	public Class<E> getExceptionClass() {
+		return exceptionClass;
 	}
 	
 	

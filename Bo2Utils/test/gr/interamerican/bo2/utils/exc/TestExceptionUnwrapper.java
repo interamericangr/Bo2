@@ -1,11 +1,13 @@
 package gr.interamerican.bo2.utils.exc;
 
+import static org.mockito.Mockito.*;
+import gr.interamerican.bo2.samples.exceptions.FooException;
+
 import java.lang.reflect.InvocationTargetException;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import gr.interamerican.bo2.utils.exc.ExceptionUnwrapper;
 
 /**
  * Tests for {@link ExceptionUnwrapper}.
@@ -17,9 +19,9 @@ public class TestExceptionUnwrapper {
 	 */
 	@Test
 	public void testGet_theSame() {
-		ExceptionUnwrapper<MyException> uw = new ExceptionUnwrapper<MyException>(MyException.class);
-		MyException ex = new MyException();
-		MyException actual = uw.get(ex);
+		ExceptionUnwrapper<FooException> uw = new ExceptionUnwrapper<FooException>(FooException.class);
+		FooException ex = new FooException();
+		FooException actual = uw.get(ex);
 		Assert.assertEquals(ex, actual);
 	}
 	
@@ -28,8 +30,8 @@ public class TestExceptionUnwrapper {
 	 */
 	@Test
 	public void testGet_null() {
-		ExceptionUnwrapper<MyException> uw = new ExceptionUnwrapper<MyException>(MyException.class);
-		MyException actual = uw.get(new Exception());
+		ExceptionUnwrapper<FooException> uw = new ExceptionUnwrapper<FooException>(FooException.class);
+		FooException actual = uw.get(new Exception());
 		Assert.assertNull(actual);
 	}
 	
@@ -38,10 +40,10 @@ public class TestExceptionUnwrapper {
 	 */
 	@Test
 	public void testGet_cause() {
-		ExceptionUnwrapper<MyException> uw = new ExceptionUnwrapper<MyException>(MyException.class);
-		MyException ex = new MyException();
+		ExceptionUnwrapper<FooException> uw = new ExceptionUnwrapper<FooException>(FooException.class);
+		FooException ex = new FooException();
 		RuntimeException rte = new RuntimeException(ex);		
-		MyException actual = uw.get(rte);
+		FooException actual = uw.get(rte);
 		Assert.assertEquals(ex, actual);
 	}
 	
@@ -50,11 +52,11 @@ public class TestExceptionUnwrapper {
 	 */
 	@Test
 	public void testGet_targetOfCause() {
-		ExceptionUnwrapper<MyException> uw = new ExceptionUnwrapper<MyException>(MyException.class);
-		MyException ex = new MyException();
+		ExceptionUnwrapper<FooException> uw = new ExceptionUnwrapper<FooException>(FooException.class);
+		FooException ex = new FooException();
 		InvocationTargetException ite = new InvocationTargetException(ex);
 		RuntimeException rte = new RuntimeException(ite);		
-		MyException actual = uw.get(rte);
+		FooException actual = uw.get(rte);
 		Assert.assertEquals(ex, actual);
 	}
 	
@@ -63,10 +65,10 @@ public class TestExceptionUnwrapper {
 	 */
 	@Test
 	public void testGet_target() {
-		ExceptionUnwrapper<MyException> uw = new ExceptionUnwrapper<MyException>(MyException.class);
-		MyException ex = new MyException();
+		ExceptionUnwrapper<FooException> uw = new ExceptionUnwrapper<FooException>(FooException.class);
+		FooException ex = new FooException();
 		InvocationTargetException ite = new InvocationTargetException(ex);		
-		MyException actual = uw.get(ite);
+		FooException actual = uw.get(ite);
 		Assert.assertEquals(ex, actual);
 	}
 	
@@ -75,16 +77,51 @@ public class TestExceptionUnwrapper {
 	 */
 	@Test
 	public void testGet_causeOfTarget() {
-		ExceptionUnwrapper<MyException> uw = new ExceptionUnwrapper<MyException>(MyException.class);
-		MyException ex = new MyException();
+		ExceptionUnwrapper<FooException> uw = new ExceptionUnwrapper<FooException>(FooException.class);
+		FooException ex = new FooException();
 		InvocationTargetException ite = new InvocationTargetException(ex);	
 		RuntimeException rte = new RuntimeException(ite);
-		MyException actual = uw.get(rte);
+		FooException actual = uw.get(rte);
 		Assert.assertEquals(ex, actual);
 	}
 	
+	/**
+	 * Tests getExceptionClass().
+	 */
+	@Test
+	public void testGetClass() {
+		ExceptionUnwrapper<FooException> uw = new ExceptionUnwrapper<FooException>(FooException.class);
+		Assert.assertEquals(uw.exceptionClass, uw.getExceptionClass());
+	}
 	
-	static class MyException extends Exception {};
+	/**
+	 * Tests get(t).
+	 * @throws FooException 
+	 */
+	@SuppressWarnings("unchecked")
+	@Test(expected=FooException.class)
+	public void testRethrow() throws FooException {
+		ExceptionUnwrapper<FooException> uw = mock(ExceptionUnwrapper.class);
+		Throwable t = new Throwable();
+		when(uw.get(t)).thenReturn(new FooException());
+		ExceptionUnwrapper.rethrow(uw, t);
+	}
+	
+	/**
+	 * Tests get(t).
+	 * @throws FooException 
+	 */
+	@SuppressWarnings("unchecked")
+	@Test()
+	public void testRethrow_doNothing() throws FooException {
+		ExceptionUnwrapper<FooException> uw = mock(ExceptionUnwrapper.class);
+		Throwable t = new Throwable();		
+		ExceptionUnwrapper.rethrow(uw, t);
+		/* nothing should happen */
+	}
+	
+	
+	
 	
 	
 

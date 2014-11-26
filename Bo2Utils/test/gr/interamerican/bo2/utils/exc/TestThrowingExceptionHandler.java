@@ -10,7 +10,9 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
-package gr.interamerican.bo2.utils.handlers;
+package gr.interamerican.bo2.utils.exc;
+
+import gr.interamerican.bo2.utils.exc.ThrowingExceptionHandler;
 
 import org.junit.Assert;
 import org.junit.Test;

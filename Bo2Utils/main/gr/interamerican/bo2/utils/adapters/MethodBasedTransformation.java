@@ -1,7 +1,7 @@
 package gr.interamerican.bo2.utils.adapters;
 
+import gr.interamerican.bo2.utils.exc.ExceptionHandler;
 import gr.interamerican.bo2.utils.handlers.ConcreteMethodInvocator;
-import gr.interamerican.bo2.utils.handlers.ExceptionHandler;
 
 /**
  * {@link MethodBasedTransformation}

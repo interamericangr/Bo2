@@ -17,6 +17,7 @@ import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.Utils;
 import gr.interamerican.bo2.utils.attributes.SimpleCommand;
+import gr.interamerican.bo2.utils.exc.ExceptionHandler;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

@@ -10,38 +10,23 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
-package gr.interamerican.bo2.utils.handlers;
+package gr.interamerican.bo2.utils.exc;
+
+import java.io.Serializable;
 
 /**
- * <p>{@link ExceptionHandler} that re-throws the thrown
- * it handles. <br/>
+ * <p>Abstraction for an object that handles exceptions.
  * 
- * <p>If the thrown is an Error or a RuntimeException, it is 
- * re-thrown as is. Otherwise, it is wrapped inside a 
- * RuntimeException. 
+ * <p>The implementor may re-throw the exception as an unchecked exception.
  */
-public class ThrowingExceptionHandler 
-implements ExceptionHandler {
+public interface ExceptionHandler extends Serializable {
 	
 	/**
+	 * Handles the specified thrown exception.
 	 * 
+	 * @param t
+	 *        Exception handler.
 	 */
-	private static final long serialVersionUID = 1L;
-	/**
-	 * Instance.
-	 */
-	public static final ThrowingExceptionHandler INSTANCE = 
-		new ThrowingExceptionHandler(); 
-	
-	@Override
-	public void handle(Throwable t) {
-		if (t instanceof Error) {
-			throw (Error) t;
-		} 
-		if (t instanceof RuntimeException) {
-			throw (RuntimeException) t;
-		}
-		throw new RuntimeException(t);
-	}
+	void handle(Throwable t);
 
 }

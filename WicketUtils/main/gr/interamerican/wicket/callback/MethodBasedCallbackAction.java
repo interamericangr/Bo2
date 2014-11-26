@@ -12,9 +12,9 @@
  ******************************************************************************/
 package gr.interamerican.wicket.callback;
 
+import gr.interamerican.bo2.utils.exc.ThrowingExceptionHandler;
 import gr.interamerican.bo2.utils.handlers.EventHandlerComponent;
 import gr.interamerican.bo2.utils.handlers.EventHandlerMethodInvocator;
-import gr.interamerican.bo2.utils.handlers.ThrowingExceptionHandler;
 
 import java.io.Serializable;
 

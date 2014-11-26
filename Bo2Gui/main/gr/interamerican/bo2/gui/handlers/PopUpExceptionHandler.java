@@ -14,8 +14,8 @@ package gr.interamerican.bo2.gui.handlers;
 
 import gr.interamerican.bo2.gui.frames.PopUpFrame;
 import gr.interamerican.bo2.utils.ExceptionUtils;
-import gr.interamerican.bo2.utils.handlers.ExceptionHandler;
-import gr.interamerican.bo2.utils.handlers.ThrowingExceptionHandler;
+import gr.interamerican.bo2.utils.exc.ExceptionHandler;
+import gr.interamerican.bo2.utils.exc.ThrowingExceptionHandler;
 
 /**
  * <p>{@link ExceptionHandler} that pops up a message box with the

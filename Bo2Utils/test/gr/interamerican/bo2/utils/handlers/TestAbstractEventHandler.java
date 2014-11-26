@@ -13,6 +13,7 @@
 package gr.interamerican.bo2.utils.handlers;
 
 import static org.junit.Assert.assertSame;
+import gr.interamerican.bo2.utils.exc.ExceptionHandler;
 
 import java.util.Map;
 

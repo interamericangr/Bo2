@@ -1,51 +1,51 @@
 package gr.interamerican.bo2.utils.exc;
 
-import gr.interamerican.bo2.utils.handlers.ThrowingExceptionHandler;
 
 
 /**
  * Translates throwables to a specific exception type.
  * 
- * @param <A> 
+ * @param <E>
+ *        Type of exception. 
+ * 
  */
-public class SimpleExceptionTranslator <A extends Exception> {
+public class SimpleExceptionTranslator<E extends Exception> 
+extends MultipleExceptionTranslator {
 	
+		
 	/**
-	 * Unwrapper for data exceptions.
+	 * Class.
 	 */
-	ExceptionUnwrapper<A> uwA; 
-	
-	
+	Class<E> clazz;
 	
 	
 	/**
-	 * Creates a new ExceptionTranslator object.
-	 * @param clazzA
-	 */
-	public SimpleExceptionTranslator(Class<A> clazzA) {
-		super();
-		this.uwA = new ExceptionUnwrapper<A>(clazzA);
-	}
-	/**
-	 * Rethrows a throwable.
+	 * Rethrows exception types not covered by the unwrappers.
 	 * 
 	 * @param t
 	 * 
-	 * @throws LogicException
-	 * @throws DataException
+	 * @throws Exception 
 	 */
-	public void rethrow(Throwable t) throws A {
-		A a = uwA.get(t);
-		if (a!=null) {
-			throw a;
-		}
-		if (t instanceof Error) {
-			throw (Error) t;
-		}
-		if (t instanceof RuntimeException) {
-			throw (RuntimeException) t;
-		}
-		throw new RuntimeException(t);		
+	
+	@Override
+	public void rethrow(Throwable t) throws E {
+		rethrow(clazz,t);		
+		rethrowRest(t);
 	}
+	
+	
+	/**
+	 * Creates a new SimpleExceptionTranslator object.
+	 * 
+	 * @param clazz
+	 */
+	@SuppressWarnings({ "unchecked" })
+	public SimpleExceptionTranslator(Class<E> clazz) {
+		super(new Class[]{clazz});
+		this.clazz = clazz;
+	}
+	
+	
+	
 
 }

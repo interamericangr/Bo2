@@ -13,8 +13,8 @@
 package gr.interamerican.wicket.callback;
 
 import gr.interamerican.bo2.utils.attributes.SimpleCommand;
+import gr.interamerican.bo2.utils.exc.ThrowingExceptionHandler;
 import gr.interamerican.bo2.utils.handlers.AbstractEventHandler;
-import gr.interamerican.bo2.utils.handlers.ThrowingExceptionHandler;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;

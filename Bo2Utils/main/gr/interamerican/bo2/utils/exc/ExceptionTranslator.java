@@ -10,23 +10,29 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
-package gr.interamerican.bo2.utils.handlers;
+package gr.interamerican.bo2.utils.exc;
 
 import java.io.Serializable;
 
 /**
- * <p>Abstraction for an object that handles exceptions.
+ * Abstraction for an object that handles various types of exceptions
+ * and re-throws a specified type of exception.
  * 
- * <p>The implementor may re-throw the exception as an unchecked exception.
+ * @param <E>
+ *        Type of exception that is re-thrown by this ExceptionTranslator. 
+ * 
  */
-public interface ExceptionHandler extends Serializable {
+public interface ExceptionTranslator<E extends Exception> 
+extends Serializable {
 	
 	/**
 	 * Handles the specified thrown exception.
 	 * 
 	 * @param t
 	 *        Exception handler.
+	 *        
+	 * @throws E 
 	 */
-	void handle(Throwable t);
+	void rethrow(Throwable t) throws E;
 
 }

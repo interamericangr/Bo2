@@ -14,7 +14,8 @@ package gr.interamerican.bo2.utils.handlers;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-
+import gr.interamerican.bo2.utils.exc.ExceptionHandler;
+import gr.interamerican.bo2.utils.exc.ThrowingExceptionHandler;
 
 import org.junit.Test;
 

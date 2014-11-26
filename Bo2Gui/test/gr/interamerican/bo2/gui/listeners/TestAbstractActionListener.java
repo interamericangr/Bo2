@@ -12,7 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.bo2.gui.listeners;
 
-import gr.interamerican.bo2.utils.handlers.ExceptionHandler;
+import gr.interamerican.bo2.utils.exc.ExceptionHandler;
 
 import java.awt.event.ActionEvent;
 
