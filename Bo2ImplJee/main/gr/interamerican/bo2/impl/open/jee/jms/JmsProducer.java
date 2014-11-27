@@ -20,6 +20,16 @@ import gr.interamerican.bo2.impl.open.workers.AbstractResourceConsumer;
 public abstract class JmsProducer extends AbstractResourceConsumer {
 	
 	/**
+	 * the priority level of the message
+	 */
+	private static final int PRIORITY_LEVEL = 4;
+
+	/**
+	 * message expiration time in milliseconds
+	 */
+    private static final long TIME_TO_LIVE = 300000; 
+	
+	/**
 	 * JMS resource name.
 	 */
 	String jmsResourceName;
@@ -48,8 +58,9 @@ public abstract class JmsProducer extends AbstractResourceConsumer {
 		JmsProvider jmsProvider = getResource(JmsProvider.class);
 		JmsResource jmsResource = jmsProvider.getResource(jmsResourceName);
 		try {
-			session = jmsResource.getConnection().createSession(true, Session.SESSION_TRANSACTED);
-			producer = session.createProducer(jmsResource.getDestination());
+			producer = jmsResource.getSession().createProducer(jmsResource.getDestination());
+			producer.setPriority(PRIORITY_LEVEL);
+			producer.setTimeToLive(TIME_TO_LIVE);
 		} catch (JMSException e) {
 			throw new InitializationException(e);
 		}
