@@ -160,12 +160,9 @@ public abstract class AbstractMethodInvocator implements SimpleCommand {
 	 * @return Returns the object returned by the method. 
 	 */
 	public Object invoke() {	
-		try {						
+		try {
+			logInvocation();
 			Object[] args = getArguments();
-			String callback = owner.getClass().getSimpleName() + StringConstants.SHARP + methodName;
-			MDC.put(MDC_CALLBACKMETHOD, callback);
-			LOG.debug("executing callback"); //$NON-NLS-1$
-			
 			return method.invoke(owner, args);
 		} catch (IllegalArgumentException ilarex) {
 			handler.handle(ilarex);		
@@ -186,6 +183,18 @@ public abstract class AbstractMethodInvocator implements SimpleCommand {
 	public void execute() {
 		invoke();		
 	}
+	
+	
+	/**
+	 * Logs the method invocation.
+	 * 
+	 */
+	private void logInvocation(){			
+		String callback = ownerClass.getSimpleName() + StringConstants.SHARP + methodName;
+		MDC.put(MDC_CALLBACKMETHOD, callback);
+		LOG.debug("executing callback"); //$NON-NLS-1$
+	}
+
 	
 	
 		
