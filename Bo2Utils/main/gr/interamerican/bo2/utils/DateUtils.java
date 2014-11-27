@@ -12,6 +12,8 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils;
 
+import gr.interamerican.bo2.utils.beans.Range;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -27,9 +29,8 @@ import java.util.Set;
  * 
  */
 public class DateUtils {
-	
 	/**
-	 * Milliseconds of an hour.
+	 * Milliseconds of a day.
 	 */
 	private static final long HOUR_IN_MILLIS = 60*60*1000;
 	
@@ -37,6 +38,7 @@ public class DateUtils {
 	 * Milliseconds of a day.
 	 */
 	private static final long DAY_IN_MILLIS = 24*HOUR_IN_MILLIS;
+
 
 	/**
 	 * Date format YYYYMMDD.
@@ -211,30 +213,52 @@ public class DateUtils {
 	 * 
 	 */
 	static int dateDif(Calendar fromDate, Calendar toDate, int type) {
-		if (Calendar.DAY_OF_MONTH==type) {
-			int days=DateUtils.daysDif(fromDate, toDate);
-			if (days<0) {
-				return 0;
-			}
-			return days;
+		if (Calendar.DAY_OF_MONTH==type) {			
+			return daysDifPositive(fromDate, toDate);
 		}
-		
 		
 		Calendar from = new GregorianCalendar();
 		from.setTime(fromDate.getTime());
-
 		Calendar to = new GregorianCalendar();
 		to.setTime(toDate.getTime());
 
 		int count = 0;
 		from.add(type, 1);
-
 		while (from.before(to) || from.equals(to)) {
 			count++;
 			from.add(type, 1);
 		}
 		return count;
 	}
+	
+	
+	
+	/**
+	 * Gets the days between two dates.
+	 * 
+	 * The first parameter <code>fromDate</code> must be less
+	 * or equal than the second parameter <code>toDate</code>.
+	 * Otherwise the method will return 0.
+	 * 
+	 * @param fromDate
+	 * @param toDate
+	 * 
+	 * @param type
+	 *        Rime integral of the result period of time. Valid values
+	 *        are <code>Calendar.DATE, Calendar.YEAR, Calendar.MONTH</code>
+	 * 
+	 * @return Returns the time passed from <code>fromDate</code>
+	 *         until <code>toDate</code>
+	 * 
+	 */
+	static int daysDifPositive(Calendar fromDate, Calendar toDate) {		
+		int days=DateUtils.daysDif(fromDate, toDate);
+		if (days<0) {
+			return 0;
+		}
+		return days;
+	}
+	
 	
 	/**
 	 * Gets the time between two dates in days.
@@ -249,22 +273,25 @@ public class DateUtils {
 	 * 
 	 */
 	static int daysDif(Calendar fromDate, Calendar toDate) {
-		long from = fromDate.getTimeInMillis();
-		long to = toDate.getTimeInMillis();
+		Range<Calendar> period = new Range<Calendar>(fromDate, toDate);
+		boolean isNegative = period.getLeft().equals(toDate);		
+		
+		long from = period.getLeft().getTimeInMillis();
+		long to = period.getRight().getTimeInMillis();
 		long dif = to - from;
-		
 		long days = dif / DAY_IN_MILLIS;
-		
 		/*
-		 * this fix is intended to fix daylight saving offsets. For
-		 * example, if the difference is 30 days 23 hours, the end result
-		 * is is rounded up to 31 days.
+		 * Fix for BOTWO-14: 
+		 * Wrong result if from is in winter time zone and to in summer time zone. 
 		 */
-		long offset = dif - (days * DAY_IN_MILLIS);
-		if(offset>=23*HOUR_IN_MILLIS) { //round up if the offset is 1h or less.
-			return Long.valueOf(days).intValue()+1;
+		long remainder = dif % DAY_IN_MILLIS;		
+		long hours = remainder / HOUR_IN_MILLIS;		
+		if (hours > 22) {			
+			days++;
 		}
-		
+		if (isNegative) {
+			days = -days;
+		}
 		return Long.valueOf(days).intValue();
 	}
 	

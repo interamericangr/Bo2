@@ -29,7 +29,47 @@ import org.junit.Test;
 /**
  * Unit tests for {@link DateUtils}
  */
+@SuppressWarnings("nls")
 public class TestDateUtils {
+	
+	/**
+	 * Test cases for days difference in days between two dates.
+	 */
+	private static final Object[][] DAYSDIF_TESTCASES = {
+		{"13/03/2010", "13/03/2010", 0},
+		{"12/03/2010", "13/03/2010", 1},
+		{"10/03/2010", "13/03/2010", 3},
+		{"13/06/2010", "13/06/2011", 365},
+		{"13/06/2011", "13/06/2012", 366},
+		{"13/06/2007", "13/06/2009", 731},
+		{"01/09/2007", "01/11/2007", 61},
+		{"01/03/2007", "01/04/2007", 31},
+		{"01/01/0001", "10/05/2013", 734999}, //need to check if this is correct.
+	};
+	
+	/**
+	 * Test cases for days difference in months between two dates.
+	 */
+	private static final Object[][] MONTHSDIF_TESTCASES = {
+		{"13/03/2010", "13/03/2010", 0},
+		{"01/03/2010", "23/03/2010", 0},
+		{"12/03/2010", "13/04/2010", 1},
+		{"10/03/2010", "13/03/2010", 0},
+		{"13/06/2010", "13/06/2011", 12},
+		{"13/06/2007", "13/06/2009", 24}
+	};
+	
+	/**
+	 * Test cases for days difference in years between two dates.
+	 */
+	private static final Object[][] YEARSDIF_TESTCASES = {
+			{"13/03/2010", "13/03/2010", 0},
+			{"01/03/2010", "23/03/2010", 0},
+			{"12/03/2010", "13/04/2010", 0},
+			{"10/03/2010", "13/03/2010", 0},
+			{"13/06/2010", "13/06/2011", 1},
+			{"13/06/2007", "13/06/2009", 2}
+	};
 	
 	/**
 	 * tests that getDate for input a string
@@ -121,17 +161,8 @@ public class TestDateUtils {
 	 * tests difDays
 	 */
 	@Test
-	public void testDifDays() {
-		@SuppressWarnings("nls")
-		Object[][] data = {
-				{"13/03/2010", "13/03/2010", 0},
-				{"12/03/2010", "13/03/2010", 1},
-				{"10/03/2010", "13/03/2010", 3},
-				{"13/06/2010", "13/06/2011", 365},
-				{"13/06/2011", "13/06/2012", 366},
-				{"13/06/2007", "13/06/2009", 731},
-				{"10/03/2014", "10/04/2014", 31},
-		};
+	public void testDifDays() {		
+		Object[][] data = DAYSDIF_TESTCASES;
 		try {
 			for (int i = 0; i < data.length; i++) {
 				String sd1 = (String) data[i][0];
@@ -154,15 +185,7 @@ public class TestDateUtils {
 	 */
 	@Test
 	public void testDifMonths() {
-		@SuppressWarnings("nls")
-		Object[][] data = {
-				{"13/03/2010", "13/03/2010", 0},
-				{"01/03/2010", "23/03/2010", 0},
-				{"12/03/2010", "13/04/2010", 1},
-				{"10/03/2010", "13/03/2010", 0},
-				{"13/06/2010", "13/06/2011", 12},
-				{"13/06/2007", "13/06/2009", 24}
-		};
+		Object[][] data = MONTHSDIF_TESTCASES;
 		try {
 			for (int i = 0; i < data.length; i++) {
 				String sd1 = (String) data[i][0];
@@ -184,16 +207,8 @@ public class TestDateUtils {
 	 * tests difYears
 	 */
 	@Test
-	public void testDifYears() {
-		@SuppressWarnings("nls")
-		Object[][] data = {
-				{"13/03/2010", "13/03/2010", 0},
-				{"01/03/2010", "23/03/2010", 0},
-				{"12/03/2010", "13/04/2010", 0},
-				{"10/03/2010", "13/03/2010", 0},
-				{"13/06/2010", "13/06/2011", 1},
-				{"13/06/2007", "13/06/2009", 2}
-		};
+	public void testDifYears() {		
+		Object[][] data =YEARSDIF_TESTCASES;
 		try {
 			for (int i = 0; i < data.length; i++) {
 				String sd1 = (String) data[i][0];
@@ -216,8 +231,7 @@ public class TestDateUtils {
 	 * tests format date
 	 */
 	@Test
-	public void testFormatDate() {
-		@SuppressWarnings("nls")
+	public void testFormatDate() {		
 		Object[][] data = {
 				{DateUtils.getDate(2010, Calendar.MARCH, 13) , "13/03/2010"},
 				{DateUtils.getDate(2008, Calendar.FEBRUARY, 29) , "29/02/2008"},
@@ -307,23 +321,22 @@ public class TestDateUtils {
 	 * tests difDays
 	 */
 	@Test
-	public void testDifDaysWithCalendar(){
-		
-		Calendar fromDate = new GregorianCalendar();
-		fromDate.set(2010, 7, 20);
-		Calendar toDate = new GregorianCalendar();
-		toDate.set(2010, 7, 23);
-		Integer expected = 3;
-		Integer actual = DateUtils.difDays(fromDate, toDate);
-		assertEquals(expected,actual);
-		
-		Calendar fromDate2 = new GregorianCalendar();
-		fromDate2.set(2010, 7, 20);
-		Calendar toDate2 = new GregorianCalendar();
-		toDate2.set(2011, 7, 20);
-		Integer expected2 = 365;
-		Integer actual2 = DateUtils.difDays(fromDate2, toDate2);
-		assertEquals(expected2,actual2);
+	public void testDifDays_WithCalendar(){
+		Object[][] data = DAYSDIF_TESTCASES;
+		try {
+			for (int i = 0; i < data.length; i++) {
+				String sd1 = (String) data[i][0];
+				String sd2 = (String) data[i][1];
+				int expected = (Integer) data[i][2];				
+				Calendar d1 = DateUtils.getCalendar(DateUtils.getDate(sd1));
+				Calendar d2 = DateUtils.getCalendar(DateUtils.getDate(sd2));
+				int actual = DateUtils.difDays(d1,d2);
+				String msg = "Datedif from " +sd1+ " to " +sd2+ " => " +actual;  //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$				
+				assertEquals(msg, expected, actual);
+			}
+		} catch (ParseException e) {
+			fail(e.toString());
+		}
 		
 	}
 	
@@ -331,23 +344,22 @@ public class TestDateUtils {
 	 * tests DifYears
 	 */
 	@Test
-	public void testDifYearsWithCalendar(){
-		
-		Calendar fromDate = new GregorianCalendar();
-		fromDate.set(2010, 7, 20);
-		Calendar toDate = new GregorianCalendar();
-		toDate.set(2010, 7, 23);
-		Integer expected = 0;
-		Integer actual = DateUtils.difYears(fromDate, toDate);
-		assertEquals(expected,actual);
-		
-		Calendar fromDate2 = new GregorianCalendar();
-		fromDate2.set(2010, 7, 20);
-		Calendar toDate2 = new GregorianCalendar();
-		toDate2.set(2011, 7, 20);
-		Integer expected2 = 1;
-		Integer actual2 = DateUtils.difYears(fromDate2, toDate2);
-		assertEquals(expected2,actual2);
+	public void testDifYears_WithCalendar(){
+		Object[][] data =YEARSDIF_TESTCASES;
+		try {
+			for (int i = 0; i < data.length; i++) {
+				String sd1 = (String) data[i][0];
+				String sd2 = (String) data[i][1];
+				int expected = (Integer) data[i][2];				
+				Calendar d1 = DateUtils.getCalendar(DateUtils.getDate(sd1));
+				Calendar d2 = DateUtils.getCalendar(DateUtils.getDate(sd2));
+				int actual = DateUtils.difYears(d1,d2);
+				String msg = "Month dif from " +sd1+ " to " +sd2+ " => " +actual;  //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$				
+				assertEquals(msg, expected, actual);
+			}
+		} catch (ParseException e) {
+			fail(e.toString());
+		}
 		
 	}
 	
@@ -355,22 +367,22 @@ public class TestDateUtils {
 	 * tests DifMonths
 	 */
 	@Test
-	public void testDifMonthsWithCalendar(){		
-		Calendar fromDate = new GregorianCalendar();
-		fromDate.set(2010, 7, 20);
-		Calendar toDate = new GregorianCalendar();
-		toDate.set(2010, 7, 23);
-		Integer expected = 0;
-		Integer actual = DateUtils.difMonths(fromDate, toDate);
-		assertEquals(expected,actual);
-		
-		Calendar fromDate2 = new GregorianCalendar();
-		fromDate2.set(2010, 7, 20);
-		Calendar toDate2 = new GregorianCalendar();
-		toDate2.set(2011, 7, 20);
-		Integer expected2 = 12;
-		Integer actual2 = DateUtils.difMonths(fromDate2, toDate2);
-		assertEquals(expected2,actual2);
+	public void testDifMonths_WithCalendar(){		
+		Object[][] data = MONTHSDIF_TESTCASES;
+		try {
+			for (int i = 0; i < data.length; i++) {
+				String sd1 = (String) data[i][0];
+				String sd2 = (String) data[i][1];
+				int expected = (Integer) data[i][2];
+				Calendar d1 = DateUtils.getCalendar(DateUtils.getDate(sd1));
+				Calendar d2 = DateUtils.getCalendar(DateUtils.getDate(sd2));
+				int actual = DateUtils.difMonths(d1,d2);
+				String msg = "Month dif from " +sd1+ " to " +sd2+ " => " +actual;  //$NON-NLS-1$//$NON-NLS-2$ //$NON-NLS-3$				
+				assertEquals(msg, expected, actual);
+			}
+		} catch (ParseException e) {
+			fail(e.toString());
+		}
 	}
 	
 	/**
@@ -379,7 +391,6 @@ public class TestDateUtils {
 	 */
 	@Test
 	public void testAddDays() throws ParseException{
-		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); //$NON-NLS-1$
 		Date dt = sdf.parse("2010-07-20"); //$NON-NLS-1$
         String expected = "2010-07-25"; //$NON-NLS-1$
@@ -430,7 +441,6 @@ public class TestDateUtils {
 	 */
 	@Test
 	public void testAddYears() throws ParseException{
-		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); //$NON-NLS-1$
 		Date dt = sdf.parse("2010-07-20"); //$NON-NLS-1$
         String expected = "2010-07-20"; //$NON-NLS-1$
@@ -627,10 +637,10 @@ public class TestDateUtils {
 	}
 	
 	/**
-	 * test method for
+	 * test method for daysDif(d1, d2)
 	 */
 	@Test
-	public void TestDaysDif() {
+	public void TestDaysDif_1() {
 		Date d1 = DateUtils.getDate(2013, Calendar.MAY, 10);
 		Calendar c1 = DateUtils.getCalendar(d1);
 		Calendar c2 = DateUtils.getCalendar(d1);
@@ -641,11 +651,34 @@ public class TestDateUtils {
 			assertEquals(i+1, c1ToC2);
 			assertEquals(-i-1, c2ToC1);
 		}
-		
-		Date d3 = DateUtils.getDate(1, Calendar.JANUARY, 1);
-		Calendar c3 = DateUtils.getCalendar(d3);
-		int c3ToC1 = DateUtils.daysDif(c3, c1);
-		assertEquals(734999, c3ToC1);
+	}
+	
+	/**
+	 * test method for daysDif(d1, d2)
+	 */
+	@Test
+	public void TestDaysDif_2() {
+		Object[][] data = DAYSDIF_TESTCASES;
+		try {
+			for (int i = 0; i < data.length; i++) {
+				String sd1 = (String) data[i][0];
+				String sd2 = (String) data[i][1];
+				int expected = (Integer) data[i][2];
+				Calendar c1 = DateUtils.getCalendar(DateUtils.getDate(sd1));
+				Calendar c2 = DateUtils.getCalendar(DateUtils.getDate(sd2));
+				  
+				int c1ToC2 = DateUtils.daysDif(c1, c2);
+				String msg1 = "Datedif from " +sd1+ " to " +sd2+ " => " +c1ToC2;
+				assertEquals(msg1, expected, c1ToC2);
+
+				String msg2 = "Datedif from " +sd2+ " to " +sd1+ " => " +c1ToC2;
+				int c2ToC1 = DateUtils.daysDif(c2, c1);
+				assertEquals(msg2, -expected, c2ToC1);
+				
+			}
+		} catch (ParseException e) {
+			fail(e.toString());
+		}
 	}
 	
 	/**
@@ -663,11 +696,10 @@ public class TestDateUtils {
 			assertEquals(i+1, c1ToC2);
 			assertEquals(0, c2ToC1);
 		}
-		Date d3 = DateUtils.getDate(1, Calendar.JANUARY, 1);
-		Calendar c3 = DateUtils.getCalendar(d3);
-		int c3ToC1 = DateUtils.dateDif(c3, c1, Calendar.DATE);
-		assertEquals(734999, c3ToC1);		
 	}
+	
+	
+	
 	
 	
 	
