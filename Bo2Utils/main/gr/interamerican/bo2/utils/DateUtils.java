@@ -27,11 +27,16 @@ import java.util.Set;
  * 
  */
 public class DateUtils {
+	
+	/**
+	 * Milliseconds of an hour.
+	 */
+	private static final long HOUR_IN_MILLIS = 60*60*1000;
+	
 	/**
 	 * Milliseconds of a day.
 	 */
-	private static final long DAY_IN_MILLIS = 24*60*60*1000;
-
+	private static final long DAY_IN_MILLIS = 24*HOUR_IN_MILLIS;
 
 	/**
 	 * Date format YYYYMMDD.
@@ -247,7 +252,19 @@ public class DateUtils {
 		long from = fromDate.getTimeInMillis();
 		long to = toDate.getTimeInMillis();
 		long dif = to - from;
+		
 		long days = dif / DAY_IN_MILLIS;
+		
+		/*
+		 * this fix is intended to fix daylight saving offsets. For
+		 * example, if the difference is 30 days 23 hours, the end result
+		 * is is rounded up to 31 days.
+		 */
+		long offset = dif - (days * DAY_IN_MILLIS);
+		if(offset>=23*HOUR_IN_MILLIS) { //round up if the offset is 1h or less.
+			return Long.valueOf(days).intValue()+1;
+		}
+		
 		return Long.valueOf(days).intValue();
 	}
 	

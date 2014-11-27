@@ -129,7 +129,8 @@ public class TestDateUtils {
 				{"10/03/2010", "13/03/2010", 3},
 				{"13/06/2010", "13/06/2011", 365},
 				{"13/06/2011", "13/06/2012", 366},
-				{"13/06/2007", "13/06/2009", 731}
+				{"13/06/2007", "13/06/2009", 731},
+				{"10/03/2014", "10/04/2014", 31},
 		};
 		try {
 			for (int i = 0; i < data.length; i++) {
@@ -644,7 +645,7 @@ public class TestDateUtils {
 		Date d3 = DateUtils.getDate(1, Calendar.JANUARY, 1);
 		Calendar c3 = DateUtils.getCalendar(d3);
 		int c3ToC1 = DateUtils.daysDif(c3, c1);
-		assertEquals(734998, c3ToC1);
+		assertEquals(734999, c3ToC1);
 	}
 	
 	/**
@@ -665,7 +666,7 @@ public class TestDateUtils {
 		Date d3 = DateUtils.getDate(1, Calendar.JANUARY, 1);
 		Calendar c3 = DateUtils.getCalendar(d3);
 		int c3ToC1 = DateUtils.dateDif(c3, c1, Calendar.DATE);
-		assertEquals(734998, c3ToC1);		
+		assertEquals(734999, c3ToC1);		
 	}
 	
 	
