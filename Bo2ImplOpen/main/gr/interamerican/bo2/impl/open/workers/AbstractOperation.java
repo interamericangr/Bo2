@@ -15,6 +15,7 @@ package gr.interamerican.bo2.impl.open.workers;
 import gr.interamerican.bo2.arch.Operation;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
+import gr.interamerican.bo2.arch.utils.beans.Invoker;
 
 /**
  * Basic implementation of {@link Operation}.
@@ -22,8 +23,23 @@ import gr.interamerican.bo2.arch.exceptions.LogicException;
 public abstract class AbstractOperation 
 extends AbstractResourceConsumer 
 implements Operation {
+	
+	/**
+	 * Invoker.
+	 */
+	protected Invoker invoker;
+	
+	/**
+	 * Creates a new AbstractOperation object.
+	 */
+	public AbstractOperation() {
+		super();
+		invoker = new Invoker(this);	
+	}
 
 	@Override
 	public abstract void execute() 
 	throws LogicException, DataException;
+	
+
 }

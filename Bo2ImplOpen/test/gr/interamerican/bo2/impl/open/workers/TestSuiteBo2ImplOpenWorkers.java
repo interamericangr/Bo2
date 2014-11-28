@@ -34,6 +34,7 @@ import org.junit.runners.Suite.SuiteClasses;
 		TestTransformedQuery.class,
 		TestFactorySupportedFastPoReader.class,
 		TestConditionValidator.class,
+		TestAbstractOperation.class,
 	}
 )
 public class TestSuiteBo2ImplOpenWorkers {
