@@ -66,10 +66,12 @@ implements CriteriaDependent<Object>{
 		return queries;
 	}
 
+	@Override
 	public Object getCriteria() {
 		return criteria;
 	}
 
+	@Override
 	public void setCriteria(Object criteria) {
 		this.criteria = criteria;
 	}

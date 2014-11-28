@@ -58,8 +58,7 @@ extends AbstractOperation {
 	 * 
 	 * @throws LogicException
 	 * @throws DataException
-	 */
-	@SuppressWarnings("unused")
+	 */	
 	protected void beforeQuery() throws LogicException, DataException {
 		/* empty */
 	}
@@ -70,8 +69,7 @@ extends AbstractOperation {
 	 * 
 	 * @throws LogicException
 	 * @throws DataException
-	 */
-	@SuppressWarnings("unused")
+	 */	
 	protected void afterQuery() throws LogicException, DataException {
 		/* empty */
 	}
