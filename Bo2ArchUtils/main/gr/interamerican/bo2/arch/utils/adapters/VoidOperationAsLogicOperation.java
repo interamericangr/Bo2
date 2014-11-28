@@ -1,6 +1,5 @@
 package gr.interamerican.bo2.arch.utils.adapters;
 
-import gr.interamerican.bo2.arch.DataOperation;
 import gr.interamerican.bo2.arch.LogicOperation;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
