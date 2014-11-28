@@ -74,7 +74,7 @@ public class TestAbstractEntitiesQueryCrawlerOperation {
 		}
 		
 		@Override
-		void handleEntity(String p) throws LogicException, DataException {
+		protected void handleEntity(String p) throws LogicException, DataException {
 			int row = query.getRow();
 			Assert.assertEquals(strings[row-1], query.getEntity());
 		}

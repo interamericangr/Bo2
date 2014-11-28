@@ -38,6 +38,6 @@ extends AbstractQueryCrawlerOperation<Q> {
 	 * @param p
 	 *        entity to handle.
 	 */
-	abstract void handleEntity(P p) throws LogicException, DataException; 
+	protected abstract void handleEntity(P p) throws LogicException, DataException; 
 
 }
