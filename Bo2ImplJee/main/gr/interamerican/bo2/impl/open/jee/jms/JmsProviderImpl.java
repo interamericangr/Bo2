@@ -29,12 +29,12 @@ public class JmsProviderImpl implements JmsProvider {
 	/**
 	 * Configuration property key for initial context factory implementation class.
 	 */
-	static final String INITIAL_CONTEXT_FACTORY_KEY = "initialCtxFactory"; //$NON-NLS-1$
+	static final String INITIAL_CONTEXT_FACTORY_KEY = "jms.initialCtxFactory"; //$NON-NLS-1$
 	
 	/**
 	 * Configuration property key for context lookup url.
 	 */
-	static final String LOOKUP_URL_KEY = "lookupUrl"; //$NON-NLS-1$
+	static final String LOOKUP_URL_KEY = "jms.lookupUrl"; //$NON-NLS-1$
 	
 	/**
 	 * Properties of the manager this resource wrapper is created from.

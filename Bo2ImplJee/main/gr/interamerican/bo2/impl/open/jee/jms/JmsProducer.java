@@ -58,7 +58,8 @@ public abstract class JmsProducer extends AbstractResourceConsumer {
 		JmsProvider jmsProvider = getResource(JmsProvider.class);
 		JmsResource jmsResource = jmsProvider.getResource(jmsResourceName);
 		try {
-			producer = jmsResource.getSession().createProducer(jmsResource.getDestination());
+			session = jmsResource.getSession();
+			producer = session.createProducer(jmsResource.getDestination());
 			producer.setPriority(PRIORITY_LEVEL);
 			producer.setTimeToLive(TIME_TO_LIVE);
 		} catch (JMSException e) {
