@@ -45,8 +45,10 @@ public abstract class JmsProducer extends AbstractResourceConsumer {
 	MessageProducer producer;
 	
 	/**
-	 * Creates a new JmsProducer object. 
-	 * @param jmsResourceName 
+	 * Creates a new JmsProducer object.
+	 * 
+	 * @param jmsResourceName
+	 *        The logical name for the jms resource 
 	 */
 	public JmsProducer(String jmsResourceName) {
 		this.jmsResourceName = jmsResourceName;
