@@ -12,6 +12,27 @@
 	<dependencies>
 	
 		<dependency>
+			<groupId>com.ibm.was85</groupId>
+			<artifactId>ejb-thinclient</artifactId>
+			<version>8.5.0</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.ibm.was85</groupId>
+			<artifactId>jms-thinclient</artifactId>
+			<version>8.5.0</version>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.ibm.was85</groupId>
+			<artifactId>ws-orb</artifactId>
+			<version>8.5.0</version>
+			<scope>test</scope>
+		</dependency>
+	
+		<dependency>
 			<groupId>org.apache.derby</groupId>
 			<artifactId>derbyclient</artifactId>
 			<scope>test</scope>
