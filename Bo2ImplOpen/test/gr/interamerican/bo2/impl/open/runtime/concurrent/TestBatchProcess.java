@@ -328,6 +328,7 @@ public class TestBatchProcess {
 		parms.setInputPropertyName("id"); //$NON-NLS-1$
 		parms.setPreProcessing(null);
 		parms.setPostProcessing(null);
+		parms.setBatchProcessInputAsText("textual representation of input"); //$NON-NLS-1$
 		BatchProcess<String> batch = new BatchProcess<String>(parms);
 		batch.execute();
 	}

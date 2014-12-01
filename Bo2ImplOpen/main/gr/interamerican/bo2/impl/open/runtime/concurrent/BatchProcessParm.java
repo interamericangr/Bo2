@@ -373,5 +373,22 @@ public interface BatchProcessParm<T> {
 	 * @param reattemptOnTmex
 	 */
 	void setReattemptOnTmex(Boolean reattemptOnTmex);
+	
+	/**
+	 * Gets a text representation of the input that was transformed to
+	 * this object instance.
+	 * 
+	 * @return a text representation of the input that was transformed to
+	 * this object instance.
+	 */
+	String getBatchProcessInputAsText();
+	
+	/**
+	 * Specifies a text representation of the input that was transformed to
+	 * this object instance. BatchProcessParm factories should set this.
+	 * 
+	 * @param batchProcessInput
+	 */
+	void setBatchProcessInputAsText(String batchProcessInput);
 
 }

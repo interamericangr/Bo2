@@ -36,6 +36,7 @@ import gr.interamerican.bo2.arch.Operation;
 import gr.interamerican.bo2.arch.ext.CriteriaDependent;
 import gr.interamerican.bo2.impl.open.creation.Factory;
 import gr.interamerican.bo2.impl.open.modifications.CriteriaAwareCopyFromProperties;
+import gr.interamerican.bo2.impl.open.transformations.ObjectPropertiesAnalyzer;
 import gr.interamerican.bo2.utils.ExceptionUtils;
 import gr.interamerican.bo2.utils.NumberUtils;
 import gr.interamerican.bo2.utils.StringConstants;
@@ -63,7 +64,9 @@ implements BatchProcessParmsFactory {
 	@Override	
 	public BatchProcessParm createParameter(Properties properties) {
 		
-		BatchProcessParm<?> input = Factory.create(BatchProcessParm.class);		
+		BatchProcessParm<?> input = Factory.create(BatchProcessParm.class);
+		input.setBatchProcessInputAsText(String.valueOf(properties));
+		
 		String name = getMandatoryProperty(properties, BATCH_PROCESS_NAME).trim();
 		String queryClassName = getMandatoryProperty(properties, QUERY_CLASS).trim();
 		String operationClassName = getMandatoryProperty(properties, OPERATION_CLASS).trim();
@@ -218,8 +221,11 @@ implements BatchProcessParmsFactory {
 		 */
 		BatchProcessParm output = Factory.create(BatchProcessParm.class);
 		
+		String inputAsText = new ObjectPropertiesAnalyzer().execute(input).toString();
+		output.setBatchProcessInputAsText(inputAsText);
+		
 		output.setName(ExceptionUtils.notNull(input.getName()));
-		output.setFormatter((Formatter)createFormatter(input.getFormatterClassName()));
+		output.setFormatter(createFormatter(input.getFormatterClassName()));
 		output.setInitialThreads(Utils.notNull(input.getInitialThreads(), 1));
 		output.setInputPropertyName(ExceptionUtils.notNull(input.getInputPropertyName()));
 		output.setMonitoringMailInterval(Utils.notNull(input.getMonitoringMailInterval(), 0)); //0 is never send
@@ -227,7 +233,7 @@ implements BatchProcessParmsFactory {
 		
 		
 		String operationClassName = ExceptionUtils.notNull(input.getOperationClassName()).trim();
-		output.setOperationClass((Class<? extends Operation>) Factory.getType(operationClassName));
+		output.setOperationClass(Factory.getType(operationClassName));
 		
 		output.setPostProcessing(optionalOperation(input.getPostProcessingOperationClassName()));
 		output.setPreProcessing(optionalOperation(input.getPreProcessingOperationClassName()));

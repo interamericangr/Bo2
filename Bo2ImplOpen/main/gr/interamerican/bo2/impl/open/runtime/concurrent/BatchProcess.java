@@ -115,6 +115,11 @@ implements Runnable, MultiThreadedLongProcess {
 	int countOfProcessorsToAdd;
 	
 	/**
+	 * Count of processors. BOTWO-21
+	 */
+	int processorsCount;
+	
+	/**
 	 * Start time.
 	 */
 	Date startTime;
@@ -331,6 +336,7 @@ implements Runnable, MultiThreadedLongProcess {
 			int count = countOfProcessorsToAdd;
 			countOfProcessorsToAdd = 0;
 			for (int i = 0; i < count; i++) {
+				processorsCount++;
 				addQueueProcessor();
 			}
 		}
@@ -382,8 +388,30 @@ implements Runnable, MultiThreadedLongProcess {
 		NamedPrintStream stackTraces = SharedStreams.optionalStacktraces(provider, this.getName());
 		if (stackTraces!=null) {
 			String stackHead = ">>>Stack traces of batch process:" + this.getName(); //$NON-NLS-1$
-			stackTraces.writeString(stackHead); 			
+			stackTraces.writeString(stackHead);
+			String input = parameters.getBatchProcessInputAsText();
+			stackTraces.writeString(input + "<<<"); //$NON-NLS-1$
 		}	
+	}
+	
+	/**
+	 * Writes a summary of statistics for this batch process in the stacktraces
+	 * log file at the end of its execution.
+	 */
+	@SuppressWarnings("nls")
+	void writeStatistics() {
+		NamedPrintStream stackTraces = SharedStreams.optionalStacktraces(provider, this.getName());
+		if (stackTraces==null) {
+			return;
+		}
+		
+		String statistics = StringUtils.concat(
+			">>>>statistics - post process has not run yet!!! <<<<",
+			"start date: " + String.valueOf(startTime) + StringConstants.NEWLINE,
+			"end date: " + String.valueOf(new Date()) + StringConstants.NEWLINE,
+			"processors count: " + String.valueOf(processorsCount));
+		
+		stackTraces.writeString(statistics);
 	}
 	
 	/**
@@ -467,7 +495,8 @@ implements Runnable, MultiThreadedLongProcess {
 	/**
 	 * Creates the initial QueueProcessors.
 	 */
-	void createInitialQueueProcessors() {		
+	void createInitialQueueProcessors() {
+		processorsCount = parameters.getInitialThreads();
 		for (int i = 0; i < parameters.getInitialThreads(); i++) {
 			addQueueProcessor();
 		}
@@ -583,6 +612,9 @@ implements Runnable, MultiThreadedLongProcess {
 			initialize();
 			parameters.getQuery().execute();
 			processQuery();
+			
+			writeStatistics();
+			
 			close();
 		} catch (TransactionManagerException e) {
 			throw new UnexpectedException(e);
