@@ -12,17 +12,13 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.workers;
 
-import gr.interamerican.bo2.arch.FastPoReader;
 import gr.interamerican.bo2.arch.PersistenceWorker;
 import gr.interamerican.bo2.arch.PersistentObject;
-import gr.interamerican.bo2.arch.PoReader;
-import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.impl.open.creation.Factory;
+import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.annotations.Child;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Implementation of {@link FastPoReader}.
@@ -37,10 +33,9 @@ import java.util.Map;
  *        Type of persistent object.
  * 
  */
-public class FactorySupportedFastPoReader
+public class FactorySupportedPoHandler
 <K extends Serializable & Comparable<? super K>, P extends PersistentObject<K>> 
-extends AbstractResourceConsumer
-implements FastPoReader<K, P> {
+extends AbstractResourceConsumer {
 	
 	/**
 	 * Declaration class of P.
@@ -50,46 +45,49 @@ implements FastPoReader<K, P> {
 	/**
 	 * Persistence worker.
 	 */
-	@Child PoReader<K,P> reader;
-	
-	/**
-	 * Cache.
-	 */
-	Map<K, P> cache = new HashMap<K, P>();
+	@Child PersistenceWorker<P> pw;
 
 	/**
 	 * Creates a new FastPoReaderImpl object. 
 	 *
 	 * @param poClass
 	 */
-	public FactorySupportedFastPoReader(Class<P> poClass) {
+	public FactorySupportedPoHandler(Class<P> poClass) {
 		super();
 		this.poClass = poClass;
-		this.reader = new FactorySupportedPoReader<K,P>(poClass);
+		this.pw = Factory.createPw(poClass);
 	}
 	
-	@Override
-	public P get(K key) throws DataException {		
-		P p = cache.get(key);		
-		if (p==null) {
-			p = reader.get(key);
-			cache.put(p.getKey(), p);
-		}
-		return p;
-	}
-
-	@Override
-	public PersistentObject<K> getByProperties(Object key) throws DataException {
-		P p = cache.get(key);		
-		if (p==null) {
-			p = reader.getByProperties(key);
-			cache.put(p.getKey(), p);
-		}
+	
+	/**
+	 * Gets a Persistent object with key properties 
+	 * equal to the properties of the specified object. 
+	 *  
+	 * @param key
+	 * 
+	 * @return Returns the persistent object.
+	 */
+	protected P createByKeyProperties(Object key) {
+		P p = Factory.create(poClass);
+		K k = p.getKey();
+		ReflectionUtils.copyProperties(key, k);		
+		p.setKey(k);
 		return p;
 	}
 	
+	/**
+	 * Gets a Persistent object with the specified key. 
+	 *  
+	 * @param key
+	 * 
+	 * @return Returns the persistent object.
+	 */
+	protected P createByKey(K key) {
+		P p = Factory.create(poClass);
+		p.setKey(key);
+		return p;
+	}
 	
-
 	
 	
 	

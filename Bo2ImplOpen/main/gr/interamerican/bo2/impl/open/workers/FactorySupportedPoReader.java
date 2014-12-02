@@ -12,17 +12,12 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.workers;
 
-import gr.interamerican.bo2.arch.FastPoReader;
-import gr.interamerican.bo2.arch.PersistenceWorker;
+
 import gr.interamerican.bo2.arch.PersistentObject;
 import gr.interamerican.bo2.arch.PoReader;
 import gr.interamerican.bo2.arch.exceptions.DataException;
-import gr.interamerican.bo2.impl.open.creation.Factory;
-import gr.interamerican.bo2.utils.annotations.Child;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Implementation of {@link FastPoReader}.
@@ -37,60 +32,31 @@ import java.util.Map;
  *        Type of persistent object.
  * 
  */
-public class FactorySupportedFastPoReader
+public class FactorySupportedPoReader
 <K extends Serializable & Comparable<? super K>, P extends PersistentObject<K>> 
-extends AbstractResourceConsumer
-implements FastPoReader<K, P> {
+extends FactorySupportedPoHandler<K, P>
+implements PoReader<K, P> {
 	
-	/**
-	 * Declaration class of P.
-	 */
-	Class<P> poClass;
-	
-	/**
-	 * Persistence worker.
-	 */
-	@Child PoReader<K,P> reader;
-	
-	/**
-	 * Cache.
-	 */
-	Map<K, P> cache = new HashMap<K, P>();
-
 	/**
 	 * Creates a new FastPoReaderImpl object. 
 	 *
 	 * @param poClass
 	 */
-	public FactorySupportedFastPoReader(Class<P> poClass) {
-		super();
-		this.poClass = poClass;
-		this.reader = new FactorySupportedPoReader<K,P>(poClass);
+	public FactorySupportedPoReader(Class<P> poClass) {
+		super(poClass);		
 	}
 	
 	@Override
-	public P get(K key) throws DataException {		
-		P p = cache.get(key);		
-		if (p==null) {
-			p = reader.get(key);
-			cache.put(p.getKey(), p);
-		}
-		return p;
+	public P get(K key) throws DataException {
+		P p = createByKey(key);
+		return pw.read(p);
 	}
-
+	
 	@Override
-	public PersistentObject<K> getByProperties(Object key) throws DataException {
-		P p = cache.get(key);		
-		if (p==null) {
-			p = reader.getByProperties(key);
-			cache.put(p.getKey(), p);
-		}
-		return p;
+	public P getByProperties(Object key) throws DataException {
+		P p = createByKeyProperties(key);
+		return pw.read(p);
 	}
-	
-	
-
-	
 	
 	
 
