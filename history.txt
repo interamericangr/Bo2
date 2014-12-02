@@ -472,3 +472,8 @@ JMS integration: gr.interamerican.bo2.impl.open.jee.jms.JmsProvider, gr.interame
 2.2.2
 --------
 
+
+
+2.2.3
+--------
+
