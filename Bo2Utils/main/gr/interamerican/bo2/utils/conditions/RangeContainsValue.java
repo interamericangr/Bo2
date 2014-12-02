@@ -38,6 +38,7 @@ implements Condition<Range<P>> {
 		this.value = value;
 	}
 
+	@Override
 	public boolean check(Range<P> t) {		
 		return t.contains(value);
 	}
