@@ -14,7 +14,6 @@ package gr.interamerican.bo2.arch;
 
 
 import gr.interamerican.bo2.arch.exceptions.DataAccessException;
-import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.DataOperationNotSupportedException;
 
 
@@ -24,7 +23,7 @@ import gr.interamerican.bo2.arch.exceptions.DataOperationNotSupportedException;
  * The cursor fetches rows one at a time.  
  * Executing the query, creates the cursor.
  */
-public interface Query extends Worker, DataOperation  {
+public interface Query extends Worker, DataOperation {
     
        
     /**
