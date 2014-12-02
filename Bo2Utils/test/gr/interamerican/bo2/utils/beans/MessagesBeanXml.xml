@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="message1">This is a message!</entry>
+	<entry key="message2">This is the string %s with the integer param %d!</entry>
+</properties>
