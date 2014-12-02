@@ -43,6 +43,7 @@ implements EntitiesQuery<T> {
 	 */
 	T entity = null;
 	
+	@Override
 	public void execute() throws DataException {
 		row = 0;
 		entity = null;
@@ -50,6 +51,7 @@ implements EntitiesQuery<T> {
 	}
 
 	
+	@Override
 	public boolean next() throws DataAccessException {
 		if (!iterator.hasNext()) {
 			return false;
@@ -59,16 +61,20 @@ implements EntitiesQuery<T> {
 		return true;
 	}
 
+	@Override
 	public int getRow() throws DataAccessException {		
 		return row;
 	}
 	
+	@Override
 	public void setAvoidLock(boolean avoidLock) {/* empty */}
 	
+	@Override
 	public boolean isAvoidLock() {		
 		return true;
 	}
 
+	@Override
 	public T getEntity() throws DataAccessException {
 		return entity;
 	}

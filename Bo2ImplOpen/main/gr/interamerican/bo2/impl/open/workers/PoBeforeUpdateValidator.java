@@ -23,6 +23,7 @@ import gr.interamerican.bo2.impl.open.po.PoUtils;
 public abstract class PoBeforeUpdateValidator<P extends PersistentObject<?>> 
 extends AbstractPoValidator<P> {
 
+	@Override
 	public void apply() throws RuleException, DataException {
 		DetachStrategy ds = PoUtils.getDetachStrategy(po);
 		try {

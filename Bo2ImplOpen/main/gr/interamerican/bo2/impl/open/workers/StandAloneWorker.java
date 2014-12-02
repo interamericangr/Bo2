@@ -26,18 +26,22 @@ public class StandAloneWorker implements Worker {
 	 */
 	private Provider provider;
 	
+	@Override
 	public void init(Provider parent) {
 		this.provider = parent;	
 	}	
 	
+	@Override
 	public void open() {
 		/* empty */	
 	}	
 	
+	@Override
 	public void close() {
 		/* empty */	
 	}	
 	
+	@Override
 	public Provider getProvider() {		
 		return provider;
 	}	

@@ -30,10 +30,12 @@ implements PoDependent<P>, Rule {
 	 */
 	protected P po;
 
+	@Override
 	public P getPo() {
 		return po;
 	}
 
+	@Override
 	public void setPo(P po) {
 		this.po = po;
 	}

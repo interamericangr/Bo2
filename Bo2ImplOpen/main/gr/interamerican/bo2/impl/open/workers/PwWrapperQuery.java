@@ -79,6 +79,7 @@ implements EntitiesQuery<P>, CriteriaDependent<K> {
 	 */
 	private int row=0;
 	
+	@Override
 	public void execute() throws DataException {
 		row = 0;
 		if (criteria==null) {
@@ -93,6 +94,7 @@ implements EntitiesQuery<P>, CriteriaDependent<K> {
 		}
 	}
 	
+	@Override
 	public P getEntity() throws DataAccessException {	
 		if (entity==null) {
 			throw new DataAccessException();
@@ -101,6 +103,7 @@ implements EntitiesQuery<P>, CriteriaDependent<K> {
 	}
 	
 	
+	@Override
 	public boolean next() throws DataAccessException {
 		if (row > 0) {
 			entity = null;			
@@ -117,6 +120,7 @@ implements EntitiesQuery<P>, CriteriaDependent<K> {
 	 *
 	 * @return Returns the criteria
 	 */
+	@Override
 	public K getCriteria() {
 		return criteria;
 	}
@@ -126,18 +130,22 @@ implements EntitiesQuery<P>, CriteriaDependent<K> {
 	 *
 	 * @param criteria the criteria to set
 	 */
+	@Override
 	public void setCriteria(K criteria) {
 		this.criteria = criteria;
 	}
 	
+	@Override
 	public void setAvoidLock(boolean avoidLock) {
 		/* empty */
 	}
 	
+	@Override
 	public boolean isAvoidLock() {		
 		return true;
 	}
 	
+	@Override
 	public int getRow() throws DataAccessException {		
 		return row;
 	}	
