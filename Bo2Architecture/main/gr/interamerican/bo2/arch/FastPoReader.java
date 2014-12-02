@@ -12,8 +12,6 @@
  ******************************************************************************/
 package gr.interamerican.bo2.arch;
 
-import gr.interamerican.bo2.arch.exceptions.DataException;
-
 import java.io.Serializable;
 
 /**
@@ -23,22 +21,12 @@ import java.io.Serializable;
  *        Type of key.
  * @param <P> 
  *        Type of {@link PersistentObject}
+ *        
+ * @deprecated Use {@link PoReader} instead. 
+ * 
  */
 public interface FastPoReader
 <K extends Serializable & Comparable<? super K>, P extends PersistentObject<K>> 
-extends Worker {
-	
-	/**
-	 * Reads the persistent object with the specified key.
-	 * 
-	 * @param key
-	 *        Key of the persistent object.
-	 *        
-	 * @return Returns the persistent object.
-	 * @throws DataException 
-	 */
-	public P get(K key) throws DataException;
-	
-	
-
+extends PoReader<K, PersistentObject<K>> {
+	/* empty */
 }
