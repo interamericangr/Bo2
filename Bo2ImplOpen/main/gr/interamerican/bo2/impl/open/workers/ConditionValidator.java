@@ -1,8 +1,6 @@
 package gr.interamerican.bo2.impl.open.workers;
 
 import gr.interamerican.bo2.arch.Rule;
-import gr.interamerican.bo2.arch.exceptions.DataException;
-import gr.interamerican.bo2.arch.exceptions.RuleException;
 import gr.interamerican.bo2.utils.attributes.Input;
 import gr.interamerican.bo2.utils.beans.MessagesBean;
 import gr.interamerican.bo2.utils.conditions.Condition;
@@ -14,7 +12,7 @@ import gr.interamerican.bo2.utils.conditions.Condition;
  *        Type of object being validated.
  */
 public class ConditionValidator<T> 
-extends AbstractResourceConsumer 
+extends AbstractConditionValidator<T> 
 implements Rule, Input<T> {
 	
 	
@@ -24,26 +22,6 @@ implements Rule, Input<T> {
 	 */
 	Condition<T> condition;
 	
-	/**
-	 * Message to return if the validationfails.
-	 */
-	String messageKey;
-	
-	/**
-	 * Messages bean.
-	 */
-	MessagesBean messages;
-	
-	/**
-	 * 
-	 */
-	boolean failOn;
-
-	
-	/**
-	 * Object being validated.
-	 */
-	T validatedObject;
 	
 	/**
 	 * Creates a new ConditionValidator object.
@@ -62,11 +40,8 @@ implements Rule, Input<T> {
 	 */
 	public ConditionValidator
 	(Condition<T> condition, boolean failOn, MessagesBean messages, String messageKey) {
-		super();
-		this.messageKey = messageKey;
+		super(failOn,messages,messageKey);		
 		this.condition = condition;
-		this.messages = messages;
-		this.failOn = failOn;
 	}
 	
 	
@@ -84,50 +59,9 @@ implements Rule, Input<T> {
 		this(condition, false, null, message);		
 	}
 	
-	
-	/**
-	 * Gets the message.
-	 * 
-	 * @return Returns the message.
-	 */
-	String getMessage() {
-		if (messages==null) {
-			return messageKey;
-		}
-		return messages.getString(messageKey, validatedObject); 
-	}
-	
 	@Override
-	public void apply() throws RuleException, DataException {
-		boolean result = condition.check(validatedObject);
-		boolean trigger = failOn ? result : !result;		
-		if (trigger) {			
-			throw new RuleException(getMessage());
-		}		
+	protected Condition<T> getCondition() {	
+		return condition;
 	}
-
-	/**
-	 * Gets the validatedObject.
-	 *
-	 * @return Returns the validatedObject
-	 */
-	public T getValidatedObject() {
-		return validatedObject;
-	}
-
-	/**
-	 * Assigns a new value to the validatedObject.
-	 *
-	 * @param validatedObject the validatedObject to set
-	 */
-	public void setValidatedObject(T validatedObject) {
-		this.validatedObject = validatedObject;
-	}
-
-
-	@Override
-	public void setInput(T input) {
-		setValidatedObject(input);		
-	}	
 
 }
