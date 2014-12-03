@@ -4,6 +4,7 @@ import gr.interamerican.bo2.arch.Rule;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.RuleException;
 import gr.interamerican.bo2.utils.attributes.Input;
+import gr.interamerican.bo2.utils.attributes.ObjectValidator;
 import gr.interamerican.bo2.utils.beans.MessagesBean;
 import gr.interamerican.bo2.utils.conditions.Condition;
 
@@ -17,7 +18,7 @@ import gr.interamerican.bo2.utils.conditions.Condition;
  */
 public abstract class AbstractConditionValidator<T> 
 extends AbstractResourceConsumer 
-implements Rule, Input<T> {
+implements Rule, Input<T>, ObjectValidator<T> {
 	
 	 
 	
@@ -99,20 +100,12 @@ implements Rule, Input<T> {
 		}		
 	}
 
-	/**
-	 * Gets the validatedObject.
-	 *
-	 * @return Returns the validatedObject
-	 */
+	@Override
 	public T getValidatedObject() {
 		return validatedObject;
 	}
 
-	/**
-	 * Assigns a new value to the validatedObject.
-	 *
-	 * @param validatedObject the validatedObject to set
-	 */
+	@Override
 	public void setValidatedObject(T validatedObject) {
 		this.validatedObject = validatedObject;
 	}
