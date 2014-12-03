@@ -37,6 +37,11 @@ public class JmsProviderImpl implements JmsProvider {
 	static final String LOOKUP_URL_KEY = "jms.lookupUrl"; //$NON-NLS-1$
 	
 	/**
+	 * Configuration property key for transacted.
+	 */
+	static final String TRANSACTED_KEY = "jms.transacted"; //$NON-NLS-1$
+	
+	/**
 	 * Properties of the manager this resource wrapper is created from.
 	 */
 	Properties properties;
@@ -91,15 +96,11 @@ public class JmsProviderImpl implements JmsProvider {
 			Destination destination = (Destination) initialContext.lookup(attributes[1]);
 			Connection connection = connectionFactory.createConnection();
 			
-			/*
-			 * If the runtime is the container, the session is transacted. If it is a thin client
-			 * the session is not transacted. The thin client will certainly have to set an initial
-			 * context factory to the Context. When running inside a container, the JNDI resources
-			 * should always be accessible locally, even when they are, in fact, remote.
-			 */
-			boolean containerRuntime = properties.getProperty(INITIAL_CONTEXT_FACTORY_KEY)==null;
+			String transacted = CollectionUtils.getMandatoryProperty(properties, TRANSACTED_KEY);
+			boolean isTransacted = StringUtils.string2Bool(transacted);
+			
 			Session session = null;
-			if(containerRuntime) {
+			if(isTransacted) {
 				session = connection.createSession(true, Session.SESSION_TRANSACTED);
 			} else {
 				session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);

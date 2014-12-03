@@ -91,7 +91,7 @@ extends Bo2WicketBlock {
 			NamedInputStream nis = (NamedInputStream) 
 				nsp.convert(streamName, StreamType.INPUTSTREAM, client.getFileName()); 
 			IResourceStream csvStream = new InputStreamAsResourceStream(nis.getStream());
-			RequestCycle.get().scheduleRequestHandlerAfterCurrent(new ResourceStreamRequestHandler(csvStream, client.getFileName()));
+			RequestCycle.get().scheduleRequestHandlerAfterCurrent(new ResourceStreamRequestHandler(csvStream, client.getDownloadedFileName()));
 		}
 	}
 	

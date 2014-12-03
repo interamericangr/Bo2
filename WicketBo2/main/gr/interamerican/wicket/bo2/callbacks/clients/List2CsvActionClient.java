@@ -65,5 +65,12 @@ public interface List2CsvActionClient {
 	 * @return Returns rows to write after everything else.
 	 */
 	public List<String> getLastRows();
+	
+	/**
+	 * Name of the file the user downloads.
+	 * 
+	 * @return Returns the name of the CSV file the user downloads.
+	 */
+	public String getDownloadedFileName();
 
 }
