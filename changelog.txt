@@ -1,2 +1,0 @@
-BOTWO-32 New interface ObjectValidator
-
