@@ -62,6 +62,7 @@ public class TestList2CsvAction {
 		Mockito.when(client.getPropertiesToExport()).thenReturn(properties);
 		Mockito.when(client.getColumnLabels()).thenReturn(labels);
 		Mockito.when(client.getFileName()).thenReturn(filename);
+		Mockito.when(client.getDownloadedFileName()).thenReturn(filename);
 				
 		List2CsvAction action = new List2CsvAction(client);
 		
