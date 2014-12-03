@@ -1,0 +1,3 @@
+[BOTWO-29] - Messages bean support xml
+[BOTWO-30] - Δυνατότητα διαφορετικού filename από αυτό του stream στο List2CsvAction
+[BOTWO-31] - ew class AbstractConditionValidator should provide dynamic creation of Condition
