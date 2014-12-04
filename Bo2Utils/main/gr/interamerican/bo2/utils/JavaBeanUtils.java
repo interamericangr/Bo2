@@ -56,9 +56,7 @@ public class JavaBeanUtils {
 	 * javadoc of JavaBeanUtils#copyFromProperties().
 	 */
 	static {
-		DateTimeConverter dtConverter = new DateConverter();
-		dtConverter.setPattern(Bo2UtilsEnvironment.getIsoDateFormatPattern());
-		ConvertUtils.register(dtConverter, java.util.Date.class);
+		BeanUtilsConfiguration.configureBeanUtils();
 	}
 	
 	/**

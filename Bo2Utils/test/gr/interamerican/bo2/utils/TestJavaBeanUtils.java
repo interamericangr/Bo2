@@ -26,7 +26,9 @@ import gr.interamerican.bo2.samples.bean.BeanWith1Field;
 import gr.interamerican.bo2.samples.bean.BeanWith2Fields;
 import gr.interamerican.bo2.samples.bean.BeanWith3Fields;
 import gr.interamerican.bo2.samples.bean.BeanWithDate;
+import gr.interamerican.bo2.samples.bean.BeanWithEnumField;
 import gr.interamerican.bo2.samples.bean.BeanWithNestedBean;
+import gr.interamerican.bo2.samples.enums.Sex;
 import gr.interamerican.bo2.samples.ibean.SubSampleInterface;
 import gr.interamerican.bo2.samples.ibean.SuperSampleInterface;
 
@@ -138,6 +140,26 @@ public class TestJavaBeanUtils {
 		String value = "string"; //$NON-NLS-1$
 		JavaBeanUtils.setProperty(pd, value, bean);
 		assertEquals(value, bean.getField1());
+	}
+	
+	/**
+	 * Unit test for setProperty.
+	 * @throws IllegalAccessException
+	 * @throws InvocationTargetException
+	 * @throws NoSuchMethodException
+	 */
+	@Test
+	public void testSetProperty_enum() 
+	throws IllegalAccessException, InvocationTargetException, NoSuchMethodException {
+		BeanWithEnumField bean = new BeanWithEnumField();
+		PropertyDescriptor pd = PropertyUtils.getPropertyDescriptor(bean, "sex"); //$NON-NLS-1$
+		
+		Sex value = Sex.MALE;
+		String valueStr = value.toString();
+		
+		Assert.assertNull(bean.getSex());
+		JavaBeanUtils.setProperty(pd, valueStr, bean);
+		assertEquals(value, bean.getSex());
 	}
 	
 	/**
