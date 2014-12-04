@@ -11,8 +11,8 @@ import gr.interamerican.bo2.utils.conditions.Condition;
  * @param <T> 
  *        Type of object being validated.
  */
-public class ConditionValidator<T> 
-extends AbstractConditionValidator<T> 
+public abstract class PredefinedConditionValidator<T> 
+extends DynamicConditionValidator<T> 
 implements Rule, Input<T> {
 	
 	
@@ -37,26 +37,13 @@ implements Rule, Input<T> {
 	 *        MessagesBean that fetches the messages.
 	 * @param messageKey 
 	 *        Message key used to fetch the key from the message bean.  
+	 * @param validatedObjectProperty 
+	 *        Property name of the validated object.        
 	 */
-	public ConditionValidator
-	(Condition<T> condition, boolean failOn, MessagesBean messages, String messageKey) {
-		super(failOn,messages,messageKey);		
+	protected PredefinedConditionValidator (Condition<T> condition, boolean failOn, 
+			MessagesBean messages, String messageKey, String validatedObjectProperty) {
+		super(failOn,messages,messageKey,validatedObjectProperty);		
 		this.condition = condition;
-	}
-	
-	
-	/**
-	 * Creates a new ConditionValidator object.
-	 * 
-	 * The ConditionValidator throws an exception fails if the condition fails.  
-	 *
-	 * @param message
-	 *        Message for RuleExceptions 
-	 * @param condition
-	 *        Condition to check.
-	 */
-	public ConditionValidator(String message, Condition<T> condition) {
-		this(condition, false, null, message);		
 	}
 	
 	@Override

@@ -11,9 +11,9 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 /**
- * Tests for {@link ConditionValidator}.
+ * Tests for {@link TestPredefinedConditionValidator}.
  */
-public class TestAbstractConditionValidator {
+public class TestDynamicConditionValidator {
 	
 	
 	
@@ -29,7 +29,8 @@ public class TestAbstractConditionValidator {
 			new ConcreteConditionValidator(failOn, bean, message);
 		Assert.assertEquals(message, validator.messageKey);
 		Assert.assertEquals(bean, validator.messages);
-		Assert.assertEquals(failOn, validator.failOn);		
+		Assert.assertEquals(failOn, validator.failOn);
+		Assert.assertEquals("vo", validator.validatedObjectProperty);		 //$NON-NLS-1$
 				
 	}
 	
@@ -41,7 +42,7 @@ public class TestAbstractConditionValidator {
 		ConcreteConditionValidator validator = new ConcreteConditionValidator(false, null,  null);
 		Object o = new Object();
 		validator.setValidatedObject(o);
-		Assert.assertEquals(o, validator.validatedObject);		
+		Assert.assertEquals(o, validator.vo);		
 	}
 	
 	/**
@@ -50,8 +51,8 @@ public class TestAbstractConditionValidator {
 	@Test
 	public void testGetValidatedObject() {		
 		ConcreteConditionValidator validator = new ConcreteConditionValidator(false, null,  null);
-		validator.validatedObject = new Object();		
-		Assert.assertEquals(validator.validatedObject, validator.getValidatedObject());		
+		validator.vo = new Object();		
+		Assert.assertEquals(validator.vo, validator.getValidatedObject());		
 	}
 	
 	/**
@@ -62,7 +63,7 @@ public class TestAbstractConditionValidator {
 		ConcreteConditionValidator validator = new ConcreteConditionValidator(false, null,  null);
 		Object o = new Object();
 		validator.setInput(o);
-		Assert.assertEquals(o, validator.validatedObject);		
+		Assert.assertEquals(o, validator.vo);		
 	}
 	
 	/**
@@ -160,58 +161,50 @@ public class TestAbstractConditionValidator {
 		validator.setValidatedObject(new Object());
 		validator.apply();		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	/**
-	 * Tests the apply.
-	 * 
-	 * @throws DataException 
-	 * @throws RuleException 
-	 */
-	@SuppressWarnings("unchecked")
-	@Test(expected=RuleException.class)
-	public void testApply_throwing() throws RuleException, DataException {
-		String message = "X"; //$NON-NLS-1$
-		Condition<Object> condition= Mockito.mock(Condition.class);
-		Mockito.when(condition.check(Mockito.anyObject())).thenReturn(false);
-		ConditionValidator<Object> validator = 
-			new ConditionValidator<Object>(message, condition);
-		validator.setValidatedObject(new Object());
-		validator.apply();		
-	}
+		
 	
 	
 	
 	/**
 	 * Implementation of AbstractConditionValidator.
 	 */
-	class ConcreteConditionValidator extends AbstractConditionValidator<Object> {
+	class ConcreteConditionValidator extends DynamicConditionValidator<Object> {
 		/**
 		 * Condition.
 		 */
 		Condition<Object> condition;
+		
+		/**
+		 * Validated object.
+		 */
+		Object vo;
 
+		@SuppressWarnings("nls")
 		public ConcreteConditionValidator(boolean failOn, MessagesBean messages, String messageKey) {
-			super(failOn, messages, messageKey);
+			super(failOn, messages, messageKey, "vo");
 		}
 
 		@Override
 		protected Condition<Object> getCondition() {			
 			return condition;
+		}
+
+		/**
+		 * Gets the vo.
+		 *
+		 * @return Returns the vo
+		 */
+		public Object getVo() {
+			return vo;
+		}
+
+		/**
+		 * Sets the vo.
+		 *
+		 * @param vo the vo to set
+		 */
+		public void setVo(Object vo) {
+			this.vo = vo;
 		}
 		
 	}

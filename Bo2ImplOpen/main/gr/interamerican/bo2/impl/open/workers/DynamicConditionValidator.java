@@ -3,8 +3,8 @@ package gr.interamerican.bo2.impl.open.workers;
 import gr.interamerican.bo2.arch.Rule;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.RuleException;
+import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.attributes.Input;
-import gr.interamerican.bo2.utils.attributes.ObjectValidator;
 import gr.interamerican.bo2.utils.beans.MessagesBean;
 import gr.interamerican.bo2.utils.conditions.Condition;
 
@@ -16,12 +16,9 @@ import gr.interamerican.bo2.utils.conditions.Condition;
  * @param <T> 
  *        Type of object being validated.
  */
-public abstract class AbstractConditionValidator<T> 
+public abstract class DynamicConditionValidator<T> 
 extends AbstractResourceConsumer 
-implements Rule, Input<T>, ObjectValidator<T> {
-	
-	 
-	
+implements Rule, Input<T> {	
 
 	
 	/**
@@ -41,9 +38,9 @@ implements Rule, Input<T>, ObjectValidator<T> {
 
 	
 	/**
-	 * Object being validated.
+	 *  Property name of the validated object.
 	 */
-	T validatedObject;
+	String validatedObjectProperty;
 	
 	
 	/**
@@ -68,13 +65,16 @@ implements Rule, Input<T>, ObjectValidator<T> {
 	 *        MessagesBean that fetches the messages.
 	 * @param messageKey 
 	 *        Message key used to fetch the key from the message bean.  
+	 * @param validatedObjectProperty 
+	 *        Property name of the validated object.
 	 */
-	public AbstractConditionValidator
-	(boolean failOn, MessagesBean messages, String messageKey) {
+	protected DynamicConditionValidator
+	(boolean failOn, MessagesBean messages, String messageKey, String validatedObjectProperty) {
 		super();
 		this.messageKey = messageKey;
 		this.messages = messages;
 		this.failOn = failOn;
+		this.validatedObjectProperty = validatedObjectProperty; 
 	}
 	
 	
@@ -87,12 +87,14 @@ implements Rule, Input<T>, ObjectValidator<T> {
 		if (messages==null) {
 			return messageKey;
 		}
+		T validatedObject = getValidatedObject();
 		return messages.getString(messageKey, validatedObject); 
 	}
 	
 	@Override
 	public void apply() throws RuleException, DataException {
-		Condition<T> condition = getCondition();		
+		Condition<T> condition = getCondition();
+		T validatedObject = getValidatedObject();
 		boolean result = condition.check(validatedObject);
 		boolean trigger = failOn ? result : !result;		
 		if (trigger) {			
@@ -100,14 +102,24 @@ implements Rule, Input<T>, ObjectValidator<T> {
 		}		
 	}
 
-	@Override
-	public T getValidatedObject() {
-		return validatedObject;
+	
+	/**
+	 * Gets the validated object.
+	 * 
+	 * @return Returns the validated object.
+	 */
+	@SuppressWarnings("unchecked")
+	T getValidatedObject() {		
+		return (T) ReflectionUtils.getProperty(validatedObjectProperty, this);
 	}
 
-	@Override
+	/**
+	 * Sets the validated object.
+	 * 
+	 * @param validatedObject
+	 */
 	public void setValidatedObject(T validatedObject) {
-		this.validatedObject = validatedObject;
+		ReflectionUtils.setProperty(validatedObjectProperty, validatedObject, this);
 	}
 
 	@Override

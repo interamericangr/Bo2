@@ -9,7 +9,8 @@ import gr.interamerican.bo2.arch.Query;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
 import gr.interamerican.bo2.impl.open.operations.AbstractQueryCrawlerOperation;
-import gr.interamerican.bo2.impl.open.workers.ConditionValidator;
+import gr.interamerican.bo2.impl.open.workers.PredefinedConditionValidator;
+import gr.interamerican.bo2.impl.open.workers.TestPredefinedConditionValidator;
 import gr.interamerican.bo2.impl.open.workers.FactorySupportedPoDeleter;
 import gr.interamerican.bo2.impl.open.workers.FactorySupportedPoHandler;
 import gr.interamerican.bo2.samples.archutil.po.User;
@@ -57,7 +58,8 @@ public class TestSetTestDouble {
 	 */
 	@Test
 	public void testSet_ConditionValidator() {
-		ConditionValidator<Object> rule = new ConditionValidator<Object>(null, null);
+		PredefinedConditionValidator<Object> rule = 
+			new PredefinedConditionValidator<Object>(null,true,null,null,null) {/*empty*/};
 		Condition<Object> condition = Mockito.mock(Condition.class);
 		SetTestDouble.set(rule, condition);
 		Object actual = ReflectionUtils.get("condition", rule);

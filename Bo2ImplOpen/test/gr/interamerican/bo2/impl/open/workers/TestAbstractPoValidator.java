@@ -30,6 +30,7 @@ public class TestAbstractPoValidator {
 	@Test
 	public void testSetGetPo() {
 		AbstractPoValidator<User> v = new AbstractPoValidator<User>() {			
+			@Override
 			public void apply() throws RuleException, DataException {/* empty */}
 		};
 		User user = new User();

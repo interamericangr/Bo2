@@ -4,10 +4,9 @@ import gr.interamerican.bo2.arch.PersistenceWorker;
 import gr.interamerican.bo2.arch.PersistentObject;
 import gr.interamerican.bo2.arch.Query;
 import gr.interamerican.bo2.impl.open.operations.AbstractQueryCrawlerOperation;
-import gr.interamerican.bo2.impl.open.workers.ConditionValidator;
-import gr.interamerican.bo2.impl.open.workers.FactorySupportedPoDeleter;
 import gr.interamerican.bo2.impl.open.workers.FactorySupportedPoHandler;
-import gr.interamerican.bo2.impl.open.workers.FactorySupportedPoReader;
+import gr.interamerican.bo2.impl.open.workers.PredefinedConditionValidator;
+import gr.interamerican.bo2.impl.open.workers.TestPredefinedConditionValidator;
 import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.conditions.Condition;
 
@@ -47,13 +46,13 @@ public class SetTestDouble {
 	
 	
 	/**
-	 * Sets a test double condition to a {@link ConditionValidator}.
+	 * Sets a test double condition to a {@link TestPredefinedConditionValidator}.
 	 * 
 	 * @param validator 
 	 * @param condition
 	 */	
 	public static <T> 
-	void set(ConditionValidator<T> validator, Condition<T> condition) {
+	void set(PredefinedConditionValidator<T> validator, Condition<T> condition) {
 		ReflectionUtils.set("condition", condition, validator);		
 	}
 

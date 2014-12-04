@@ -33,7 +33,7 @@ import org.junit.runners.Suite.SuiteClasses;
 		TestIteratorQuery.class,
 		TestTransformedQuery.class,
 		TestFactorySupportedFastPoReader.class,
-		TestConditionValidator.class,
+		TestPredefinedConditionValidator.class,
 		TestAbstractOperation.class,
 	}
 )
