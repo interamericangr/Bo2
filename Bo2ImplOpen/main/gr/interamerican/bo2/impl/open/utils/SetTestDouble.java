@@ -6,7 +6,6 @@ import gr.interamerican.bo2.arch.Query;
 import gr.interamerican.bo2.impl.open.operations.AbstractQueryCrawlerOperation;
 import gr.interamerican.bo2.impl.open.workers.FactorySupportedPoHandler;
 import gr.interamerican.bo2.impl.open.workers.PredefinedConditionValidator;
-import gr.interamerican.bo2.impl.open.workers.TestPredefinedConditionValidator;
 import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.conditions.Condition;
 
@@ -46,7 +45,7 @@ public class SetTestDouble {
 	
 	
 	/**
-	 * Sets a test double condition to a {@link TestPredefinedConditionValidator}.
+	 * Sets a test double condition to a {@link PredefinedConditionValidator}.
 	 * 
 	 * @param validator 
 	 * @param condition
