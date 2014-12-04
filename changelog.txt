@@ -1,0 +1,2 @@
+BOTWO-33 Dynamically specify the property that sets the validatedObject of AbstractConditionValidator
+
