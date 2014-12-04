@@ -492,3 +492,10 @@ JMS integration: gr.interamerican.bo2.impl.open.jee.jms.JmsProvider, gr.interame
 
 BOTWO-32 New interface ObjectValidator
 
+
+
+2.2.6
+--------
+
+BOTWO-33 Dynamically specify the property that sets the validatedObject of AbstractConditionValidator
+
