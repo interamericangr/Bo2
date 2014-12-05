@@ -29,11 +29,8 @@ import java.util.Set;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.BeanUtilsBean;
-import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.beanutils.NestedNullException;
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.beanutils.converters.DateConverter;
-import org.apache.commons.beanutils.converters.DateTimeConverter;
 import org.apache.commons.beanutils.expression.DefaultResolver;
 import org.apache.commons.beanutils.expression.Resolver;
 
@@ -54,6 +51,7 @@ public class JavaBeanUtils {
 	 * Configuration necessary to support conversion from String
 	 * to java.util.Date. The date format is compatible with the
 	 * javadoc of JavaBeanUtils#copyFromProperties().
+	 * Also supports conversions from String to enumerations.
 	 */
 	static {
 		BeanUtilsConfiguration.configureBeanUtils();
