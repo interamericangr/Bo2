@@ -2,11 +2,14 @@ package gr.interamerican.bo2.impl.open.jee.jms;
 
 import java.io.Serializable;
 
+import javax.jms.BytesMessage;
 import javax.jms.Destination;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageProducer;
+import javax.jms.ObjectMessage;
 import javax.jms.Session;
+import javax.jms.TextMessage;
 
 import gr.interamerican.bo2.arch.Provider;
 import gr.interamerican.bo2.arch.Worker;
@@ -74,31 +77,45 @@ public abstract class JmsProducer extends AbstractResourceConsumer {
 	}
 	
 	/**
-	 * Creates a JMS message. Only String and Serializable java Objects
-	 * are supported.
+	 * Creates the JMS message based on the {@link #createMessage()} result.
 	 * 
 	 * @return JMS message
 	 * 
 	 * @throws JMSException 
+	 * @throws DataException 
 	 */
-	Message createJmsMessage() throws JMSException {
-		Serializable message = createMessage();
-		Message jmsMessage = null;
+	Message createJmsMessage() throws JMSException, DataException {
+		Object message = createMessage();
 		
-		if(message instanceof String) {
-			jmsMessage = session.createTextMessage((String) message);
-		} else {
-			jmsMessage = session.createObjectMessage(message);
+		if(message==null) {
+			throw new DataException("null message"); //$NON-NLS-1$
 		}
 		
-		return jmsMessage;
+		if(message instanceof String) {
+			TextMessage jmsMessage = session.createTextMessage((String) message);
+			return jmsMessage;
+		}
+		else if (message instanceof byte[]) {
+			BytesMessage jmsMessage = session.createBytesMessage();
+			jmsMessage.writeBytes((byte[]) message);
+			return jmsMessage;
+		}
+		else if (message instanceof Serializable) {
+			ObjectMessage jmsMessage = session.createObjectMessage((Serializable) message);
+			return jmsMessage;
+		}
+		
+		throw new DataException("Unsupported message of type " + message.getClass().getName()); //$NON-NLS-1$
 	}
 	
 	/**
 	 * Implementors override this in order to create the message.
+	 * Only String, byte[] and Serializable java Objects are supported.
 	 * 
 	 * @return Message to submit to the destination.
+	 * 
+	 * @throws DataException 
 	 */
-	public abstract Serializable createMessage();
+	public abstract Object createMessage() throws DataException;
 	
 }

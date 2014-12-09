@@ -8,8 +8,6 @@ import gr.interamerican.bo2.impl.open.annotations.ManagerName;
 import gr.interamerican.bo2.impl.open.jee.jms.JmsProducer;
 import gr.interamerican.bo2.impl.open.runtime.AbstractBo2RuntimeCmd;
 
-import java.io.Serializable;
-
 /**
  * Integration test of {@link JmsProducer} when using a WAS 8.5 thin client.
  */
@@ -35,7 +33,7 @@ public class TestThinClientJmsProvider extends AbstractBo2RuntimeCmd {
 		}
 
 		@Override
-		public Serializable createMessage() {
+		public Object createMessage() throws DataException {
 			return "message"; //$NON-NLS-1$
 		}
 		
