@@ -499,3 +499,16 @@ BOTWO-32 New interface ObjectValidator
 
 BOTWO-33 Dynamically specify the property that sets the validatedObject of AbstractConditionValidator
 
+
+
+2.2.7
+--------
+
+Improvement
+
+    [BOTWO-34] - Batch Process Recognize Enum Element as a Parameter
+
+New Feature
+
+    [BOTWO-12] - JMS support
+    
