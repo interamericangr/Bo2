@@ -7,16 +7,26 @@ import gr.interamerican.bo2.arch.exceptions.UnexpectedException;
 import gr.interamerican.bo2.impl.open.annotations.ManagerName;
 import gr.interamerican.bo2.impl.open.jee.jms.JmsProducer;
 import gr.interamerican.bo2.impl.open.runtime.AbstractBo2RuntimeCmd;
+import gr.interamerican.bo2.impl.open.utils.Bo2;
 
 /**
  * Integration test of {@link JmsProducer} when using a WAS 8.5 thin client.
  */
 public class TestThinClientJmsProvider extends AbstractBo2RuntimeCmd {
 
+	/**
+	 * Creates a new TestThinClientJmsProvider object. 
+	 *
+	 */
+	public TestThinClientJmsProvider() {
+		super(Bo2.getDefaultDeployment().getDeploymentBean().getPathToSecondaryBatchDeployment());
+	}
+	
 	@Override
 	public void work() throws LogicException, DataException, InitializationException, UnexpectedException {
 		JmsProducer0 producer = open(new JmsProducer0());
 		producer.execute();
+		System.out.println("done");
 	}
 	
 	/**
