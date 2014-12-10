@@ -1,0 +1,8 @@
+Improvement
+
+    [BOTWO-34] - Batch Process Recognize Enum Element as a Parameter
+
+New Feature
+
+    [BOTWO-12] - JMS support
+    
