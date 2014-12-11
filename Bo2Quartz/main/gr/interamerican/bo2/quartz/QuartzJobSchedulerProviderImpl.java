@@ -27,9 +27,10 @@ public class QuartzJobSchedulerProviderImpl implements JobSchedulerProvider {
 
 	/**
 	 * Creates a new JobSchedulerProviderImpl object.
-	 * 
+	 *
 	 * @param p
 	 */
+	@SuppressWarnings("unused")
 	public QuartzJobSchedulerProviderImpl(Properties p) {
 		scheduler = new QuartzJobSchedulerImpl();
 	}

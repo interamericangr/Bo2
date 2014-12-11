@@ -19,7 +19,7 @@ import org.quartz.JobKey;
 
 
 /**
- * 
+ *
  */
 public class TestQuartzUtils {
 
@@ -63,7 +63,7 @@ public class TestQuartzUtils {
 
 	/**
 	 * Test method for {@link gr.interamerican.bo2.quartz.util.QuartzUtils#getJobName(JobDescription)}.
-	 * 
+	 *
 	 * @throws DataException
 	 */
 	@Test
@@ -81,29 +81,25 @@ public class TestQuartzUtils {
 
 	/**
 	 * Test method for {@link gr.interamerican.bo2.quartz.util.QuartzUtils#getJobGroupName(JobDescription)}.
-	 * 
-	 * @throws DataException
 	 */
 	@Test
-	public void testGetJobGroupNameJobDescription() throws DataException {
+	public void testGetJobGroupNameJobDescription() {
 		Assert.assertNotNull(QuartzUtils.getJobGroupName(bean));
 		Assert.assertEquals(bean.getOperationClass().getName(), QuartzUtils.getJobGroupName(bean));
 	}
 
 	/**
 	 * Test method for {@link gr.interamerican.bo2.quartz.util.QuartzUtils#getJobGroupName(java.lang.Class)}.
-	 * 
-	 * @throws DataException
 	 */
 	@Test
-	public void testGetJobGroupNameClassOfQextendsOperation() throws DataException {
+	public void testGetJobGroupNameClassOfQextendsOperation() {
 		Assert.assertNotNull(QuartzUtils.getJobGroupName(SampleOperation.class));
 		Assert.assertEquals(SampleOperation.class.getName(), QuartzUtils.getJobGroupName(SampleOperation.class));
 	}
 
 	/**
 	 * Test method for {@link gr.interamerican.bo2.quartz.util.QuartzUtils#getScheduledJobKeys(java.lang.String)}.
-	 * 
+	 *
 	 * @throws DataException
 	 */
 	@Test
@@ -117,7 +113,7 @@ public class TestQuartzUtils {
 
 	/**
 	 * Test method for {@link gr.interamerican.bo2.quartz.util.QuartzUtils#getNumberOfScheduledJobs(java.lang.String)}.
-	 * 
+	 *
 	 * @throws DataException
 	 */
 	@Test
@@ -131,7 +127,7 @@ public class TestQuartzUtils {
 
 	/**
 	 * Test method for {@link gr.interamerican.bo2.quartz.util.QuartzUtils#getMaximumNumberOfThreads()}.
-	 * 
+	 *
 	 * @throws DataException
 	 */
 	@Test
@@ -141,7 +137,7 @@ public class TestQuartzUtils {
 
 	/**
 	 * Test method for {@link QuartzUtils#isJobScheduled(String, String)}.
-	 * 
+	 *
 	 * @throws DataException
 	 */
 	@Test
@@ -160,11 +156,11 @@ public class TestQuartzUtils {
 	@Test
 	public void testGetParamFromQuartzDescriptionBean() {
 		String keyName = "a";//$NON-NLS-1$
-		QuartzjobDescription bean = Factory.create(QuartzjobDescription.class);
+		QuartzjobDescription bean1 = Factory.create(QuartzjobDescription.class);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put(keyName, new Long(1));
-		bean.setParameters(map);
-		Long a = (Long) QuartzUtils.getParamFromQuartzDescriptionBean(bean, keyName);
+		bean1.setParameters(map);
+		Long a = (Long) QuartzUtils.getParamFromQuartzDescriptionBean(bean1, keyName);
 		Assert.assertEquals(a, new Long(1));
 	}
 }
