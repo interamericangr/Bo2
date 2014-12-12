@@ -27,7 +27,10 @@ import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.adapters.Transformation;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Utilities relevant with {@link Worker} objects.
@@ -48,14 +51,9 @@ public class WorkerUtils {
 	 *         query.
 	 * @throws DataAccessException
 	 */
-	public static <P> List<P> 
-	queryResultsAsList(EntitiesQuery<P> query)
+	public static <P> List<P> queryResultsAsList(EntitiesQuery<P> query)
 	throws DataAccessException {		
-		List<P> list = new ArrayList<P>();
-		while (query.next()) {
-			list.add(query.getEntity());
-		}
-		return list;
+		return queryResultsToCollection(query, new ArrayList<P>());
 	}
 	
 	/**
@@ -83,6 +81,86 @@ public class WorkerUtils {
 		return casted;
 	}
 	
+	
+	/**
+	 * Fetches all results of an {@link EntitiesQuery} query to a list.
+	 * 
+	 * @param query
+	 *        Query who's results are put in the list.
+	 * @param <P>
+	 *        Type of entities returned by the query.
+	 * 
+	 * @return Returns a list that contains all objects fetched by the 
+	 *         query.
+	 * @throws DataAccessException
+	 */
+	public static <P> Set<P> queryResultsAsSet(EntitiesQuery<P> query)
+	throws DataAccessException {		
+		return queryResultsToCollection(query, new HashSet<P>());
+	}
+	
+	/**
+	 * Fetches all results of an {@link EntitiesQuery} query as a list of a 
+	 * specific sub-type of the query's return type.
+	 * <br/>
+	 * This is unsafe and should be used with caution.
+	 * 
+	 * @param query
+	 *        Query who's results are put in the list.
+	 * @param <A>
+	 *        Type of entities returned by the query.
+	 * @param <B>
+	 *        Type of entities to downcast to.
+	 * 
+	 * @return Returns a list that contains all objects fetched by the 
+	 *         query.
+	 * @throws DataAccessException
+	 */
+	public static <A, B extends A> Set<B> 
+	queryResultsAsConvertedSet(EntitiesQuery<A> query)
+	throws DataAccessException {		
+		Set<A> set = queryResultsAsSet(query);
+		Set<B> casted = CollectionUtils.convert(set);
+		return casted;
+	}
+	
+	/**
+	 * Adds the entities fetched by a query to a collection.
+	 * @param query
+	 * @param collection
+	 * 
+	 * @return Returns the collection. 
+	 * @throws DataAccessException
+	 */
+	public static <P, C extends Collection<P>> C  
+	queryResultsToCollection(EntitiesQuery<P> query, C collection)
+	throws DataAccessException {
+		while (query.next()) {
+			collection.add(query.getEntity());
+		}
+		return collection;
+	}
+	
+	/**
+	 * Adds the entities fetched by a query to a collection.
+	 * @param query
+	 * @param collection
+	 * @param adapter 
+	 * 
+	 * @return Returns the collection. 
+	 * @throws DataAccessException
+	 */
+	public static <P, T, C extends Collection<T>> C  
+	queryTransformedResultsToCollection(EntitiesQuery<P> query, C collection, Transformation<P, T> adapter)
+	throws DataAccessException {
+		while (query.next()) {
+			P p = query.getEntity();
+			T t = adapter.execute(p);
+			collection.add(t);
+		}
+		return collection;
+	}
+	
 	/**
 	 * Fetches all results of an {@link EntitiesQuery} query to a list.
 	 * Each result is first transformed based on a provided {@link Transformation}
@@ -104,13 +182,34 @@ public class WorkerUtils {
 	public static <P,T> List<T> 
 	queryTransformedResultsAsList(EntitiesQuery<P> query, Transformation<P, T> adapter)
 	throws DataAccessException {		
-		List<T> list = new ArrayList<T>();
-		while (query.next()) {
-			P p = query.getEntity();
-			list.add(adapter.execute(p));
-		}
-		return list;
+		return queryTransformedResultsToCollection(query, new ArrayList<T>(), adapter);
 	}
+	
+	/**
+	 * Fetches all results of an {@link EntitiesQuery} query to a set.
+	 * Each result is first transformed based on a provided {@link Transformation}
+	 * adapter.
+	 * 
+	 * @param query
+	 *        Query who's results are put in the set.
+	 * @param adapter
+	 *        Adapter that transforms 
+	 * @param <P>
+	 *        Type of entities returned by the query.
+	 * @param <T> 
+	 *        Type of transformed object.
+	 * 
+	 * @return Returns a list that contains all transformed objects fetched by the 
+	 *         query.
+	 * @throws DataAccessException
+	 */
+	public static <P,T> Set<T> 
+	queryTransformedResultsAsSet(EntitiesQuery<P> query, Transformation<P, T> adapter)
+	throws DataAccessException {		
+		return queryTransformedResultsToCollection(query, new HashSet<T>(), adapter);
+	}
+	
+	
 	
 	/**
 	 * Instantiates and executes an operation.

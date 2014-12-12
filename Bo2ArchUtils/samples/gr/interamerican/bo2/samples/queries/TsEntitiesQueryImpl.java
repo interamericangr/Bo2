@@ -58,17 +58,22 @@ implements EntitiesQuery<TypedSelectable<Long>> {
 	 */
 	int i=0;		
 			
+	@Override
 	public void execute() throws DataException {
 		i=0;
 	}
+	@Override
 	public boolean next() throws DataAccessException {
 		i++;
 		return i<=rows.length;
 	}
+	@Override
 	public int getRow() throws DataAccessException {		
 		return i;
 	}
+	@Override
 	public void setAvoidLock(boolean avoidLock) {/*empty*/}
+	@Override
 	public boolean isAvoidLock() {return true;}
 	/** 
 	 * description.
@@ -77,6 +82,7 @@ implements EntitiesQuery<TypedSelectable<Long>> {
 	public String getDescription() {
 		return rows[i-1];
 	}
+	@Override
 	public TypedSelectable<Long> getEntity() throws DataAccessException {
 		TypedSelectableImpl<Long> impl = new TypedSelectableImpl<Long>();
 		impl.setTypeId(1000L);

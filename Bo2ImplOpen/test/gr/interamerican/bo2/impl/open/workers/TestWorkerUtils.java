@@ -13,7 +13,6 @@
 package gr.interamerican.bo2.impl.open.workers;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
@@ -32,6 +31,7 @@ import gr.interamerican.bo2.utils.Utils;
 import gr.interamerican.bo2.utils.adapters.Transformation;
 
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Test;
 
@@ -60,7 +60,7 @@ public class TestWorkerUtils {
 	 */
 	@Test
 	public void testQueryResultsAsList() 
-	throws UnexpectedException, DataException, LogicException {
+	throws UnexpectedException, DataException, LogicException {		
 		new AbstractBo2RuntimeCmd() {
 
 			@SuppressWarnings("static-access")
@@ -71,7 +71,34 @@ public class TestWorkerUtils {
 				query.open();
 				query.execute();
 				List<TypedSelectable<Long>> list = utils.queryResultsAsList(query);
-				assertTrue(list.size()>0);
+				int rows = query.getRow()-1;				
+				assertEquals(rows, list.size());
+			}
+		}.execute();
+	}
+	
+	/**
+	 * tests queryResultsAsConvertedList
+	 * 
+	 * @throws LogicException 
+	 * @throws DataException 
+	 * @throws UnexpectedException 
+	 */
+	@Test
+	public void testQueryResultsAsConvertedList() 
+	throws UnexpectedException, DataException, LogicException {		
+		new AbstractBo2RuntimeCmd() {
+
+			@SuppressWarnings("static-access")
+			@Override
+			public void work() throws LogicException, DataException,
+					InitializationException, UnexpectedException {
+				query.init(this.getProvider());
+				query.open();
+				query.execute();
+				List<TypedSelectable<Long>> list = utils.queryResultsAsConvertedList(query);
+				int rows = query.getRow()-1;				
+				assertEquals(rows, list.size());
 			}
 		}.execute();
 	}
@@ -96,10 +123,102 @@ public class TestWorkerUtils {
 				query.open();
 				query.execute();
 				List<CodifiedImpl> list = utils.queryTransformedResultsAsList(query, new Adapter());
-				assertTrue(list.size()>0);
+				int rows = query.getRow()-1;				
+				assertEquals(rows, list.size());
+
 			}
 		}.execute();
 	}
+	
+	
+	
+	
+	/**
+	 * tests queryResultsAsSet
+	 * 
+	 * @throws LogicException 
+	 * @throws DataException 
+	 * @throws UnexpectedException 
+	 */
+	@Test
+	public void testQueryResultsAsSet() 
+	throws UnexpectedException, DataException, LogicException {		
+		new AbstractBo2RuntimeCmd() {
+
+			@SuppressWarnings("static-access")
+			@Override
+			public void work() throws LogicException, DataException,
+					InitializationException, UnexpectedException {
+				query.init(this.getProvider());
+				query.open();
+				query.execute();
+				Set<TypedSelectable<Long>> set = utils.queryResultsAsSet(query);
+				int rows = query.getRow()-1;				
+				assertEquals(rows, set.size());
+			}
+		}.execute();
+	}
+	
+	/**
+	 * tests queryResultsAsConvertedSet
+	 * 
+	 * @throws LogicException 
+	 * @throws DataException 
+	 * @throws UnexpectedException 
+	 */
+	@Test
+	public void testQueryResultsAsConvertedSet() 
+	throws UnexpectedException, DataException, LogicException {		
+		new AbstractBo2RuntimeCmd() {
+
+			@SuppressWarnings("static-access")
+			@Override
+			public void work() throws LogicException, DataException,
+					InitializationException, UnexpectedException {
+				query.init(this.getProvider());
+				query.open();
+				query.execute();
+				Set<TypedSelectable<Long>> set = utils.queryResultsAsConvertedSet(query);
+				int rows = query.getRow()-1;				
+				assertEquals(rows, set.size());
+			}
+		}.execute();
+	}
+	
+	/**
+	 * tests queryTransformedResultsAsList
+	 * 
+	 * @throws LogicException 
+	 * @throws DataException 
+	 * @throws UnexpectedException 
+	 */
+	@Test
+	public void testQueryTransformedResultsAsSet() 
+	throws UnexpectedException, DataException, LogicException {
+		new AbstractBo2RuntimeCmd() {
+
+			@SuppressWarnings("static-access")
+			@Override
+			public void work() throws LogicException, DataException,
+					InitializationException, UnexpectedException {
+				query.init(this.getProvider());
+				query.open();
+				query.execute();
+				Set<CodifiedImpl> set = utils.queryTransformedResultsAsSet(query, new Adapter());
+				int rows = query.getRow()-1;				
+				assertEquals(rows, set.size());
+
+			}
+		}.execute();
+	}
+		
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	/**
