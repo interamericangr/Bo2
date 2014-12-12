@@ -512,3 +512,8 @@ New Feature
 
     [BOTWO-12] - JMS support
     
+
+
+2.2.8
+--------
+
