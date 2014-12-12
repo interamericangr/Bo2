@@ -34,6 +34,7 @@ implements Condition<A> {
 	 */
 	Condition<P> condition;
 	
+	@Override
 	public boolean check(A t) {
 		P p = transformation.execute(t);
 		return condition.check(p);
