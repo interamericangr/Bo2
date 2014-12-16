@@ -26,7 +26,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Unit tests for {@link SelfDrawnBigDecimalTextField}.
+ * Unit tests for {@link SelfDrawnDateField}.
  */
 public class TestSelfDrawnDateField extends WicketTest {
 
