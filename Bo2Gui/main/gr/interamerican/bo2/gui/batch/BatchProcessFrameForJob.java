@@ -4,7 +4,7 @@
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/copyleft/lesser.html
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
@@ -32,7 +32,8 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
- * BatchProcessFrameForJob.
+ * This {@link BFrame} is used to launch a ScheduledJob as a {@link BatchProcess}. All the
+ * parameters of the batch process are gathered from the scheduled job.
  */
 public class BatchProcessFrameForJob
 extends BFrame {
@@ -109,10 +110,10 @@ extends BFrame {
 	/**
 	 * Creates a Properties object with the job input. This is used as a preview
 	 * for the operator that launches the job.
-	 * 
+	 *
 	 * @param input
 	 * @param criteria
-	 * 
+	 *
 	 * @return Properties with the job input.
 	 */
 	Properties createModelWithInput(BatchProcessInput input, Object criteria) {
