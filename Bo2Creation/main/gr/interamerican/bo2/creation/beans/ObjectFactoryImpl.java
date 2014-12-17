@@ -731,5 +731,59 @@ public class ObjectFactoryImpl implements ObjectFactory {
 			LOGGER.debug("---------");	
 		}
 	}
+	
+	/**
+	 * Gets the compile time (declaration) name of a class implementation name. It is not
+	 * necessary that the implementing class has been created yet by this factory.
+	 * <br/>
+	 * This method supports the following use case: A serialized object of a generated 
+	 * class gets deserialized to a VM that has not created the class yet. The deserialization
+	 * mechanism will need to recover from the subsequent {@link ClassNotFoundException}. Using
+	 * this method we might create the generated class simulating its normal creation so as to
+	 * make sure the internal state of the ObjectFactory will be consistent with the compiled 
+	 * application classes and the existing configuration.
+	 * <br/>
+	 * This is a best effort implementation and should not be relied upon in any other case. 
+	 * 
+	 * <li> 1. The implementation class might be created from an interface. In this case return the class
+	 *         name of this interface.
+	 * <li> 2. The implementation name might be created from an abstract class. In this case return the
+	 *         class name of the interface that resolved to this abstract class.
+	 * <li> 3. None of the above apply. In this case throw a RuntimeException.
+	 * 
+	 * @param implementationName
+	 * 
+	 * @return declaration name for this implementation name.
+	 * 
+	 * TODO: might need this at some point.
+	 */
+	@SuppressWarnings("unused")
+	private String getDeclarationName(String implementationName) {
+		
+		//configured association
+		String name = decl2ImplNames.getLeft(implementationName);
+		if(name!=null) {
+			return name;
+		}
+		
+		//created from an interface
+		name = assistant.getInterfaceImplementor().compileTimeClassName(implementationName);
+		if(!implementationName.equals(name)) {
+			return name;
+		}
+		
+		//created from an abstract class
+		name = assistant.getAbstractClassImplementor().compileTimeClassName(implementationName);
+		if(!implementationName.equals(name)) {
+			name = decl2ImplNames.getLeft(implementationName); //configured declaration name -> abstract class name
+			if(name!=null) {
+				return name;
+			}
+			name = assistant.getNameResolver().getDeclarationName(name); //resolved declaration name -> abstract class name
+			return name;
+		}
+		
+		throw new RuntimeException("Could not find a declaration name for " + implementationName); //$NON-NLS-1$
+	}
 
 }
