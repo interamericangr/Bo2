@@ -9,6 +9,10 @@ import gr.interamerican.bo2.impl.open.jee.jms.JmsProducer;
 import gr.interamerican.bo2.impl.open.runtime.AbstractBo2RuntimeCmd;
 import gr.interamerican.bo2.impl.open.utils.Bo2;
 
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.TextMessage;
+
 /**
  * Integration test of {@link JmsProducer} when using a WAS 8.5 thin client.
  */
@@ -43,8 +47,9 @@ public class TestThinClientJmsProvider extends AbstractBo2RuntimeCmd {
 		}
 
 		@Override
-		public Object createMessage() throws DataException {
-			return "message"; //$NON-NLS-1$
+		public Message createJmsMessage() throws DataException, JMSException {
+			TextMessage jmsMessage = getSession().createTextMessage("message"); //$NON-NLS-1$
+			return jmsMessage;
 		}
 		
 	}

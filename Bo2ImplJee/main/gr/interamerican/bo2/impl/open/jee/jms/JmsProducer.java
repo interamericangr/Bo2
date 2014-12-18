@@ -1,21 +1,16 @@
 package gr.interamerican.bo2.impl.open.jee.jms;
 
-import java.io.Serializable;
-
-import javax.jms.BytesMessage;
-import javax.jms.Destination;
-import javax.jms.JMSException;
-import javax.jms.Message;
-import javax.jms.MessageProducer;
-import javax.jms.ObjectMessage;
-import javax.jms.Session;
-import javax.jms.TextMessage;
-
 import gr.interamerican.bo2.arch.Provider;
 import gr.interamerican.bo2.arch.Worker;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.impl.open.workers.AbstractResourceConsumer;
+
+import javax.jms.Destination;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.MessageProducer;
+import javax.jms.Session;
 
 /**
  * A {@link Worker} that sends a {@link Message} to a {@link Destination}
@@ -64,8 +59,6 @@ public abstract class JmsProducer extends AbstractResourceConsumer {
 	 * Sends the message to the {@link Destination}
 	 * 
 	 * @throws DataException 
-	 * 
-	 * @see #createMessage()
 	 */
 	public final void execute() throws DataException {
 		try {
@@ -77,45 +70,23 @@ public abstract class JmsProducer extends AbstractResourceConsumer {
 	}
 	
 	/**
-	 * Creates the JMS message based on the {@link #createMessage()} result.
+	 * Creates the JMS message using the current jms {@link Session}.
+	 * Implementors override this.
 	 * 
 	 * @return JMS message
 	 * 
 	 * @throws JMSException 
 	 * @throws DataException 
 	 */
-	Message createJmsMessage() throws JMSException, DataException {
-		Object message = createMessage();
-		
-		if(message==null) {
-			throw new DataException("null message"); //$NON-NLS-1$
-		}
-		
-		if(message instanceof String) {
-			TextMessage jmsMessage = session.createTextMessage((String) message);
-			return jmsMessage;
-		}
-		else if (message instanceof byte[]) {
-			BytesMessage jmsMessage = session.createBytesMessage();
-			jmsMessage.writeBytes((byte[]) message);
-			return jmsMessage;
-		}
-		else if (message instanceof Serializable) {
-			ObjectMessage jmsMessage = session.createObjectMessage((Serializable) message);
-			return jmsMessage;
-		}
-		
-		throw new DataException("Unsupported message of type " + message.getClass().getName()); //$NON-NLS-1$
-	}
+	public abstract Message createJmsMessage() throws JMSException, DataException;
 	
 	/**
-	 * Implementors override this in order to create the message.
-	 * Only String, byte[] and Serializable java Objects are supported.
+	 * Gets the {@link Session}. Use this to create the message.
 	 * 
-	 * @return Message to submit to the destination.
-	 * 
-	 * @throws DataException 
+	 * @return the Session.
 	 */
-	public abstract Object createMessage() throws DataException;
+	public Session getSession() {
+		return session;
+	}
 	
 }
