@@ -517,3 +517,9 @@ New Feature
 2.2.8
 --------
 
+
+
+2.2.9
+--------
+
+JmsProducer changes
