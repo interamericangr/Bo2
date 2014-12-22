@@ -52,6 +52,12 @@ public class PsMetadataUtils {
 		for (int i = 0; i < columns.length; i++) {
 			Column col = new Column();
 			int idx = i+1;
+			
+			/*
+			 * It is possible that getting the property name using
+			 * the label instead of the column name is correct.
+			 */
+			
 			String name = rsMeta.getColumnName(idx);
 			name = StringUtils.uScore2camelCase(name);
 			String label = rsMeta.getColumnLabel(idx);
