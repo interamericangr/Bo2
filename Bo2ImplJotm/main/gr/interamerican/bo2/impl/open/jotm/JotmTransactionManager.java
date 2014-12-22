@@ -15,6 +15,7 @@ package gr.interamerican.bo2.impl.open.jotm;
 import gr.interamerican.bo2.arch.Provider;
 import gr.interamerican.bo2.arch.ResourceWrapper;
 import gr.interamerican.bo2.arch.TransactionManager;
+import gr.interamerican.bo2.arch.exceptions.CouldNotBeginException;
 import gr.interamerican.bo2.arch.exceptions.CouldNotEnlistException;
 import gr.interamerican.bo2.arch.utils.ext.Bo2Session;
 import gr.interamerican.bo2.impl.open.jdbc.JdbcConnectionProvider;
@@ -81,11 +82,16 @@ public class JotmTransactionManager extends JtaTransactionManager  {
 	public JotmTransactionManager(Provider owner) {
 		initialize(owner);
 		ut = JOTM.getUserTransaction();
+	}
+	
+	@Override
+	public void begin() throws CouldNotBeginException {
 		try {
-			ut.setTransactionTimeout(Integer.MAX_VALUE);
+			ut.setTransactionTimeout(3600); //1 hour
 		} catch (SystemException e) {
-			throw new RuntimeException(e);
+			throw new CouldNotBeginException(e);
 		}
+		super.begin();
 	}
 	
 	/**
