@@ -14,7 +14,7 @@ package gr.interamerican.bo2.utils.meta.formatters.nf;
 
 
 
-import gr.interamerican.bo2.utils.adapters.ToString;
+import gr.interamerican.bo2.utils.adapters.trans.ToString;
 
 import org.junit.Assert;
 import org.junit.Test;

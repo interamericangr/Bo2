@@ -13,7 +13,7 @@
 package gr.interamerican.bo2.utils.beans;
 
 import gr.interamerican.bo2.samples.bean.NumberBean;
-import gr.interamerican.bo2.utils.adapters.CalculatePercentageWithFixedRounding;
+import gr.interamerican.bo2.utils.adapters.vo.CalculatePercentageWithFixedRounding;
 
 import java.math.BigDecimal;
 

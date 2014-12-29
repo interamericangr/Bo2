@@ -475,4 +475,27 @@ public class TestNumberUtils {
 		assertFalse(NumberUtils.isNullOrZero(0.1));
 		assertFalse(NumberUtils.isNullOrZero(10L));
 	}
+	
+	/**
+	 * test gcd
+	 */
+	@Test
+	public void testGcd_long() {
+		assertEquals(50L,NumberUtils.gcd(100L ,50L));
+		assertEquals(50L,NumberUtils.gcd(4500L ,550L));
+		assertEquals(12L,NumberUtils.gcd(36L, 24L));		
+		assertEquals(24L,NumberUtils.gcd(0L, 24L));
+	}
+	
+	/**
+	 * test gcd
+	 */
+	@Test
+	public void testGcd_int() {
+		assertEquals(50,NumberUtils.gcd(100 ,50));
+		assertEquals(50,NumberUtils.gcd(450 ,500));
+		assertEquals(12,NumberUtils.gcd(36, 24));		
+	}
+	
+	
 }

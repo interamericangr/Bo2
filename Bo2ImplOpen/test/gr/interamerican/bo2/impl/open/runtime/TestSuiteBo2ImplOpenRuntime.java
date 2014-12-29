@@ -12,8 +12,6 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.runtime;
 
-import gr.interamerican.bo2.impl.open.runtime.concurrent.TestSuiteBo2ImplOpenRuntimeConcurrent;
-
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
@@ -33,8 +31,7 @@ import org.junit.runners.Suite.SuiteClasses;
 		TestAbstractBo2RuntimeCmd.class,
 		TestUnitTestCmd.class,
 		TestCrudCmd.class,
-		TestEntitiesQueryCmd.class,
-		TestSuiteBo2ImplOpenRuntimeConcurrent.class,
+		TestEntitiesQueryCmd.class,		
 	}
 )
 public class TestSuiteBo2ImplOpenRuntime {

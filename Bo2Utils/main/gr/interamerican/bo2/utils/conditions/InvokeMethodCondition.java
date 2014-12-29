@@ -1,7 +1,7 @@
 package gr.interamerican.bo2.utils.conditions;
 
 import gr.interamerican.bo2.utils.Utils;
-import gr.interamerican.bo2.utils.adapters.InvokeMethod;
+import gr.interamerican.bo2.utils.adapters.trans.InvokeMethod;
 
 /**
  * Condition that is based on the invocation of a method that returns a boolean.

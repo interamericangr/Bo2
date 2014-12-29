@@ -17,8 +17,6 @@ import static gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessParm
 import static gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessParmNames.FIELDS_SET;
 import static gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessParmNames.FORMATTER_CLASS;
 import static gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessParmNames.INPUT_PROPERTY;
-import static gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessParmNames.MONITOR_MESSAGE_INTERVAL;
-import static gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessParmNames.MONITOR_MESSAGE_RECIPIENTS;
 import static gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessParmNames.OPERATION_CLASS;
 import static gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessParmNames.POST_PROCESSING_CLASS;
 import static gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessParmNames.PRE_PROCESSING_CLASS;
@@ -26,7 +24,6 @@ import static gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessParm
 import static gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessParmNames.QUERY_CLASS;
 import static gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessParmNames.REATTEMPT_ON_TMEX;
 import static gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessParmNames.SHARED_STREAM_NAMES;
-import static gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessParmNames.TIDY_INTERVAL;
 import static gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessParmNames.UI_CAN_ADD_THREADS;
 import static gr.interamerican.bo2.utils.CollectionUtils.getMandatoryProperty;
 import static gr.interamerican.bo2.utils.StringConstants.COMMA;
@@ -43,9 +40,9 @@ import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.TokenUtils;
 import gr.interamerican.bo2.utils.Utils;
-import gr.interamerican.bo2.utils.adapters.CopyFromBeans;
-import gr.interamerican.bo2.utils.adapters.CopyFromProperties;
 import gr.interamerican.bo2.utils.adapters.Modification;
+import gr.interamerican.bo2.utils.adapters.mod.CopyFromBeans;
+import gr.interamerican.bo2.utils.adapters.mod.CopyFromProperties;
 import gr.interamerican.bo2.utils.meta.formatters.Formatter;
 import gr.interamerican.bo2.utils.meta.formatters.ObjectFormatter;
 
@@ -112,20 +109,9 @@ implements BatchProcessParmsFactory {
 			input.setPostOperationParametersSetter(copyToPostProcess);
 		}
 		
-		String mailRecipients = properties.getProperty(MONITOR_MESSAGE_RECIPIENTS);
-		input.setMonitoringMailRecipients(mailRecipients);
-		
-		String strMailInterval = properties.getProperty(MONITOR_MESSAGE_INTERVAL);
-		int mailInterval = NumberUtils.string2Int(strMailInterval);
-		input.setMonitoringMailInterval(mailInterval);
-		
 		String strAddThreads = properties.getProperty(UI_CAN_ADD_THREADS);
 		boolean addTheads = StringUtils.string2Bool(strAddThreads);
 		input.setUiCanAddThreads(addTheads);
-		
-		String strTidyInterval = properties.getProperty(TIDY_INTERVAL);
-		int tidyInterval = NumberUtils.string2Int(strTidyInterval);
-		input.setTidyInterval(tidyInterval);
 		
 		String strNamedStreams = Utils.notNull(properties.getProperty(SHARED_STREAM_NAMES), StringConstants.EMPTY);
 		String[] sharedStreams = TokenUtils.splitTrim(strNamedStreams, COMMA, false);

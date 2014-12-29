@@ -23,6 +23,12 @@ import java.util.Set;
  * Names of {@link BatchProcessParm} properties.
  */
 public class BatchProcessParmNames {
+	
+	/**
+	 * Property key for launcher.
+	 */
+	public static final String LAUNCHER = "launcher"; //$NON-NLS-1$
+	
 
 	/**
 	 * Property key for name.
@@ -56,14 +62,7 @@ public class BatchProcessParmNames {
 	 * Property key for count of queue processors.
 	 */
 	public static final String PROCESSORS_COUNT = "countOfProcessors"; //$NON-NLS-1$
-	/**
-	 * Property key for monitoringMailRecipients.
-	 */
-	public static final String MONITOR_MESSAGE_RECIPIENTS = "monitoringMailRecipients"; //$NON-NLS-1$
-	/**
-	 * Property key for monitoringMailRecipients.
-	 */
-	public static final String MONITOR_MESSAGE_INTERVAL = "monitoringMailInterval"; //$NON-NLS-1$
+
 	/**
 	 * Property key for isUiCanAddThreads.
 	 */
@@ -72,10 +71,6 @@ public class BatchProcessParmNames {
 	 * Property key for uiAutoRefresh.
 	 */
 	public static final String UI_REFRESH_INTERVAL = "uiRefreshInterval"; //$NON-NLS-1$
-	/**
-	 * Property key for tidyInterval.
-	 */
-	public static final String TIDY_INTERVAL = "tidyInterval"; //$NON-NLS-1$
 	/**
 	 * Property key for entityHeader.
 	 */
@@ -101,8 +96,8 @@ public class BatchProcessParmNames {
 	 * Fields.
 	 */
 	public static final String[] FIELDS = { BATCH_PROCESS_NAME, QUERY_CLASS, OPERATION_CLASS, FORMATTER_CLASS,
-			PRE_PROCESSING_CLASS, POST_PROCESSING_CLASS, INPUT_PROPERTY, PROCESSORS_COUNT, MONITOR_MESSAGE_INTERVAL,
-			MONITOR_MESSAGE_RECIPIENTS, UI_CAN_ADD_THREADS, UI_REFRESH_INTERVAL, TIDY_INTERVAL, ENTITY_HEADER, 
+			PRE_PROCESSING_CLASS, POST_PROCESSING_CLASS, INPUT_PROPERTY, PROCESSORS_COUNT, 
+			UI_CAN_ADD_THREADS, UI_REFRESH_INTERVAL, ENTITY_HEADER, 
 			SHARED_STREAM_NAMES 
 	};
 	

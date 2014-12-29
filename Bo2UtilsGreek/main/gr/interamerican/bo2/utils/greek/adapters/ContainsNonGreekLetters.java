@@ -1,7 +1,7 @@
 package gr.interamerican.bo2.utils.greek.adapters;
 
-import gr.interamerican.bo2.utils.adapters.InvokeMethod;
 import gr.interamerican.bo2.utils.adapters.Transformation;
+import gr.interamerican.bo2.utils.adapters.trans.InvokeMethod;
 import gr.interamerican.bo2.utils.greek.GreekUtils;
 
 /**

@@ -15,7 +15,7 @@ package gr.interamerican.bo2.arch.utils;
 import gr.interamerican.bo2.arch.ext.Codified;
 import gr.interamerican.bo2.utils.JavaBeanUtils;
 import gr.interamerican.bo2.utils.StringUtils;
-import gr.interamerican.bo2.utils.adapters.NumberConverter;
+import gr.interamerican.bo2.utils.adapters.trans.NumberConverter;
 
 import java.beans.PropertyDescriptor;
 

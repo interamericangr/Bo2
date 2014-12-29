@@ -12,8 +12,8 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils;
 
-import gr.interamerican.bo2.utils.adapters.Filter;
 import gr.interamerican.bo2.utils.adapters.VoidOperation;
+import gr.interamerican.bo2.utils.adapters.mod.Filter;
 import gr.interamerican.bo2.utils.beans.Tree;
 import gr.interamerican.bo2.utils.comparators.SpecificNumberComparator;
 import gr.interamerican.bo2.utils.conditions.Condition;

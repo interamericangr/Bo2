@@ -18,8 +18,8 @@ import gr.interamerican.bo2.arch.utils.beans.MoneyImpl;
 import gr.interamerican.bo2.samples.archutil.beans.MoneyBean;
 import gr.interamerican.bo2.samples.archutil.conditions.IsGreaterThanZero;
 import gr.interamerican.bo2.utils.AdapterUtils;
-import gr.interamerican.bo2.utils.adapters.MultipleStepsCreate;
 import gr.interamerican.bo2.utils.adapters.Transformation;
+import gr.interamerican.bo2.utils.adapters.trans.MultipleStepsCreate;
 import gr.interamerican.bo2.utils.conditions.Condition;
 
 import java.math.BigDecimal;

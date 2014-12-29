@@ -15,7 +15,7 @@ public class TestNegativeToZero {
 	public void testConstructor() {
 		NegativeToZero av = new NegativeToZero();
 		Assert.assertNotNull(av.transformation);
-		Assert.assertTrue(av.transformation instanceof gr.interamerican.bo2.utils.adapters.number.NegativeToZero);
+		Assert.assertTrue(av.transformation instanceof gr.interamerican.bo2.utils.adapters.trans.number.NegativeToZero);
 	}
 
 }

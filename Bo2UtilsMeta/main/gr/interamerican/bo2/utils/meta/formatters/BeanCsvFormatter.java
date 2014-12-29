@@ -15,9 +15,9 @@ package gr.interamerican.bo2.utils.meta.formatters;
 import gr.interamerican.bo2.utils.AdapterUtils;
 import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.StringUtils;
-import gr.interamerican.bo2.utils.adapters.GetProperties;
 import gr.interamerican.bo2.utils.adapters.Modification;
-import gr.interamerican.bo2.utils.adapters.string.StringReplace;
+import gr.interamerican.bo2.utils.adapters.trans.GetProperties;
+import gr.interamerican.bo2.utils.adapters.trans.string.StringReplace;
 import gr.interamerican.bo2.utils.meta.transformations.FormatArray;
 
 import java.util.Arrays;

@@ -14,8 +14,8 @@ package gr.interamerican.bo2.impl.open.modifications;
 
 import gr.interamerican.bo2.arch.ext.CriteriaDependent;
 import gr.interamerican.bo2.impl.open.utils.Bo2Utils;
-import gr.interamerican.bo2.utils.adapters.CopyFromProperties;
 import gr.interamerican.bo2.utils.adapters.Modification;
+import gr.interamerican.bo2.utils.adapters.mod.CopyFromProperties;
 
 import java.util.Properties;
 

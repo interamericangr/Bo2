@@ -275,6 +275,22 @@ public interface BatchProcessParm<T> {
 	void setMonitoringMailInterval(int monitoringMailInterval);
 	
 	/**
+	 * Gets the time interval in minutes between two subsequent 
+	 * monitoring messages in the system out stream.
+	 *  
+	 * @return Returns the interval.
+	 */
+	int getSysoutInterval();
+	
+	/**
+	 * Sets the time interval for a monitoring system out.
+	 * 
+	 * @param sysoutInterval
+	 *        Interval in minutes
+	 */
+	void setSysoutInterval(int sysoutInterval);
+	
+	/**
 	 * Indicates if the operator can add threads using the UI.
 	 * 
 	 * @return Returns true if the operator can increase the number
@@ -312,14 +328,6 @@ public interface BatchProcessParm<T> {
 	 * @param namedInputFiles
 	 */
 	void setNamedInputFiles(Map<String, String> namedInputFiles);
-	
-	/**
-	 * Gets the time interval in minutes between two subsequent 
-	 * calls to tidy.
-	 *  
-	 * @return Returns the monitoring mail interval.
-	 */
-	int getTidyInterval();
 	
 	/**
 	 * Sets the time interval for tidying the batch process.

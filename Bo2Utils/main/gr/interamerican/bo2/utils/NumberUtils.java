@@ -416,4 +416,33 @@ public class NumberUtils {
 		}
 		return number.doubleValue() == 0;
 	}
+	
+	/**
+	 * Calculates the greatest common divisor of two numbers.
+	 * 
+	 * @param first
+	 * @param second
+	 * 
+	 * @return Returns the greatest common divisor.
+	 */
+	public static long gcd(long first, long second) {
+		if (second==0) {
+			return first;
+		}
+		return gcd(second,first%second);
+	}
+	
+	/**
+	 * Calculates the greatest common divisor of two numbers.
+	 * 
+	 * @param first
+	 * @param second
+	 * 
+	 * @return Returns the greatest common divisor.
+	 */
+	public static long gcd(int first, int second) {
+		long l = gcd(Long.valueOf(first), Long.valueOf(second));
+		return Long.valueOf(l).intValue();
+	}
+
 }

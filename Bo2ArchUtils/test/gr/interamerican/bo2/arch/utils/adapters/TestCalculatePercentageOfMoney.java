@@ -15,7 +15,7 @@ package gr.interamerican.bo2.arch.utils.adapters;
 import gr.interamerican.bo2.arch.Money;
 import gr.interamerican.bo2.arch.utils.beans.MoneyImpl;
 import gr.interamerican.bo2.samples.archutil.beans.MoneyBean;
-import gr.interamerican.bo2.utils.adapters.CalculatePercentageWithFixedRounding;
+import gr.interamerican.bo2.utils.adapters.vo.CalculatePercentageWithFixedRounding;
 
 import java.math.BigDecimal;
 import java.util.Currency;

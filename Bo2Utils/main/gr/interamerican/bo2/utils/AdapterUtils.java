@@ -12,9 +12,9 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils;
 
-import gr.interamerican.bo2.utils.adapters.GetProperty;
 import gr.interamerican.bo2.utils.adapters.Transformation;
 import gr.interamerican.bo2.utils.adapters.VoidOperation;
+import gr.interamerican.bo2.utils.adapters.trans.GetProperty;
 import gr.interamerican.bo2.utils.beans.Tree;
 
 import java.util.ArrayList;

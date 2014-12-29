@@ -544,11 +544,7 @@ implements Runnable, LongProcess {
 		return failuresCount;		
 	}
 
-	/**
-	 * Gets the name.
-	 *
-	 * @return Returns the name
-	 */
+	@Override
 	public String getName() {
 		return name;
 	}

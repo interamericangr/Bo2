@@ -12,7 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.conditions;
 
-import gr.interamerican.bo2.utils.adapters.GetRangeFromProperties;
+import gr.interamerican.bo2.utils.adapters.trans.GetRangeFromProperties;
 import gr.interamerican.bo2.utils.beans.Range;
 
 /**

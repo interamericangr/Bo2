@@ -41,8 +41,8 @@ import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.TokenUtils;
-import gr.interamerican.bo2.utils.adapters.GetProperty;
 import gr.interamerican.bo2.utils.adapters.Transformation;
+import gr.interamerican.bo2.utils.adapters.trans.GetProperty;
 import gr.interamerican.bo2.utils.reflect.analyze.TypeAnalysis;
 import gr.interamerican.bo2.utils.reflect.beans.BeanPropertyDefinition;
 

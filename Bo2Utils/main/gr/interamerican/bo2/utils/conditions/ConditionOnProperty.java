@@ -12,7 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.conditions;
 
-import gr.interamerican.bo2.utils.adapters.GetProperty;
+import gr.interamerican.bo2.utils.adapters.trans.GetProperty;
 
 /**
  * Checks a condition on a property of the specified object.

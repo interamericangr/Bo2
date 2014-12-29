@@ -600,6 +600,22 @@ public class CollectionUtils {
 	}
 	
 	/**
+	 * Reads an {@link EnhancedProperties} object from an inputstream.
+	 * 
+	 * @param stream 
+	 *        InputStream to read the properties.
+	 *        
+	 * @return Returns the properties object read.
+	 * @throws IOException 
+	 */	
+	public static Properties readEnhancedProperties(InputStream stream) 
+	throws IOException {
+		EnhancedProperties p = new EnhancedProperties();
+		p.load(stream);			
+		return p;
+	}
+	
+	/**
 	 * Reads an {@link EnhancedProperties} object from a resource path.
 	 * 
 	 * @param path 
@@ -618,9 +634,7 @@ public class CollectionUtils {
 			} else {
 				stream = StreamUtils.getFileStream(path);
 			}
-			EnhancedProperties p = new EnhancedProperties();
-			p.load(stream);			
-			return p;
+			return readEnhancedProperties(stream);
 		} catch (IOException ioe) {
 			String msg = "Could not load resource " + path;
 			throw new RuntimeException(msg, ioe);

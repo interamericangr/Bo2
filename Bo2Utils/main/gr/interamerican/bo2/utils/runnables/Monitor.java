@@ -13,12 +13,18 @@
 package gr.interamerican.bo2.utils.runnables;
 
 
-import gr.interamerican.bo2.utils.attributes.SimpleCommand;
-import gr.interamerican.bo2.utils.concurrent.ThreadUtils;
-import gr.interamerican.bo2.utils.conditions.Condition;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import gr.interamerican.bo2.utils.NumberUtils;
+import gr.interamerican.bo2.utils.adapters.VoidOperation;
+import gr.interamerican.bo2.utils.adapters.cmd.PeriodicCommand;
+import gr.interamerican.bo2.utils.adapters.cmd.SimpleCommandSequence;
+import gr.interamerican.bo2.utils.adapters.cmd.SingleSubjectOperation;
+import gr.interamerican.bo2.utils.attributes.SimpleCommand;
+import gr.interamerican.bo2.utils.beans.Pair;
+import gr.interamerican.bo2.utils.concurrent.ThreadUtils;
+import gr.interamerican.bo2.utils.conditions.Condition;
 
 /**
  * The {@link Monitor} monitors an object.
@@ -56,10 +62,24 @@ implements Runnable {
 	 */
 	Condition<T> mustStop;
 	
+	
 	/**
-	 * Actions to be executed by the monitor.
+	 * List with operations.
 	 */
-	List<SimpleCommand> commands;
+	List<Pair<MonitoringOperation<T>,Long>> operations = 
+		new ArrayList<Pair<MonitoringOperation<T>,Long>>();
+	
+	/**
+	 * Commands sequence that is executed by the monitor.
+	 */
+	SimpleCommandSequence sequence = new SimpleCommandSequence(true);
+	
+	
+	
+	/**
+	 * Start indicator.
+	 */
+	boolean started;
 
 	
 	/**
@@ -72,60 +92,91 @@ implements Runnable {
 	 * @param mustStop
 	 *        Condition that checks when the monitoring process must stop.
 	 */
-	public Monitor(T system, long interval, final Condition<T> mustStop) {
+	public Monitor(T system, final Condition<T> mustStop) {
 		super();
-		this.system = system;
-		this.interval = interval;
-		this.mustStop = mustStop;
-		this.commands = new ArrayList<SimpleCommand>();
+		this.system = system;		
+		this.mustStop = mustStop;	
+		this.sequence = new SimpleCommandSequence(true);
+		this.started = false;
+	}
+	
+	
+	
+	
+	/**
+	 * Adds a SimpleCommand that will execute a {@link VoidOperation}
+	 * with <code>system</code> as argument.
+	 * 
+	 * This method is null safe. If vo is null, then nothing happens.
+	 * 
+	 * @param mo
+	 *        MonitoringOperation that will be executed.
+	 * @param operationInterval
+	 *        Interval between two subsequent executions of the monitoring
+	 *        operations. 
+ 
+	 * 
+ 	 */
+	public void addOperation(MonitoringOperation<T> mo, long operationInterval) {
+		if (started) {
+			String msg = "Monitor is already started. Can't add operation!"; //$NON-NLS-1$
+			throw new RuntimeException(msg);
+		}
+		
+		if (mo.isValid()) {
+			Pair<MonitoringOperation<T>,Long> pair = 
+				new Pair<MonitoringOperation<T>, Long>(mo, operationInterval);
+			operations.add(pair);
+		}
+		
+		interval = NumberUtils.gcd(interval, operationInterval);
+	}
+	
+	
+	/**
+	 * Initializes <code>sequence</code>.
+	 */
+	void initializeSequence() {		
+		for (Pair<MonitoringOperation<T>, Long> pair : operations) {
+			PeriodicCommand pc = getPeriodicCommand(pair);
+			sequence.addCommand(pc);
+		}		
+		
 	}
 	
 	/**
-	 * Adds a SimpleCommand.
+	 * Creates a {@link PeriodicCommand} for a {@link MonitoringOperation}.
 	 * 
-	 * This method is null safe. If the operand is null then
-	 * nothing happens. 
+	 * @param pair
+	 *        Pair that contains the MonitoringOperation and its interval. 
 	 * 
-	 * @param cmd
-	 *        Command to add. 
+	 * @return Returns the {@link PeriodicCommand}.
 	 */
-	public void addCommand(SimpleCommand cmd) {	
-		if (cmd!=null) {
-			commands.add(cmd);			
-		}		
+	PeriodicCommand getPeriodicCommand(Pair<MonitoringOperation<T>, Long> pair) {		
+		SingleSubjectOperation<T> ssop = new SingleSubjectOperation<T>(pair.getLeft(), system);
+		long period = interval / pair.getRight();
+		return new PeriodicCommand(ssop, period);		
 	}
+
+	
+	
+
+
 
 
 	@Override
 	public void run() {
-		while(!mustStop.check(system)) {
+		started = true;
+		initializeSequence();
+		do {
 			ThreadUtils.sleepMillis(interval);
-			executeAll();			
-		}
-		executeAll();
+			sequence.execute();
+		} while (!mustStop.check(system));
 	}
 	
-	/**
-	 * Executes all commands.
-	 */
-	void executeAll() {
-		for (SimpleCommand cmd : commands) {
-			failSafeExecute(cmd);
-		}
-	}
 	
-	/**
-	 * Fail safe execution of a command.
-	 * 
-	 * @param cmd
-	 */
-	void failSafeExecute(SimpleCommand cmd) {
-		try {
-			cmd.execute();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+	
+	
 	
 	
 

@@ -12,7 +12,6 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils;
 
-import gr.interamerican.bo2.utils.adapters.TestSuiteBo2UtilsAdapters;
 import gr.interamerican.bo2.utils.beans.TestSuiteBo2UtilsBeans;
 import gr.interamerican.bo2.utils.comparators.TestSuiteBo2UtilsComparators;
 import gr.interamerican.bo2.utils.concurrent.TestSuiteBo2UtilsConcurrent;
@@ -25,7 +24,6 @@ import gr.interamerican.bo2.utils.matching.TestSuiteMatching;
 import gr.interamerican.bo2.utils.reflect.TestSuiteBo2UtilsReflect;
 import gr.interamerican.bo2.utils.reflect.analyze.TestAbstractObjectStructureAnalyzer;
 import gr.interamerican.bo2.utils.reflect.analyze.TestSuiteBo2UtilsReflectAnalyze;
-import gr.interamerican.bo2.utils.runnables.TestSuiteBo2UtilsRunnables;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -71,7 +69,6 @@ import org.junit.runners.Suite.SuiteClasses;
 		TestAbstractObjectStructureAnalyzer.class,
 		TestIllegalCharacterFilter.class,
 		TestDependencyGraphs.class,
-		TestSuiteBo2UtilsAdapters.class,
 		TestSuiteBo2UtilsConditions.class,
 		TestSuiteBo2UtilsComparators.class,
 		TestSuiteBo2UtilsBeans.class,		
@@ -83,7 +80,6 @@ import org.junit.runners.Suite.SuiteClasses;
 		TestSuiteBo2UtilsConcurrent.class,
 		TestSuiteBo2UtilsHandlers.class,
 		TestSuiteBo2UtilsFtp.class,
-		TestSuiteBo2UtilsRunnables.class,
 	}
 )
 public class TestSuiteBo2Utils {

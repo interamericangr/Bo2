@@ -14,8 +14,6 @@ package gr.interamerican.bo2.impl.open.runtime.concurrent;
 
 import static gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessParmNames.BATCH_PROCESS_NAME;
 import static gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessParmNames.INPUT_PROPERTY;
-import static gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessParmNames.MONITOR_MESSAGE_INTERVAL;
-import static gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessParmNames.MONITOR_MESSAGE_RECIPIENTS;
 import static gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessParmNames.OPERATION_CLASS;
 import static gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessParmNames.POST_PROCESSING_CLASS;
 import static gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessParmNames.PRE_PROCESSING_CLASS;
@@ -113,8 +111,6 @@ public class TestBatchProcessParmFactoryImpl {
 		p.setProperty(POST_PROCESSING_CLASS, post.getName());
 		p.setProperty(INPUT_PROPERTY, inputProperty);
 		p.setProperty(PROCESSORS_COUNT, Integer.toString(threads));
-		p.setProperty(MONITOR_MESSAGE_INTERVAL, Integer.toString(interval));
-		p.setProperty(MONITOR_MESSAGE_RECIPIENTS, recipients);
 		p.setProperty(UI_CAN_ADD_THREADS, Boolean.toString(canAddThreads));
 		p.setProperty(UI_REFRESH_INTERVAL, Integer.toString(refreshInterval));
 		return p;

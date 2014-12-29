@@ -21,7 +21,7 @@ import gr.interamerican.bo2.arch.exceptions.UnexpectedException;
 import gr.interamerican.bo2.impl.open.annotations.ManagerName;
 import gr.interamerican.bo2.impl.open.runtime.AbstractBo2RuntimeCmd;
 import gr.interamerican.bo2.impl.open.workers.ArrayIteratorQuery;
-import gr.interamerican.bo2.utils.adapters.GetTheSame;
+import gr.interamerican.bo2.utils.adapters.mod.GetTheSame;
 
 import org.junit.Test;
 

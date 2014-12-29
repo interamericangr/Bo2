@@ -22,7 +22,7 @@ import gr.interamerican.bo2.impl.open.namedstreams.NamedStreamsProvider;
 import gr.interamerican.bo2.impl.open.records.CsvRecord;
 import gr.interamerican.bo2.utils.ArrayUtils;
 import gr.interamerican.bo2.utils.CollectionUtils;
-import gr.interamerican.bo2.utils.adapters.GetProperties;
+import gr.interamerican.bo2.utils.adapters.trans.GetProperties;
 import gr.interamerican.bo2.utils.meta.formatters.Formatter;
 import gr.interamerican.bo2.utils.meta.formatters.ObjectFormatter;
 import gr.interamerican.bo2.utils.meta.transformations.FormatArray;

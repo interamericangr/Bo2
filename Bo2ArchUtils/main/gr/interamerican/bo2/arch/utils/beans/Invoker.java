@@ -3,7 +3,7 @@ package gr.interamerican.bo2.arch.utils.beans;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
 import gr.interamerican.bo2.arch.utils.adapters.VoidOperationAsLogicOperation;
-import gr.interamerican.bo2.utils.adapters.MethodBasedVoidOperation;
+import gr.interamerican.bo2.utils.adapters.vo.MethodBasedVoidOperation;
 import gr.interamerican.bo2.utils.iterable.IterableCrawler;
 import gr.interamerican.bo2.utils.iterable.IterableNestedPropertyCrawler;
 

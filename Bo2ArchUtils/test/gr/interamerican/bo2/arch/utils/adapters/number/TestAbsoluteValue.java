@@ -15,7 +15,7 @@ public class TestAbsoluteValue {
 	public void testConstructor() {
 		AbsoluteValue av = new AbsoluteValue();
 		Assert.assertNotNull(av.transformation);
-		Assert.assertTrue(av.transformation instanceof gr.interamerican.bo2.utils.adapters.number.AbsoluteValue);
+		Assert.assertTrue(av.transformation instanceof gr.interamerican.bo2.utils.adapters.trans.number.AbsoluteValue);
 	}
 
 }

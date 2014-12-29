@@ -1,6 +1,6 @@
 package gr.interamerican.bo2.utils.greek.adapters;
 
-import gr.interamerican.bo2.utils.adapters.date.DayOfMonth;
+import gr.interamerican.bo2.utils.adapters.trans.date.DayOfMonth;
 
 import org.junit.Assert;
 import org.junit.Test;

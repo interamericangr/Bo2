@@ -2,7 +2,7 @@ package gr.interamerican.bo2.arch.utils.adapters.number;
 
 
 /**
- * Money aware {@link gr.interamerican.bo2.utils.adapters.number.AbsoluteValue}.
+ * Money aware {@link gr.interamerican.bo2.utils.adapters.trans.number.AbsoluteValue}.
  */
 public class AbsoluteValue extends MoneyAwareNumberTransformation {
 
@@ -11,7 +11,7 @@ public class AbsoluteValue extends MoneyAwareNumberTransformation {
 	 * 
 	 */
 	public AbsoluteValue() {
-		super(new gr.interamerican.bo2.utils.adapters.number.AbsoluteValue());
+		super(new gr.interamerican.bo2.utils.adapters.trans.number.AbsoluteValue());
 	}
 
 }

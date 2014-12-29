@@ -12,7 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils;
 
-import gr.interamerican.bo2.utils.adapters.NumberConverter;
+import gr.interamerican.bo2.utils.adapters.trans.NumberConverter;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
