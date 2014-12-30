@@ -18,7 +18,6 @@ import gr.interamerican.bo2.utils.adapters.VoidOperation;
 import gr.interamerican.bo2.utils.adapters.cmd.PeriodicCommand;
 import gr.interamerican.bo2.utils.adapters.cmd.SimpleCommandSequence;
 import gr.interamerican.bo2.utils.adapters.cmd.SingleSubjectOperation;
-import gr.interamerican.bo2.utils.beans.Pair;
 import gr.interamerican.bo2.utils.concurrent.ThreadUtils;
 import gr.interamerican.bo2.utils.conditions.Condition;
 
@@ -63,10 +62,9 @@ implements Runnable {
 	
 	
 	/**
-	 * List with operations.
+	 * List of operations.
 	 */
-	List<Pair<MonitoringOperation<T>,Long>> operations = 
-		new ArrayList<Pair<MonitoringOperation<T>,Long>>();
+	List<SingleSubjectOperation<?>> operations = new ArrayList<SingleSubjectOperation<?>>();
 	
 	/**
 	 * Commands sequence that is executed by the monitor.
@@ -110,50 +108,53 @@ implements Runnable {
 	 * 
 	 * @param mo
 	 *        MonitoringOperation that will be executed.
-	 * @param operationInterval
-	 *        Interval between two subsequent executions of the monitoring
-	 *        operations. 
+	 * @param monitored
+	 *        Object being monitored by the monitoring operation. 
  
 	 * 
  	 */
-	public void addOperation(MonitoringOperation<T> mo, long operationInterval) {
+	public <L> void addOperation(MonitoringOperation<? extends L> mo, L monitored) {
 		if (started) {
 			String msg = "Monitor is already started. Can't add operation!"; //$NON-NLS-1$
 			throw new RuntimeException(msg);
 		}
 		
 		if (mo.isValid()) {
-			Pair<MonitoringOperation<T>,Long> pair = 
-				new Pair<MonitoringOperation<T>, Long>(mo, operationInterval);
-			operations.add(pair);
-			interval = NumberUtils.gcd(interval, operationInterval);
+			SingleSubjectOperation<L> sso = new SingleSubjectOperation<L>(mo, monitored);			
+			operations.add(sso);			
+			interval = NumberUtils.gcd(interval, mo.getPeriodInterval());
 		}
+	}
+	
+	/**
+	 * Adds a SimpleCommand that will execute a {@link VoidOperation}
+	 * with <code>system</code> as argument.
+	 * 
+	 * This method is null safe. If vo is null, then nothing happens.
+	 * 
+	 * @param mo
+	 *        MonitoringOperation that will be executed. 
+	 * 
+ 	 */
+	public <L> void addOperation(MonitoringOperation<? extends T> mo) {		
+		addOperation(mo, system);
 	}
 	
 	
 	/**
 	 * Initializes <code>sequence</code>.
 	 */
+	@SuppressWarnings({ "rawtypes" })
 	void initializeSequence() {		
-		for (Pair<MonitoringOperation<T>, Long> pair : operations) {
-			PeriodicCommand pc = getPeriodicCommand(pair);
+		for (SingleSubjectOperation ssop : operations) {			
+			MonitoringOperation mo = (MonitoringOperation) ssop.getVoidOperation();
+			long period = interval / mo.getPeriodInterval();
+			PeriodicCommand pc = new PeriodicCommand(ssop, period);
 			sequence.addCommand(pc);
 		}
 	}
 	
-	/**
-	 * Creates a {@link PeriodicCommand} for a {@link MonitoringOperation}.
-	 * 
-	 * @param pair
-	 *        Pair that contains the MonitoringOperation and its interval. 
-	 * 
-	 * @return Returns the {@link PeriodicCommand}.
-	 */
-	PeriodicCommand getPeriodicCommand(Pair<MonitoringOperation<T>, Long> pair) {		
-		SingleSubjectOperation<T> ssop = new SingleSubjectOperation<T>(pair.getLeft(), system);
-		long period = interval / pair.getRight();
-		return new PeriodicCommand(ssop, period);		
-	}
+
 
 	@Override
 	public void run() {

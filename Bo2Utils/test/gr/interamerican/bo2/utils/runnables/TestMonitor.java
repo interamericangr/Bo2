@@ -13,17 +13,13 @@
 package gr.interamerican.bo2.utils.runnables;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertFalse;
-import static org.mockito.Matchers.any;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import gr.interamerican.bo2.utils.adapters.VoidOperation;
-import gr.interamerican.bo2.utils.adapters.cmd.SimpleCommandSequence;
-import gr.interamerican.bo2.utils.attributes.SimpleCommand;
-import gr.interamerican.bo2.utils.beans.Pair;
+import gr.interamerican.bo2.utils.adapters.cmd.SingleSubjectOperation;
 import gr.interamerican.bo2.utils.conditions.Condition;
 
 import org.junit.Test;
@@ -51,7 +47,29 @@ public class TestMonitor {
 	}
 	
 	/**
-	 * test for the constructor.
+	 * test for addOperation(mo).
+	 */
+	@Test
+	@SuppressWarnings("unchecked")
+	public void testAddOperation_1arg() {
+		Object system = new Object();	
+		Condition<Object> stop = mock(Condition.class);			
+		Monitor<Object> monitor = new Monitor<Object>(system, stop);
+		MonitoringOperation<Object> mo1 = mock(MonitoringOperation.class);		
+		when(mo1.isValid()).thenReturn(true);
+		Long l1 = 1000L;
+		when(mo1.getPeriodInterval()).thenReturn(l1);		
+		monitor.addOperation(mo1);
+		
+		SingleSubjectOperation<Object> sso = 
+			(SingleSubjectOperation<Object>) monitor.operations.get(0);
+		assertEquals(mo1, sso.getVoidOperation());		
+		assertEquals(system, sso.getSubject());
+		assertEquals(l1.longValue(), monitor.interval);
+	}
+	
+	/**
+	 * test for addOperation(mo, o).
 	 */
 	@Test
 	@SuppressWarnings("unchecked")
@@ -59,18 +77,24 @@ public class TestMonitor {
 		Object system = new Object();	
 		Condition<Object> stop = mock(Condition.class);			
 		Monitor<Object> monitor = new Monitor<Object>(system, stop);
-		MonitoringOperation<Object> mo1 = mock(MonitoringOperation.class);
+		MonitoringOperation<Object> mo1 = mock(MonitoringOperation.class);		
 		when(mo1.isValid()).thenReturn(true);
 		Long l1 = 1000L;
-		monitor.addOperation(mo1, l1);
-		Pair<MonitoringOperation<Object>, Long> pair = monitor.operations.get(0);
-		assertEquals(mo1, pair.getLeft());
-		assertEquals(l1, pair.getRight());
+		when(mo1.getPeriodInterval()).thenReturn(l1);
+		Object o = new Object();
+		monitor.addOperation(mo1, o);
+		
+		SingleSubjectOperation<Object> sso = 
+			(SingleSubjectOperation<Object>) monitor.operations.get(0);
+		assertEquals(mo1, sso.getVoidOperation());		
+		assertEquals(o, sso.getSubject());
 		assertEquals(l1.longValue(), monitor.interval);
 	}
 	
+
+	
 	/**
-	 * test for the constructor.
+	 * test for addOperation(mo, o).
 	 */
 	@Test
 	@SuppressWarnings("unchecked")
@@ -80,7 +104,8 @@ public class TestMonitor {
 		Monitor<Object> monitor = new Monitor<Object>(system, stop);
 		MonitoringOperation<Object> mo1 = mock(MonitoringOperation.class);
 		when(mo1.isValid()).thenReturn(false);		
-		monitor.addOperation(mo1, 2000L);
+		when(mo1.getPeriodInterval()).thenReturn(200L);
+		monitor.addOperation(mo1, new Object());
 		assertEquals(0, monitor.operations.size());
 		assertEquals(0L, monitor.interval);		
 	}
@@ -96,8 +121,8 @@ public class TestMonitor {
 		Monitor<Object> monitor = new Monitor<Object>(system, stop);
 		monitor.started = true;
 		MonitoringOperation<Object> mo1 = mock(MonitoringOperation.class);
-		when(mo1.isValid()).thenReturn(false);		
-		monitor.addOperation(mo1, 2000L);
+		when(mo1.isValid()).thenReturn(true);		
+		monitor.addOperation(mo1, new Object());
 	}
 	
 	/**
@@ -110,9 +135,10 @@ public class TestMonitor {
 		Condition<Object> stop = mock(Condition.class);		
 		MonitoringOperation<Object> mo1 = mock(MonitoringOperation.class);
 		when(mo1.isValid()).thenReturn(true);
+		when(mo1.getPeriodInterval()).thenReturn(2L);
 		when(stop.check(o)).thenReturn(false,false,false,true);		
 		Monitor<Object> monitor = new Monitor<Object>(o, stop);
-		monitor.addOperation(mo1, 2L);		
+		monitor.addOperation(mo1);		
 		monitor.run();
 		verify(mo1,times(4)).execute(o);
 	}

@@ -42,15 +42,34 @@ implements SimpleCommand {
 	 * @param operation
 	 * @param subject
 	 */
-	public SingleSubjectOperation(VoidOperation<T> operation, T subject) {
+	@SuppressWarnings("unchecked")
+	public SingleSubjectOperation(VoidOperation<? extends T> operation, T subject) {
 		super();
-		this.operation = operation;
+		this.operation = (VoidOperation<T>) operation;
 		this.subject = subject;
 	}
 
 	@Override
-	public void execute() {
+	public void execute() {		
 		operation.execute(subject);
+	}
+
+	/**
+	 * Gets the operation.
+	 *
+	 * @return Returns the operation
+	 */
+	public VoidOperation<T> getVoidOperation() {
+		return operation;
+	}
+
+	/**
+	 * Gets the subject.
+	 *
+	 * @return Returns the subject
+	 */
+	public T getSubject() {
+		return subject;
 	}
 	
 	

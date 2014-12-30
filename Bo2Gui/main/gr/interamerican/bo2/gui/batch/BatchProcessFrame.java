@@ -12,6 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.bo2.gui.batch;
 
+import gr.interamerican.bo2.arch.batch.LongProcess;
 import gr.interamerican.bo2.arch.batch.MultiThreadedLongProcess;
 import gr.interamerican.bo2.arch.utils.ext.Bo2Session;
 import gr.interamerican.bo2.gui.components.ButtonPanel;
@@ -23,8 +24,11 @@ import gr.interamerican.bo2.impl.open.creation.Factory;
 import gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcess;
 import gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessParmNames;
 import gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessUtility;
-import gr.interamerican.bo2.utils.attributes.SimpleCommand;
+import gr.interamerican.bo2.utils.adapters.vo.Refresh;
+import gr.interamerican.bo2.utils.attributes.Refreshable;
+import gr.interamerican.bo2.utils.runnables.ConcreteMonitoringOperation;
 import gr.interamerican.bo2.utils.runnables.Monitor;
+import gr.interamerican.bo2.utils.runnables.MonitoringOperation;
 
 import java.awt.Dimension;
 import java.util.Properties;
@@ -69,7 +73,7 @@ extends BFrame {
 	/**
 	 * Monitor.
 	 */
-	Monitor<MultiThreadedLongProcess> monitor;
+	Monitor<LongProcess> monitor;
 	
 	/**
 	 * BatchProcessController.
@@ -137,15 +141,23 @@ extends BFrame {
 		 * that actually starts the batch process.
 		 */		
 		inputPanel.panel2model();
-		Properties properties = inputPanel.getModel();				
-		batch = controller.start(properties);
+		Properties properties = inputPanel.getModel();		
+		batch = controller.createBatchProcess(properties);		
+		controller.startBatchProcess(batch);
+		
 		processPanel = new MultiThreadedLongProcessPanel(batch);
 		setPanel(processPanel);
 		setTitle(name);
 		setPreferredSize(processPanel.getDefaultSize());
 		setSize(processPanel.getDefaultSize());
 		repaint();
-		startMonitor();
+		
+		monitor = controller.createMonitor(batch, properties);
+		Refresh<Refreshable> refresh = new Refresh<Refreshable>();
+		MonitoringOperation<Refreshable> mo = new ConcreteMonitoringOperation<Refreshable>(refresh);
+		mo.setPeriodInterval(1000L);
+		monitor.addOperation(mo, processPanel);		
+		controller.startMonitor(monitor);
 	}
 	
 	
@@ -159,17 +171,7 @@ extends BFrame {
 
 	
 	
-	/**
-	 * Starts the monitoring thread.
-	 *
-	 */
-	void startMonitor() {
-		SimpleCommand tidy = controller.tidyCommand(batch);
-		SimpleCommand mail = controller.mailCommand(batch);
-		SimpleCommand refresh = controller.refreshCommand(processPanel);		
-		monitor = controller.startMonitor(batch, refresh, mail, tidy);
-	}
-	
+
 	
 	
 	

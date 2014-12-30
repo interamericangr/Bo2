@@ -2,7 +2,7 @@ package gr.interamerican.bo2.impl.open.runtime.monitor;
 
 import gr.interamerican.bo2.arch.batch.LongProcess;
 import gr.interamerican.bo2.utils.attributes.ModifiableByProperties;
-import gr.interamerican.bo2.utils.runnables.AbstractMonitoringProcess;
+import gr.interamerican.bo2.utils.runnables.AbstractMonitoringOperation;
 import gr.interamerican.bo2.utils.runnables.MonitoringOperation;
 
 import java.util.Properties;
@@ -11,7 +11,7 @@ import java.util.Properties;
  * Calls tidy on a {@link LongProcess}.
  */
 public class Tidy 
-extends AbstractMonitoringProcess<LongProcess>
+extends AbstractMonitoringOperation<LongProcess>
 implements MonitoringOperation<LongProcess>, ModifiableByProperties {
 	
 	/**

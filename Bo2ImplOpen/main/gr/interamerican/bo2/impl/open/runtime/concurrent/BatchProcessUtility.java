@@ -13,36 +13,32 @@
 package gr.interamerican.bo2.impl.open.runtime.concurrent;
 
 import gr.interamerican.bo2.arch.batch.LongProcess;
-import gr.interamerican.bo2.arch.batch.MultiThreadedLongProcess;
 import gr.interamerican.bo2.arch.ext.Session;
 import gr.interamerican.bo2.arch.utils.ext.Bo2Session;
-import gr.interamerican.bo2.impl.open.runtime.monitor.LongProcessMail;
-import gr.interamerican.bo2.impl.open.runtime.monitor.LongProcessSysout;
-import gr.interamerican.bo2.impl.open.runtime.monitor.Tidy;
-import gr.interamerican.bo2.utils.ReflectionUtils;
+import gr.interamerican.bo2.impl.open.creation.Factory;
+import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.Utils;
-import gr.interamerican.bo2.utils.adapters.VoidOperation;
-import gr.interamerican.bo2.utils.adapters.cmd.PeriodicCommand;
-import gr.interamerican.bo2.utils.adapters.cmd.SingleSubjectOperation;
-import gr.interamerican.bo2.utils.adapters.trans.GetProperty;
-import gr.interamerican.bo2.utils.adapters.vo.Refresh;
-import gr.interamerican.bo2.utils.attributes.Refreshable;
-import gr.interamerican.bo2.utils.attributes.SimpleCommand;
+import gr.interamerican.bo2.utils.attributes.ModifiableByProperties;
 import gr.interamerican.bo2.utils.concurrent.ThreadUtils;
 import gr.interamerican.bo2.utils.conditions.Condition;
 import gr.interamerican.bo2.utils.conditions.GetBooleanProperty;
 import gr.interamerican.bo2.utils.runnables.Monitor;
+import gr.interamerican.bo2.utils.runnables.MonitoringOperation;
 
+import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
 
 /**
  * Utility for {@link BatchProcess} operations.
+ * 
  */
 public class BatchProcessUtility {
-	
-	public static final String MONITOR_PREFIX = "monitor.";
+	/**
+	 * Prefix for properties defining a monitoring class.
+	 */
+	public static final String MONITOR_PREFIX = "monitor"+StringConstants.DOT; //$NON-NLS-1$
 	
 	/**
 	 * Session.
@@ -71,47 +67,49 @@ public class BatchProcessUtility {
 		if (StringUtils.isNullOrBlank(className)) {
 			return new BatchProcessParmFactoryImpl();
 		}
-		Object factory = ReflectionUtils.newInstance(className);
+		Object factory = Factory.getCurrentFactory().create(className);
 		return (BatchProcessParmsFactory) factory;		
 	}
 	
 	/**
-	 * Starts the batch process.
+	 * Creates a new {@link BatchProcess} and starts a new thread for it.
+	 * 
+	 * This method also sets the session of this {@link BatchProcessUtility}
+	 * as the thread local {@link Bo2Session}. The new {@link BatchProcess}
+	 * gets a reference to this session, which will be passed to the thread local
+	 * session of the BatchProcess thread. 
+	 * 
+	 * @param batch
+	 */	
+	public void startBatchProcess(BatchProcess<?> batch) {
+		long interval = batch.getInitialThreads() * 10;
+		new Thread(batch).start();				
+		ThreadUtils.sleepMillis(interval);
+	}
+	
+	/**
+	 * Creates a new {@link BatchProcess} and starts a new thread for it.
+	 * 
+	 * This method also sets the session of this {@link BatchProcessUtility}
+	 * as the thread local {@link Bo2Session}. The new {@link BatchProcess}
+	 * gets a reference to this session, which will be passed to the thread local
+	 * session of the BatchProcess thread. 
 	 * 
 	 * @param properties
 	 * 
 	 * @return Returns the {@link BatchProcess}.
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	public BatchProcess start(Properties properties) {
+	public BatchProcess createBatchProcess(Properties properties) {
 		Bo2Session.setSession(session); //Set the session to the main thread of the batch process.
 		BatchProcessParmsFactory factory = getFactory(properties);		 
 		BatchProcessParm bpi = factory.createParameter(properties);				
 		BatchProcess batch = new BatchProcess(bpi);
-		new Thread(batch).start();		
-		long interval = batch.getInitialThreads() * 10;
-		ThreadUtils.sleepMillis(interval);
 		return batch;
 	}
 	
 	/**
-	 * Creates a SimpleCommand that refreshes the UI.
-	 * 
-	 * @param refreshable
-	 *        UI to refresh. to refresh. 
-	 * 
-	 * @return Returns the command.
-	 */
-	public SimpleCommand refreshCommand(Refreshable refreshable) {
-		VoidOperation<Refreshable> refresh = 
-			new Refresh<Refreshable>();
-		return new SingleSubjectOperation <Refreshable> (refresh, refreshable);				
-	}
-	
-
-	
-	/**
-	 * Starts a monitoring for a batch process.
+	 * Creates a monitoring for a batch process.
 	 * 
 	 * @param batch
 	 *        Batch process
@@ -120,22 +118,51 @@ public class BatchProcessUtility {
 	 *        
 	 *	@return Returns the monitor.
 	 */
-	public Monitor<MultiThreadedLongProcess> startMonitor(BatchProcess<?> batch, Properties properties) {
-		Condition<MultiThreadedLongProcess> stop =
-			new GetBooleanProperty<MultiThreadedLongProcess>("finished", MultiThreadedLongProcess.class); //$NON-NLS-1$
+	public Monitor<LongProcess> createMonitor(BatchProcess<?> batch, Properties properties) {
+		Condition<LongProcess> stop =
+			new GetBooleanProperty<LongProcess>("finished", LongProcess.class); //$NON-NLS-1$
 				
-		Monitor<MultiThreadedLongProcess> monitor = 
-			new Monitor<MultiThreadedLongProcess>(batch, stop);
-		
-		
-		
-		/*
-		 * TODO: add monitoring commands
-		 */
-		
-		new Thread(monitor).start();
+		Monitor<LongProcess> monitor = new Monitor<LongProcess>(batch, stop);		
+		Set<String> classes = getMonitoringOperationClasses(properties);
+		for (String className : classes) {
+			MonitoringOperation<LongProcess> mo = createMonitoringOperation(className, properties);
+			monitor.addOperation(mo);
+		}		
 		return monitor;
 	}
+	
+	/**
+	 * Creates and starts the monitor in a new thread.
+	 * 
+	 * @param monitor
+	 *        Monitor
+	 */
+	public void startMonitor(Monitor<LongProcess> monitor) {
+		new Thread(monitor).start();		
+	}
+	
+	
+	/**
+	 * Creates a MonitoringOperation of the specified class.
+	 * 
+	 * If the monitoring operation is also {@link ModifiableByProperties},
+	 * then it will be modified by the specified properties.
+	 * 
+	 * @param className
+	 * @param properties
+	 * 
+	 * @return Returns the monitoring operation.
+	 */
+	MonitoringOperation<LongProcess> createMonitoringOperation(String className, Properties properties) {
+		@SuppressWarnings("unchecked")
+		MonitoringOperation<LongProcess> mo = (MonitoringOperation<LongProcess>)Factory.create(className);
+		if (mo instanceof ModifiableByProperties) {
+			ModifiableByProperties mmo = (ModifiableByProperties) mo;
+			mmo.beModified(properties);
+		}
+		return mo;
+	}
+	
 	
 	/**
 	 * Gets a set of strings that contain all properties that start 
@@ -147,16 +174,19 @@ public class BatchProcessUtility {
 	 * 
 	 * @return Returns the set of strings.
 	 */
-	Set<String> getMonitoringOperations(Properties p) {
+	Set<String> getMonitoringOperationClasses(Properties p) {
 		Set<String> keys = Utils.cast(p.keySet());
+		Set<String> classes = new HashSet<String>();
 		for (String key : keys) {
-			if (key.startsWith("monitor.")) {
-				//String className = StringUtils
+			if (key.startsWith(MONITOR_PREFIX)) {
+				String className = key.substring(MONITOR_PREFIX.length());
+				classes.add(className);
 			}
 		}
-		return null;
-		
+		return classes;		
 	}
+	
+	
 	
 	
 

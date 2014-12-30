@@ -13,6 +13,7 @@
 package gr.interamerican.bo2.impl.open.creation;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
@@ -101,7 +102,21 @@ public class TestFactory {
 		ObjectFactory of = Mockito.mock(ObjectFactory.class);
 		Factory.setCurrentFactory(of);
 		assertEquals(of, Factory.currentFactory);
+		assertNotEquals(of, Factory.defaultFactory);
 		Factory.currentFactory = factory;
+	}
+	
+	/**
+	 * Test for setCurrentFactory(of).
+	 */
+	@Test
+	public void testResetCurrentFactory() {
+		
+		ObjectFactory of = Mockito.mock(ObjectFactory.class);
+		Factory.setCurrentFactory(of);
+		
+		Factory.resetCurrentFactory();
+		assertEquals(Factory.defaultFactory, Factory.currentFactory);		
 	}
 	
 	/**

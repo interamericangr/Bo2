@@ -6,17 +6,17 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Tests for {@link AbstractMonitoringProcess}.
+ * Tests for {@link AbstractMonitoringOperation}.
  */
-public class TestAbstractMonitoringProcess {
+public class TestAbstractMonitoringOperation {
 	
 	/**
 	 * Creates a sample AbstractMonitoringProcess.
 	 * 
 	 * @return Returns the sample.
 	 */
-	AbstractMonitoringProcess<Object> sample() {
-		return  new AbstractMonitoringProcess<Object>() {
+	AbstractMonitoringOperation<Object> sample() {
+		return  new AbstractMonitoringOperation<Object>() {
 			@Override
 			public void execute(Object a) {/*empty*/};
 		};
@@ -27,7 +27,7 @@ public class TestAbstractMonitoringProcess {
 	 */
 	@Test
 	public void testGetPeriodInterval() {
-		AbstractMonitoringProcess<Object> amp = sample();
+		AbstractMonitoringOperation<Object> amp = sample();
 		amp.periodInterval = 100L;
 		Assert.assertEquals(amp.periodInterval, amp.getPeriodInterval());
 	}
@@ -37,7 +37,7 @@ public class TestAbstractMonitoringProcess {
 	 */
 	@Test
 	public void testSetPeriodInterval() {
-		AbstractMonitoringProcess<Object> amp = sample();
+		AbstractMonitoringOperation<Object> amp = sample();
 		long interval = 10L;
 		amp.setPeriodInterval(interval);
 		Assert.assertEquals(interval, amp.periodInterval);
@@ -48,7 +48,7 @@ public class TestAbstractMonitoringProcess {
 	 */
 	@Test
 	public void testSetIntervalFromProperties() {
-		AbstractMonitoringProcess<Object> amp = sample();
+		AbstractMonitoringOperation<Object> amp = sample();
 		Properties p = new Properties();
 		String intervalProperty = "interval"; //$NON-NLS-1$
 		long interval = 10L;
@@ -62,7 +62,7 @@ public class TestAbstractMonitoringProcess {
 	 */
 	@Test
 	public void testIsValid_true() {
-		AbstractMonitoringProcess<Object> amp = sample();
+		AbstractMonitoringOperation<Object> amp = sample();
 		amp.periodInterval = 10L;
 		Assert.assertTrue(amp.isValid());
 	}
@@ -72,7 +72,7 @@ public class TestAbstractMonitoringProcess {
 	 */
 	@Test
 	public void testIsValid_false() {
-		AbstractMonitoringProcess<Object> amp = sample();
+		AbstractMonitoringOperation<Object> amp = sample();
 		amp.periodInterval = 0L;
 		Assert.assertFalse(amp.isValid());
 	}

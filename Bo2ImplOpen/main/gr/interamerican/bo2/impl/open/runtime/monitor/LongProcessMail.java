@@ -20,7 +20,7 @@ import gr.interamerican.bo2.utils.TokenUtils;
 import gr.interamerican.bo2.utils.Utils;
 import gr.interamerican.bo2.utils.attributes.ModifiableByProperties;
 import gr.interamerican.bo2.utils.mail.MailMessage;
-import gr.interamerican.bo2.utils.runnables.AbstractMonitoringProcess;
+import gr.interamerican.bo2.utils.runnables.AbstractMonitoringOperation;
 import gr.interamerican.bo2.utils.runnables.MonitoringOperation;
 
 import java.util.Properties;
@@ -29,7 +29,7 @@ import java.util.Properties;
  * Sends an eMail with the status of a long process.
  */
 public class LongProcessMail
-extends AbstractMonitoringProcess<LongProcess>
+extends AbstractMonitoringOperation<LongProcess>
 implements MonitoringOperation<LongProcess>, ModifiableByProperties {
 	
 	/**

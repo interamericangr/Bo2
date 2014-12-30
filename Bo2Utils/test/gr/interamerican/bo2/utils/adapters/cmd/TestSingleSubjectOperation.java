@@ -52,6 +52,32 @@ public class TestSingleSubjectOperation {
 		cmd.execute();
 		verify(v,times(1)).execute(o);
 	}
+	
+	/**
+	 * Tests the constructor.
+	 */
+	@Test
+	public void testGetVoidOperation() {
+		@SuppressWarnings("unchecked")
+		VoidOperation<Object> v = mock(VoidOperation.class);
+		Object o = new Object();
+		SingleSubjectOperation<Object> cmd = 
+			new SingleSubjectOperation<Object>(v,o);
+		Assert.assertEquals(v, cmd.getVoidOperation());
+	}
+	
+	/**
+	 * Tests the constructor.
+	 */
+	@Test
+	public void testGetSubject() {
+		@SuppressWarnings("unchecked")
+		VoidOperation<Object> v = mock(VoidOperation.class);
+		Object o = new Object();
+		SingleSubjectOperation<Object> cmd = 
+			new SingleSubjectOperation<Object>(v,o);
+		Assert.assertEquals(o, cmd.getSubject());
+	}
 
 
 }

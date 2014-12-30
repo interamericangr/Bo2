@@ -52,11 +52,8 @@ public class LPL {
 			throw new RuntimeException(msg);
 		}
 		LongProcessLauncher launcher = (LongProcessLauncher)Factory.create(className);
-		launcher.equals(p);
+		launcher.launch(p);
 	}
-	
-	
-	
 	
 	
 	/**

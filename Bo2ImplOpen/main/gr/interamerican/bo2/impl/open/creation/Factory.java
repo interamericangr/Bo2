@@ -39,10 +39,14 @@ public class Factory {
 	static ObjectFactory currentFactory;
 	
 	/**
+	 * Active factory.
+	 */
+	static ObjectFactory defaultFactory;
+	
+	/**
 	 * Default factory for persistence workers.
 	 */
 	static PersistenceWorkerFactory defaultPwFactory; 
-
 	
 	static {
 		try {
@@ -50,6 +54,7 @@ public class Factory {
 				getDeploymentBean().getPathToDefaultFactoryDefinition();
 			Properties defaultFactoryDefinition = CollectionUtils.readProperties(definitionPath);			
 			currentFactory = new ObjectFactoryImpl(defaultFactoryDefinition);
+			defaultFactory = currentFactory;
 			defaultPwFactory =	currentFactory.create(PersistenceWorkerFactory.class);
 		} catch (RuntimeException rtex) {
 			throw new ExceptionInInitializerError(rtex);
@@ -78,6 +83,15 @@ public class Factory {
 	 */
 	public static void setCurrentFactory(ObjectFactory currentFactory) {
 		Factory.currentFactory = currentFactory;
+	}
+	
+	/**
+	 * Resets the current factory to its default value.
+	 * 
+	 * @param currentFactory New current factory.
+	 */
+	public static void resetCurrentFactory() {
+		Factory.currentFactory = defaultFactory;
 	}
 	
 	/**

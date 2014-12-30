@@ -11,7 +11,7 @@ import java.util.Properties;
  * @param <T> 
  *        Type of monitored object.
  */
-public abstract class AbstractMonitoringProcess<T> 
+public abstract class AbstractMonitoringOperation<T> 
 implements MonitoringOperation<T> {
 	
 	/**
