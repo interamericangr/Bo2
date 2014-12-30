@@ -13,32 +13,31 @@
 package gr.interamerican.bo2.utils.runnables;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
 import gr.interamerican.bo2.utils.NumberUtils;
 import gr.interamerican.bo2.utils.adapters.VoidOperation;
 import gr.interamerican.bo2.utils.adapters.cmd.PeriodicCommand;
 import gr.interamerican.bo2.utils.adapters.cmd.SimpleCommandSequence;
 import gr.interamerican.bo2.utils.adapters.cmd.SingleSubjectOperation;
-import gr.interamerican.bo2.utils.attributes.SimpleCommand;
 import gr.interamerican.bo2.utils.beans.Pair;
 import gr.interamerican.bo2.utils.concurrent.ThreadUtils;
 import gr.interamerican.bo2.utils.conditions.Condition;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * The {@link Monitor} monitors an object.
  * 
- * The Monitor is {@link Runnable}, that runs on its own thread
- * and performs actions relevant to the monitored object.
- * The monitor keeps running until its <code>mustStop</code> condition 
- * becomes true. The monitor periodically checks the stop condition
- * and if it is true, then it executes the {@link SimpleCommand}s
- * that have been added to it. <br/>  
- * The <code>interval</code> field specifies the time in milliseconds 
- * between the execution of the last SimpleCommand and the next
- * check of the mustStop condition. <br/>
- * The monitored object provides the subject of the mustStop condition.    
+ * The Monitor is a {@link Runnable}, that and performs actions relevant 
+ * to the monitored object. The monitor keeps running until its <code>mustStop</code> 
+ * condition becomes <code>true</code> checking the monitored object. <br>
+ * The monitor executes {@link MonitoringOperation}s using the monitored <code>system</code>
+ * as argument to the <code>execute(o)</code> method of the MonitoringOperations.
+ * Each monitoring operation is executed periodically according to an interval
+ * specified for it. All monitoring operations are executed in the same thread,
+ * so if the execution of two monitoring operations coincide, then they will
+ * be executed sequentially.    
+ *     
  * 
  * @param <T> 
  *        Type of object being monitored.
@@ -127,9 +126,8 @@ implements Runnable {
 			Pair<MonitoringOperation<T>,Long> pair = 
 				new Pair<MonitoringOperation<T>, Long>(mo, operationInterval);
 			operations.add(pair);
+			interval = NumberUtils.gcd(interval, operationInterval);
 		}
-		
-		interval = NumberUtils.gcd(interval, operationInterval);
 	}
 	
 	
@@ -140,8 +138,7 @@ implements Runnable {
 		for (Pair<MonitoringOperation<T>, Long> pair : operations) {
 			PeriodicCommand pc = getPeriodicCommand(pair);
 			sequence.addCommand(pc);
-		}		
-		
+		}
 	}
 	
 	/**
@@ -157,12 +154,6 @@ implements Runnable {
 		long period = interval / pair.getRight();
 		return new PeriodicCommand(ssop, period);		
 	}
-
-	
-	
-
-
-
 
 	@Override
 	public void run() {

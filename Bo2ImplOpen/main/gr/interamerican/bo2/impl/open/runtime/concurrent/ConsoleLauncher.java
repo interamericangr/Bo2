@@ -15,6 +15,7 @@ public class ConsoleLauncher implements LongProcessLauncher {
 	public void launch(Properties properties) {
 		BatchProcessUtility controller = new BatchProcessUtility(Bo2Session.getSession());
 		BatchProcess<?> batch = controller.start(properties);
+		
 		/*
 		SimpleCommand tidy = controller.tidyCommand(batch);
 		SimpleCommand mail = controller.mailCommand(batch);

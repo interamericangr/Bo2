@@ -21,6 +21,7 @@ import gr.interamerican.bo2.impl.open.runtime.monitor.LongProcessSysout;
 import gr.interamerican.bo2.impl.open.runtime.monitor.Tidy;
 import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.StringUtils;
+import gr.interamerican.bo2.utils.Utils;
 import gr.interamerican.bo2.utils.adapters.VoidOperation;
 import gr.interamerican.bo2.utils.adapters.cmd.PeriodicCommand;
 import gr.interamerican.bo2.utils.adapters.cmd.SingleSubjectOperation;
@@ -34,11 +35,14 @@ import gr.interamerican.bo2.utils.conditions.GetBooleanProperty;
 import gr.interamerican.bo2.utils.runnables.Monitor;
 
 import java.util.Properties;
+import java.util.Set;
 
 /**
  * Utility for {@link BatchProcess} operations.
  */
 public class BatchProcessUtility {
+	
+	public static final String MONITOR_PREFIX = "monitor.";
 	
 	/**
 	 * Session.
@@ -110,18 +114,20 @@ public class BatchProcessUtility {
 	 * Starts a monitoring for a batch process.
 	 * 
 	 * @param batch
-	 *        Batch process.
-	 * @param commands
-	 *        Simple commands executed by the monitor.
+	 *        Batch process
+	 * @param properties 
+	 *        Batch process properties
 	 *        
 	 *	@return Returns the monitor.
 	 */
-	public Monitor<MultiThreadedLongProcess> startMonitor(BatchProcess<?> batch, SimpleCommand... commands) {
+	public Monitor<MultiThreadedLongProcess> startMonitor(BatchProcess<?> batch, Properties properties) {
 		Condition<MultiThreadedLongProcess> stop =
 			new GetBooleanProperty<MultiThreadedLongProcess>("finished", MultiThreadedLongProcess.class); //$NON-NLS-1$
 				
 		Monitor<MultiThreadedLongProcess> monitor = 
 			new Monitor<MultiThreadedLongProcess>(batch, stop);
+		
+		
 		
 		/*
 		 * TODO: add monitoring commands
@@ -129,6 +135,27 @@ public class BatchProcessUtility {
 		
 		new Thread(monitor).start();
 		return monitor;
+	}
+	
+	/**
+	 * Gets a set of strings that contain all properties that start 
+	 * with the prefix <code>monitor.</code>.
+	 * 
+	 * These strings give classes for monitoring operations.
+	 * 
+	 * @param p
+	 * 
+	 * @return Returns the set of strings.
+	 */
+	Set<String> getMonitoringOperations(Properties p) {
+		Set<String> keys = Utils.cast(p.keySet());
+		for (String key : keys) {
+			if (key.startsWith("monitor.")) {
+				//String className = StringUtils
+			}
+		}
+		return null;
+		
 	}
 	
 	
