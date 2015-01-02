@@ -40,6 +40,7 @@ extends AbstractNamedStreamsManager {
 		super(properties);
 	}
 	
+	@Override
 	public NamedStream<?> convert
 	(String nameOfStreamToConvert, StreamType typeOfNewStream, String nameOfNewStream)
 	throws DataException {

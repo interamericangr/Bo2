@@ -12,6 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.namedstreams;
 
+import static gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition.*;
 import static gr.interamerican.bo2.impl.open.namedstreams.NamedStreamFactory.input;
 import static gr.interamerican.bo2.impl.open.namedstreams.NamedStreamFactory.output;
 import static gr.interamerican.bo2.impl.open.namedstreams.NamedStreamFactory.print;
@@ -44,25 +45,7 @@ import java.util.Properties;
 public abstract class AbstractNamedStreamsManager 
 implements NamedStreamsProvider {
 	
-	/**
-	 * String that gets replaced with current timestamp when found in a stream definition file uri.
-	 */
-	static final String TIMESTAMP = "<TIMESTAMP>"; //$NON-NLS-1$
-	
-	/**
-	 * String that gets replaced with current date when found in a stream definition file uri.
-	 */
-	static final String DATE = "<DATE>"; //$NON-NLS-1$
-	
-	/**
-	 * Prefix of encoding attribute of a stream definition description.
-	 */
-	static final String ENCODING_PREFIX = "enc:"; //$NON-NLS-1$
-	
-	/**
-	 * Prefix of record length attribute of a stream definition description.
-	 */
-	static final String RECORD_LENGTH_PREFIX = "rec:"; //$NON-NLS-1$
+
 
 	/**
 	 * Streams opened by the program
@@ -86,6 +69,7 @@ implements NamedStreamsProvider {
 		this.streams = new HashMap<String, NamedStream<?>>();
 	}
 	
+	@Override
 	public NamedStream<?> getStream(String name) throws InitializationException {
 		NamedStream<?> ns = streams.get(name);
 		if (ns==null) {
@@ -96,6 +80,7 @@ implements NamedStreamsProvider {
 		return ns;
 	}
 	
+	@Override
 	public NamedStream<?> getSharedStream(String name) throws InitializationException {
 		/*
 		 * This needs to be synchronized across all instances of this class, because
@@ -114,6 +99,7 @@ implements NamedStreamsProvider {
 		}
 	}
 		
+	@Override
 	public void close() throws DataException {
 		for (NamedStream<?> stream : streams.values()) {
 			stream.close();
@@ -122,6 +108,7 @@ implements NamedStreamsProvider {
 		SharedNamedStreamsRegistry.releaseSharedStreams(this);
 	}
 	
+	@Override
 	public void registerStream(NamedStream<?> stream) {
 		streams.put(stream.getName(), stream);
 	}
@@ -129,6 +116,11 @@ implements NamedStreamsProvider {
 	@Override
 	public void registerSharedStream(NamedStream<?> stream) {
 		SharedNamedStreamsRegistry.register(stream.getName(), stream, this);
+	}
+	
+	@Override
+	public void registerStreamDefinition(NamedStreamDefinition definition) {
+		properties.setProperty(definition.getName(), definition.getSpecsString());
 	}
 
 	/**
@@ -142,6 +134,9 @@ implements NamedStreamsProvider {
 	 */
 	protected abstract NamedStream<?> open (NamedStreamDefinition def) 
 	throws InitializationException;
+	
+	
+	
 	
 	/**
 	 * Gets the definition of the stream with the specified logical name.

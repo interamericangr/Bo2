@@ -33,21 +33,19 @@ import gr.interamerican.bo2.arch.Operation;
 import gr.interamerican.bo2.arch.ext.CriteriaDependent;
 import gr.interamerican.bo2.impl.open.creation.Factory;
 import gr.interamerican.bo2.impl.open.modifications.CriteriaAwareCopyFromProperties;
-import gr.interamerican.bo2.impl.open.transformations.ObjectPropertiesAnalyzer;
-import gr.interamerican.bo2.utils.ExceptionUtils;
+import gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition;
 import gr.interamerican.bo2.utils.NumberUtils;
 import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.TokenUtils;
 import gr.interamerican.bo2.utils.Utils;
 import gr.interamerican.bo2.utils.adapters.Modification;
-import gr.interamerican.bo2.utils.adapters.mod.CopyFromBeans;
 import gr.interamerican.bo2.utils.adapters.mod.CopyFromProperties;
 import gr.interamerican.bo2.utils.meta.formatters.Formatter;
 import gr.interamerican.bo2.utils.meta.formatters.ObjectFormatter;
 
 import java.util.Enumeration;
-import java.util.Map;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -65,18 +63,20 @@ implements BatchProcessParmsFactory {
 		input.setBatchProcessInputAsText(String.valueOf(properties));
 		
 		String name = getMandatoryProperty(properties, BATCH_PROCESS_NAME).trim();
-		String queryClassName = getMandatoryProperty(properties, QUERY_CLASS).trim();
-		String operationClassName = getMandatoryProperty(properties, OPERATION_CLASS).trim();
-		String inputProperty = getMandatoryProperty(properties, INPUT_PROPERTY).trim();
-		EntitiesQuery query = (EntitiesQuery<?>)Factory.create(queryClassName);
-		Class operationClass = Factory.getType(operationClassName);
-		Class queryClass = query.getClass();
 		input.setName(name);
+		
+		String queryClassName = getMandatoryProperty(properties, QUERY_CLASS).trim();
+		EntitiesQuery query = (EntitiesQuery<?>)Factory.create(queryClassName);
 		input.setQuery(query);
+		
+		String operationClassName = getMandatoryProperty(properties, OPERATION_CLASS).trim();
+		Class operationClass = Factory.getType(operationClassName);
 		input.setOperationClass(operationClass);
+		
+		String inputProperty = getMandatoryProperty(properties, INPUT_PROPERTY).trim();		
 		input.setInputPropertyName(inputProperty);
 		
-		int initialThreads = getInitialThreads(properties);
+		int initialThreads = calculateInitialThreads(properties);
 		input.setInitialThreads(initialThreads);
 		
 		String entityHeader = properties.getProperty(ENTITY_HEADER);
@@ -86,7 +86,7 @@ implements BatchProcessParmsFactory {
 		Formatter formatter = createFormatter(formatterClassName);
 		input.setFormatter(formatter);		
 		
-		
+		Class queryClass = query.getClass();
 		Modification<Object> copyToQuery = createModification(properties,queryClass);
 		input.setQueryParametersSetter(copyToQuery);
 		
@@ -124,6 +124,9 @@ implements BatchProcessParmsFactory {
 			boolean reattemptOnTmex = StringUtils.string2Bool(strReattemptOnTmex);
 			input.setReattemptOnTmex(reattemptOnTmex);
 		}
+		
+		List<NamedStreamDefinition> namedStreamDefinitions = createNamedStreamDefiitions();
+		input.setNamedStreamDefinitions(namedStreamDefinitions);
 		
 		return input;
 		
@@ -190,7 +193,7 @@ implements BatchProcessParmsFactory {
 	 * 
 	 * @return Returns the initial threads.
 	 */	
-	protected int getInitialThreads(Properties properties) {
+	protected int calculateInitialThreads(Properties properties) {
 		String strInitialThreads = properties.getProperty(PROCESSORS_COUNT);
 		int initialThreads = NumberUtils.string2Int(strInitialThreads);
 		if (initialThreads==0) {
@@ -199,64 +202,32 @@ implements BatchProcessParmsFactory {
 		return initialThreads;
 	}
 	
-	@Override
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public BatchProcessParm<?> createParameter(BatchProcessInput input, Object criteria, Map<String, String> inputFileDefinitions) {
-		/*
-		 * TODO: Remove this method.
-		 */
-		BatchProcessParm output = Factory.create(BatchProcessParm.class);
-		
-		String inputAsText = new ObjectPropertiesAnalyzer().execute(input).toString();
-		output.setBatchProcessInputAsText(inputAsText);
-		
-		output.setName(ExceptionUtils.notNull(input.getName()));
-		output.setFormatter(createFormatter(input.getFormatterClassName()));
-		output.setInitialThreads(Utils.notNull(input.getInitialThreads(), 1));
-		output.setInputPropertyName(ExceptionUtils.notNull(input.getInputPropertyName()));
-		output.setMonitoringMailInterval(Utils.notNull(input.getMonitoringMailInterval(), 0)); //0 is never send
-		output.setMonitoringMailRecipients(input.getMonitoringMailRecipients());
-		
-		
-		String operationClassName = ExceptionUtils.notNull(input.getOperationClassName()).trim();
-		output.setOperationClass(Factory.getType(operationClassName));
-		
-		output.setPostProcessing(optionalOperation(input.getPostProcessingOperationClassName()));
-		output.setPreProcessing(optionalOperation(input.getPreProcessingOperationClassName()));
-		
-		String queryClassName = ExceptionUtils.notNull(input.getQueryClassName());
-		output.setQuery((EntitiesQuery<?>) Factory.create(queryClassName.trim()));
-		
-		output.setUiCanAddThreads(Utils.notNull(input.getUiCanAddThreads(), false));
-		
-		
-		
-		if(criteria!=null) {
-			Modification<Object> copy = new CopyFromBeans<Object>(criteria);
-			output.setOperationParametersSetter(copy);
-			output.setPostOperationParametersSetter(copy);
-			output.setPreOperationParametersSetter(copy);
-			output.setQueryParametersSetter(copy);
-		}
-		
-		output.setNamedInputFiles(inputFileDefinitions);
-		
-		output.setReattemptOnTmex(Utils.notNull(input.getReattemptOnTmex(), true));
-		
-		return output;
-	}
-	
 	/**
 	 * Returns an optional operation instance or null.
 	 * 
 	 * @param operationClassName
 	 * @return Operation instance.
 	 */
-	Operation optionalOperation(String operationClassName) {
+	Operation createOptionalOperation(String operationClassName) {
 		if (!isNullOrBlank(operationClassName)) {
 			return (Operation) Factory.create(operationClassName.trim());
 		}
 		return null;
 	}
 
+	/**
+	 * Creates the list of named stream definitions.
+	 * 
+	 * The default implementation of this method, returns null.
+	 * Sub-classes can override this method to give a different
+	 * implementation.
+	 * 
+	 * @return Returns a list of named stream definitions or
+	 *         null, if there is no named stream definition for 
+	 *         for the batch process.
+	 */
+	protected List<NamedStreamDefinition> createNamedStreamDefiitions() {
+		return null;
+	}
+	
 }

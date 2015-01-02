@@ -12,7 +12,6 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.runtime.concurrent;
 
-import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -28,18 +27,5 @@ public interface BatchProcessParmsFactory {
 	 * @return Returns the {@link BatchProcessParm}.
 	 */	
 	BatchProcessParm<?> createParameter(Properties properties);
-	
-	/**
-	 * Creates a {@link BatchProcessParm} from a BatchProcessInput and a criteria object.
-	 * 
-	 * @param input
-	 * @param criteria
-	 * @param inputFileDefinitions 
-	 *        key: logical name (no spaces)
-	 *        value: filesystem path.
-	 * 
-	 * @return Returns the {@link BatchProcessParm}.
-	 */
-	BatchProcessParm<?> createParameter(BatchProcessInput input, Object criteria, Map<String, String> inputFileDefinitions);
 	
 }

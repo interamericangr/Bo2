@@ -30,13 +30,11 @@ import gr.interamerican.bo2.arch.ext.Session;
 import gr.interamerican.bo2.arch.utils.ext.Bo2Session;
 import gr.interamerican.bo2.impl.open.creation.Factory;
 import gr.interamerican.bo2.impl.open.namedstreams.NamedPrintStream;
-import gr.interamerican.bo2.impl.open.namedstreams.NamedStream;
-import gr.interamerican.bo2.impl.open.namedstreams.NamedStreamFactory;
+import gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition;
 import gr.interamerican.bo2.impl.open.namedstreams.NamedStreamsProvider;
 import gr.interamerican.bo2.impl.open.runtime.RuntimeCommand;
 import gr.interamerican.bo2.impl.open.utils.Bo2;
 import gr.interamerican.bo2.utils.ArrayUtils;
-import gr.interamerican.bo2.utils.Bo2UtilsEnvironment;
 import gr.interamerican.bo2.utils.CollectionUtils;
 import gr.interamerican.bo2.utils.ExceptionUtils;
 import gr.interamerican.bo2.utils.StringConstants;
@@ -45,12 +43,9 @@ import gr.interamerican.bo2.utils.Utils;
 import gr.interamerican.bo2.utils.adapters.Modification;
 import gr.interamerican.bo2.utils.concurrent.ThreadUtils;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
@@ -474,23 +469,15 @@ implements Runnable, MultiThreadedLongProcess {
 	 * @throws DataException
 	 */
 	void registerSharedStreams() throws InitializationException, DataException {
-		if(parameters.getNamedInputFiles()==null || parameters.getNamedInputFiles().isEmpty()) {
-			return;
-		}
-		NamedStreamsProvider nsp = provider.getResource(
-			Bo2.getDefaultDeployment().getDeploymentBean().getStreamsManagerName(), NamedStreamsProvider.class);
-		
-		for(Map.Entry<String, String> entry : parameters.getNamedInputFiles().entrySet()) {
-			try {
-				NamedStream<?> ns = NamedStreamFactory.input(new File(entry.getValue()), entry.getKey(), 30, Bo2UtilsEnvironment.getDefaultTextCharset());
-				nsp.registerSharedStream(ns);
-			}catch (FileNotFoundException fnfe) {
-				throw new DataException(fnfe);
+		List<NamedStreamDefinition> namedStreamDefinitions = parameters.getNamedStreamDefinitions();
+		if (!CollectionUtils.isNullOrEmpty(namedStreamDefinitions)) {
+			String managerName = Bo2.getDefaultDeployment().getDeploymentBean().getStreamsManagerName();
+			NamedStreamsProvider nsp = provider.getResource(managerName, NamedStreamsProvider.class);
+			for (NamedStreamDefinition def : namedStreamDefinitions) {
+				nsp.registerStreamDefinition(def);
 			}
 		}
 	}
-	
-	
 	
 	/**
 	 * Creates the initial QueueProcessors.

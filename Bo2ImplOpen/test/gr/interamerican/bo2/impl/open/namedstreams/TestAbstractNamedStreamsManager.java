@@ -12,6 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.namedstreams;
 
+import static gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
@@ -648,13 +649,13 @@ public class TestAbstractNamedStreamsManager {
 		
 		NamedStreamDefinition nsd = Factory.create(NamedStreamDefinition.class);
 		Charset utf8 = Charset.forName("UTF-8");
-		String attribute = AbstractNamedStreamsManager.ENCODING_PREFIX + utf8.name();
+		String attribute = ENCODING_PREFIX + utf8.name();
 		man.handleOptionalDefinitionElement(nsd, attribute);
 		assertEquals(utf8, nsd.getEncoding());
 		
 		nsd = Factory.create(NamedStreamDefinition.class);
 		int recordLength = 101;
-		attribute = AbstractNamedStreamsManager.RECORD_LENGTH_PREFIX + String.valueOf(recordLength);
+		attribute = RECORD_LENGTH_PREFIX + String.valueOf(recordLength);
 		man.handleOptionalDefinitionElement(nsd, attribute);
 		assertEquals(recordLength, nsd.getRecordLength());
 	}
@@ -692,6 +693,7 @@ public class TestAbstractNamedStreamsManager {
 		Properties p = UtilityForBo2Test.getLocalFsProperties();
 		AbstractNamedStreamsManager man = new AbstractNamedStreamsManager(p) {
 			
+			@Override
 			public NamedStream<?> convert(String nameOfStreamToConvert, StreamType typeOfNewStream, String nameOfNewStream)
 					throws DataException {
 				return null;

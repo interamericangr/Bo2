@@ -60,6 +60,15 @@ public interface NamedStreamsProvider extends ResourceWrapper {
 	public void registerStream(NamedStream<?> stream);
 	
 	/**
+	 * Creates a {@link NamedStream} from the specified definition
+	 * and registers it on this Provider.
+	 * 
+	 * @param definition
+	 *        Definition of NamedStream to register.
+	 */
+	public void registerStreamDefinition(NamedStreamDefinition definition);
+	
+	/**
 	 * Registers the specified {@link NamedStream} as a shared stream. 
 	 * This provider is the first to have access to the shared stream.
 	 * 

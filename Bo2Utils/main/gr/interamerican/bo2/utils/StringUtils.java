@@ -658,20 +658,22 @@ public class StringUtils {
 		return sb.toString();
 	}
 	
+	
+	
 	/**
-	 * Concatenates putting a separator between them.
-	 * .
+	 * Concatenates strings putting a separator between them.
+	 * 
 	 * @param separator 
 	 *        separator string.
 	 * @param strings 
-	 *        Strings to concatenate.
+	 *        Array of objects to concatenate.  
 	 * 
 	 * @return Return the concatenation of the strings.
 	 */
-	public static String concatSeparated(String separator, String...strings) {
+	public static <T> String concatSeparated(String separator, T...strings) {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < strings.length; i++) {
-			sb.append(strings[i]);
+			sb.append(StringUtils.toString(strings[i]));
 			if (i!=strings.length-1) {
 				sb.append(separator);
 			}

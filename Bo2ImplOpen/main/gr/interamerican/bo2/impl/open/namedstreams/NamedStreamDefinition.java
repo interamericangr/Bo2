@@ -12,7 +12,11 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.namedstreams;
 
+import static gr.interamerican.bo2.utils.StringConstants.EQUALS;
+import static gr.interamerican.bo2.utils.StringConstants.COMMA;
 import gr.interamerican.bo2.utils.Bo2UtilsEnvironment;
+import gr.interamerican.bo2.utils.StringConstants;
+import gr.interamerican.bo2.utils.StringUtils;
 
 import java.nio.charset.Charset;
 
@@ -20,6 +24,26 @@ import java.nio.charset.Charset;
  * Definition properties for a NamedStream.
  */
 public class NamedStreamDefinition {
+	
+	/**
+	 * String that gets replaced with current timestamp when found in a stream definition file uri.
+	 */
+	public static final String TIMESTAMP = "<TIMESTAMP>"; //$NON-NLS-1$
+	
+	/**
+	 * String that gets replaced with current date when found in a stream definition file uri.
+	 */
+	public static final String DATE = "<DATE>"; //$NON-NLS-1$
+	
+	/**
+	 * Prefix of encoding attribute of a stream definition description.
+	 */
+	public static final String ENCODING_PREFIX = "enc:"; //$NON-NLS-1$
+	
+	/**
+	 * Prefix of record length attribute of a stream definition description.
+	 */
+	public static final String RECORD_LENGTH_PREFIX = "rec:"; //$NON-NLS-1$
 	
 	/**
 	 * Logical name.
@@ -141,6 +165,27 @@ public class NamedStreamDefinition {
 	 */
 	public void setEncoding(Charset encoding) {
 		this.encoding = encoding;
+	}
+	
+	/**
+	 * Gets the specification string.
+	 * 
+	 * The specifications string is a string that specifies the value
+	 * of the property that is named after the named stream defined by
+	 * this definition.
+	 * 
+	 * @return returns the specification string.
+	 */
+	@SuppressWarnings("unchecked")
+	public String getSpecsString() {
+		String reclen = RECORD_LENGTH_PREFIX+Integer.toString(recordLength);
+		String charset = ENCODING_PREFIX+encoding.toString();
+		return StringUtils.concatSeparated(COMMA, uri, type, resourceType, reclen, charset);
+	}
+	
+	@Override
+	public String toString() {
+		return StringUtils.concat(name, EQUALS, getSpecsString());
 	}
 
 }

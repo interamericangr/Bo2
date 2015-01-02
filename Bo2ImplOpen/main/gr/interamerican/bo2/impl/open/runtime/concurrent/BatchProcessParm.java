@@ -15,9 +15,11 @@ package gr.interamerican.bo2.impl.open.runtime.concurrent;
 import gr.interamerican.bo2.arch.EntitiesQuery;
 import gr.interamerican.bo2.arch.Operation;
 import gr.interamerican.bo2.arch.exceptions.TransactionManagerException;
+import gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition;
 import gr.interamerican.bo2.utils.adapters.Modification;
 import gr.interamerican.bo2.utils.meta.formatters.Formatter;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -306,28 +308,21 @@ public interface BatchProcessParm<T> {
 	void setUiCanAddThreads(boolean uiCanAddThreads);
 	
 	/**
-	 * Gets the input files for this batch process. The key
-	 * is the logical name of the stream and the value the actual
-	 * filesystem path.
-	 * <br/>
-	 * This may be null indicating that there are no input
-	 * files to setup.
+	 * Gets a list of {@link NamedStreamDefinition}s that will be available
+	 * for the batch process.
 	 * 
-	 * TODO: This property exists for the support of submitted jobs running in parallel. It will be refactored.  
-	 *       
-	 * 
-	 * @return Returns input files for this batch process.
+	 * @return Returns the named stream definitions for this batch process.
 	 */
-	Map<String, String> getNamedInputFiles();
+	List<NamedStreamDefinition> getNamedStreamDefinitions();
 	
 	/**
-	 * Sets the input files for this batch process.
+	 * Sets the named stream definitions for the batch process that will be 
+	 * created with this {@link BatchProcessParm}.
 	 * 
-	 * TODO: This property exists for the support of submitted jobs running in parallel. It will be refactored.
-	 * 
-	 * @param namedInputFiles
+	 * @param namedStreamDefinitions
+	 *        The named stream definitions to set.
 	 */
-	void setNamedInputFiles(Map<String, String> namedInputFiles);
+	void setNamedStreamDefinitions(List<NamedStreamDefinition> namedStreamDefinitions);
 	
 	/**
 	 * Sets the time interval for tidying the batch process.
