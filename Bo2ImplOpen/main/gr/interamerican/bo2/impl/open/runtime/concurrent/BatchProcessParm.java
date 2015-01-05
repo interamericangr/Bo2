@@ -20,7 +20,6 @@ import gr.interamerican.bo2.utils.adapters.Modification;
 import gr.interamerican.bo2.utils.meta.formatters.Formatter;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Parameters for the creation of a {@link BatchProcess}.
