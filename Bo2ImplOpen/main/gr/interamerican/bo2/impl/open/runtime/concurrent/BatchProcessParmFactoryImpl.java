@@ -1,13 +1,13 @@
 /*******************************************************************************
- * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A. 
+ * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/copyleft/lesser.html
- * 
- * This library is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.runtime.concurrent;
@@ -50,49 +50,49 @@ import java.util.Properties;
 
 /**
  * Implementation of {@link BatchProcessParmsFactory}.
- * 
+ *
  */
-public class BatchProcessParmFactoryImpl  
+public class BatchProcessParmFactoryImpl
 implements BatchProcessParmsFactory {
-	
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
-	@Override	
+	@Override
 	public BatchProcessParm createParameter(Properties properties) {
-		
+
 		BatchProcessParm<?> input = Factory.create(BatchProcessParm.class);
 		input.setBatchProcessInputAsText(String.valueOf(properties));
-		
+
 		String name = getMandatoryProperty(properties, BATCH_PROCESS_NAME).trim();
 		input.setName(name);
-		
+
 		String queryClassName = getMandatoryProperty(properties, QUERY_CLASS).trim();
 		EntitiesQuery query = (EntitiesQuery<?>)Factory.create(queryClassName);
 		input.setQuery(query);
-		
+
 		String operationClassName = getMandatoryProperty(properties, OPERATION_CLASS).trim();
 		Class operationClass = Factory.getType(operationClassName);
 		input.setOperationClass(operationClass);
-		
-		String inputProperty = getMandatoryProperty(properties, INPUT_PROPERTY).trim();		
+
+		String inputProperty = getMandatoryProperty(properties, INPUT_PROPERTY).trim();
 		input.setInputPropertyName(inputProperty);
-		
+
 		int initialThreads = calculateInitialThreads(properties);
 		input.setInitialThreads(initialThreads);
-		
+
 		String entityHeader = properties.getProperty(ENTITY_HEADER);
 		input.setEntityHeader(entityHeader);
 
-		String formatterClassName = properties.getProperty(FORMATTER_CLASS);		
+		String formatterClassName = properties.getProperty(FORMATTER_CLASS);
 		Formatter formatter = createFormatter(formatterClassName);
-		input.setFormatter(formatter);		
-		
+		input.setFormatter(formatter);
+
 		Class queryClass = query.getClass();
 		Modification<Object> copyToQuery = createModification(properties,queryClass);
 		input.setQueryParametersSetter(copyToQuery);
-		
+
 		Modification<Object> copyToOperation = createModification(properties,operationClass);
 		input.setOperationParametersSetter(copyToOperation);
-		
+
 		String preProcessClassName = properties.getProperty(PRE_PROCESSING_CLASS);
 		if (!isNullOrBlank(preProcessClassName)) {
 			Operation preProcess = (Operation) Factory.create(preProcessClassName.trim());
@@ -100,7 +100,7 @@ implements BatchProcessParmsFactory {
 			Modification<Object> copyToPreProcess = createModification(properties,preProcess.getClass());
 			input.setPreOperationParametersSetter(copyToPreProcess);
 		}
-		
+
 		String postProcessClassName = properties.getProperty(POST_PROCESSING_CLASS);
 		if (!isNullOrBlank(postProcessClassName)) {
 			Operation postProcess = (Operation) Factory.create(postProcessClassName.trim());
@@ -108,15 +108,15 @@ implements BatchProcessParmsFactory {
 			input.setPostProcessing(postProcess);
 			input.setPostOperationParametersSetter(copyToPostProcess);
 		}
-		
+
 		String strAddThreads = properties.getProperty(UI_CAN_ADD_THREADS);
 		boolean addTheads = StringUtils.string2Bool(strAddThreads);
 		input.setUiCanAddThreads(addTheads);
-		
+
 		String strNamedStreams = Utils.notNull(properties.getProperty(SHARED_STREAM_NAMES), StringConstants.EMPTY);
 		String[] sharedStreams = TokenUtils.splitTrim(strNamedStreams, COMMA, false);
 		input.setSharedStreamNames(sharedStreams);
-		
+
 		String strReattemptOnTmex = properties.getProperty(REATTEMPT_ON_TMEX);
 		if(StringUtils.isNullOrBlank(strReattemptOnTmex)) {
 			input.setReattemptOnTmex(true);
@@ -124,23 +124,23 @@ implements BatchProcessParmsFactory {
 			boolean reattemptOnTmex = StringUtils.string2Bool(strReattemptOnTmex);
 			input.setReattemptOnTmex(reattemptOnTmex);
 		}
-		
+
 		List<NamedStreamDefinition> namedStreamDefinitions = createNamedStreamDefiitions();
 		input.setNamedStreamDefinitions(namedStreamDefinitions);
-		
+
 		return input;
-		
+
 	}
-	
+
 	/**
-	 * Creates the {@link Modification} that will copy the additional 
+	 * Creates the {@link Modification} that will copy the additional
 	 * parameters.
-	 * 
+	 *
 	 * @param properties
 	 *        Properties from which the object will be modified.
-	 * @param clazz 
+	 * @param clazz
 	 *        Class of the object.
-	 * 
+	 *
 	 * @return Returns the modification.
 	 */
 	@SuppressWarnings("unchecked")
@@ -150,7 +150,7 @@ implements BatchProcessParmsFactory {
 		int count = 0;
 		while (names.hasMoreElements()) {
 			String key = (String)names.nextElement();
-			if (!FIELDS_SET.contains(key)) {			
+			if (!FIELDS_SET.contains(key)) {
 				String value = properties.getProperty(key);
 				p.setProperty(key, value);
 				count++;
@@ -160,39 +160,38 @@ implements BatchProcessParmsFactory {
 			return null;
 		}
 		Modification<Object> copy;
-		if (CriteriaDependent.class.isAssignableFrom(clazz)) {		
+		if (CriteriaDependent.class.isAssignableFrom(clazz)) {
 			@SuppressWarnings("rawtypes")
 			CriteriaAwareCopyFromProperties cacfp = new CriteriaAwareCopyFromProperties(p);
 			copy = cacfp;
 		} else {
-			copy = new CopyFromProperties<Object>(p);			
+			copy = new CopyFromProperties<Object>(p);
 		}
 		return copy;
-				
+
 	}
-	
+
 	/**
 	 * Creates the Formatter according to the specified class name.
-	 * 
+	 *
 	 * @param formatterClassName
-	 * 
+	 *
 	 * @return Returns the modification.
-	 */	
+	 */
 	protected Formatter<?> createFormatter(String formatterClassName) {
 		if (isNullOrBlank(formatterClassName)) {
-			return ObjectFormatter.INSTANCE;			
-		} else {
-			return (Formatter<?>) Factory.create(formatterClassName.trim());			
-		}	
+			return ObjectFormatter.INSTANCE;
+		}
+		return (Formatter<?>) Factory.create(formatterClassName.trim());
 	}
-	
+
 	/**
 	 * Gets the initial threads.
-	 * 
-	 * @param properties	   
-	 * 
+	 *
+	 * @param properties
+	 *
 	 * @return Returns the initial threads.
-	 */	
+	 */
 	protected int calculateInitialThreads(Properties properties) {
 		String strInitialThreads = properties.getProperty(PROCESSORS_COUNT);
 		int initialThreads = NumberUtils.string2Int(strInitialThreads);
@@ -201,10 +200,10 @@ implements BatchProcessParmsFactory {
 		}
 		return initialThreads;
 	}
-	
+
 	/**
 	 * Returns an optional operation instance or null.
-	 * 
+	 *
 	 * @param operationClassName
 	 * @return Operation instance.
 	 */
@@ -217,17 +216,17 @@ implements BatchProcessParmsFactory {
 
 	/**
 	 * Creates the list of named stream definitions.
-	 * 
+	 *
 	 * The default implementation of this method, returns null.
 	 * Sub-classes can override this method to give a different
 	 * implementation.
-	 * 
+	 *
 	 * @return Returns a list of named stream definitions or
-	 *         null, if there is no named stream definition for 
+	 *         null, if there is no named stream definition for
 	 *         for the batch process.
 	 */
 	protected List<NamedStreamDefinition> createNamedStreamDefiitions() {
 		return null;
 	}
-	
+
 }
