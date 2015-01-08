@@ -42,6 +42,14 @@ public class TypeBasedSelection<T> {
 	/**
 	 * Gets the selection for a class.
 	 * 
+	 * If a selection is not explicitly defined for the specified type,
+	 * this method attempts to find a registered selection for the interfaces
+	 * declared on this type in the order these are returned by {@link Class#getInterfaces()}.
+	 * 
+	 * If no match is found, the process is repeated for the superClass of the type.
+	 * 
+	 * @see Class#getInterfaces()
+	 * 
 	 * @param clazz
 	 * @return Returns the selection associated with this class.
 	 */
@@ -68,6 +76,8 @@ public class TypeBasedSelection<T> {
 	
 	/**
 	 * Gets the selection for the specified object.
+	 * 
+	 * @see #selectionForType(Class)
 	 * 
 	 * @param object
 	 * 
