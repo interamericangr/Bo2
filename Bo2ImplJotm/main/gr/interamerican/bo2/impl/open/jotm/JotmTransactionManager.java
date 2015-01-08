@@ -59,6 +59,11 @@ import org.objectweb.jotm.Jotm;
 public class JotmTransactionManager extends JtaTransactionManager  {
 	
 	/**
+	 * transaction timeout in seconds.
+	 */
+	static final int TRANSACTION_TIMEOUT = 300;
+	
+	/**
 	 * Jotm transaction management service singleton instance.
 	 */
 	static Jotm JOTM;
@@ -87,7 +92,7 @@ public class JotmTransactionManager extends JtaTransactionManager  {
 	@Override
 	public void begin() throws CouldNotBeginException {
 		try {
-			ut.setTransactionTimeout(3600); //1 hour
+			ut.setTransactionTimeout(TRANSACTION_TIMEOUT);
 		} catch (SystemException e) {
 			throw new CouldNotBeginException(e);
 		}
