@@ -61,7 +61,7 @@ public class JotmTransactionManager extends JtaTransactionManager  {
 	/**
 	 * transaction timeout in seconds.
 	 */
-	static final int TRANSACTION_TIMEOUT = 300;
+	static final int TRANSACTION_TIMEOUT = Integer.MAX_VALUE;
 	
 	/**
 	 * Jotm transaction management service singleton instance.
