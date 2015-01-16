@@ -77,14 +77,6 @@ public class TestBatchProcessParmFactoryImpl {
 	 * pre operation.
 	 */
 	final Class<? extends Operation> post = FailingOperation.class; 
-	/**
-	 * monitoring message interval.
-	 */
-	final int interval = 5;
-	/**
-	 * monitoring message recipients.
-	 */
-	final String recipients = "foo@bar.com"; //$NON-NLS-1$
 	
 	/**
 	 * monitoring message recipients.
@@ -160,10 +152,7 @@ public class TestBatchProcessParmFactoryImpl {
 		assertNotEquals(mod2, mod4);
 		assertNotEquals(mod3, mod4);
 		
-		assertEquals(interval, in.getMonitoringMailInterval());
-		assertEquals(recipients, in.getMonitoringMailRecipients());
 		assertEquals(canAddThreads, in.getUiCanAddThreads());
-		
 		
 	}
 	
