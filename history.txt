@@ -523,3 +523,9 @@ New Feature
 --------
 
 JmsProducer changes
+
+2.3.0
+--------
+
+one 3 compatible
+
