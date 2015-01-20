@@ -220,13 +220,4 @@ public class TestBatchProcessParmFactoryImpl {
 		Assert.assertEquals(f1, bean.getCriteria().getField1());
 		Assert.assertEquals(f2, bean.getCriteria().getField2());
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-
 }
