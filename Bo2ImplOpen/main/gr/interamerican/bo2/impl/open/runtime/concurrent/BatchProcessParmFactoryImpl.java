@@ -125,7 +125,7 @@ implements BatchProcessParmsFactory {
 			input.setReattemptOnTmex(reattemptOnTmex);
 		}
 
-		List<NamedStreamDefinition> namedStreamDefinitions = createNamedStreamDefiitions();
+		List<NamedStreamDefinition> namedStreamDefinitions = createNamedStreamDefitions();
 		input.setNamedStreamDefinitions(namedStreamDefinitions);
 
 		return input;
@@ -225,7 +225,7 @@ implements BatchProcessParmsFactory {
 	 *         null, if there is no named stream definition for
 	 *         for the batch process.
 	 */
-	protected List<NamedStreamDefinition> createNamedStreamDefiitions() {
+	protected List<NamedStreamDefinition> createNamedStreamDefitions() {
 		return null;
 	}
 
