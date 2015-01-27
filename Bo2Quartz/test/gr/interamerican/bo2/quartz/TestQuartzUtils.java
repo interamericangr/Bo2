@@ -32,6 +32,14 @@ public class TestQuartzUtils {
 		bean.setOperationClass(SampleOperation.class);
 	}
 	/**
+	 * same as above.
+	 */
+	static final JobDescription duplicateBean;
+	static {
+		duplicateBean = Factory.create(JobDescription.class);
+		duplicateBean.setOperationClass(SampleOperation.class);
+	}
+	/**
 	 * bean with parameters
 	 */
 	public static final JobDescription beanWithParams;
@@ -60,7 +68,26 @@ public class TestQuartzUtils {
 		dualBeanList.add(bean);
 		dualBeanList.add(beanWithParams);
 	}
+	/**
+	 * single bean list
+	 */
+	public static final List<JobDescription> dualDuplicateBeanList;
+	static {
+		dualDuplicateBeanList = new ArrayList<JobDescription>();
+		dualDuplicateBeanList.add(bean);
+		dualDuplicateBeanList.add(duplicateBean);
+	}
 
+	/**
+	 * @throws DataException
+	 */
+	@Test
+	public void testScheduleDuplicateJobDescriptionBean() throws DataException {
+		JobScheduler jobScheduler = new QuartzJobSchedulerImpl();
+		jobScheduler.submitJobs(dualDuplicateBeanList);
+		Assert.assertTrue(QuartzUtils.getNumberOfScheduledJobs(null) == 2);
+		QuartzUtils.waitJobToComplete(bean);
+	}
 	/**
 	 * Test method for {@link gr.interamerican.bo2.quartz.util.QuartzUtils#getJobName(JobDescription)}.
 	 *
@@ -70,12 +97,13 @@ public class TestQuartzUtils {
 	public void testGetJobName() throws DataException {
 		JobScheduler jobScheduler = new QuartzJobSchedulerImpl();
 		jobScheduler.submitJobs(dualBeanList);
-		Assert.assertNotNull(QuartzUtils.getJobName(bean));
-		Assert.assertEquals(bean.getOperationClass().getName(), QuartzUtils.getJobName(bean));
-		Assert.assertNotNull(QuartzUtils.getJobName(beanWithParams));
-		Assert.assertNotEquals(beanWithParams.getOperationClass().getName(), QuartzUtils.getJobName(beanWithParams));
-		Assert.assertTrue(QuartzUtils.getJobName(beanWithParams).contains("5")); //$NON-NLS-1$
-		Assert.assertTrue(QuartzUtils.getJobName(beanWithParams).contains("waitTime")); //$NON-NLS-1$
+		Assert.assertNotNull(bean.getJobName());
+		Assert.assertTrue(bean.getJobName().contains(bean.getOperationClass().getName()));
+		Assert.assertNotNull(beanWithParams.getJobName());
+		Assert.assertNotEquals(beanWithParams.getOperationClass().getName(),
+				beanWithParams.getJobName());
+		Assert.assertTrue(beanWithParams.getJobName().contains("5")); //$NON-NLS-1$
+		Assert.assertTrue(beanWithParams.getJobName().contains("waitTime")); //$NON-NLS-1$
 		QuartzUtils.waitJobToComplete(bean);
 	}
 
@@ -145,8 +173,8 @@ public class TestQuartzUtils {
 		JobScheduler jobScheduler = new QuartzJobSchedulerImpl();
 		jobScheduler.submitJobs(singleBeanList);
 		Assert.assertTrue(QuartzUtils.isJobScheduled(QuartzUtils.getJobGroupName(SampleOperation.class),
-				QuartzUtils.getJobName(bean)));
-		Assert.assertTrue(QuartzUtils.isJobScheduled(null, QuartzUtils.getJobName(bean)));
+				bean.getJobName()));
+		Assert.assertTrue(QuartzUtils.isJobScheduled(null, bean.getJobName()));
 		QuartzUtils.waitJobToComplete(bean);
 	}
 

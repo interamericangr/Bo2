@@ -28,7 +28,7 @@ public class QuartzJobSchedulerImpl implements JobScheduler {
 
 	/**
 	 * submits a single job.
-	 * 
+	 *
 	 * @param jobDescription
 	 * @throws DataException
 	 */
@@ -40,7 +40,9 @@ public class QuartzJobSchedulerImpl implements JobScheduler {
 		JobDataMap map = new JobDataMap();
 		map.put(QuartzConstants.BEAN_PROP, quartzjobDescription);
 		map.put(QuartzConstants.SESSION_PROP, Bo2Session.getSession());
-		String jobName = QuartzUtils.getJobName(quartzjobDescription);
+		// String jobName = QuartzUtils.getJobName(quartzjobDescription);
+		String jobName = QuartzUtils.generateRandomQuartzJobName(quartzjobDescription);
+
 		String groupName = QuartzUtils.getJobGroupName(quartzjobDescription);
 		JobDetail job = newJob().withIdentity(jobName, groupName).withDescription(groupName).usingJobData(map)
 				.ofType(GenericQuartzJob.class).build();
@@ -52,6 +54,7 @@ public class QuartzJobSchedulerImpl implements JobScheduler {
 		}
 		quartzjobDescription.setJobName(jobName);
 		QuartzSchedulerRegistry.appendJobDescription(quartzjobDescription);
+		ReflectionUtils.set("jobName", jobName, jobDescription); //$NON-NLS-1$
 	}
 
 	@Override

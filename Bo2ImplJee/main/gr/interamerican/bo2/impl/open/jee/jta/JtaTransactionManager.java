@@ -60,7 +60,7 @@ implements TransactionManager {
 	public void commit() throws CouldNotCommitException {
 		try {
 			ut.commit();
-			submitScheduledJobs();
+			submitScheduledJobsOnCommit();
 		} catch (SecurityException se) {
 			throw new CouldNotCommitException(se);
 		} catch (IllegalStateException ise) {
@@ -84,12 +84,15 @@ implements TransactionManager {
 	public void rollback() throws CouldNotRollbackException {
 		try {
 			ut.rollback();
+			submitScheduledJobsOnRollback();
 		} catch (IllegalStateException ise) {
 			throw new CouldNotRollbackException(ise);
 		} catch (SecurityException se) {
 			throw new CouldNotRollbackException(se);
 		} catch (SystemException syse) {
 			throw new CouldNotRollbackException(syse);
+		} catch (DataException e) { //job submission
+			throw new RuntimeException(e);
 		} finally {
 			clearScheduledJobs();
 		}

@@ -5,8 +5,10 @@ import gr.interamerican.bo2.arch.TransactionManager;
 import gr.interamerican.bo2.arch.exceptions.CouldNotDelistException;
 import gr.interamerican.bo2.arch.exceptions.CouldNotEnlistException;
 import gr.interamerican.bo2.arch.exceptions.DataException;
+import gr.interamerican.bo2.utils.SelectionUtils;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -15,10 +17,12 @@ import java.util.Set;
  * <br/>
  * Jobs are scheduled within a UOW. Users extending this class should
  * <br/>
- * <li/> Submit any scheduled jobs by calling {@link #submitScheduledJobs()}
+ * <li/> Submit any scheduled jobs by calling {@link #submitScheduledJobsOnCommit()}
  *       if the transaction commits successfully. After submitting, jobs are
  *       cleared by calling {@link #clearScheduledJobs()}.
- * <li/> Clear the scheduled jobs without submitting them in any other case.
+ * <li/> Submit any non transactional scheduled jobs by calling {@link #submitScheduledJobsOnRollback()}
+ *       if the transaction rollbacks. After submitting, jobs are cleared by calling {@link #clearScheduledJobs()}.
+ * <li/> Clear the scheduled jobs anyway when closed.
  * 
  */
 public abstract class JobCapableTransactionManager implements TransactionManager {
@@ -52,9 +56,25 @@ public abstract class JobCapableTransactionManager implements TransactionManager
 	 * 
 	 * @throws DataException
 	 */
-	protected void submitScheduledJobs() throws DataException {
+	protected void submitScheduledJobsOnCommit() throws DataException {
 		for(JobSchedulerProvider jsp : schedulerHandlers) {
 			jsp.getScheduler().submitJobs(jsp.getScheduledJobs());
+		}
+	}
+	
+	/**
+	 * Submits the scheduled jobs of this UOW that are not transactional. 
+	 * This must be called after a rollback. 
+	 * 
+	 * @see JobDescription#isNonTransactional()
+	 * 
+	 * @throws DataException
+	 */
+	protected void submitScheduledJobsOnRollback() throws DataException {
+		for(JobSchedulerProvider jsp : schedulerHandlers) {
+			List<JobDescription> scheduledJobs = jsp.getScheduledJobs();
+			List<JobDescription> nonTransactionalJobs = SelectionUtils.selectByProperty("nonTransactional", true, scheduledJobs, JobDescription.class); //$NON-NLS-1$
+			jsp.getScheduler().submitJobs(nonTransactionalJobs);
 		}
 	}
 	

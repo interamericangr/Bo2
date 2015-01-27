@@ -38,7 +38,7 @@ public class QuartzUtils {
 	 * @param bean
 	 * @return the unique name composed by the properties of quartz description bean
 	 */
-	public static String getJobName(JobDescription bean) {
+	private static String getJobName(JobDescription bean) {
 		String name = StringConstants.EMPTY;
 		name += bean.getOperationClass().getName();
 		Map<String, Object> map = bean.getParameters();
@@ -52,6 +52,15 @@ public class QuartzUtils {
 		return name;
 	}
 
+	/**
+	 * @param bean
+	 * @return a random name that also contains information from the {@link JobDescription}
+	 */
+	public static String generateRandomQuartzJobName(JobDescription bean) {
+		String name = getJobName(bean);
+		name += NAME_DELIMITER + Math.random();
+		return name;
+	}
 	/**
 	 * @param bean
 	 * @return the name of the group that the given job should be.
@@ -156,7 +165,7 @@ public class QuartzUtils {
 
 	/**
 	 * pauses the main thread until the given job has been completed.
-	 * 
+	 *
 	 * @param groupName
 	 *            name of the group that the job is registered. if null searches all groups.
 	 * @param jobName
@@ -170,7 +179,7 @@ public class QuartzUtils {
 
 	/**
 	 * pauses the main thread until the given job has no job scheduled.
-	 * 
+	 *
 	 * @param groupName
 	 *            name of the group. if null waits all jobs to finish.
 	 * @throws DataException
@@ -183,14 +192,14 @@ public class QuartzUtils {
 
 	/**
 	 * pauses the main thread until the given job has been completed.
-	 * 
+	 *
 	 * @param bean
 	 *            the job to wait
-	 * 
+	 *
 	 * @throws DataException
 	 */
 	public static void waitJobToComplete(JobDescription bean) throws DataException {
-		waitJobToComplete(getJobGroupName(bean), getJobName(bean));
+		waitJobToComplete(getJobGroupName(bean), bean.getJobName());
 	}
 
 	/**

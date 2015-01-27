@@ -11,8 +11,16 @@ import java.util.Map;
  * <li/> the operation named parameters
  * <li/> whether the job should be executed synchronously, i.e. the application
  *       should wait for it to finish. By default jobs are asynchronous.
+ * <li/> whether the job triggering is nonTransactional. By default it is
+ *       transactional, i.e. the job is fired only if the unit of work in
+ *       which it was scheduled commits.
  */
 public interface JobDescription extends Serializable {
+	
+	/**
+	 * @return the jobName assigned during the creation.
+	 */
+	String getJobName();
 
 	/**
 	 * Gets the operationClass.
@@ -44,16 +52,30 @@ public interface JobDescription extends Serializable {
 
 	/**
 	 * Gets the synchronous.
-	 * 
+	 *
 	 * @return synchronous
 	 */
 	boolean isSynchronous();
 
 	/**
 	 * Assigns a new value to the synchronous.
-	 * 
+	 *
 	 * @param synchronous
 	 */
 	void setSynchronous(boolean synchronous);
+
+	/**
+	 * Gets the nonTransactional.
+	 *
+	 * @return nonTransactionals
+	 */
+	boolean isNonTransactional();
+
+	/**
+	 * Assigns a new value to the nonTransactional.
+	 *
+	 * @param nonTransactional
+	 */
+	void setNonTransactional(boolean nonTransactional);
 
 }

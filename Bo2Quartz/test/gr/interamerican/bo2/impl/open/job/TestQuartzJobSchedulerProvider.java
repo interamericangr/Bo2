@@ -8,7 +8,10 @@ import gr.interamerican.bo2.impl.open.creation.Factory;
 import gr.interamerican.bo2.impl.open.runtime.AbstractBo2RuntimeCmd;
 import gr.interamerican.bo2.impl.open.workers.AbstractOperation;
 import gr.interamerican.bo2.quartz.QuartzJobSchedulerProviderImpl;
-import gr.interamerican.bo2.quartz.util.QuartzUtils;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -30,12 +33,32 @@ public class TestQuartzJobSchedulerProvider {
 	JobDescription job = Factory.create(JobDescription.class);
 	
 	/**
+	 * job
+	 */
+	JobDescription nonTxJob = Factory.create(JobDescription.class);
+	
+	/**
 	 * create job sample and reset TestOperation.executed
 	 */
 	@Before
+	@SuppressWarnings("nls")
 	public void before() {
-		TestOperation.executed = false;
+		TestOperation.times = new AtomicInteger(0);
+		
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("foo", "a");
+		
 		job.setOperationClass(TestOperation.class);
+		job.setParameters(parameters);
+		job.setSynchronous(true);
+		
+		parameters = new HashMap<String, Object>();
+		parameters.put("foo", "b");
+		
+		nonTxJob.setOperationClass(TestOperation.class);
+		nonTxJob.setNonTransactional(true);
+		nonTxJob.setParameters(parameters);
+		nonTxJob.setSynchronous(true);
 	}
 	
 	/**
@@ -58,17 +81,16 @@ public class TestQuartzJobSchedulerProvider {
 				Assert.assertEquals(1, tm.schedulerHandlers.size());
 				
 				prov.scheduleJob(job);
+				prov.scheduleJob(nonTxJob);
 				
-				Assert.assertFalse(TestOperation.executed);
+				Assert.assertEquals(0, TestOperation.times.get());
+				Assert.assertEquals(2, tm.schedulerHandlers.iterator().next().getScheduledJobs().size());
 			}
 		}.execute();
 		
 		Assert.assertEquals(0, tm.schedulerHandlers.size());
 		
-		QuartzUtils.waitJobToComplete(job);
-		
-		Assert.assertTrue(TestOperation.executed);
-		
+		Assert.assertEquals(2, TestOperation.times.get());
 		
 	}
 	
@@ -93,8 +115,10 @@ public class TestQuartzJobSchedulerProvider {
 					Assert.assertEquals(1, tm.schedulerHandlers.size());
 					
 					prov.scheduleJob(job);
+					prov.scheduleJob(nonTxJob);
 					
-					Assert.assertFalse(TestOperation.executed);
+					Assert.assertEquals(0, TestOperation.times.get());
+					Assert.assertEquals(2, tm.schedulerHandlers.iterator().next().getScheduledJobs().size());
 					
 					throw new RuntimeException(); //fail the uow
 				}
@@ -103,19 +127,23 @@ public class TestQuartzJobSchedulerProvider {
 		
 		Assert.assertEquals(0, tm.schedulerHandlers.size());
 		
-		QuartzUtils.waitJobToComplete(job);
-		
-		Assert.assertFalse(TestOperation.executed);
+		Assert.assertEquals(1, TestOperation.times.get());
 		
 	}
 	
 	@SuppressWarnings("javadoc")
 	public static class TestOperation extends AbstractOperation {
-		static boolean executed = false;
+		static AtomicInteger times;
+		
+		String foo;
 
 		@Override
 		public void execute() throws LogicException, DataException {
-			executed = true;
+			System.out.println(times.incrementAndGet() + foo);
+		}
+		
+		public void setFoo(String foo) {
+			this.foo = foo;
 		}
 	}
 	

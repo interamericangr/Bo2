@@ -76,7 +76,7 @@ implements TransactionManager {
 				connection.setAutoCommit(true);
 			}
 			
-			submitScheduledJobs();
+			submitScheduledJobsOnCommit();
 			
 		} catch (SQLException e) {
 			throw new CouldNotCommitException(e);
@@ -94,8 +94,13 @@ implements TransactionManager {
 				connection.rollback();
 				connection.setAutoCommit(true);
 			}
+			
+			submitScheduledJobsOnRollback();
+			
 		} catch (SQLException e) {
 			throw new CouldNotRollbackException(e);
+		} catch (DataException e) { //job submission
+			throw new RuntimeException(e);
 		} finally {
 			clearScheduledJobs();
 		}

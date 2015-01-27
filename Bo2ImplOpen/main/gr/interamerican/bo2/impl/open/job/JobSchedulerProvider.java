@@ -31,7 +31,7 @@ public interface JobSchedulerProvider extends ResourceWrapper {
 	void scheduleJob(JobDescription job);
 	
 	/**
-	 * @return Returns all scheduled jobs
+	 * @return Returns all scheduled jobs. Implementations should never return null.
 	 */
 	List<JobDescription> getScheduledJobs();
 	
