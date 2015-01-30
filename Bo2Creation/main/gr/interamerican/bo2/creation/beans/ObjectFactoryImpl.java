@@ -187,8 +187,8 @@ public class ObjectFactoryImpl implements ObjectFactory {
 	}
 
 	public Object create(String declarationTypeName) {
-		Class<?> clazz = getImplementationType(declarationTypeName);
-		return createInstance(clazz);		
+		Class<?> declarationType = loadClass(declarationTypeName);
+		return create(declarationType);		
 	}
 	
 	public Class<?> getDeclarationType(Class<?> implementationType) {
@@ -410,7 +410,7 @@ public class ObjectFactoryImpl implements ObjectFactory {
 	 */
 	private static Class<?> loadClass(String typeName) {		
 		try {
-			return Class.forName(typeName);
+			return ReflectionUtils.forName(typeName);
 		} catch (ClassNotFoundException e) {				
 			return null;
 		}
