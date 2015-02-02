@@ -768,9 +768,8 @@ public class ReflectionUtils {
 		if (isIbmJre) {
 			Set<Method> set = getPublicMethodsForIbmJre(type);
 			return CollectionUtils.toArray(set, new Method[0]);
-		} else {
-			return type.getMethods();
 		}
+		return type.getMethods();
 	}
 
 	/**
@@ -963,18 +962,17 @@ public class ReflectionUtils {
 			}
 			return methods;
 
-		} else {
-			/*
-			 * get all declared methods.
-			 */
-			List<Method> list = new ArrayList<Method>();
-			for (Method method : type.getDeclaredMethods()) {
-				if (!method.isSynthetic() && !method.isBridge()) {
-					list.add(method);
-				}
-			}
-			return list.toArray(new Method[0]);
 		}
+		/*
+		 * get all declared methods.
+		 */
+		List<Method> list = new ArrayList<Method>();
+		for (Method method : type.getDeclaredMethods()) {
+			if (!method.isSynthetic() && !method.isBridge()) {
+				list.add(method);
+			}
+		}
+		return list.toArray(new Method[0]);
 
 	}
 
@@ -1043,10 +1041,9 @@ public class ReflectionUtils {
 		if (field != null) {
 			setAccessible(field);
 			return get(field, obj);
-		} else {
-			String msg = "No such field: " + fieldName; //$NON-NLS-1$
-			throw new RuntimeException(msg);
 		}
+		String msg = "No such field: " + fieldName; //$NON-NLS-1$
+		throw new RuntimeException(msg);
 	}
 
 	/**
