@@ -12,7 +12,11 @@
  ******************************************************************************/
 package gr.interamerican.bo2.gui.batch;
 
+import static org.mockito.Mockito.*;
+import gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcess;
+import gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessUtility;
 import gr.interamerican.bo2.utils.CollectionUtils;
+import gr.interamerican.bo2.utils.runnables.Monitor;
 
 import java.util.Properties;
 
@@ -33,6 +37,32 @@ public class TestBatchProcessFrame {
 		BatchProcessFrame frame = new BatchProcessFrame(model);
 		Assert.assertNotNull(frame.inputPanel);
 	}
+	
+	/**
+	 * test the constructor.
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@Test
+	public void testStart() {
+		String path = "/gr/interamerican/rsrc/batchprocess/PrintStrings.properties"; //$NON-NLS-1$
+		Properties p = CollectionUtils.readProperties(path);
+		BatchProcessFrame frame = new BatchProcessFrame(p);
+		frame.setVisible(true);		
+		frame.controller = mock(BatchProcessUtility.class);
+		BatchProcess batch = mock(BatchProcess.class);
+		Monitor monitor = mock(Monitor.class);
+		
+		when(frame.controller.createBatchProcess(p)).thenReturn(batch);
+		when(frame.controller.createMonitor(batch, p)).thenReturn(monitor);
+		
+		frame.start();
+		Assert.assertNotNull(frame.batch);
+		Assert.assertNotNull(frame.processPanel);
+		Assert.assertNotNull(frame.monitor);
+		verify(frame.controller, times(1)).startBatchProcess(batch);
+		verify(frame.controller, times(1)).startMonitor(monitor);
+	}
+	
 	
 	/**
 	 * Main method.
