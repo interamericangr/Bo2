@@ -37,16 +37,17 @@ public class QuartzJobSchedulerImpl implements JobScheduler {
 	void submitJob(JobDescription jobDescription) throws DataException {
 		
 		QuartzjobDescription quartzjobDescription = Factory.create(QuartzjobDescription.class);
-		ReflectionUtils.copyProperties(jobDescription, quartzjobDescription);
+		// ReflectionUtils.copyProperties(jobDescription, quartzjobDescription);
+		quartzjobDescription.setJobDescriptionDigest(QuartzUtils
+				.getDigestFromJobDescription(jobDescription));
 		Scheduler scheduler = QuartzSchedulerRegistry.getScheduler();
 		quartzjobDescription.setExecutionStatus(JobStatus.SCHEDULED);
 		JobDataMap map = new JobDataMap();
-		map.put(QuartzConstants.BEAN_PROP, quartzjobDescription);
+		map.put(QuartzConstants.BEAN_PROP, jobDescription);
+		map.put(QuartzConstants.SCHEDULED_BEAN_PROP, quartzjobDescription);
 		map.put(QuartzConstants.SESSION_PROP, Bo2Session.getSession());
-		// String jobName = QuartzUtils.getJobName(quartzjobDescription);
-		String jobName = QuartzUtils.generateRandomQuartzJobName(quartzjobDescription);
-
-		String groupName = QuartzUtils.getJobGroupName(quartzjobDescription);
+		String jobName = QuartzUtils.generateRandomQuartzJobName(jobDescription);
+		String groupName = QuartzUtils.getJobGroupName(jobDescription);
 		JobDetail job = newJob().withIdentity(jobName, groupName).withDescription(groupName).usingJobData(map)
 				.ofType(GenericQuartzJob.class).build();
 		Trigger trigger = TriggerBuilder.newTrigger().startNow().build();

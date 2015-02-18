@@ -3,10 +3,12 @@ package gr.interamerican.bo2.quartz;
 import gr.interamerican.bo2.impl.open.job.JobDescription;
 import gr.interamerican.bo2.impl.open.job.JobStatus;
 
+import java.io.Serializable;
+
 /**
  * job description including all information needed.
  */
-public interface QuartzjobDescription extends JobDescription {
+public interface QuartzjobDescription extends Serializable {
 	/**
 	 * Gets the executionStatus.
 	 *
@@ -32,6 +34,11 @@ public interface QuartzjobDescription extends JobDescription {
 	void setJobName(String jobName);
 
 	/**
+	 * @return the jobName assigned during the creation.
+	 */
+	String getJobName();
+
+	/**
 	 * @return the throwable.
 	 */
 	Throwable getThrowable();
@@ -42,4 +49,16 @@ public interface QuartzjobDescription extends JobDescription {
 	 * @param t
 	 */
 	void setThrowable(Throwable t);
+
+	/**
+	 * @return the digested version of a {@link JobDescription}
+	 */
+	String getJobDescriptionDigest();
+
+	/**
+	 * sets the digested version of a {@link JobDescription}
+	 *
+	 * @param digest
+	 */
+	void setJobDescriptionDigest(String digest);
 }

@@ -4,7 +4,6 @@ import gr.interamerican.bo2.arch.Operation;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.impl.open.job.JobDescription;
 import gr.interamerican.bo2.quartz.QuartzSchedulerRegistry;
-import gr.interamerican.bo2.quartz.QuartzjobDescription;
 import gr.interamerican.bo2.utils.NumberUtils;
 import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.beans.Pair;
@@ -214,9 +213,21 @@ public class QuartzUtils {
 	 * @param param
 	 * @return the param from the bean.
 	 */
-	public static Object getParamFromQuartzDescriptionBean(QuartzjobDescription bean, String param) {
+	public static Object getParamFromQuartzDescriptionBean(JobDescription bean, String param) {
 		Map<String, Object> map = bean.getParameters();
 		Object obj = map.get(param);
 		return obj;
+	}
+
+	/**
+	 * @param bean
+	 * @return the digested version of the {@link JobDescription}.
+	 */
+	public static String getDigestFromJobDescription(JobDescription bean) {
+		String digest = StringConstants.EMPTY;
+		digest += getJobName(bean);
+		digest += NAME_DELIMITER + "Synchronous:" + bean.isSynchronous(); //$NON-NLS-1$
+		digest += NAME_DELIMITER + "Transactional:" + !bean.isNonTransactional(); //$NON-NLS-1$
+		return digest;
 	}
 }

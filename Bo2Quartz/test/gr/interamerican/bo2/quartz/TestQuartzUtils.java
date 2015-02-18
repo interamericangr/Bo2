@@ -179,12 +179,12 @@ public class TestQuartzUtils {
 	}
 
 	/**
-	 * test method for {@link QuartzUtils#getParamFromQuartzDescriptionBean(QuartzjobDescription, String)}
+	 * test method for {@link QuartzUtils#getParamFromQuartzDescriptionBean(JobDescription, String)}
 	 */
 	@Test
 	public void testGetParamFromQuartzDescriptionBean() {
 		String keyName = "a";//$NON-NLS-1$
-		QuartzjobDescription bean1 = Factory.create(QuartzjobDescription.class);
+		JobDescription bean1 = Factory.create(JobDescription.class);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put(keyName, new Long(1));
 		bean1.setParameters(map);

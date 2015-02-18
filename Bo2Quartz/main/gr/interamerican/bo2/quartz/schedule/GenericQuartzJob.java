@@ -39,7 +39,7 @@ public class GenericQuartzJob implements Job {
 
 	/**
 	 * generates the Operation for the given bean.
-	 * 
+	 *
 	 * @param bean
 	 * @return {@link Operation}
 	 */
@@ -58,14 +58,14 @@ public class GenericQuartzJob implements Job {
 
 	/**
 	 * log and re-throw.
-	 * 
+	 *
 	 * @param e
 	 * @param bean
 	 * @throws JobExecutionException
 	 */
 	void logMe(Throwable e, QuartzjobDescription bean) throws JobExecutionException {
 		String trace = ExceptionUtils.getThrowableStackTrace(e);
-		String msg = "Quartz job " + bean.getJobName() + " failed. " + bean.getParameters(); //$NON-NLS-1$ //$NON-NLS-2$
+		String msg = "Quartz job " + bean.getJobName() + " failed. " + bean.getJobDescriptionDigest(); //$NON-NLS-1$ //$NON-NLS-2$
 		LOGGER.warn(msg);
 		LOGGER.error(trace);
 		bean.setThrowable(e);
@@ -75,11 +75,14 @@ public class GenericQuartzJob implements Job {
 
 	@Override
 	public void execute(JobExecutionContext context) throws JobExecutionException {
-		QuartzjobDescription bean = null;
+		JobDescription bean = null;
+		QuartzjobDescription quartzjobDescription = null;
 		try {
 			LOGGER.trace("Starting Generic QuartzJob"); //$NON-NLS-1$
 			JobDataMap map = context.getJobDetail().getJobDataMap();
-			bean = (QuartzjobDescription) map.get(QuartzConstants.BEAN_PROP);
+			bean = (JobDescription) map.get(QuartzConstants.BEAN_PROP);
+			quartzjobDescription = (QuartzjobDescription) map
+					.get(QuartzConstants.SCHEDULED_BEAN_PROP);
 			Bo2Session.setSession((Session<?, ?>) map.get(QuartzConstants.SESSION_PROP));
 			Operation op = generateOperationFromBean(bean);
 			RuntimeCommand cmd = null;
@@ -90,20 +93,20 @@ public class GenericQuartzJob implements Job {
 				cmd = new RuntimeCommand(op);
 			}
 			LOGGER.debug("Starting " + bean.getJobName() + " with params " + bean.getParameters()); //$NON-NLS-1$ //$NON-NLS-2$
-			bean.setExecutionStatus(JobStatus.RUNNING);
+			quartzjobDescription.setExecutionStatus(JobStatus.RUNNING);
 			cmd.execute();
 			LOGGER.debug("Ended " + bean.getJobName() + " with params " + bean.getParameters()); //$NON-NLS-1$ //$NON-NLS-2$
 		} catch (DataException e) {
-			logMe(e, bean);
+			logMe(e, quartzjobDescription);
 		} catch (LogicException e) {
-			logMe(e, bean);
+			logMe(e, quartzjobDescription);
 		} catch (UnexpectedException e) {
-			logMe(e, bean);
+			logMe(e, quartzjobDescription);
 		} catch (RuntimeException e) {
-			logMe(e, bean);
+			logMe(e, quartzjobDescription);
 		} catch (Error e) {
-			logMe(e, bean);
+			logMe(e, quartzjobDescription);
 		}
-		bean.setExecutionStatus(JobStatus.OK);
+		quartzjobDescription.setExecutionStatus(JobStatus.OK);
 	}
 }
