@@ -53,7 +53,7 @@ implements PersistenceUtility<P> {
 	/**
 	 * Logger.
 	 */
-	private Logger logger = LoggerFactory.getLogger(AbstractHibernatePersistenceUtility.class);
+	private static Logger LOGGER = LoggerFactory.getLogger(AbstractHibernatePersistenceUtility.class);
 	
 	/**
 	 * Class of P.
@@ -187,7 +187,14 @@ implements PersistenceUtility<P> {
 			saveEntity (o);
 			Serializable uid = getUniqueId(o);
 			@SuppressWarnings("unchecked") 
-			P po = (P) mode.getOnStore().get(session, uid, poClass);	
+			P po = (P) mode.getOnStore().get(session, uid, poClass);
+			if(po != o) {
+				String msg = StringUtils.concat(
+						"New PO instance created on store: ", //$NON-NLS-1$
+						poClass.getName() + StringUtils.toString(o),
+						". How did this happen?"); //$NON-NLS-1$
+				LOGGER.warn(msg);
+			}
 			return po; 
 		} catch (HibernateException e) {			
 			throw newDataException(e,o);
@@ -216,6 +223,13 @@ implements PersistenceUtility<P> {
 			Serializable uid = getUniqueId(merged);
 			@SuppressWarnings("unchecked")	
 			P po = (P) mode.getOnUpdate().get(session, uid, poClass);
+			if(po != o) {
+				String msg = StringUtils.concat(
+						"New PO instance created on update: ", //$NON-NLS-1$
+						poClass.getName() + StringUtils.toString(o),
+						". Did you mean to store?"); //$NON-NLS-1$
+				LOGGER.warn(msg);
+			}
 			return po; 
 		} catch (HibernateException e) {			
 			throw newDataException(e,o);
@@ -240,10 +254,10 @@ implements PersistenceUtility<P> {
 	 */
 	@SuppressWarnings("nls")
 	private void log(String message, P po) {
-		if (logger.isTraceEnabled()) {
-			logger.trace(message);
+		if (LOGGER.isTraceEnabled()) {
+			LOGGER.trace(message);
 			Serializable uid = getUniqueId(po);						
-			logger.trace("Key: " + uid.toString());
+			LOGGER.trace("Key: " + uid.toString());
 		}
 	}
 	
@@ -324,7 +338,7 @@ implements PersistenceUtility<P> {
 	 */
 	@SuppressWarnings("nls")
 	void specialLogHibernateException(String entityName, Serializable id, Object o) {
-		if (logger.isDebugEnabled()) {
+		if (LOGGER.isDebugEnabled()) {
 			HibernateAwarePoAnalyzer analyzer = new HibernateAwarePoAnalyzer();
 			String message = StringConstants.EMPTY;
 			try {
@@ -350,30 +364,30 @@ implements PersistenceUtility<P> {
 						clean.toString(),
 						"\n=======================================================================");
 
-				logger.debug(message);
+				LOGGER.debug(message);
 			} catch (HibernateException e) {
 				String msg = StringUtils.concat(
 					"HibernateException while trying to log a StaleObjectException: ",
 					e.toString(),
 					" Salvaged following log fragment:");
-				logger.debug(msg);
-				logger.debug(message+"\n=======================================================================");
+				LOGGER.debug(msg);
+				LOGGER.debug(message+"\n=======================================================================");
 				e.printStackTrace();
 			} catch (ClassNotFoundException e) {
 				String msg = StringUtils.concat(
 					"ClassNotFoundException while trying to log a StaleObjectException: ",
 					e.toString(),
 					" Salvaged following log fragment:");
-				logger.debug(msg);
-				logger.debug(message+"\n=======================================================================");
+				LOGGER.debug(msg);
+				LOGGER.debug(message+"\n=======================================================================");
 				e.printStackTrace();
 			} catch (RuntimeException e) {
 				String msg = StringUtils.concat(
 						"RuntimeException while trying to log a StaleObjectException: ",
 						e.toString(),
 						" Salvaged following log fragment:");
-				logger.debug(msg);
-				logger.debug(message+"\n=======================================================================");
+				LOGGER.debug(msg);
+				LOGGER.debug(message+"\n=======================================================================");
 				e.printStackTrace();
 			} 
 		}

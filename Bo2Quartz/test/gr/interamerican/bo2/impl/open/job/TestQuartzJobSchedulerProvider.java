@@ -8,6 +8,7 @@ import gr.interamerican.bo2.impl.open.creation.Factory;
 import gr.interamerican.bo2.impl.open.runtime.AbstractBo2RuntimeCmd;
 import gr.interamerican.bo2.impl.open.workers.AbstractOperation;
 import gr.interamerican.bo2.quartz.QuartzJobSchedulerProviderImpl;
+import gr.interamerican.bo2.quartz.util.QuartzUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -50,7 +51,7 @@ public class TestQuartzJobSchedulerProvider {
 		
 		job.setOperationClass(TestOperation.class);
 		job.setParameters(parameters);
-		job.setSynchronous(true);
+		job.setSynchronous(false);
 		
 		parameters = new HashMap<String, Object>();
 		parameters.put("foo", "b");
@@ -58,7 +59,7 @@ public class TestQuartzJobSchedulerProvider {
 		nonTxJob.setOperationClass(TestOperation.class);
 		nonTxJob.setNonTransactional(true);
 		nonTxJob.setParameters(parameters);
-		nonTxJob.setSynchronous(true);
+		nonTxJob.setSynchronous(false);
 	}
 	
 	/**
@@ -84,9 +85,12 @@ public class TestQuartzJobSchedulerProvider {
 				prov.scheduleJob(nonTxJob);
 				
 				Assert.assertEquals(0, TestOperation.times.get());
+				Assert.assertEquals(1, tm.schedulerHandlers.size());
 				Assert.assertEquals(2, tm.schedulerHandlers.iterator().next().getScheduledJobs().size());
 			}
 		}.execute();
+		
+		QuartzUtils.waitGroupToComplete(null);
 		
 		Assert.assertEquals(0, tm.schedulerHandlers.size());
 		
@@ -118,6 +122,7 @@ public class TestQuartzJobSchedulerProvider {
 					prov.scheduleJob(nonTxJob);
 					
 					Assert.assertEquals(0, TestOperation.times.get());
+					Assert.assertEquals(1, tm.schedulerHandlers.size());
 					Assert.assertEquals(2, tm.schedulerHandlers.iterator().next().getScheduledJobs().size());
 					
 					throw new RuntimeException(); //fail the uow
@@ -125,7 +130,9 @@ public class TestQuartzJobSchedulerProvider {
 			}.execute();
 		} catch(UnexpectedException rtex) {/* ok */}
 		
-		Assert.assertEquals(0, tm.schedulerHandlers.size());
+		QuartzUtils.waitGroupToComplete(null);
+		
+		Assert.assertEquals(1, tm.schedulerHandlers.size());
 		
 		Assert.assertEquals(1, TestOperation.times.get());
 		

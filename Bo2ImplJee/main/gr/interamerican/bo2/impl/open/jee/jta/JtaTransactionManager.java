@@ -27,20 +27,12 @@ import javax.transaction.Status;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * JTA based implementation of {@link TransactionManager}.
  */
 public class JtaTransactionManager 
 extends JobCapableTransactionManager
 implements TransactionManager {
-	
-	/**
-	 * LOGGER
-	 */
-	Logger LOGGER = LoggerFactory.getLogger(JtaTransactionManager.class);
 	
 	/**
 	 * JTA user transaction.

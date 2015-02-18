@@ -18,6 +18,9 @@ import gr.interamerican.bo2.arch.exceptions.CouldNotDelistException;
 import gr.interamerican.bo2.arch.exceptions.CouldNotEnlistException;
 import gr.interamerican.bo2.arch.exceptions.CouldNotRollbackException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 
 /**
  * Abstraction of transaction manager.
@@ -33,6 +36,11 @@ import gr.interamerican.bo2.arch.exceptions.CouldNotRollbackException;
  *  
  */
 public interface TransactionManager {
+	
+	/**
+	 * Logger for implementing classes.
+	 */
+	Logger LOGGER = LoggerFactory.getLogger(TransactionManager.class);
 	
 	/**
 	 * Starts a transaction.

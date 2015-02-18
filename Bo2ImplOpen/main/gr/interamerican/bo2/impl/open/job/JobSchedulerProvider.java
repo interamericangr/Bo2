@@ -1,8 +1,11 @@
 package gr.interamerican.bo2.impl.open.job;
 
+import gr.interamerican.bo2.arch.ResourceWrapper;
+
 import java.util.List;
 
-import gr.interamerican.bo2.arch.ResourceWrapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Means to schedule jobs in a unit of work. This resource wrapper
@@ -12,6 +15,11 @@ import gr.interamerican.bo2.arch.ResourceWrapper;
  * or in case of a rollback.
  */
 public interface JobSchedulerProvider extends ResourceWrapper {
+	
+	/**
+	 * Logger for implementing classes.
+	 */
+	Logger LOGGER = LoggerFactory.getLogger(JobSchedulerProvider.class);
 	
 	/**
 	 * Gets the scheduler that will be used to submit all scheduled jobs

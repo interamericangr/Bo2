@@ -19,13 +19,15 @@ import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
  * implementation of {@link JobScheduler}
  */
 public class QuartzJobSchedulerImpl implements JobScheduler {
-
+	
 	/**
 	 * submits a single job.
 	 *
@@ -33,6 +35,7 @@ public class QuartzJobSchedulerImpl implements JobScheduler {
 	 * @throws DataException
 	 */
 	void submitJob(JobDescription jobDescription) throws DataException {
+		
 		QuartzjobDescription quartzjobDescription = Factory.create(QuartzjobDescription.class);
 		ReflectionUtils.copyProperties(jobDescription, quartzjobDescription);
 		Scheduler scheduler = QuartzSchedulerRegistry.getScheduler();
@@ -59,6 +62,7 @@ public class QuartzJobSchedulerImpl implements JobScheduler {
 
 	@Override
 	public void submitJobs(List<JobDescription> jobDescriptions) throws DataException {
+		QuartzUtils.LOGGER.debug(jobDescriptions.size() + " jobs submitted."); //$NON-NLS-1$
 		for (JobDescription description : jobDescriptions) {
 			submitJob(description);
 		}

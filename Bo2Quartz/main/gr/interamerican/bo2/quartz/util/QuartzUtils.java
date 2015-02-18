@@ -23,12 +23,19 @@ import org.quartz.JobKey;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.impl.matchers.GroupMatcher;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 /**
  * utilities for quartz
  */
 public class QuartzUtils {
+	
+	/**
+	 * LOG
+	 */
+	public static final Logger LOGGER = LoggerFactory.getLogger(QuartzUtils.class);
 
 	/**
 	 * Delimiter for the name elements.

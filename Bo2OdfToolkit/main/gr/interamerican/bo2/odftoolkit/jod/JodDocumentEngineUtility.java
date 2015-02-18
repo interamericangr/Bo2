@@ -47,26 +47,28 @@ public class JodDocumentEngineUtility extends AbstractDocumentEngineUtility {
 	}
 
 	public String toHtml(byte[] odf) throws DocumentEngineException {
-		OpenOfficeConnection connection = null;
-		try {			
-			ByteArrayOutputStream out = new ByteArrayOutputStream();
-			ByteArrayInputStream in = new ByteArrayInputStream(odf);			
-			connection = new SocketOpenOfficeConnection(host, NumberUtils.string2Int(port));
-			connection.connect();
-			DefaultDocumentFormatRegistry registry = new DefaultDocumentFormatRegistry();
-			DocumentFormat inFormat = registry.getFormatByFileExtension("odt"); //$NON-NLS-1$
-			DocumentFormat outFormat = registry.getFormatByFileExtension("XHTML"); //$NON-NLS-1$
-			DocumentConverter converter = new OpenOfficeDocumentConverter(connection);			
-			converter.convert(in, inFormat, out, outFormat);
-			String xhtml = new String(out.toByteArray(), Charset.forName("UTF-8")); //$NON-NLS-1$
-			xhtml = embedCssToElements(xhtml);
-			return xhtml;
-		} catch (Exception e) { //log and rethrow all exceptions
-			LOG.error(ExceptionUtils.getThrowableStackTrace(e));
-			throw new DocumentEngineException(e);
-		} finally {
-			if(connection!=null && connection.isConnected()) {
-				connection.disconnect();
+		synchronized (JodDocumentEngineUtility.class) { //thread unsafe conversion???
+			OpenOfficeConnection connection = null;
+			try {			
+				ByteArrayOutputStream out = new ByteArrayOutputStream();
+				ByteArrayInputStream in = new ByteArrayInputStream(odf);			
+				connection = new SocketOpenOfficeConnection(host, NumberUtils.string2Int(port));
+				connection.connect();
+				DefaultDocumentFormatRegistry registry = new DefaultDocumentFormatRegistry();
+				DocumentFormat inFormat = registry.getFormatByFileExtension("odt"); //$NON-NLS-1$
+				DocumentFormat outFormat = registry.getFormatByFileExtension("XHTML"); //$NON-NLS-1$
+				DocumentConverter converter = new OpenOfficeDocumentConverter(connection);			
+				converter.convert(in, inFormat, out, outFormat);
+				String xhtml = new String(out.toByteArray(), Charset.forName("UTF-8")); //$NON-NLS-1$
+				xhtml = embedCssToElements(xhtml);
+				return xhtml;
+			} catch (Exception e) { //log and rethrow all exceptions
+				LOG.error(ExceptionUtils.getThrowableStackTrace(e));
+				throw new DocumentEngineException(e);
+			} finally {
+				if(connection!=null && connection.isConnected()) {
+					connection.disconnect();
+				}
 			}
 		}
 	}

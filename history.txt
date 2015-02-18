@@ -514,18 +514,38 @@ New Feature
     
 
 
-2.2.8
+2.2.8.1
 --------
 
 
 
-2.2.9
+2.2.8.2
 --------
 
-JmsProducer changes
 
-2.3.0
+
+2.2.8.4
 --------
 
-one 3 compatible
+http://jira.interamerican.gr/jira/browse/BOTWO-40 
+
+Allow non transactional job scheduling. Currently scheduled jobs (asynchronous) are triggered only if the relevant unit of work commits successfully. Allow triggering of certain scheduled jobs on failed units of work as well
+
+http://jira.interamerican.gr/jira/browse/BOTWO-41
+
+Currently quartz job ids depend only on input. Thus, it is possible for identical scheduled jobs to fail with org.quartz.ObjectAlreadyExistsException: Unable to store Job : 'jobid', because one already exists with this identification. We should add some random part to the id
+
+
+2.2.8.5
+--------
+
+jod pdf conversion now runs sequentially
+
+
+
+2.2.8.6
+--------
+
+http://jira.interamerican.gr/jira/browse/BOTWO-42 Create query from an operation that is executed continuously until a condition is met
+
 

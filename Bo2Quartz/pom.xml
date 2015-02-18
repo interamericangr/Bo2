@@ -30,6 +30,12 @@
 		</dependency>
 		<dependency>
 			<groupId>gr.interamerican.bo2</groupId>
+			<artifactId>Bo2ImplOpen</artifactId>
+			<type>test-jar</type>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>gr.interamerican.bo2</groupId>
 			<artifactId>Bo2Utils</artifactId>
 			<version>${project.version}</version>
 		</dependency>
