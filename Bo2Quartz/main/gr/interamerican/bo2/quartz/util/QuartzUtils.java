@@ -4,8 +4,10 @@ import gr.interamerican.bo2.arch.Operation;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.impl.open.job.JobDescription;
 import gr.interamerican.bo2.quartz.QuartzSchedulerRegistry;
+import gr.interamerican.bo2.quartz.QuartzjobDescription;
 import gr.interamerican.bo2.utils.NumberUtils;
 import gr.interamerican.bo2.utils.StringConstants;
+import gr.interamerican.bo2.utils.TokenUtils;
 import gr.interamerican.bo2.utils.beans.Pair;
 import gr.interamerican.bo2.utils.concurrent.ThreadUtils;
 
@@ -30,7 +32,7 @@ import org.slf4j.LoggerFactory;
  * utilities for quartz
  */
 public class QuartzUtils {
-	
+
 	/**
 	 * LOG
 	 */
@@ -213,10 +215,31 @@ public class QuartzUtils {
 	 * @param param
 	 * @return the param from the bean.
 	 */
-	public static Object getParamFromQuartzDescriptionBean(JobDescription bean, String param) {
+	public static Object getParamFromJobDescriptionBean(JobDescription bean, String param) {
 		Map<String, Object> map = bean.getParameters();
 		Object obj = map.get(param);
 		return obj;
+	}
+
+	/**
+	 * @param bean
+	 * @param param
+	 * @return the param from the bean.
+	 */
+	public static String getStringParamFromQuartzDescriptionBean(QuartzjobDescription bean,
+			String param) {
+		String digest = bean.getJobDescriptionDigest();
+		String[] tokens = TokenUtils.split(digest, NAME_DELIMITER);
+		int i = 0;
+		for (i = 0; i < tokens.length; i++) {
+			if (tokens[i].equals(param)) {
+				break;
+			}
+		}
+		if (i >= (tokens.length - 1)) {
+			return null;
+		}
+		return tokens[i + 1];
 	}
 
 	/**
