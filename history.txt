@@ -549,3 +549,12 @@ jod pdf conversion now runs sequentially
 http://jira.interamerican.gr/jira/browse/BOTWO-42 Create query from an operation that is executed continuously until a condition is met
 
 
+
+
+2.3.1
+--------
+
+one 3 compatible
+
+merged with 2.2.8.8
+
