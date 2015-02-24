@@ -18,6 +18,7 @@ import gr.interamerican.bo2.impl.open.utils.Exceptions;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.nio.charset.Charset;
 
 
@@ -26,6 +27,11 @@ import java.nio.charset.Charset;
  */
 public class NamedBufferedReader extends AbstractNamedStream<BufferedReader> {
 	
+	/**
+	 * Last line read. Used in case of a {@link SocketTimeoutException} 
+	 * when consuming a stream over a network socket.
+	 */
+	private String lastLine = null;
 	
 	/**
 	 * Creates a new NamedBufferedReader object.
@@ -68,9 +74,10 @@ public class NamedBufferedReader extends AbstractNamedStream<BufferedReader> {
 			 * This BufferedReader should already have the user defined encoding.
 			 */
 			String record=stream.readLine();
+			lastLine = record;
 			return record;
 		} catch (IOException e) {
-			throw new DataException(e);
+			throw new DataException(e.getClass().getSimpleName() + "caught. Last line read: " + lastLine, e); //$NON-NLS-1$
 		}        
 	}
 	

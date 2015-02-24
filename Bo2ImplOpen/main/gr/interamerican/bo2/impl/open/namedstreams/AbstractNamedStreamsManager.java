@@ -12,7 +12,12 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.namedstreams;
 
-import static gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition.*;
+import static gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition.DATE;
+import static gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition.ENCODING_PREFIX;
+import static gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition.RECORD_LENGTH_PREFIX;
+import static gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition.TIMESTAMP;
+import static gr.interamerican.bo2.impl.open.namedstreams.NamedStreamFactory.httpBufferedReader;
+import static gr.interamerican.bo2.impl.open.namedstreams.NamedStreamFactory.httpInputStream;
 import static gr.interamerican.bo2.impl.open.namedstreams.NamedStreamFactory.input;
 import static gr.interamerican.bo2.impl.open.namedstreams.NamedStreamFactory.output;
 import static gr.interamerican.bo2.impl.open.namedstreams.NamedStreamFactory.print;
@@ -424,6 +429,27 @@ implements NamedStreamsProvider {
 	}
 	
 	/**
+	 * Opens an http resource based named stream.
+	 * 
+	 * @param def
+	 * 
+	 * @return Returns the NamedStream.
+	 * 
+	 * @throws InitializationException
+	 */
+	protected NamedStream<?> openHttpStream(NamedStreamDefinition def) throws InitializationException {
+		StreamType type = def.getType();
+		switch (type) {
+		case INPUTSTREAM:
+			return httpInputStream(def);
+		case BUFFEREDREADER:
+			return httpBufferedReader(def);
+		default:
+			throw invalid("Invalid type", def.getName());  //$NON-NLS-1$
+		}
+	}
+	
+	/**
 	 * Creates an initialization exception.
 	 * 
 	 * @param name
@@ -439,6 +465,4 @@ implements NamedStreamsProvider {
 		return new InitializationException(msg);
 	}
 	
-
-
 }

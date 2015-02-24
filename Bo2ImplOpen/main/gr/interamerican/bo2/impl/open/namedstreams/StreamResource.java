@@ -41,6 +41,10 @@ public enum StreamResource {
 	 */
 	SYSTEM,
 	
-	
+	/**
+	 * The stream is a resource accessible over HTTP
+	 * This stream supports only input {@link StreamType}s
+	 */
+	HTTP,
 
 }

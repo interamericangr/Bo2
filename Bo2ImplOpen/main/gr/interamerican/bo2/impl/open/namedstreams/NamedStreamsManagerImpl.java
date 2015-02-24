@@ -66,7 +66,8 @@ extends AbstractNamedStreamsManager {
 			return openFileStream(def);
 		case BYTES:
 			return openInMemoryStream(def);		
-			
+		case HTTP:
+			return openHttpStream(def);
 		default:
 			throw invalid("Invalid stream type in definition", def.getName()); //$NON-NLS-1$
 		}

@@ -26,8 +26,10 @@ import gr.interamerican.bo2.test.utils.UtilityForBo2Test;
 import gr.interamerican.bo2.utils.Bo2UtilsEnvironment;
 import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.StringUtils;
+import gr.interamerican.bo2.utils.concurrent.ThreadUtils;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.nio.charset.Charset;
 import java.util.Properties;
@@ -618,6 +620,48 @@ public class TestAbstractNamedStreamsManager {
 		AbstractNamedStreamsManager man = new MockAbstractNamedStreamsManager(p);		
 		NamedOutputStream ns = (NamedOutputStream) man.openInMemoryStream(def);
 		Assert.assertNotNull(ns);
+	}
+	
+	/**
+	 * Tests openHttpStream with input stream.
+	 * @throws InitializationException 
+	 * 
+	 * requires an http resource
+	 */
+	//@Test()
+	public void testOpenHttpStream_input() throws InitializationException {		
+		Properties p = UtilityForBo2Test.getLocalFsProperties();
+		AbstractNamedStreamsManager man = new MockAbstractNamedStreamsManager(p);
+		
+		NamedStreamDefinition def = man.getDefinition("http_stream_is");
+		NamedInputStream ns = (NamedInputStream) man.openHttpStream(def);
+		Assert.assertNotNull(ns);
+	}
+	
+	/**
+	 * Tests openHttpStream with buffered reader.
+	 * @throws InitializationException 
+	 * @throws DataException
+	 * 
+	 * requires an http resource
+	 */
+	//@Test()
+	public void testOpenHttpStream_br() throws InitializationException, DataException {		
+		Properties p = UtilityForBo2Test.getLocalFsProperties();
+		AbstractNamedStreamsManager man = new MockAbstractNamedStreamsManager(p);
+		
+		NamedStreamDefinition def = man.getDefinition("http_stream_br");
+		NamedBufferedReader br = (NamedBufferedReader) man.openHttpStream(def);
+		
+		String s = null;
+		do {
+			s = br.readString();
+			System.out.println(s);
+			ThreadUtils.sleep(100);
+		} while (s!=null);
+		
+		
+		Assert.assertNotNull(br);
 	}
 	
 	/**
