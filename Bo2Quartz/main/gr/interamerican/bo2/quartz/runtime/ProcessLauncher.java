@@ -22,7 +22,7 @@ import java.util.Map;
 public class ProcessLauncher {
 
 	/**
-	 * launches a {@link MultiLauncher} as a separate process.
+	 * launches a separate process.
 	 *
 	 * @param environment
 	 * @param args
@@ -60,7 +60,10 @@ public class ProcessLauncher {
 		jobDescriptions.add(bean);
 		jsp.submitJobs(jobDescriptions);
 	}
+
 	/**
+	 * launches a {@link MultiLauncher} as a separate process.
+	 *
 	 * @param clazz
 	 * @throws DataException
 	 */
@@ -75,7 +78,7 @@ public class ProcessLauncher {
 			classpath = classpath + url.getFile();
 		}
 		ProcessLauncher.launch(null, javaExecutable, "-classpath", classpath, //$NON-NLS-1$
-				MultiLauncher.class.getCanonicalName(), clazz.getCanonicalName());
+				MultiLauncher.class.getName(), clazz.getName());
 	}
 
 }
