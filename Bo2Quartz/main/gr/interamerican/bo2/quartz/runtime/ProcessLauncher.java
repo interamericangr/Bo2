@@ -22,6 +22,11 @@ import java.util.Map;
 public class ProcessLauncher {
 
 	/**
+	 * parameter for classpath for the java executable
+	 */
+	protected static final String CLASSPATH_PARAM = "-classpath"; //$NON-NLS-1$
+
+	/**
 	 * launches a separate process.
 	 *
 	 * @param environment
@@ -90,7 +95,7 @@ public class ProcessLauncher {
 	 */
 	public static void launchMultilauncher(Class<?> clazz) throws DataException {
 
-		ProcessLauncher.launch(null, getJavaExecutable(), "-classpath", getClasspath(), //$NON-NLS-1$
+		ProcessLauncher.launch(null, getJavaExecutable(), CLASSPATH_PARAM, getClasspath(),
 				MultiLauncher.class.getName(), clazz.getName());
 	}
 
