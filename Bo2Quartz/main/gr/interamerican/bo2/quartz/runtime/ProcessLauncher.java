@@ -94,7 +94,6 @@ public class ProcessLauncher {
 	 * @throws DataException
 	 */
 	public static void launchMultilauncher(Class<?> clazz) throws DataException {
-
 		ProcessLauncher.launch(null, getJavaExecutable(), CLASSPATH_PARAM, getClasspath(),
 				MultiLauncher.class.getName(), clazz.getName());
 	}
