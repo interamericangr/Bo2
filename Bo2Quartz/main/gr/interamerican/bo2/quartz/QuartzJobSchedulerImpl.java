@@ -33,7 +33,6 @@ public class QuartzJobSchedulerImpl implements JobScheduler {
 	 * @throws DataException
 	 */
 	void submitJob(JobDescription jobDescription) throws DataException {
-		
 		QuartzjobDescription quartzjobDescription = Factory.create(QuartzjobDescription.class);
 		// ReflectionUtils.copyProperties(jobDescription, quartzjobDescription);
 		quartzjobDescription.setJobDescriptionDigest(QuartzUtils
