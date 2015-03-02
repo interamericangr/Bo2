@@ -62,22 +62,35 @@ public class ProcessLauncher {
 	}
 
 	/**
+	 * @return the java executable
+	 */
+	static protected String getJavaExecutable() {
+		return System.getProperty("java.home") + "/bin/java"; //$NON-NLS-1$//$NON-NLS-2$
+	}
+
+	/**
+	 * @return the classpath
+	 */
+	static protected String getClasspath() {
+		URL[] urls = ((URLClassLoader) (Thread.currentThread().getContextClassLoader())).getURLs();
+		String classpath = StringConstants.EMPTY;
+		for (URL url : urls) {
+			if (classpath.length() > 0) {
+				classpath += StringConstants.COLON;
+			}
+			classpath = classpath + url.getFile();
+		}
+		return classpath;
+	}
+	/**
 	 * launches a {@link MultiLauncher} as a separate process.
 	 *
 	 * @param clazz
 	 * @throws DataException
 	 */
 	public static void launchMultilauncher(Class<?> clazz) throws DataException {
-		String javaExecutable = System.getProperty("java.home") + "/bin/java"; //$NON-NLS-1$//$NON-NLS-2$
-		URL[] urls = ((URLClassLoader) (Thread.currentThread().getContextClassLoader())).getURLs();
-		String classpath=StringConstants.EMPTY;
-		for (URL url : urls) {
-			if (classpath.length() > 0) {
-				classpath+=StringConstants.COLON;
-			}
-			classpath = classpath + url.getFile();
-		}
-		ProcessLauncher.launch(null, javaExecutable, "-classpath", classpath, //$NON-NLS-1$
+
+		ProcessLauncher.launch(null, getJavaExecutable(), "-classpath", getClasspath(), //$NON-NLS-1$
 				MultiLauncher.class.getName(), clazz.getName());
 	}
 
