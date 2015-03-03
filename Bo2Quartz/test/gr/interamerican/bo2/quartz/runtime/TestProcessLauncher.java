@@ -29,12 +29,22 @@ public class TestProcessLauncher {
 	 *
 	 */
 	private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+	/**
+	 * original syso
+	 */
+	private PrintStream origout = null;
+	/**
+	 * original syserr
+	 */
+	private PrintStream origerr = null;
 
 	/**
 	 *
 	 */
 	@Before
 	public void setUpStreams() {
+		origout = System.out;
+		origerr = System.err;
 		System.setOut(new PrintStream(outContent));
 		System.setErr(new PrintStream(errContent));
 	}
@@ -44,8 +54,8 @@ public class TestProcessLauncher {
 	 */
 	@After
 	public void cleanUpStreams() {
-		System.setOut(null);
-		System.setErr(null);
+		System.setOut(origout);
+		System.setErr(origerr);
 	}
 	/**
 	 * Test method for
