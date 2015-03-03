@@ -13,10 +13,10 @@
 package gr.interamerican.wicket.bo2.factories;
 
 import gr.interamerican.bo2.impl.open.utils.Bo2;
-import gr.interamerican.bo2.impl.open.utils.Util;
 import gr.interamerican.bo2.utils.CollectionUtils;
 import gr.interamerican.bo2.utils.ExceptionUtils;
 import gr.interamerican.bo2.utils.ReflectionUtils;
+import gr.interamerican.bo2.utils.StreamUtils;
 import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.wicket.factories.ServicePanelFactory;
 import gr.interamerican.wicket.factories.ServicePanelFixtureResolver;
@@ -61,23 +61,35 @@ public class ServicePanelFactoryImpl implements ServicePanelFactory {
 		try {
 			String definitionPath = Bo2.getDefaultDeployment().
 				getDeploymentBean().getPathToDefaultPanelFactoryDefinition();
-			String[] paths = Util.readFile(definitionPath);		
-			for (int i = 0; i < paths.length; i++) {
-				String path = paths[i].trim();
-				if(path.length()>0) {
-					Properties properties = loadPropertiesIfAvailable(path);
-					for (Map.Entry<Object, Object> entry : properties.entrySet()) {
-						String left = StringUtils.trim((String) entry.getKey());			
-						String right = StringUtils.trim((String) entry.getValue());
-						Class<?> panelClass = loadClassIfPossible(right);
-						if(panelClass != null) {
-							servicePanelAssociations.put(left, panelClass);
-						}
-					}
-				}
-			}	
+			String[] paths = StreamUtils.readResourceFile(definitionPath, true, true);
+			loadPanelFactoryDefinitions(paths);
 		} catch (Exception e) {
 			throw new ExceptionInInitializerError(e);
+		}
+	}
+	
+	/**
+	 * Loads panel factory definitions.
+	 * 
+	 * @param paths
+	 */
+	static void loadPanelFactoryDefinitions(String[] paths) {
+		if(paths == null) {
+			return;
+		}
+		for (int i = 0; i < paths.length; i++) {
+			String path = paths[i].trim();
+			if(path.length()>0) {
+				Properties properties = loadPropertiesIfAvailable(path);
+				for (Map.Entry<Object, Object> entry : properties.entrySet()) {
+					String left = StringUtils.trim((String) entry.getKey());			
+					String right = StringUtils.trim((String) entry.getValue());
+					Class<?> panelClass = loadClassIfPossible(right);
+					if(panelClass != null) {
+						servicePanelAssociations.put(left, panelClass);
+					}
+				}
+			}
 		}
 	}
 	
@@ -92,7 +104,7 @@ public class ServicePanelFactoryImpl implements ServicePanelFactory {
 	@SuppressWarnings("nls")
 	static Class<?> loadClassIfPossible(String name) {
 		try {
-			return Class.forName(name);
+			return ReflectionUtils.forName(name);
 		} catch (ClassNotFoundException cnfe) {
 			String msg = StringUtils.concat(
 					"Non existant class name: ",

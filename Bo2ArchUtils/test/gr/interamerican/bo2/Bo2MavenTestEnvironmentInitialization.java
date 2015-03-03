@@ -1,12 +1,6 @@
 package gr.interamerican.bo2;
 
 
-import gr.interamerican.bo2.arch.ext.Cache;
-import gr.interamerican.bo2.arch.utils.CacheRegistry;
-import gr.interamerican.bo2.arch.utils.beans.CacheImpl;
-
-import java.util.Locale;
-
 import org.junit.Test;
 
 
@@ -16,20 +10,12 @@ import org.junit.Test;
 public class Bo2MavenTestEnvironmentInitialization {
 	
 	/**
-	 * test cache
+	 * for test
 	 */
-	private static Cache<Long> dummy;
+	public static boolean initialized = false;
 	
 	static {
-		try {
-			dummy = new CacheImpl<Long>();
-			CacheRegistry.registerCache("cache", dummy, Long.class); //$NON-NLS-1$
-			
-			
-		} catch (RuntimeException e) {
-			/* if this cache exists, then it is no problem, continue */
-		}
-		Locale.setDefault(new Locale("el", "GR")); //$NON-NLS-1$ //$NON-NLS-2$
+		initialized = true;
 	}
 	
 	/**
@@ -37,7 +23,5 @@ public class Bo2MavenTestEnvironmentInitialization {
 	 */
 	@Test
 	public void testDummy() {/*empty*/}
-	
-
 
 }

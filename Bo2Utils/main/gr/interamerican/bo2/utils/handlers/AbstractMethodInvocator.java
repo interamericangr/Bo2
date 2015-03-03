@@ -12,6 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.handlers;
 
+import gr.interamerican.bo2.utils.LoggingConstants;
 import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.Utils;
 import gr.interamerican.bo2.utils.attributes.SimpleCommand;
@@ -34,13 +35,6 @@ public abstract class AbstractMethodInvocator implements SimpleCommand {
 	 * Logger.
 	 */
 	private static final Logger LOG = LoggerFactory.getLogger(AbstractMethodInvocator.class.getName());
-	
-	/**
-	 * key for MDC callback method
-	 */
-	private static final String MDC_CALLBACKMETHOD = "callback"; //$NON-NLS-1$
-
-
 	
 	/**
 	 * method name. 
@@ -174,7 +168,7 @@ public abstract class AbstractMethodInvocator implements SimpleCommand {
 			cause = Utils.notNull(cause, intaex);
 			handler.handle(cause);			
 		} finally {
-			MDC.remove(MDC_CALLBACKMETHOD);
+			MDC.remove(LoggingConstants.MDC_CALLBACKMETHOD);
 		}
 		return null;
 	}
@@ -191,7 +185,7 @@ public abstract class AbstractMethodInvocator implements SimpleCommand {
 	 */
 	private void logInvocation(){			
 		String callback = ownerClass.getSimpleName() + StringConstants.SHARP + methodName;
-		MDC.put(MDC_CALLBACKMETHOD, callback);
+		MDC.put(LoggingConstants.MDC_CALLBACKMETHOD, callback);
 		LOG.debug("executing callback"); //$NON-NLS-1$
 	}
 

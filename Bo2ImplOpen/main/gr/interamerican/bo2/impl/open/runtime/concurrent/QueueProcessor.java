@@ -30,6 +30,7 @@ import gr.interamerican.bo2.impl.open.creation.Factory;
 import gr.interamerican.bo2.impl.open.namedstreams.NamedPrintStream;
 import gr.interamerican.bo2.impl.open.utils.Bo2;
 import gr.interamerican.bo2.utils.ExceptionUtils;
+import gr.interamerican.bo2.utils.LoggingConstants;
 import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.adapters.Modification;
@@ -38,6 +39,9 @@ import gr.interamerican.bo2.utils.meta.formatters.Formatter;
 
 import java.util.Date;
 import java.util.Queue;
+import java.util.UUID;
+
+import org.apache.log4j.MDC;
 
 /**
  * QueueProcessor is a Runnable object that pulls a queue with the input
@@ -383,6 +387,7 @@ implements Runnable, LongProcess {
 	void process(T input) 
 	throws TransactionManagerException {
 		try {
+			MDC.put(LoggingConstants.MDC_UUID, UUID.randomUUID().toString());
 			processedCount++;
 			tm.begin();
 			setInput(input);			
@@ -396,6 +401,8 @@ implements Runnable, LongProcess {
 			handleFailure(input,de);
 		} catch (LogicException le) {
 			handleFailure(input,le);
+		} finally {
+			MDC.remove(LoggingConstants.MDC_UUID);
 		}
 	}
 	

@@ -15,13 +15,16 @@ import gr.interamerican.bo2.arch.ext.Session;
 import gr.interamerican.bo2.arch.utils.ext.Bo2Session;
 import gr.interamerican.bo2.impl.open.utils.Bo2;
 import gr.interamerican.bo2.utils.ExceptionUtils;
+import gr.interamerican.bo2.utils.LoggingConstants;
 import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.Utils;
 import gr.interamerican.bo2.utils.beans.Timer;
 import gr.interamerican.wicket.def.WicketOutputMedium;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.UUID;
 
+import org.apache.log4j.MDC;
 import org.apache.wicket.Page;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.request.IRequestHandler;
@@ -59,6 +62,7 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 	public void onBeginRequest(RequestCycle cycle) {
 		Bo2WicketRequestCycle.stats.cycles++;
 		try {
+			MDC.put(LoggingConstants.MDC_UUID, UUID.randomUUID().toString());
 			Bo2WicketRequestCycle.get().timer = new Timer();
 			Session<?, ?> session = Bo2WicketSession.get();
 			Bo2Session.setSession(session);
@@ -200,6 +204,7 @@ public class Bo2RequestCycleListener extends AbstractRequestCycleListener {
 				error("DataException on cleanup: " + ExceptionUtils.getThrowableStackTrace(de));
 				throw new RuntimeException(de);
 			} finally {
+				MDC.remove(LoggingConstants.MDC_UUID);
 				Bo2Session.setSession(null);
 				Bo2Session.setProvider(null);
 				Bo2WicketRequestCycle.release();

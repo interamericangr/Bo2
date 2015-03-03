@@ -14,12 +14,9 @@ package gr.interamerican.bo2.impl.open.utils;
 
 import gr.interamerican.bo2.arch.enums.TargetEnvironment;
 import gr.interamerican.bo2.utils.Debug;
-import gr.interamerican.bo2.utils.StreamUtils;
-import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.Utils;
 import gr.interamerican.bo2.utils.beans.PropertiesInitializedBean;
 
-import java.io.IOException;
 import java.util.Properties;
 
 /**
@@ -35,25 +32,6 @@ extends PropertiesInitializedBean {
 	 */
 	public Bo2DeploymentParams(Properties properties) {
 		super(properties);
-		preLoadClasses();
-	}
-	
-	/**
-	 * Preloads classes.
-	 */
-	void preLoadClasses() {
-		try {
-			String[] classesToLoad = StreamUtils.readResourceFile(pathToPreLoadClasses);
-			for (int i = 0; i < classesToLoad.length; i++) {
-				if (!StringUtils.isNullOrBlank(classesToLoad[i])) {
-					Class.forName(classesToLoad[i]);
-				}
-			}
-		} catch (IOException ioe) {
-			throw new RuntimeException(ioe);
-		} catch (ClassNotFoundException cnfe) {
-			throw new RuntimeException(cnfe);
-		}
 	}
 	
 	/**

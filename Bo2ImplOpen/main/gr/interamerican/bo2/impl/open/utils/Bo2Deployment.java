@@ -89,12 +89,14 @@ public class Bo2Deployment {
 			}
 			
 			/*
-			 * Classes with static initializers to pre-load.
+			 * Classes with static initializers to pre-load. OPTIONAL
 			 */
 			String pathToPreloadedClasses  = deploymentBean.getPathToPreLoadClasses();
-			String[] classes = Util.readFile(pathToPreloadedClasses);
-			for (String className : classes) {
-				loadClass(className);
+			String[] classes = StreamUtils.readResourceFile(pathToPreloadedClasses, true, true);
+			if(classes != null) {
+				for (String className : classes) {
+					loadClass(className);
+				}
 			}
 		} catch (IOException e) {
 			throw new RuntimeException(e);

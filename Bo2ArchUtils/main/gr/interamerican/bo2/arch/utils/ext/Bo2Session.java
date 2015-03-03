@@ -15,6 +15,7 @@ package gr.interamerican.bo2.arch.utils.ext;
 import gr.interamerican.bo2.arch.Provider;
 import gr.interamerican.bo2.arch.ext.Session;
 import gr.interamerican.bo2.arch.ext.User;
+import gr.interamerican.bo2.utils.LoggingConstants;
 import gr.interamerican.bo2.utils.StringUtils;
 
 import java.util.HashMap;
@@ -37,11 +38,6 @@ import org.slf4j.MDC;
  * this is necessary. <br/>
  */
 public class Bo2Session {
-	
-	/**
-	 * key for MDC userid
-	 */
-	static final String MDC_USERID = "userid"; //$NON-NLS-1$
 	
 	/**
 	 * Threadlocal session.
@@ -84,9 +80,9 @@ public class Bo2Session {
 	public static void setSession(Session<?,?> session) {
 		tlSession.set(session);
 		if(session==null) {
-			MDC.remove(MDC_USERID);
+			MDC.remove(LoggingConstants.MDC_USER_ID);
 		} else {
-			MDC.put(MDC_USERID, StringUtils.toString(getUserId()));
+			MDC.put(LoggingConstants.MDC_USER_ID, StringUtils.toString(getUserId()));
 		}
 	}
 	

@@ -13,6 +13,7 @@
 package gr.interamerican.bo2.impl.open.utils;
 
 import static org.junit.Assert.assertSame;
+import gr.interamerican.bo2.Bo2MavenTestEnvironmentInitialization;
 import gr.interamerican.bo2.arch.Provider;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
@@ -22,6 +23,7 @@ import gr.interamerican.bo2.test.utils.UtilityForBo2Test;
 
 import java.sql.Connection;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -44,6 +46,8 @@ public class TestBo2 {
 		Bo2.setThreadLocalConnection(conn);
 		assertSame(conn, ThreadLocalConnectionStrategy.THREAD_CONNECTION.get());
 		p.close();
+		
+		Assert.assertTrue(Bo2MavenTestEnvironmentInitialization.initialized);
 	}	
 	
 }

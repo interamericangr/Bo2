@@ -50,9 +50,6 @@
 		<central.repository.proxy>http://10.2.3.76:8081/nexus/content/repositories/central/</central.repository.proxy>
 		<interamerican.repository>http://10.2.3.76:8081/nexus/content/repositories/interamerican/</interamerican.repository>
 		
-		<bo2.failureIgnore>false</bo2.failureIgnore>
-		<bo2.skip.tests>false</bo2.skip.tests>
-		
 	</properties>
 
 	<build>
@@ -121,8 +118,6 @@
 				<version>2.14.1</version>
 				<configuration>
 					<argLine>-Duser.country=GR -Duser.language=el ${argLine}</argLine>
-					<skipTests>${bo2.skip.tests}</skipTests> 
-					<testFailureIgnore>${bo2.failureIgnore}</testFailureIgnore>
 					<excludes>
 						<exclude>**/TestSuite*.java</exclude>
 					</excludes>
