@@ -1,7 +1,0 @@
-Improvement BOTWO-47 
-Bo2 initializers are now optional
-panel factory definitions are now optional
-ProcessLauncher launches commands on separate jvm, method to launch MultiLauncher in separete jvm added also
-Added key 'uuid' to slf4j Mapped Diagnostic Contexts. Set on wicket request cycles and batchprocess units of work
-
-
