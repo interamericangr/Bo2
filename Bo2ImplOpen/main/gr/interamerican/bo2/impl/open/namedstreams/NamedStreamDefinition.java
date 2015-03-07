@@ -14,6 +14,8 @@ package gr.interamerican.bo2.impl.open.namedstreams;
 
 import static gr.interamerican.bo2.utils.StringConstants.EQUALS;
 import static gr.interamerican.bo2.utils.StringConstants.COMMA;
+import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResource;
+import gr.interamerican.bo2.impl.open.namedstreams.types.StreamType;
 import gr.interamerican.bo2.utils.Bo2UtilsEnvironment;
 import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.StringUtils;

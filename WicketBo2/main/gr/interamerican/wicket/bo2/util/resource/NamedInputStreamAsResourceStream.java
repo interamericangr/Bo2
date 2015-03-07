@@ -15,8 +15,8 @@ package gr.interamerican.wicket.bo2.util.resource;
 import gr.interamerican.bo2.arch.ResourceWrapper;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
-import gr.interamerican.bo2.impl.open.namedstreams.NamedInputStream;
 import gr.interamerican.bo2.impl.open.namedstreams.NamedStreamsProvider;
+import gr.interamerican.bo2.impl.open.namedstreams.types.NamedInputStream;
 import gr.interamerican.bo2.utils.ExceptionUtils;
 import gr.interamerican.wicket.bo2.protocol.http.Bo2WicketRequestCycle;
 

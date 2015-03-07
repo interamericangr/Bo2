@@ -21,7 +21,7 @@ import gr.interamerican.bo2.arch.exceptions.StaleTransactionException;
 import gr.interamerican.bo2.arch.exceptions.TransactionManagerException;
 import gr.interamerican.bo2.arch.ext.Session;
 import gr.interamerican.bo2.arch.utils.ext.Bo2Session;
-import gr.interamerican.bo2.impl.open.namedstreams.NamedPrintStream;
+import gr.interamerican.bo2.impl.open.namedstreams.types.NamedPrintStream;
 import gr.interamerican.bo2.samples.implopen.runtime.concurrent.PrintStringOperation;
 import gr.interamerican.bo2.utils.Utils;
 import gr.interamerican.bo2.utils.adapters.Modification;

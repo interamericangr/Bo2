@@ -10,14 +10,15 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
-package gr.interamerican.bo2.impl.open.namedstreams;
-
+package gr.interamerican.bo2.impl.open.namedstreams.types;
 
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.DataOperationNotSupportedException;
+import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResource;
 import gr.interamerican.bo2.impl.open.utils.Exceptions;
 
-import java.io.PrintStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.Charset;
 
 /**
@@ -25,23 +26,25 @@ import java.nio.charset.Charset;
  * 
  *
  */
-public class NamedPrintStream extends AbstractNamedStream<PrintStream> {
+public class NamedInputStream extends AbstractNamedStream<InputStream> {
 	
 	/**
-	 * Creates a new NamedBufferedReader object.
+	 * Creates a new NamedInputStream object.
 	 * 
 	 * @param resourceType
 	 * @param stream
 	 * @param name
+	 * @param recordLength
 	 * @param resource 
 	 * @param encoding 
 	 */
-	NamedPrintStream(
-			StreamResource resourceType, PrintStream stream, 
-			String name, Object resource, Charset encoding) {
-		super(StreamType.PRINTSTREAM, resourceType, stream, name, 0, resource, encoding);
+	public NamedInputStream(
+			StreamResource resourceType, InputStream stream, 
+			String name, int recordLength, Object resource, Charset encoding) {
+		super(StreamType.INPUTSTREAM, resourceType, stream, name, recordLength, resource, encoding);
 	}
 	
+
 	public boolean find(byte[] key) 
 	throws DataException, DataOperationNotSupportedException {
 		throw Exceptions.dataOperationNotSupported(stream);
@@ -49,24 +52,45 @@ public class NamedPrintStream extends AbstractNamedStream<PrintStream> {
 
 	public byte[] readRecord() 
 	throws DataException {
-		throw Exceptions.dataOperationNotSupported(stream);
+		try {
+			byte[] record=new byte[recordLength];
+			int byteCount=stream.read(record);
+			if (byteCount<=0) {
+			    return null;
+			} else {
+			    return record;
+			}
+		} catch (IOException e) {
+			throw new DataException(e);
+		}        
 	}
-	
+
 	public String readString() 
 	throws DataException {
+		byte[] rec=readRecord();
+		if (rec==null) return null;
+		/*
+		 * Use the user defined encoding to convert the bytes to a String.
+		 */
+		return new String(rec, encoding);
+	}
+	
+	public void writeRecord(byte[] record) 
+	throws DataException, DataOperationNotSupportedException {
+		throw Exceptions.dataOperationNotSupported(stream);	
+	}
+
+	public void writeString(String string) 
+	throws DataException, DataOperationNotSupportedException {
 		throw Exceptions.dataOperationNotSupported(stream);
-	}
-
-	public void writeRecord(byte[] record) {
-		stream.println(new String(record, encoding));
-	}
-
-	public void writeString(String string) {
-		stream.println(string);
 	}
 
 	public void close() throws DataException {
-		stream.close();
+		try {
+			stream.close();
+		} catch (IOException e) {
+			throw new DataException(e);
+		}
 	}
 	
 }

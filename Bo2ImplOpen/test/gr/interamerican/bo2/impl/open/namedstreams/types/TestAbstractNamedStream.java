@@ -10,10 +10,13 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
-package gr.interamerican.bo2.impl.open.namedstreams;
+package gr.interamerican.bo2.impl.open.namedstreams.types;
 
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.DataOperationNotSupportedException;
+import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResource;
+import gr.interamerican.bo2.impl.open.namedstreams.types.AbstractNamedStream;
+import gr.interamerican.bo2.impl.open.namedstreams.types.StreamType;
 import gr.interamerican.bo2.utils.Bo2UtilsEnvironment;
 
 import java.io.PrintStream;

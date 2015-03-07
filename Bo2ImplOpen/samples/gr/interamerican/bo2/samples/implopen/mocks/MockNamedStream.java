@@ -14,9 +14,9 @@ package gr.interamerican.bo2.samples.implopen.mocks;
 
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.DataOperationNotSupportedException;
-import gr.interamerican.bo2.impl.open.namedstreams.AbstractNamedStream;
-import gr.interamerican.bo2.impl.open.namedstreams.StreamResource;
-import gr.interamerican.bo2.impl.open.namedstreams.StreamType;
+import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResource;
+import gr.interamerican.bo2.impl.open.namedstreams.types.AbstractNamedStream;
+import gr.interamerican.bo2.impl.open.namedstreams.types.StreamType;
 
 import java.nio.charset.Charset;
 

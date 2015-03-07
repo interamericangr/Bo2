@@ -10,7 +10,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
-package gr.interamerican.bo2.impl.open.namedstreams;
+package gr.interamerican.bo2.impl.open.namedstreams.types;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -77,4 +77,6 @@ public enum StreamType {
 	public boolean isOutputStream() {
 		return this==PRINTSTREAM || this==OUTPUTSTREAM;
 	}
+	
+	
 }

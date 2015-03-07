@@ -10,18 +10,18 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
-package gr.interamerican.bo2.impl.open.namedstreams;
-
-
+package gr.interamerican.bo2.impl.open.namedstreams.types;
 
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.DataOperationNotSupportedException;
+import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResource;
+import gr.interamerican.bo2.impl.open.namedstreams.types.NamedInputStream;
 import gr.interamerican.bo2.test.utils.UtilityForBo2Test;
 import gr.interamerican.bo2.utils.Bo2UtilsEnvironment;
 
-import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -30,15 +30,14 @@ import org.junit.Test;
 
 
 /**
- * Unit test for {@link NamedBufferedReader}.
+ * 
  */
 @SuppressWarnings("nls")
-public class TestNamedBufferedReader {
-	
+public class TestNamedInputStream {
 	/**
 	 * Object to test.
 	 */
-	NamedBufferedReader ns;
+	NamedInputStream ns;
 	
 	/**
 	 * Tests setup.
@@ -46,9 +45,10 @@ public class TestNamedBufferedReader {
 	 */
 	@Before
 	public void before() throws FileNotFoundException {
-		String path = UtilityForBo2Test.getTestStreamPath("existingBR.txt");		
-		BufferedReader stream = new BufferedReader(new FileReader(path));
-		ns = new NamedBufferedReader (StreamResource.FILE, stream, "Nbuf", 0, Bo2UtilsEnvironment.getDefaultTextCharset());
+		String path = UtilityForBo2Test.getTestStreamPath("existingIS.txt");		
+		File file = new File(path);
+		FileInputStream fis = new FileInputStream(file);		
+		ns = new NamedInputStream(StreamResource.FILE, fis, "nis", 20, file, Bo2UtilsEnvironment.getDefaultTextCharset());
 	}
 	
 	/**
@@ -61,6 +61,7 @@ public class TestNamedBufferedReader {
 		if (ns!=null) {
 			ns.close();
 		}
+		
 	}
 	
 
@@ -70,7 +71,7 @@ public class TestNamedBufferedReader {
 	 * @throws DataException
 	 */	
 	@Test
-	public void testReadRecord() throws DataException {		
+	public void testReadRecord() throws DataException {
 		byte[] rec1 = ns.readRecord();
 		Assert.assertNotNull(rec1);
 		String expectedRecord = UtilityForBo2Test.getRecordOfTestTextFile();

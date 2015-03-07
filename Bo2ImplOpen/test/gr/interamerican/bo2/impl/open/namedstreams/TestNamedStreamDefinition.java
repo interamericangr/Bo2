@@ -13,6 +13,9 @@
 package gr.interamerican.bo2.impl.open.namedstreams;
 
 import static org.junit.Assert.assertEquals;
+import gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition;
+import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResource;
+import gr.interamerican.bo2.impl.open.namedstreams.types.StreamType;
 
 import org.junit.Test;
 

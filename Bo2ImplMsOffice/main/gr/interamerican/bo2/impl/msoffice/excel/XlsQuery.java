@@ -16,7 +16,7 @@ import gr.interamerican.bo2.arch.Query;
 import gr.interamerican.bo2.arch.exceptions.DataAccessException;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.impl.open.namedstreams.AbstractStreamBasedQuery;
-import gr.interamerican.bo2.impl.open.namedstreams.NamedInputStream;
+import gr.interamerican.bo2.impl.open.namedstreams.types.NamedInputStream;
 
 import java.io.IOException;
 

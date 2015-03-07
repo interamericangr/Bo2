@@ -13,6 +13,8 @@
 package gr.interamerican.bo2.impl.open.namedstreams;
 
 import gr.interamerican.bo2.arch.exceptions.DataException;
+import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResource;
+import gr.interamerican.bo2.impl.open.namedstreams.types.StreamType;
 import gr.interamerican.bo2.samples.implopen.mocks.MockAbstractNamedStreamsManager;
 import gr.interamerican.bo2.samples.implopen.mocks.MockNamedStream;
 import gr.interamerican.bo2.utils.Bo2UtilsEnvironment;

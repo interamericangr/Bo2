@@ -14,6 +14,8 @@ package gr.interamerican.bo2.impl.open.namedstreams;
 
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.DataOperationNotSupportedException;
+import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResource;
+import gr.interamerican.bo2.impl.open.namedstreams.types.StreamType;
 
 import java.nio.charset.Charset;
 

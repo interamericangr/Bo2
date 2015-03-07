@@ -2,9 +2,9 @@ package gr.interamerican.bo2.impl.open.runtime.concurrent;
 
 import gr.interamerican.bo2.arch.Provider;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
-import gr.interamerican.bo2.impl.open.namedstreams.NamedPrintStream;
 import gr.interamerican.bo2.impl.open.namedstreams.NamedStream;
 import gr.interamerican.bo2.impl.open.namedstreams.NamedStreamsProvider;
+import gr.interamerican.bo2.impl.open.namedstreams.types.NamedPrintStream;
 
 /**
  * Utility class to help create stream names.

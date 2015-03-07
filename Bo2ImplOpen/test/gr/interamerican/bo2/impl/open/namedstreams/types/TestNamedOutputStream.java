@@ -10,18 +10,22 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
-package gr.interamerican.bo2.impl.open.namedstreams;
+package gr.interamerican.bo2.impl.open.namedstreams.types;
+
 
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.DataOperationNotSupportedException;
+import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResource;
+import gr.interamerican.bo2.impl.open.namedstreams.types.NamedOutputStream;
 import gr.interamerican.bo2.test.utils.UtilityForBo2Test;
 import gr.interamerican.bo2.utils.Bo2UtilsEnvironment;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.PrintStream;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -29,14 +33,15 @@ import org.junit.Test;
 
 
 /**
- * Unit test for {@link NamedPrintStream}.
+ * Unit test for {@link NamedOutputStream}.
  */
 @SuppressWarnings("nls")
-public class TestNamedPrintStream {
+public class TestNamedOutputStream {
+	
 	/**
 	 * Object to test.
 	 */
-	NamedPrintStream ns;
+	NamedOutputStream ns;
 	
 	
 	
@@ -58,10 +63,11 @@ public class TestNamedPrintStream {
 	 * @throws DataException
 	 */	
 	@Test(expected=DataOperationNotSupportedException.class)
-	public void testReadRecord() throws FileNotFoundException, DataException {	
-		String path = UtilityForBo2Test.getTestStreamPath("TestNamedPrintStream.1.txt");		
-		PrintStream stream = new PrintStream(path);
-		ns = new NamedPrintStream (StreamResource.FILE, stream, "Nprin", 20, Bo2UtilsEnvironment.getDefaultTextCharset());
+	public void testReadRecord() throws FileNotFoundException, DataException {
+		String path = UtilityForBo2Test.getTestStreamPath("TestNamedOutputStream.1.txt");		
+		File file = new File(path);
+		FileOutputStream stream = new FileOutputStream(file);
+		ns = new NamedOutputStream (StreamResource.FILE, stream, "Nout", 20, file, Bo2UtilsEnvironment.getDefaultTextCharset());
 		@SuppressWarnings("unused") byte[] rec1 = ns.readRecord();	
 	}
 	
@@ -72,9 +78,10 @@ public class TestNamedPrintStream {
 	 */	
 	@Test(expected=DataOperationNotSupportedException.class)
 	public void testReadString() throws FileNotFoundException, DataException {
-		String path = UtilityForBo2Test.getTestStreamPath("TestNamedPrintStream.2.txt");		
-		PrintStream stream = new PrintStream(path);
-		ns = new NamedPrintStream (StreamResource.FILE, stream, "Nprin", 20, Bo2UtilsEnvironment.getDefaultTextCharset());
+		String path = UtilityForBo2Test.getTestStreamPath("TestNamedOutputStream.2.txt");		
+		File file = new File(path);
+		FileOutputStream stream = new FileOutputStream(file);
+		ns = new NamedOutputStream (StreamResource.FILE, stream, "Nout", 20, file, Bo2UtilsEnvironment.getDefaultTextCharset());
 		@SuppressWarnings("unused") String rec1 = ns.readString();	
 	}	
 	
@@ -85,9 +92,10 @@ public class TestNamedPrintStream {
 	 */	
 	@Test()
 	public void testWriteString() throws DataException, IOException {
-		String path = UtilityForBo2Test.getTestStreamPath("TestNamedPrintStream.3.txt");		
-		PrintStream stream = new PrintStream(path);
-		ns = new NamedPrintStream (StreamResource.FILE, stream, "Nout", 20, Bo2UtilsEnvironment.getDefaultTextCharset());
+		String path = UtilityForBo2Test.getTestStreamPath("TestNamedOutputStream.3.txt");		
+		File file = new File(path);
+		FileOutputStream stream = new FileOutputStream(file);
+		ns = new NamedOutputStream (StreamResource.FILE, stream, "Nout", 20, file, Bo2UtilsEnvironment.getDefaultTextCharset());
 		String string = "write this";
 		ns.writeString(string);
 		ns.close();
@@ -105,9 +113,10 @@ public class TestNamedPrintStream {
 	 */	
 	@Test()
 	public void testWriteRecord() throws DataException, IOException {
-		String path = UtilityForBo2Test.getTestStreamPath("TestNamedPrintStream.4.txt");		
-		PrintStream stream = new PrintStream(path);
-		ns = new NamedPrintStream (StreamResource.FILE, stream, "Nout", 20, Bo2UtilsEnvironment.getDefaultTextCharset());
+		String path = UtilityForBo2Test.getTestStreamPath("TestNamedOutputStream.4.txt");		
+		File file = new File(path);
+		FileOutputStream stream = new FileOutputStream(file);
+		ns = new NamedOutputStream (StreamResource.FILE, stream, "Nout", 20, file, Bo2UtilsEnvironment.getDefaultTextCharset());
 		String string = "write this";
 		ns.writeRecord(string.getBytes());
 		ns.close();
@@ -126,9 +135,10 @@ public class TestNamedPrintStream {
 	 */	
 	@Test(expected=DataOperationNotSupportedException.class)
 	public void testFind() throws FileNotFoundException, DataException {
-		String path = UtilityForBo2Test.getTestStreamPath("TestNamedPrintStream.4.txt");		
-		PrintStream stream = new PrintStream(path);
-		ns = new NamedPrintStream (StreamResource.FILE, stream, "Nout", 20, Bo2UtilsEnvironment.getDefaultTextCharset());
+		String path = UtilityForBo2Test.getTestStreamPath("TestNamedOutputStream.5.txt");		
+		File file = new File(path);
+		FileOutputStream stream = new FileOutputStream(file);
+		ns = new NamedOutputStream (StreamResource.FILE, stream, "Nout", 20, file, Bo2UtilsEnvironment.getDefaultTextCharset());
 		@SuppressWarnings("unused") String rec1 = ns.readString();
 		ns.find("123".getBytes());
 	}	

@@ -12,6 +12,12 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.namedstreams;
 
+import gr.interamerican.bo2.impl.open.namedstreams.types.TestAbstractNamedStream;
+import gr.interamerican.bo2.impl.open.namedstreams.types.TestNamedBufferedReader;
+import gr.interamerican.bo2.impl.open.namedstreams.types.TestNamedInputStream;
+import gr.interamerican.bo2.impl.open.namedstreams.types.TestNamedOutputStream;
+import gr.interamerican.bo2.impl.open.namedstreams.types.TestNamedPrintStream;
+
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;

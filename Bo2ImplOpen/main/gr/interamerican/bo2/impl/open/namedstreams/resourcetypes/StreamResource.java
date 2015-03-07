@@ -10,7 +10,10 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
-package gr.interamerican.bo2.impl.open.namedstreams;
+package gr.interamerican.bo2.impl.open.namedstreams.resourcetypes;
+
+import gr.interamerican.bo2.impl.open.namedstreams.NamedStream;
+import gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition;
 
 /**
  * Type of resource behind a stream.
@@ -19,32 +22,54 @@ public enum StreamResource {
 	/**
 	 * The stream is based on a File.
 	 */
-	FILE,
+	FILE(new FileNsFactory()),
 	
 	/**
 	 * The stream is in a byte array.
 	 */
-	BYTES,
-	
-	/**
-	 * The stream is an object.
-	 */
-	OBJECT,
+	BYTES(new ByteNsFactory()),
 	
 	/**
 	 * The stream is a classpath resource stream. 
 	 */
-	CLASSPATH,
+	CLASSPATH(new ClasspathNsFactory()),
 	
 	/**
 	 * The stream is a system stream. 
 	 */
-	SYSTEM,
+	SYSTEM(new SystemStreamNsFactory()),
 	
 	/**
 	 * The stream is a resource accessible over HTTP
 	 * This stream supports only input {@link StreamType}s
 	 */
-	HTTP,
+	HTTP(null);
+	
+	
+	/**
+	 * Factory.
+	 */
+	NamedStreamFactory factory;
+	
+
+	/**
+	 * Creates a new StreamResource.
+	 * 
+	 * @param factory
+	 */
+	private StreamResource(NamedStreamFactory factory) {
+		this.factory = factory;
+	}
+
+
+	/**
+	 * Gets the factory.
+	 *
+	 * @return Returns the factory
+	 */
+	public NamedStreamFactory getFactory() {
+		return factory;
+	}
+	
 
 }

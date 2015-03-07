@@ -14,6 +14,12 @@ package gr.interamerican.bo2.impl.open.namedstreams;
 
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
+import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResource;
+import gr.interamerican.bo2.impl.open.namedstreams.types.NamedBufferedReader;
+import gr.interamerican.bo2.impl.open.namedstreams.types.NamedInputStream;
+import gr.interamerican.bo2.impl.open.namedstreams.types.NamedOutputStream;
+import gr.interamerican.bo2.impl.open.namedstreams.types.NamedPrintStream;
+import gr.interamerican.bo2.impl.open.namedstreams.types.StreamType;
 import gr.interamerican.bo2.test.utils.UtilityForBo2Test;
 
 import java.util.Properties;

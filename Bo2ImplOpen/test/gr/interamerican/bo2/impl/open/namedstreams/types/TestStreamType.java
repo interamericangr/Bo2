@@ -10,12 +10,13 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
-package gr.interamerican.bo2.impl.open.namedstreams;
+package gr.interamerican.bo2.impl.open.namedstreams.types;
 
-import static gr.interamerican.bo2.impl.open.namedstreams.StreamType.BUFFEREDREADER;
-import static gr.interamerican.bo2.impl.open.namedstreams.StreamType.INPUTSTREAM;
-import static gr.interamerican.bo2.impl.open.namedstreams.StreamType.PRINTSTREAM;
-import static gr.interamerican.bo2.impl.open.namedstreams.StreamType.OUTPUTSTREAM;
+import static gr.interamerican.bo2.impl.open.namedstreams.types.StreamType.BUFFEREDREADER;
+import static gr.interamerican.bo2.impl.open.namedstreams.types.StreamType.INPUTSTREAM;
+import static gr.interamerican.bo2.impl.open.namedstreams.types.StreamType.OUTPUTSTREAM;
+import static gr.interamerican.bo2.impl.open.namedstreams.types.StreamType.PRINTSTREAM;
+import gr.interamerican.bo2.impl.open.namedstreams.types.StreamType;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;

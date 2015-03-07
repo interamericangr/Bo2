@@ -144,13 +144,35 @@ public class TestExpressionEvaluator {
 	 */	
 	@Test
 	public void testGetValue_MapOwner() {		
-		MapOwner mapOwner = new MapOwner();
+		MapOwner<String,String> mapOwner = new MapOwner<String,String>();
 		String expected = "value1";
-		mapOwner.getStringsMap().put("key1", expected);
-		String exp = "stringsMap.key1";
+		mapOwner.getMap().put("key1", expected);
+		String exp = "map.key1";
 		String actual = ExpressionEvaluator.getInstance().getValue(exp, mapOwner);		
 		Assert.assertEquals(expected, actual);
 	}
+	
+	/**
+	 * Unit test for evaluateOgnlExpression
+	 */	
+	@Test
+	public void testGetValue_MapOwnerComplexObjects() {		
+		MapOwner<String,Object> mapOwner = new MapOwner<String,Object>();
+		String stringKey = "string";
+		String string = "Foo";		
+		String familyKey = "family";		
+		Family family = Samples.theAstaireFamily();						
+		mapOwner.getMap().put(stringKey, string);
+		mapOwner.getMap().put(familyKey, family);		
+		String fatherNameExp = "map.family.father.lastName";
+		String stringExp = "map.string";		
+		String actualString = ExpressionEvaluator.getInstance().getValue(stringExp, mapOwner);		
+		String actualFatherName = ExpressionEvaluator.getInstance().getValue(fatherNameExp, mapOwner);		
+		Assert.assertEquals(string, actualString);
+		Assert.assertEquals(family.getFather().getLastName(), actualFatherName);
+	}
+	
+	
 	
 	
 	

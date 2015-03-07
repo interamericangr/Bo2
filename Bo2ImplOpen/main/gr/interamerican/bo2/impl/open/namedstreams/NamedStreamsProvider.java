@@ -15,6 +15,7 @@ package gr.interamerican.bo2.impl.open.namedstreams;
 import gr.interamerican.bo2.arch.ResourceWrapper;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
+import gr.interamerican.bo2.impl.open.namedstreams.types.StreamType;
 
 /**
  * Provider of named streams.

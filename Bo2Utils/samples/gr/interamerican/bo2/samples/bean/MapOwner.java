@@ -5,30 +5,34 @@ import java.util.Map;
 
 /**
  * Class that owns a Map.
+ * 
+ * @param <K> 
+ * @param <V> 
  */
-public class MapOwner {
+public class MapOwner<K,V> {
 	
 	/**
 	 * Map with strings.
 	 */
-	private Map<String, String> stringsMap = new HashMap<String, String>();
+	private Map<K, V> map = new HashMap<K, V>();
 
 	/**
 	 * Gets the stringsMap.
 	 *
 	 * @return Returns the stringsMap
 	 */
-	public Map<String, String> getStringsMap() {
-		return stringsMap;
+	public Map<K, V> getMap() {
+		return map;
 	}
 
 	/**
-	 * Assigns a new value to the stringsMap.
+	 * Assigns a new value to the map.
 	 *
-	 * @param stringsMap the stringsMap to set
+	 * @param map 
+	 *        the map to set
 	 */
-	public void setStringsMap(Map<String, String> stringsMap) {
-		this.stringsMap = stringsMap;
+	public void setMap(Map<K, V> map) {
+		this.map = map;
 	}
 
 }

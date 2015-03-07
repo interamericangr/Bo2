@@ -10,73 +10,81 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
-package gr.interamerican.bo2.impl.open.namedstreams;
+package gr.interamerican.bo2.impl.open.namedstreams.types;
 
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.DataOperationNotSupportedException;
+import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResource;
 import gr.interamerican.bo2.impl.open.utils.Exceptions;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
+import java.net.SocketTimeoutException;
 import java.nio.charset.Charset;
 
+
 /**
- * Implementation of NamedStream for InputStream.
- * 
- *
+ * Implementation of NamedStream for BufferedReader.
  */
-public class NamedInputStream extends AbstractNamedStream<InputStream> {
+public class NamedBufferedReader extends AbstractNamedStream<BufferedReader> {
 	
 	/**
-	 * Creates a new NamedInputStream object.
+	 * Last line read. Used in case of a {@link SocketTimeoutException} 
+	 * when consuming a stream over a network socket.
+	 */
+	private String lastLine = null;
+	
+	/**
+	 * Creates a new NamedBufferedReader object.
 	 * 
 	 * @param resourceType
 	 * @param stream
+	 *        BufferedReader using the user defined encoding.
 	 * @param name
-	 * @param recordLength
 	 * @param resource 
 	 * @param encoding 
 	 */
-	NamedInputStream(
-			StreamResource resourceType, InputStream stream, 
-			String name, int recordLength, Object resource, Charset encoding) {
-		super(StreamType.INPUTSTREAM, resourceType, stream, name, recordLength, resource, encoding);
+	public NamedBufferedReader(
+			StreamResource resourceType, BufferedReader stream, 
+			String name, Object resource, Charset encoding) {
+		super(StreamType.BUFFEREDREADER, resourceType, stream, name, 0, resource, encoding);
 	}
-	
 
 	public boolean find(byte[] key) 
 	throws DataException, DataOperationNotSupportedException {
-		throw Exceptions.dataOperationNotSupported(stream);
+		throw Exceptions.dataOperationNotSupported(getStream());
 	}
 
 	public byte[] readRecord() 
 	throws DataException {
-		try {
-			byte[] record=new byte[recordLength];
-			int byteCount=stream.read(record);
-			if (byteCount<=0) {
-			    return null;
-			} else {
-			    return record;
-			}
-		} catch (IOException e) {
-			throw new DataException(e);
-		}        
+		String record=readString();
+		if (record==null) {
+			return null;
+		}
+		/*
+		 * We have to specify the encoding here. The String#getBytes()
+		 * call uses the default platform charset.
+		 */
+		return record.getBytes(encoding);
 	}
-
+	
 	public String readString() 
 	throws DataException {
-		byte[] rec=readRecord();
-		if (rec==null) return null;
-		/*
-		 * Use the user defined encoding to convert the bytes to a String.
-		 */
-		return new String(rec, encoding);
+		try {
+			/*
+			 * This BufferedReader should already have the user defined encoding.
+			 */
+			String record=stream.readLine();
+			lastLine = record;
+			return record;
+		} catch (IOException e) {
+			throw new DataException(e.getClass().getSimpleName() + "caught. Last line read: " + lastLine, e); //$NON-NLS-1$
+		}        
 	}
 	
 	public void writeRecord(byte[] record) 
 	throws DataException, DataOperationNotSupportedException {
-		throw Exceptions.dataOperationNotSupported(stream);	
+		throw Exceptions.dataOperationNotSupported(stream);		
 	}
 
 	public void writeString(String string) 
@@ -91,5 +99,5 @@ public class NamedInputStream extends AbstractNamedStream<InputStream> {
 			throw new DataException(e);
 		}
 	}
-	
+
 }

@@ -6,7 +6,7 @@ import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.impl.open.namedstreams.NamedStream;
 import gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition;
 import gr.interamerican.bo2.impl.open.namedstreams.NamedStreamsProvider;
-import gr.interamerican.bo2.impl.open.namedstreams.StreamType;
+import gr.interamerican.bo2.impl.open.namedstreams.types.StreamType;
 import gr.interamerican.bo2.impl.open.utils.Bo2;
 import gr.interamerican.bo2.impl.open.utils.Bo2DeploymentParams;
 

@@ -12,31 +12,25 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.namedstreams;
 
+import static gr.interamerican.bo2.impl.open.namedstreams.InvalidNsdUtility.invalid;
 import static gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition.DATE;
 import static gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition.ENCODING_PREFIX;
 import static gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition.RECORD_LENGTH_PREFIX;
 import static gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition.TIMESTAMP;
-import static gr.interamerican.bo2.impl.open.namedstreams.NamedStreamFactory.httpBufferedReader;
-import static gr.interamerican.bo2.impl.open.namedstreams.NamedStreamFactory.httpInputStream;
-import static gr.interamerican.bo2.impl.open.namedstreams.NamedStreamFactory.input;
-import static gr.interamerican.bo2.impl.open.namedstreams.NamedStreamFactory.output;
-import static gr.interamerican.bo2.impl.open.namedstreams.NamedStreamFactory.print;
-import static gr.interamerican.bo2.impl.open.namedstreams.NamedStreamFactory.reader;
-import static gr.interamerican.bo2.impl.open.namedstreams.NamedStreamFactory.syserr;
-import static gr.interamerican.bo2.impl.open.namedstreams.NamedStreamFactory.sysout;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
+import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.CouldNotConvertNamedStreamException;
+import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.CouldNotCreateNamedStreamException;
+import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.NamedStreamFactory;
+import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResource;
+import gr.interamerican.bo2.impl.open.namedstreams.types.StreamType;
 import gr.interamerican.bo2.utils.ArrayUtils;
 import gr.interamerican.bo2.utils.NumberUtils;
 import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.TokenUtils;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -44,10 +38,10 @@ import java.util.HashMap;
 import java.util.Properties;
 
 /**
- * This class creates {@link NamedStream} objects.
+ * TODO: This is the replacement of NamedStreamsManagerImpl.
  * 
  */
-public abstract class AbstractNamedStreamsManager 
+public class ConcreteNamedStreamsManager 
 implements NamedStreamsProvider {
 	
 
@@ -69,18 +63,20 @@ implements NamedStreamsProvider {
 	 * @param properties
 	 *            Properties object with input for this NamedStreamCreator.
 	 */
-	public AbstractNamedStreamsManager(Properties properties) {
+	public ConcreteNamedStreamsManager(Properties properties) {
 		this.properties = properties;
 		this.streams = new HashMap<String, NamedStream<?>>();
 	}
+	
+	
 	
 	@Override
 	public NamedStream<?> getStream(String name) throws InitializationException {
 		NamedStream<?> ns = streams.get(name);
 		if (ns==null) {
 			NamedStreamDefinition def = getDefinition(name);
-			ns = open(def);			
-			streams.put(name, ns);
+			ns = open(def);		
+			registerStream(ns);
 		}
 		return ns;
 	}
@@ -93,7 +89,7 @@ implements NamedStreamsProvider {
 		 * to the same resource described by the logical name, even though, in the
 		 * end only one will be registered with the registry and used.
 		 */
-		synchronized (AbstractNamedStreamsManager.class) {
+		synchronized (ConcreteNamedStreamsManager.class) {
 			NamedStream<?> ns = SharedNamedStreamsRegistry.getStream(name, this);
 			if (ns==null) {		
 				NamedStreamDefinition def = getDefinition(name);
@@ -127,20 +123,6 @@ implements NamedStreamsProvider {
 	public void registerStreamDefinition(NamedStreamDefinition definition) {
 		properties.setProperty(definition.getName(), definition.getSpecsString());
 	}
-
-	/**
-	 * Opens a {@link NamedInputStream}.
-	 * 
-	 * @param def
-	 *        Definition for the named stream.
-	 *        
-	 * @return Returns the stream.
-	 * @throws InitializationException
-	 */
-	protected abstract NamedStream<?> open (NamedStreamDefinition def) 
-	throws InitializationException;
-	
-	
 	
 	
 	/**
@@ -153,7 +135,7 @@ implements NamedStreamsProvider {
 	 * 
 	 * @throws InitializationException
 	 */
-	protected NamedStreamDefinition getDefinition(String name) 
+	NamedStreamDefinition getDefinition(String name) 
 	throws InitializationException {
 		String definition = properties.getProperty(name);
 		if (definition==null) {
@@ -239,7 +221,30 @@ implements NamedStreamsProvider {
 		return fileUri;
 	}
 	
-
+	/**
+	 * Gets a string based on the current timestamp.
+	 * 
+	 * timestamp format is yyyyMMddhhmmss, e.g. 20141103124700
+	 * 
+	 * @return Returns a string based on the current timestamp.
+	 */
+	String currentTimestamp() {
+		String tmstmp = new SimpleDateFormat("yyyyMMddhhmmss").format(Calendar.getInstance().getTime()); //$NON-NLS-1$
+		return tmstmp;
+	}
+	
+	/**
+	 * Gets a string based on the current date.
+	 * 
+	 * date format is yyyyMMdd, e.g. 20141103
+	 * 
+	 * @return Returns a string based on the current timestamp.
+	 */
+	String currentDate() {
+		String date = new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime()); //$NON-NLS-1$
+		return date;
+	}
+	
 	/**
 	 * The first three definition attributes are mandatory. There are two more
 	 * optional attributes, recordLength and encoding. RecordLength is an integer
@@ -269,177 +274,40 @@ implements NamedStreamsProvider {
 		return nsd;
 	}
 	
-	/**
-	 * Opens a system stream (System.out or System.err) as NamedPrintStream.
-	 * 
-	 * @param def
-	 *        Definition for the named stream.
-	 *        
-	 * @return Returns the stream.
-	 * @throws InitializationException
-	 */
-	@SuppressWarnings("nls")
-	protected NamedPrintStream openSystemStream (NamedStreamDefinition def) 
-	throws InitializationException {		
-		if ("sysout".equalsIgnoreCase(def.getUri())) {
-			return sysout(def.getName(), def.getEncoding());
-		}
-		if ("syserr".equalsIgnoreCase(def.getUri())) {
-			return syserr(def.getName(), def.getEncoding());	
-		}		
-		throw invalid("Invalid system stream ", def.getName());
-		
-	}
-	
-	/**
-	 * Opens a file based named stream.
-	 * 
-	 * @param def
-	 * 
-	 * @return Returns the NamedStream.
-	 * @throws InitializationException
-	 */
-	protected NamedStream<?> openFileStream(NamedStreamDefinition def) 
-	throws InitializationException {
+	NamedStream<?> open(NamedStreamDefinition def) throws InitializationException {
 		try {
-			NamedStream<?> ns = createNameStreamForFile(def);
-			if (ns==null) {
-				throw invalid("Invalid definition", def.getName()); //$NON-NLS-1$				
-			}
-			return ns;
-		} catch (IOException ioe) {
-			throw new InitializationException(ioe);
-		}		
-	}
-	
-	
-	/**
-	 * Creates a NamedStream for the specified NamedStreamDefinition
-	 * that has resourceType = FILE.
-	 * 
-	 * @param def
-	 * 
-	 * @return Returns the NamedStream.
-	 * 
-	 * @throws IOException
-	 */
-	protected NamedStream<?> createNameStreamForFile(NamedStreamDefinition def) 
-	throws IOException {
-		File file = new File(def.getUri());		
-		StreamType type = def.getType();
-		
-		switch (type) {
-		
-		case BUFFEREDREADER:
-			return reader(file, def.getName(), def.getEncoding());
-			
-		case INPUTSTREAM:
-			return input(file, def.getName(), def.getRecordLength(), def.getEncoding());
-			
-		case OUTPUTSTREAM:
-			return output(file, def.getName(), def.getRecordLength(), def.getEncoding());
-			
-		case PRINTSTREAM:			
-			return print(file, def.getName(), def.getEncoding());
-			
-		default:
-			return null;
-			
-		}
-		
-	}
-	
-	/**
-	 * Opens a stream for the specified definition.
-	 * 
-	 * @param def 
-	 *
-	 * @return returns the stream.
-	 * 
-	 * @throws InitializationException 
-	 */
-	protected NamedStream<?> openClasspathStream(NamedStreamDefinition def)
-	throws InitializationException {
-		InputStream in = AbstractNamedStreamsManager.class.getResourceAsStream(def.getUri());
-		if (in==null) {
-			throw invalid("Classpath resource " + def.getUri(), def.getName()); //$NON-NLS-1$
-		}
-		StreamType type = def.getType();
-		
-		switch (type) {
-		case BUFFEREDREADER:
-			InputStreamReader isr = new InputStreamReader(in, def.getEncoding());
-			BufferedReader stream = new BufferedReader(isr);
-			NamedBufferedReader nbr = reader(stream, def.getName(), def.getEncoding());
-			nbr.resourceType = StreamResource.CLASSPATH;
-			return nbr;
-						
-		case INPUTSTREAM:
-			NamedInputStream nis = input(in, def.getName(), def.getRecordLength(), def.getEncoding());
-			nis.resourceType = StreamResource.CLASSPATH;
-			return nis;
-			
-		default:
-			throw invalid("Invalid type", def.getName());  //$NON-NLS-1$
+			StreamResource resourceType = def.getResourceType();
+			NamedStreamFactory factory = resourceType.getFactory();
+			return factory.create(def);
+		} catch (CouldNotCreateNamedStreamException e) {			
+			throw new InitializationException(e);
 		}
 	}
 	
-	/**
-	 * Opens a file based named stream.
-	 * 
-	 * @param def
-	 * 
-	 * @return Returns the NamedStream.
-	 * @throws InitializationException
-	 */
-	protected NamedStream<?> openInMemoryStream(NamedStreamDefinition def) 
-	throws InitializationException {
-		StreamType type = def.getType();
-		switch (type) {
-		case OUTPUTSTREAM:
-			return output(def.getName(), def.getRecordLength(), def.getEncoding()); 					
-		case PRINTSTREAM:			
-			return print(def.getName(), def.getEncoding());
-		default:
-			throw invalid("Invalid type", def.getName());  //$NON-NLS-1$
+	@Override
+	public NamedStream<?> convert(String nameOfStreamToConvert, StreamType typeOfNewStream, String nameOfNewStream)
+	throws DataException {
+		try {
+			NamedStream<?> ns = getStream(nameOfStreamToConvert);
+			StreamResource resourceType = ns.getResourceType();
+			NamedStreamFactory factory = resourceType.getFactory();
+			NamedStream<?> converted = factory.convert(ns, typeOfNewStream, nameOfNewStream);
+			registerStream(converted);
+			return converted;
+		} catch (CouldNotConvertNamedStreamException cncnsex) {			
+			throw new DataException(cncnsex);
+		} catch (InitializationException iex) {			
+			throw new DataException(iex);
 		}
 	}
 	
-	/**
-	 * Opens an http resource based named stream.
-	 * 
-	 * @param def
-	 * 
-	 * @return Returns the NamedStream.
-	 * 
-	 * @throws InitializationException
-	 */
-	protected NamedStream<?> openHttpStream(NamedStreamDefinition def) throws InitializationException {
-		StreamType type = def.getType();
-		switch (type) {
-		case INPUTSTREAM:
-			return httpInputStream(def);
-		case BUFFEREDREADER:
-			return httpBufferedReader(def);
-		default:
-			throw invalid("Invalid type", def.getName());  //$NON-NLS-1$
-		}
-	}
 	
-	/**
-	 * Creates an initialization exception.
-	 * 
-	 * @param name
-	 * @param problem
-	 * 
-	 * @return Returns the exception.
-	 */
-	static InitializationException 
-	invalid(String problem, String name) {
-		@SuppressWarnings("nls")
-		String msg = StringUtils.concat(
-			problem, " for the named stream ", name);
-		return new InitializationException(msg);
-	}
+	
+	
+	
+
+	
+
+	
 	
 }

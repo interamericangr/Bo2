@@ -10,8 +10,10 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
-package gr.interamerican.bo2.impl.open.namedstreams;
+package gr.interamerican.bo2.impl.open.namedstreams.types;
 
+import gr.interamerican.bo2.impl.open.namedstreams.NamedStream;
+import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResource;
 import gr.interamerican.bo2.utils.Bo2UtilsEnvironment;
 import gr.interamerican.bo2.utils.Utils;
 
