@@ -33,6 +33,7 @@ implements NamedStreamFactory {
 
 	/**
 	 * Creates a new ReadOnlyNsFactory.
+	 * 
 	 * @param resourceType
 	 */
 	public ReadOnlyNsFactory(StreamResource resourceType) {

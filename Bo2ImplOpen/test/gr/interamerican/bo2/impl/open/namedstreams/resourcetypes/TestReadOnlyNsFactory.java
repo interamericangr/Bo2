@@ -6,7 +6,6 @@ import gr.interamerican.bo2.impl.open.namedstreams.types.NamedBufferedReader;
 import gr.interamerican.bo2.impl.open.namedstreams.types.NamedInputStream;
 import gr.interamerican.bo2.impl.open.namedstreams.types.StreamType;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
