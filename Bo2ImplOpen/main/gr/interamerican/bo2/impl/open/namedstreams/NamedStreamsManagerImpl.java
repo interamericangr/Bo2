@@ -12,269 +12,302 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.namedstreams;
 
-
+import static gr.interamerican.bo2.impl.open.namedstreams.InvalidNsdUtility.invalid;
+import static gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition.DATE;
+import static gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition.ENCODING_PREFIX;
+import static gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition.RECORD_LENGTH_PREFIX;
+import static gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition.TIMESTAMP;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
+import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.CouldNotConvertNamedStreamException;
+import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.CouldNotCreateNamedStreamException;
+import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.NamedStreamFactory;
+import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResource;
+import gr.interamerican.bo2.impl.open.namedstreams.types.StreamType;
+import gr.interamerican.bo2.utils.ArrayUtils;
+import gr.interamerican.bo2.utils.NumberUtils;
+import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.StringUtils;
+import gr.interamerican.bo2.utils.TokenUtils;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
-import java.io.PrintStream;
+import java.nio.charset.Charset;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Properties;
 
 /**
- * Implementation of {@link NamedStreamsProvider}. 
+ * TODO: This is the replacement of NamedStreamsManagerImpl.
+ * 
  */
 public class NamedStreamsManagerImpl 
-extends AbstractNamedStreamsManager {
+implements NamedStreamsProvider {
 	
+
+
+	/**
+	 * Streams opened by the program
+	 */
+	HashMap<String, NamedStream<?>> streams;
+
+	/**
+	 * Program for which the NamedStreamsCreator operates.
+	 */
+	protected Properties properties;
+
 	/**
 	 * Creates a new NamedStreamsCreator that is reads input by a Properties
 	 * object.
 	 * 
 	 * @param properties
-	 *        Properties object with input for this NamedStreamCreator.
+	 *            Properties object with input for this NamedStreamCreator.
 	 */
 	public NamedStreamsManagerImpl(Properties properties) {
-		super(properties);
+		this.properties = properties;
+		this.streams = new HashMap<String, NamedStream<?>>();
+	}
+	
+	
+	
+	@Override
+	public NamedStream<?> getStream(String name) throws InitializationException {
+		NamedStream<?> ns = streams.get(name);
+		if (ns==null) {
+			NamedStreamDefinition def = getDefinition(name);
+			ns = open(def);		
+			registerStream(ns);
+		}
+		return ns;
 	}
 	
 	@Override
-	public NamedStream<?> convert
-	(String nameOfStreamToConvert, StreamType typeOfNewStream, String nameOfNewStream)
+	public NamedStream<?> getSharedStream(String name) throws InitializationException {
+		/*
+		 * This needs to be synchronized across all instances of this class, because
+		 * it is possible that two competing threads may open two different streams
+		 * to the same resource described by the logical name, even though, in the
+		 * end only one will be registered with the registry and used.
+		 */
+		synchronized (NamedStreamsManagerImpl.class) {
+			NamedStream<?> ns = SharedNamedStreamsRegistry.getStream(name, this);
+			if (ns==null) {		
+				NamedStreamDefinition def = getDefinition(name);
+				ns = open(def);			
+				SharedNamedStreamsRegistry.register(name, ns, this);
+			}
+			return SharedNamedStreamsRegistry.getStream(name, this);
+		}
+	}
+		
+	@Override
+	public void close() throws DataException {
+		for (NamedStream<?> stream : streams.values()) {
+			stream.close();
+		}
+		streams.clear();
+		SharedNamedStreamsRegistry.releaseSharedStreams(this);
+	}
+	
+	@Override
+	public void registerStream(NamedStream<?> stream) {
+		streams.put(stream.getName(), stream);
+	}
+	
+	@Override
+	public void registerSharedStream(NamedStream<?> stream) {
+		SharedNamedStreamsRegistry.register(stream.getName(), stream, this);
+	}
+	
+	@Override
+	public void registerStreamDefinition(NamedStreamDefinition definition) {
+		properties.setProperty(definition.getName(), definition.getSpecsString());
+	}
+	
+	
+	/**
+	 * Gets the definition of the stream with the specified logical name.
+	 * 
+	 * @param name
+	 *        Stream name.
+	 *        
+	 * @return Returns the definition.
+	 * 
+	 * @throws InitializationException
+	 */
+	NamedStreamDefinition getDefinition(String name) 
+	throws InitializationException {
+		String definition = properties.getProperty(name);
+		if (definition==null) {
+			String problem = "No description"; //$NON-NLS-1$
+			throw invalid(problem, name);
+		}
+		String[] attributes = TokenUtils.splitTrim(definition, StringConstants.COMMA);
+		if (attributes.length<3) {
+			String problem = "Invalid description"; //$NON-NLS-1$
+			throw invalid(problem, name);
+		}
+		StreamType type = StringUtils.ignoreCaseValueOf
+			(StreamType.values(), attributes[1]);
+		if (type==null) {
+			String problem = "Unknown type " + attributes[1]; //$NON-NLS-1$
+			throw invalid(problem, name);
+		}
+		StreamResource resourceType = StringUtils.ignoreCaseValueOf
+			(StreamResource.values(), attributes[2]);
+		if (resourceType==null) {
+			String problem = "Unknown resource type " + attributes[2]; //$NON-NLS-1$
+			throw invalid(problem, name);
+		}
+
+		NamedStreamDefinition nsd = new NamedStreamDefinition();
+		nsd.setName(name);
+		String definitionUri = attributes[0];
+		nsd.setType(type);
+		nsd.setResourceType(resourceType);
+		nsd.setRecordLength(0); //initialize with zero
+		
+		if(resourceType == StreamResource.FILE) { //dynamic URI + windows hack
+			definitionUri = fileUri(definitionUri, type);
+		}
+		nsd.setUri(definitionUri);		
+		
+		String optionalAttribute = ArrayUtils.safeGet(attributes, 3);
+		nsd = handleOptionalDefinitionElement(nsd, optionalAttribute);
+		optionalAttribute = ArrayUtils.safeGet(attributes, 4);
+		nsd = handleOptionalDefinitionElement(nsd, optionalAttribute);
+		
+		return nsd;
+	}
+	
+	/**
+	 * Gets the actual definitionUri if the stream is FILE based. Output streams URI may be dynamic based
+	 * on the current timestamp.
+	 * 
+	 * @param definitionUri
+	 * @param streamType 
+	 * 
+	 * @return Returns the actual definitionUri
+	 */
+	String fileUri(String definitionUri, StreamType streamType) {
+		String result = fileUriModificationForWindows(definitionUri);
+		
+		if(!streamType.isOutputStream()) {
+			return result;
+		}
+		
+		if(result.contains(TIMESTAMP)) {
+			result = result.replace(TIMESTAMP, currentTimestamp());
+		}
+		
+		if(result.contains(DATE)) {
+			result = result.replace(DATE, currentDate());
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * Prepends C: if the running OS is not unix...
+	 * 
+	 * @param fileUri
+	 * @return modified URI.
+	 */
+	String fileUriModificationForWindows(String fileUri) {
+		boolean runsOnUnix = File.separator.equals("/"); //$NON-NLS-1$
+		if(!runsOnUnix && fileUri.startsWith("/")) { //$NON-NLS-1$
+			return "C:" + fileUri.trim(); //$NON-NLS-1$
+		}
+		return fileUri;
+	}
+	
+	/**
+	 * Gets a string based on the current timestamp.
+	 * 
+	 * timestamp format is yyyyMMddhhmmss, e.g. 20141103124700
+	 * 
+	 * @return Returns a string based on the current timestamp.
+	 */
+	String currentTimestamp() {
+		String tmstmp = new SimpleDateFormat("yyyyMMddhhmmss").format(Calendar.getInstance().getTime()); //$NON-NLS-1$
+		return tmstmp;
+	}
+	
+	/**
+	 * Gets a string based on the current date.
+	 * 
+	 * date format is yyyyMMdd, e.g. 20141103
+	 * 
+	 * @return Returns a string based on the current timestamp.
+	 */
+	String currentDate() {
+		String date = new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime()); //$NON-NLS-1$
+		return date;
+	}
+	
+	/**
+	 * The first three definition attributes are mandatory. There are two more
+	 * optional attributes, recordLength and encoding. RecordLength is an integer
+	 * encoding is a Charset name starting with the prefix {@value #ENCODING_PREFIX}
+	 * <br/>
+	 * For example enc:UTF-8 signifies the UTF-8 encoding.
+	 * 
+	 *  @see Charset
+	 * 
+	 * @param nsd
+	 * @param attribute
+	 * @return NamedStreamDefinition instance for testability.
+	 */
+	NamedStreamDefinition handleOptionalDefinitionElement(NamedStreamDefinition nsd, String attribute) {
+		if(attribute==null) {
+			return nsd;
+		}
+		
+		if(attribute.trim().startsWith(ENCODING_PREFIX)) {
+			String charset = attribute.trim().replace(ENCODING_PREFIX, StringConstants.EMPTY);
+			nsd.setEncoding(Charset.forName(charset));
+		} else if(attribute.trim().startsWith(RECORD_LENGTH_PREFIX)) {
+			String recordLength = attribute.trim().replace(RECORD_LENGTH_PREFIX, StringConstants.EMPTY);
+			int iLen = NumberUtils.string2Int(recordLength);
+			nsd.setRecordLength(iLen);
+		}
+		return nsd;
+	}
+	
+	NamedStream<?> open(NamedStreamDefinition def) throws InitializationException {
+		try {
+			StreamResource resourceType = def.getResourceType();
+			NamedStreamFactory factory = resourceType.getFactory();
+			return factory.create(def);
+		} catch (CouldNotCreateNamedStreamException e) {			
+			throw new InitializationException(e);
+		}
+	}
+	
+	@Override
+	public NamedStream<?> convert(String nameOfStreamToConvert, StreamType typeOfNewStream, String nameOfNewStream)
 	throws DataException {
 		try {
 			NamedStream<?> ns = getStream(nameOfStreamToConvert);
-			return convert(ns, typeOfNewStream, nameOfNewStream);			
-		} catch (InitializationException e) {
-			throw new DataException(e);
+			StreamResource resourceType = ns.getResourceType();
+			NamedStreamFactory factory = resourceType.getFactory();
+			NamedStream<?> converted = factory.convert(ns, typeOfNewStream, nameOfNewStream);
+			registerStream(converted);
+			return converted;
+		} catch (CouldNotConvertNamedStreamException cncnsex) {			
+			throw new DataException(cncnsex);
+		} catch (InitializationException iex) {			
+			throw new DataException(iex);
 		}
-		
 	}
+	
+	
+	
+	
+	
 
-	@Override
-	protected NamedStream<?> open(NamedStreamDefinition def) 
-	throws InitializationException {
-		StreamResource resourceType = def.getResourceType();
-		switch (resourceType) {
-		case SYSTEM:
-			return openSystemStream(def);
-		case CLASSPATH:
-			return openClasspathStream(def);			
-		case FILE:
-			return openFileStream(def);
-		case BYTES:
-			return openInMemoryStream(def);		
-		case HTTP:
-			return openHttpStream(def);
-		default:
-			throw invalid("Invalid stream type in definition", def.getName()); //$NON-NLS-1$
-		}
-	}
 	
-	/**
-	 * Creates a new NamedStream that has a new type.
-	 * 
-	 * @param streamToConvert
-	 *        NamedStream to convert.
-	 * @param nameOfNewStream
-	 *        Name of the new stream.
-	 * @param typeOfNewStream
-	 *        Type of the new NamedStream.
-	 * @return Returns the new NamedStream.
-	 * 
-	 * @throws DataException
-	 */
-	NamedStream<?> convertFileStream
-	(NamedStream<?> streamToConvert, String nameOfNewStream, StreamType typeOfNewStream) 
-	throws DataException {
-		try {
-			NamedStreamDefinition nsd = new NamedStreamDefinition();
-			nsd.setName(nameOfNewStream);
-			nsd.setRecordLength(streamToConvert.getRecordLength());
-			nsd.setResourceType(streamToConvert.getResourceType());
-			nsd.setType(typeOfNewStream);
-			File file = (File) streamToConvert.getResource();
-			String path = file.getPath();
-			nsd.setUri(path);
-			return createNameStreamForFile(nsd);
-		} catch (IOException e) {
-			throw new DataException(e);
-		}
-	}
-	
-	/**
-	 * Creates a new NamedStream that has a new type.
-	 * 
-	 * @param streamToConvert
-	 *        NamedStream to convert.
-	 * @param nameOfNewStream
-	 *        Name of the new stream.
-	 * @param typeOfNewStream
-	 *        Type of the new NamedStream.
-	 * @return Returns the new NamedStream.
-	 * 
-	 * @throws DataException
-	 */
-	NamedStream<?> convertSystemStream
-	(NamedStream<?> streamToConvert, String nameOfNewStream, StreamType typeOfNewStream) 
-	throws DataException {
-		if (!StreamType.PRINTSTREAM.equals(typeOfNewStream)) {
-			throw notSupported(streamToConvert, typeOfNewStream);
-		}
-		NamedPrintStream nps = (NamedPrintStream) streamToConvert;
-		return NamedStreamFactory.systemStream(nameOfNewStream, nps.getStream(), nps.getEncoding());
-	}
-	
-	/**
-	 * Creates a new NamedStream that has a new type.
-	 * 
-	 * @param streamToConvert
-	 *        NamedStream to convert.
-	 * @param nameOfNewStream
-	 *        Name of the new stream.
-	 * @param typeOfNewStream
-	 *        Type of the new NamedStream.
-	 * @return Returns the new NamedStream.
-	 * 
-	 * @throws DataException
-	 */
-	NamedStream<?> convertInMemoryStream
-	(NamedStream<?> streamToConvert, String nameOfNewStream, StreamType typeOfNewStream) 
-	throws DataException {
-		StreamType type = streamToConvert.getType();
-		switch (type) {
-		case INPUTSTREAM:
-		case BUFFEREDREADER:	
-			return convertBytesNamedStream
-				(streamToConvert, nameOfNewStream, typeOfNewStream);
-		case OUTPUTSTREAM:
-		case PRINTSTREAM:	
-			return convertByteArrayOutputStream
-				(streamToConvert, nameOfNewStream, typeOfNewStream);
-		}
-		throw notSupported(streamToConvert, typeOfNewStream);
-	}
-	
-	/**
-	 * Converts a NamedStream based on an array of bytes.
-	 * 
-	 * @param streamToConvert
-	 *        NamedStream to convert.
-	 * @param nameOfNewStream
-	 *        Name of the new stream.
-	 * @param typeOfNewStream
-	 *        Type of the new NamedStream.
-	 * @return Returns the new NamedStream.
-	 * 
-	 * @throws DataException
-	 */
-	NamedStream<?> convertBytesNamedStream
-	(NamedStream<?> streamToConvert, String nameOfNewStream, StreamType typeOfNewStream) 
-	throws DataException {
-		byte[] bytes = (byte[]) streamToConvert.getResource();
-		switch (typeOfNewStream) {
-		case INPUTSTREAM:
-			return NamedStreamFactory.input
-				(bytes, nameOfNewStream, streamToConvert.getRecordLength(), streamToConvert.getEncoding());
-		case BUFFEREDREADER:
-			return NamedStreamFactory.reader(bytes, nameOfNewStream, streamToConvert.getEncoding());
-		}
-		throw notSupported(streamToConvert, typeOfNewStream);
-	}
-	
-	/**
-	 * Creates a new NamedStream that has a new type.
-	 * 
-	 * @param streamToConvert
-	 *        NamedStream to convert.
-	 * @param nameOfNewStream
-	 *        Name of the new stream.
-	 * @param typeOfNewStream
-	 *        Type of the new NamedStream.
-	 * @return Returns the new NamedStream.
-	 * 
-	 * @throws DataException
-	 */
-	NamedStream<?> convertByteArrayOutputStream
-	(NamedStream<?> streamToConvert, String nameOfNewStream, StreamType typeOfNewStream) 
-	throws DataException {
-		ByteArrayOutputStream baos = (ByteArrayOutputStream) streamToConvert.getResource();
-		byte[] bytes;
-		switch (typeOfNewStream) {
-		case INPUTSTREAM:
-			bytes = baos.toByteArray();
-			return NamedStreamFactory.input
-				(bytes, nameOfNewStream, streamToConvert.getRecordLength(), streamToConvert.getEncoding());
-		case BUFFEREDREADER:
-			bytes = baos.toByteArray();
-			return NamedStreamFactory.reader(bytes, nameOfNewStream, streamToConvert.getEncoding());
-		case OUTPUTSTREAM:
-			return new NamedOutputStream(
-				StreamResource.BYTES, baos, nameOfNewStream, 
-				streamToConvert.getRecordLength(), baos, streamToConvert.getEncoding());
-		case PRINTSTREAM:
-			PrintStream ps = new PrintStream(baos);
-			return new NamedPrintStream(StreamResource.BYTES, ps, nameOfNewStream, baos, streamToConvert.getEncoding());			
-		}
-		throw notSupported(streamToConvert, typeOfNewStream);
-	}
-	
-	/**
-	 * Converts the specified NamedStream to a new type.
-	 * 
-	 * @param ns
-	 *        NamedStream to convert.
-	 * @param typeOfNewStream
-	 *        Type of the new NamedStream.
-	 * @param nameOfNewStream
-	 *        Name of the new NamedStream.
-	 *        
-	 * @return Returns the new NamedStream.
-	 * 
-	 * @throws DataException
-	 */
-	NamedStream<?> convert
-	(NamedStream<?> ns, StreamType typeOfNewStream, String nameOfNewStream) 
-	throws DataException {
-		NamedStream<?> newStream;
-		StreamResource resourceType = ns.getResourceType();
-		switch (resourceType) {
-		case FILE:
-			newStream = convertFileStream(ns, nameOfNewStream, typeOfNewStream);
-			break;
-		case SYSTEM:			
-			newStream = convertSystemStream(ns, nameOfNewStream, typeOfNewStream);
-			break;
-		case BYTES:
-			newStream = convertInMemoryStream(ns, nameOfNewStream, typeOfNewStream);
-			break;
-		default:
-			throw notSupported(ns, typeOfNewStream);
-		}
-		registerStream(newStream);
-		return newStream;
-	}
-	
-	/**
-	 * Creates a DataException for the case that a conversion
-	 * is not supported.
-	 * 
-	 * @param stream
-	 * @param type
-	 * 
-	 * @return Returns the DataException.
-	 */
-	DataException notSupported(NamedStream<?> stream, StreamType type) {
-		@SuppressWarnings("nls")
-		String msg = StringUtils.concat(
-			"Can't convert the stream ", stream.getName(),
-			" with type ", stream.getType().toString(),
-			" and resource type ", stream.getResourceType().toString(),
-			" to type ", type.toString());
-		return new DataException(msg);
-	}
+
 	
 	
 }
