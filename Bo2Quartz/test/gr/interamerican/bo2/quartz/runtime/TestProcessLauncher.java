@@ -4,6 +4,7 @@
 package gr.interamerican.bo2.quartz.runtime;
 
 import gr.interamerican.bo2.arch.exceptions.DataException;
+import gr.interamerican.bo2.impl.open.job.JobDescription;
 import gr.interamerican.bo2.quartz.QuartzSchedulerRegistry;
 import gr.interamerican.bo2.quartz.util.QuartzUtils;
 
@@ -70,6 +71,22 @@ public class TestProcessLauncher {
 				.getName()) == 1);
 		QuartzUtils.waitGroupToComplete(StreamRedirectOperation.class.getName());
 		Assert.assertTrue(outContent.toString().contains(SampleRunTimeCommand.class.getName()));
+		QuartzSchedulerRegistry.clearScheduledJobDescriptions();
+	}
+
+	/**
+	 * test method for {@link ProcessLauncher#extractProcessFromJobDescription(JobDescription)}
+	 *
+	 * @throws DataException
+	 */
+	@Test
+	public void testExtractProcessFromJobDescription() throws DataException {
+		QuartzSchedulerRegistry.clearScheduledJobDescriptions();
+		JobDescription bean = ProcessLauncher.launchMultilauncher(SampleRunTimeCommand.class);
+		Process p = ProcessLauncher.extractProcessFromJobDescription(bean);
+		Assert.assertNotNull(p);
+		QuartzUtils.waitGroupToComplete(StreamRedirectOperation.class.getName());
+		Assert.assertEquals(0, p.exitValue());
 		QuartzSchedulerRegistry.clearScheduledJobDescriptions();
 	}
 }

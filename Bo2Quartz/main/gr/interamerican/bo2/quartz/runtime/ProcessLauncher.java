@@ -1,5 +1,6 @@
 package gr.interamerican.bo2.quartz.runtime;
 
+import gr.interamerican.bo2.arch.Operation;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.impl.open.creation.Factory;
 import gr.interamerican.bo2.impl.open.job.JobDescription;
@@ -9,6 +10,7 @@ import gr.interamerican.bo2.quartz.QuartzJobSchedulerImpl;
 import gr.interamerican.bo2.utils.StringConstants;
 
 import java.io.IOException;
+import java.io.PrintStream;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
@@ -25,16 +27,30 @@ public class ProcessLauncher {
 	 * parameter for classpath for the java executable
 	 */
 	protected static final String CLASSPATH_PARAM = "-classpath"; //$NON-NLS-1$
+	/**
+	 * indicates the operation to attach to a process generated for the new jvm.
+	 */
+	private static final Class<? extends Operation> operation2attach = StreamRedirectOperation.class;
+	/**
+	 * property to set the process object.
+	 */
+	private static final String PROCESS_PROPERTY = "process"; //$NON-NLS-1$
+	/**
+	 * property for the outputstream.
+	 */
+	private static final String PRINT_STREAM = "outputStream"; //$NON-NLS-1$
 
 	/**
 	 * launches a separate process.
 	 *
 	 * @param environment
+	 * @param out
 	 * @param args
+	 * @return the created process
 	 * @throws DataException
 	 */
-	public static synchronized void launch(Map<String, String> environment, String... args)
-			throws DataException {
+	public static synchronized JobDescription launch(Map<String, String> environment,
+			PrintStream out, String... args) throws DataException {
 		ProcessBuilder pb = new ProcessBuilder(args);
 		pb.redirectErrorStream(true);
 		if (environment != null) {
@@ -47,23 +63,29 @@ public class ProcessLauncher {
 		} catch (IOException e) {
 			throw new DataException(e);
 		}
-		attachProcessInputStream(p);
+		JobDescription bean = attachProcessInputStream(p, out);
+		return bean;
 	}
 
 	/**
 	 * @param process
+	 * @param out
+	 * @return the jobdescription of the submitted job.
 	 * @throws DataException
 	 */
-	private static void attachProcessInputStream(Process process) throws DataException {
+	private static JobDescription attachProcessInputStream(Process process, PrintStream out)
+			throws DataException {
 		JobScheduler jsp = new QuartzJobSchedulerImpl();
 		JobDescription bean = Factory.create(JobDescription.class);
-		bean.setOperationClass(StreamRedirectOperation.class);
+		bean.setOperationClass(operation2attach);
 		Map<String, Object> params = new HashMap<String, Object>();
-		params.put("process", process); //$NON-NLS-1$
+		params.put(PROCESS_PROPERTY, process);
+		params.put(PRINT_STREAM, out);
 		bean.setParameters(params);
 		List<JobDescription> jobDescriptions = new ArrayList<JobDescription>();
 		jobDescriptions.add(bean);
 		jsp.submitJobs(jobDescriptions);
+		return bean;
 	}
 
 	/**
@@ -87,15 +109,54 @@ public class ProcessLauncher {
 		}
 		return classpath;
 	}
+
 	/**
 	 * launches a {@link MultiLauncher} as a separate process.
 	 *
 	 * @param clazz
+	 * @return the {@link JobDescription} of the quartz job attached to the created process
 	 * @throws DataException
 	 */
-	public static void launchMultilauncher(Class<?> clazz) throws DataException {
-		ProcessLauncher.launch(null, getJavaExecutable(), CLASSPATH_PARAM, getClasspath(),
-				MultiLauncher.class.getName(), clazz.getName());
+	public static JobDescription launchMultilauncher(Class<?> clazz) throws DataException {
+		JobDescription bean = ProcessLauncher.launch(null, null, getJavaExecutable(),
+				CLASSPATH_PARAM, getClasspath(), MultiLauncher.class.getName(), clazz.getName());
+		return bean;
 	}
 
+	/**
+	 * extracts the process from a {@link JobDescription}
+	 *
+	 * @param bean
+	 * @return the process
+	 * @throws DataException
+	 */
+	public static Process extractProcessFromJobDescription(JobDescription bean)
+			throws DataException {
+		if (!(bean.getOperationClass().isAssignableFrom(operation2attach))) {
+			throw new DataException(
+					"JobDescription bean does not indicate it was attached to process"); //$NON-NLS-1$
+		}
+		Map<String, Object> params = bean.getParameters();
+		Object p = params.get(PROCESS_PROPERTY);
+		return (Process) p;
+	}
+
+	/**
+	 * @param bean
+	 * @return the PrintStream assigned to the process for output.
+	 * @throws DataException
+	 */
+	public static PrintStream exctractStreamFromjobDescription(JobDescription bean)
+			throws DataException {
+		if (!(bean.getOperationClass().isAssignableFrom(operation2attach))) {
+			throw new DataException(
+					"JobDescription bean does not indicate it was attached to process"); //$NON-NLS-1$
+		}
+		Map<String, Object> params = bean.getParameters();
+		Object p = params.get(PRINT_STREAM);
+		if (p != null) {
+			return (PrintStream) p;
+		}
+		return System.out;
+	}
 }
