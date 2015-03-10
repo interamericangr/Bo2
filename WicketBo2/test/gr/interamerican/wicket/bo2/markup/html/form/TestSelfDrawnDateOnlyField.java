@@ -37,7 +37,7 @@ public class TestSelfDrawnDateOnlyField extends WicketTest {
 	/**
 	 * Test creation.
 	 */
-	// @Test
+	@Test
 	public void testConstructor_noModel_noDefault() {
 		DateBoPropertyDescriptor descriptor = new DateBoPropertyDescriptor();
 		SelfDrawnDateOnlyField field = new SelfDrawnDateOnlyField(TestPage.TEST_ID,
@@ -90,5 +90,6 @@ public class TestSelfDrawnDateOnlyField extends WicketTest {
 		c.set(Calendar.MILLISECOND, 0);
 		// Assert.assertEquals(c.getTime(), field.getDefaultModelObject());
 		commonAssertions_noError();
+		// System.out.println(tester.getLastResponse().getDocument());
 	}
 }

@@ -27,8 +27,7 @@ public class DateOnlyField extends DateField {
 	public DateOnlyField(String id) {
 		super(id);
 		DateOnlyTextField my = new DateOnlyTextField(DATE, new ParseLocalDateConverter("dd/MM/yy.yy", false)); //$NON-NLS-1$
-		ReflectionUtils.set("dateField", my, this); //$NON-NLS-1$
-		get(DATE).replaceWith(my);
+		alterEmbendedDateTextField(my);
 	}
 
 	/**
@@ -42,8 +41,18 @@ public class DateOnlyField extends DateField {
 		PropertyModel<Date> dateFieldModel = new PropertyModel<Date>(this, DATE);
 		DateOnlyTextField my = new DateOnlyTextField(DATE, dateFieldModel, new ParseLocalDateConverter(
 				"dd/MM/yyyy", false)); //$NON-NLS-1$
+		alterEmbendedDateTextField(my);
+	}
+
+	/**
+	 * alter the {@link DateField} with the {@link DateOnlyTextField}.
+	 *
+	 * @param my
+	 */
+	private void alterEmbendedDateTextField(DateOnlyTextField my) {
 		ReflectionUtils.set("dateField", my, this); //$NON-NLS-1$
 		get(DATE).replaceWith(my);
+		my.add(newDatePicker());
 	}
 
 	@Override
