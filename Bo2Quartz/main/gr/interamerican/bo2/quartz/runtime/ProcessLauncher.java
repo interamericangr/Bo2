@@ -7,6 +7,7 @@ import gr.interamerican.bo2.impl.open.job.JobDescription;
 import gr.interamerican.bo2.impl.open.job.JobScheduler;
 import gr.interamerican.bo2.impl.open.runtime.MultiLauncher;
 import gr.interamerican.bo2.quartz.QuartzJobSchedulerImpl;
+import gr.interamerican.bo2.quartz.util.QuartzUtils;
 import gr.interamerican.bo2.utils.StringConstants;
 
 import java.io.IOException;
@@ -124,7 +125,7 @@ public class ProcessLauncher {
 	}
 
 	/**
-	 * extracts the process from a {@link JobDescription}
+	 * extracts the process from a {@link JobDescription} (if applicable)
 	 *
 	 * @param bean
 	 * @return the process
@@ -141,6 +142,19 @@ public class ProcessLauncher {
 		return (Process) p;
 	}
 
+	/**
+	 * kills the process that is attached to the given {@link JobDescription} (if applicable)
+	 *
+	 * @param bean
+	 * @return process exit status
+	 * @throws DataException
+	 */
+	public static int killProcessFromJobDescription(JobDescription bean) throws DataException {
+		Process p = extractProcessFromJobDescription(bean);
+		p.destroy();
+		QuartzUtils.waitJobToComplete(bean);
+		return p.exitValue();
+	}
 	/**
 	 * @param bean
 	 * @return the PrintStream assigned to the process for output.

@@ -58,9 +58,11 @@ public class TestProcessLauncher {
 		System.setOut(origout);
 		System.setErr(origerr);
 	}
+
 	/**
 	 * Test method for
-	 * {@link gr.interamerican.bo2.quartz.runtime.ProcessLauncher#launch(java.util.Map, java.lang.String[])}
+	 * {@link gr.interamerican.bo2.quartz.runtime.ProcessLauncher#launchMultilauncher(Class)}
+	 *
 	 * @throws DataException
 	 */
 	@Test
@@ -87,6 +89,20 @@ public class TestProcessLauncher {
 		Assert.assertNotNull(p);
 		QuartzUtils.waitGroupToComplete(StreamRedirectOperation.class.getName());
 		Assert.assertEquals(0, p.exitValue());
+		QuartzSchedulerRegistry.clearScheduledJobDescriptions();
+	}
+
+	/**
+	 * test method for {@link ProcessLauncher#killProcessFromJobDescription(JobDescription)}
+	 *
+	 * @throws DataException
+	 */
+	@Test
+	public void testKillProcessFromJobDescription() throws DataException {
+		QuartzSchedulerRegistry.clearScheduledJobDescriptions();
+		JobDescription bean = ProcessLauncher.launchMultilauncher(SampleRunTimeCommand.class);
+		int e = ProcessLauncher.killProcessFromJobDescription(bean);
+		Assert.assertNotEquals(e, 0);
 		QuartzSchedulerRegistry.clearScheduledJobDescriptions();
 	}
 }
