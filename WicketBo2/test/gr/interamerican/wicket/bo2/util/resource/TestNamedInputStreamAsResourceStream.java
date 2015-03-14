@@ -50,8 +50,14 @@ public class TestNamedInputStreamAsResourceStream {
 	public void testLifeCycle() throws InitializationException, IOException{
 		Bo2WicketRequestCycle.beginRequest(RequestCycle.get());
 		String name = "TestNamedInputStreamAsResourceStream_STREAMNAME";
-		String manager = "LOCALFS";		
+		String manager = "LOCALFS";	
+		
 		NamedInputStream nis = NamedStreamFactoryUtil.input(new byte[1], name, 10, Bo2UtilsEnvironment.getDefaultTextCharset());
+		
+		
+		
+		
+		
 		NamedStreamUtils.registerStream(nis, provider(), manager);
 		NamedInputStreamAsResourceStream resource = 
 			new NamedInputStreamAsResourceStream(manager, name);

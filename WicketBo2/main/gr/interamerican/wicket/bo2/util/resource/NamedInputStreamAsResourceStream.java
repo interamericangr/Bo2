@@ -62,10 +62,12 @@ extends AbstractResourceStream {
 
 	}
 
+	@Override
 	public InputStream getInputStream() {
 		return nis.getStream();
 	}
 
+	@Override
 	public void close() throws IOException {
 		try {
 			nis.close();
