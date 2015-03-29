@@ -10,7 +10,13 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
-package gr.interamerican.bo2.impl.open.namedstreams;
+package gr.interamerican.bo2.impl.open.namedstreams.types;
+
+import gr.interamerican.bo2.impl.open.namedstreams.types.TestAbstractNamedStream;
+import gr.interamerican.bo2.impl.open.namedstreams.types.TestNamedBufferedReader;
+import gr.interamerican.bo2.impl.open.namedstreams.types.TestNamedInputStream;
+import gr.interamerican.bo2.impl.open.namedstreams.types.TestNamedOutputStream;
+import gr.interamerican.bo2.impl.open.namedstreams.types.TestNamedPrintStream;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -23,17 +29,15 @@ import org.junit.runners.Suite.SuiteClasses;
 @RunWith(Suite.class)
 @SuiteClasses(
 	{
-		TestAbstractStreamBasedQuery.class,
-		TestStreamsList.class,
-		TestNamedStreamBasicQuery.class,
-		TestNamedStreamQuery.class,
-		TestNamedStreamSimpleQuery.class,
-		TestCsvRecordQuery.class,
-		TestNamedStreamUtils.class,
-		TestNamedStreamDefinition.class,
-		TestNamedStreamsManagerImpl.class,
+			
+		TestAbstractNamedStream.class,
+		TestNamedOutputStream.class,
+		TestNamedInputStream.class,
+		TestNamedBufferedReader.class,
+		TestNamedPrintStream.class,
+		TestStreamType.class,
 	}
 )
-public class TestSuiteBo2ImplOpenNamedStreams {
+public class TestSuiteBo2ImplOpenNamedStreamsTypes {
 	/* empty */
 }

@@ -20,7 +20,10 @@ import gr.interamerican.bo2.impl.open.utils.Messages;
 import gr.interamerican.bo2.impl.open.workers.AbstractResourceConsumer;
 
 /**
- * Basic query that browses a sequential file.
+ * Abstract base for queries based on a NamedStream. <br/>
+ * 
+ * This class serves a base for queries based on named stream
+ * regardless of the type of stream (text or binary).  
  */
 public abstract class AbstractStreamBasedQuery 
 extends AbstractResourceConsumer 
@@ -29,17 +32,19 @@ implements Query {
 	/**
 	 * stream name.
 	 */
-	private String streamName;
+	String streamName;
 	
 	/**
 	 * stream.
 	 */
 	protected NamedStream<?> stream;
 	
+	@Override
 	public boolean isAvoidLock() {		
 		return true;
 	}
 
+	@Override
 	public void setAvoidLock(boolean avoidLock) {/* ignore it */}
 
 
@@ -49,7 +54,7 @@ implements Query {
 		NamedStreamsProvider provider = getResource(NamedStreamsProvider.class);
 		stream = provider.getStream(streamName);
 		if (stream==null) {
-			throw Exceptions.runtime(Messages.STREAM_NOT_FOUND, streamName);
+			throw Exceptions.initializationException(Messages.STREAM_NOT_FOUND, streamName);
 		}
 	}
 

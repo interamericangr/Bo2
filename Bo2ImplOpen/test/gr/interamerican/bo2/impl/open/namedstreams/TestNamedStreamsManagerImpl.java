@@ -12,21 +12,15 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.namedstreams;
 
-import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResource;
-import gr.interamerican.bo2.impl.open.namedstreams.types.NamedBufferedReader;
-import gr.interamerican.bo2.impl.open.namedstreams.types.NamedInputStream;
-import gr.interamerican.bo2.impl.open.namedstreams.types.NamedOutputStream;
 import gr.interamerican.bo2.impl.open.namedstreams.types.NamedPrintStream;
 import gr.interamerican.bo2.impl.open.namedstreams.types.StreamType;
 import gr.interamerican.bo2.test.utils.UtilityForBo2Test;
 
 import java.util.Properties;
 
-import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Test;
 
 /**
  * Unit tests for {@link NamedStreamsManagerImpl}.
@@ -68,135 +62,8 @@ public class TestNamedStreamsManagerImpl {
 		return (NamedPrintStream) manager.open(def);
 	}
 	
-	/**
-	 * Unit test for open.
-	 * @throws InitializationException 
-	 */
-	@SuppressWarnings("nls")
-	@Test
-	public void testOpen_File() throws InitializationException {
-		Properties p = UtilityForBo2Test.getLocalFsProperties();
-		String path = p.getProperty("workDir") + "newFile.txt";
-		NamedPrintStream ns = open(StreamResource.FILE, path);
-		Assert.assertNotNull(ns);
-	}
 	
-	/**
-	 * Unit test for open.
-	 * @throws InitializationException 
-	 */
-	@SuppressWarnings("nls")
-	@Test(expected=InitializationException.class)
-	public void testOpen_Classpath() throws InitializationException {
-		String path = "/com/foo/bar.txt";
-		open(StreamResource.CLASSPATH, path);
-	}
 	
-	/**
-	 * Unit test for open.
-	 * @throws InitializationException 
-	 */
-	@SuppressWarnings("nls")
-	@Test
-	public void testOpen_System() throws InitializationException {		
-		NamedPrintStream ns = open(StreamResource.SYSTEM, "Sysout");
-		Assert.assertNotNull(ns);
-	}
-	
-	/**
-	 * Unit test for open.
-	 * @throws InitializationException 
-	 */
-	@SuppressWarnings("nls")
-	@Test
-	public void testOpen_InMemory() throws InitializationException {		
-		NamedPrintStream ns = open(StreamResource.BYTES, "InMemory");
-		Assert.assertNotNull(ns);
-	}
-	
-	/**
-	 * Unit test for open.
-	 * @throws InitializationException 
-	 * @throws DataException 
-	 */
-	@SuppressWarnings("nls")
-	@Test
-	public void testConvertFileStream_Print2Out() 
-	throws InitializationException, DataException {
-		Properties p = UtilityForBo2Test.getLocalFsProperties();
-		String path = p.getProperty("workDir") + "newFile.txt";
-		NamedPrintStream ns = open(StreamResource.FILE, path);
-		Assert.assertNotNull(ns);
-		String newName = "NEW_OUT";
-		NamedOutputStream out = (NamedOutputStream) 
-			manager.convert(ns, StreamType.OUTPUTSTREAM, newName);
-		Assert.assertNotNull(out);
-		Assert.assertEquals(newName, out.getName());
-	}
-	
-	/**
-	 * Unit test for open.
-	 * @throws InitializationException 
-	 * @throws DataException 
-	 */
-	@SuppressWarnings("nls")
-	@Test
-	public void testConvertFileStream_Print2In() 
-	throws InitializationException, DataException {
-		Properties p = UtilityForBo2Test.getLocalFsProperties();
-		String path = p.getProperty("workDir") + "newFile.txt";
-		NamedPrintStream ns = open(StreamResource.FILE, path);
-		Assert.assertNotNull(ns);
-		String newName = "NEW_IN";
-		NamedInputStream in = (NamedInputStream) 
-			manager.convert(ns, StreamType.INPUTSTREAM, newName);
-		Assert.assertNotNull(in);
-		Assert.assertEquals(newName, in.getName());
-	}
-	
-	/**
-	 * Unit test for open.
-	 * @throws InitializationException 
-	 * @throws DataException 
-	 */
-	@SuppressWarnings("nls")
-	@Test
-	public void testConvertFileStream_Print2Reader()
-	throws InitializationException, DataException {
-		Properties p = UtilityForBo2Test.getLocalFsProperties();
-		String path = p.getProperty("workDir") + "newFile.txt";
-		NamedPrintStream ns = open(StreamResource.FILE, path);
-		Assert.assertNotNull(ns);
-		String newName = "NEW_READER";
-		NamedBufferedReader in = (NamedBufferedReader) 
-			manager.convert(ns, StreamType.BUFFEREDREADER, newName);
-		Assert.assertNotNull(in);
-		Assert.assertEquals(newName, in.getName());
-	}
-	
-	/**
-	 * Unit test for open.
-	 * @throws InitializationException 
-	 * @throws DataException 
-	 */
-	@SuppressWarnings("nls")
-	@Test
-	public void testConvertMemoryStream_Print2Reader()
-	throws InitializationException, DataException {		
-		NamedPrintStream ns = open(StreamResource.BYTES, "M");
-		Assert.assertNotNull(ns);
-		String line = "Line";
-		ns.writeString(line);
-		
-		String newName = "NEW_READER";
-		NamedBufferedReader in = (NamedBufferedReader) 
-			manager.convert(ns, StreamType.BUFFEREDREADER, newName);
-		Assert.assertNotNull(in);
-		Assert.assertEquals(newName, in.getName());
-		
-		String actual = in.readString();
-		Assert.assertEquals(line, actual);
-	}
 	
 	
 	

@@ -12,12 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.namedstreams;
 
-import gr.interamerican.bo2.arch.Provider;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
-import gr.interamerican.bo2.impl.open.namedstreams.types.NamedStreamFactoryUtil;
-import gr.interamerican.bo2.impl.open.utils.Bo2;
-import gr.interamerican.bo2.test.utils.UtilityForBo2Test;
-import gr.interamerican.bo2.utils.Bo2UtilsEnvironment;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -32,12 +27,14 @@ public class TestNamedStreamUtils {
 	private static final String MANAGER = "LOCALFS"; //$NON-NLS-1$
 	
 	/**
-	 * Unit test for registerInputStream().
+	 * Unit test for registerStream().
 	 * 
 	 * @throws InitializationException
 	 */
 	@Test
 	public void testRegisterStream() throws InitializationException {
+		Assert.fail("Not implemented!");
+		/*
 		byte[] bytes = new byte[10000];
 		String name = "TestNamedStreamUtils.sample_buffered_reader"; //$NON-NLS-1$
 		NamedStream<?> ns = NamedStreamFactoryUtil.reader(bytes, name, Bo2UtilsEnvironment.getDefaultTextCharset());
@@ -46,7 +43,31 @@ public class TestNamedStreamUtils {
 		NamedStreamsProvider nsp = provider.getResource(MANAGER, NamedStreamsProvider.class);
 		NamedStream<?> nbf = nsp.getStream(name);
 		Assert.assertEquals(ns,nbf);
+		*/
 	}
+	
+	/**
+	 * Unit test for getDefaultNamedStream().
+	 * 
+	 * @throws InitializationException
+	 */
+	@Test
+	public void testGetDefaultNamedStream() throws InitializationException {
+		Assert.fail("Not implemented!");
+	}
+	
+	/**
+	 * Unit test for getNamedStream().
+	 * 
+	 * @throws InitializationException
+	 */
+	@Test
+	public void testGetNamedStream() throws InitializationException {
+		Assert.fail("Not implemented!");
+	}
+
+	
+	
 	
 	
 

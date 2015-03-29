@@ -63,14 +63,17 @@ implements Query {
 	 */
 	protected abstract Record emptyRecord(Charset charset);
 	
+	@Override
 	public int getRow() throws DataAccessException {		
 		return row;
 	}
 	
+	@Override
 	public void execute() throws DataException {		
         row=0;
 	}
 
+	@Override
 	public boolean next() throws DataAccessException {
     	byte[] rec=null;
 		try {

@@ -106,10 +106,12 @@ implements Query {
 		}
 	}
 	
+	@Override
 	public void execute() throws DataException {
 		currentRow=null;
 	}
 	
+	@Override
 	public boolean next() throws DataAccessException {
 		rowIndex++;
 		boolean hasNext = (rowIndex < sheet.getRows());
@@ -122,6 +124,7 @@ implements Query {
 		return hasNext;
 	}
 	
+	@Override
 	public int getRow() throws DataAccessException {
 		return rowIndex;
 	}
