@@ -42,18 +42,22 @@ public class SimpleRecord extends AbstractBaseRecord {
 		setCharset(charset);
 	}
 	
+	@Override
 	public void setBuffer(String buffer) {
 		this.buffer = buffer;		
 	}
 
+	@Override
 	public void setBytes(byte[] bytes) {
 		setBuffer(new String(bytes, charset()));		
 	}
 
+	@Override
 	public String getBuffer() {
 		return buffer;
 	}
 	
+	@Override
 	public byte[] getBytes() {
 		return buffer.getBytes(charset());
 	}
