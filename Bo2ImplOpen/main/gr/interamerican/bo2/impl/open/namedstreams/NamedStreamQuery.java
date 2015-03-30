@@ -21,7 +21,11 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Query that browses a sequential file.
+ * Abstract Query for browsing a sequential file.
+ * 
+ * Concrete sub-classes must define the query record.
+ * This is done by implementing the <code>emtyRecord()</code>
+ * method.
  */
 public abstract class NamedStreamQuery 
 extends NamedStreamBasicQuery 
@@ -42,54 +46,67 @@ implements Query, NamedFieldsContainer {
 	private IndexedFieldsRecord<String> record = 
 		(IndexedFieldsRecord<String>) this.getRecord();
 
+	@Override
 	public byte[] getBytes(String field) {
 		return record.getBytes(field);
 	}
 
+	@Override
 	public double getDouble(String field) {
 		return record.getDouble(field);
 	}
 
+	@Override
 	public int getInt(String field) {
 		return record.getInt(field);
 	}
 
+	@Override
 	public long getLong(String field) {
 		return record.getLong(field);
 	}
 
+	@Override
 	public boolean getBoolean(String field) {
 		return record.getBoolean(field);
 	}
 
+	@Override
 	public Date getDate(String field) {
 		return record.getDate(field);
 	}
 
+	@Override
 	public Calendar getCalendar(String field) {
 		return record.getCalendar(field);
 	}
 
+	@Override
 	public BigDecimal getBigDecimal(String field) {
 		return record.getBigDecimal(field);
 	}
 
+	@Override
 	public String getString(String field) {
 		return record.getString(field);
 	}
 
+	@Override
 	public short getShort(String field) {
 		return record.getShort(field);
 	}
 
+	@Override
 	public float getFloat(String field) {
 		return record.getFloat(field);
 	}
 
+	@Override
 	public byte getByte(String field) {
 		return record.getByte(field);
 	}
 
+	@Override
 	public Object getObject(String field) {
 		return record.getObject(field);
 	}
