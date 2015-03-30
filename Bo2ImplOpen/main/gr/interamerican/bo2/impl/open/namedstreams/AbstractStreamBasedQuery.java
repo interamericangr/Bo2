@@ -15,8 +15,6 @@ package gr.interamerican.bo2.impl.open.namedstreams;
 import gr.interamerican.bo2.arch.Provider;
 import gr.interamerican.bo2.arch.Query;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
-import gr.interamerican.bo2.impl.open.utils.Exceptions;
-import gr.interamerican.bo2.impl.open.utils.Messages;
 import gr.interamerican.bo2.impl.open.workers.AbstractResourceConsumer;
 import gr.interamerican.bo2.utils.StringUtils;
 
