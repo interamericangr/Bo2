@@ -18,6 +18,7 @@ import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.impl.open.utils.Exceptions;
 import gr.interamerican.bo2.impl.open.utils.Messages;
 import gr.interamerican.bo2.impl.open.workers.AbstractResourceConsumer;
+import gr.interamerican.bo2.utils.StringUtils;
 
 /**
  * Abstract base for queries based on a NamedStream. <br/>
@@ -54,7 +55,12 @@ implements Query {
 		NamedStreamsProvider provider = getResource(NamedStreamsProvider.class);
 		stream = provider.getStream(streamName);
 		if (stream==null) {
-			throw Exceptions.initializationException(Messages.STREAM_NOT_FOUND, streamName);
+			String manager = getManagerName();
+			@SuppressWarnings("nls")
+			String msg = StringUtils.concat(
+				"Stream ", streamName,
+				" not registered with manager " , manager);
+			throw new InitializationException(msg);			
 		}
 	}
 
