@@ -15,6 +15,7 @@ package gr.interamerican.bo2.impl.open.hibernate;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
 
 import java.util.List;
@@ -73,18 +74,21 @@ public class TestHibernateConfigurations {
 		String hibernateMappingsPath = "/gr/interamerican/rsrc/hbms.txt";
 		List<String> hbms = HibernateConfigurations.getHibernateMappingsIfAvailable(hibernateMappingsPath);
 		assertNotNull(hbms);
-		assertTrue(hbms.size()>0);
-		assertTrue(hbms.get(0).contains(".hbm.xml"));
+		assertEquals(hbms.size(),12);
+		for (String hbm : hbms) {
+			assertTrue(hbm.trim().endsWith(".hbm.xml"));
+		}
 	}
 	
 	/**
 	 * Unit test for getHibernateMappingsIfAvailable.
 	 */
-	@Test (expected=RuntimeException.class)
 	@SuppressWarnings("nls")
 	public void testGetHibernateMappingsIfAvailable_badInput() {
 		String hibernateMappingsPath = "/this/does/not/exist/hbms.txt";
-		HibernateConfigurations.getHibernateMappingsIfAvailable(hibernateMappingsPath);
+		List<String> hbms = HibernateConfigurations.getHibernateMappingsIfAvailable(hibernateMappingsPath);
+		assertNotNull(hbms);
+		assertTrue(hbms.isEmpty());
 	}
 
 }

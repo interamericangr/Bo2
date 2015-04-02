@@ -9,6 +9,5 @@ gr/interamerican/rsrc/hbm/InvoiceRule.hbm.xml
 gr/interamerican/rsrc/hbm/InvoiceSubRule.hbm.xml
 gr/interamerican/rsrc/hbm/User.hbm.xml
 gr/interamerican/rsrc/hbm/CompanyUser.hbm.xml
-gr/interamerican/rsrc/hbm/FooBarTPCH.hbm.xml
-gr/interamerican/rsrc/hbm/FooBarTPSCH.hbm.xml
+gr/interamerican/rsrc/hbms2.txt
 does/not/exist

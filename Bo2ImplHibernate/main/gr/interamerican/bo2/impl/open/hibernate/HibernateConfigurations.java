@@ -55,9 +55,8 @@ public class HibernateConfigurations {
 	 * Static map that stores all session factories, mapped to the path
 	 * of their configuration files.
 	 */
-	static Map<String, SessionFactory> sessionFactories =
-			new HashMap<String, SessionFactory>();
-
+	static Map<String, SessionFactory> sessionFactories = new HashMap<String, SessionFactory>();
+	
 	/**
 	 * Gets the session factory that corresponds to the specified configuration
 	 * file.
@@ -172,11 +171,16 @@ public class HibernateConfigurations {
 	/**
 	 * Extracts a list of hibernate mapping files given a resource path.
 	 * The resource path points to a file. The file is plain text and
-	 * each line contains one resource path that points to an hbm.xml file.
+	 * each line contains one resource path that points to an hbm.xml file
+	 * or another file that indexes hbms.
 	 * If an indexed hdm.xml file does not exist on the classpath an error
 	 * is logged, but no exception is thrown. This is meant to facilitate
 	 * tests that need to create a SessionFactory and do not have all indexed
 	 * hibernate mapping files in their running classpath.
+	 * If the indexed file does not have the hbm.xml extension, the system
+	 * attempts to read it and treats it as an hbm.xml files index.
+	 *
+	 * @see BOTWO-48
 	 * 
 	 * @param managerHbmIndex
 	 *        Resource path. Null tolerant.
@@ -199,8 +203,12 @@ public class HibernateConfigurations {
 		}
 
 		if(hbmPaths==null) {
-			String msg = "Non existant deployment hbm.xml index: " + managerHbmIndex;
-			throw new RuntimeException(msg);
+			String msg = StringUtils.concat(
+					"Non existant hibernate mappings index: ",
+					managerHbmIndex,
+					". This is acceptable for unit tests, but FATAL in every other case and should be investigated.");
+			LOGGER.warn(msg);
+			return hbms;
 		}
 
 		for(String hbmPath : hbmPaths) {
@@ -214,14 +222,18 @@ public class HibernateConfigurations {
 
 			if(hbmContent==null) {
 				String msg = StringUtils.concat(
-						"Non existant hibernate mappings file: ",
+						"Non existant hibernate mappings file or index: ",
 						hbmPath,
 						". This is acceptable for unit tests, but FATAL in every other case and should be investigated.");
 				LOGGER.warn(msg);
 				continue;
 			}
-
-			hbms.add(hbmPath);
+			
+			if(hbmPath.trim().endsWith("hbm.xml")) {
+				hbms.add(hbmPath);
+			} else {
+				hbms.addAll(getHibernateMappingsIfAvailable(hbmPath));
+			}
 
 		}
 
