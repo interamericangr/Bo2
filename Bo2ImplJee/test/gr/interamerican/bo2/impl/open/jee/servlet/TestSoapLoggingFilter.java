@@ -49,7 +49,7 @@ public class TestSoapLoggingFilter {
 		
 		s = s.trim();
 		Assert.assertTrue(s.startsWith("<"));
-		Assert.assertTrue(s.endsWith(">"));
+		Assert.assertTrue(s.contains(">"));
 		
 	}
 	
@@ -105,7 +105,7 @@ public class TestSoapLoggingFilter {
 		String s = subject.logSoap(bytes);
 		
 		Assert.assertTrue(s.startsWith(SoapLoggingFilter.ERROR_MESSAGE));
-		Assert.assertTrue(s, s.endsWith(">"));
+		Assert.assertTrue(s, s.contains(SoapLoggingFilter.CAUSED_BY));
 	}
 	
 	/**

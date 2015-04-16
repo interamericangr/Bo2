@@ -38,6 +38,11 @@ public class SoapLoggingFilter extends AbstractBaseLoggingFilter {
 	static final String ERROR_MESSAGE = "Failed to manipulate SOAP for logging. Message was: \n"; //$NON-NLS-1$
 	
 	/**
+	 * caused by
+	 */
+	static final String CAUSED_BY = "caused by: "; //$NON-NLS-1$
+	
+	/**
 	 * UPPERCASE regex for elements to omit from logging (e.g. passwords)
 	 */
 	@SuppressWarnings("nls")
@@ -137,7 +142,7 @@ public class SoapLoggingFilter extends AbstractBaseLoggingFilter {
 			//ok, just fall through
 		}
 		
-		return ERROR_MESSAGE + message + StringConstants.NEWLINE + "caused by: " + e.getMessage();
+		return ERROR_MESSAGE + message + StringConstants.NEWLINE + CAUSED_BY + e.getMessage();
 	}
 	
 }
