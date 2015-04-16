@@ -35,7 +35,7 @@ public class SoapLoggingFilter extends AbstractBaseLoggingFilter {
 	/**
 	 * Error message.
 	 */
-	static final String ERROR_MESSAGE = "Failed to manipulate SOAP for logging"; //$NON-NLS-1$
+	static final String ERROR_MESSAGE = "Failed to manipulate SOAP for logging. Message was: \n"; //$NON-NLS-1$
 	
 	/**
 	 * UPPERCASE regex for elements to omit from logging (e.g. passwords)
@@ -135,10 +135,10 @@ public class SoapLoggingFilter extends AbstractBaseLoggingFilter {
 			}
 		}
 		catch (RuntimeException rtex) {
-			//just return the default message
+			//ok, just fall through
 		}
 		
-		return ERROR_MESSAGE;
+		return ERROR_MESSAGE + message;
 	}
 	
 }
