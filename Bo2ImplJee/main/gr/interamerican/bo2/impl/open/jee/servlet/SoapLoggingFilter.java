@@ -119,7 +119,6 @@ public class SoapLoggingFilter extends AbstractBaseLoggingFilter {
 	 */
 	@SuppressWarnings("nls")
 	String handle(Throwable e, byte[] soap, boolean mayLog) {
-		LOGGER.error(e.getMessage() + " while parsing SOAP. Returned as UTF-8");
 		if(mayLog) {
 			return new String(soap, Charset.forName("UTF-8"));
 		}
@@ -138,7 +137,7 @@ public class SoapLoggingFilter extends AbstractBaseLoggingFilter {
 			//ok, just fall through
 		}
 		
-		return ERROR_MESSAGE + message;
+		return ERROR_MESSAGE + message + StringConstants.NEWLINE + "caused by: " + e.getMessage();
 	}
 	
 }
