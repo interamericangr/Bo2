@@ -733,6 +733,20 @@ public class PoUtils {
 	}
 	
 	/**
+	 * Detach a number of persistent objects.
+	 * 
+	 * @param pos
+	 */
+	public static void detach(PersistentObject<?>... pos) {
+		for (PersistentObject<?> po : pos) {
+			DetachStrategy ds = PoUtils.getDetachStrategy(po);
+			if(ds != null) {
+				ds.detach(po, Bo2Session.getProvider());
+			}
+		}
+	}
+	
+	/**
 	 * Sets the detachStrategy on an object.
 	 * 
 	 * If the object does not have such a property, then it remains unaffected.
