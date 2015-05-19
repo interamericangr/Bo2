@@ -3,13 +3,18 @@ package gr.interamerican.bo2.impl.open.jee.servlet;
 import gr.interamerican.bo2.utils.RegexUtils;
 import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.StringUtils;
+import gr.interamerican.bo2.utils.TokenUtils;
 import gr.interamerican.bo2.utils.xml.DomUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.StringWriter;
 import java.nio.charset.Charset;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
@@ -43,10 +48,45 @@ public class SoapLoggingFilter extends AbstractBaseLoggingFilter {
 	static final String CAUSED_BY = "caused by: "; //$NON-NLS-1$
 	
 	/**
-	 * UPPERCASE regex for elements to omit from logging (e.g. passwords)
+	 * Filter init param for elements omitted from logging (e.g. passwords)
+	 * Values are comma separated
+	 */
+	static final String OMITTED_ELEMENTS_INIT_PARAM = "omittedElements"; //$NON-NLS-1$
+	
+	/**
+	 * UPPERCASE elements to omit from logging (e.g. passwords)
 	 */
 	@SuppressWarnings("nls")
-	static final String[] OMITTED_ELEMENTS = new String[]{"PASSWORD", "PASSWD"};
+	static final String[] OMITTED_ELEMENTS = new String[]{"password", "passwd"};
+	
+	/**
+	 * All omitted elements.
+	 */
+	Set<String> omittedElements = new HashSet<String>();
+	
+	/**
+	 * Creates a new SoapLoggingFilter object. 
+	 *
+	 */
+	public SoapLoggingFilter() {
+		for (String s : OMITTED_ELEMENTS) { //standard omissions
+			omittedElements.add(s);
+		}
+	}
+	
+	@Override
+	public void init(FilterConfig filterConfig) throws ServletException {
+		super.init(filterConfig);
+		
+		String parameterizedOmissions = filterConfig.getInitParameter(OMITTED_ELEMENTS_INIT_PARAM);
+		if(StringUtils.isNullOrBlank(parameterizedOmissions)) {
+			return;
+		}
+		
+		for (String s : TokenUtils.splitTrim(parameterizedOmissions, StringConstants.COMMA)) { //parameterized omissions
+			omittedElements.add(s);
+		}
+	}
 
 	@Override
 	protected void doLog(String url, Charset requestEncoding, Charset responseEncoding, byte[] request, byte[] response) {
@@ -81,7 +121,7 @@ public class SoapLoggingFilter extends AbstractBaseLoggingFilter {
 			ByteArrayInputStream bis = new ByteArrayInputStream(soap);
 			Document document = DomUtils.getDocument(bis);
 			
-			for(String omit : OMITTED_ELEMENTS) {
+			for(String omit : omittedElements) {
 				String omitRegex = RegexUtils.ZERO_OR_MORE_CHARS + omit; //may be something like ns2:password
 				List<Node> matchedNodes = DomUtils.matchedNodes(document, omitRegex);
 				for(Node node : matchedNodes) {

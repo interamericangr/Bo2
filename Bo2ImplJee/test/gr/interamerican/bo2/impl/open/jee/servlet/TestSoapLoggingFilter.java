@@ -9,6 +9,7 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 
 import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
@@ -22,6 +23,23 @@ import org.mockito.Mockito;
  * Unit tests of {@link SoapLoggingFilter}
  */
 public class TestSoapLoggingFilter {
+	
+	/**
+	 * @throws ServletException
+	 */
+	@SuppressWarnings("nls")
+	@Test
+	public void testInit() throws ServletException {
+		SoapLoggingFilter subject = new SoapLoggingFilter();
+		FilterConfig mock = Mockito.mock(FilterConfig.class);
+		Mockito.when(mock.getInitParameter(SoapLoggingFilter.OMITTED_ELEMENTS_INIT_PARAM)).thenReturn("a, b");
+		subject.init(mock);
+		for(String s : SoapLoggingFilter.OMITTED_ELEMENTS) {
+			Assert.assertTrue(subject.omittedElements.contains(s));
+		}
+		Assert.assertTrue(subject.omittedElements.contains("a"));
+		Assert.assertTrue(subject.omittedElements.contains("b"));
+	}
 	
 	/**
 	 * test logSoap
@@ -43,6 +61,7 @@ public class TestSoapLoggingFilter {
 
 		String s = subject.logSoap(bytes);
 		
+		System.out.println(s);
 		for(String omitted : SoapLoggingFilter.OMITTED_ELEMENTS) {
 			Assert.assertFalse(s.contains(omitted));
 		}
