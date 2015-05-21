@@ -29,7 +29,6 @@ public class BatchProcessParmNames {
 	 */
 	public static final String LAUNCHER = "launcher"; //$NON-NLS-1$
 	
-
 	/**
 	 * Property key for name.
 	 */
@@ -83,9 +82,6 @@ public class BatchProcessParmNames {
 	 * Property key for reattemptOnTmex.
 	 */
 	public static final String REATTEMPT_ON_TMEX = "reattemptOnTmex"; //$NON-NLS-1$
-	
-
-	
 	
 	/**
 	 * Property key for operation class.

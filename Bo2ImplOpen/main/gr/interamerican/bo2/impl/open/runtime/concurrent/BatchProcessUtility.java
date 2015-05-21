@@ -74,12 +74,13 @@ public class BatchProcessUtility {
 	/**
 	 * Creates a new {@link BatchProcess} and starts a new thread for it.
 	 *
-	 * This method also sets the session of this {@link BatchProcessUtility}
-	 * as the thread local {@link Bo2Session}. The new {@link BatchProcess}
-	 * gets a reference to this session, which will be passed to the thread local
+	 * This method also sets the session of this {@link BatchProcessUtility} as the thread local
+	 * {@link Bo2Session}. The new {@link BatchProcess} gets a reference to this session, which will
+	 * be passed to the thread local
 	 * session of the BatchProcess thread.
 	 *
 	 * @param batch
+	 * @return the thread created
 	 */
 	public Thread startBatchProcess(BatchProcess<?> batch) {
 		long interval = batch.getInitialThreads() * 10;
@@ -137,7 +138,8 @@ public class BatchProcessUtility {
 	 * Creates and starts the monitor in a new thread.
 	 *
 	 * @param monitor
-	 *        Monitor
+	 *            Monitor
+	 * @return thread created
 	 */
 	public Thread startMonitor(Monitor<LongProcess> monitor) {
 		Thread t = new Thread(monitor);
