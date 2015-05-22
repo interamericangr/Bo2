@@ -18,6 +18,7 @@ import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
 import gr.interamerican.bo2.arch.exceptions.UnexpectedException;
 import gr.interamerican.bo2.impl.open.runtime.AbstractBo2RuntimeCmd;
+import gr.interamerican.bo2.utils.StringConstants;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -47,6 +48,38 @@ public class TestXlsQuery {
 		XlsQuery q4 = new XlsQuery(streamName,3);
 		assertEquals(3, q4.sheetIndex);
 		assertEquals(streamName, q4.getStreamName());		
+	}
+	
+	/**
+	 * test getHeader
+	 * 
+	 * @throws UnexpectedException
+	 * @throws DataException
+	 * @throws LogicException
+	 */
+	@Test
+	public void testGetHeader() throws UnexpectedException, DataException, LogicException {
+		new AbstractBo2RuntimeCmd() {			
+			@SuppressWarnings("nls")
+			@Override
+			public void work() throws LogicException, DataException,
+			InitializationException, UnexpectedException {
+				String manager = "LOCALFS";
+				String streamName = "Sample.xls";
+				
+				XlsQuery q = new XlsQuery(streamName,0);
+				q.setManagerName(manager);
+				q.init(getProvider());
+				q.open();
+				q.execute();
+								
+				XlsRow header = q.getHeader();
+				Assert.assertNotNull(header);
+				String first = header.getString(1);
+				Assert.assertNotNull(first);
+				Assert.assertFalse(first.trim().equals(StringConstants.EMPTY));
+			}
+		}.execute();
 	}
 	
 	/**

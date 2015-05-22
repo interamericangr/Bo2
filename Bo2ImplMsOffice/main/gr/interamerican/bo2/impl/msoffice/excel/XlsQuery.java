@@ -138,4 +138,14 @@ implements Query {
 		return currentRow;
 	}
 	
+	/**
+	 * Returns the header row.
+	 * 
+	 * @return the header row.
+	 */
+	public XlsRow getHeader() {
+		Cell[] cells = sheet.getRow(0);
+		return new XlsRow(cells);
+	}
+	
 }
