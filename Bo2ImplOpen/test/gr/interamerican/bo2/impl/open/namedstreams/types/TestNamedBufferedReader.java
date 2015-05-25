@@ -12,22 +12,21 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.namedstreams.types;
 
-
-
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.DataOperationNotSupportedException;
 import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResource;
-import gr.interamerican.bo2.impl.open.namedstreams.types.NamedBufferedReader;
-import gr.interamerican.bo2.test.utils.UtilityForBo2Test;
-import gr.interamerican.bo2.utils.Bo2UtilsEnvironment;
+import gr.interamerican.bo2.samples.Streams;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 
@@ -38,60 +37,80 @@ import org.junit.Test;
 public class TestNamedBufferedReader {
 	
 	/**
-	 * Object to test.
+	 * Array for the tests.
 	 */
-	NamedBufferedReader ns;
+	String[] lines = {
+			"this is a dog",
+			"this is a cat",
+			"cats and dogs are animals"
+	};
 	
 	/**
-	 * Tests setup.
-	 * @throws FileNotFoundException
+	 * Creates a sample.
+	 * 
+	 * @param rows
+	 * 
+	 * @return Returns the sample.
 	 */
-	@Before
-	public void before() throws FileNotFoundException {
-		String path = UtilityForBo2Test.getTestStreamPath("existingBR.txt");		
-		BufferedReader stream = new BufferedReader(new FileReader(path));
-		ns = new NamedBufferedReader (StreamResource.FILE, stream, "Nbuf", 0, Bo2UtilsEnvironment.getDefaultTextCharset());
+	NamedBufferedReader sample(String... rows) {
+		Charset encoding = Charset.defaultCharset();
+		InputStream in = Streams.input(encoding, lines);
+		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+		return new NamedBufferedReader(null, reader, "NBR", in, encoding, "NBR_uri");
 	}
 	
+	
+	
+	
+	
 	/**
-	 * Tests setup.
-	 * 
-	 * @throws DataException 
+	 * Test for the constructor.
 	 */
-	@After
-	public void after() throws DataException {
-		if (ns!=null) {
-			ns.close();
-		}
+	@Test
+	public void testConstructor() {
+		StreamResource resourceType = StreamResource.BYTES;
+		BufferedReader stream = mock(BufferedReader.class);
+		String name = "bar";
+		Object resource = new Object();
+		String uri = "foo";
+		Charset encoding = Charset.defaultCharset();		
+		NamedBufferedReader ns = 
+			new NamedBufferedReader(resourceType, stream, name, resource, encoding, uri);
+		Assert.assertEquals(resourceType, ns.getResourceType());
+		Assert.assertEquals(resource, ns.getResource());
+		Assert.assertEquals(stream, ns.getStream());
+		Assert.assertEquals(uri, ns.getUri());
+		Assert.assertEquals(encoding, ns.getEncoding());
 	}
 	
 
 	/**
-	 * Unit test for readRecord.
+	 * Unit test for readRecord().
 	 * 
 	 * @throws DataException
 	 */	
 	@Test
 	public void testReadRecord() throws DataException {		
-		byte[] rec1 = ns.readRecord();
-		Assert.assertNotNull(rec1);
-		String expectedRecord = UtilityForBo2Test.getRecordOfTestTextFile();
-		Assert.assertArrayEquals(expectedRecord.getBytes(), rec1);
-		byte[] rec2 = ns.readRecord();
-		Assert.assertNotNull(rec2);
+		NamedBufferedReader nbr = sample(lines);
+		for (int i = 0; i < lines.length; i++) {
+			byte[] rec = nbr.readRecord();
+			byte[] expected = lines[i].getBytes(Charset.defaultCharset());
+			Assert.assertArrayEquals(expected, rec);
+		}
 	}
 	
 	/**
-	 * Unit test for readString.
+	 * Unit test for readString().
 	 * 
 	 * @throws DataException
 	 */	
 	@Test
 	public void testReadString() throws DataException {
-		String rec1 = ns.readString();
-		Assert.assertNotNull(rec1);
-		String expectedRecord = UtilityForBo2Test.getRecordOfTestTextFile();
-		Assert.assertEquals(expectedRecord, rec1);
+		NamedBufferedReader nbr = sample(lines);
+		for (int i = 0; i < lines.length; i++) {
+			String line = nbr.readString();
+			Assert.assertEquals(lines[i], line);
+		}
 	}	
 	
 	/**
@@ -102,7 +121,8 @@ public class TestNamedBufferedReader {
 	@Test(expected=DataOperationNotSupportedException.class)
 	public void testWriteString() 
 	throws DataException {		
-		ns.writeString("not to be written");
+		NamedBufferedReader nbr = sample(lines);
+		nbr.writeString("not to be written");
 	}		
 	
 	/**
@@ -113,10 +133,9 @@ public class TestNamedBufferedReader {
 	@Test(expected=DataOperationNotSupportedException.class)
 	public void testWriteRecord() 
 	throws DataException {
-		ns.writeRecord("not to be written".getBytes());
-	}		
-	
-	
+		NamedBufferedReader nbr = sample(lines);
+		nbr.writeRecord("not to be written".getBytes());
+	}	
 	
 	/**
 	 * Unit test for find.
@@ -125,8 +144,25 @@ public class TestNamedBufferedReader {
 	 */	
 	@Test(expected=DataOperationNotSupportedException.class)
 	public void testFind() throws DataException {
-		ns.find("123".getBytes());			
+		NamedBufferedReader nbr = sample(lines);
+		nbr.find("123".getBytes());			
 	}	
+	
+	/**
+	 * Test for close().
+	 * 
+	 * @throws IOException 
+	 * @throws DataException 
+	 */
+	@Test
+	public void testClose() throws IOException, DataException {
+		BufferedReader stream = mock(BufferedReader.class);
+		Charset encoding = Charset.defaultCharset();		
+		NamedBufferedReader ns = 
+			new NamedBufferedReader(null, stream, "foo", stream, encoding, "bar");
+		ns.close();
+		verify(stream, times(1)).close();
+	}
 	
 	
 }

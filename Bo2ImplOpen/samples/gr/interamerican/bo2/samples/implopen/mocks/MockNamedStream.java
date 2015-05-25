@@ -40,9 +40,10 @@ public class MockNamedStream<T> extends AbstractNamedStream<T> {
 	 * @param name
 	 * @param recordLength
 	 * @param encoding 
+	 * @param uri 
 	 */
-	public MockNamedStream(StreamType streamType, StreamResource resourceType, T stream, String name, int recordLength, Charset encoding) {
-		super(streamType, resourceType, stream, name, recordLength, stream, encoding);
+	public MockNamedStream(StreamType streamType, StreamResource resourceType, T stream, String name, int recordLength, Charset encoding, String uri) {
+		super(streamType, resourceType, stream, name, recordLength, stream, encoding, uri);
 	}
 	
 	
@@ -51,27 +52,33 @@ public class MockNamedStream<T> extends AbstractNamedStream<T> {
 		/* no checks */
 	}
 
+	@Override
 	public byte[] readRecord() throws DataException, DataOperationNotSupportedException {
 		return null;
 	}
 	
+	@Override
 	public String readString() throws DataException, DataOperationNotSupportedException {
 		return null;
 	}
 
 	
+	@Override
 	public void writeRecord(byte[] record) throws DataException, DataOperationNotSupportedException {
 		/* empty */		
 	}
 	
+	@Override
 	public void writeString(String string) throws DataException, DataOperationNotSupportedException {
 		/* empty */				
 	}
 
+	@Override
 	public boolean find(byte[] key) throws DataException, DataOperationNotSupportedException {
 		return false;
 	}
 
+	@Override
 	public void close() throws DataException, DataOperationNotSupportedException {
 		/* empty */				
 	}

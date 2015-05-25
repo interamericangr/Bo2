@@ -12,21 +12,21 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.namedstreams.types;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.DataOperationNotSupportedException;
 import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResource;
-import gr.interamerican.bo2.impl.open.namedstreams.types.NamedPrintStream;
-import gr.interamerican.bo2.test.utils.UtilityForBo2Test;
-import gr.interamerican.bo2.utils.Bo2UtilsEnvironment;
 
-import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintStream;
+import java.nio.charset.Charset;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 
@@ -35,23 +35,48 @@ import org.junit.Test;
  */
 @SuppressWarnings("nls")
 public class TestNamedPrintStream {
+	
 	/**
-	 * Object to test.
+	 * Array for the tests.
 	 */
-	NamedPrintStream ns;
-	
-	
+	String[] lines = {
+			"this is a dog",
+			"this is a cat",
+			"cats and dogs are animals" 
+	};
 	
 	/**
-	 * Tests setup.
+	 * Creates a sample.
 	 * 
-	 * @throws DataException 
+	 * @return Returns the sample.
 	 */
-	@Before
-	public void after() throws DataException {
-		if (ns!=null) {
-			ns.close();
-		}
+	NamedPrintStream sample() {
+		Charset encoding = Charset.defaultCharset();
+		OutputStream out = new ByteArrayOutputStream();
+		PrintStream ps = new PrintStream(out);
+		return new NamedPrintStream(null,ps,"NPS",out,encoding,null);
+	}
+	
+	
+	/**
+	 * Test for the constructor.
+	 */
+	@Test
+	public void testConstructor() {
+		StreamResource resourceType = StreamResource.BYTES;
+		PrintStream stream = mock(PrintStream.class);
+		String name = "bar";
+		Object resource = new Object();
+		String uri = "foo";
+		Charset encoding = Charset.defaultCharset();		
+		NamedPrintStream ns = 
+			new NamedPrintStream(resourceType, stream, name, resource, encoding, uri);
+		Assert.assertEquals(resourceType, ns.getResourceType());
+		Assert.assertEquals(resource, ns.getResource());
+		Assert.assertEquals(stream, ns.getStream());
+		Assert.assertEquals(uri, ns.getUri());
+		Assert.assertEquals(encoding, ns.getEncoding());
+		Assert.assertEquals(0, ns.getRecordLength());
 	}
 	
 	/**
@@ -60,11 +85,9 @@ public class TestNamedPrintStream {
 	 * @throws DataException
 	 */	
 	@Test(expected=DataOperationNotSupportedException.class)
-	public void testReadRecord() throws FileNotFoundException, DataException {	
-		String path = UtilityForBo2Test.getTestStreamPath("TestNamedPrintStream.1.txt");		
-		PrintStream stream = new PrintStream(path);
-		ns = new NamedPrintStream (StreamResource.FILE, stream, "Nprin", 20, Bo2UtilsEnvironment.getDefaultTextCharset());
-		@SuppressWarnings("unused") byte[] rec1 = ns.readRecord();	
+	public void testReadRecord() throws FileNotFoundException, DataException {
+		NamedPrintStream ns = sample();
+		ns.readRecord();
 	}
 	
 	/**
@@ -74,10 +97,8 @@ public class TestNamedPrintStream {
 	 */	
 	@Test(expected=DataOperationNotSupportedException.class)
 	public void testReadString() throws FileNotFoundException, DataException {
-		String path = UtilityForBo2Test.getTestStreamPath("TestNamedPrintStream.2.txt");		
-		PrintStream stream = new PrintStream(path);
-		ns = new NamedPrintStream (StreamResource.FILE, stream, "Nprin", 20, Bo2UtilsEnvironment.getDefaultTextCharset());
-		@SuppressWarnings("unused") String rec1 = ns.readString();	
+		NamedPrintStream ns = sample();
+		ns.readString();
 	}	
 	
 	/**
@@ -87,17 +108,19 @@ public class TestNamedPrintStream {
 	 */	
 	@Test()
 	public void testWriteString() throws DataException, IOException {
-		String path = UtilityForBo2Test.getTestStreamPath("TestNamedPrintStream.3.txt");		
-		PrintStream stream = new PrintStream(path);
-		ns = new NamedPrintStream (StreamResource.FILE, stream, "Nout", 20, Bo2UtilsEnvironment.getDefaultTextCharset());
-		String string = "write this";
-		ns.writeString(string);
-		ns.close();
+		NamedPrintStream ns = sample();
+		for (String string : lines) {
+			ns.writeString(string);
+		}
+		ByteArrayOutputStream baos = (ByteArrayOutputStream) ns.getResource();
+		byte[] bytes = baos.toByteArray();
 		
-		BufferedReader br = new BufferedReader(new FileReader(path));
-		String actual = br.readLine();
-		Assert.assertEquals(string, actual);
-		br.close();		
+		String expected = "";		
+		for (String string : lines) {
+			expected = expected + string + "\r\n";
+		}
+		byte[] expecteds = expected.getBytes(Charset.defaultCharset());
+		Assert.assertArrayEquals(expecteds, bytes);
 	}		
 	
 	/**
@@ -107,18 +130,20 @@ public class TestNamedPrintStream {
 	 */	
 	@Test()
 	public void testWriteRecord() throws DataException, IOException {
-		String path = UtilityForBo2Test.getTestStreamPath("TestNamedPrintStream.4.txt");		
-		PrintStream stream = new PrintStream(path);
-		ns = new NamedPrintStream (StreamResource.FILE, stream, "Nout", 20, Bo2UtilsEnvironment.getDefaultTextCharset());
-		String string = "write this";
-		ns.writeRecord(string.getBytes());
-		ns.close();
+		NamedPrintStream ns = sample();
+		for (String string : lines) {
+			byte[] rec = string.getBytes(Charset.defaultCharset());
+			ns.writeRecord(rec);
+		}
+		ByteArrayOutputStream baos = (ByteArrayOutputStream) ns.getResource();
+		byte[] bytes = baos.toByteArray();
 		
-		BufferedReader br = new BufferedReader(new FileReader(path));
-		String actual = br.readLine();
-		Assert.assertEquals(string, actual);
-		br.close();		
-		
+		String expected = "";		
+		for (String string : lines) {
+			expected = expected + string + "\r\n";
+		}
+		byte[] expecteds = expected.getBytes(Charset.defaultCharset());
+		Assert.assertArrayEquals(expecteds, bytes);
 	}	
 	
 	/**
@@ -128,11 +153,24 @@ public class TestNamedPrintStream {
 	 */	
 	@Test(expected=DataOperationNotSupportedException.class)
 	public void testFind() throws FileNotFoundException, DataException {
-		String path = UtilityForBo2Test.getTestStreamPath("TestNamedPrintStream.4.txt");		
-		PrintStream stream = new PrintStream(path);
-		ns = new NamedPrintStream (StreamResource.FILE, stream, "Nout", 20, Bo2UtilsEnvironment.getDefaultTextCharset());
-		@SuppressWarnings("unused") String rec1 = ns.readString();
-		ns.find("123".getBytes());
-	}	
+		NamedPrintStream ns = sample();
+		ns.find("foo".getBytes());
+	}
+	
+	/**
+	 * Test for close().
+	 * 
+	 * @throws IOException 
+	 * @throws DataException 
+	 */
+	@Test
+	public void testClose() throws IOException, DataException {
+		PrintStream stream = mock(PrintStream.class);
+		Charset encoding = Charset.defaultCharset();		
+		NamedPrintStream ns = 
+			new NamedPrintStream(null, stream, "foo", stream, encoding, "bar");
+		ns.close();
+		verify(stream, times(1)).close();
+	}
 	
 }

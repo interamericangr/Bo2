@@ -12,16 +12,23 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.namedstreams.types;
 
+import static org.mockito.Mockito.*;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.DataOperationNotSupportedException;
 import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResource;
 import gr.interamerican.bo2.impl.open.namedstreams.types.NamedInputStream;
+import gr.interamerican.bo2.samples.Streams;
 import gr.interamerican.bo2.test.utils.UtilityForBo2Test;
 import gr.interamerican.bo2.utils.Bo2UtilsEnvironment;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 
 import org.junit.After;
 import org.junit.Assert;
@@ -35,34 +42,50 @@ import org.junit.Test;
 @SuppressWarnings("nls")
 public class TestNamedInputStream {
 	/**
-	 * Object to test.
+	 * Array for the tests.
 	 */
-	NamedInputStream ns;
+	String[] lines = {
+			"this is a dog            ",
+			"this is a cat            ",
+			"cats and dogs are animals" 
+	};
 	
 	/**
-	 * Tests setup.
-	 * @throws FileNotFoundException
-	 */
-	@Before
-	public void before() throws FileNotFoundException {
-		String path = UtilityForBo2Test.getTestStreamPath("existingIS.txt");		
-		File file = new File(path);
-		FileInputStream fis = new FileInputStream(file);		
-		ns = new NamedInputStream(StreamResource.FILE, fis, "nis", 20, file, Bo2UtilsEnvironment.getDefaultTextCharset());
-	}
-	
-	/**
-	 * Tests setup.
+	 * Creates a sample.
 	 * 
-	 * @throws DataException 
+	 * @return Returns the sample.
 	 */
-	@After
-	public void after() throws DataException {
-		if (ns!=null) {
-			ns.close();
-		}
-		
+	NamedInputStream sample(String... rows) {
+		Charset encoding = Charset.defaultCharset();
+		InputStream in = Streams.input(encoding, lines);
+		return new NamedInputStream(null,in,"NIS",lines[0].length()+1,in,encoding,"NIS_URI");
 	}
+	
+	
+	/**
+	 * Test for the constructor.
+	 */
+	@Test
+	public void testConstructor() {
+		StreamResource resourceType = StreamResource.BYTES;
+		InputStream stream = mock(InputStream.class);
+		String name = "bar";
+		Object resource = new Object();
+		String uri = "foo";
+		int reclen = 100;
+		Charset encoding = Charset.defaultCharset();		
+		NamedInputStream ns = 
+			new NamedInputStream(resourceType, stream, name, reclen, resource, encoding, uri);
+		Assert.assertEquals(resourceType, ns.getResourceType());
+		Assert.assertEquals(resource, ns.getResource());
+		Assert.assertEquals(stream, ns.getStream());
+		Assert.assertEquals(uri, ns.getUri());
+		Assert.assertEquals(encoding, ns.getEncoding());
+		Assert.assertEquals(reclen, ns.getRecordLength());
+	}
+	
+	
+	
 	
 
 	/**
@@ -72,25 +95,28 @@ public class TestNamedInputStream {
 	 */	
 	@Test
 	public void testReadRecord() throws DataException {
-		byte[] rec1 = ns.readRecord();
-		Assert.assertNotNull(rec1);
-		String expectedRecord = UtilityForBo2Test.getRecordOfTestTextFile();
-		Assert.assertArrayEquals(expectedRecord.getBytes(), rec1);
-		byte[] rec2 = ns.readRecord();
-		Assert.assertNotNull(rec2);
+		NamedInputStream nis = sample(lines);
+		for (int i = 0; i < lines.length-1; i++) {
+			byte[] rec = nis.readRecord();
+			String expected = lines[i]+"\n";			
+			byte[] expecteds = (expected).getBytes(Charset.defaultCharset());
+			Assert.assertArrayEquals(expecteds, rec);
+		}
 	}
 	
 	/**
-	 * Unit test for readString.
+	 * Unit test for readString().
 	 * 
 	 * @throws DataException
 	 */	
 	@Test
 	public void testReadString() throws DataException {
-		String rec1 = ns.readString();
-		Assert.assertNotNull(rec1);
-		String expectedRecord = UtilityForBo2Test.getRecordOfTestTextFile();
-		Assert.assertEquals(expectedRecord, rec1);
+		NamedInputStream nis = sample(lines);
+		for (int i = 0; i < lines.length-1; i++) {
+			String line = nis.readString();
+			String expected = lines[i]+"\n";	
+			Assert.assertEquals(expected, line);
+		}
 	}	
 	
 	/**
@@ -101,7 +127,8 @@ public class TestNamedInputStream {
 	@Test(expected=DataOperationNotSupportedException.class)
 	public void testWriteString() 
 	throws DataException {		
-		ns.writeString("not to be written");
+		NamedInputStream nis = sample(lines);
+		nis.writeString("not to be written");
 	}		
 	
 	/**
@@ -112,10 +139,9 @@ public class TestNamedInputStream {
 	@Test(expected=DataOperationNotSupportedException.class)
 	public void testWriteRecord() 
 	throws DataException {
-		ns.writeRecord("not to be written".getBytes());
-	}		
-	
-	
+		NamedInputStream nis = sample(lines);
+		nis.writeRecord("not to be written".getBytes());
+	}	
 	
 	/**
 	 * Unit test for find.
@@ -124,8 +150,25 @@ public class TestNamedInputStream {
 	 */	
 	@Test(expected=DataOperationNotSupportedException.class)
 	public void testFind() throws DataException {
-		ns.find("123".getBytes());			
+		NamedInputStream nis = sample(lines);
+		nis.find("123".getBytes());			
 	}	
+	
+	/**
+	 * Test for close().
+	 * 
+	 * @throws IOException 
+	 * @throws DataException 
+	 */
+	@Test
+	public void testClose() throws IOException, DataException {
+		InputStream stream = mock(InputStream.class);
+		Charset encoding = Charset.defaultCharset();		
+		NamedInputStream ns = 
+			new NamedInputStream(null, stream, "foo", 10, stream, encoding, "bar");
+		ns.close();
+		verify(stream, times(1)).close();
+	}
 	
 	
 }

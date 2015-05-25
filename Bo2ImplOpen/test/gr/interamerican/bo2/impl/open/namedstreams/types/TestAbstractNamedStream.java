@@ -38,27 +38,33 @@ public class TestAbstractNamedStream {
 		PrintStream stream = System.out;
 		AbstractNamedStream<PrintStream> mo = 
 			new AbstractNamedStream<PrintStream>
-			(StreamType.PRINTSTREAM,StreamResource.SYSTEM,stream,"Mock",10, stream, Bo2UtilsEnvironment.getDefaultTextCharset()) {
+			(StreamType.PRINTSTREAM,StreamResource.SYSTEM,stream,"Mock",10, stream, Bo2UtilsEnvironment.getDefaultTextCharset(), "furi") {
+				@Override
 				public byte[] readRecord() 
 				throws DataException, DataOperationNotSupportedException {
 					return null;
 				}
+				@Override
 				public String readString() 
 				throws DataException, DataOperationNotSupportedException {
 					return null;
 				}
+				@Override
 				public void writeRecord(byte[] record) 
 				throws DataException, DataOperationNotSupportedException {
 					/* empty */				
 				}
+				@Override
 				public void writeString(String string) 
 				throws DataException, DataOperationNotSupportedException {
 					/* empty */
 				}
+				@Override
 				public boolean find(byte[] key) 
 				throws DataException, DataOperationNotSupportedException {
 					return false;
 				}
+				@Override
 				public void close() 
 				throws DataException, DataOperationNotSupportedException {
 					/* empty */					
@@ -110,6 +116,15 @@ public class TestAbstractNamedStream {
 	public void testGetResourceType() {
 		AbstractNamedStream<PrintStream> ns = mock();
 		Assert.assertEquals(ns.resourceType, ns.getResourceType());
+	}
+	
+	/**
+	 * Tests getResourceType()
+	 */	
+	@Test
+	public void testGetUri() {
+		AbstractNamedStream<PrintStream> ns = mock();
+		Assert.assertEquals(ns.uri, ns.getUri());
 	}
 	
 	/**

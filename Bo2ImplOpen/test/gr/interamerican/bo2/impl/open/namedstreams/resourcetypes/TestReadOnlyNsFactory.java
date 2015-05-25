@@ -40,7 +40,8 @@ public class TestReadOnlyNsFactory {
 		String name = "foo"; //$NON-NLS-1$
 		int recordLength = 100;
 		Charset charset = Charset.defaultCharset();
-		NamedInputStream nis = nsf.input(stream, name, recordLength, charset);		
+		String uri = "File://URI"; //$NON-NLS-1$
+		NamedInputStream nis = nsf.input(stream, name, recordLength, charset, uri);		
 		Assert.assertEquals(resourceType, nis.getResourceType());
 		Assert.assertEquals(charset, nis.getEncoding());
 		Assert.assertEquals(name, nis.getName());
@@ -48,6 +49,7 @@ public class TestReadOnlyNsFactory {
 		Assert.assertEquals(StreamType.INPUTSTREAM, nis.getType());
 		Assert.assertEquals(stream, nis.getResource());
 		Assert.assertEquals(stream, nis.getStream());
+		Assert.assertEquals(uri, nis.getUri());
 	}
 	
 	/**
@@ -62,7 +64,8 @@ public class TestReadOnlyNsFactory {
 		InputStream stream = Mockito.mock(InputStream.class);
 		String name = "foo"; //$NON-NLS-1$		
 		Charset charset = Charset.defaultCharset();
-		NamedBufferedReader nbr = nsf.reader(stream, name, charset);		
+		String uri = "File://URI"; //$NON-NLS-1$
+		NamedBufferedReader nbr = nsf.reader(stream, name, charset,uri);		
 		Assert.assertEquals(resourceType, nbr.getResourceType());
 		Assert.assertEquals(charset, nbr.getEncoding());
 		Assert.assertEquals(name, nbr.getName());
@@ -70,6 +73,7 @@ public class TestReadOnlyNsFactory {
 		Assert.assertEquals(StreamType.BUFFEREDREADER, nbr.getType());
 		Assert.assertEquals(stream, nbr.getResource());
 		Assert.assertNotNull(nbr.getStream());
+		Assert.assertEquals(uri, nbr.getUri());
 	}
 	
 	/**
@@ -244,11 +248,12 @@ public class TestReadOnlyNsFactory {
 		StreamResource resourceType = StreamResource.FILE;
 		ConcreteReadOnlyNsFactory nsf = new ConcreteReadOnlyNsFactory(resourceType);
 		
-		String name = "foo"; //$NON-NLS-1$		
+		String name = "foo"; //$NON-NLS-1$
+		String uri = "bar"; //$NON-NLS-1$
 		Charset charset = Charset.defaultCharset();
 		int recordLength = 100;		
 		InputStream stream = Mockito.mock(InputStream.class);		
-		NamedStream<?> ns1 = new NamedInputStream(resourceType, stream, name, recordLength, stream, charset);
+		NamedStream<?> ns1 = new NamedInputStream(resourceType, stream, name, recordLength, stream, charset, uri);
 		
 		String newName = "bar"; //$NON-NLS-1$
 		StreamType newType = StreamType.BUFFEREDREADER;
@@ -264,6 +269,7 @@ public class TestReadOnlyNsFactory {
 		Assert.assertEquals(newType, nbr.getType());
 		Assert.assertNotNull(nbr.getStream());				
 		Assert.assertTrue(nbr.getResource() instanceof InputStream);
+		Assert.assertEquals(uri, nbr.getUri());
 	}
 	
 	
@@ -276,11 +282,12 @@ public class TestReadOnlyNsFactory {
 	public void testConvert_invalid() throws CouldNotConvertNamedStreamException {
 		StreamResource resourceType = StreamResource.FILE;
 		ConcreteReadOnlyNsFactory nsf = new ConcreteReadOnlyNsFactory(resourceType);		
-		String name = "foo"; //$NON-NLS-1$		
+		String name = "foo"; //$NON-NLS-1$
+		String uri = "bar"; //$NON-NLS-1$
 		Charset charset = Charset.defaultCharset();
 		int recordLength = 100;		
 		InputStream stream = Mockito.mock(InputStream.class);		
-		NamedStream<?> ns1 = new NamedInputStream(resourceType, stream, name, recordLength, stream, charset);		
+		NamedStream<?> ns1 = new NamedInputStream(resourceType, stream, name, recordLength, stream, charset,uri);		
 		String newName = "bar"; //$NON-NLS-1$
 		StreamType newType = StreamType.PRINTSTREAM;
 		nsf.convert(ns1, newType, newName);

@@ -59,7 +59,7 @@ public class TestNamedInputStreamAsResourceStream {
 		InputStream stream = Mockito.mock(InputStream.class);
 		
 		Charset encoding=Charset.defaultCharset();
-		NamedInputStream nis = new NamedInputStream(null, stream, name, 100, null, encoding);
+		NamedInputStream nis = new NamedInputStream(null, stream, name, 100, null, encoding,null);
 		NamedStreamUtils.registerStream(nis, provider(), manager);
 		NamedInputStreamAsResourceStream resource = 
 			new NamedInputStreamAsResourceStream(manager, name);

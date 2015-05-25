@@ -106,9 +106,9 @@ implements NamedStreamFactory {
 		StreamType type = def.getType();		
 		switch (type) {		
 		case BUFFEREDREADER:
-			return reader(stream, def.getName(), def.getEncoding());			
+			return reader(stream, def.getName(), def.getEncoding(), def.getUri());			
 		case INPUTSTREAM:
-			return input(stream, def.getName(), def.getRecordLength(), def.getEncoding());			
+			return input(stream, def.getName(), def.getRecordLength(), def.getEncoding(), def.getUri());			
 		default:
 			String msg = "Invalid NamedStream type " + StringUtils.toString(type); //$NON-NLS-1$
 			throw new CouldNotCreateNamedStreamException(msg);			
@@ -128,15 +128,17 @@ implements NamedStreamFactory {
 	 *        Stream name.
 	 * @param encoding
 	 *        Encoding (if applicable).
+	 * @param uri
+	 *        Stream URI.         
 	 * 
 	 * @return Returns the NamedBufferedReader.
 	 * 
 	 * @throws IOException
 	 */
-	NamedBufferedReader reader(InputStream stream, String name, Charset encoding) {
+	NamedBufferedReader reader(InputStream stream, String name, Charset encoding, String uri) {
 		InputStreamReader insr = new InputStreamReader(stream, encoding);
 		BufferedReader br = new BufferedReader(insr);
-		return new NamedBufferedReader(StreamResource.FILE, br, name, stream, encoding);
+		return new NamedBufferedReader(resourceType, br, name, stream, encoding, uri);
 	}
 	
 	/**
@@ -152,12 +154,14 @@ implements NamedStreamFactory {
 	 *        Record length.
 	 * @param encoding
 	 *        Encoding (if applicable).
+	 * @param uri
+	 *        Stream URI.         
 	 * 
 	 * @return Returns the NamedInputStream.
 	 * @throws FileNotFoundException
 	 */
-	NamedInputStream input(InputStream stream, String name, int recordLength, Charset encoding) {		
-		return new NamedInputStream(StreamResource.FILE, stream, name, recordLength, stream, encoding);
+	NamedInputStream input(InputStream stream, String name, int recordLength, Charset encoding, String uri) {		
+		return new NamedInputStream(resourceType, stream, name, recordLength, stream, encoding, uri);
 	}
 	
 

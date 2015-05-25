@@ -15,7 +15,6 @@ package gr.interamerican.bo2.impl.open.namedstreams.types;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.DataOperationNotSupportedException;
 import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResource;
-import gr.interamerican.bo2.impl.open.utils.Exceptions;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -43,18 +42,21 @@ public class NamedBufferedReader extends AbstractNamedStream<BufferedReader> {
 	 * @param name
 	 * @param resource 
 	 * @param encoding 
+	 * @param uri 
 	 */
 	public NamedBufferedReader(
 			StreamResource resourceType, BufferedReader stream, 
-			String name, Object resource, Charset encoding) {
-		super(StreamType.BUFFEREDREADER, resourceType, stream, name, 0, resource, encoding);
+			String name, Object resource, Charset encoding, String uri) {
+		super(StreamType.BUFFEREDREADER, resourceType, stream, name, 0, resource, encoding, uri);
 	}
 
+	@Override
 	public boolean find(byte[] key) 
-	throws DataException, DataOperationNotSupportedException {
-		throw Exceptions.dataOperationNotSupported(getStream());
+	throws DataException, DataOperationNotSupportedException {		
+		throw new DataOperationNotSupportedException();	
 	}
 
+	@Override
 	public byte[] readRecord() 
 	throws DataException {
 		String record=readString();
@@ -68,6 +70,7 @@ public class NamedBufferedReader extends AbstractNamedStream<BufferedReader> {
 		return record.getBytes(encoding);
 	}
 	
+	@Override
 	public String readString() 
 	throws DataException {
 		try {
@@ -82,16 +85,19 @@ public class NamedBufferedReader extends AbstractNamedStream<BufferedReader> {
 		}        
 	}
 	
+	@Override
 	public void writeRecord(byte[] record) 
 	throws DataException, DataOperationNotSupportedException {
-		throw Exceptions.dataOperationNotSupported(stream);		
+		throw new DataOperationNotSupportedException();				
 	}
 
+	@Override
 	public void writeString(String string) 
 	throws DataException, DataOperationNotSupportedException {
-		throw Exceptions.dataOperationNotSupported(stream);
+		throw new DataOperationNotSupportedException();
 	}
 
+	@Override
 	public void close() throws DataException {
 		try {
 			stream.close();

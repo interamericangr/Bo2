@@ -64,6 +64,12 @@ implements NamedStream<T> {
      * Encoding used by this stream.
      */
     Charset encoding;
+    
+    /**
+     * Encoding used by this stream.
+     */
+    String uri;
+
 
     /**
  	 * Creates a new AbstractNamedStream object. 
@@ -75,10 +81,12 @@ implements NamedStream<T> {
      * @param recordLength 
      * @param resource 
      * @param encoding 
+     * @param uri 
  	 */
  	public AbstractNamedStream (
  			StreamType streamType, StreamResource resourceType, 
- 			T stream, String name, int recordLength, Object resource, Charset encoding) {
+ 			T stream, String name, int recordLength, Object resource, 
+ 			Charset encoding, String uri) {
  		super();
  		this.name = name;
  		this.recordLength = recordLength;
@@ -87,6 +95,7 @@ implements NamedStream<T> {
  		this.stream = stream;
  		this.resource = resource;
  		this.encoding = Utils.notNull(encoding, Bo2UtilsEnvironment.getDefaultTextCharset());
+ 		this.uri = uri;
  		validate();
  	}
  	
@@ -100,32 +109,44 @@ implements NamedStream<T> {
  		}
  	}
    
-    public String getName() {
+    @Override
+	public String getName() {
         return name;
     }
        
-    public int getRecordLength() {
+    @Override
+	public int getRecordLength() {
         return recordLength;
     }
    
+	@Override
 	public T getStream() {
 		return stream;
 	}	
 	
+	@Override
 	public StreamType getType() {
 		return streamType;
 	}
 	
+	@Override
 	public StreamResource getResourceType() {
 		return resourceType;
 	}
 
+	@Override
 	public Object getResource() {
 		return resource;
 	}
 	
+	@Override
 	public Charset getEncoding() {
 		return encoding;
+	}
+	
+	@Override
+	public String getUri() {
+		return uri;
 	}
 	
 }

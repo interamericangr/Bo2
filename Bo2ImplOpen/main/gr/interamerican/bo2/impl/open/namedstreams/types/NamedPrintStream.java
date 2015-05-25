@@ -16,7 +16,6 @@ package gr.interamerican.bo2.impl.open.namedstreams.types;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.DataOperationNotSupportedException;
 import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResource;
-import gr.interamerican.bo2.impl.open.utils.Exceptions;
 
 import java.io.PrintStream;
 import java.nio.charset.Charset;
@@ -36,36 +35,43 @@ public class NamedPrintStream extends AbstractNamedStream<PrintStream> {
 	 * @param name
 	 * @param resource 
 	 * @param encoding 
+	 * @param uri 
 	 */
 	public NamedPrintStream(
 			StreamResource resourceType, PrintStream stream, 
-			String name, Object resource, Charset encoding) {
-		super(StreamType.PRINTSTREAM, resourceType, stream, name, 0, resource, encoding);
+			String name, Object resource, Charset encoding, String uri) {
+		super(StreamType.PRINTSTREAM, resourceType, stream, name, 0, resource, encoding, uri);
 	}
 	
+	@Override
 	public boolean find(byte[] key) 
 	throws DataException, DataOperationNotSupportedException {
-		throw Exceptions.dataOperationNotSupported(stream);
+		throw new DataOperationNotSupportedException();
 	}
 
+	@Override
 	public byte[] readRecord() 
 	throws DataException {
-		throw Exceptions.dataOperationNotSupported(stream);
+		throw new DataOperationNotSupportedException();
 	}
 	
+	@Override
 	public String readString() 
 	throws DataException {
-		throw Exceptions.dataOperationNotSupported(stream);
+		throw new DataOperationNotSupportedException();
 	}
 
+	@Override
 	public void writeRecord(byte[] record) {
 		stream.println(new String(record, encoding));
 	}
 
+	@Override
 	public void writeString(String string) {
 		stream.println(string);
 	}
 
+	@Override
 	public void close() throws DataException {
 		stream.close();
 	}

@@ -15,7 +15,6 @@ package gr.interamerican.bo2.impl.open.namedstreams.types;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.DataOperationNotSupportedException;
 import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResource;
-import gr.interamerican.bo2.impl.open.utils.Exceptions;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,19 +36,22 @@ public class NamedInputStream extends AbstractNamedStream<InputStream> {
 	 * @param recordLength
 	 * @param resource 
 	 * @param encoding 
+	 * @param uri 
 	 */
 	public NamedInputStream(
 			StreamResource resourceType, InputStream stream, 
-			String name, int recordLength, Object resource, Charset encoding) {
-		super(StreamType.INPUTSTREAM, resourceType, stream, name, recordLength, resource, encoding);
+			String name, int recordLength, Object resource, Charset encoding, String uri) {
+		super(StreamType.INPUTSTREAM, resourceType, stream, name, recordLength, resource, encoding, uri);
 	}
 	
 
+	@Override
 	public boolean find(byte[] key) 
 	throws DataException, DataOperationNotSupportedException {
-		throw Exceptions.dataOperationNotSupported(stream);
+		throw new DataOperationNotSupportedException();
 	}
 
+	@Override
 	public byte[] readRecord() 
 	throws DataException {
 		try {
@@ -65,6 +67,7 @@ public class NamedInputStream extends AbstractNamedStream<InputStream> {
 		}        
 	}
 
+	@Override
 	public String readString() 
 	throws DataException {
 		byte[] rec=readRecord();
@@ -75,16 +78,19 @@ public class NamedInputStream extends AbstractNamedStream<InputStream> {
 		return new String(rec, encoding);
 	}
 	
+	@Override
 	public void writeRecord(byte[] record) 
 	throws DataException, DataOperationNotSupportedException {
-		throw Exceptions.dataOperationNotSupported(stream);	
+		throw new DataOperationNotSupportedException();	
 	}
 
+	@Override
 	public void writeString(String string) 
 	throws DataException, DataOperationNotSupportedException {
-		throw Exceptions.dataOperationNotSupported(stream);
+		throw new DataOperationNotSupportedException();
 	}
 
+	@Override
 	public void close() throws DataException {
 		try {
 			stream.close();

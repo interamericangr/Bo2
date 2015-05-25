@@ -103,13 +103,13 @@ implements NamedStreamFactory {
 		StreamType type = def.getType();		
 		switch (type) {		
 		case BUFFEREDREADER:
-			return reader(file, def.getName(), def.getEncoding());			
+			return reader(file, def.getName(), def.getEncoding(), def.getUri());			
 		case INPUTSTREAM:
-			return input(file, def.getName(), def.getRecordLength(), def.getEncoding());			
+			return input(file, def.getName(), def.getRecordLength(), def.getEncoding(), def.getUri());			
 		case OUTPUTSTREAM:
-			return output(file, def.getName(), def.getRecordLength(), def.getEncoding());			
+			return output(file, def.getName(), def.getRecordLength(), def.getEncoding(), def.getUri());			
 		case PRINTSTREAM:			
-			return print(file, def.getName(), def.getEncoding());			
+			return print(file, def.getName(), def.getEncoding(), def.getUri());			
 		default:
 			String msg = "Invalid NamedStream type " + StringUtils.toString(type); //$NON-NLS-1$
 			throw new CouldNotCreateNamedStreamException(msg);			
@@ -129,17 +129,19 @@ implements NamedStreamFactory {
 	 *        Stream name.
 	 * @param encoding
 	 *        Encoding (if applicable).
+	 * @param uri
+	 *        File path        
 	 * 
 	 * @return Returns the NamedBufferedReader.
 	 * 
 	 * @throws IOException
 	 */
-	NamedBufferedReader reader(File file, String name, Charset encoding)
+	NamedBufferedReader reader(File file, String name, Charset encoding, String uri)
 	throws IOException {
 		FileInputStream fis = new FileInputStream(file);
 		InputStreamReader insr = new InputStreamReader(fis, encoding);
 		BufferedReader br = new BufferedReader(insr);
-		return new NamedBufferedReader(StreamResource.FILE, br, name, file, encoding);
+		return new NamedBufferedReader(StreamResource.FILE, br, name, file, encoding, uri);
 	}
 	
 	/**
@@ -155,14 +157,16 @@ implements NamedStreamFactory {
 	 *        Record length.
 	 * @param encoding
 	 *        Encoding (if applicable).
+	 * @param uri
+	 *        File path 
 	 * 
 	 * @return Returns the NamedInputStream.
 	 * @throws FileNotFoundException
 	 */
-	NamedInputStream input(File file, String name, int recordLength, Charset encoding)
+	NamedInputStream input(File file, String name, int recordLength, Charset encoding, String uri)
 	throws FileNotFoundException {
 		InputStream in = new FileInputStream(file);
-		return new NamedInputStream(StreamResource.FILE, in, name, recordLength, file, encoding);
+		return new NamedInputStream(StreamResource.FILE, in, name, recordLength, file, encoding, uri);
 	}
 	
 	/**
@@ -178,15 +182,17 @@ implements NamedStreamFactory {
 	 *        Record length.
 	 * @param encoding
 	 *        Encoding (if applicable).
+	 * @param uri
+	 *        File path         
 	 * 
 	 * @return Returns the NamedOutputStream.
 	 * 
 	 * @throws IOException
 	 */
-	NamedOutputStream output(File file, String name, int recordLength, Charset encoding) 
+	NamedOutputStream output(File file, String name, int recordLength, Charset encoding, String uri) 
 	throws IOException {
 		OutputStream out = FileUtils.openOutputStream(file);
-		return new NamedOutputStream(StreamResource.FILE, out, name, recordLength, file, encoding);
+		return new NamedOutputStream(StreamResource.FILE, out, name, recordLength, file, encoding, uri);
 	}
 	
 	/**
@@ -200,16 +206,18 @@ implements NamedStreamFactory {
 	 *        Stream name.
 	 * @param encoding
 	 *        Encoding (if applicable).
+	 * @param uri
+	 *        File path         
 	 * 
 	 * @return Returns the NamedOutputStream.
 	 * 
 	 * @throws IOException
 	 */
-	NamedPrintStream print(File file, String name, Charset encoding)
+	NamedPrintStream print(File file, String name, Charset encoding, String uri)
 	throws IOException {
 		OutputStream os = FileUtils.openOutputStream(file);
 		PrintStream out = new PrintStream(os, false, encoding.name());
-		return new NamedPrintStream(StreamResource.FILE, out, name, file, encoding);
+		return new NamedPrintStream(StreamResource.FILE, out, name, file, encoding, uri);
 	}
 	
 	/**

@@ -174,10 +174,17 @@ public interface NamedStream<T> {
 	public Object getResource();
 	
 	/**
-	 * Gets the encoding used by this stream. There is no setter for this property! 
+	 * Gets the encoding used by this stream. 
 	 * 
 	 * @return Encoding used by the stream.
 	 */
 	public Charset getEncoding();
+	
+	/**
+	 * Gets the URI used to create this stream. 
+	 * 
+	 * @return Encoding used by the stream.
+	 */
+	public String getUri();
 
 }

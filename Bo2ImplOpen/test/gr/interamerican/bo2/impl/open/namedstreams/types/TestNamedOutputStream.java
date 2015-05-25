@@ -13,19 +13,27 @@
 package gr.interamerican.bo2.impl.open.namedstreams.types;
 
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.DataOperationNotSupportedException;
 import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResource;
 import gr.interamerican.bo2.impl.open.namedstreams.types.NamedOutputStream;
+import gr.interamerican.bo2.samples.Streams;
 import gr.interamerican.bo2.test.utils.UtilityForBo2Test;
 import gr.interamerican.bo2.utils.Bo2UtilsEnvironment;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.nio.charset.Charset;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -38,23 +46,48 @@ import org.junit.Test;
 @SuppressWarnings("nls")
 public class TestNamedOutputStream {
 	
+	
 	/**
-	 * Object to test.
+	 * Array for the tests.
 	 */
-	NamedOutputStream ns;
-	
-	
+	String[] lines = {
+			"this is a dog",
+			"this is a cat",
+			"cats and dogs are animals" 
+	};
 	
 	/**
-	 * Tests setup.
+	 * Creates a sample.
 	 * 
-	 * @throws DataException 
+	 * @return Returns the sample.
 	 */
-	@Before
-	public void after() throws DataException {
-		if (ns!=null) {
-			ns.close();
-		}
+	NamedOutputStream sample() {
+		Charset encoding = Charset.defaultCharset();
+		OutputStream out = new ByteArrayOutputStream();
+		return new NamedOutputStream(null,out,"NOS",lines[0].length(),out,encoding,null);
+	}
+	
+	
+	/**
+	 * Test for the constructor.
+	 */
+	@Test
+	public void testConstructor() {
+		StreamResource resourceType = StreamResource.BYTES;
+		OutputStream stream = mock(OutputStream.class);
+		String name = "bar";
+		Object resource = new Object();
+		String uri = "foo";
+		int reclen = 100;
+		Charset encoding = Charset.defaultCharset();		
+		NamedOutputStream ns = 
+			new NamedOutputStream(resourceType, stream, name, reclen, resource, encoding, uri);
+		Assert.assertEquals(resourceType, ns.getResourceType());
+		Assert.assertEquals(resource, ns.getResource());
+		Assert.assertEquals(stream, ns.getStream());
+		Assert.assertEquals(uri, ns.getUri());
+		Assert.assertEquals(encoding, ns.getEncoding());
+		Assert.assertEquals(reclen, ns.getRecordLength());
 	}
 	
 	/**
@@ -64,11 +97,8 @@ public class TestNamedOutputStream {
 	 */	
 	@Test(expected=DataOperationNotSupportedException.class)
 	public void testReadRecord() throws FileNotFoundException, DataException {
-		String path = UtilityForBo2Test.getTestStreamPath("TestNamedOutputStream.1.txt");		
-		File file = new File(path);
-		FileOutputStream stream = new FileOutputStream(file);
-		ns = new NamedOutputStream (StreamResource.FILE, stream, "Nout", 20, file, Bo2UtilsEnvironment.getDefaultTextCharset());
-		@SuppressWarnings("unused") byte[] rec1 = ns.readRecord();	
+		NamedOutputStream ns = sample();
+		ns.readRecord();
 	}
 	
 	/**
@@ -78,11 +108,8 @@ public class TestNamedOutputStream {
 	 */	
 	@Test(expected=DataOperationNotSupportedException.class)
 	public void testReadString() throws FileNotFoundException, DataException {
-		String path = UtilityForBo2Test.getTestStreamPath("TestNamedOutputStream.2.txt");		
-		File file = new File(path);
-		FileOutputStream stream = new FileOutputStream(file);
-		ns = new NamedOutputStream (StreamResource.FILE, stream, "Nout", 20, file, Bo2UtilsEnvironment.getDefaultTextCharset());
-		@SuppressWarnings("unused") String rec1 = ns.readString();	
+		NamedOutputStream ns = sample();
+		ns.readString();
 	}	
 	
 	/**
@@ -92,18 +119,15 @@ public class TestNamedOutputStream {
 	 */	
 	@Test()
 	public void testWriteString() throws DataException, IOException {
-		String path = UtilityForBo2Test.getTestStreamPath("TestNamedOutputStream.3.txt");		
-		File file = new File(path);
-		FileOutputStream stream = new FileOutputStream(file);
-		ns = new NamedOutputStream (StreamResource.FILE, stream, "Nout", 20, file, Bo2UtilsEnvironment.getDefaultTextCharset());
-		String string = "write this";
-		ns.writeString(string);
-		ns.close();
-		
-		BufferedReader br = new BufferedReader(new FileReader(path));
-		String actual = br.readLine();
-		Assert.assertEquals(string, actual);
-		br.close();		
+		NamedOutputStream ns = sample();
+		for (String string : lines) {
+			ns.writeString(string);
+		}
+		ByteArrayOutputStream baos = (ByteArrayOutputStream) ns.getStream();
+		byte[] bytes = baos.toByteArray();
+		String expected = lines[0] + lines[1] + lines[2];
+		byte[] expecteds = expected.getBytes(Charset.defaultCharset());
+		Assert.assertArrayEquals(expecteds, bytes);
 	}		
 	
 	/**
@@ -113,19 +137,16 @@ public class TestNamedOutputStream {
 	 */	
 	@Test()
 	public void testWriteRecord() throws DataException, IOException {
-		String path = UtilityForBo2Test.getTestStreamPath("TestNamedOutputStream.4.txt");		
-		File file = new File(path);
-		FileOutputStream stream = new FileOutputStream(file);
-		ns = new NamedOutputStream (StreamResource.FILE, stream, "Nout", 20, file, Bo2UtilsEnvironment.getDefaultTextCharset());
-		String string = "write this";
-		ns.writeRecord(string.getBytes());
-		ns.close();
-		
-		BufferedReader br = new BufferedReader(new FileReader(path));
-		String actual = br.readLine();
-		Assert.assertEquals(string, actual);
-		br.close();		
-		
+		NamedOutputStream ns = sample();
+		for (String string : lines) {
+			byte[] rec = string.getBytes(Charset.defaultCharset());
+			ns.writeRecord(rec);
+		}
+		ByteArrayOutputStream baos = (ByteArrayOutputStream) ns.getStream();
+		byte[] bytes = baos.toByteArray();
+		String expected = lines[0] + lines[1] + lines[2];
+		byte[] expecteds = expected.getBytes(Charset.defaultCharset());
+		Assert.assertArrayEquals(expecteds, bytes);
 	}	
 	
 	/**
@@ -135,12 +156,24 @@ public class TestNamedOutputStream {
 	 */	
 	@Test(expected=DataOperationNotSupportedException.class)
 	public void testFind() throws FileNotFoundException, DataException {
-		String path = UtilityForBo2Test.getTestStreamPath("TestNamedOutputStream.5.txt");		
-		File file = new File(path);
-		FileOutputStream stream = new FileOutputStream(file);
-		ns = new NamedOutputStream (StreamResource.FILE, stream, "Nout", 20, file, Bo2UtilsEnvironment.getDefaultTextCharset());
-		@SuppressWarnings("unused") String rec1 = ns.readString();
-		ns.find("123".getBytes());
+		NamedOutputStream ns = sample();
+		ns.find("foo".getBytes());
 	}	
+	
+	/**
+	 * Test for close().
+	 * 
+	 * @throws IOException 
+	 * @throws DataException 
+	 */
+	@Test
+	public void testClose() throws IOException, DataException {
+		OutputStream stream = mock(OutputStream.class);
+		Charset encoding = Charset.defaultCharset();		
+		NamedOutputStream ns = 
+			new NamedOutputStream(null, stream, "foo", 10, stream, encoding, "bar");
+		ns.close();
+		verify(stream, times(1)).close();
+	}
 	
 }

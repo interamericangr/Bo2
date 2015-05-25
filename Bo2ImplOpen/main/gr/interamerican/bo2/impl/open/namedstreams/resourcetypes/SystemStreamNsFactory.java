@@ -26,7 +26,7 @@ implements NamedStreamFactory {
 	public NamedStream<?> create(NamedStreamDefinition def)
 	throws CouldNotCreateNamedStreamException {
 		onCreate(def.getResourceType(), StreamResource.SYSTEM);
-		return systemStream(def.getName(), def.getEncoding());
+		return systemStream(def.getName(), def.getEncoding(), def.getUri());
 	}
 	
 	@Override
@@ -43,12 +43,14 @@ implements NamedStreamFactory {
 	 * @param out
 	 * @param name
 	 * @param charset
+	 * @param uri
+	 * 
 	 * @return Returns the NamedPrintStream.
 	 * 
 	 * @throws CouldNotCreateNamedStreamException 
 	 */
 	@SuppressWarnings("nls")
-	NamedPrintStream systemStream(String name, Charset charset) throws CouldNotCreateNamedStreamException {
+	NamedPrintStream systemStream(String name, Charset charset, String uri) throws CouldNotCreateNamedStreamException {
 		PrintStream ps;
 		if ("sysout".equalsIgnoreCase(name)) {
 			ps = System.out;						
@@ -58,7 +60,7 @@ implements NamedStreamFactory {
 			String msg = "Invalid name of system stream " + name;
 			throw new CouldNotCreateNamedStreamException(msg);
 		}
-		return new NamedPrintStream(StreamResource.SYSTEM, ps, name, ps, charset);
+		return new NamedPrintStream(StreamResource.SYSTEM, ps, name, ps, charset, uri);
 	}
 	
 	

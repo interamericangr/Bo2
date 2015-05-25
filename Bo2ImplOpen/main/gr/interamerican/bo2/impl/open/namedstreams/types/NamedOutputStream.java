@@ -38,28 +38,33 @@ public class NamedOutputStream extends AbstractNamedStream<OutputStream> {
 	 * @param recordLength
 	 * @param resource 
 	 * @param encoding 
+	 * @param uri 
 	 */
 	public NamedOutputStream(
 			StreamResource resourceType, OutputStream stream, 
-			String name, int recordLength, Object resource, Charset encoding) {
-		super(StreamType.OUTPUTSTREAM, resourceType, stream, name, recordLength, resource, encoding);
+			String name, int recordLength, Object resource, Charset encoding, String uri) {
+		super(StreamType.OUTPUTSTREAM, resourceType, stream, name, recordLength, resource, encoding, uri);
 	}
 
+	@Override
 	public boolean find(byte[] key) 
 	throws DataException, DataOperationNotSupportedException {
-		throw Exceptions.dataOperationNotSupported(stream);
+		throw new DataOperationNotSupportedException();
 	}
 	
+	@Override
 	public byte[] readRecord() 
 	throws DataException {
-		throw Exceptions.dataOperationNotSupported(stream);	
+		throw new DataOperationNotSupportedException();
 	}
 	
+	@Override
 	public String readString() 
 	throws DataException {
-		throw Exceptions.dataOperationNotSupported(stream);
+		throw new DataOperationNotSupportedException();
 	}
 	
+	@Override
 	public void writeRecord(byte[] record) 
 	throws DataException, DataOperationNotSupportedException {
 		try {
@@ -69,11 +74,13 @@ public class NamedOutputStream extends AbstractNamedStream<OutputStream> {
 		}	
 	}
 
+	@Override
 	public void writeString(String string) 
 	throws DataException, DataOperationNotSupportedException {
 		writeRecord(string.getBytes(encoding));
 	}
 
+	@Override
 	public void close() throws DataException {
 		try {
 			stream.close();

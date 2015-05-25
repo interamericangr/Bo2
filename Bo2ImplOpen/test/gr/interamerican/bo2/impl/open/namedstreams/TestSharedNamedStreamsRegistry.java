@@ -59,6 +59,7 @@ public class TestSharedNamedStreamsRegistry {
 		Assert.assertTrue(providers.size()==1);
 		Assert.assertEquals(nsp, providers.iterator().next());
 		*/
+		Assert.fail("Iot implemented");
 	}
 	
 	/**
@@ -75,6 +76,7 @@ public class TestSharedNamedStreamsRegistry {
 		Assert.assertEquals(stream, SharedNamedStreamsRegistry.getStream(name, nsp1));
 		Assert.assertTrue(SharedNamedStreamsRegistry.providersAccessingStream.get(stream).size()==2);
 		*/
+		Assert.fail("Iot implemented");
 	}
 	
 	/**
@@ -98,6 +100,7 @@ public class TestSharedNamedStreamsRegistry {
 		SharedNamedStreamsRegistry.releaseSharedStreams(nsp1);
 		Assert.assertNull(SharedNamedStreamsRegistry.providersAccessingStream.get(stream));
 		*/
+		Assert.fail("Iot implemented");
 	}
 
 }
