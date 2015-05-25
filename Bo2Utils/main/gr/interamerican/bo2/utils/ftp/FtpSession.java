@@ -186,11 +186,14 @@ public class FtpSession {
 
     
     /**
-     * Download a remore file to a local OutputStream.
+     * Download a remote file to a local OutputStream.
      * 
      * @param remote
+     *        Name of remote file.
      * @param local
+     *        Local OutputStream. 
      * @param isBinaryFile
+     *        Indication if the file is binary 
      * @throws FtpException
      */
     public void download(String remote, OutputStream local, boolean isBinaryFile) 
@@ -216,11 +219,14 @@ public class FtpSession {
     }
     
     /**
-	 * upload a local file to the ftp.
+	 * Uploads a local file to the FTP server.
 	 * 
 	 * @param remote
+	 *        Name of the remote file
 	 * @param local
+	 *        Local InputStream
 	 * @param isBinaryFile
+	 *        Indication iff the file is binary
 	 * @throws FtpException
 	 */
     public void upload(String remote, InputStream local, boolean isBinaryFile) 
