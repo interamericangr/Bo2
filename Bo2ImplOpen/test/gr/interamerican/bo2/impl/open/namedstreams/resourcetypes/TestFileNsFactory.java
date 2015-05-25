@@ -5,74 +5,16 @@ import gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition;
 import gr.interamerican.bo2.impl.open.namedstreams.types.StreamType;
 
 import java.io.ByteArrayOutputStream;
-import java.io.InputStream;
+import java.io.File;
 import java.nio.charset.Charset;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Unit tests for {@link ClasspathNsFactory}.
+ * Unot tests for {@link FileNsFactory}.
  */
-public class TestClasspathNsFactory {
-	
-	/**
-	 * Tests <code>openInputStream(def)</code> for a uri.
-	 * 
-	 * @param uri
-	 *        URI to test.
-	 *        
-	 * @throws CouldNotCreateNamedStreamException
-	 */
-	void testOpenIS(String uri) throws CouldNotCreateNamedStreamException {		
-		ClasspathNsFactory nsf = new ClasspathNsFactory();
-		NamedStreamDefinition def = new NamedStreamDefinition();
-		def.setEncoding(Charset.defaultCharset());
-		def.setUri(uri);
-		InputStream stream = nsf.openInputStream(def);
-		Assert.assertNotNull(stream);
-	}	
-	
-	/**
-	 * Tests the constructor.
-	 */
-	@Test
-	public void testConstructor() {		
-		ClasspathNsFactory nsf = new ClasspathNsFactory();
-		Assert.assertEquals(StreamResource.CLASSPATH, nsf.resourceType);
-	}
-	
-	/**
-	 * Tests the <code>openInputStream(def)</code>.
-	 * 
-	 * @throws CouldNotCreateNamedStreamException 
-	 */
-	@Test
-	public void testOpenInputStream_valid() throws CouldNotCreateNamedStreamException {
-		String uri = "/gr/interamerican/bo2/impl/open/namedstreams/resourcetypes/ClasspathNsFactory.class"; //$NON-NLS-1$
-		testOpenIS(uri);
-	}	
-	
-	/**
-	 * Tests the <code>openInputStream(def)</code>.
-	 * 
-	 * @throws CouldNotCreateNamedStreamException 
-	 */
-	@Test(expected=CouldNotCreateNamedStreamException.class)
-	public void testOpenInputStream_exception() throws CouldNotCreateNamedStreamException {		
-		String uri = "foo.bar.foo"; //$NON-NLS-1$
-		testOpenIS(uri);
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+public class TestFileNsFactory {
 	
 	
 	/**
@@ -83,11 +25,11 @@ public class TestClasspathNsFactory {
 	NamedStreamDefinition sampleDefinition(StreamType type) {
 		NamedStreamDefinition def = new NamedStreamDefinition();
 		def.setEncoding(Charset.defaultCharset());
-		def.setName("FooStream");
+		def.setName("FooStream"); //$NON-NLS-1$
 		def.setRecordLength(100);
-		def.setResourceType(StreamResource.CLASSPATH);
+		def.setResourceType(StreamResource.FILE);
 		def.setType(type);
-		def.setUri("/gr/interamerican/bo2/impl/open/namedstreams/resourcetypes/ClasspathNsFactory.class");
+		def.setUri("/home/temp/file.txt");
 		return def;
 	}
 	
@@ -100,14 +42,14 @@ public class TestClasspathNsFactory {
 	 * @throws CouldNotCreateNamedStreamException 
 	 */	
 	public void testCreateWithType(StreamType type) throws CouldNotCreateNamedStreamException {
-		ClasspathNsFactory factory = new ClasspathNsFactory();
+		FileNsFactory factory = new FileNsFactory();
 		NamedStreamDefinition def = sampleDefinition(type);
 		NamedStream<?> ns = factory.create(def);
 		Assert.assertNotNull(ns);
 		Assert.assertEquals(def.getName(), ns.getName());
 		Assert.assertEquals(def.getEncoding(), ns.getEncoding());
 		int expectedRecLen = def.getRecordLength();
-		if (type==StreamType.BUFFEREDREADER) {
+		if (type==StreamType.PRINTSTREAM || type==StreamType.BUFFEREDREADER) {
 			expectedRecLen = 0;
 		}
 		Assert.assertEquals(expectedRecLen, ns.getRecordLength());
@@ -115,8 +57,10 @@ public class TestClasspathNsFactory {
 		Assert.assertEquals(def.getType(), ns.getType());
 		Assert.assertNotNull(ns.getStream());		
 		Assert.assertNotNull(ns.getResource());
-		Assert.assertTrue(ns.getResource() instanceof InputStream);
+		Assert.assertTrue(ns.getResource() instanceof File);
 	}
+	
+	
 	
 	/**
 	 * Unit test for create().
@@ -143,7 +87,7 @@ public class TestClasspathNsFactory {
 	 * 
 	 * @throws CouldNotCreateNamedStreamException 
 	 */
-	@Test(expected=CouldNotCreateNamedStreamException.class)
+	@Test()
 	public void testCreate_output() throws CouldNotCreateNamedStreamException {
 		testCreateWithType(StreamType.OUTPUTSTREAM);
 	}
@@ -153,7 +97,7 @@ public class TestClasspathNsFactory {
 	 * 
 	 * @throws CouldNotCreateNamedStreamException 
 	 */
-	@Test(expected=CouldNotCreateNamedStreamException.class)
+	@Test()
 	public void testCreate_print() throws CouldNotCreateNamedStreamException {
 		testCreateWithType(StreamType.PRINTSTREAM);
 	}
@@ -170,12 +114,13 @@ public class TestClasspathNsFactory {
 	 */	
 	public void testConvertWithTypes(StreamType from, StreamType to) 
 	throws CouldNotCreateNamedStreamException, CouldNotConvertNamedStreamException {
-		ClasspathNsFactory factory = new ClasspathNsFactory();
+		FileNsFactory factory = new FileNsFactory();
 		NamedStreamDefinition def = sampleDefinition(from);
 		NamedStream<?> ns1 = factory.create(def);
 		
 		int expectedRecLen = def.getRecordLength();
-		if (from==StreamType.BUFFEREDREADER || to==StreamType.BUFFEREDREADER) {
+		if (from==StreamType.PRINTSTREAM || from==StreamType.BUFFEREDREADER ||
+			to==StreamType.PRINTSTREAM || to==StreamType.BUFFEREDREADER) {
 			expectedRecLen = 0;
 		}
 
@@ -188,31 +133,7 @@ public class TestClasspathNsFactory {
 		Assert.assertEquals(expectedRecLen, ns2.getRecordLength());
 		Assert.assertEquals(to, ns2.getType());
 		Assert.assertEquals(ns1.getResourceType(), ns2.getResourceType());
-		Assert.assertEquals(ns1.getResource(), ns2.getResource());
-	}
-	
-	/**
-	 * Unit test for convert().
-	 * 
-	 * @throws CouldNotCreateNamedStreamException 
-	 * @throws CouldNotConvertNamedStreamException 
-	 */
-	@Test(expected=CouldNotConvertNamedStreamException.class)
-	public void testConvert_InOut() 
-	throws CouldNotCreateNamedStreamException, CouldNotConvertNamedStreamException {
-		testConvertWithTypes(StreamType.INPUTSTREAM, StreamType.OUTPUTSTREAM);
-	}
-	
-	/**
-	 * Unit test for convert().
-	 * 
-	 * @throws CouldNotCreateNamedStreamException 
-	 * @throws CouldNotConvertNamedStreamException 
-	 */
-	@Test(expected=CouldNotConvertNamedStreamException.class)
-	public void testConvert_InPrint() 
-	throws CouldNotCreateNamedStreamException, CouldNotConvertNamedStreamException {
-		testConvertWithTypes(StreamType.INPUTSTREAM, StreamType.PRINTSTREAM);
+		Assert.assertEquals(ns1.getUri(), ns2.getUri());
 	}
 	
 	/**
@@ -222,9 +143,9 @@ public class TestClasspathNsFactory {
 	 * @throws CouldNotConvertNamedStreamException 
 	 */
 	@Test()
-	public void testConvert_InIn() 
+	public void testConvert_OutOut() 
 	throws CouldNotCreateNamedStreamException, CouldNotConvertNamedStreamException {
-		testConvertWithTypes(StreamType.INPUTSTREAM, StreamType.INPUTSTREAM);
+		testConvertWithTypes(StreamType.OUTPUTSTREAM, StreamType.OUTPUTSTREAM);
 	}
 	
 	/**
@@ -234,38 +155,9 @@ public class TestClasspathNsFactory {
 	 * @throws CouldNotConvertNamedStreamException 
 	 */
 	@Test()
-	public void testConvert_InReader() 
+	public void testConvert_OutPrint() 
 	throws CouldNotCreateNamedStreamException, CouldNotConvertNamedStreamException {
-		testConvertWithTypes(StreamType.INPUTSTREAM, StreamType.BUFFEREDREADER);
-	}
-	
-	
-	
-	
-	
-	
-	/**
-	 * Unit test for convert().
-	 * 
-	 * @throws CouldNotCreateNamedStreamException 
-	 * @throws CouldNotConvertNamedStreamException 
-	 */
-	@Test(expected=CouldNotConvertNamedStreamException.class)
-	public void testConvert_ReaderOut() 
-	throws CouldNotCreateNamedStreamException, CouldNotConvertNamedStreamException {
-		testConvertWithTypes(StreamType.BUFFEREDREADER, StreamType.OUTPUTSTREAM);
-	}
-	
-	/**
-	 * Unit test for convert().
-	 * 
-	 * @throws CouldNotCreateNamedStreamException 
-	 * @throws CouldNotConvertNamedStreamException 
-	 */
-	@Test(expected=CouldNotConvertNamedStreamException.class)
-	public void testConvert_ReaderPrint() 
-	throws CouldNotCreateNamedStreamException, CouldNotConvertNamedStreamException {
-		testConvertWithTypes(StreamType.BUFFEREDREADER, StreamType.PRINTSTREAM);
+		testConvertWithTypes(StreamType.OUTPUTSTREAM, StreamType.PRINTSTREAM);
 	}
 	
 	/**
@@ -275,9 +167,9 @@ public class TestClasspathNsFactory {
 	 * @throws CouldNotConvertNamedStreamException 
 	 */
 	@Test()
-	public void testConvert_ReaderIn() 
+	public void testConvert_OutIn() 
 	throws CouldNotCreateNamedStreamException, CouldNotConvertNamedStreamException {
-		testConvertWithTypes(StreamType.BUFFEREDREADER, StreamType.INPUTSTREAM);
+		testConvertWithTypes(StreamType.OUTPUTSTREAM, StreamType.INPUTSTREAM);
 	}
 	
 	/**
@@ -287,10 +179,65 @@ public class TestClasspathNsFactory {
 	 * @throws CouldNotConvertNamedStreamException 
 	 */
 	@Test()
-	public void testConvert_ReaderReader() 
+	public void testConvert_OutReader() 
 	throws CouldNotCreateNamedStreamException, CouldNotConvertNamedStreamException {
-		testConvertWithTypes(StreamType.BUFFEREDREADER, StreamType.BUFFEREDREADER);
+		testConvertWithTypes(StreamType.OUTPUTSTREAM, StreamType.BUFFEREDREADER);
 	}
 	
+	
+	
+	
+	
+	
+	
+	/**
+	 * Unit test for convert().
+	 * 
+	 * @throws CouldNotCreateNamedStreamException 
+	 * @throws CouldNotConvertNamedStreamException 
+	 */
+	@Test()
+	public void testConvert_PrintOut() 
+	throws CouldNotCreateNamedStreamException, CouldNotConvertNamedStreamException {
+		testConvertWithTypes(StreamType.PRINTSTREAM, StreamType.OUTPUTSTREAM);
+	}
+	
+	/**
+	 * Unit test for convert().
+	 * 
+	 * @throws CouldNotCreateNamedStreamException 
+	 * @throws CouldNotConvertNamedStreamException 
+	 */
+	@Test()
+	public void testConvert_PrintPrint() 
+	throws CouldNotCreateNamedStreamException, CouldNotConvertNamedStreamException {
+		testConvertWithTypes(StreamType.PRINTSTREAM, StreamType.PRINTSTREAM);
+	}
+	
+	/**
+	 * Unit test for convert().
+	 * 
+	 * @throws CouldNotCreateNamedStreamException 
+	 * @throws CouldNotConvertNamedStreamException 
+	 */
+	@Test()
+	public void testConvert_PrintIn() 
+	throws CouldNotCreateNamedStreamException, CouldNotConvertNamedStreamException {
+		testConvertWithTypes(StreamType.PRINTSTREAM, StreamType.INPUTSTREAM);
+	}
+	
+	/**
+	 * Unit test for convert().
+	 * 
+	 * @throws CouldNotCreateNamedStreamException 
+	 * @throws CouldNotConvertNamedStreamException 
+	 */
+	@Test()
+	public void testConvert_PrintReader() 
+	throws CouldNotCreateNamedStreamException, CouldNotConvertNamedStreamException {
+		testConvertWithTypes(StreamType.PRINTSTREAM, StreamType.BUFFEREDREADER);
+	}
+	
+
 
 }

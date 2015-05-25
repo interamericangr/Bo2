@@ -56,8 +56,9 @@ implements NamedStreamFactory {
 		ReflectionUtils.copyProperties(ns, nsd);
 		nsd.setName(name);
 		nsd.setType(type);
+		InputStream in = (InputStream) ns.getResource();
 		try {
-			return create(nsd);
+			return createNs(in, nsd);
 		} catch (CouldNotCreateNamedStreamException e) {
 			throw new CouldNotConvertNamedStreamException(e);
 		}
