@@ -52,12 +52,12 @@ implements NamedStreamFactory {
 	@SuppressWarnings("nls")
 	NamedPrintStream systemStream(String name, Charset charset, String uri) throws CouldNotCreateNamedStreamException {
 		PrintStream ps;
-		if ("sysout".equalsIgnoreCase(name)) {
+		if ("sysout".equalsIgnoreCase(uri)) {
 			ps = System.out;						
-		} else if ("syserr".equalsIgnoreCase(name)) {
+		} else if ("syserr".equalsIgnoreCase(uri)) {
 			ps = System.err;
 		} else {
-			String msg = "Invalid name of system stream " + name;
+			String msg = "Invalid system stream uri " + uri;
 			throw new CouldNotCreateNamedStreamException(msg);
 		}
 		return new NamedPrintStream(StreamResource.SYSTEM, ps, name, ps, charset, uri);

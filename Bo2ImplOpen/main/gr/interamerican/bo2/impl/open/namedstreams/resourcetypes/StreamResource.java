@@ -43,7 +43,7 @@ public enum StreamResource {
 	 * The stream is a resource accessible over HTTP
 	 * This stream supports only input {@link StreamType}s
 	 */
-	HTTP(null);
+	HTTP(new HttpNsFactory());
 	
 	
 	/**
