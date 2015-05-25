@@ -1,7 +1,14 @@
 package gr.interamerican.bo2.impl.open.namedstreams.resourcetypes;
 
+import gr.interamerican.bo2.arch.exceptions.DataException;
+import gr.interamerican.bo2.arch.exceptions.DataOperationNotSupportedException;
+import gr.interamerican.bo2.arch.utils.collections.Utils;
 import gr.interamerican.bo2.impl.open.namedstreams.NamedStream;
 import gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition;
+import gr.interamerican.bo2.impl.open.namedstreams.types.NamedBufferedReader;
+import gr.interamerican.bo2.impl.open.namedstreams.types.NamedInputStream;
+import gr.interamerican.bo2.impl.open.namedstreams.types.NamedOutputStream;
+import gr.interamerican.bo2.impl.open.namedstreams.types.NamedPrintStream;
 import gr.interamerican.bo2.impl.open.namedstreams.types.StreamType;
 
 import java.io.ByteArrayOutputStream;
@@ -58,6 +65,8 @@ public class TestByteNsFactory {
 		Assert.assertNotNull(ns.getResource());
 		Assert.assertTrue(ns.getResource() instanceof ByteArrayOutputStream);
 	}
+	
+	
 	
 	/**
 	 * Unit test for create().
@@ -233,6 +242,130 @@ public class TestByteNsFactory {
 	public void testConvert_PrintReader() 
 	throws CouldNotCreateNamedStreamException, CouldNotConvertNamedStreamException {
 		testConvertWithTypes(StreamType.PRINTSTREAM, StreamType.BUFFEREDREADER);
+	}
+	
+	
+	/**
+	 * Unit test for createWithBytes().
+	 * 
+	 * @param type 
+	 * @param bytes
+	 *  
+	 * @return Returns the NamedStream created. 
+	 * 
+	 * @throws CouldNotCreateNamedStreamException 
+	 * @throws CouldNotConvertNamedStreamException 
+	 * @throws DataException 
+	 * @throws DataOperationNotSupportedException 
+	 */	
+	public NamedStream<?> testCreateWithBytesAndType(StreamType type, byte[] bytes) 
+	throws CouldNotCreateNamedStreamException, CouldNotConvertNamedStreamException, DataOperationNotSupportedException, DataException {
+		 
+		
+		ByteNsFactory factory = new ByteNsFactory();
+		NamedStreamDefinition def = sampleDefinition(type);
+		
+		NamedStream<?> ns = factory.createWithBytes(def, bytes);
+		Assert.assertNotNull(ns);
+		Assert.assertEquals(def.getName(), ns.getName());
+		Assert.assertEquals(def.getEncoding(), ns.getEncoding());
+		int expectedRecLen = def.getRecordLength();
+		if (type==StreamType.PRINTSTREAM || type==StreamType.BUFFEREDREADER) {
+			expectedRecLen = 0;
+		}
+		Assert.assertEquals(expectedRecLen, ns.getRecordLength());
+		Assert.assertEquals(def.getResourceType(), ns.getResourceType());
+		Assert.assertEquals(def.getType(), ns.getType());
+		Assert.assertNotNull(ns.getStream());		
+		Assert.assertNotNull(ns.getResource());
+		Assert.assertTrue(ns.getResource() instanceof ByteArrayOutputStream);
+		
+		return ns;
+	}
+	
+	
+	
+	/**
+	 * Unit test for createWithBytes(def,bytes).
+	 * 
+	 * @throws CouldNotCreateNamedStreamException 
+	 * @throws CouldNotConvertNamedStreamException 
+	 * @throws DataException 
+	 * @throws DataOperationNotSupportedException 
+	 */
+	@Test()
+	public void testCreateWithBytes_Input() 
+	throws CouldNotCreateNamedStreamException, CouldNotConvertNamedStreamException, DataOperationNotSupportedException, DataException {
+		StreamType type = StreamType.INPUTSTREAM;
+		String foo = "foo"; //$NON-NLS-1$
+		byte[] bytes = foo.getBytes();
+		NamedInputStream ns = (NamedInputStream) testCreateWithBytesAndType(type,bytes);
+		
+		String actual = ns.readString().trim();
+		Assert.assertEquals(actual, foo);
+	}
+	
+	/**
+	 * Unit test for createWithBytes(def,bytes).
+	 * 
+	 * @throws CouldNotCreateNamedStreamException 
+	 * @throws CouldNotConvertNamedStreamException 
+	 * @throws DataException 
+	 * @throws DataOperationNotSupportedException 
+	 */
+	@Test()
+	public void testCreateWithBytes_Reader() 
+	throws CouldNotCreateNamedStreamException, CouldNotConvertNamedStreamException, DataOperationNotSupportedException, DataException {
+		StreamType type = StreamType.BUFFEREDREADER;
+		String foo = "foo"; //$NON-NLS-1$
+		byte[] bytes = foo.getBytes();
+		NamedBufferedReader ns = (NamedBufferedReader) testCreateWithBytesAndType(type,bytes);
+		InitializedByteArrayOutputStream baos = 
+			(InitializedByteArrayOutputStream) ns.getResource();
+		byte[] bytearray = baos.toByteArray();
+		Assert.assertArrayEquals(bytes, bytearray);
+	}
+	
+	/**
+	 * Unit test for createWithBytes(def,bytes).
+	 * 
+	 * @throws CouldNotCreateNamedStreamException 
+	 * @throws CouldNotConvertNamedStreamException 
+	 * @throws DataException 
+	 * @throws DataOperationNotSupportedException 
+	 */
+	@Test()
+	public void testCreateWithBytes_Output() 
+	throws CouldNotCreateNamedStreamException, CouldNotConvertNamedStreamException, DataOperationNotSupportedException, DataException {
+		StreamType type = StreamType.OUTPUTSTREAM;
+		String foo = "foo"; //$NON-NLS-1$
+		byte[] bytes = foo.getBytes();
+		NamedOutputStream ns = (NamedOutputStream) testCreateWithBytesAndType(type,bytes);
+		InitializedByteArrayOutputStream baos = 
+			(InitializedByteArrayOutputStream) ns.getResource();
+		byte[] bytearray = baos.toByteArray();
+		Assert.assertArrayEquals(bytes, bytearray);
+	}
+	
+	/**
+	 * Unit test for createWithBytes(def,bytes).
+	 * 
+	 * @throws CouldNotCreateNamedStreamException 
+	 * @throws CouldNotConvertNamedStreamException 
+	 * @throws DataException 
+	 * @throws DataOperationNotSupportedException 
+	 */
+	@Test()
+	public void testCreateWithBytes_Print() 
+	throws CouldNotCreateNamedStreamException, CouldNotConvertNamedStreamException, DataOperationNotSupportedException, DataException {
+		StreamType type = StreamType.PRINTSTREAM;
+		String foo = "foo"; //$NON-NLS-1$
+		byte[] bytes = foo.getBytes();
+		NamedPrintStream ns = (NamedPrintStream) testCreateWithBytesAndType(type,bytes);
+		InitializedByteArrayOutputStream baos = 
+			(InitializedByteArrayOutputStream) ns.getResource();
+		byte[] bytearray = baos.toByteArray();
+		Assert.assertArrayEquals(bytes, bytearray);
 	}
 	
 	

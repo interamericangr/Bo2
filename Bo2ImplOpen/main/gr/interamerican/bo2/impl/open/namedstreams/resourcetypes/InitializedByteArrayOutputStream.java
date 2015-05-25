@@ -15,8 +15,9 @@ class InitializedByteArrayOutputStream extends ByteArrayOutputStream {
 	 *        Byte array that is set as the outputstream's buffer.
 	 */
 	public InitializedByteArrayOutputStream(byte[] bytes) {
-		super(bytes.length);
+		super(bytes.length);		
 		this.buf = bytes;
+		this.count = bytes.length;
 	}
 	
 	/**
