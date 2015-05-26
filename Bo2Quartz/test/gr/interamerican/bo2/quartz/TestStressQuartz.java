@@ -16,27 +16,26 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.Assert;
-import org.junit.Test;
 
 /**
  * test suite to stress quartz
  */
 public class TestStressQuartz {
-	
+
 	static JobScheduler QUARTZ = new QuartzJobSchedulerImpl();
-	
+
 	/**
 	 * stress test
 	 *
 	 * @throws DataException
 	 */
-	@Test
+	// @Test
 	public void testSchedule() throws DataException {
 		int batches = 5;
 		int batchSize = 5;
-		
+
 		List<Thread> threads = new ArrayList<Thread>();
-		
+
 		for(int i = 0; i < batches; i++) {
 			List<JobDescription> list = new ArrayList<JobDescription>();
 			for(int j = 0; j < batchSize; j++) {
@@ -48,7 +47,7 @@ public class TestStressQuartz {
 			threads.add(t);
 			t.start();
 		}
-		
+
 		for(Thread thread : threads) {
 			try {
 				thread.join();
@@ -56,24 +55,24 @@ public class TestStressQuartz {
 				e.printStackTrace();
 			}
 		}
-		
+
 		System.out.println("==== all jobs scheduled =========");
-		
+
 		int times = batchSize*batches;
-		
+
 		QuartzUtils.waitGroupToComplete(QuartzUtils.getJobGroupName(SampleOperation.class));
 		Assert.assertEquals(times, SampleOperation.counter.get());
-		
+
 		System.out.println("all done");
 	}
-	
+
 	static class SchedulerImpl implements Runnable {
-		
+
 		JobScheduler scheduler;
 		List<JobDescription> jobs;
-		
+
 		/**
-		 * Creates a new TestStressQuartz.Scheduler object. 
+		 * Creates a new TestStressQuartz.Scheduler object.
 		 *
 		 */
 		public SchedulerImpl(JobScheduler scheduler, List<JobDescription> jobs) {
@@ -88,7 +87,7 @@ public class TestStressQuartz {
 				e.printStackTrace();
 			}
 		}
-		
+
 		void doRun() throws Exception {
 			int i = 0;
 			for(List<JobDescription> batch : CollectionUtils.partition(jobs, 2)) {
@@ -98,7 +97,7 @@ public class TestStressQuartz {
 			}
 		}
 	}
-	
+
 	public static class SampleOperation extends AbstractOperation {
 		static AtomicInteger counter = new AtomicInteger(0);
 		@Override
