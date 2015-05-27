@@ -33,24 +33,32 @@ import org.apache.commons.io.FileUtils;
  * {@link NamedStreamFactory} for File streams.
  */
 public class FileNsFactory 
+extends AbstractNsFactory
 implements NamedStreamFactory {
 
+	/**
+	 * Creates a new FileNsFactory.
+	 */
+	public FileNsFactory() {
+		super(StreamResource.FILE);
+	}
+
+	
+	
+	
+
+
 	@Override
-	public NamedStream<?> create(NamedStreamDefinition def)
-	throws CouldNotCreateNamedStreamException {	
-		onCreate(def.getResourceType(), StreamResource.FILE);
-		try {
-			NamedStream<?> ns = createNs(def);
-			return ns;
-		} catch (IOException ioe) {
-			throw new CouldNotCreateNamedStreamException(ioe);
-		}	
+	protected void onConvert(StreamType from, StreamType to) {
+		// TODO Auto-generated method stub
+		
 	}
 	
+
+
 	@Override
-	public NamedStream<?> convert(NamedStream<?> ns, StreamType type, String name)
+	protected NamedStream<?> convertNs(NamedStream<?> ns, StreamType type, String name) 
 	throws CouldNotConvertNamedStreamException {
-		onConvert(ns.getResourceType(), StreamResource.FILE);		
 		try {
 			NamedStreamDefinition def = new NamedStreamDefinition();
 			ReflectionUtils.copyProperties(ns, def);
@@ -58,12 +66,25 @@ implements NamedStreamFactory {
 			def.setType(type);
 			File file = (File) ns.getResource();
 			return createNs(file, def);			
-		} catch (IOException ioe) {			
-			throw new CouldNotConvertNamedStreamException(ioe);
 		} catch (CouldNotCreateNamedStreamException cncnse) {			
 			throw new CouldNotConvertNamedStreamException(cncnse);
 		} 
 	}
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * Creates a new NamedStream.
@@ -74,8 +95,9 @@ implements NamedStreamFactory {
 	 * @throws IOException
 	 * @throws CouldNotConvertNamedStreamException 
 	 */
-	NamedStream<?> createNs(NamedStreamDefinition def) 
-	throws IOException, CouldNotCreateNamedStreamException {
+	@Override
+	protected NamedStream<?> createNs(NamedStreamDefinition def) 
+	throws CouldNotCreateNamedStreamException {
 	
 		String uri = def.getUri();		
 		if(uri.contains(TIMESTAMP)) {
@@ -99,21 +121,26 @@ implements NamedStreamFactory {
 	 * @throws IOException
 	 */
 	NamedStream<?> createNs(File file, NamedStreamDefinition def) 
-	throws IOException, CouldNotCreateNamedStreamException {				
-		StreamType type = def.getType();		
-		switch (type) {		
-		case BUFFEREDREADER:
-			return reader(file, def.getName(), def.getEncoding(), def.getUri());			
-		case INPUTSTREAM:
-			return input(file, def.getName(), def.getRecordLength(), def.getEncoding(), def.getUri());			
-		case OUTPUTSTREAM:
-			return output(file, def.getName(), def.getRecordLength(), def.getEncoding(), def.getUri());			
-		case PRINTSTREAM:			
-			return print(file, def.getName(), def.getEncoding(), def.getUri());			
-		default:
-			String msg = "Invalid NamedStream type " + StringUtils.toString(type); //$NON-NLS-1$
-			throw new CouldNotCreateNamedStreamException(msg);			
-		}		
+	throws CouldNotCreateNamedStreamException {				
+		StreamType type = def.getType();	
+		try {
+			switch (type) {		
+			case BUFFEREDREADER:
+				return reader(file, def.getName(), def.getEncoding(), def.getUri());			
+			case INPUTSTREAM:
+				return input(file, def.getName(), def.getRecordLength(), def.getEncoding(), def.getUri());			
+			case OUTPUTSTREAM:
+				return output(file, def.getName(), def.getRecordLength(), def.getEncoding(), def.getUri());			
+			case PRINTSTREAM:			
+				return print(file, def.getName(), def.getEncoding(), def.getUri());			
+			default:
+				String msg = "Invalid NamedStream type " + StringUtils.toString(type); //$NON-NLS-1$
+				throw new CouldNotCreateNamedStreamException(msg);			
+			}	
+		} catch (IOException ioe) {
+			throw new CouldNotCreateNamedStreamException(ioe);
+		}
+			
 	}
 	
 	/**
@@ -243,8 +270,43 @@ implements NamedStreamFactory {
 		String date = new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime()); //$NON-NLS-1$
 		return date;
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	
-	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	
 
 }
