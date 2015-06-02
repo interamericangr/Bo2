@@ -5,7 +5,6 @@ import gr.interamerican.bo2.arch.PersistentObject;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
-import gr.interamerican.bo2.creation.annotations.Property;
 import gr.interamerican.bo2.impl.open.creation.Factory;
 import gr.interamerican.bo2.impl.open.hibernate.HibernateSessionProvider;
 import gr.interamerican.bo2.impl.open.hibernate.adapters.Unproxy;
@@ -37,12 +36,10 @@ public abstract class CopyPosOperation extends AbstractOperation {
 	/**
 	 * from
 	 */
-	@Property
 	String from;
 	/**
 	 * to
 	 */
-	@Property
 	String to;
 	/**
 	 * beans to copy.
