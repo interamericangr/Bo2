@@ -55,7 +55,7 @@ public abstract class CopyPosOperation extends AbstractOperation {
 	 *
 	 * @param manager
 	 */
-	void setFrom(String manager) {
+	public void setFrom(String manager) {
 		from = manager;
 	}
 
@@ -64,7 +64,7 @@ public abstract class CopyPosOperation extends AbstractOperation {
 	 *
 	 * @param manager
 	 */
-	void setTo(String manager){
+	public void setTo(String manager) {
 		to = manager;
 	}
 
