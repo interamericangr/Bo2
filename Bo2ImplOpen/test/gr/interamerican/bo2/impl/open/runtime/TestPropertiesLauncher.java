@@ -6,7 +6,6 @@ package gr.interamerican.bo2.impl.open.runtime;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
 import gr.interamerican.bo2.arch.exceptions.UnexpectedException;
-import gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessParmNames;
 import gr.interamerican.bo2.utils.StringConstants;
 
 import java.util.Properties;
@@ -39,7 +38,7 @@ public class TestPropertiesLauncher {
 	public void testLaunchPreprocess() throws ClassNotFoundException, InstantiationException,
 	IllegalAccessException, DataException, LogicException, UnexpectedException {
 		Properties p = new Properties();
-		p.setProperty(BatchProcessParmNames.PRE_PROCESSING_CLASS, name);
+		p.setProperty(PropertiesLauncherParamsNames.PRE_PROCESSING_CLASS, name);
 		PropertiesLauncher.launchPreprocess(p);
 		Assert.assertTrue(TestCmd.getRun());
 		Assert.assertFalse(TestCmd.getRun());
@@ -59,7 +58,7 @@ public class TestPropertiesLauncher {
 	public void testLaunchPostprocess() throws ClassNotFoundException, InstantiationException,
 	IllegalAccessException, DataException, LogicException, UnexpectedException {
 		Properties p = new Properties();
-		p.setProperty(BatchProcessParmNames.POST_PROCESSING_CLASS, name);
+		p.setProperty(PropertiesLauncherParamsNames.POST_PROCESSING_CLASS, name);
 		PropertiesLauncher.launchPostprocess(p);
 		Assert.assertTrue(TestCmd.getRun());
 		Assert.assertFalse(TestCmd.getRun());
@@ -112,12 +111,12 @@ public class TestPropertiesLauncher {
 	@Test
 	public void testHidePrePostOperation() {
 		Properties p=new Properties();
-		p.setProperty(BatchProcessParmNames.PRE_PROCESSING_CLASS, StringConstants.ONE);
-		p.setProperty(BatchProcessParmNames.POST_PROCESSING_CLASS, StringConstants.TWO);
+		p.setProperty(PropertiesLauncherParamsNames.PRE_PROCESSING_CLASS, StringConstants.ONE);
+		p.setProperty(PropertiesLauncherParamsNames.POST_PROCESSING_CLASS, StringConstants.TWO);
 		p.setProperty(StringConstants.MINUS, StringConstants.MINUS);
 		Properties c = PropertiesLauncher.hidePrePostOperation(p);
-		Assert.assertNull(c.getProperty(BatchProcessParmNames.PRE_PROCESSING_CLASS));
-		Assert.assertNull(c.getProperty(BatchProcessParmNames.POST_PROCESSING_CLASS));
+		Assert.assertNull(c.getProperty(PropertiesLauncherParamsNames.PRE_PROCESSING_CLASS));
+		Assert.assertNull(c.getProperty(PropertiesLauncherParamsNames.POST_PROCESSING_CLASS));
 		Assert.assertEquals(StringConstants.MINUS, c.getProperty(StringConstants.MINUS));
 	}
 }

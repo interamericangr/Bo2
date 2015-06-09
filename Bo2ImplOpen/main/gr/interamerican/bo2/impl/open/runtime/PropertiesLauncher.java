@@ -15,7 +15,6 @@ package gr.interamerican.bo2.impl.open.runtime;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
 import gr.interamerican.bo2.arch.exceptions.UnexpectedException;
-import gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessParmNames;
 import gr.interamerican.bo2.utils.StreamUtils;
 
 import java.io.IOException;
@@ -77,7 +76,7 @@ public class PropertiesLauncher {
 	static void launchPreprocess(Properties p) throws ClassNotFoundException,
 	InstantiationException, IllegalAccessException, DataException, LogicException,
 	UnexpectedException {
-		String preProcess = p.getProperty(BatchProcessParmNames.PRE_PROCESSING_CLASS);
+		String preProcess = p.getProperty(PropertiesLauncherParamsNames.PRE_PROCESSING_CLASS);
 		if (preProcess != null) {
 			LOG.debug("Launching pre process:" + preProcess); //$NON-NLS-1$
 			launchRuntimeCommand(preProcess);
@@ -98,7 +97,7 @@ public class PropertiesLauncher {
 	static void launchPostprocess(Properties p) throws ClassNotFoundException,
 	InstantiationException, IllegalAccessException, DataException, LogicException,
 	UnexpectedException {
-		String postProcess = p.getProperty(BatchProcessParmNames.POST_PROCESSING_CLASS);
+		String postProcess = p.getProperty(PropertiesLauncherParamsNames.POST_PROCESSING_CLASS);
 		if (postProcess != null) {
 			LOG.debug("Launching post process:" + postProcess); //$NON-NLS-1$
 			launchRuntimeCommand(postProcess);
@@ -156,8 +155,8 @@ public class PropertiesLauncher {
 	static Properties hidePrePostOperation(Properties p) {
 		Properties hidden = new Properties();
 		for (String key : p.stringPropertyNames()) {
-			if (BatchProcessParmNames.POST_PROCESSING_CLASS.equals(key)
-					|| BatchProcessParmNames.PRE_PROCESSING_CLASS.equals(key)) {
+			if (PropertiesLauncherParamsNames.POST_PROCESSING_CLASS.equals(key)
+					|| PropertiesLauncherParamsNames.PRE_PROCESSING_CLASS.equals(key)) {
 				continue;
 			}
 			hidden.setProperty(key, p.getProperty(key));
