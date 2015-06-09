@@ -74,7 +74,7 @@ public class PropertiesLauncher {
 	 * @throws LogicException
 	 * @throws DataException
 	 */
-	private static void launchPreprocess(Properties p) throws ClassNotFoundException,
+	static void launchPreprocess(Properties p) throws ClassNotFoundException,
 	InstantiationException, IllegalAccessException, DataException, LogicException,
 	UnexpectedException {
 		String preProcess = p.getProperty(BatchProcessParmNames.PRE_PROCESSING_CLASS);
@@ -95,7 +95,7 @@ public class PropertiesLauncher {
 	 * @throws LogicException
 	 * @throws DataException
 	 */
-	private static void launchPostprocess(Properties p) throws ClassNotFoundException,
+	static void launchPostprocess(Properties p) throws ClassNotFoundException,
 	InstantiationException, IllegalAccessException, DataException, LogicException,
 	UnexpectedException {
 		String postProcess = p.getProperty(BatchProcessParmNames.POST_PROCESSING_CLASS);
@@ -116,7 +116,7 @@ public class PropertiesLauncher {
 	 * @throws LogicException
 	 * @throws UnexpectedException
 	 */
-	private static void launchRuntimeCommand(String name) throws ClassNotFoundException,
+	static void launchRuntimeCommand(String name) throws ClassNotFoundException,
 	InstantiationException, IllegalAccessException, DataException, LogicException,
 	UnexpectedException {
 		Class<?> cmdClass = Class.forName(name);
@@ -136,7 +136,7 @@ public class PropertiesLauncher {
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 */
-	private static void launchAbstractBo2RuntimeWithPropertiesCmd(String className, Properties p)
+	static void launchAbstractBo2RuntimeWithPropertiesCmd(String className, Properties p)
 			throws ClassNotFoundException, DataException, LogicException, UnexpectedException,
 			InstantiationException, IllegalAccessException {
 		LOG.trace("Launching " + className); //$NON-NLS-1$
@@ -153,7 +153,7 @@ public class PropertiesLauncher {
 	 * @param p
 	 * @return
 	 */
-	private static Properties hidePrePostOperation(Properties p) {
+	static Properties hidePrePostOperation(Properties p) {
 		Properties hidden = new Properties();
 		for (String key : p.stringPropertyNames()) {
 			if (BatchProcessParmNames.POST_PROCESSING_CLASS.equals(key)
