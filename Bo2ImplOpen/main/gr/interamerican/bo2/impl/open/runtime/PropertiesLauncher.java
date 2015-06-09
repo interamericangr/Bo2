@@ -146,11 +146,29 @@ public class PropertiesLauncher {
 		cmd.setExecutionProperties(p);
 		cmd.execute();
 	}
+
+	/**
+	 * hides pre-processing and post-processing operation from potential double-execution.
+	 *
+	 * @param p
+	 * @return
+	 */
+	private static Properties hidePrePostOperation(Properties p) {
+		Properties hidden = new Properties();
+		for (String key : p.stringPropertyNames()) {
+			if (BatchProcessParmNames.POST_PROCESSING_CLASS.equals(key)
+					|| BatchProcessParmNames.PRE_PROCESSING_CLASS.equals(key)) {
+				continue;
+			}
+			hidden.setProperty(key, p.getProperty(key));
+		}
+		return hidden;
+	}
+
 	/**
 	 * When an exception is thrown in java, the JLS does not define the exit value.<br>
 	 * We are using this method to catch any possible exceptions, log them and set the exit value to
-	 * -1 (generally we
-	 * need an exit value!=0 to denote an abnormal execution).<br>
+	 * -1 (generally we need an exit value!=0 to denote an abnormal execution).<br>
 	 * Specifically when running this program using ant and setting to the java task 'fork="true"'
 	 * this is the only way
 	 * for the ant process to exit.
@@ -163,7 +181,7 @@ public class PropertiesLauncher {
 			Properties p=getPropertiesFromFile(propertiesFile);
 			launchPreprocess(p);
 			launchAbstractBo2RuntimeWithPropertiesCmd(
-					p.getProperty(PropertiesLauncherParamsNames.CLASSNAME), p);
+					p.getProperty(PropertiesLauncherParamsNames.CLASSNAME), hidePrePostOperation(p));
 			launchPostprocess(p);
 		} catch (Exception e) {
 			e.printStackTrace();
