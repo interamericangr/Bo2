@@ -3,6 +3,7 @@ package gr.interamerican.bo2.impl.open.namedstreams;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.utils.StringUtils;
 
+
 public class InvalidNsdUtility {
 
 	/**
