@@ -15,6 +15,7 @@ package gr.interamerican.bo2.impl.open.namedstreams;
 import static org.junit.Assert.assertEquals;
 import gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition;
 import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResource;
+import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResourceEnum;
 import gr.interamerican.bo2.impl.open.namedstreams.types.StreamType;
 
 import org.junit.Test;
@@ -33,7 +34,7 @@ public class TestNamedStreamDefinition {
 		NamedStreamDefinition def = new NamedStreamDefinition();
 		String name = "MyStream";
 		StreamType type = StreamType.INPUTSTREAM;
-		StreamResource resourceType= StreamResource.FILE;
+		StreamResource resourceType= StreamResourceEnum.FILE;
 		String uri = "/home/me/mystream.txt";
 		int recordLength = 20;		
 		
