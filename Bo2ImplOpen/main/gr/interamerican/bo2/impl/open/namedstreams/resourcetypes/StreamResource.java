@@ -12,64 +12,18 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.namedstreams.resourcetypes;
 
-import gr.interamerican.bo2.impl.open.namedstreams.NamedStream;
-import gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition;
 
 /**
  * Type of resource behind a stream.
  */
-public enum StreamResource {
-	/**
-	 * The stream is based on a File.
-	 */
-	FILE(new FileNsFactory()),
-	
-	/**
-	 * The stream is in a byte array.
-	 */
-	BYTES(new ByteNsFactory()),
-	
-	/**
-	 * The stream is a classpath resource stream. 
-	 */
-	CLASSPATH(new ClasspathNsFactory()),
-	
-	/**
-	 * The stream is a system stream. 
-	 */
-	SYSTEM(new SystemStreamNsFactory()),
-	
-	/**
-	 * The stream is a resource accessible over HTTP
-	 * This stream supports only input {@link StreamType}s
-	 */
-	HTTP(new HttpNsFactory());
-	
-	
-	/**
-	 * Factory.
-	 */
-	NamedStreamFactory factory;
-	
-
-	/**
-	 * Creates a new StreamResource.
-	 * 
-	 * @param factory
-	 */
-	private StreamResource(NamedStreamFactory factory) {
-		this.factory = factory;
-	}
-
+public interface StreamResource {
 
 	/**
 	 * Gets the factory.
 	 *
 	 * @return Returns the factory
-	 */
-	public NamedStreamFactory getFactory() {
-		return factory;
-	}
+	 */	
+	public NamedStreamFactory getFactory();
 	
 
 }

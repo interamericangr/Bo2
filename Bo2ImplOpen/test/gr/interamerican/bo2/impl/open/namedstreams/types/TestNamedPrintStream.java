@@ -18,6 +18,7 @@ import static org.mockito.Mockito.verify;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.DataOperationNotSupportedException;
 import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResource;
+import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResourceEnum;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -63,7 +64,7 @@ public class TestNamedPrintStream {
 	 */
 	@Test
 	public void testConstructor() {
-		StreamResource resourceType = StreamResource.BYTES;
+		StreamResource resourceType = StreamResourceEnum.BYTES;
 		PrintStream stream = mock(PrintStream.class);
 		String name = "bar";
 		Object resource = new Object();

@@ -24,7 +24,7 @@ public class TestReadOnlyNsFactory {
 	 */
 	@Test
 	public void testConstructor() {
-		StreamResource resource = StreamResource.FILE;
+		StreamResource resource = StreamResourceEnum.FILE;
 		ConcreteReadOnlyNsFactory nsf = new ConcreteReadOnlyNsFactory(resource);
 		Assert.assertEquals(resource, nsf.resourceType);
 	}
@@ -34,7 +34,7 @@ public class TestReadOnlyNsFactory {
 	 */
 	@Test
 	public void testInput() {
-		StreamResource resourceType = StreamResource.FILE;
+		StreamResource resourceType = StreamResourceEnum.FILE;
 		ConcreteReadOnlyNsFactory nsf = new ConcreteReadOnlyNsFactory(resourceType);
 		InputStream stream = Mockito.mock(InputStream.class);
 		String name = "foo"; //$NON-NLS-1$
@@ -59,7 +59,7 @@ public class TestReadOnlyNsFactory {
 	 */
 	@Test
 	public void testReader() throws IOException {
-		StreamResource resourceType = StreamResource.FILE;
+		StreamResource resourceType = StreamResourceEnum.FILE;
 		ConcreteReadOnlyNsFactory nsf = new ConcreteReadOnlyNsFactory(resourceType);
 		InputStream stream = Mockito.mock(InputStream.class);
 		String name = "foo"; //$NON-NLS-1$		
@@ -84,7 +84,7 @@ public class TestReadOnlyNsFactory {
 	 */
 	@Test
 	public void testCreateNs_reader() throws IOException, CouldNotCreateNamedStreamException {
-		StreamResource resourceType = StreamResource.FILE;
+		StreamResource resourceType = StreamResourceEnum.FILE;
 		ConcreteReadOnlyNsFactory nsf = new ConcreteReadOnlyNsFactory(resourceType);
 		InputStream stream = Mockito.mock(InputStream.class);
 		String name = "foo"; //$NON-NLS-1$		
@@ -119,7 +119,7 @@ public class TestReadOnlyNsFactory {
 	 */
 	@Test
 	public void testCreateNs_input() throws IOException, CouldNotCreateNamedStreamException {
-		StreamResource resourceType = StreamResource.FILE;
+		StreamResource resourceType = StreamResourceEnum.FILE;
 		ConcreteReadOnlyNsFactory nsf = new ConcreteReadOnlyNsFactory(resourceType);
 		InputStream stream = Mockito.mock(InputStream.class);
 		String name = "foo"; //$NON-NLS-1$		
@@ -154,7 +154,7 @@ public class TestReadOnlyNsFactory {
 	 */
 	@Test(expected=CouldNotCreateNamedStreamException.class)
 	public void testCreateNs_invalid() throws IOException, CouldNotCreateNamedStreamException {
-		StreamResource resourceType = StreamResource.FILE;
+		StreamResource resourceType = StreamResourceEnum.FILE;
 		ConcreteReadOnlyNsFactory nsf = new ConcreteReadOnlyNsFactory(resourceType);
 		InputStream stream = Mockito.mock(InputStream.class);
 		String name = "foo"; //$NON-NLS-1$		
@@ -178,7 +178,7 @@ public class TestReadOnlyNsFactory {
 	 */
 	@Test
 	public void testCreateNs_def() throws IOException, CouldNotCreateNamedStreamException {
-		StreamResource resourceType = StreamResource.FILE;
+		StreamResource resourceType = StreamResourceEnum.FILE;
 		ConcreteReadOnlyNsFactory nsf = new ConcreteReadOnlyNsFactory(resourceType);
 		
 		String name = "foo"; //$NON-NLS-1$		
@@ -212,7 +212,7 @@ public class TestReadOnlyNsFactory {
 	 */
 	@Test
 	public void testCreate() throws CouldNotCreateNamedStreamException {
-		StreamResource resourceType = StreamResource.FILE;
+		StreamResource resourceType = StreamResourceEnum.FILE;
 		ConcreteReadOnlyNsFactory nsf = new ConcreteReadOnlyNsFactory(resourceType);
 		
 		String name = "foo"; //$NON-NLS-1$		
@@ -245,7 +245,7 @@ public class TestReadOnlyNsFactory {
 	 */
 	@Test
 	public void testConvert_valid() throws CouldNotConvertNamedStreamException {
-		StreamResource resourceType = StreamResource.FILE;
+		StreamResource resourceType = StreamResourceEnum.FILE;
 		ConcreteReadOnlyNsFactory nsf = new ConcreteReadOnlyNsFactory(resourceType);
 		
 		String name = "foo"; //$NON-NLS-1$
@@ -280,7 +280,7 @@ public class TestReadOnlyNsFactory {
 	 */
 	@Test(expected=CouldNotConvertNamedStreamException.class)
 	public void testConvert_invalid() throws CouldNotConvertNamedStreamException {
-		StreamResource resourceType = StreamResource.FILE;
+		StreamResource resourceType = StreamResourceEnum.FILE;
 		ConcreteReadOnlyNsFactory nsf = new ConcreteReadOnlyNsFactory(resourceType);		
 		String name = "foo"; //$NON-NLS-1$
 		String uri = "bar"; //$NON-NLS-1$

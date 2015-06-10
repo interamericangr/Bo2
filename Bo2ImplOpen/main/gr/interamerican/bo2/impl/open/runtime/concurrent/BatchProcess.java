@@ -371,7 +371,7 @@ implements Runnable, MultiThreadedLongProcess {
 	 * Prints the headers in the log files.
 	 * @throws InitializationException 
 	 */
-	void pritHeaders() throws InitializationException {
+	void printHeaders() throws InitializationException {
 		NamedPrintStream successes = SharedStreams.successes(provider, this.getName());
 		NamedPrintStream failures = SharedStreams.failures(provider, this.getName());		
 		String header = parameters.getEntityHeader();
@@ -438,7 +438,7 @@ implements Runnable, MultiThreadedLongProcess {
 		provider = Bo2.getProvider();
 		Bo2Session.setProvider(provider);
 		provider.getTransactionManager().begin();
-		pritHeaders();
+		printHeaders();
 		openSharedStreams();
 		Query query = parameters.getQuery();
 		Modification<Object> setCriteria = parameters.getQueryParametersSetter();
@@ -626,11 +626,7 @@ implements Runnable, MultiThreadedLongProcess {
 		} 
 	}
 	
-	/**
-	 * Returns the name of the batch process
-	 * 
-	 * @return Returns the name of the batch process
-	 */
+	@Override
 	public String getName() {
 		return parameters.getName();
 	}
@@ -745,10 +741,12 @@ implements Runnable, MultiThreadedLongProcess {
 		return Utils.cast(queueProcessors);
 	}
 		
+	@Override
 	public int getCountOfSubProcesses() {
 		return queueProcessors.size();
 	}
 
+	@Override
 	public int getCountOfFinishedSubProcesses() {
 		return CollectionUtils.countByProperty
 			("finished", true, queueProcessors, LongProcess.class); //$NON-NLS-1$

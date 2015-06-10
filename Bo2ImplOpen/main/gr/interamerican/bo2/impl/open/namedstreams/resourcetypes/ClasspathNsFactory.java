@@ -19,7 +19,7 @@ implements NamedStreamFactory {
 	 * 
 	 */
 	public ClasspathNsFactory() {
-		super(StreamResource.CLASSPATH);
+		super(StreamResourceEnum.CLASSPATH);
 	}
 	
 	@Override

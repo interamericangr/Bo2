@@ -20,7 +20,7 @@ implements NamedStreamFactory {
 	 * 
 	 */
 	public HttpNsFactory() {
-		super(StreamResource.HTTP);
+		super(StreamResourceEnum.HTTP);
 	}
 	
 	@Override

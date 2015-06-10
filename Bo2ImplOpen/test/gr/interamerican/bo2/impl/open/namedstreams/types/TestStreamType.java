@@ -16,7 +16,6 @@ import static gr.interamerican.bo2.impl.open.namedstreams.types.StreamType.BUFFE
 import static gr.interamerican.bo2.impl.open.namedstreams.types.StreamType.INPUTSTREAM;
 import static gr.interamerican.bo2.impl.open.namedstreams.types.StreamType.OUTPUTSTREAM;
 import static gr.interamerican.bo2.impl.open.namedstreams.types.StreamType.PRINTSTREAM;
-import gr.interamerican.bo2.impl.open.namedstreams.types.StreamType;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;

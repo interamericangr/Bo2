@@ -18,6 +18,7 @@ import static org.mockito.Mockito.verify;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.DataOperationNotSupportedException;
 import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResource;
+import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResourceEnum;
 import gr.interamerican.bo2.samples.Streams;
 
 import java.io.BufferedReader;
@@ -68,7 +69,7 @@ public class TestNamedBufferedReader {
 	 */
 	@Test
 	public void testConstructor() {
-		StreamResource resourceType = StreamResource.BYTES;
+		StreamResource resourceType = StreamResourceEnum.BYTES;
 		BufferedReader stream = mock(BufferedReader.class);
 		String name = "bar";
 		Object resource = new Object();

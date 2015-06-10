@@ -12,27 +12,20 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.namedstreams.types;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.DataOperationNotSupportedException;
 import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResource;
-import gr.interamerican.bo2.impl.open.namedstreams.types.NamedInputStream;
+import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResourceEnum;
 import gr.interamerican.bo2.samples.Streams;
-import gr.interamerican.bo2.test.utils.UtilityForBo2Test;
-import gr.interamerican.bo2.utils.Bo2UtilsEnvironment;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 
@@ -67,7 +60,7 @@ public class TestNamedInputStream {
 	 */
 	@Test
 	public void testConstructor() {
-		StreamResource resourceType = StreamResource.BYTES;
+		StreamResource resourceType = StreamResourceEnum.BYTES;
 		InputStream stream = mock(InputStream.class);
 		String name = "bar";
 		Object resource = new Object();

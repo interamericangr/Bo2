@@ -40,20 +40,13 @@ implements NamedStreamFactory {
 	 * Creates a new FileNsFactory.
 	 */
 	public FileNsFactory() {
-		super(StreamResource.FILE);
+		super(StreamResourceEnum.FILE);
 	}
-
 	
-	
-	
-
-
 	@Override
 	protected void onConvert(StreamType from, StreamType to) {
-		// TODO Auto-generated method stub
-		
+		/* All conversions are allowed  */		
 	}
-	
 
 
 	@Override
@@ -70,20 +63,6 @@ implements NamedStreamFactory {
 			throw new CouldNotConvertNamedStreamException(cncnse);
 		} 
 	}
-		
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	/**
@@ -168,7 +147,7 @@ implements NamedStreamFactory {
 		FileInputStream fis = new FileInputStream(file);
 		InputStreamReader insr = new InputStreamReader(fis, encoding);
 		BufferedReader br = new BufferedReader(insr);
-		return new NamedBufferedReader(StreamResource.FILE, br, name, file, encoding, uri);
+		return new NamedBufferedReader(StreamResourceEnum.FILE, br, name, file, encoding, uri);
 	}
 	
 	/**
@@ -193,7 +172,7 @@ implements NamedStreamFactory {
 	NamedInputStream input(File file, String name, int recordLength, Charset encoding, String uri)
 	throws FileNotFoundException {
 		InputStream in = new FileInputStream(file);
-		return new NamedInputStream(StreamResource.FILE, in, name, recordLength, file, encoding, uri);
+		return new NamedInputStream(StreamResourceEnum.FILE, in, name, recordLength, file, encoding, uri);
 	}
 	
 	/**
@@ -219,7 +198,7 @@ implements NamedStreamFactory {
 	NamedOutputStream output(File file, String name, int recordLength, Charset encoding, String uri) 
 	throws IOException {
 		OutputStream out = FileUtils.openOutputStream(file);
-		return new NamedOutputStream(StreamResource.FILE, out, name, recordLength, file, encoding, uri);
+		return new NamedOutputStream(StreamResourceEnum.FILE, out, name, recordLength, file, encoding, uri);
 	}
 	
 	/**
@@ -244,8 +223,14 @@ implements NamedStreamFactory {
 	throws IOException {
 		OutputStream os = FileUtils.openOutputStream(file);
 		PrintStream out = new PrintStream(os, false, encoding.name());
-		return new NamedPrintStream(StreamResource.FILE, out, name, file, encoding, uri);
+		return new NamedPrintStream(StreamResourceEnum.FILE, out, name, file, encoding, uri);
 	}
+	
+	
+	
+	
+	
+	
 	
 	/**
 	 * Gets a string based on the current timestamp.
@@ -272,33 +257,21 @@ implements NamedStreamFactory {
 	}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+	/**
+	 * Prepends C: if the running OS is not unix...
+	 * 
+	 * @param fileUri
+	 * @return modified URI.
+	 */
+	String fileUriModificationForWindows(String fileUri) {
+		boolean runsOnUnix = File.separator.equals("/"); //$NON-NLS-1$
+		if(!runsOnUnix && fileUri.startsWith("/")) { //$NON-NLS-1$
+			return "C:" + fileUri.trim(); //$NON-NLS-1$
+		}
+		return fileUri;
+	}
 	
-
-
-
-
-
-
-
-
-
-
+	
 
 
 

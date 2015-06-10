@@ -1,7 +1,7 @@
 package gr.interamerican.bo2.impl.open.namedstreams.resourcetypes;
 
 
-import static gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResource.BYTES;
+import static gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResourceEnum.BYTES;
 import static gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResourceValidator.onConvert;
 import static gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResourceValidator.onCreate;
 import gr.interamerican.bo2.impl.open.namedstreams.NamedStream;

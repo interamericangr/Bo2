@@ -33,7 +33,7 @@ public class TestByteNsFactory {
 		def.setEncoding(Charset.defaultCharset());
 		def.setName("FooStream"); //$NON-NLS-1$
 		def.setRecordLength(100);
-		def.setResourceType(StreamResource.BYTES);
+		def.setResourceType(StreamResourceEnum.BYTES);
 		def.setType(type);
 		def.setUri(null);
 		return def;

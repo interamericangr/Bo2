@@ -12,6 +12,9 @@ import org.junit.Test;
 
 /**
  * Unit tests for {@link FileNsFactory}.
+ * 
+ * 
+ * TODO: fix URI with date, timestamp, etc.
  */
 public class TestFileNsFactory {
 	
@@ -26,7 +29,7 @@ public class TestFileNsFactory {
 		def.setEncoding(Charset.defaultCharset());
 		def.setName("FooStream"); //$NON-NLS-1$
 		def.setRecordLength(100);
-		def.setResourceType(StreamResource.FILE);
+		def.setResourceType(StreamResourceEnum.FILE);
 		def.setType(type);
 		def.setUri("/tmp/file.txt"); //$NON-NLS-1$
 		return def;
@@ -236,6 +239,48 @@ public class TestFileNsFactory {
 	throws CouldNotCreateNamedStreamException, CouldNotConvertNamedStreamException {
 		testConvertWithTypes(StreamType.PRINTSTREAM, StreamType.BUFFEREDREADER);
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
+	 * Tests currentTimestamp
+	 */
+	@Test
+	public void testCurrentTimestamp() {
+		FileNsFactory factory = new FileNsFactory();
+		String tmstmp = factory.currentTimestamp();
+		Assert.assertEquals(tmstmp.length(), 14);
+	}
+	
+	/**
+	 * Tests currentDate
+	 */
+	@Test
+	public void testCurrentDate() {
+		FileNsFactory factory = new FileNsFactory();
+		String date = factory.currentDate();
+		Assert.assertEquals(date.length(), 8);
+	}
+	
+	/**
+	 * Tests fileUri
+	 */
+	@Test
+	public void testFileUri() {
+		String definitionUri = "/foo/<DATE>/bar-<TIMESTAMP>.txt";
+		String date = "20141103";
+		String timestamp = "20141103000000";
+		String result = ""; //fileUri(definitionUri, StreamType.BUFFEREDREADER);
+		Assert.assertEquals(result, "/foo/20141103/bar-20141103000000.txt");
+	}
+	
+	
+	
 	
 
 

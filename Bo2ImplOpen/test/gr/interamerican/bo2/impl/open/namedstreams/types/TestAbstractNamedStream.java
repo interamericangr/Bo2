@@ -14,9 +14,7 @@ package gr.interamerican.bo2.impl.open.namedstreams.types;
 
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.DataOperationNotSupportedException;
-import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResource;
-import gr.interamerican.bo2.impl.open.namedstreams.types.AbstractNamedStream;
-import gr.interamerican.bo2.impl.open.namedstreams.types.StreamType;
+import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResourceEnum;
 import gr.interamerican.bo2.utils.Bo2UtilsEnvironment;
 
 import java.io.PrintStream;
@@ -38,7 +36,7 @@ public class TestAbstractNamedStream {
 		PrintStream stream = System.out;
 		AbstractNamedStream<PrintStream> mo = 
 			new AbstractNamedStream<PrintStream>
-			(StreamType.PRINTSTREAM,StreamResource.SYSTEM,stream,"Mock",10, stream, Bo2UtilsEnvironment.getDefaultTextCharset(), "furi") {
+			(StreamType.PRINTSTREAM,StreamResourceEnum.SYSTEM,stream,"Mock",10, stream, Bo2UtilsEnvironment.getDefaultTextCharset(), "furi") {
 				@Override
 				public byte[] readRecord() 
 				throws DataException, DataOperationNotSupportedException {

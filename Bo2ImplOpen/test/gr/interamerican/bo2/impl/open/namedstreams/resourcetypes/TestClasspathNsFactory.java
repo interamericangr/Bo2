@@ -39,7 +39,7 @@ public class TestClasspathNsFactory {
 	@Test
 	public void testConstructor() {		
 		ClasspathNsFactory nsf = new ClasspathNsFactory();
-		Assert.assertEquals(StreamResource.CLASSPATH, nsf.resourceType);
+		Assert.assertEquals(StreamResourceEnum.CLASSPATH, nsf.resourceType);
 	}
 	
 	/**
@@ -85,7 +85,7 @@ public class TestClasspathNsFactory {
 		def.setEncoding(Charset.defaultCharset());
 		def.setName("FooStream");
 		def.setRecordLength(100);
-		def.setResourceType(StreamResource.CLASSPATH);
+		def.setResourceType(StreamResourceEnum.CLASSPATH);
 		def.setType(type);
 		def.setUri("/gr/interamerican/bo2/impl/open/namedstreams/resourcetypes/ClasspathNsFactory.class");
 		return def;

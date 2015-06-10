@@ -25,7 +25,7 @@ implements NamedStreamFactory {
 	@Override
 	public NamedStream<?> create(NamedStreamDefinition def)
 	throws CouldNotCreateNamedStreamException {
-		onCreate(def.getResourceType(), StreamResource.SYSTEM);
+		onCreate(def.getResourceType(), StreamResourceEnum.SYSTEM);
 		return systemStream(def.getName(), def.getEncoding(), def.getUri());
 	}
 	
@@ -60,7 +60,7 @@ implements NamedStreamFactory {
 			String msg = "Invalid system stream uri " + uri;
 			throw new CouldNotCreateNamedStreamException(msg);
 		}
-		return new NamedPrintStream(StreamResource.SYSTEM, ps, name, ps, charset, uri);
+		return new NamedPrintStream(StreamResourceEnum.SYSTEM, ps, name, ps, charset, uri);
 	}
 	
 	

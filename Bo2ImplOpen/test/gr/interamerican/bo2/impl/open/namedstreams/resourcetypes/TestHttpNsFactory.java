@@ -38,7 +38,7 @@ public class TestHttpNsFactory {
 	@Test
 	public void testConstructor() {		
 		HttpNsFactory nsf = new HttpNsFactory();
-		Assert.assertEquals(StreamResource.HTTP, nsf.resourceType);
+		Assert.assertEquals(StreamResourceEnum.HTTP, nsf.resourceType);
 	}
 	
 	/**
@@ -92,7 +92,7 @@ public class TestHttpNsFactory {
 		def.setEncoding(Charset.defaultCharset());
 		def.setName("FooStream");
 		def.setRecordLength(100);
-		def.setResourceType(StreamResource.HTTP);
+		def.setResourceType(StreamResourceEnum.HTTP);
 		def.setType(type);
 		def.setUri("https://ino.interamerican.gr");
 		return def;

@@ -19,24 +19,15 @@ import static org.mockito.Mockito.verify;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.DataOperationNotSupportedException;
 import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResource;
-import gr.interamerican.bo2.impl.open.namedstreams.types.NamedOutputStream;
-import gr.interamerican.bo2.samples.Streams;
-import gr.interamerican.bo2.test.utils.UtilityForBo2Test;
-import gr.interamerican.bo2.utils.Bo2UtilsEnvironment;
+import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResourceEnum;
 
-import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.Charset;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 
@@ -73,7 +64,7 @@ public class TestNamedOutputStream {
 	 */
 	@Test
 	public void testConstructor() {
-		StreamResource resourceType = StreamResource.BYTES;
+		StreamResource resourceType = StreamResourceEnum.BYTES;
 		OutputStream stream = mock(OutputStream.class);
 		String name = "bar";
 		Object resource = new Object();

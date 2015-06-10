@@ -30,7 +30,7 @@ public class TestSystemStreamNsFactory {
 		def.setEncoding(Charset.defaultCharset());
 		def.setName("FooStream"); //$NON-NLS-1$
 		def.setRecordLength(100);
-		def.setResourceType(StreamResource.SYSTEM);
+		def.setResourceType(StreamResourceEnum.SYSTEM);
 		def.setType(StreamType.PRINTSTREAM);
 		def.setUri(uri); 
 		
