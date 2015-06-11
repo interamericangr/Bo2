@@ -199,13 +199,10 @@ extends PickerPanel<B> {
 				if(selection == null) { return; }
 				getDefinition().getBeanModel().setObject(selection);
 				AjaxEnabledCondition<B> deleteValidator = getDefinition().getDeleteValidator();
-				if(deleteValidator!=null) {
-					if(deleteValidator.check(selection, target)) {
-						super.onSubmit(target, form);
-					}
-				} else {
-					super.onSubmit(target, form);
+				if(deleteValidator !=null && !deleteValidator.check(selection, target)) {
+					return;
 				}
+				super.onSubmit(target, form);
 			}
 		};
 		if(getDefinition().getRequestConfirmOnDelete()) {
