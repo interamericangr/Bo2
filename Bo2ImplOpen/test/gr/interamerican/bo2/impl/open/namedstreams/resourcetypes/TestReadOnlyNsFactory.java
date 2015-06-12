@@ -286,13 +286,6 @@ public class TestReadOnlyNsFactory {
 
 	}
 
-
-
-
-
-
-
-
 	/**
 	 * Concrete implementation of ReadOnlyNsFactory.
 	 */
