@@ -103,7 +103,7 @@ implements Iterable<Pair<L, R>>{
 			sb.append(",");
 			sb.append(StringUtils.toString(rightElement));
 			sb.append("]");
-			empty = false;
+			empty = false; 
 		}
 		sb.append("}");		
 		return sb.toString();
@@ -119,39 +119,54 @@ implements Iterable<Pair<L, R>>{
 	}
 
 	
+	@Override
 	public Iterator<Pair<L, R>> iterator() {	
-		return new AssociationsIterator();
+		return new SimpleMapIterator<L, R>(rights);
 	}
 	
 	
+	
+
 	
 	/**
-	 * Iterator for this class.
+	 * Associates left with right.
+	 * 
+	 * @param left 
+	 * @param right
+	 * 
+	 * @return Returns true if the specified left was found
+	 *         in the association table.
+	 *  
 	 */
-	class AssociationsIterator implements Iterator<Pair<L, R>> {
-
-		/**
-		 * Iterator.
-		 */
-		Iterator<Map.Entry<L, R>> iterator = rights.entrySet().iterator();
-		
-		public boolean hasNext() {			
-			return iterator.hasNext();
+	public boolean removeLeft(L left) {
+		R right = rights.get(left);
+		if (right==null) {
+			return false;
 		}
-
-		@Override
-		public Pair<L, R> next() {
-			Map.Entry<L, R> entry = iterator.next();
-			return new Pair<L, R>(entry.getKey(), entry.getValue());
-		}
-		
-		public void remove() {
-			throw new UnsupportedOperationException();
-		}
-		
+		rights.remove(left);
+		lefts.remove(right);
+		return true;
 	}
 	
-	
+	/**
+	 * Associates left with right.
+	 * 
+	 * @param left 
+	 * @param right
+	 * 
+	 * @return Returns true if the specified left was found
+	 *         in the association table.
+	 *  
+	 */
+	public boolean removeRight(R right) {
+		L left = lefts.get(right);
+		if (left==null) {
+			return false;
+		}
+		lefts.remove(right);
+		rights.remove(left);		
+		return true;
+	}
 	
 
 }

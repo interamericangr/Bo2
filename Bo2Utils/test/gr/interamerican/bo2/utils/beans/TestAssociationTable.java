@@ -14,26 +14,26 @@ package gr.interamerican.bo2.utils.beans;
 
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Iterator;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 /**
  * Unit test for {@link AssociationTable}. 
  */
+@SuppressWarnings("nls")
 public class TestAssociationTable {
 	
 	
 	
 	/**
 	 * Tests associate() and getLeft(), getRight().
-	 */
-	@SuppressWarnings("nls")
+	 */	
 	@Test
 	public void testAssociate_SecondTime() {
 		AssociationTable <String, Integer> table =
@@ -68,8 +68,7 @@ public class TestAssociationTable {
 	
 	/**
 	 * Tests associate() and getLeft(), getRight().
-	 */
-	@SuppressWarnings("nls")
+	 */	
 	@Test
 	public void testAssociate() {
 		AssociationTable <String, Integer> table =
@@ -98,8 +97,7 @@ public class TestAssociationTable {
 	
 	/**
 	 * Tests associate() and getLeft(), getRight().
-	 */
-	@SuppressWarnings("nls")
+	 */	
 	@Test
 	public void testClear() {
 		AssociationTable <String, Integer> table =
@@ -124,8 +122,7 @@ public class TestAssociationTable {
 	
 	/**
 	 * Tests associate() and getLeft(), getRight().
-	 */
-	@SuppressWarnings("nls")
+	 */	
 	@Test
 	public void testToString() {
 		AssociationTable <String, Integer> table =
@@ -138,8 +135,7 @@ public class TestAssociationTable {
 	
 	/**
 	 * Tests size
-	 */
-	@SuppressWarnings("nls")
+	 */	
 	@Test
 	public void testSize() {
 		AssociationTable <String, Integer> table =
@@ -151,8 +147,7 @@ public class TestAssociationTable {
 	
 	/**
 	 * Tests iterator
-	 */
-	@SuppressWarnings("nls")
+	 */	
 	@Test
 	public void testIterator() {
 		AssociationTable <String, Integer> table =
@@ -165,57 +160,39 @@ public class TestAssociationTable {
 	
 	/**
 	 * Tests iterator
-	 */
-	@SuppressWarnings("nls")
+	 */	
 	@Test
-	public void testIterator_hasNext() {
-		AssociationTable <String, Integer> table =
-				new AssociationTable<String, Integer>();
-		table.associate("ena", new Integer(1));
-		table.associate("dyo", new Integer(2));
-		Iterator<Pair<String, Integer>> iterator = table.iterator();
-		assertTrue(iterator.hasNext());
+	public void testRemoveLeft() {
+		AssociationTable <String, Integer> table = new AssociationTable<String, Integer>();
+		String one = "one";
+		String two = "two";				
+		table.associate(one, new Integer(1));
+		table.associate(two, new Integer(2));
+		boolean b1 = table.removeLeft(two);
+		assertNull(table.getRight(two));
+		assertNotNull(table.getRight(one));
+		assertTrue(b1);
+		assertFalse(table.removeLeft("foo"));
 	}
 	
 	/**
 	 * Tests iterator
-	 */
-	@SuppressWarnings("nls")
+	 */	
 	@Test
-	public void testIterator_next() {
-		AssociationTable <String, Integer> table =
-				new AssociationTable<String, Integer>();
-		table.associate("ena", new Integer(1));
-		table.associate("dyo", new Integer(2));
-		table.associate("tria", new Integer(3));		
-		int i=0;
-		for (Pair<String, Integer> pair : table) {
-			String left = pair.getLeft();
-			Integer right = pair.getRight();
-			Assert.assertEquals(right, table.getRight(left));
-			Assert.assertEquals(left, table.getLeft(right));
-			i++;
-		}
-		Assert.assertEquals(i, 3);		
+	public void testRemoveRight() {
+		AssociationTable <String, Integer> table = new AssociationTable<String, Integer>();
+		String one = "one";
+		String two = "two";				
+		table.associate(one, new Integer(1));
+		table.associate(two, new Integer(2));
+		boolean b1 = table.removeRight(2);
+		assertNull(table.getLeft(2));				
+		assertTrue(b1);
+		assertFalse(table.removeRight(666));
+
 	}
 	
-	/**
-	 * Tests iterator
-	 */
-	@SuppressWarnings("nls")
-	@Test(expected=UnsupportedOperationException.class)
-	public void testIterator_remove() {
-		AssociationTable <String, Integer> table =
-				new AssociationTable<String, Integer>();
-		table.associate("ena", new Integer(1));
-		table.associate("dyo", new Integer(2));
-		table.associate("tria", new Integer(3));		
-		Iterator<Pair<String, Integer>> iterator = table.iterator();
-		if (iterator.hasNext()) {
-			iterator.next();
-			iterator.remove();			
-		}
-	}
+
 	
 	
 	
