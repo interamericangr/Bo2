@@ -24,7 +24,8 @@ implements NamedStreamFactory {
 	/**
 	 * Hidden constructor of utility class.
 	 */
-	protected AbstractNsFactory(StreamResource valid) { 
+	protected AbstractNsFactory(StreamResource valid) {
+		super();
 		this.valid = valid; 
 	}
 	

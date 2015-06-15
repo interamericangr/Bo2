@@ -21,28 +21,41 @@ public enum StreamResourceEnum implements StreamResource {
 	/**
 	 * The stream is based on a File.
 	 */
-	FILE(new FileNsFactory()),
+	FILE(),
 	
 	/**
 	 * The stream is in a byte array.
 	 */
-	BYTES(new ByteNsFactory()),
+	BYTES(),
 	
 	/**
 	 * The stream is a classpath resource stream. 
 	 */
-	CLASSPATH(new ClasspathNsFactory()),
+	CLASSPATH(),
 	
 	/**
 	 * The stream is a system stream. 
 	 */
-	SYSTEM(new SystemStreamNsFactory()),
+	SYSTEM(),
 	
 	/**
 	 * The stream is a resource accessible over HTTP
 	 * This stream supports only input {@link StreamType}s
 	 */
-	HTTP(new HttpNsFactory());
+	HTTP();
+	
+	/**
+	 * Set the factory to each enum.
+	 * This is done like this, because the factories depend on the
+	 * enums, so they can't be created prior to them.
+	 */
+	static {
+		FILE.setFactory(new FileNsFactory());
+		BYTES.setFactory(new ByteNsFactory());
+		CLASSPATH.setFactory(new ClasspathNsFactory());
+		SYSTEM.setFactory(new SystemStreamNsFactory());
+		HTTP.setFactory(new HttpNsFactory());
+	}
 	
 	
 	/**
@@ -56,8 +69,8 @@ public enum StreamResourceEnum implements StreamResource {
 	 * 
 	 * @param factory
 	 */
-	private StreamResourceEnum(NamedStreamFactory factory) {
-		this.factory = factory;
+	private StreamResourceEnum() {
+		/* empty */
 	}
 
 	
@@ -65,6 +78,20 @@ public enum StreamResourceEnum implements StreamResource {
 	public NamedStreamFactory getFactory() {
 		return factory;
 	}
+
+
+	/**
+	 * Sets the factory.
+	 *
+	 * @param factory the factory to set
+	 */
+	private void setFactory(NamedStreamFactory factory) {
+		this.factory = factory;
+	}
+	
+	
+	
+	
 	
 
 }
