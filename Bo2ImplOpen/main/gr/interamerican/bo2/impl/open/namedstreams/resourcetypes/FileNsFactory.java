@@ -267,10 +267,7 @@ implements NamedStreamFactory {
 		String uri = fileUri.trim();
 		uri = uri.replaceAll(DATE, currentDate());
 		uri = uri.replaceAll(TIMESTAMP, currentTimestamp());
-		
-		Properties p = System.getProperties();
-		System.out.println(p);
-		
+			
 		if(SystemUtils.isWindows()) {
 			if (uri.startsWith("/")) { //$NON-NLS-1$
 				uri = "C:" + uri.trim(); //$NON-NLS-1$
