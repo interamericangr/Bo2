@@ -11,21 +11,20 @@ import java.net.URLConnection;
 /**
  * {@link NamedStreamFactory} for File streams.
  */
-public class HttpNsFactory 
-extends ReadOnlyNsFactory
-implements NamedStreamFactory {
+public class HttpNsFactory
+ extends ReadOnlyNsFactory {
 
 	/**
 	 * Creates a new HttpNsFactory.
-	 * 
+	 *
 	 */
 	public HttpNsFactory() {
 		super(StreamResourceEnum.HTTP);
 	}
-	
+
 	@Override
-	protected InputStream openInputStream(NamedStreamDefinition def) 
-	throws CouldNotCreateNamedStreamException {
+	protected InputStream openInputStream(NamedStreamDefinition def)
+			throws CouldNotCreateNamedStreamException {
 		try {
 			String uri = def.getUri();
 			URL url = new URL(uri);
@@ -36,7 +35,7 @@ implements NamedStreamFactory {
 		} catch (IOException e) {
 			throw new CouldNotCreateNamedStreamException(e);
 		}
-	}	
-	
+	}
+
 
 }

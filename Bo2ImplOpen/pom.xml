@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -6,16 +7,29 @@
 		<artifactId>Bo2</artifactId>
 		<version>2.3.5-SNAPSHOT</version>
 	</parent>
-	
+
 	<artifactId>Bo2ImplOpen</artifactId>
-	
+
 	<dependencies>
-	
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${version.junit}</version>
+			<optional>true</optional>
+		</dependency>
+
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>${version.mockito-all}</version>
+			<optional>true</optional>
+		</dependency>
+
 		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>javassist</groupId>
 			<artifactId>javassist</artifactId>
@@ -26,7 +40,7 @@
 			<artifactId>derbyclient</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<!-- +++ -->
 
 		<dependency>
@@ -34,7 +48,7 @@
 			<artifactId>Bo2Architecture</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>gr.interamerican.bo2</groupId>
 			<artifactId>Bo2Architecture</artifactId>
@@ -42,13 +56,13 @@
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>gr.interamerican.bo2</groupId>
 			<artifactId>Bo2ArchUtils</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>gr.interamerican.bo2</groupId>
 			<artifactId>Bo2ArchUtils</artifactId>
@@ -56,13 +70,13 @@
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>gr.interamerican.bo2</groupId>
 			<artifactId>Bo2Creation</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>gr.interamerican.bo2</groupId>
 			<artifactId>Bo2Creation</artifactId>
@@ -70,13 +84,13 @@
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>gr.interamerican.bo2</groupId>
 			<artifactId>Bo2Utils</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>gr.interamerican.bo2</groupId>
 			<artifactId>Bo2Utils</artifactId>
@@ -84,13 +98,13 @@
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>gr.interamerican.bo2</groupId>
 			<artifactId>Bo2UtilsDoc</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>gr.interamerican.bo2</groupId>
 			<artifactId>Bo2UtilsDoc</artifactId>
@@ -98,13 +112,13 @@
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>gr.interamerican.bo2</groupId>
 			<artifactId>Bo2UtilsMeta</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>gr.interamerican.bo2</groupId>
 			<artifactId>Bo2UtilsMeta</artifactId>
@@ -112,13 +126,13 @@
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>gr.interamerican.bo2</groupId>
 			<artifactId>Bo2UtilsSql</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>gr.interamerican.bo2</groupId>
 			<artifactId>Bo2UtilsSql</artifactId>
@@ -126,7 +140,7 @@
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>gr.interamerican.bo2</groupId>
 			<artifactId>Bo2OdfToolkit</artifactId>
@@ -139,7 +153,7 @@
 			<version>${project.version}</version>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>gr.interamerican.bo2</groupId>
 			<artifactId>Bo2TestsDeploymentBase</artifactId>
@@ -147,7 +161,7 @@
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>gr.interamerican.bo2</groupId>
 			<artifactId>Bo2TestsDeploymentJdbc</artifactId>
@@ -155,7 +169,7 @@
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
-		
+
 	</dependencies>
 
 </project>

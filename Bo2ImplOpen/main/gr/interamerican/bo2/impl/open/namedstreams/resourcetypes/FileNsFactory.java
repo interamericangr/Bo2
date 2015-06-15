@@ -1,10 +1,8 @@
 package gr.interamerican.bo2.impl.open.namedstreams.resourcetypes;
 
-import static gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResourceEnum.FILE;
 import static gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition.DATE;
 import static gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition.TIMESTAMP;
-import static gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResourceValidator.onConvert;
-import static gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResourceValidator.onCreate;
+import static gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResourceEnum.FILE;
 import gr.interamerican.bo2.impl.open.namedstreams.NamedStream;
 import gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition;
 import gr.interamerican.bo2.impl.open.namedstreams.types.NamedBufferedReader;
@@ -28,113 +26,110 @@ import java.io.PrintStream;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Map;
-import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
 
 /**
  * {@link NamedStreamFactory} for File streams.
  */
-public class FileNsFactory 
-extends AbstractNsFactory
-implements NamedStreamFactory {
-	
+public class FileNsFactory
+extends AbstractNsFactory {
+
 	/**
 	 * Creates a new FileNsFactory.
 	 */
 	public FileNsFactory() {
 		super(FILE);
 	}
-	
+
 	@Override
 	protected void onConvert(StreamType from, StreamType to) {
-		/* All conversions are allowed  */		
+		/* All conversions are allowed  */
 	}
 
 
 	@Override
-	protected NamedStream<?> convertNs(NamedStream<?> ns, StreamType type, String name) 
-	throws CouldNotConvertNamedStreamException {
+	protected NamedStream<?> convertNs(NamedStream<?> ns, StreamType type, String name)
+			throws CouldNotConvertNamedStreamException {
 		try {
 			NamedStreamDefinition def = new NamedStreamDefinition();
 			ReflectionUtils.copyProperties(ns, def);
 			def.setName(name);
 			def.setType(type);
 			File file = (File) ns.getResource();
-			return createNs(file, def);			
-		} catch (CouldNotCreateNamedStreamException cncnse) {			
+			return createNs(file, def);
+		} catch (CouldNotCreateNamedStreamException cncnse) {
 			throw new CouldNotConvertNamedStreamException(cncnse);
-		} 
+		}
 	}
-	
-	
+
+
 	/**
 	 * Creates a new NamedStream.
-	 * 
+	 *
 	 * @param def
-	 * 
+	 *
 	 * @return Returns the {@link NamedStream}.
 	 * @throws IOException
-	 * @throws CouldNotConvertNamedStreamException 
+	 * @throws CouldNotConvertNamedStreamException
 	 */
 	@Override
-	protected NamedStream<?> createNs(NamedStreamDefinition def) 
-	throws CouldNotCreateNamedStreamException {
-	
-		String uri = def.getUri();		
+	protected NamedStream<?> createNs(NamedStreamDefinition def)
+			throws CouldNotCreateNamedStreamException {
+
+		String uri = def.getUri();
 		if(uri.contains(TIMESTAMP)) {
 			uri = uri.replace(TIMESTAMP, currentTimestamp());
-		}		
+		}
 		if(uri.contains(DATE)) {
 			uri = uri.replace(DATE, currentDate());
 		}
-		File file = new File(uri);	
-		return createNs(file, def);		
+		File file = new File(uri);
+		return createNs(file, def);
 	}
-	
-	
+
+
 	/**
 	 * Creates a new NamedStream.
-	 * 
+	 *
 	 * @param file
 	 * @param def
-	 * 
+	 *
 	 * @return Returns the {@link NamedStream}.
-	 * @throws IOException
+	 * @throws CouldNotCreateNamedStreamException
 	 */
-	NamedStream<?> createNs(File file, NamedStreamDefinition def) 
-	throws CouldNotCreateNamedStreamException {				
-		StreamType type = def.getType();	
+	NamedStream<?> createNs(File file, NamedStreamDefinition def)
+			throws CouldNotCreateNamedStreamException {
+		StreamType type = def.getType();
 		String uri = fileUriModification(def.getUri());
-		
+
 		try {
-			switch (type) {		
+			switch (type) {
 			case BUFFEREDREADER:
-				return reader(file, def.getName(), def.getEncoding(), uri);			
+				return reader(file, def.getName(), def.getEncoding(), uri);
 			case INPUTSTREAM:
-				return input(file, def.getName(), def.getRecordLength(), def.getEncoding(), uri);			
+				return input(file, def.getName(), def.getRecordLength(), def.getEncoding(), uri);
 			case OUTPUTSTREAM:
-				return output(file, def.getName(), def.getRecordLength(), def.getEncoding(), uri);			
-			case PRINTSTREAM:			
-				return print(file, def.getName(), def.getEncoding(), uri);			
+				return output(file, def.getName(), def.getRecordLength(), def.getEncoding(), uri);
+			case PRINTSTREAM:
+				return print(file, def.getName(), def.getEncoding(), uri);
 			default:
 				String msg = "Invalid NamedStream type " + StringUtils.toString(type); //$NON-NLS-1$
-				throw new CouldNotCreateNamedStreamException(msg);			
-			}	
+				throw new CouldNotCreateNamedStreamException(msg);
+			}
 		} catch (IOException ioe) {
 			throw new CouldNotCreateNamedStreamException(ioe);
 		}
-			
+
 	}
-	
+
 	/**
 	 * Creates a new NamedBufferedReader that wraps a file.
-	 * 
+	 *
 	 * The specified file provides the underlying resource of the NamedStream.
-	 * 
+	 *
 	 * The file is read using the user-defined encoding in the Bo2 configuration.
-	 * 
+	 *
 	 * @param file
 	 *        File.
 	 * @param name
@@ -142,25 +137,25 @@ implements NamedStreamFactory {
 	 * @param encoding
 	 *        Encoding (if applicable).
 	 * @param uri
-	 *        File path        
-	 * 
+	 *        File path
+	 *
 	 * @return Returns the NamedBufferedReader.
-	 * 
+	 *
 	 * @throws IOException
 	 */
 	NamedBufferedReader reader(File file, String name, Charset encoding, String uri)
-	throws IOException {
+			throws IOException {
 		FileInputStream fis = new FileInputStream(file);
 		InputStreamReader insr = new InputStreamReader(fis, encoding);
 		BufferedReader br = new BufferedReader(insr);
 		return new NamedBufferedReader(FILE, br, name, file, encoding, uri);
 	}
-	
+
 	/**
 	 * Creates a new NamedInputStream that wraps a file.
-	 * 
+	 *
 	 * The specified file provides the underlying resource of the NamedStream.
-	 * 
+	 *
 	 * @param file
 	 *        File.
 	 * @param name
@@ -170,22 +165,22 @@ implements NamedStreamFactory {
 	 * @param encoding
 	 *        Encoding (if applicable).
 	 * @param uri
-	 *        File path 
-	 * 
+	 *        File path
+	 *
 	 * @return Returns the NamedInputStream.
 	 * @throws FileNotFoundException
 	 */
 	NamedInputStream input(File file, String name, int recordLength, Charset encoding, String uri)
-	throws FileNotFoundException {
+			throws FileNotFoundException {
 		InputStream in = new FileInputStream(file);
 		return new NamedInputStream(FILE, in, name, recordLength, file, encoding, uri);
 	}
-	
+
 	/**
 	 * Creates a new NamedOutputStream that wraps a file.
-	 * 
+	 *
 	 * The specified file provides the underlying resource of the NamedStream.
-	 * 
+	 *
 	 * @param file
 	 *        File.
 	 * @param name
@@ -195,23 +190,23 @@ implements NamedStreamFactory {
 	 * @param encoding
 	 *        Encoding (if applicable).
 	 * @param uri
-	 *        File path         
-	 * 
+	 *        File path
+	 *
 	 * @return Returns the NamedOutputStream.
-	 * 
+	 *
 	 * @throws IOException
 	 */
-	NamedOutputStream output(File file, String name, int recordLength, Charset encoding, String uri) 
-	throws IOException {
+	NamedOutputStream output(File file, String name, int recordLength, Charset encoding, String uri)
+			throws IOException {
 		OutputStream out = FileUtils.openOutputStream(file);
 		return new NamedOutputStream(FILE, out, name, recordLength, file, encoding, uri);
 	}
-	
+
 	/**
 	 * Creates a new NamedPrintStream that wraps a file.
-	 * 
+	 *
 	 * The specified file provides the underlying resource of the NamedStream.
-	 * 
+	 *
 	 * @param file
 	 *        File.
 	 * @param name
@@ -219,37 +214,37 @@ implements NamedStreamFactory {
 	 * @param encoding
 	 *        Encoding (if applicable).
 	 * @param uri
-	 *        File path         
-	 * 
+	 *        File path
+	 *
 	 * @return Returns the NamedOutputStream.
-	 * 
+	 *
 	 * @throws IOException
 	 */
 	NamedPrintStream print(File file, String name, Charset encoding, String uri)
-	throws IOException {
+			throws IOException {
 		OutputStream os = FileUtils.openOutputStream(file);
 		PrintStream out = new PrintStream(os, false, encoding.name());
 		return new NamedPrintStream(FILE, out, name, file, encoding, uri);
-	}	
-	
-	
+	}
+
+
 	/**
 	 * Gets a string based on the current timestamp.
-	 * 
+	 *
 	 * timestamp format is yyyyMMddhhmmss, e.g. 20141103124700
-	 * 
+	 *
 	 * @return Returns a string based on the current timestamp.
 	 */
 	String currentTimestamp() {
 		String tmstmp = new SimpleDateFormat("yyyyMMddhhmmss").format(Calendar.getInstance().getTime()); //$NON-NLS-1$
 		return tmstmp;
 	}
-	
+
 	/**
 	 * Gets a string based on the current date.
-	 * 
+	 *
 	 * date format is yyyyMMdd, e.g. 20141103
-	 * 
+	 *
 	 * @return Returns a string based on the current timestamp.
 	 */
 	String currentDate() {
@@ -259,15 +254,15 @@ implements NamedStreamFactory {
 
 	/**
 	 * Prepends C: if the running OS is not unix...
-	 * 
+	 *
 	 * @param fileUri
 	 * @return modified URI.
 	 */
-	String fileUriModification(String fileUri) {		
+	String fileUriModification(String fileUri) {
 		String uri = fileUri.trim();
 		uri = uri.replaceAll(DATE, currentDate());
 		uri = uri.replaceAll(TIMESTAMP, currentTimestamp());
-			
+
 		if(SystemUtils.isWindows()) {
 			if (uri.startsWith("/")) { //$NON-NLS-1$
 				uri = "C:" + uri.trim(); //$NON-NLS-1$
