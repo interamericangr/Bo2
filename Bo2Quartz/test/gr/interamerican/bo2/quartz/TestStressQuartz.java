@@ -1,10 +1,14 @@
 package gr.interamerican.bo2.quartz;
 
+import gr.interamerican.bo2.arch.Provider;
 import gr.interamerican.bo2.arch.exceptions.DataException;
+import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
+import gr.interamerican.bo2.impl.open.annotations.ManagerName;
 import gr.interamerican.bo2.impl.open.creation.Factory;
 import gr.interamerican.bo2.impl.open.job.JobDescription;
 import gr.interamerican.bo2.impl.open.job.JobScheduler;
+import gr.interamerican.bo2.impl.open.job.JobSchedulerProvider;
 import gr.interamerican.bo2.impl.open.workers.AbstractOperation;
 import gr.interamerican.bo2.quartz.util.QuartzUtils;
 import gr.interamerican.bo2.utils.CollectionUtils;
@@ -16,6 +20,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * test suite to stress quartz
@@ -29,7 +34,7 @@ public class TestStressQuartz {
 	 *
 	 * @throws DataException
 	 */
-	// @Test
+	 @Test
 	public void testSchedule() throws DataException {
 		int batches = 5;
 		int batchSize = 5;
@@ -61,8 +66,10 @@ public class TestStressQuartz {
 		int times = batchSize*batches;
 
 		QuartzUtils.waitGroupToComplete(QuartzUtils.getJobGroupName(SampleOperation.class));
+		QuartzUtils.waitGroupToComplete(QuartzUtils.getJobGroupName(SampleScheduledOperation.class));
 		Assert.assertEquals(times, SampleOperation.counter.get());
-
+		Assert.assertEquals(times, SampleScheduledOperation.counter.get());
+		
 		System.out.println("all done");
 	}
 
@@ -98,12 +105,34 @@ public class TestStressQuartz {
 		}
 	}
 
+	public static class SampleScheduledOperation extends AbstractOperation {
+		static AtomicInteger counter = new AtomicInteger(0);
+		@Override
+		public void execute() throws LogicException, DataException {
+			ThreadUtils.sleep(NumberUtils.randomInt(1, 3));
+			counter.incrementAndGet();
+		}
+	}
+	
+	@ManagerName("LOCALDB")
 	public static class SampleOperation extends AbstractOperation {
 		static AtomicInteger counter = new AtomicInteger(0);
+		
+		JobSchedulerProvider jsp;
+		
+		@Override
+		public void init(Provider parent) throws InitializationException {
+			super.init(parent);
+			jsp = getResource(JobSchedulerProvider.class);
+		}
+		
 		@Override
 		public void execute() throws LogicException, DataException {
 			counter.incrementAndGet();
 			ThreadUtils.sleep(NumberUtils.randomInt(1, 2));
+			JobDescription job = Factory.create(JobDescription.class);
+			job.setOperationClass(SampleScheduledOperation.class);
+			jsp.scheduleJob(job );
 		}
 	}
 }
