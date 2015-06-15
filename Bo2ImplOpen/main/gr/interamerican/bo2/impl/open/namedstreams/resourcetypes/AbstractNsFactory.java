@@ -35,8 +35,11 @@ implements NamedStreamFactory {
 	 * 
 	 * @return Creates the validation failure message.
 	 */
+	@SuppressWarnings("nls")
 	protected String invalidResourceMessage(StreamResource actual) {
-		return "Invalid stream resource type " + StringUtils.toString(actual); //$NON-NLS-1$
+		return StringUtils.concat(
+			"Invalid stream resource type ", StringUtils.toString(actual),
+			" .Valid type for this factory is ", StringUtils.toString(valid));
 	}
 	
 	/**

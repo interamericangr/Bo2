@@ -1,5 +1,6 @@
 package gr.interamerican.bo2.impl.open.namedstreams.resourcetypes;
 
+import static gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResourceEnum.FILE;
 import static gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition.DATE;
 import static gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition.TIMESTAMP;
 import static gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResourceValidator.onConvert;
@@ -43,7 +44,7 @@ implements NamedStreamFactory {
 	 * Creates a new FileNsFactory.
 	 */
 	public FileNsFactory() {
-		super(StreamResourceEnum.FILE);
+		super(FILE);
 	}
 	
 	@Override
@@ -152,7 +153,7 @@ implements NamedStreamFactory {
 		FileInputStream fis = new FileInputStream(file);
 		InputStreamReader insr = new InputStreamReader(fis, encoding);
 		BufferedReader br = new BufferedReader(insr);
-		return new NamedBufferedReader(StreamResourceEnum.FILE, br, name, file, encoding, uri);
+		return new NamedBufferedReader(FILE, br, name, file, encoding, uri);
 	}
 	
 	/**
@@ -177,7 +178,7 @@ implements NamedStreamFactory {
 	NamedInputStream input(File file, String name, int recordLength, Charset encoding, String uri)
 	throws FileNotFoundException {
 		InputStream in = new FileInputStream(file);
-		return new NamedInputStream(StreamResourceEnum.FILE, in, name, recordLength, file, encoding, uri);
+		return new NamedInputStream(FILE, in, name, recordLength, file, encoding, uri);
 	}
 	
 	/**
@@ -203,7 +204,7 @@ implements NamedStreamFactory {
 	NamedOutputStream output(File file, String name, int recordLength, Charset encoding, String uri) 
 	throws IOException {
 		OutputStream out = FileUtils.openOutputStream(file);
-		return new NamedOutputStream(StreamResourceEnum.FILE, out, name, recordLength, file, encoding, uri);
+		return new NamedOutputStream(FILE, out, name, recordLength, file, encoding, uri);
 	}
 	
 	/**
@@ -228,7 +229,7 @@ implements NamedStreamFactory {
 	throws IOException {
 		OutputStream os = FileUtils.openOutputStream(file);
 		PrintStream out = new PrintStream(os, false, encoding.name());
-		return new NamedPrintStream(StreamResourceEnum.FILE, out, name, file, encoding, uri);
+		return new NamedPrintStream(FILE, out, name, file, encoding, uri);
 	}	
 	
 	
