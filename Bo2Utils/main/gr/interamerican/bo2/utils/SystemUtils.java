@@ -93,5 +93,16 @@ public class SystemUtils {
 		}
 		return totalTime;
 	}
+	
+	/**
+	 * Indicates if the current OS is a windows version.
+	 * 
+	 * @return Returns true if the OS is windows.
+	 */
+	@SuppressWarnings("nls")
+	public static boolean isWindows() {
+		String os = System.getProperty("os.name");
+		return os.startsWith("Windows");		
+	}
 
 }

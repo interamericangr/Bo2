@@ -1,8 +1,12 @@
 package gr.interamerican.bo2.impl.open.namedstreams.resourcetypes;
 
+
+import static gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition.DATE;
+import static gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition.TIMESTAMP;
 import gr.interamerican.bo2.impl.open.namedstreams.NamedStream;
 import gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition;
 import gr.interamerican.bo2.impl.open.namedstreams.types.StreamType;
+import gr.interamerican.bo2.utils.SystemUtils;
 
 import java.io.File;
 import java.nio.charset.Charset;
@@ -13,8 +17,6 @@ import org.junit.Test;
 /**
  * Unit tests for {@link FileNsFactory}.
  * 
- * 
- * TODO: fix URI with date, timestamp, etc.
  */
 public class TestFileNsFactory {
 	
@@ -31,7 +33,7 @@ public class TestFileNsFactory {
 		def.setRecordLength(100);
 		def.setResourceType(StreamResourceEnum.FILE);
 		def.setType(type);
-		def.setUri("/tmp/file.txt"); //$NON-NLS-1$
+		def.setUri("/temp/tmp/file_<TIMESTAMP>.txt"); //$NON-NLS-1$
 		return def;
 	}
 	
@@ -238,13 +240,7 @@ public class TestFileNsFactory {
 	public void testConvert_PrintReader() 
 	throws CouldNotCreateNamedStreamException, CouldNotConvertNamedStreamException {
 		testConvertWithTypes(StreamType.PRINTSTREAM, StreamType.BUFFEREDREADER);
-	}
-	
-	
-	
-	
-	
-	
+	}	
 	
 	
 	/**
@@ -270,17 +266,19 @@ public class TestFileNsFactory {
 	/**
 	 * Tests fileUri
 	 */
+	@SuppressWarnings("nls")
 	@Test
 	public void testFileUri() {
+		FileNsFactory factory = new FileNsFactory();
+		
 		String definitionUri = "/foo/<DATE>/bar-<TIMESTAMP>.txt";
-		String date = "20141103";
-		String timestamp = "20141103000000";
-		String result = ""; //fileUri(definitionUri, StreamType.BUFFEREDREADER);
-		Assert.assertEquals(result, "/foo/20141103/bar-20141103000000.txt");
-	}
-	
-	
-	
+		String result = factory.fileUriModification(definitionUri);
+		Assert.assertFalse(result.contains(DATE));
+		Assert.assertFalse(result.contains(TIMESTAMP));
+		if (SystemUtils.isWindows()) {
+			Assert.assertTrue(result.startsWith("C:"));
+		}
+	}	
 	
 
 

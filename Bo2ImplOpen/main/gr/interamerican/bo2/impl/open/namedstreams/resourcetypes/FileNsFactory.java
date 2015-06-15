@@ -13,6 +13,7 @@ import gr.interamerican.bo2.impl.open.namedstreams.types.NamedPrintStream;
 import gr.interamerican.bo2.impl.open.namedstreams.types.StreamType;
 import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.StringUtils;
+import gr.interamerican.bo2.utils.SystemUtils;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -26,6 +27,8 @@ import java.io.PrintStream;
 import java.nio.charset.Charset;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Map;
+import java.util.Properties;
 
 import org.apache.commons.io.FileUtils;
 
@@ -35,7 +38,7 @@ import org.apache.commons.io.FileUtils;
 public class FileNsFactory 
 extends AbstractNsFactory
 implements NamedStreamFactory {
-
+	
 	/**
 	 * Creates a new FileNsFactory.
 	 */
@@ -102,16 +105,18 @@ implements NamedStreamFactory {
 	NamedStream<?> createNs(File file, NamedStreamDefinition def) 
 	throws CouldNotCreateNamedStreamException {				
 		StreamType type = def.getType();	
+		String uri = fileUriModification(def.getUri());
+		
 		try {
 			switch (type) {		
 			case BUFFEREDREADER:
-				return reader(file, def.getName(), def.getEncoding(), def.getUri());			
+				return reader(file, def.getName(), def.getEncoding(), uri);			
 			case INPUTSTREAM:
-				return input(file, def.getName(), def.getRecordLength(), def.getEncoding(), def.getUri());			
+				return input(file, def.getName(), def.getRecordLength(), def.getEncoding(), uri);			
 			case OUTPUTSTREAM:
-				return output(file, def.getName(), def.getRecordLength(), def.getEncoding(), def.getUri());			
+				return output(file, def.getName(), def.getRecordLength(), def.getEncoding(), uri);			
 			case PRINTSTREAM:			
-				return print(file, def.getName(), def.getEncoding(), def.getUri());			
+				return print(file, def.getName(), def.getEncoding(), uri);			
 			default:
 				String msg = "Invalid NamedStream type " + StringUtils.toString(type); //$NON-NLS-1$
 				throw new CouldNotCreateNamedStreamException(msg);			
@@ -224,12 +229,7 @@ implements NamedStreamFactory {
 		OutputStream os = FileUtils.openOutputStream(file);
 		PrintStream out = new PrintStream(os, false, encoding.name());
 		return new NamedPrintStream(StreamResourceEnum.FILE, out, name, file, encoding, uri);
-	}
-	
-	
-	
-	
-	
+	}	
 	
 	
 	/**
@@ -256,30 +256,26 @@ implements NamedStreamFactory {
 		return date;
 	}
 
-
 	/**
 	 * Prepends C: if the running OS is not unix...
 	 * 
 	 * @param fileUri
 	 * @return modified URI.
 	 */
-	String fileUriModificationForWindows(String fileUri) {
-		boolean runsOnUnix = File.separator.equals("/"); //$NON-NLS-1$
-		if(!runsOnUnix && fileUri.startsWith("/")) { //$NON-NLS-1$
-			return "C:" + fileUri.trim(); //$NON-NLS-1$
+	String fileUriModification(String fileUri) {		
+		String uri = fileUri.trim();
+		uri = uri.replaceAll(DATE, currentDate());
+		uri = uri.replaceAll(TIMESTAMP, currentTimestamp());
+		
+		Properties p = System.getProperties();
+		System.out.println(p);
+		
+		if(SystemUtils.isWindows()) {
+			if (uri.startsWith("/")) { //$NON-NLS-1$
+				uri = "C:" + uri.trim(); //$NON-NLS-1$
+			}
 		}
-		return fileUri;
+		return uri;
 	}
-	
-	
-
-
-
-
-
-
-
-
-	
 
 }
