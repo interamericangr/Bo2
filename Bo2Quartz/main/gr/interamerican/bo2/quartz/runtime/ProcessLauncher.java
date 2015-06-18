@@ -152,6 +152,11 @@ public class ProcessLauncher {
 	public static int killProcessFromJobDescription(JobDescription bean) throws DataException {
 		Process p = extractProcessFromJobDescription(bean);
 		p.destroy();
+		try {
+			p.waitFor();
+		} catch (InterruptedException e) {
+			throw new DataException(e);
+		}
 		QuartzUtils.waitJobToComplete(bean);
 		return p.exitValue();
 	}
