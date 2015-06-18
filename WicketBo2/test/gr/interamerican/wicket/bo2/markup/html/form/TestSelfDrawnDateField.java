@@ -19,6 +19,7 @@ import gr.interamerican.wicket.test.WicketTest;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.apache.wicket.datetime.markup.html.form.DateTextField;
 import org.apache.wicket.extensions.yui.calendar.DateField;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.util.tester.FormTester;
@@ -83,6 +84,17 @@ public class TestSelfDrawnDateField extends WicketTest {
 		formTester.submit();
 
 		commonAssertions_error(badDate);
+	}
+	
+	/**
+	 * Test getInternalDateTextField.
+	 */
+	@Test
+	public void testGetInternalDateTextField() {
+		DateBoPropertyDescriptor descriptor = new DateBoPropertyDescriptor();
+		SelfDrawnDateField field = new SelfDrawnDateField(TestPage.TEST_ID, new Model<Date>(), descriptor);
+		tester.startPage(getTestPage(field));
+		Assert.assertTrue(field.getInternalDateTextField() instanceof DateTextField);
 	}
 
 }

@@ -18,6 +18,7 @@ import gr.interamerican.wicket.utils.MarkupConstants;
 
 import java.util.Date;
 
+import org.apache.wicket.datetime.markup.html.form.DateTextField;
 import org.apache.wicket.extensions.yui.calendar.DateField;
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.model.IModel;
@@ -32,34 +33,46 @@ public class SelfDrawnDateField extends DateField {
 	 * serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
-	 * Creates a new SelfDrawnDateField object. 
+	 * Creates a new SelfDrawnDateField object.
 	 * 
-	 * @param id 
-	 * @param descriptor 
+	 * @param id
+	 * @param descriptor
 	 */
 	public SelfDrawnDateField(String id, DateBoPropertyDescriptor descriptor) {
 		super(id, new Model<Date>());
-		SelfDrawnUtils.<Date>standardSelfDrawnFormComponentStuff(this, descriptor);
+		SelfDrawnUtils.<Date> standardSelfDrawnFormComponentStuff(this, descriptor);
 	}
-	
+
 	/**
-	 * Creates a new SelfDrawnDateField object. 
+	 * Creates a new SelfDrawnDateField object.
 	 * 
-	 * @param id 
-	 * @param descriptor 
+	 * @param id
+	 * @param descriptor
 	 * @param model
 	 */
 	public SelfDrawnDateField(String id, IModel<Date> model, DateBoPropertyDescriptor descriptor) {
 		super(id, model);
-		SelfDrawnUtils.<Date>standardSelfDrawnFormComponentStuff(this, descriptor);
+		SelfDrawnUtils.<Date> standardSelfDrawnFormComponentStuff(this, descriptor);
 	}
-	
+
 	@Override
-    protected void onComponentTag(ComponentTag tag) {
+	protected void onComponentTag(ComponentTag tag) {
 		tag.setName(MarkupConstants.SPAN);
-        super.onComponentTag(tag); 
-     }
+		super.onComponentTag(tag);
+	}
+
+	/**
+	 * Gets the internal DateTextField used by this component implementation.
+	 * <br/>
+	 * This is useful, for instance when we need to add a behavior on the 'onchange'
+	 * javascript event of this field.
+	 * 
+	 * @return the internal DateTextField instance.
+	 */
+	public DateTextField getInternalDateTextField() {
+		return (DateTextField) get(DATE);
+	}
 
 }
