@@ -15,7 +15,7 @@ public class SampleRunTimeCommand extends AbstractBo2RuntimeCmd {
 	@Override
 	public void work() throws LogicException, DataException, InitializationException,
 	UnexpectedException {
-		ThreadUtils.sleep(1);
+		ThreadUtils.sleep(2);
 		System.out.println(this.getClass().getName());
 	}
 }

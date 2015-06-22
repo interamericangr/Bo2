@@ -16,8 +16,10 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * launches a {@link MultiLauncher} as a separate process.
@@ -31,7 +33,7 @@ public class ProcessLauncher {
 	/**
 	 * indicates the operation to attach to a process generated for the new jvm.
 	 */
-	private static final Class<? extends Operation> operation2attach = StreamRedirectOperation.class;
+	private static final Class<? extends Operation> OPERATION2ATTACH = StreamRedirectOperation.class;
 	/**
 	 * property to set the process object.
 	 */
@@ -40,7 +42,19 @@ public class ProcessLauncher {
 	 * property for the outputstream.
 	 */
 	private static final String PRINT_STREAM = "outputStream"; //$NON-NLS-1$
+	/**
+	 * properties map.
+	 */
+	protected static Map<String, Class<?>> propertiesMap = new HashMap<String, Class<?>>();
+	static {
+		propertiesMap.put(PROCESS_PROPERTY, Process.class);
+		propertiesMap.put(PRINT_STREAM, PrintStream.class);
+	}
 
+	/**
+	 * set to contain all spawn process.
+	 */
+	private static Set<Process> spawnedProcesses = new HashSet<Process>();
 	/**
 	 * launches a separate process.
 	 *
@@ -52,6 +66,19 @@ public class ProcessLauncher {
 	 */
 	public static synchronized JobDescription launch(Map<String, String> environment,
 			PrintStream out, String... args) throws DataException {
+		Process p = launchProcess(environment, args);
+		JobDescription bean = attachProcessInputStream(OPERATION2ATTACH, p, out);
+		return bean;
+	}
+
+	/**
+	 * @param environment
+	 * @param args
+	 * @return the process generated
+	 * @throws DataException
+	 */
+	protected static Process launchProcess(Map<String, String> environment, String... args)
+			throws DataException {
 		ProcessBuilder pb = new ProcessBuilder(args);
 		pb.redirectErrorStream(true);
 		if (environment != null) {
@@ -64,25 +91,40 @@ public class ProcessLauncher {
 		} catch (IOException e) {
 			throw new DataException(e);
 		}
-		JobDescription bean = attachProcessInputStream(p, out);
-		return bean;
+		spawnedProcesses.add(p);
+		return p;
 	}
 
 	/**
-	 * @param process
-	 * @param out
+	 * @param objs
+	 * @return the parameter map for the StreamredirectOperation
+	 */
+	protected static Map<String, Object> generateParameterMap(Object... objs) {
+		Map<String, Object> params = new HashMap<String, Object>();
+		for (Object object : objs) {
+			for (String key : propertiesMap.keySet()) {
+				Class<?> value = propertiesMap.get(key);
+				if ((object != null) && value.isAssignableFrom(object.getClass())) {
+					params.put(key, object);
+				}
+			}
+		}
+		return params;
+	}
+
+	/**
+	 * @param operation2attach
+	 * @param objs
+	 *            parameters required to be passed at the {@link StreamRedirectOperation}
 	 * @return the jobdescription of the submitted job.
 	 * @throws DataException
 	 */
-	private static JobDescription attachProcessInputStream(Process process, PrintStream out)
-			throws DataException {
+	protected static JobDescription attachProcessInputStream(
+			Class<? extends Operation> operation2attach, Object... objs) throws DataException {
 		JobScheduler jsp = new QuartzJobSchedulerImpl();
 		JobDescription bean = Factory.create(JobDescription.class);
 		bean.setOperationClass(operation2attach);
-		Map<String, Object> params = new HashMap<String, Object>();
-		params.put(PROCESS_PROPERTY, process);
-		params.put(PRINT_STREAM, out);
-		bean.setParameters(params);
+		bean.setParameters(generateParameterMap(objs));
 		List<JobDescription> jobDescriptions = new ArrayList<JobDescription>();
 		jobDescriptions.add(bean);
 		jsp.submitJobs(jobDescriptions);
@@ -133,7 +175,7 @@ public class ProcessLauncher {
 	 */
 	public static Process extractProcessFromJobDescription(JobDescription bean)
 			throws DataException {
-		if (!(bean.getOperationClass().isAssignableFrom(operation2attach))) {
+		if (!(bean.getOperationClass().isAssignableFrom(OPERATION2ATTACH))) {
 			throw new DataException(
 					"JobDescription bean does not indicate it was attached to process"); //$NON-NLS-1$
 		}
@@ -158,7 +200,25 @@ public class ProcessLauncher {
 			throw new DataException(e);
 		}
 		QuartzUtils.waitJobToComplete(bean);
+		spawnedProcesses.remove(p);
 		return p.exitValue();
+	}
+
+	/**
+	 * kills all spawned processes
+	 *
+	 * @throws DataException
+	 */
+	public static void killallProcesses() throws DataException {
+		for (Process p : spawnedProcesses) {
+			p.destroy();
+			try {
+				p.waitFor();
+			} catch (InterruptedException e) {
+				throw new DataException(e);
+			}
+		}
+		spawnedProcesses.clear();
 	}
 	/**
 	 * @param bean
@@ -167,7 +227,7 @@ public class ProcessLauncher {
 	 */
 	public static PrintStream exctractStreamFromjobDescription(JobDescription bean)
 			throws DataException {
-		if (!(bean.getOperationClass().isAssignableFrom(operation2attach))) {
+		if (!(bean.getOperationClass().isAssignableFrom(OPERATION2ATTACH))) {
 			throw new DataException(
 					"JobDescription bean does not indicate it was attached to process"); //$NON-NLS-1$
 		}
