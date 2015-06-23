@@ -175,13 +175,32 @@ public class ProcessLauncher {
 	 */
 	public static Process extractProcessFromJobDescription(JobDescription bean)
 			throws DataException {
-		if (!(bean.getOperationClass().isAssignableFrom(OPERATION2ATTACH))) {
+		if (!(OPERATION2ATTACH.isAssignableFrom(bean.getOperationClass()))) {
 			throw new DataException(
 					"JobDescription bean does not indicate it was attached to process"); //$NON-NLS-1$
 		}
 		Map<String, Object> params = bean.getParameters();
 		Object p = params.get(PROCESS_PROPERTY);
 		return (Process) p;
+	}
+
+	/**
+	 * @param bean
+	 * @return the PrintStream assigned to the process for output.
+	 * @throws DataException
+	 */
+	public static PrintStream exctractStreamFromjobDescription(JobDescription bean)
+			throws DataException {
+		if (!(OPERATION2ATTACH.isAssignableFrom(bean.getOperationClass()))) {
+			throw new DataException(
+					"JobDescription bean does not indicate it was attached to process"); //$NON-NLS-1$
+		}
+		Map<String, Object> params = bean.getParameters();
+		Object p = params.get(PRINT_STREAM);
+		if (p != null) {
+			return (PrintStream) p;
+		}
+		return System.out;
 	}
 
 	/**
@@ -219,23 +238,5 @@ public class ProcessLauncher {
 			}
 		}
 		spawnedProcesses.clear();
-	}
-	/**
-	 * @param bean
-	 * @return the PrintStream assigned to the process for output.
-	 * @throws DataException
-	 */
-	public static PrintStream exctractStreamFromjobDescription(JobDescription bean)
-			throws DataException {
-		if (!(bean.getOperationClass().isAssignableFrom(OPERATION2ATTACH))) {
-			throw new DataException(
-					"JobDescription bean does not indicate it was attached to process"); //$NON-NLS-1$
-		}
-		Map<String, Object> params = bean.getParameters();
-		Object p = params.get(PRINT_STREAM);
-		if (p != null) {
-			return (PrintStream) p;
-		}
-		return System.out;
 	}
 }
