@@ -77,7 +77,7 @@ public class PropertiesLauncher {
 	InstantiationException, IllegalAccessException, DataException, LogicException,
 	UnexpectedException {
 		String preProcess = p.getProperty(PropertiesLauncherParamsNames.PRE_PROCESSING_CLASS);
-		if (preProcess != null) {
+		if ((preProcess != null) && (preProcess.length() > 0)) {
 			LOG.debug("Launching pre process:" + preProcess); //$NON-NLS-1$
 			launchRuntimeCommand(preProcess);
 		}
@@ -98,7 +98,7 @@ public class PropertiesLauncher {
 	InstantiationException, IllegalAccessException, DataException, LogicException,
 	UnexpectedException {
 		String postProcess = p.getProperty(PropertiesLauncherParamsNames.POST_PROCESSING_CLASS);
-		if (postProcess != null) {
+		if ((postProcess != null) && (postProcess.length() > 0)) {
 			LOG.debug("Launching post process:" + postProcess); //$NON-NLS-1$
 			launchRuntimeCommand(postProcess);
 		}
@@ -147,7 +147,7 @@ public class PropertiesLauncher {
 	}
 
 	/**
-	 * hides pre-processing and post-processing operation from potential double-execution.
+	 * hides all parameters accessed by the {@link PropertiesLauncher}.
 	 *
 	 * @param p
 	 * @return
@@ -156,7 +156,9 @@ public class PropertiesLauncher {
 		Properties hidden = new Properties();
 		for (String key : p.stringPropertyNames()) {
 			if (PropertiesLauncherParamsNames.POST_PROCESSING_CLASS.equals(key)
-					|| PropertiesLauncherParamsNames.PRE_PROCESSING_CLASS.equals(key)) {
+					|| PropertiesLauncherParamsNames.PRE_PROCESSING_CLASS.equals(key)
+					|| PropertiesLauncherParamsNames.CLASSNAME.equals(key)
+					|| PropertiesLauncherParamsNames.WITHGUI.equals(key)) {
 				continue;
 			}
 			hidden.setProperty(key, p.getProperty(key));

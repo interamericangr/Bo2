@@ -11,7 +11,9 @@ import java.io.OutputStream;
 import java.util.UUID;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,10 +35,19 @@ public class TestDynamicOutputNsFactory {
 	/**
 	 *
 	 */
+	private static String PATH = "/temp/tmp/"; //$NON-NLS-1$
+	/**
+	 *
+	 */
+	private static String BASE_FILENAME = "lala"; //$NON-NLS-1$
+
+	/**
+	 *
+	 */
 	@Before
 	public void before() {
-		def.setUri("/temp/tmp/"); //$NON-NLS-1$
-		def.setName("lala"); //$NON-NLS-1$
+		def.setUri(PATH);
+		def.setName(BASE_FILENAME);
 	}
 
 	/**
@@ -46,6 +57,20 @@ public class TestDynamicOutputNsFactory {
 	public void after() throws CouldNotCreateNamedStreamException {
 		fac.unlockDirectory(def);
 	}
+
+	/**
+	 * delete left-overs
+	 */
+	@AfterClass
+	public static void afterClass() {
+		File dir = new File(PATH);
+		String[] files = dir.list(FileFilterUtils.andFileFilter(FileFilterUtils.fileFileFilter(),
+				FileFilterUtils.prefixFileFilter(BASE_FILENAME)));
+		for (String string : files) {
+			(new File(PATH + string)).delete();
+		}
+	}
+
 	/**
 	 * test case for {@link DynamicOutputNsFactory#testForLockAndLock(NamedStreamDefinition)}
 	 *

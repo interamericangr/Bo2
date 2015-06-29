@@ -1,6 +1,5 @@
 package gr.interamerican.bo2.impl.open.runtime;
 
-import gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessParmNames;
 
 /**
  * sets the names of parameters used.
@@ -14,11 +13,11 @@ public class PropertiesLauncherParamsNames {
 	/**
 	 * Property key for the pre-processing operation class.
 	 */
-	public static final String PRE_PROCESSING_CLASS = BatchProcessParmNames.PRE_PROCESSING_CLASS;
+	public static final String PRE_PROCESSING_CLASS = "plPreProcessingClass"; //$NON-NLS-1$
 	/**
 	 * Property key for the post processing operation class.
 	 */
-	public static final String POST_PROCESSING_CLASS = BatchProcessParmNames.POST_PROCESSING_CLASS;
+	public static final String POST_PROCESSING_CLASS = "plPostProcessingClass"; //$NON-NLS-1$
 	/**
 	 * if the launch will support GUI or not.
 	 */
