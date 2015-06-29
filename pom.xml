@@ -117,7 +117,7 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<version>2.14.1</version>
 				<configuration>
-					<argLine>-Duser.country=GR -Duser.language=el ${argLine}</argLine>
+					<argLine>-Duser.country=GR -Duser.language=el -Dtarget.environment=DEV ${argLine}</argLine>
 					<excludes>
 						<exclude>**/TestSuite*.java</exclude>
 					</excludes>
