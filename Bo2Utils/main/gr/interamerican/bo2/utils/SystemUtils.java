@@ -14,6 +14,9 @@ package gr.interamerican.bo2.utils;
 
 import java.lang.management.GarbageCollectorMXBean;
 import java.lang.management.ManagementFactory;
+import java.lang.management.MemoryPoolMXBean;
+import java.lang.management.MemoryType;
+import java.util.Iterator;
 
 /**
  * System utilities.
@@ -92,6 +95,20 @@ public class SystemUtils {
 	        }
 		}
 		return totalTime;
+	}
+	
+	/**
+	 * @return Total non heap (permanent) memory usage in MB.
+	 */
+	public static double permgenSize() {
+		Iterator<MemoryPoolMXBean> iter = ManagementFactory.getMemoryPoolMXBeans().iterator();
+		while (iter.hasNext()) {
+			MemoryPoolMXBean item = iter.next();
+			if(MemoryType.NON_HEAP == item.getType()) {
+				return item.getUsage().getUsed() / MB;
+			}
+		}
+		return 0.0;
 	}
 	
 	/**
