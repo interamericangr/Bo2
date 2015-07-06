@@ -157,8 +157,7 @@ public class PropertiesLauncher {
 		for (String key : p.stringPropertyNames()) {
 			if (PropertiesLauncherParamsNames.POST_PROCESSING_CLASS.equals(key)
 					|| PropertiesLauncherParamsNames.PRE_PROCESSING_CLASS.equals(key)
-					|| PropertiesLauncherParamsNames.CLASSNAME.equals(key)
-					|| PropertiesLauncherParamsNames.WITHGUI.equals(key)) {
+					|| PropertiesLauncherParamsNames.CLASSNAME.equals(key)) {
 				continue;
 			}
 			hidden.setProperty(key, p.getProperty(key));
