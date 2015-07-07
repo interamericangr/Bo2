@@ -25,8 +25,10 @@ import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.StringUtils;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 /**
  * Base implementation of {@link Provider}.
@@ -172,12 +174,30 @@ implements Provider {
 	@Override
 	public <C extends ResourceWrapper> C getResource(String resourceName, Class<C> subclass) 
 	throws InitializationException {
-		String managerName = managerAliases.get(resourceName);
-		if (managerName==null) {
-			managerName = resourceName;
-		}
+		String managerName = concreteResourceName(resourceName);
 		return getResourceByName(managerName, subclass);
-	}	
+	}
+	
+	/**
+	 * Returns the concrete resource name, because it might be an alias.
+	 * 
+	 * @param resourceName Resource name, possibly an alias.
+	 * 
+	 * @return concrete resource name.
+	 * @throws InitializationException 
+	 */
+	String concreteResourceName(String resourceName) throws InitializationException {
+		String managerName = resourceName;
+		Set<String> traversedAliases = new HashSet<String>();
+		while(managerAliases.get(managerName)!=null) { //find true alias
+			boolean existed = !traversedAliases.add(managerName); //this alias has been found before
+			if(existed) {
+				throw new InitializationException("Circular manager aliases detected " + traversedAliases); //$NON-NLS-1$
+			}
+			managerName = managerAliases.get(managerName);
+		}
+		return managerName;
+	}
 	
 	@Override
 	public void close() throws DataException {

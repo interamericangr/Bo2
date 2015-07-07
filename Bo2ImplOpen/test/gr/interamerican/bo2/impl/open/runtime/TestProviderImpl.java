@@ -22,6 +22,7 @@ import gr.interamerican.bo2.arch.TransactionManager;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.creation.ObjectFactory;
 import gr.interamerican.bo2.creation.proxies.Mocks;
+import gr.interamerican.bo2.impl.open.utils.Bo2;
 import gr.interamerican.bo2.samples.factories.MockObjectFactoryForResourceWrappers;
 import gr.interamerican.bo2.samples.providers.IMockRw1;
 import gr.interamerican.bo2.samples.providers.IMockRw2;
@@ -30,6 +31,7 @@ import gr.interamerican.bo2.samples.providers.MockTransactionManager;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -198,6 +200,28 @@ public class TestProviderImpl {
 		assertSame(mock1,mock2);		
 	}
 	
+	/**
+	 * Tests for double aliases resolution.
+	 * 
+	 * @throws InitializationException 
+	 */
+	@Test	
+	public void testConcreteResourceName_double() throws InitializationException {
+		ProviderImpl provider = (ProviderImpl) Bo2.getDefaultDeployment().getProvider();
+		String concrete = provider.concreteResourceName("DOUBLE_ALIAS"); //$NON-NLS-1$
+		Assert.assertEquals("LOCALDB", concrete); //$NON-NLS-1$
+	}
 	
+	/**
+	 * Tests for circular aliases detection.
+	 * 
+	 * @throws InitializationException 
+	 */
+	@Test(expected=InitializationException.class)
+	public void testConcreteResourceName_circular() throws InitializationException {
+		ProviderImpl provider = (ProviderImpl) Bo2.getDefaultDeployment().getProvider();
+		provider.concreteResourceName("A"); //$NON-NLS-1$
+	}
+
 
 }
