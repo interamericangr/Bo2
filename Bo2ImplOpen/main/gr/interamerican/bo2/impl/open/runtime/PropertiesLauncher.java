@@ -79,7 +79,7 @@ public class PropertiesLauncher {
 		String preProcess = p.getProperty(PropertiesLauncherParamsNames.PRE_PROCESSING_CLASS);
 		if ((preProcess != null) && (preProcess.length() > 0)) {
 			LOG.debug("Launching pre process:" + preProcess); //$NON-NLS-1$
-			launchRuntimeCommand(preProcess);
+			launchRuntimeCommand(preProcess, p);
 		}
 	}
 
@@ -100,7 +100,7 @@ public class PropertiesLauncher {
 		String postProcess = p.getProperty(PropertiesLauncherParamsNames.POST_PROCESSING_CLASS);
 		if ((postProcess != null) && (postProcess.length() > 0)) {
 			LOG.debug("Launching post process:" + postProcess); //$NON-NLS-1$
-			launchRuntimeCommand(postProcess);
+			launchRuntimeCommand(postProcess, p);
 		}
 	}
 
@@ -108,6 +108,7 @@ public class PropertiesLauncher {
 	 * launches a {@link RuntimeCommand}
 	 *
 	 * @param name
+	 * @param p
 	 * @throws ClassNotFoundException
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
@@ -115,11 +116,15 @@ public class PropertiesLauncher {
 	 * @throws LogicException
 	 * @throws UnexpectedException
 	 */
-	static void launchRuntimeCommand(String name) throws ClassNotFoundException,
+	static void launchRuntimeCommand(String name, Properties p) throws ClassNotFoundException,
 	InstantiationException, IllegalAccessException, DataException, LogicException,
 	UnexpectedException {
 		Class<?> cmdClass = Class.forName(name);
 		RuntimeCommand cmd = (RuntimeCommand) cmdClass.newInstance();
+		if (cmd instanceof AbstractBo2RuntimeWithPropertiesCmd) {
+			((AbstractBo2RuntimeWithPropertiesCmd) cmd)
+			.setExecutionProperties(hidePrePostOperation(p));
+		}
 		cmd.execute();
 	}
 

@@ -65,7 +65,8 @@ public class TestPropertiesLauncher {
 	}
 
 	/**
-	 * Test method for {@link PropertiesLauncher#launchRuntimeCommand(java.lang.String)} .
+	 * Test method for
+	 * {@link PropertiesLauncher#launchRuntimeCommand(java.lang.String,java.util.Properties)} .
 	 *
 	 * @throws UnexpectedException
 	 * @throws LogicException
@@ -77,7 +78,7 @@ public class TestPropertiesLauncher {
 	@Test
 	public void testLaunchRuntimeCommand() throws ClassNotFoundException, InstantiationException,
 	IllegalAccessException, DataException, LogicException, UnexpectedException {
-		PropertiesLauncher.launchRuntimeCommand(name);
+		PropertiesLauncher.launchRuntimeCommand(name, new Properties());
 		Assert.assertTrue(TestCmd.getRun());
 		Assert.assertFalse(TestCmd.getRun());
 	}
