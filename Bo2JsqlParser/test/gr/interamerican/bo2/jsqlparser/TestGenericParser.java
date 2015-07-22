@@ -1477,4 +1477,19 @@ public class TestGenericParser extends AbstractParserTest {
 		checkStatement(expected, actual);
 	}
 	
+	
+	/*
+	 * known bugs
+	 * 
+	 * String sql = StringUtils.concat( 
+				"select A.id,A.name,A.doy,B.doyNm ",
+				"from xxxx.PEOPLE as A ",
+				"inner join xxxx.DOY as B ",
+				"on A.doy = B.doy ",
+				"where A.surname like :surname ",
+				"and A.salary = (select max(C.salary) from xxxx.SALARIES as C where C.doyNm = :doyNm and c.other = 5) ",
+				"and B.doyNm like :doyNm");
+	 * 
+	 */
+	
 }
