@@ -75,7 +75,12 @@ public class AbstractParserTest {
 	 * @param actual
 	 */
 	protected void checkStatement(String expected, String actual) {
-		assertTrue(actual.trim().equalsIgnoreCase(expected));
+		boolean passed = actual.trim().equalsIgnoreCase(expected.trim());
+		if(!passed) {
+			System.out.println(expected);
+			System.out.println(actual);
+		}
+		assertTrue(passed);
 	}
 
 }
