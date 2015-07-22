@@ -194,8 +194,8 @@ extends EmptyVisitor {
 		left.accept(this);
 		Expression right = andExpression.getRightExpression();
 		if (isSimple(right)) {
-			if(!matchesNamedParameter(right.toString())) {
-				sb.append(SPACE + andExpression.getStringExpression() + SPACE + right.toString());
+			if(!matchesNamedParameter(right)) {
+				sb.append(SPACE + andExpression.getStringExpression() + SPACE + expressionToString(right));
 			}
 		} else {
 			if(!containsParamFirst(right)) {
@@ -214,8 +214,8 @@ extends EmptyVisitor {
 		left.accept(this);
 		Expression right = orExpression.getRightExpression();
 		if (isSimple(right)) {
-			if(!matchesNamedParameter(right.toString())) {
-				sb.append(SPACE + orExpression.getStringExpression() + SPACE + right.toString());
+			if(!matchesNamedParameter(right)) {
+				sb.append(SPACE + orExpression.getStringExpression() + SPACE + expressionToString(right));
 			}
 		} else {
 			if(!containsParamFirst(right)) {
@@ -455,23 +455,52 @@ extends EmptyVisitor {
 	 * @param e
 	 */
 	private void handleElementaryExpression(Expression e) {
-		String expr = e.toString();
-		if(!matchesNamedParameter(expr)) {
-			sb.append(SPACE + expr);
+		if(!matchesNamedParameter(e)) {
+			sb.append(SPACE + e.toString());
 		}
 	}
 	
 	/**
-	 * Checks whether a string contains the named parameter that is to
-	 * be removed.
+	 * Checks whether an expression contains the named parameter that is to
+	 * be removed. Normally an expression will contain only one predicate. If
+	 * the expression's right side is a subselect the match is reduced to the
+	 * removal of the where clause from this subselect altogether.
 	 * 
 	 * @param candidate
-	 *        The string to check against.
+	 *        The expression to check against.
 	 *        
-	 * @return True if the candidate string contains the named parameter.
+	 * @return True if the candidate expression contains the named parameter.
 	 */
-	private boolean matchesNamedParameter(String candidate) {
-		return candidate.contains(paramToRemove);
+	private boolean matchesNamedParameter(Expression candidate) {
+		if(candidate instanceof BinaryExpression) {
+			if(((BinaryExpression)candidate).getRightExpression() instanceof SubSelect) {
+				SubSelect subSelect = (SubSelect) ((BinaryExpression)candidate).getRightExpression();
+				String processed = processSubSelect(subSelect);
+				return !processed.toUpperCase().contains("WHERE");
+			}
+		}
+		return candidate.toString().contains(paramToRemove);
+	}
+	
+	/**
+	 * Converts an expression to a String. Handles expressions with subselects.
+	 * 
+	 * @param expression
+	 * @return Converts an expression to a String
+	 */
+	private String expressionToString(Expression expression) {
+		if(expression instanceof BinaryExpression) {
+			BinaryExpression bin = (BinaryExpression) expression;
+			if(bin.getRightExpression() instanceof SubSelect) {
+				SubSelect subSelect = (SubSelect) bin.getRightExpression();
+				String modifiedSubSelect = processSubSelect(subSelect);
+				if(!StringUtils.isNullOrBlank(modifiedSubSelect)) {
+					modifiedSubSelect = LEFT_PARENTHESIS + modifiedSubSelect.trim() + RIGHT_PARENTHESIS;
+				}
+				return bin.getLeftExpression().toString() + SPACE + bin.getStringExpression() + SPACE + modifiedSubSelect; 
+			}
+		}
+		return expression.toString();
 	}
 	
 	/**

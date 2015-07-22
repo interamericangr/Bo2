@@ -1184,6 +1184,44 @@ public class TestGenericParser extends AbstractParserTest {
 	}
 	
 	/**
+	 * Remove parameters from a where clause that has an equals to a subselect predicate.
+	 * 
+	 * @throws SqlParseException 
+	 */
+	@Test
+	public void testRemoveParameter_equalsSubSelect2() throws SqlParseException {
+		String sql = StringUtils.concat( 
+				"select A.id,A.name,A.doy,B.doyNm ",
+				"from xxxx.PEOPLE as A ",
+				"inner join xxxx.DOY as B ",
+				"on A.doy = B.doy ",
+				"where A.surname like :surname ",
+				"and A.salary = (select max(C.salary) from xxxx.SALARIES as C where C.doyNm = :doyNm and C.foo = 1) ",
+				"and B.doyNm like :doyNm");
+		
+		String actual = parser.removeParameter("surname", sql);
+		String expected = StringUtils.concat( 
+				"select A.id,A.name,A.doy,B.doyNm ",
+				"from xxxx.PEOPLE as A ",
+				"inner join xxxx.DOY as B ",
+				"on A.doy = B.doy ",
+				"where A.salary = (select max(C.salary) from xxxx.SALARIES as C where C.doyNm = :doyNm and C.foo = 1) ",
+				"and B.doyNm like :doyNm");
+		checkStatement(expected, actual);
+		
+		actual = parser.removeParameter("doyNm", sql);
+		expected = StringUtils.concat( 
+				"select A.id,A.name,A.doy,B.doyNm ",
+				"from xxxx.PEOPLE as A ",
+				"inner join xxxx.DOY as B ",
+				"on A.doy = B.doy ",
+				"where A.surname like :surname ",
+				"and A.salary = (select max(C.salary) from xxxx.SALARIES as C where C.foo = 1)");
+		checkStatement(expected, actual);
+		
+	}
+	
+	/**
 	 * 
 	 * @throws SqlParseException 
 	 */
