@@ -1,1 +1,2 @@
-Added gr.interamerican.bo2.impl.open.po.PoUtils.detach(PersistentObject<?>...)
+Fixed dynamic sql parsing in the case of a subselect on a predicate
+ 
