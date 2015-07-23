@@ -570,3 +570,10 @@ ProcessLauncher launches commands on separate jvm, method to launch MultiLaunche
 Added key 'uuid' to slf4j Mapped Diagnostic Contexts. Set on wicket request cycles and batchprocess units of work
 
 
+
+
+2.3.10
+--------
+
+Fixed dynamic sql parsing in the case of a subselect on a predicate
+ 

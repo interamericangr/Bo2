@@ -1,2 +1,0 @@
-Fixed dynamic sql parsing in the case of a subselect on a predicate
- 
