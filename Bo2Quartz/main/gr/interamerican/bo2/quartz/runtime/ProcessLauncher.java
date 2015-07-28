@@ -10,6 +10,7 @@ import gr.interamerican.bo2.quartz.QuartzJobSchedulerImpl;
 import gr.interamerican.bo2.quartz.util.QuartzUtils;
 import gr.interamerican.bo2.utils.StringConstants;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.URL;
@@ -21,15 +22,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import jpb.DefaultEntryPoint;
+import jpb.JavaProcessBuilder;
+import jpb.command.FixedPathSelector;
+
 /**
  * launches a {@link MultiLauncher} as a separate process.
  */
 public class ProcessLauncher {
 
-	/**
-	 * parameter for classpath for the java executable
-	 */
-	protected static final String CLASSPATH_PARAM = "-classpath"; //$NON-NLS-1$
 	/**
 	 * indicates the operation to attach to a process generated for the new jvm.
 	 */
@@ -55,44 +56,60 @@ public class ProcessLauncher {
 	 * set to contain all spawn process.
 	 */
 	private static Set<Process> spawnedProcesses = new HashSet<Process>();
+
 	/**
 	 * launches a separate process.
 	 *
 	 * @param environment
 	 * @param out
+	 * @param mainClass
 	 * @param args
 	 * @return the created process
 	 * @throws DataException
 	 */
 	public static synchronized JobDescription launch(Map<String, String> environment,
-			PrintStream out, String... args) throws DataException {
-		Process p = launchProcess(environment, args);
+			PrintStream out, Class<?> mainClass, String... args) throws DataException {
+		Process p = launchJavaProcess(environment, mainClass, args);
 		JobDescription bean = attachProcessInputStream(OPERATION2ATTACH, p, out);
 		return bean;
 	}
 
 	/**
+	 * launches a java process with the given environment, main class and user arguments
+	 *
 	 * @param environment
+	 * @param mainClass
 	 * @param args
 	 * @return the process generated
 	 * @throws DataException
 	 */
-	protected static Process launchProcess(Map<String, String> environment, String... args)
-			throws DataException {
-		ProcessBuilder pb = new ProcessBuilder(args);
-		pb.redirectErrorStream(true);
+	protected static Process launchJavaProcess(Map<String, String> environment, Class<?> mainClass,
+			String... args) throws DataException {
+		JavaProcessBuilder jpb = new JavaProcessBuilder();
 		if (environment != null) {
-			Map<String, String> env = pb.environment();
+			Map<String, String> env = jpb.environment();
 			env.putAll(environment);
 		}
+		jpb.redirectErrorStream(true);
+		jpb.entryPoint(DefaultEntryPoint.mainClass(mainClass));
+		for (String property : System.getProperties().stringPropertyNames()) {
+			String value = System.getProperty(property);
+			jpb.setSystemProperty(property, value);
+		}
+		for (String string : args) {
+			jpb.addApplicationArgument(string);
+		}
+		jpb.classPath(getClasspathFiles());
+		jpb.commandSelector(new FixedPathSelector(getJavaExecutable()));
 		Process p = null;
 		try {
-			p = pb.start();
+			p = jpb.start();
 		} catch (IOException e) {
 			throw new DataException(e);
 		}
 		spawnedProcesses.add(p);
 		return p;
+
 	}
 
 	/**
@@ -116,7 +133,7 @@ public class ProcessLauncher {
 	 * @param operation2attach
 	 * @param objs
 	 *            parameters required to be passed at the {@link StreamRedirectOperation}
-	 * @return the jobdescription of the submitted job.
+	 * @return the {@link JobDescription} of the submitted job.
 	 * @throws DataException
 	 */
 	protected static JobDescription attachProcessInputStream(
@@ -141,14 +158,27 @@ public class ProcessLauncher {
 	/**
 	 * @return the classpath
 	 */
+	@Deprecated
 	static protected String getClasspath() {
-		URL[] urls = ((URLClassLoader) (Thread.currentThread().getContextClassLoader())).getURLs();
+		List<File> files = getClasspathFiles();
 		String classpath = StringConstants.EMPTY;
-		for (URL url : urls) {
+		for (File f : files) {
 			if (classpath.length() > 0) {
 				classpath += StringConstants.COLON;
 			}
-			classpath = classpath + url.getFile();
+			classpath = classpath + f.getPath();
+		}
+		return classpath;
+	}
+
+	/**
+	 * @return the classpath files.
+	 */
+	static protected List<File> getClasspathFiles() {
+		URL[] urls = ((URLClassLoader) (Thread.currentThread().getContextClassLoader())).getURLs();
+		List<File> classpath = new ArrayList<File>();
+		for (URL url : urls) {
+			classpath.add(new File(url.getFile()));
 		}
 		return classpath;
 	}
@@ -161,8 +191,8 @@ public class ProcessLauncher {
 	 * @throws DataException
 	 */
 	public static JobDescription launchMultilauncher(Class<?> clazz) throws DataException {
-		JobDescription bean = ProcessLauncher.launch(null, null, getJavaExecutable(),
-				CLASSPATH_PARAM, getClasspath(), MultiLauncher.class.getName(), clazz.getName());
+		JobDescription bean = ProcessLauncher.launch(null, null, MultiLauncher.class,
+				clazz.getName());
 		return bean;
 	}
 
