@@ -57,6 +57,8 @@ public class TestProcessLauncher {
 	public void cleanUpStreams() {
 		System.setOut(origout);
 		System.setErr(origerr);
+		System.out.println(outContent.toString());
+		System.out.println(errContent.toString());
 	}
 
 	/**
@@ -73,6 +75,8 @@ public class TestProcessLauncher {
 				.getName()) == 1);
 		QuartzUtils.waitGroupToComplete(StreamRedirectOperation.class.getName());
 		Assert.assertTrue(outContent.toString().contains(SampleRunTimeCommand.class.getName()));
+		// Assert.assertTrue(outContent.toString().contains(
+		// SystemUtils.maxMemory() + StringConstants.EMPTY));
 		QuartzSchedulerRegistry.clearScheduledJobDescriptions();
 	}
 

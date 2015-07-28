@@ -107,7 +107,7 @@ public class ProcessLauncher {
 		jpb.classPath(getClasspathFiles());// set classpath
 		jpb.commandSelector(new FixedPathSelector(getJavaExecutable()));// set java executable
 		// set memory
-		jpb.minMemory(MemArg.of(128).megaBytes());
+		jpb.minMemory(MemArg.of(64).megaBytes());
 		jpb.maxMemory(MemArg.of((long) SystemUtils.maxMemory()).megaBytes());
 		jpb.customArg(HotspotJvm.CustomParams.MAX_PERM_SIZE, MemArg.of(128).megaBytes());
 		if (memory != null) {

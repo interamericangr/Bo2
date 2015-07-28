@@ -5,6 +5,7 @@ import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
 import gr.interamerican.bo2.arch.exceptions.UnexpectedException;
 import gr.interamerican.bo2.impl.open.runtime.AbstractBo2RuntimeCmd;
+import gr.interamerican.bo2.utils.SystemUtils;
 import gr.interamerican.bo2.utils.concurrent.ThreadUtils;
 
 /**
@@ -17,5 +18,6 @@ public class SampleRunTimeCommand extends AbstractBo2RuntimeCmd {
 	UnexpectedException {
 		ThreadUtils.sleep(2);
 		System.out.println(this.getClass().getName());
+		System.out.println(SystemUtils.maxMemory());
 	}
 }
