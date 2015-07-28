@@ -80,6 +80,10 @@ public class TestProcessLauncher {
 	}
 
 	/**
+	 * Test method for
+	 * {@link gr.interamerican.bo2.quartz.runtime.ProcessLauncher#launchMultilauncher(Class,MemorySetting)}
+	 * tests memory settings.
+	 * 
 	 * @throws DataException
 	 */
 	@Test
