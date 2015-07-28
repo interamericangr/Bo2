@@ -19,5 +19,7 @@ public class SampleRunTimeCommand extends AbstractBo2RuntimeCmd {
 		ThreadUtils.sleep(2);
 		System.out.println(this.getClass().getName());
 		System.out.println(SystemUtils.maxMemory());
+		System.out.println(SystemUtils.totalMemory());
+		System.out.println(SystemUtils.maxMemory());
 	}
 }

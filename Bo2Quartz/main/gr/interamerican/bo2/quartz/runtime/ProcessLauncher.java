@@ -111,9 +111,13 @@ public class ProcessLauncher {
 		jpb.maxMemory(MemArg.of((long) SystemUtils.maxMemory()).megaBytes());
 		jpb.customArg(HotspotJvm.CustomParams.MAX_PERM_SIZE, MemArg.of(128).megaBytes());
 		if (memory != null) {
-			if (memory.getMinMemory() != null) {
+			if (memory.getMaxMemory() != null) {
 				jpb.maxMemory(MemArg.of(memory.getMaxMemory()).megaBytes());
+			}
+			if (memory.getMinMemory() != null) {
 				jpb.minMemory(MemArg.of(memory.getMinMemory()).megaBytes());
+			}
+			if (memory.getPermGen() != null) {
 				jpb.customArg(HotspotJvm.CustomParams.MAX_PERM_SIZE, MemArg.of(memory.getPermGen())
 						.megaBytes());
 			}

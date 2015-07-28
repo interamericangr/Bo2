@@ -4,6 +4,7 @@
 package gr.interamerican.bo2.quartz.runtime;
 
 import gr.interamerican.bo2.arch.exceptions.DataException;
+import gr.interamerican.bo2.impl.open.creation.Factory;
 import gr.interamerican.bo2.impl.open.job.JobDescription;
 import gr.interamerican.bo2.quartz.QuartzSchedulerRegistry;
 import gr.interamerican.bo2.quartz.util.QuartzUtils;
@@ -75,8 +76,23 @@ public class TestProcessLauncher {
 				.getName()) == 1);
 		QuartzUtils.waitGroupToComplete(StreamRedirectOperation.class.getName());
 		Assert.assertTrue(outContent.toString().contains(SampleRunTimeCommand.class.getName()));
-		// Assert.assertTrue(outContent.toString().contains(
-		// SystemUtils.maxMemory() + StringConstants.EMPTY));
+		QuartzSchedulerRegistry.clearScheduledJobDescriptions();
+	}
+
+	/**
+	 * @throws DataException
+	 */
+	@Test
+	public void testMemorySettings() throws DataException {
+		MemorySetting settings = Factory.create(MemorySetting.class);
+		settings.setMinMemory(105L);// due to rounding
+		QuartzSchedulerRegistry.clearScheduledJobDescriptions();
+		ProcessLauncher.launchMultilauncher(SampleRunTimeCommand.class, settings);
+		Assert.assertTrue(QuartzUtils.getNumberOfScheduledJobs(StreamRedirectOperation.class
+				.getName()) == 1);
+		QuartzUtils.waitGroupToComplete(StreamRedirectOperation.class.getName());
+		Assert.assertTrue(outContent.toString().contains(SampleRunTimeCommand.class.getName()));
+		Assert.assertTrue(outContent.toString().contains("100")); //$NON-NLS-1$
 		QuartzSchedulerRegistry.clearScheduledJobDescriptions();
 	}
 
