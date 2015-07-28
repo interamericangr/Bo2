@@ -61,14 +61,14 @@ public class TestProcessLauncher {
 
 	/**
 	 * Test method for
-	 * {@link gr.interamerican.bo2.quartz.runtime.ProcessLauncher#launchMultilauncher(Class)}
+	 * {@link gr.interamerican.bo2.quartz.runtime.ProcessLauncher#launchMultilauncher(Class,MemorySetting)}
 	 *
 	 * @throws DataException
 	 */
 	@Test
 	public void testLaunch() throws DataException {
 		QuartzSchedulerRegistry.clearScheduledJobDescriptions();
-		ProcessLauncher.launchMultilauncher(SampleRunTimeCommand.class);
+		ProcessLauncher.launchMultilauncher(SampleRunTimeCommand.class, null);
 		Assert.assertTrue(QuartzUtils.getNumberOfScheduledJobs(StreamRedirectOperation.class
 				.getName()) == 1);
 		QuartzUtils.waitGroupToComplete(StreamRedirectOperation.class.getName());
@@ -84,7 +84,7 @@ public class TestProcessLauncher {
 	@Test
 	public void testExtractProcessFromJobDescription() throws DataException {
 		QuartzSchedulerRegistry.clearScheduledJobDescriptions();
-		JobDescription bean = ProcessLauncher.launchMultilauncher(SampleRunTimeCommand.class);
+		JobDescription bean = ProcessLauncher.launchMultilauncher(SampleRunTimeCommand.class, null);
 		Process p = ProcessLauncher.extractProcessFromJobDescription(bean);
 		Assert.assertNotNull(p);
 		QuartzUtils.waitGroupToComplete(StreamRedirectOperation.class.getName());
@@ -100,7 +100,7 @@ public class TestProcessLauncher {
 	@Test
 	public void testKillProcessFromJobDescription() throws DataException {
 		QuartzSchedulerRegistry.clearScheduledJobDescriptions();
-		JobDescription bean = ProcessLauncher.launchMultilauncher(SampleRunTimeCommand.class);
+		JobDescription bean = ProcessLauncher.launchMultilauncher(SampleRunTimeCommand.class, null);
 		int e = ProcessLauncher.killProcessFromJobDescription(bean);
 		Assert.assertNotEquals(e, 0);
 		QuartzSchedulerRegistry.clearScheduledJobDescriptions();

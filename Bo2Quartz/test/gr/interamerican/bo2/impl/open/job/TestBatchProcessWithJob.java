@@ -1,8 +1,5 @@
 package gr.interamerican.bo2.impl.open.job;
 
-import org.junit.Assert;
-import org.junit.Test;
-
 import gr.interamerican.bo2.arch.EntitiesQuery;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
@@ -18,11 +15,20 @@ import gr.interamerican.bo2.utils.Utils;
 import gr.interamerican.bo2.utils.meta.formatters.Formatter;
 import gr.interamerican.bo2.utils.meta.formatters.ObjectFormatter;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 /**
  * Integration test
  */
 public class TestBatchProcessWithJob {
 
+	/**
+	 * @throws InitializationException
+	 * @throws DataException
+	 * @throws LogicException
+	 * @throws UnexpectedException
+	 */
 	@Test
 	public void integrationTest() throws InitializationException, DataException, LogicException, UnexpectedException {
 		int times = 2000;

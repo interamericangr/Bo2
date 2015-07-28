@@ -9,6 +9,7 @@ import gr.interamerican.bo2.impl.open.runtime.MultiLauncher;
 import gr.interamerican.bo2.quartz.QuartzJobSchedulerImpl;
 import gr.interamerican.bo2.quartz.util.QuartzUtils;
 import gr.interamerican.bo2.utils.StringConstants;
+import gr.interamerican.bo2.utils.SystemUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,7 +25,9 @@ import java.util.Set;
 
 import jpb.DefaultEntryPoint;
 import jpb.JavaProcessBuilder;
+import jpb.MemArg;
 import jpb.command.FixedPathSelector;
+import jpb.hotspot.HotspotJvm;
 
 /**
  * launches a {@link MultiLauncher} as a separate process.
@@ -63,13 +66,15 @@ public class ProcessLauncher {
 	 * @param environment
 	 * @param out
 	 * @param mainClass
+	 * @param memory
 	 * @param args
 	 * @return the created process
 	 * @throws DataException
 	 */
 	public static synchronized JobDescription launch(Map<String, String> environment,
-			PrintStream out, Class<?> mainClass, String... args) throws DataException {
-		Process p = launchJavaProcess(environment, mainClass, args);
+			PrintStream out, Class<?> mainClass, MemorySetting memory, String... args)
+					throws DataException {
+		Process p = launchJavaProcess(environment, mainClass, memory, args);
 		JobDescription bean = attachProcessInputStream(OPERATION2ATTACH, p, out);
 		return bean;
 	}
@@ -79,12 +84,14 @@ public class ProcessLauncher {
 	 *
 	 * @param environment
 	 * @param mainClass
+	 * @param memory
+	 * @param settings
 	 * @param args
 	 * @return the process generated
 	 * @throws DataException
 	 */
 	protected static Process launchJavaProcess(Map<String, String> environment, Class<?> mainClass,
-			String... args) throws DataException {
+			MemorySetting memory, String... args) throws DataException {
 		JavaProcessBuilder jpb = new JavaProcessBuilder();
 		if (environment != null) {
 			Map<String, String> env = jpb.environment();
@@ -92,15 +99,25 @@ public class ProcessLauncher {
 		}
 		jpb.redirectErrorStream(true);
 		jpb.entryPoint(DefaultEntryPoint.mainClass(mainClass));
-		for (String property : System.getProperties().stringPropertyNames()) {
+		for (String property : System.getProperties().stringPropertyNames()) {// set the same system properties
 			String value = System.getProperty(property);
 			jpb.setSystemProperty(property, value);
 		}
-		for (String string : args) {
-			jpb.addApplicationArgument(string);
+		jpb.addApplicationArguments(args);
+		jpb.classPath(getClasspathFiles());// set classpath
+		jpb.commandSelector(new FixedPathSelector(getJavaExecutable()));// set java executable
+		// set memory
+		jpb.minMemory(MemArg.of(128).megaBytes());
+		jpb.maxMemory(MemArg.of((long) SystemUtils.maxMemory()).megaBytes());
+		jpb.customArg(HotspotJvm.CustomParams.MAX_PERM_SIZE, MemArg.of(128).megaBytes());
+		if (memory != null) {
+			if (memory.getMinMemory() != null) {
+				jpb.maxMemory(MemArg.of(memory.getMaxMemory()).megaBytes());
+				jpb.minMemory(MemArg.of(memory.getMinMemory()).megaBytes());
+				jpb.customArg(HotspotJvm.CustomParams.MAX_PERM_SIZE, MemArg.of(memory.getPermGen())
+						.megaBytes());
+			}
 		}
-		jpb.classPath(getClasspathFiles());
-		jpb.commandSelector(new FixedPathSelector(getJavaExecutable()));
 		Process p = null;
 		try {
 			p = jpb.start();
@@ -187,11 +204,13 @@ public class ProcessLauncher {
 	 * launches a {@link MultiLauncher} as a separate process.
 	 *
 	 * @param clazz
+	 * @param settings
 	 * @return the {@link JobDescription} of the quartz job attached to the created process
 	 * @throws DataException
 	 */
-	public static JobDescription launchMultilauncher(Class<?> clazz) throws DataException {
-		JobDescription bean = ProcessLauncher.launch(null, null, MultiLauncher.class,
+	public static JobDescription launchMultilauncher(Class<?> clazz, MemorySetting settings)
+			throws DataException {
+		JobDescription bean = ProcessLauncher.launch(null, null, MultiLauncher.class, settings,
 				clazz.getName());
 		return bean;
 	}
