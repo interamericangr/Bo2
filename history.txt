@@ -577,3 +577,10 @@ Added key 'uuid' to slf4j Mapped Diagnostic Contexts. Set on wicket request cycl
 
 Fixed dynamic sql parsing in the case of a subselect on a predicate
  
+
+
+2.3.11
+--------
+
+bug fix on GenericSqlParser
+
