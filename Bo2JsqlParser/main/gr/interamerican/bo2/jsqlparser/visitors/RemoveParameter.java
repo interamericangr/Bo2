@@ -19,6 +19,7 @@ import static gr.interamerican.bo2.utils.StringConstants.QUOTE;
 import static gr.interamerican.bo2.utils.StringConstants.RIGHT_PARENTHESIS;
 import static gr.interamerican.bo2.utils.StringConstants.SPACE;
 import gr.interamerican.bo2.jsqlparser.exceptions.NotSupportedByVisitorException;
+import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.TokenUtils;
 import gr.interamerican.bo2.utils.sql.parsers.SqlParser;
@@ -194,7 +195,7 @@ extends EmptyVisitor {
 		left.accept(this);
 		Expression right = andExpression.getRightExpression();
 		if (isSimple(right)) {
-			if(!matchesNamedParameter(right)) {
+			if(!StringUtils.isNullOrBlank(processElementaryExpression(right))) {
 				sb.append(SPACE + andExpression.getStringExpression() + SPACE + expressionToString(right));
 			}
 		} else {
@@ -214,7 +215,7 @@ extends EmptyVisitor {
 		left.accept(this);
 		Expression right = orExpression.getRightExpression();
 		if (isSimple(right)) {
-			if(!matchesNamedParameter(right)) {
+			if(!StringUtils.isNullOrBlank(processElementaryExpression(right))) {
 				sb.append(SPACE + orExpression.getStringExpression() + SPACE + expressionToString(right));
 			}
 		} else {
@@ -455,8 +456,9 @@ extends EmptyVisitor {
 	 * @param e
 	 */
 	private void handleElementaryExpression(Expression e) {
-		if(!matchesNamedParameter(e)) {
-			sb.append(SPACE + e.toString());
+		String processed = processElementaryExpression(e);
+		if(!StringUtils.isNullOrBlank(processed)) {
+			sb.append(SPACE + processed);
 		}
 	}
 	
@@ -471,15 +473,19 @@ extends EmptyVisitor {
 	 *        
 	 * @return True if the candidate expression contains the named parameter.
 	 */
-	private boolean matchesNamedParameter(Expression candidate) {
+	private String processElementaryExpression(Expression candidate) {
 		if(candidate instanceof BinaryExpression) {
-			if(((BinaryExpression)candidate).getRightExpression() instanceof SubSelect) {
-				SubSelect subSelect = (SubSelect) ((BinaryExpression)candidate).getRightExpression();
+			BinaryExpression bex = (BinaryExpression)candidate;
+			if(bex.getRightExpression() instanceof SubSelect) {
+				SubSelect subSelect = (SubSelect) bex.getRightExpression();
 				String processed = processSubSelect(subSelect);
-				return !processed.toUpperCase().contains("WHERE");
+				return bex.getLeftExpression().toString() + SPACE + bex.getStringExpression() + SPACE + LEFT_PARENTHESIS + processed.trim() + RIGHT_PARENTHESIS;
 			}
 		}
-		return candidate.toString().contains(paramToRemove);
+		if(candidate.toString().contains(paramToRemove)) {
+			return StringConstants.EMPTY;
+		}
+		return candidate.toString();
 	}
 	
 	/**

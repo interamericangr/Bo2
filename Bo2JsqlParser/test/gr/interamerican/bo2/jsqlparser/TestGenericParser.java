@@ -1178,7 +1178,8 @@ public class TestGenericParser extends AbstractParserTest {
 				"from xxxx.PEOPLE as A ",
 				"inner join xxxx.DOY as B ",
 				"on A.doy = B.doy ",
-				"where A.surname like :surname");
+				"where A.surname like :surname ",
+				"and A.salary = (select max(C.salary) from xxxx.SALARIES as C)");
 		checkStatement(expected, actual);
 		
 	}
@@ -1217,6 +1218,43 @@ public class TestGenericParser extends AbstractParserTest {
 				"on A.doy = B.doy ",
 				"where A.surname like :surname ",
 				"and A.salary = (select max(C.salary) from xxxx.SALARIES as C where C.foo = 1)");
+		checkStatement(expected, actual);
+		
+	}
+	
+	/**
+	 * Remove parameters from a where clause that has an equals to a subselect predicate version 2.
+	 * 
+	 * @throws SqlParseException 
+	 */
+	@Test
+	public void testRemoveParameter_equalsSubSelect3() throws SqlParseException {
+		String sql = StringUtils.concat( 
+				"select A.id,A.name,A.doy,B.doyNm ",
+				"from xxxx.PEOPLE as A ",
+				"inner join xxxx.DOY as B ",
+				"on A.doy = B.doy ",
+				"where A.surname like :surname ",
+				"and A.salary = (select max(C.salary) from xxxx.SALARIES as C where C.doyNm = :doyNm and C.surname = :surname) ",
+				"and B.doyNm like :doyNm");
+		
+		String actual = parser.removeParameter("surname", sql);
+		String expected = StringUtils.concat( 
+				"select A.id,A.name,A.doy,B.doyNm ",
+				"from xxxx.PEOPLE as A ",
+				"inner join xxxx.DOY as B ",
+				"on A.doy = B.doy ",
+				"where A.salary = (select max(C.salary) from xxxx.SALARIES as C where C.doyNm = :doyNm) ",
+				"and B.doyNm like :doyNm");
+		checkStatement(expected, actual);
+		
+		actual = parser.removeParameter("doyNm", actual);
+		expected = StringUtils.concat( 
+				"select A.id,A.name,A.doy,B.doyNm ",
+				"from xxxx.PEOPLE as A ",
+				"inner join xxxx.DOY as B ",
+				"on A.doy = B.doy ",
+				"where A.salary = (select max(C.salary) from xxxx.SALARIES as C)");
 		checkStatement(expected, actual);
 		
 	}
@@ -1404,6 +1442,38 @@ public class TestGenericParser extends AbstractParserTest {
 	}
 	
 	/**
+	 * Remove parameters from a where clause that has an equals to a subselect predicate version 2.
+	 * 
+	 * @throws SqlParseException 
+	 */
+	@Test
+	public void testRemoveParameter_gpag() throws SqlParseException {
+		String sql = StringUtils.concat(
+				"select riii.BRANCH_ID,riii.POLICY_NO,riii.REF_RECEIPT_NO,riii.REF_RENEWAL_NO,riii.REF_RISK_NO ",
+				"from X__X.TB1IPIII rii ",
+				"join X__X.TB1IPIIM riii on riii.BRANCH_ID = rii.BRANCH_ID and riii.POLICY_NO = rii.POLICY_NO and ",
+				"riii.ITEM_UNIQUE_ID= rii.ITEM_UNIQUE_ID and riii.RECEIPT_NO = rii.RECEIPT_NO and ",
+				"riii.RENEWAL_NO = rii.RENEWAL_NO and riii.RISK_NO = rii.RISK_NO and riii.ITEM_NO = rii.ITEM_NO ",
+				"where rii.ISS_DT = ",
+				"(select max(iss_dt) from X__X.TB1IPIII ",
+				"where branch_id = :branchId and policy_no = :policyNo and item_unique_id = :itemUniqueId and date(ISS_DT) <= :portfolioDate) ",   
+				"and riii.START_DT <= :interestDate and riii.END_DT >= :interestDate");
+
+		String actual = parser.removeParameter("itemUniqueId", sql);
+		String expected = StringUtils.concat( 
+				"select riii.BRANCH_ID,riii.POLICY_NO,riii.REF_RECEIPT_NO,riii.REF_RENEWAL_NO,riii.REF_RISK_NO ",
+				"from X__X.TB1IPIII as rii ",
+				"join X__X.TB1IPIIM as riii on riii.BRANCH_ID = rii.BRANCH_ID and riii.POLICY_NO = rii.POLICY_NO and ",
+				"riii.ITEM_UNIQUE_ID = rii.ITEM_UNIQUE_ID and riii.RECEIPT_NO = rii.RECEIPT_NO and ",
+				"riii.RENEWAL_NO = rii.RENEWAL_NO and riii.RISK_NO = rii.RISK_NO and riii.ITEM_NO = rii.ITEM_NO ",
+				"where rii.ISS_DT = ",
+				"(select max(iss_dt) from X__X.TB1IPIII ",
+				"where branch_id = :branchId and policy_no = :policyNo and date(ISS_DT) <= :portfolioDate) ",
+				"and riii.START_DT <= :interestDate and riii.END_DT >= :interestDate");
+		checkStatement(expected, actual);
+	}
+	
+	/**
 	 * Unit test for int()
 	 * 
 	 * @throws SqlParseException
@@ -1421,7 +1491,6 @@ public class TestGenericParser extends AbstractParserTest {
 				"having count(1) > 10");
 		
 		String actual = parser.removeParameter("surname", sql);
-		System.out.println(actual);
 		String expected = StringUtils.concat( 
 				"select A.id,A.name,A.doy,B.doyNm ",
 				"from xxxx.PEOPLE as A ",
@@ -1433,7 +1502,6 @@ public class TestGenericParser extends AbstractParserTest {
 		checkStatement(expected, actual);
 		
 		actual = parser.removeParameter("minSalary", sql);
-		System.out.println(actual);
 		expected = StringUtils.concat( 
 				"select A.id,A.name,A.doy,B.doyNm ",
 				"from xxxx.PEOPLE as A ",
@@ -1464,7 +1532,6 @@ public class TestGenericParser extends AbstractParserTest {
 		"having count(1) > 10");
 		
 		String actual = parser.removeParameter("surname", sql);
-		System.out.println(actual);
 		String expected = StringUtils.concat( 
 				"select A.id,A.name,A.doy,B.doyNm ",
 				"from xxxx.PEOPLE as A ",
@@ -1476,7 +1543,6 @@ public class TestGenericParser extends AbstractParserTest {
 		checkStatement(expected, actual);
 		
 		actual = parser.removeParameter("minSalary", sql);
-		System.out.println(actual);
 		expected = StringUtils.concat( 
 				"select A.id,A.name,A.doy,B.doyNm ",
 				"from xxxx.PEOPLE as A ",
@@ -1505,7 +1571,6 @@ public class TestGenericParser extends AbstractParserTest {
 				"and A.name like :surname");
 		
 		String actual = parser.removeParameter("surname", sql);
-		System.out.println(actual);
 		String expected = StringUtils.concat( 
 				"select A.id,A.name,A.doy,B.doyNm ",
 				"from xxxx.PEOPLE as A ",
@@ -1514,20 +1579,5 @@ public class TestGenericParser extends AbstractParserTest {
 				"where A.age >= 20");
 		checkStatement(expected, actual);
 	}
-	
-	
-	/*
-	 * known bugs
-	 * 
-	 * String sql = StringUtils.concat( 
-				"select A.id,A.name,A.doy,B.doyNm ",
-				"from xxxx.PEOPLE as A ",
-				"inner join xxxx.DOY as B ",
-				"on A.doy = B.doy ",
-				"where A.surname like :surname ",
-				"and A.salary = (select max(C.salary) from xxxx.SALARIES as C where C.doyNm = :doyNm and c.other = 5) ",
-				"and B.doyNm like :doyNm");
-	 * 
-	 */
 	
 }
