@@ -4,7 +4,7 @@
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/copyleft/lesser.html
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
@@ -50,12 +50,12 @@ import org.slf4j.LoggerFactory;
  * The naming is such for legacy reasons. TODO: rename to Bo2WicketRequestCycleContext
  */
 public class Bo2WicketRequestCycle {
-	
+
 	/**
 	 * Threadlocal context
 	 */
 	private static ThreadLocal<Bo2WicketRequestCycle> CONTEXT = new ThreadLocal<Bo2WicketRequestCycle>();
-	
+
 	/**
 	 * logger.
 	 */
@@ -65,10 +65,10 @@ public class Bo2WicketRequestCycle {
 	 * RequestCycleStats.
 	 */
 	static RequestCycleStats stats = new RequestCycleStats();
-	
+
 	/**
 	 * Gets the {@link Bo2WicketRequestCycle} instance for the current thread.
-	 * 
+	 *
 	 * @return Bo2WicketRequestCycle.
 	 */
 	public static Bo2WicketRequestCycle get() {
@@ -77,7 +77,7 @@ public class Bo2WicketRequestCycle {
 		}
 		return CONTEXT.get();
 	}
-	
+
 	/**
 	 * Removes the threadlocal entry for the current thread.
 	 * This should be called when the {@link Bo2WicketRequestCycle}
@@ -86,29 +86,29 @@ public class Bo2WicketRequestCycle {
 	static void release() {
 		CONTEXT.remove();
 	}
-	
+
 	/**
 	 * Calls <code>onBeginRequest()</code> on the specified cycle.
-	 * 
+	 *
 	 * Exposes the protected method. Should be used only by test
 	 * classes in order to emulate the wicket request-response cycle.
-	 * 
+	 *
 	 * @param cycle
-	 *        {@link RequestCycle} on which the method is 
+	 *        {@link RequestCycle} on which the method is
 	 *        invoked.
 	 */
 	public static void beginRequest(RequestCycle cycle) {
 		cycle.getListeners().onBeginRequest(cycle);
 	}
-	
+
 	/**
 	 * Calls <code>onEndRequest()</code> on the specified cycle.
-	 * 
+	 *
 	 * Exposes the protected method. Should be used only by test
 	 * classes in order to emulate the wicket request-response cycle.
-	 * 
+	 *
 	 * @param cycle
-	 *        {@link RequestCycle} on which the method is 
+	 *        {@link RequestCycle} on which the method is
 	 *        invoked.
 	 */
 	public static void endRequest(RequestCycle cycle) {
@@ -117,19 +117,19 @@ public class Bo2WicketRequestCycle {
 
 	/**
 	 * Creates an object using the default Bo2 Factory.
-	 * 
+	 *
 	 * @param clazz  Class of object.
 	 * @param <P> Type defined by the class <code>clazz</code>.
-	 * 
+	 *
 	 * @return Returns an instance of P.
 	 */
 	public static final <P> P create(Class<P> clazz) {
 		return Factory.create(clazz);
 	}
-	
+
 	/**
 	 * Initializes and opens the specified worker.
-	 * 
+	 *
 	 * @param w Worker to init and open.
 	 */
 	public static void initAndOpen(Worker w) {
@@ -146,13 +146,13 @@ public class Bo2WicketRequestCycle {
 
 	/**
 	 * Gets an open {@link Worker} object of a specified type.
-	 * 
+	 *
 	 * Any Exception thrown during the operation is wrapped inside a
 	 * {@link RuntimeException}.
-	 * 
+	 *
 	 * @param clazz Class of worker.
 	 * @param <W> Type of worker defined by <code>clazz</code>.
-	 * 
+	 *
 	 * @return Returns a new open instance of W.
 	 */
 	public static final <W extends Worker> W open(Class<W> clazz) {
@@ -164,14 +164,14 @@ public class Bo2WicketRequestCycle {
 	/**
 	 * Gets an open {@link PersistenceWorker} for {@link PersistentObject}
 	 * objects of type P.
-	 * 
+	 *
 	 * Any Exception thrown during the operation is wrapped inside a
 	 * {@link RuntimeException}.
-	 * 
+	 *
 	 * @param clazz Class of {@link PersistentObject}.
 	 * @param <P> Type of {@link PersistentObject} defined by
 	 *        <code>clazz</code>.
-	 * 
+	 *
 	 * @return Returns a new open PersistenceWorker for P objects.
 	 */
 	public static final <P extends PersistentObject<?>>
@@ -183,10 +183,10 @@ public class Bo2WicketRequestCycle {
 
 	/**
 	 * Executes an operation.
-	 * 
+	 *
 	 * Any Exception thrown during the operation is wrapped inside a
 	 * {@link RuntimeException}.
-	 * 
+	 *
 	 * @param op Operation to execute.
 	 */
 	public static final void execute(Operation op) {
@@ -204,13 +204,13 @@ public class Bo2WicketRequestCycle {
 	/**
 	 * Gets the default NamedStreamsProvider defined in the deployment
 	 * properties.
-	 * 
+	 *
 	 * @return Returns the default NamedStreamsProvider.
-	 * 
+	 *
 	 * @throws InitializationException
 	 */
 	public static final NamedStreamsProvider getDefaultNamedStreamsProvider()
-	throws InitializationException {
+			throws InitializationException {
 		Bo2DeploymentParams depl =Bo2.getDefaultDeployment().getDeploymentBean();
 		String nspName = depl.getStreamsManagerName();
 		NamedStreamsProvider nsp = provider().getResource(nspName, NamedStreamsProvider.class);
@@ -220,13 +220,13 @@ public class Bo2WicketRequestCycle {
 	/**
 	 * Gets the default NamedStreamsProvider defined in the deployment
 	 * properties.
-	 * 
+	 *
 	 * @return Returns the default NamedStreamsProvider.
-	 * 
+	 *
 	 * @throws InitializationException
 	 */
 	public static final StreamsProvider getDefaultStreamsProvider()
-	throws InitializationException {
+			throws InitializationException {
 		Bo2DeploymentParams depl = Bo2.getDefaultDeployment().getDeploymentBean();
 		String nspName = depl.getStreamsManagerName();
 		StreamsProvider sp = provider().getResource(nspName, StreamsProvider.class);
@@ -236,7 +236,7 @@ public class Bo2WicketRequestCycle {
 	/**
 	 * This method will reattach a dettached object to the current hibernate
 	 * session.
-	 * 
+	 *
 	 * The method is a facade that hides the hibernate session. If the current
 	 * deployment does not support hibernate, the method will do nothing.
 	 * If the specified object was not managed by hibernate, then nothing will
@@ -244,20 +244,20 @@ public class Bo2WicketRequestCycle {
 	 * be attached to the session. This behavior guarantees that the application
 	 * will run even if the specified object's persistence worker, changes and is
 	 * not longer based on hibernate.
-	 * 
+	 *
 	 * @param object
 	 *        The object to re-attach
 	 */
 	public static final void reattach(Object object) {
 		PoUtils.reattach(object, provider());
 	}
-	
+
 	/**
 	 * This method will reattach a dettached object to the current hibernate
 	 * session. In the unit of work that this is called, it is mandatory to perform
 	 * a database update.
-	 * 
-	 * 
+	 *
+	 *
 	 * @param object
 	 *        The object to re-attach
 	 */
@@ -268,7 +268,7 @@ public class Bo2WicketRequestCycle {
 	/**
 	 * Gets the provider of the {@link Bo2WicketRequestCycle} associated
 	 * with the current thread.
-	 * 
+	 *
 	 * @return Returns the provider.
 	 */
 	public static final Provider provider() {
@@ -278,7 +278,7 @@ public class Bo2WicketRequestCycle {
 	/*
 	 * INSTANCE FIELDS AND METHODS
 	 */
-	
+
 	/**
 	 * Resource manager for the operation.
 	 */
@@ -302,7 +302,7 @@ public class Bo2WicketRequestCycle {
 	/**
 	 * Marks the specified object as being saved only when explicitly defined
 	 * by its persistent worker.
-	 * 
+	 *
 	 * This method is used in order to prevent unintentionally saving changes
 	 * to the specified. This could happen if the underlying persistence worker
 	 * of the specified object is based on hibernate. Hibernate will flush all
@@ -312,7 +312,7 @@ public class Bo2WicketRequestCycle {
 	 * HibernateSessionProvider to FlushStrategy#EXCLUDING. <br/>
 	 * If the current deployment does not support hibernate or the specified
 	 * object is not managed by hibernate, then this method will have no effect.
-	 * 
+	 *
 	 * @param object
 	 *        Object to mark.
 	 */
@@ -325,22 +325,26 @@ public class Bo2WicketRequestCycle {
 
 	/**
 	 * Closes any workers opened in this cycle and the provider.
-	 * 
+	 *
 	 * @throws DataException
 	 */
 	void cleanup() throws DataException {
 		closeWorkers();
-		provider.close();
+		if (provider != null) {
+			provider.close();
+		}
 	}
 
 	/**
 	 * Closes any worker opened during this cycle.
-	 * 
+	 *
 	 * @throws DataException
 	 */
 	private void closeWorkers() throws DataException {
 		for (Worker worker : workers) {
-			worker.close();
+			if (worker != null) {
+				worker.close();
+			}
 		}
 		workers.clear();
 	}
@@ -358,6 +362,6 @@ public class Bo2WicketRequestCycle {
 	 * Creates a new Bo2WicketRequestCycle object.
 	 */
 	private Bo2WicketRequestCycle() { /* empty */ }
-	
+
 }
 
