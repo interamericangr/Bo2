@@ -487,8 +487,6 @@
 		<module>WicketBo2</module>
 		<module>Bo2TestsDeploymentHibernate</module>
 		<module>Bo2ImplHibernate</module>
-		<module>Bo2BoAdapters</module>
-		<module>Bo2ImplInter</module>
 		<module>Bo2Aio</module>
 	</modules>
 

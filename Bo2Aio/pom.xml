@@ -120,18 +120,6 @@
 
 		<dependency>
 			<groupId>gr.interamerican.bo2</groupId>
-			<artifactId>Bo2BoAdapters</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>gr.interamerican.bo2</groupId>
-			<artifactId>Bo2ImplInter</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>gr.interamerican.bo2</groupId>
 			<artifactId>Bo2Jasper</artifactId>
 			<version>${project.version}</version>
 		</dependency>
