@@ -15,3 +15,4 @@ bin/
 .apt_generated
 .factorypath
 logs/
+.svn/
