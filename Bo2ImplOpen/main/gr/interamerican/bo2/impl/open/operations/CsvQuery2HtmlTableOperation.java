@@ -65,9 +65,7 @@ extends QueryPrinterOperation<CsvRecord, CsvRecordQuery>{
 	 * Properties. 
 	 */
 	private Properties tableAttributes;
-	
-	
-	
+
 	@Override
 	public void init(Provider parent) throws InitializationException {
 		super.init(parent);
@@ -75,8 +73,6 @@ extends QueryPrinterOperation<CsvRecord, CsvRecordQuery>{
 		css = nsp.getStream(cssName);
 		tableAttributesStream = (NamedInputStream) nsp.getStream(tableAttributesName);		
 	}
-	
-	
 
 	/**
 	 * Creates a new CsvQuery2HtmlTableOperation object. 
@@ -88,32 +84,28 @@ extends QueryPrinterOperation<CsvRecord, CsvRecordQuery>{
 	 * @param streamsBasicName
 	 *        Base for the logical name of the streams. The logical name 
 	 *        of the streams used by this operation are created with the
-	 *        addition of an extension to this basic name. <br/>
+	 *        addition of an extension to this basic name. <br>
 	 *        The extension <code>csv</code> is added in order to create 
-	 *        the input CSV file logical name. <br/>
+	 *        the input CSV file logical name. <br>
 	 *        The extension <code>css</code> is added in order to create 
 	 *        the logical name of the input CSS file that contains the 
-	 *        style sheet information. <br/>
+	 *        style sheet information. <br>
 	 *        The extension <code>properties</code> is added in order to create 
 	 *        the logical name of the properties file that keets the attributes
-	 *        of the HTML table. <br/>
-
+	 *        of the HTML table. <br>
 	 */
 	@SuppressWarnings("nls")
-	public CsvQuery2HtmlTableOperation (
-			int columnCount, char separator, String streamsBasicName) {
-		
-		super(new CsvRecordQuery(columnCount, separator), 
-			  new CsvRecord2RowTags(columnCount), 
-			  new CsvRecord2RowTags(columnCount, "tr", "th"),
-			  streamsBasicName+".csv");
+	public CsvQuery2HtmlTableOperation(int columnCount, char separator, String streamsBasicName) {
+
+		super(new CsvRecordQuery(columnCount, separator), new CsvRecord2RowTags(columnCount),
+				new CsvRecord2RowTags(columnCount, "tr", "th"), streamsBasicName + ".csv");
 		this.query.setManagerName(this.getManagerName());
-		this.query.setStreamName(streamsBasicName+".csv");
-		this.cssName = streamsBasicName+".css";
-		this.tableAttributesName = streamsBasicName+".properties";
-		this.outputName = streamsBasicName+".html";	
+		this.query.setStreamName(streamsBasicName + ".csv");
+		this.cssName = streamsBasicName + ".css";
+		this.tableAttributesName = streamsBasicName + ".properties";
+		this.outputName = streamsBasicName + ".html";
 	}
-	
+
 	/**
 	 * Creates the table tag.
 	 * 
@@ -138,17 +130,17 @@ extends QueryPrinterOperation<CsvRecord, CsvRecordQuery>{
 		sb.append(">"); //$NON-NLS-1$
 		return sb.toString();
 	}
-	
+
 	@Override
 	public void setManagerName(String managerName) {		
 		super.setManagerName(managerName);
 		query.setManagerName(managerName);
 	}
-	
+
 	/**
 	 * Loads the table attributes.
-	 * 
-	 * @throws DataException 
+	 *
+	 * @throws DataException the data exception
 	 */
 	private void readTableAttributes() throws DataException {		
 		try {
@@ -159,31 +151,29 @@ extends QueryPrinterOperation<CsvRecord, CsvRecordQuery>{
 			throw new DataException(e);
 		}
 	}
-	
+
 	@Override
-	protected void beforeQuery() throws LogicException, DataException {		
+	protected void beforeQuery() throws LogicException, DataException {
 		readTableAttributes();
-		out.writeString("<html>");		 //$NON-NLS-1$		
-		out.writeString("<head>");		 //$NON-NLS-1$
+		out.writeString("<html>"); //$NON-NLS-1$
+		out.writeString("<head>"); //$NON-NLS-1$
 		String s = css.readString();
-		while (s!=null) {
+		while (s != null) {
 			out.writeString(s);
-			s = css.readString();			
-		} 
-		out.writeString("</head>");		 //$NON-NLS-1$
-		out.writeString("<body>"); //$NON-NLS-1$		
-		out.writeString(tableTag()); 
+			s = css.readString();
+		}
+		out.writeString("</head>"); //$NON-NLS-1$
+		out.writeString("<body>"); //$NON-NLS-1$
+		out.writeString(tableTag());
 	}
-	
-	
+
 	@Override
 	protected void afterQuery() throws LogicException, DataException {
 		out.writeString("</table></body></html>");	 //$NON-NLS-1$
 	}
-	
+
 	@Override
 	protected CsvRecord getCurrentRow() {
 		return (CsvRecord) query.getRecord();
 	}
-
 }

@@ -31,11 +31,11 @@ import org.slf4j.MDC;
  * the application state is connected with the HttpSession. The
  * web application is responsible to set the session at the beginning 
  * of each request processing cycle using the <code>setSession(session)</code>.
- * <br/>
+ * <br>
  * In the environment of a batch program, the program is responsible to 
- * create a session and set it. <br/>
+ * create a session and set it. <br>
  * In a unit test, the test setup should create and set a session, if
- * this is necessary. <br/>
+ * this is necessary. <br>
  */
 public class Bo2Session {
 	
@@ -61,10 +61,9 @@ public class Bo2Session {
 
 	/**
 	 * Gets the session.
-	 * 
-	 * @param <A> 
-	 * @param <L> 
 	 *
+	 * @param <A> the generic type
+	 * @param <L> the generic type
 	 * @return Returns the session
 	 */
 	@SuppressWarnings("unchecked")
@@ -88,9 +87,8 @@ public class Bo2Session {
 	
 	/**
 	 * Gets the user of the current session.
-	 * 
-	 * @param <A> 
 	 *
+	 * @param <A> the generic type
 	 * @return Returns the session
 	 */
 	@SuppressWarnings("unchecked")
@@ -116,7 +114,9 @@ public class Bo2Session {
 	
 	
 	/**
-	 * @return Returns the Session {@link Locale}. 
+	 * Gets the locale.
+	 *
+	 * @return Returns the Session {@link Locale}.
 	 */
 	public static Locale getLocale() {
 		if(tlSession.get()!=null) {
@@ -136,8 +136,8 @@ public class Bo2Session {
 	
 	/**
 	 * Sets the current state.
-	 * 
-	 * @param state
+	 *
+	 * @param state the new state
 	 */
 	public static void setState(Bo2State state) {
 		tlState.set(state);
@@ -145,8 +145,8 @@ public class Bo2Session {
 	
 	/**
 	 * Sets the current provider.
-	 * 
-	 * @param provider
+	 *
+	 * @param provider the new provider
 	 */
 	public static void setProvider(Provider provider) {
 		tlProvider.set(provider);
@@ -183,9 +183,8 @@ public class Bo2Session {
 	/**
 	 * Gets the value of an attribute that has been set to the
 	 * current session.
-	 * 
-	 * @param key
-	 * 
+	 *
+	 * @param key the key
 	 * @return Returns the value of the attribute.
 	 */
 	public static Object getAttribute(String key) {

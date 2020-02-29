@@ -4,16 +4,23 @@ import gr.interamerican.bo2.impl.open.po.AbstractKey;
 import gr.interamerican.bo2.test.def.posamples.InvoiceSubRuleKey;
 
 /**
- * 
+ * The Class InvoiceSubRuleKeyImpl.
  */
 public class InvoiceSubRuleKeyImpl extends AbstractKey implements InvoiceSubRuleKey {
 
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
 	String invoiceNo;
+	/**
+	 * 
+	 */
 	Long ruleCd;
+	/**
+	 * 
+	 */
 	Long subRuleCd;
 	
 
@@ -22,6 +29,7 @@ public class InvoiceSubRuleKeyImpl extends AbstractKey implements InvoiceSubRule
 	 *
 	 * @return Returns the subRuleCd
 	 */
+	@Override
 	public Long getSubRuleCd() {
 		return subRuleCd;
 	}
@@ -31,6 +39,7 @@ public class InvoiceSubRuleKeyImpl extends AbstractKey implements InvoiceSubRule
 	 *
 	 * @param subRuleCd the subRuleCd to set
 	 */
+	@Override
 	public void setSubRuleCd(Long subRuleCd) {
 		this.subRuleCd = subRuleCd;
 	}
@@ -40,6 +49,7 @@ public class InvoiceSubRuleKeyImpl extends AbstractKey implements InvoiceSubRule
 	 *
 	 * @return Returns the ruleCd
 	 */
+	@Override
 	public Long getRuleCd() {
 		return ruleCd;
 	}
@@ -49,6 +59,7 @@ public class InvoiceSubRuleKeyImpl extends AbstractKey implements InvoiceSubRule
 	 *
 	 * @param ruleCd the ruleCd to set
 	 */
+	@Override
 	public void setRuleCd(Long ruleCd) {
 		this.ruleCd = ruleCd;
 	}
@@ -58,6 +69,7 @@ public class InvoiceSubRuleKeyImpl extends AbstractKey implements InvoiceSubRule
 	 *
 	 * @return Returns the invoiceNo
 	 */
+	@Override
 	public String getInvoiceNo() {
 		return invoiceNo;
 	}
@@ -67,6 +79,7 @@ public class InvoiceSubRuleKeyImpl extends AbstractKey implements InvoiceSubRule
 	 *
 	 * @param invoiceNo the invoiceNo to set
 	 */
+	@Override
 	public void setInvoiceNo(String invoiceNo) {
 		this.invoiceNo = invoiceNo;
 	}

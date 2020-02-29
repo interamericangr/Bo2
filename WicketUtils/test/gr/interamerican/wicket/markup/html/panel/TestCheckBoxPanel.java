@@ -12,56 +12,31 @@
  ******************************************************************************/
 package gr.interamerican.wicket.markup.html.panel;
 
-import gr.interamerican.wicket.utils.WicketPage;
+import static org.junit.Assert.assertEquals;
 
+import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.form.CheckBox;
-import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.util.tester.WicketTester;
-import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
+import gr.interamerican.wicket.test.WicketTest;
+
 /**
- * 
- * 
- *
+ * Tests the {@link CheckBoxPanel}.
  */
-public class TestCheckBoxPanel {
+public class TestCheckBoxPanel extends WicketTest {
 
-	
-	/**
-	 * the WicketTester
-	 */
-	public WicketTester wicketTester = null;
-
-
-	/**
-	 * 
-	 */
-	@Before
-	public void setUp(){	
-		wicketTester = new WicketTester();	
+	@Override
+	protected Component initializeComponent(String wicketId) {
+		return new CheckBoxPanel(wicketId, true);
 	}
 
-	
 	/**
-	 * Tests the Page
+	 * Test check box panel.
 	 */
 	@Test
-	public void testPage(){		
-		wicketTester.startPage(WicketPage.class);
-		wicketTester.assertRenderedPage(WicketPage.class);		
+	public void testCheckBoxPanel(){
+		CheckBoxPanel tested = startAndTestComponent(CheckBoxPanel.class);
+		CheckBox checkBox = (CheckBox) tested.get("checkboxId"); //$NON-NLS-1$
+		assertEquals(true , checkBox.getDefaultModelObject());		
 	}
-	
-	
-	@Test
-	public void testCheckBoxPanel(){		
-		wicketTester.startPage(WicketPage.class);
-		wicketTester.assertRenderedPage(WicketPage.class);		
-		Panel panel = (Panel) wicketTester.getComponentFromLastRenderedPage("checkBoxPanel");
-		CheckBox checkBox = (CheckBox) panel.get("checkboxId");
-		Assert.assertEquals(checkBox.getDefaultModelObject(), true);		
-	}
-	
-	
 }

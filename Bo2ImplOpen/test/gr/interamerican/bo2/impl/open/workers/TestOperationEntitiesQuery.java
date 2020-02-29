@@ -12,9 +12,10 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.workers;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
 import gr.interamerican.bo2.arch.Operation;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
@@ -23,12 +24,6 @@ import gr.interamerican.bo2.arch.exceptions.UnexpectedException;
 import gr.interamerican.bo2.impl.open.runtime.AbstractBo2RuntimeCmd;
 import gr.interamerican.bo2.samples.workers.EmptyWorker;
 
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
-
-import org.junit.Test;
-
 /**
  * Unit tests for {@link OperationEntitiesQuery}.
  */
@@ -36,10 +31,10 @@ public class TestOperationEntitiesQuery {
 	
 	/**
 	 * test for the query.
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testLifecycle() throws UnexpectedException, DataException, LogicException {
@@ -79,6 +74,11 @@ public class TestOperationEntitiesQuery {
 	class SampleOperationEntitiesQuery
 	extends OperationEntitiesQuery<GetStringOperation, String> {
 
+		/**
+		 * Instantiates a new sample operation entities query.
+		 *
+		 * @param strings the strings
+		 */
 		public SampleOperationEntitiesQuery(String[] strings) {
 			super(new GetStringOperation(strings));
 		}
@@ -107,7 +107,8 @@ public class TestOperationEntitiesQuery {
 		
 		/**
 		 * Creates a new GetStringOperation object.
-		 * @param strings
+		 *
+		 * @param strings the strings
 		 */
 		public GetStringOperation(String[] strings) {
 			super();
@@ -133,5 +134,4 @@ public class TestOperationEntitiesQuery {
 		}
 		
 	}
-
 }

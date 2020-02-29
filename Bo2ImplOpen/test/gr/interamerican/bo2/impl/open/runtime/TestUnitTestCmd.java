@@ -22,23 +22,22 @@ import gr.interamerican.bo2.samples.archutil.po.User;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestUnitTestCmd.
  */
 public class TestUnitTestCmd {
 
 
-	/**
-	 * impl to test
-	 */
+	/** impl to test. */
 	UnitTestCmdImpl impl = new UnitTestCmdImpl(User.class);
 	
 	
 	/**
-	 * Tests work with class
-	 * @throws UnexpectedException
-	 * @throws LogicException
-	 * @throws DataException
-	 * @throws InitializationException
+	 * Tests work with class.
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws LogicException the logic exception
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test
 	public void testWork() throws UnexpectedException, LogicException, DataException, InitializationException{
@@ -49,7 +48,7 @@ public class TestUnitTestCmd {
 	
 	
 	/**
-	 * implememtation to test
+	 * implememtation to test.
 	 */
 	private class UnitTestCmdImpl extends UnitTestCmd<Object>{
 
@@ -57,7 +56,7 @@ public class TestUnitTestCmd {
 		/**
 		 * Creates a new UnitTestCmdImpl object. 
 		 *
-		 * @param classUnderTest
+		 * @param classUnderTest the class under test
 		 */
 		public UnitTestCmdImpl(Class<? extends Object> classUnderTest) {
 			super(classUnderTest);

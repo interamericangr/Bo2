@@ -35,20 +35,20 @@ extends AbstractHibernateDetachStrategy {
 	public static HibernateReadOnlyDetachStrategy INSTANCE = 
 		new HibernateReadOnlyDetachStrategy();
 
+	@Override
 	public void detach(Object object, Provider provider) {
 		/* Don't do anything special */
 	}
-	
+
 	@Override
 	protected void doReattach(Object object, Session session) {
 		session.buildLockRequest(LockOptions.NONE).lock(object);
 	}
 	
 	/**
-	 * Use singleton.
+	 * Hidden Constructor
 	 */
-	private HibernateReadOnlyDetachStrategy() { 
-		super();
+	private HibernateReadOnlyDetachStrategy() {
+		// empty
 	}
-
 }

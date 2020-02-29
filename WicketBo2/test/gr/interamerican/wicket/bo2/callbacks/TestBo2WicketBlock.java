@@ -22,6 +22,7 @@ import gr.interamerican.wicket.bo2.test.Bo2WicketTest;
 import gr.interamerican.wicket.samples.blocks.DummyBo2WicketBlock;
 
 import org.apache.wicket.Page;
+import org.apache.wicket.ajax.AjaxRequestHandler;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.request.cycle.RequestCycle;
@@ -31,7 +32,7 @@ import org.junit.Test;
 /**
  * Unit tests for {@link Bo2WicketBlock}.
  */
-@SuppressWarnings("serial")
+@Deprecated
 public class TestBo2WicketBlock 
 extends Bo2WicketTest {
 	
@@ -44,6 +45,11 @@ extends Bo2WicketTest {
 	 * block for the tests.
 	 */
 	private Bo2WicketBlock act = new Bo2WicketBlock() {			
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		@Override
 		public void work() 
 		throws InitializationException, DataException, LogicException {			
@@ -67,7 +73,11 @@ extends Bo2WicketTest {
 	 */
 	@Test(expected=RuntimeException.class)
 	public void testExecute_throwingInitializationException() {		
-		Bo2WicketBlock block = new Bo2WicketBlock() {			
+		Bo2WicketBlock block = new Bo2WicketBlock() {					
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
 			@Override
 			public void work() throws InitializationException, DataException, LogicException {
 				throw new InitializationException();
@@ -81,7 +91,11 @@ extends Bo2WicketTest {
 	 */
 	@Test(expected=RuntimeException.class)
 	public void testExecute_throwingDataException() {		
-		Bo2WicketBlock block = new Bo2WicketBlock() {			
+		Bo2WicketBlock block = new Bo2WicketBlock() {					
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
 			@Override
 			public void work() throws InitializationException, DataException, LogicException {
 				throw new DataException();
@@ -96,6 +110,10 @@ extends Bo2WicketTest {
 	@Test(expected=RuntimeException.class)
 	public void testExecute_throwingLogicException() {		
 		Bo2WicketBlock block = new Bo2WicketBlock() {			
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;		
 			@Override
 			public void work() throws InitializationException, DataException, LogicException {
 				throw new LogicException();
@@ -112,7 +130,11 @@ extends Bo2WicketTest {
 		RequestCycle cycle = RequestCycle.get();
 		Bo2WicketRequestCycle.beginRequest(cycle);
 		flag = false;
-		Bo2WicketBlock block = new Bo2WicketBlock() {			
+		Bo2WicketBlock block = new Bo2WicketBlock() {					
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
 			@Override
 			public void work() 
 			throws InitializationException, DataException, LogicException {
@@ -133,7 +155,7 @@ extends Bo2WicketTest {
 	@Test
 	public void testCallBack_withTarget() {
 		Page home = homePage();		
-		AjaxRequestTarget target = new AjaxRequestTarget(home);
+		AjaxRequestTarget target = new AjaxRequestHandler(home);
 		Bo2WicketRequestCycle.beginRequest(RequestCycle.get());
 		flag = false;		
 		act.callBack(target);
@@ -147,7 +169,7 @@ extends Bo2WicketTest {
 	@Test
 	public void testCallBack_withTargetAndForm() {
 		Page home = homePage();		
-		AjaxRequestTarget target = new AjaxRequestTarget(home);
+		AjaxRequestTarget target = new AjaxRequestHandler(home);
 		Form<Object> form = new Form<Object>("formId"); //$NON-NLS-1$
 		Bo2WicketRequestCycle.beginRequest(RequestCycle.get());
 		flag = false;

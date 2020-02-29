@@ -24,7 +24,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestNfMultiFormatter.
  */
 public class TestNfMultiFormatter {
 	

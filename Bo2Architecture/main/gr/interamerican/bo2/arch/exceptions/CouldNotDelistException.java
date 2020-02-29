@@ -28,25 +28,27 @@ public class CouldNotDelistException extends TransactionManagerException {
     
     /**
      * Creates a new CouldNotCommitException with a message.
-     * 
-     * @param message 
+     *
+     * @param message the message
      */
     public CouldNotDelistException(String message) {
         super(message);        
     }
+    
     /**
      * Creates a new CouldNotCommitException with a message.
-     * 
-     * @param message
-     * @param cause
+     *
+     * @param message the message
+     * @param cause the cause
      */
     public CouldNotDelistException(String message, Throwable cause) {
         super(message, cause);
     }
+    
     /**
      * Creates a new CouldNotCommitException with a message.
-     * 
-     * @param cause
+     *
+     * @param cause the cause
      */
     public CouldNotDelistException(Throwable cause) {
         super(cause);

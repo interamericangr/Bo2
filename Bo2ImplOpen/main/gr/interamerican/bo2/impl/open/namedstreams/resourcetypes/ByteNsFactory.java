@@ -23,15 +23,15 @@ import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 
 /**
- * {@link NamedStreamFactory} for byte array streams. <br/>
+ * {@link NamedStreamFactory} for byte array streams. <br>
  *
  * The <code>create(NamedStreamDefinition def)</code> method can create only
  * NamedStreams with type OUTPUTSTREAM or PRINTSTREAM. The <code>resource</code>
- * in both cases will be a ByteArrayOutputStream. <br/>
- * The <code>convert(NamedStream<?> ns, StreamType type, String name)</code>
+ * in both cases will be a ByteArrayOutputStream. <br>
+ * The <code>convert(NamedStream&lt;?&gt; ns, StreamType type, String name)</code>
  * method create NamedStreams with type INPUTSTREAM or BUFFEREDREADER
  * that read the byte array of the ByteArrayOutputStream resource
- * of a NamedStream with type OUTPUTSTREAM or PRINTSTREAM. <br/>
+ * of a NamedStream with type OUTPUTSTREAM or PRINTSTREAM. <br>
  *
  */
 public class ByteNsFactory
@@ -59,14 +59,10 @@ implements NamedStreamFactory {
 	/**
 	 * Creates a new NamedStream.
 	 *
-	 * @param def
-	 *        {@link NamedStreamDefinition} for the stream.
-	 * @param bytes
-	 *        Byte array with the stream's data
-	 *
+	 * @param def        {@link NamedStreamDefinition} for the stream.
+	 * @param bytes        Byte array with the stream's data
 	 * @return Returns a new NamedStream.
-	 *
-	 * @throws CouldNotCreateNamedStreamException
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */
 	public NamedStream<?> createWithBytes(NamedStreamDefinition def, byte[] bytes)
 			throws CouldNotCreateNamedStreamException {
@@ -107,13 +103,11 @@ implements NamedStreamFactory {
 	 * Creates a new NamedStream by converting an existing one to a
 	 * NamedStream that has the same resource but different type.
 	 *
-	 * @param ns
-	 * @param type
-	 * @param name
-	 *
+	 * @param ns the ns
+	 * @param type the type
+	 * @param name the name
 	 * @return Returns the new NamedStream.
-	 *
-	 * @throws CouldNotCreateNamedStreamException
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */
 	NamedStream<?> convertNs(NamedStream<?> ns, StreamType type, String name)
 			throws CouldNotCreateNamedStreamException {
@@ -140,11 +134,9 @@ implements NamedStreamFactory {
 	/**
 	 * Creates a new NamedStream.
 	 *
-	 * @param def
-	 *
+	 * @param def the def
 	 * @return Returns the NamedStream.
-	 *
-	 * @throws CouldNotCreateNamedStreamException
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */
 	NamedStream<?> createNs(NamedStreamDefinition def)
 			throws CouldNotCreateNamedStreamException {
@@ -171,14 +163,12 @@ implements NamedStreamFactory {
 	/**
 	 * Creates a new NamedPrintStream that prints on an OutputStream.
 	 *
-	 * @param out
-	 * @param name
-	 * @param charset
-	 * @param uri
-	 *
+	 * @param out the out
+	 * @param name the name
+	 * @param charset the charset
+	 * @param uri the uri
 	 * @return Returns the NamedPrintStream.
-	 *
-	 * @throws CouldNotCreateNamedStreamException
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */
 	NamedPrintStream print(OutputStream out, String name, Charset charset, String uri) throws CouldNotCreateNamedStreamException {
 		try {
@@ -192,12 +182,11 @@ implements NamedStreamFactory {
 	/**
 	 * Creates a new NamedOutputStream for an existing OutputStream.
 	 *
-	 * @param out
-	 * @param name
-	 * @param recordLength
-	 * @param charset
-	 * @param uri
-	 *
+	 * @param out the out
+	 * @param name the name
+	 * @param recordLength the record length
+	 * @param charset the charset
+	 * @param uri the uri
 	 * @return Returns the NamedPrintStream.
 	 */
 	NamedOutputStream output(OutputStream out, String name, int recordLength, Charset charset,
@@ -209,13 +198,11 @@ implements NamedStreamFactory {
 	/**
 	 * Creates a new NamedInputStream that reads the data of an existing ByteArrayOutputStream.
 	 *
-	 * @param baos
-	 * @param name
-	 * @param recordLength
-	 * @param charset
-	 * @param charset
-	 * @param uri
-	 *
+	 * @param baos the baos
+	 * @param name the name
+	 * @param recordLength the record length
+	 * @param charset the charset
+	 * @param uri the uri
 	 * @return Returns the NamedInputStream.
 	 */
 	NamedInputStream input(ByteArrayOutputStream baos, String name, int recordLength,
@@ -228,11 +215,10 @@ implements NamedStreamFactory {
 	/**
 	 * Creates a new NamedBufferedReader that reads the data of an existing ByteArrayOutputStream.
 	 *
-	 * @param baos
-	 * @param name
-	 * @param charset
-	 * @param uri
-	 *
+	 * @param baos the baos
+	 * @param name the name
+	 * @param charset the charset
+	 * @param uri the uri
 	 * @return Returns the NamedInputStream.
 	 */
 	NamedBufferedReader reader(ByteArrayOutputStream baos, String name, Charset charset, String uri) {
@@ -242,16 +228,4 @@ implements NamedStreamFactory {
 		BufferedReader reader = new BufferedReader(inr);
 		return new NamedBufferedReader(BYTES, reader, name, baos, charset, uri);
 	}
-
-
-
-
-
-
-
-
-
-
-
-
 }

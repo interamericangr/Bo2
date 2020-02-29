@@ -4,144 +4,43 @@
 	<parent>
 		<groupId>gr.interamerican.bo2</groupId>
 		<artifactId>Bo2</artifactId>
-		<version>2.3.12-SNAPSHOT</version>
+		<version>3.4.1</version>
 	</parent>
-	
+
 	<artifactId>Bo2Aio</artifactId>
 
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<version>${version.maven-clean-plugin}</version>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>${base.Dir}</directory>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
 	<dependencies>
-	
 		<dependency>
 			<groupId>gr.interamerican.bo2</groupId>
-			<artifactId>Bo2Utils</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>gr.interamerican.bo2</groupId>
-			<artifactId>Bo2Architecture</artifactId>
+			<artifactId>Bo2BoAio</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>gr.interamerican.bo2</groupId>
-			<artifactId>Bo2Creation</artifactId>
+			<artifactId>Bo2WebAio</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-
-		<dependency>
-			<groupId>gr.interamerican.bo2</groupId>
-			<artifactId>Bo2ArchUtils</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>gr.interamerican.bo2</groupId>
-			<artifactId>Bo2UtilsDoc</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>gr.interamerican.bo2</groupId>
-			<artifactId>Bo2UtilsMeta</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>gr.interamerican.bo2</groupId>
-			<artifactId>Bo2UtilsMetaExt</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>gr.interamerican.bo2</groupId>
-			<artifactId>Bo2UtilsSql</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>gr.interamerican.bo2</groupId>
-			<artifactId>Bo2JsqlParser</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>gr.interamerican.bo2</groupId>
-			<artifactId>Bo2OdfToolkit</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>gr.interamerican.bo2</groupId>
-			<artifactId>Bo2ImplOpen</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>gr.interamerican.bo2</groupId>
-			<artifactId>Bo2ImplMsOffice</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>gr.interamerican.bo2</groupId>
-			<artifactId>Bo2ImplJee</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>gr.interamerican.bo2</groupId>
-			<artifactId>Bo2ImplJotm</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-
 		<dependency>
 			<groupId>gr.interamerican.bo2</groupId>
 			<artifactId>Bo2Gui</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-
-		<dependency>
-			<groupId>gr.interamerican.bo2</groupId>
-			<artifactId>WicketUtils</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>gr.interamerican.bo2</groupId>
-			<artifactId>WicketBo2</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>gr.interamerican.bo2</groupId>
-			<artifactId>Bo2ImplHibernate</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>gr.interamerican.bo2</groupId>
-			<artifactId>Bo2Jasper</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>gr.interamerican.bo2</groupId>
-			<artifactId>Bo2Quartz</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>gr.interamerican.bo2</groupId>
-			<artifactId>Bo2UtilsGreek</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>gr.interamerican.bo2</groupId>
-			<artifactId>Bo2TextTemplates</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-
 	</dependencies>
-
 </project>

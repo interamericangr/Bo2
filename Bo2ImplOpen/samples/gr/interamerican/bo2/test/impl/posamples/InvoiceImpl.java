@@ -28,21 +28,17 @@ import java.util.Date;
 import java.util.Set;
 
 /**
- * 
+ * The Class InvoiceImpl.
  */
 @DelegateKeyProperties("")
 public abstract class InvoiceImpl 
 extends AbstractModificationRecordPo<InvoiceKey> 
 implements Invoice {
 	
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
-	/**
-	 * invoice date
-	 */
+	/** invoice date. */
 	@Property Date invoiceDate;
 	
 	/**
@@ -66,14 +62,13 @@ implements Invoice {
 	/**
 	 * info, mapped as a component.
 	 */	
-	@SuppressWarnings("unused")
 	@Property private InvoiceInfo info;
-	
+
+	@Override
 	public InvoiceLine getLineByNo(Integer lineNo) {
 		if (lines==null) {
 			return null;
 		}
-		return SelectionUtils.selectFirstByProperty("lineNo", lineNo, lines, InvoiceLine.class);		 //$NON-NLS-1$
+		return SelectionUtils.selectFirstByProperty(InvoiceLine::getLineNo, lineNo, lines);
 	}
-	
 }

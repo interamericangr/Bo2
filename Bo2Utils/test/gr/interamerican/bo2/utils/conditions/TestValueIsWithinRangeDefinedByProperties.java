@@ -12,19 +12,22 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.conditions;
 
-import gr.interamerican.bo2.samples.bean.BeanWithNestedBean;
-
 import org.junit.Assert;
 import org.junit.Test;
 
+import gr.interamerican.bo2.samples.bean.BeanWith2Fields;
+import gr.interamerican.bo2.samples.bean.BeanWithNestedBean;
+import gr.interamerican.bo2.utils.FunctionalUtils;
+
 /**
- * Unit test for {@link PropertyIsWithinRange}.
+ * Unit test for {@link ValueIsWithinRangeDefinedByProperties}.
  */
 public class TestValueIsWithinRangeDefinedByProperties {
 	
 	/**
 	 * Test for check.
 	 */
+	@Deprecated
 	@Test
 	@SuppressWarnings("nls")
 	public void testCheck() {
@@ -37,8 +40,19 @@ public class TestValueIsWithinRangeDefinedByProperties {
 		bean.getNested().setField2(3);
 		Assert.assertFalse(condition.check(bean));
 	}
-	
 
-	
-
+	/**
+	 * Test for check.
+	 */
+	@Test
+	public void testCheck_Functional() {
+		ValueIsWithinRangeDefinedByProperties<BeanWithNestedBean, Integer> condition = new ValueIsWithinRangeDefinedByProperties<>(
+				BeanWithNestedBean::getProperty1,
+				FunctionalUtils.nullSafeSynthesize(BeanWithNestedBean::getNested, BeanWith2Fields::getField2), 5);
+		BeanWithNestedBean bean = new BeanWithNestedBean(null, 10);
+		bean.setProperty1(2);
+		Assert.assertTrue(condition.check(bean));
+		bean.getNested().setField2(3);
+		Assert.assertFalse(condition.check(bean));
+	}
 }

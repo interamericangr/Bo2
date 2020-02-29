@@ -29,9 +29,7 @@ public class NrCachedEntryFormatter
 <T extends TypedSelectable<C>, C extends Comparable<? super C>> 
 extends NullReturningFormatter<T>{
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * C formatter.
@@ -40,7 +38,8 @@ extends NullReturningFormatter<T>{
 
 	/**
 	 * Creates a new NrCachedEntryFormatter object. 
-	 * @param codeFormatter 
+	 *
+	 * @param codeFormatter the code formatter
 	 */
 	public NrCachedEntryFormatter(Formatter<C> codeFormatter) {
 		super(new CachedEntryFormatter<T, C>(codeFormatter));

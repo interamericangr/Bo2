@@ -14,10 +14,9 @@ public class Streams {
 	
 	/**
 	 * Creates an inputstream that reads the specified lines.
-	 * 
-	 * @param charset
-	 * @param lines
-	 * 
+	 *
+	 * @param charset the charset
+	 * @param lines the lines
 	 * @return Returns the inputstream.
 	 */
 	public static InputStream input(Charset charset, String... lines) {

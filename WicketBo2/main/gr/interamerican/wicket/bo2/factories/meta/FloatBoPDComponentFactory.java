@@ -24,10 +24,12 @@ import org.apache.wicket.model.IModel;
 public class FloatBoPDComponentFactory 
 extends AbstractBoPDComponentFactory<FloatBoPropertyDescriptor> {	
 	
+	@Override
 	public Component drawMain(FloatBoPropertyDescriptor descriptor,String wicketId) {
 		return new SelfDrawnFloatTextField(wicketId, descriptor);
 	}
 	
+	@Override
 	@SuppressWarnings("unchecked")
 	public Component drawMain(String wicketId, IModel<?> model, FloatBoPropertyDescriptor descriptor) {
 		return new SelfDrawnFloatTextField(wicketId,(IModel<Float>) model, descriptor);

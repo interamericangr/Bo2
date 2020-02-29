@@ -28,7 +28,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Unit test for {@link DynamicJdbcQuery}
+ * Unit test for {@link DynamicJdbcQuery}.
  */
 @SuppressWarnings("nls")
 public class TestDynamicJdbcQuery {
@@ -40,7 +40,8 @@ public class TestDynamicJdbcQuery {
 	
 	/**
 	 * Setup tests.
-	 * @throws InitializationException 
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Before
 	public void setup() throws InitializationException {
@@ -49,8 +50,9 @@ public class TestDynamicJdbcQuery {
 	
 	/**
 	 * Unit test for Sql.
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */	
 	@Test
 	public void testSql_allNull() throws DataException, InitializationException {
@@ -72,8 +74,9 @@ public class TestDynamicJdbcQuery {
 	
 	/**
 	 * Unit test for Sql.
-	 * @throws InitializationException 
-	 * @throws DataException 
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testSql_noNull() throws InitializationException, DataException {
@@ -96,8 +99,9 @@ public class TestDynamicJdbcQuery {
 	
 	/**
 	 * Unit test for Sql.
-	 * @throws InitializationException 
-	 * @throws DataException 
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testSql_oneNull() throws InitializationException, DataException {
@@ -130,8 +134,9 @@ public class TestDynamicJdbcQuery {
 	
 	/**
 	 * Unit test for the whole lifecycle.
-	 * @throws InitializationException 
-	 * @throws DataException 
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testLifecycle() throws InitializationException, DataException {		
@@ -148,24 +153,45 @@ public class TestDynamicJdbcQuery {
 			System.out.println(q.getInt("id"));
 		}
 		q.close();
-		
 	}
-	
-	
-	
+
+	/**
+	 * Unit test for the whole lifecycle.
+	 * @throws InitializationException 
+	 * @throws DataException 
+	 */
+	@Test
+	public void testWeirdCase() throws InitializationException, DataException {		
+		WeirdDynamicJdbcQueryImpl q = new WeirdDynamicJdbcQueryImpl();
+		q.init(provider);
+		q.open();
+		BeanWith2Fields criteria = new BeanWith2Fields();
+		q.setCriteria(criteria);		
+		q.execute();
+		q.close();
+	}
+
 	/**
 	 * Implementation of {@link DynamicJdbcQuery}.
 	 */	
 	@ManagerName("LOCALDB")
 	class DynamicJdbcQueryImpl extends DynamicJdbcQuery<BeanWith2Fields> {
-		
+
 		@Override
 		public String baseSql() {			
 			return "select * from X__X.users where id = :field2 and name like :field1"; 
 		}
-		
 	}
-	
-	
 
+	/**
+	 * Implementation of {@link DynamicJdbcQuery}.
+	 */	
+	@ManagerName("LOCALDB")
+	class WeirdDynamicJdbcQueryImpl extends DynamicJdbcQuery<BeanWith2Fields> {
+
+		@Override
+		public String baseSql() {			
+			return "select * from X__X.users where :field2 is null "; 
+		}
+	}
 }

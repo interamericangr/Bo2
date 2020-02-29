@@ -5,12 +5,12 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestTranscription743.
  */
 public class TestTranscription743 {
 	
 	/**
-	 * test transcriptWord()
+	 * test transcriptWord().
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -32,7 +32,7 @@ public class TestTranscription743 {
 	}
 	
 	/**
-	 * test transcriptWord()
+	 * test transcriptWord().
 	 */
 	@SuppressWarnings("nls")
 	@Test

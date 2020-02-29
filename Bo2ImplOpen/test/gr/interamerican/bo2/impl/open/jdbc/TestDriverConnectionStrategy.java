@@ -25,15 +25,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Unit test for {@link DriverConnectionStrategy}
- * 
- *
+ * Unit test for {@link DriverConnectionStrategy}.
  */
 public class TestDriverConnectionStrategy {
 	
-	/**
-	 * Provider;
-	 */
+	/** Provider;. */
 	JdbcConnectionProviderImpl provider;
 	/**
 	 * object to test.
@@ -42,7 +38,8 @@ public class TestDriverConnectionStrategy {
 	
 	/**
 	 * tests setup.
-	 * @throws InitializationException 
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Before
 	public void setup() throws InitializationException {
@@ -62,8 +59,8 @@ public class TestDriverConnectionStrategy {
 	/**
 	 * Tests that failure throws the appropriate Exception
 	 * if a mandatory property DBDRIVER is missing.
-	 * 
-	 * @throws InitializationException 
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=InitializationException.class)
 	public void testParseProperties_missingDriver() throws InitializationException {		
@@ -74,8 +71,8 @@ public class TestDriverConnectionStrategy {
 	/**
 	 * Tests that failure throws the appropriate Exception
 	 * if a mandatory property DBURL is missing.
-	 * 
-	 * @throws InitializationException 
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=InitializationException.class)
 	public void testParseProperties_MissingUrl() throws InitializationException {		
@@ -86,8 +83,8 @@ public class TestDriverConnectionStrategy {
 	/**
 	 * Tests that failure throws the appropriate Exception
 	 * if the connection fails.
-	 * 
-	 * @throws InitializationException 
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=InitializationException.class)
 	public void testDoConnect_fail() throws InitializationException {		
@@ -104,9 +101,9 @@ public class TestDriverConnectionStrategy {
 	/**
 	 * Tests that failure throws the appropriate Exception
 	 * if the connection fails.
-	 * 
-	 * @throws InitializationException 
-	 * @throws SQLException 
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws SQLException the SQL exception
 	 */
 	@Test()
 	public void testDoConnect_success() throws InitializationException, SQLException {
@@ -118,8 +115,9 @@ public class TestDriverConnectionStrategy {
 	}
 	
 	/**
-	 * Tests validateSetup
-	 * @throws InitializationException 
+	 * Tests validateSetup.
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test
 	public void testValidateSetup_valid() throws InitializationException {
@@ -129,7 +127,8 @@ public class TestDriverConnectionStrategy {
 	
 	/**
 	 * Tests validateSetup with invalid config.
-	 * @throws InitializationException 
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test (expected=InitializationException.class)
 	public void testValidateSetup_invalid() throws InitializationException {

@@ -27,13 +27,11 @@ import org.junit.Test;
  */
 public class TestSelectionBoPropertyDescriptor {
 	
-	/**
-	 * SelectionBoPropertyDescriptor
-	 */
+	/** SelectionBoPropertyDescriptor. */
 	private SelectionBoPropertyDescriptor<Integer> selectDesc = new SelectionBoPropertyDescriptor<Integer>();
 	
 	/**
-	 * Test getValues
+	 * Test getValues.
 	 */
 	@Test
 	public void testGetValues(){
@@ -41,7 +39,7 @@ public class TestSelectionBoPropertyDescriptor {
 	}
 	
 	/**
-	 * Test setValues
+	 * Test setValues.
 	 */
 	@Test
 	public void testsetValues() {
@@ -50,8 +48,9 @@ public class TestSelectionBoPropertyDescriptor {
 	}
 	
 	/**
-	 * Test Parse
-	 * @throws ParseException
+	 * Test Parse.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@Test		
 	public void testParse() throws ParseException{

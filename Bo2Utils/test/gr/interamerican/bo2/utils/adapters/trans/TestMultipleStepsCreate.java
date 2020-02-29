@@ -12,9 +12,6 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.adapters.trans;
 
-import gr.interamerican.bo2.utils.adapters.trans.GetProperty;
-import gr.interamerican.bo2.utils.adapters.trans.MultipleStepsCreate;
-
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
@@ -25,45 +22,38 @@ import org.junit.Test;
  * Unit test for {@link GetProperty}.
  */
 public class TestMultipleStepsCreate {
+
 	/**
 	 * Unit test for the adapter.
 	 */
 	@Test
 	public void testExecute_succeed() {
-		MultipleStepsCreate<String, BigDecimal> create = 
-			new MultipleStepsCreate<String, BigDecimal>
-			(String.class, BigInteger.class, BigDecimal.class);
-		
+		MultipleStepsCreate<String, BigDecimal> create = new MultipleStepsCreate<String, BigDecimal>(String.class,
+				BigInteger.class, BigDecimal.class);
+
 		String string = "378787814"; //$NON-NLS-1$
 		BigDecimal actual = create.execute(string);
 		BigDecimal expected = new BigDecimal(string);
 		Assert.assertEquals(expected, actual);
 	}
-	
+
 	/**
 	 * Unit test for the adapter.
 	 */
-	@Test(expected=RuntimeException.class)
+	@Test(expected = RuntimeException.class)
 	public void testExecute_fail() {
-		MultipleStepsCreate<String, BigDecimal> create = 
-			new MultipleStepsCreate<String, BigDecimal>
-			(String.class, BigInteger.class, BigDecimal.class);
-		
+		MultipleStepsCreate<String, BigDecimal> create = new MultipleStepsCreate<String, BigDecimal>(String.class,
+				BigInteger.class, BigDecimal.class);
+
 		String string = "no good"; //$NON-NLS-1$
 		create.execute(string);
 	}
-	
+
 	/**
 	 * Unit test for the adapter.
 	 */
-	@SuppressWarnings("unused")
-	@Test(expected=RuntimeException.class)
+	@Test(expected = RuntimeException.class)
 	public void testConstructor_fail() {
-		new MultipleStepsCreate<String, BigDecimal>
-			(String.class, BigInteger.class, Double.class, BigDecimal.class);
+		new MultipleStepsCreate<String, BigDecimal>(String.class, BigInteger.class, Double.class, BigDecimal.class);
 	}
-	
-	
-
-
 }

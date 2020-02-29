@@ -1,16 +1,5 @@
 package gr.interamerican.bo2.quartz.runtime;
 
-import gr.interamerican.bo2.arch.Operation;
-import gr.interamerican.bo2.arch.exceptions.DataException;
-import gr.interamerican.bo2.impl.open.creation.Factory;
-import gr.interamerican.bo2.impl.open.job.JobDescription;
-import gr.interamerican.bo2.impl.open.job.JobScheduler;
-import gr.interamerican.bo2.impl.open.runtime.MultiLauncher;
-import gr.interamerican.bo2.quartz.QuartzJobSchedulerImpl;
-import gr.interamerican.bo2.quartz.util.QuartzUtils;
-import gr.interamerican.bo2.utils.StringConstants;
-import gr.interamerican.bo2.utils.SystemUtils;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintStream;
@@ -21,13 +10,23 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
+import gr.interamerican.bo2.arch.Operation;
+import gr.interamerican.bo2.arch.exceptions.DataException;
+import gr.interamerican.bo2.impl.open.creation.Factory;
+import gr.interamerican.bo2.impl.open.job.JobDescription;
+import gr.interamerican.bo2.impl.open.job.JobScheduler;
+import gr.interamerican.bo2.impl.open.runtime.MultiLauncher;
+import gr.interamerican.bo2.quartz.QuartzJobSchedulerImpl;
+import gr.interamerican.bo2.quartz.util.QuartzUtils;
+import gr.interamerican.bo2.utils.CollectionUtils;
+import gr.interamerican.bo2.utils.SystemUtils;
 import jpb.DefaultEntryPoint;
 import jpb.JavaProcessBuilder;
 import jpb.MemArg;
 import jpb.command.FixedPathSelector;
-import jpb.hotspot.HotspotJvm;
 
 /**
  * launches a {@link MultiLauncher} as a separate process.
@@ -46,6 +45,15 @@ public class ProcessLauncher {
 	 * property for the outputstream.
 	 */
 	private static final String PRINT_STREAM = "outputStream"; //$NON-NLS-1$
+
+	/** The Constant CLASS_ENVIRONMENT_PROPERTY. */
+	private static final String CLASS_ENVIRONMENT_PROPERTY = "java.class.path"; //$NON-NLS-1$
+
+	/** java home. */
+	private static final String JAVA_HOME_ENVIRONMENT_PROPERTY = "java.home"; //$NON-NLS-1$
+
+	/** user dir. */
+	private static final String USER_DIR_ENVIRONMENT_PROPERTY = "user.dir"; //$NON-NLS-1$
 	/**
 	 * properties map.
 	 */
@@ -63,65 +71,108 @@ public class ProcessLauncher {
 	/**
 	 * launches a separate process.
 	 *
-	 * @param environment
-	 * @param out
-	 * @param mainClass
-	 * @param memory
-	 * @param args
+	 * @param params the params
+	 * @param args the args
 	 * @return the created process
-	 * @throws DataException
+	 * @throws DataException the data exception
 	 */
-	public static synchronized JobDescription launch(Map<String, String> environment,
-			PrintStream out, Class<?> mainClass, MemorySetting memory, String... args)
-					throws DataException {
-		Process p = launchJavaProcess(environment, mainClass, memory, args);
-		JobDescription bean = attachProcessInputStream(OPERATION2ATTACH, p, out);
+	public static synchronized JobDescription launch(ProcessLauncherParamerters params,
+			String... args) throws DataException {
+		Process p = launchJavaProcess(params, args);
+		JobDescription bean = attachProcessInputStream(OPERATION2ATTACH, p, params.getOutStream());
 		return bean;
 	}
 
 	/**
-	 * launches a java process with the given environment, main class and user arguments
+	 * sets the execution path (base directory of the jvm to be instantiated).
 	 *
-	 * @param environment
-	 * @param mainClass
-	 * @param memory
-	 * @param settings
-	 * @param args
-	 * @return the process generated
-	 * @throws DataException
+	 * @param jpb the jpb
+	 * @param params the params
 	 */
-	protected static Process launchJavaProcess(Map<String, String> environment, Class<?> mainClass,
-			MemorySetting memory, String... args) throws DataException {
+	static void setExecutionPath(JavaProcessBuilder jpb, ProcessLauncherParamerters params) {
+		if ((jpb == null) || (params == null) || (params.getExecutionPath() == null)) {
+			return;
+		}
+		String executionPath = params.getExecutionPath();
+		File execPath = new File(executionPath);
+		if (execPath.exists() && execPath.isDirectory()) {
+			jpb.workingDirectory(execPath);
+			jpb.setSystemProperty(USER_DIR_ENVIRONMENT_PROPERTY, execPath.getAbsolutePath());
+		}
+	}
+
+	/**
+	 * sets the memory to {@link JavaProcessBuilder}.
+	 *
+	 * @param jpb the jpb
+	 * @param params the params
+	 */
+	static void setMemoryToJavaProcessBuilder(JavaProcessBuilder jpb, ProcessLauncherParamerters params) {
+		if ((jpb == null) ){
+			return;
+		}
+		// set memory defaults.
+		jpb.minMemory(MemArg.of(64).megaBytes());
+		jpb.maxMemory(MemArg.of((long) SystemUtils.maxMemory()).megaBytes());
+		if ((params == null) || (params.getMemorySettings() == null)) {
+			return;
+		}
+		if (params.getMemorySettings().getMaxMemory() != null) {
+			jpb.maxMemory(MemArg.of(params.getMemorySettings().getMaxMemory()).megaBytes());
+		}
+		if (params.getMemorySettings().getMinMemory() != null) {
+			jpb.minMemory(MemArg.of(params.getMemorySettings().getMinMemory()).megaBytes());
+		}
+	}
+
+	/**
+	 * sets the system variables.
+	 *
+	 * @param jpb the jpb
+	 * @param params the params
+	 */
+	static void setSystemVariables(JavaProcessBuilder jpb, ProcessLauncherParamerters params) {
+		if ((jpb == null) || (params == null)
+				|| ((params.getSystemVariables() == null) || (CollectionUtils.isNullOrEmpty(params.getSystemVariables().entrySet())))) {
+			return;
+		}
+		for (Entry<String,String> entry : params.getSystemVariables().entrySet()) {
+			jpb.setSystemProperty(entry.getKey(), entry.getValue());
+		}
+	}
+
+	/**
+	 * launches a java process with the given environment, main class and user arguments.
+	 *
+	 * @param params the params
+	 * @param args the args
+	 * @return the process generated
+	 * @throws DataException the data exception
+	 */
+	protected static Process launchJavaProcess(ProcessLauncherParamerters params, String... args) throws DataException {
 		JavaProcessBuilder jpb = new JavaProcessBuilder();
-		if (environment != null) {
+		if (params.getEnvironment() != null) {
 			Map<String, String> env = jpb.environment();
-			env.putAll(environment);
+			env.putAll(params.getEnvironment());
 		}
 		jpb.redirectErrorStream(true);
-		jpb.entryPoint(DefaultEntryPoint.mainClass(mainClass));
+		jpb.entryPoint(DefaultEntryPoint.mainClass(params.getMainClass()));
 		for (String property : System.getProperties().stringPropertyNames()) {// set the same system properties
 			String value = System.getProperty(property);
 			jpb.setSystemProperty(property, value);
 		}
 		jpb.addApplicationArguments(args);
-		jpb.classPath(getClasspathFiles());// set classpath
-		jpb.commandSelector(new FixedPathSelector(getJavaExecutable()));// set java executable
-		// set memory
-		jpb.minMemory(MemArg.of(64).megaBytes());
-		jpb.maxMemory(MemArg.of((long) SystemUtils.maxMemory()).megaBytes());
-		jpb.customArg(HotspotJvm.CustomParams.MAX_PERM_SIZE, MemArg.of(128).megaBytes());
-		if (memory != null) {
-			if (memory.getMaxMemory() != null) {
-				jpb.maxMemory(MemArg.of(memory.getMaxMemory()).megaBytes());
-			}
-			if (memory.getMinMemory() != null) {
-				jpb.minMemory(MemArg.of(memory.getMinMemory()).megaBytes());
-			}
-			if (memory.getPermGen() != null) {
-				jpb.customArg(HotspotJvm.CustomParams.MAX_PERM_SIZE, MemArg.of(memory.getPermGen())
-						.megaBytes());
-			}
+		// addDebugArguments(jpb);
+		if (CollectionUtils.isNullOrEmpty(params.getClasspathFiles())) {
+			jpb.classPath(getClasspathFiles());// set classpath
+		} else {
+			jpb.systemProperties().remove(CLASS_ENVIRONMENT_PROPERTY);
+			jpb.classPath(params.getClasspathFiles());
 		}
+		jpb.commandSelector(new FixedPathSelector(getJavaExecutable()));// set java executable
+		setMemoryToJavaProcessBuilder(jpb, params);
+		setExecutionPath(jpb, params);
+		setSystemVariables(jpb, params);
 		Process p = null;
 		try {
 			p = jpb.start();
@@ -133,8 +184,11 @@ public class ProcessLauncher {
 
 	}
 
+
 	/**
-	 * @param objs
+	 * Generate parameter map.
+	 *
+	 * @param objs the objs
 	 * @return the parameter map for the StreamredirectOperation
 	 */
 	protected static Map<String, Object> generateParameterMap(Object... objs) {
@@ -151,11 +205,12 @@ public class ProcessLauncher {
 	}
 
 	/**
-	 * @param operation2attach
-	 * @param objs
-	 *            parameters required to be passed at the {@link StreamRedirectOperation}
+	 * Attach process input stream.
+	 *
+	 * @param operation2attach the operation 2 attach
+	 * @param objs            parameters required to be passed at the {@link StreamRedirectOperation}
 	 * @return the {@link JobDescription} of the submitted job.
-	 * @throws DataException
+	 * @throws DataException the data exception
 	 */
 	protected static JobDescription attachProcessInputStream(
 			Class<? extends Operation> operation2attach, Object... objs) throws DataException {
@@ -170,29 +225,17 @@ public class ProcessLauncher {
 	}
 
 	/**
+	 * Gets the java executable.
+	 *
 	 * @return the java executable
 	 */
 	static protected String getJavaExecutable() {
-		return System.getProperty("java.home") + "/bin/java"; //$NON-NLS-1$//$NON-NLS-2$
+		return System.getProperty(JAVA_HOME_ENVIRONMENT_PROPERTY) + "/bin/java"; //$NON-NLS-1$
 	}
 
 	/**
-	 * @return the classpath
-	 */
-	@Deprecated
-	static protected String getClasspath() {
-		List<File> files = getClasspathFiles();
-		String classpath = StringConstants.EMPTY;
-		for (File f : files) {
-			if (classpath.length() > 0) {
-				classpath += StringConstants.COLON;
-			}
-			classpath = classpath + f.getPath();
-		}
-		return classpath;
-	}
-
-	/**
+	 * Gets the classpath files.
+	 *
 	 * @return the classpath files.
 	 */
 	static protected List<File> getClasspathFiles() {
@@ -207,24 +250,26 @@ public class ProcessLauncher {
 	/**
 	 * launches a {@link MultiLauncher} as a separate process.
 	 *
-	 * @param clazz
-	 * @param settings
+	 * @param clazz the clazz
+	 * @param settings the settings
 	 * @return the {@link JobDescription} of the quartz job attached to the created process
-	 * @throws DataException
+	 * @throws DataException the data exception
 	 */
 	public static JobDescription launchMultilauncher(Class<?> clazz, MemorySetting settings)
 			throws DataException {
-		JobDescription bean = ProcessLauncher.launch(null, null, MultiLauncher.class, settings,
-				clazz.getName());
+		ProcessLauncherParamerters params = Factory.create(ProcessLauncherParamerters.class);
+		params.setMainClass(MultiLauncher.class);
+		params.setMemorySettings(settings);
+		JobDescription bean = ProcessLauncher.launch(params, clazz.getName());
 		return bean;
 	}
 
 	/**
-	 * extracts the process from a {@link JobDescription} (if applicable)
+	 * extracts the process from a {@link JobDescription} (if applicable).
 	 *
-	 * @param bean
+	 * @param bean the bean
 	 * @return the process
-	 * @throws DataException
+	 * @throws DataException the data exception
 	 */
 	public static Process extractProcessFromJobDescription(JobDescription bean)
 			throws DataException {
@@ -238,9 +283,11 @@ public class ProcessLauncher {
 	}
 
 	/**
-	 * @param bean
+	 * Exctract stream fromjob description.
+	 *
+	 * @param bean the bean
 	 * @return the PrintStream assigned to the process for output.
-	 * @throws DataException
+	 * @throws DataException the data exception
 	 */
 	public static PrintStream exctractStreamFromjobDescription(JobDescription bean)
 			throws DataException {
@@ -257,11 +304,11 @@ public class ProcessLauncher {
 	}
 
 	/**
-	 * kills the process that is attached to the given {@link JobDescription} (if applicable)
+	 * kills the process that is attached to the given {@link JobDescription} (if applicable).
 	 *
-	 * @param bean
+	 * @param bean the bean
 	 * @return process exit status
-	 * @throws DataException
+	 * @throws DataException the data exception
 	 */
 	public static int killProcessFromJobDescription(JobDescription bean) throws DataException {
 		Process p = extractProcessFromJobDescription(bean);
@@ -277,9 +324,9 @@ public class ProcessLauncher {
 	}
 
 	/**
-	 * kills all spawned processes
+	 * kills all spawned processes.
 	 *
-	 * @throws DataException
+	 * @throws DataException the data exception
 	 */
 	public static void killallProcesses() throws DataException {
 		for (Process p : spawnedProcesses) {

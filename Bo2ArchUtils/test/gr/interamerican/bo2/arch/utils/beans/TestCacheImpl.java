@@ -29,36 +29,27 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Unit tests for {@link CacheImpl}
+ * Unit tests for {@link CacheImpl}.
  */
 public class TestCacheImpl {
-	/**
-	 * named cache
-	 */
+	
+	/** named cache. */
 	private static CacheImpl<Long> cache = new CacheImpl<Long>();
 
-	/**
-	 * sample role
-	 */
+	/** sample role. */
 	private static TypedSelectableImpl<Long> role1 = new TypedSelectableImpl<Long>(1L, null, 1L, "role1-1"); //$NON-NLS-1$
 
-	/**
-	 * sample role
-	 */
+	/** sample role. */
 	private static TypedSelectableImpl<Long> role2 = new TypedSelectableImpl<Long>(1L, null, 2L, "role1-2"); //$NON-NLS-1$
 
-	/**
-	 * sample role
-	 */
+	/** sample role. */
 	private static TypedSelectableImpl<Long> role3 = new TypedSelectableImpl<Long>(2L, null, 1L, "role2-3"); //$NON-NLS-1$
 
-	/**
-	 * sample role
-	 */
+	/** sample role. */
 	private static TypedSelectableImpl<Long> role4 = new TypedSelectableImpl<Long>(2L, null, 2L, "role2-4"); //$NON-NLS-1$
 
 	/**
-	 * test setup
+	 * test setup.
 	 */
 	@Before
 	public void setupTests() {
@@ -95,7 +86,7 @@ public class TestCacheImpl {
 	}
 
 	/**
-	 * tests get()
+	 * tests get().
 	 */
 	@Test
 	public void testGet() {
@@ -106,7 +97,7 @@ public class TestCacheImpl {
 	}
 
 	/**
-	 * tests getSubCache()
+	 * tests getSubCache().
 	 */
 	@Test
 	public void testGetSubCache() {
@@ -132,12 +123,12 @@ public class TestCacheImpl {
 	public void testGetSubCache_ForAllEntries() {
 		Set<TypedSelectable<Long>> roles1 = cache.getSubCache(1L, Cache.SUBTYPEID_FOR_ALL_TYPE_ENTRIES);
 		Set<TypedSelectable<Long>> roles2 = cache.getTypeEntries(1L);
-		assertEquals(roles1, roles1);
+		assertEquals(roles1, roles2);
 	}
 
 
 	/**
-	 * tests getAllTypeEntries()
+	 * tests getAllTypeEntries().
 	 */
 	@Test
 	public void testGetTypeEntries() {
@@ -150,7 +141,7 @@ public class TestCacheImpl {
 	}
 
 	/**
-	 * tests getSubCacheAsList()
+	 * tests getSubCacheAsList().
 	 */
 	@Test
 	public void testGetSubCacheAsList() {
@@ -165,7 +156,7 @@ public class TestCacheImpl {
 	}
 
 	/**
-	 * tests remove()
+	 * tests remove().
 	 */
 	@Test
 	public void testRemove() {
@@ -207,7 +198,7 @@ public class TestCacheImpl {
 
 
 	/**
-	 * tests clear()
+	 * tests clear().
 	 */
 	@Test
 	public void testClear() {
@@ -228,7 +219,7 @@ public class TestCacheImpl {
 	}
 
 	/**
-	 * tests refill()
+	 * tests refill().
 	 */
 	@Test
 	public void testRefill() {
@@ -258,10 +249,4 @@ public class TestCacheImpl {
 
 
 	}
-
-
-
-
-
 }
-

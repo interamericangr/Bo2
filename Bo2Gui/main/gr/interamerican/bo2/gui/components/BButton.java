@@ -23,9 +23,7 @@ public class BButton
 extends JButton 
 implements StaticComponent {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
 	/**

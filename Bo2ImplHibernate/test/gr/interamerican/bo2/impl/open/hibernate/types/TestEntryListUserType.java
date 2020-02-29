@@ -29,19 +29,15 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestEntryListUserType.
  */
 public class TestEntryListUserType {
 
 	
-	/**
-	 * EntryListUserType
-	 */
+	/** EntryListUserType. */
 	EntryListUserType<Long> userType = new EntryListUserTypeForLong();
 	
-	/**
-	 * ENTRY_USER_PROPERTIES_PATH
-	 */
+	/** ENTRY_USER_PROPERTIES_PATH. */
 	private final String ENTRY_USER_PROPERTIES_PATH = 
 		"/gr/interamerican/rsrc/hibernate/types/EntryUserTypeNumber.properties"; //$NON-NLS-1$
 	
@@ -59,7 +55,7 @@ public class TestEntryListUserType {
 	}
 	
 	/**
-	 * 
+	 * Test returned class.
 	 */
 	@Test
 	public void testReturnedClass(){
@@ -67,7 +63,7 @@ public class TestEntryListUserType {
 	}
 	
 	/**
-	 * test toXMLString
+	 * test toXMLString.
 	 */
 	@Test
 	public void testToXMLString(){
@@ -75,7 +71,7 @@ public class TestEntryListUserType {
 	}
 	
 	/**
-	 * test toXMLString
+	 * test toXMLString.
 	 */
 	@Test(expected=RuntimeException.class)
 	public void testToXMLString_fail(){
@@ -83,7 +79,7 @@ public class TestEntryListUserType {
 	}
 	
 	/**
-	 * test toXMLString
+	 * test toXMLString.
 	 */
 	@SuppressWarnings("nls")
 	@Test(expected=RuntimeException.class)
@@ -95,7 +91,7 @@ public class TestEntryListUserType {
 	}
 	
 	/**
-	 * test toXMLString
+	 * test toXMLString.
 	 */
 	@Test
 	public void testToXMLString_succeed(){
@@ -122,7 +118,7 @@ public class TestEntryListUserType {
 	}
 	
 	/**
-	 * test fromXMLString
+	 * test fromXMLString.
 	 */
 	
 	@Test
@@ -145,7 +141,7 @@ public class TestEntryListUserType {
 	
 	
 	/**
-	 * test fromXMLString
+	 * test fromXMLString.
 	 */
 	@SuppressWarnings("nls")
 	@Test(expected=RuntimeException.class)
@@ -164,7 +160,7 @@ public class TestEntryListUserType {
 	}
 	
 	/**
-	 * test objectToSQLString
+	 * test objectToSQLString.
 	 */
 	@Test
 	public void testObjectToSQLString(){

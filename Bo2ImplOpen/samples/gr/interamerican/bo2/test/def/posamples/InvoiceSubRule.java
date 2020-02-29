@@ -23,7 +23,17 @@ import gr.interamerican.bo2.arch.PersistentObject;
 public interface InvoiceSubRule 
 extends InvoiceSubRuleKP, PersistentObject<InvoiceSubRuleKey>, ModificationRecord {
 	
+	/**
+	 * Sets the sub rule name.
+	 *
+	 * @param name the new sub rule name
+	 */
 	public void setSubRuleName(String name);
 	
+	/**
+	 * Gets the sub rule name.
+	 *
+	 * @return the sub rule name
+	 */
 	public String getSubRuleName();
 }

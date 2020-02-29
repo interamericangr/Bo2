@@ -16,9 +16,7 @@ public class WorkerExecutionDetails {
 	 */
 	String taskInfo;
 	
-	/**
-	 * Worker class
-	 */
+	/** Worker class. */
 	Class<? extends Worker> workerClass;
 	
 	/**

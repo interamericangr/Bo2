@@ -6,14 +6,12 @@ import gr.interamerican.bo2.creation.ObjectFactory;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Global implementation of {@link FixtureResolver} <br/>
+ * Global implementation of {@link FixtureResolver} <br>
  * It uses a final Map (Concurrent) that will be available on all Threads in the same JVM.
  */
 public class GlobalFixtureResolver implements FixtureResolver {
 
-	/**
-	 * tlCache
-	 */
+	/** tlCache. */
 	final ConcurrentHashMap<Class<?>, Object> cache = new ConcurrentHashMap<Class<?>, Object>();
 
 	@Override
@@ -37,8 +35,8 @@ public class GlobalFixtureResolver implements FixtureResolver {
 		cache.putIfAbsent(declarationType, fixture);
 	}
 
+	@Override
 	public <M> void registerFixture(Class<M> declarationType, ObjectFactory fixtureFactory) {
 		cache.putIfAbsent(declarationType, fixtureFactory);
 	}
-
 }

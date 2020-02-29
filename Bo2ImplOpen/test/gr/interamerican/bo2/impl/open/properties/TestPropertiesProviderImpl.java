@@ -30,29 +30,19 @@ import org.junit.Test;
 @SuppressWarnings("nls")
 public class TestPropertiesProviderImpl {
 	
-	/**
-	 * properties for the test 
-	 */
+	/** properties for the test. */
 	private Properties properties;
 	
-	/**
-	 * tested object
-	 */
+	/** tested object. */
 	private PropertiesProviderImpl impl;
 	
-	/**
-	 * keys of properties
-	 */
+	/** keys of properties. */
 	private String[] keys = {"0","1","2","3","4","5","6","7","8"};
 	
-	/**
-	 * values of properties
-	 */
+	/** values of properties. */
 	private Object[] values;
 	
-	/**
-	 * expected values of getProperty methods
-	 */
+	/** expected values of getProperty methods. */
 	private Object[] expected;
 	
 
@@ -105,7 +95,7 @@ public class TestPropertiesProviderImpl {
 		}	}
 	
 	/**
-	 * tests getProperty
+	 * tests getProperty.
 	 */
 	@Test
 	public void testGetProperty() {
@@ -115,7 +105,7 @@ public class TestPropertiesProviderImpl {
 	}
 	
 	/**
-	 * tests getPropertyAsDouble for string double
+	 * tests getPropertyAsDouble for string double.
 	 */
 	@Test
 	public void testGetDoubleString() {		
@@ -129,7 +119,7 @@ public class TestPropertiesProviderImpl {
 	}
 	
 	/**
-	 * tests getPropertyAsDouble for string integer
+	 * tests getPropertyAsDouble for string integer.
 	 */
 	@Test
 	public void testGetIntString() {
@@ -143,8 +133,9 @@ public class TestPropertiesProviderImpl {
 	}
 	
 	/**
-	 * tests getPropertyAsDate for string property
-	 * @throws UnexpectedException 
+	 * tests getPropertyAsDate for string property.
+	 *
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test
 	public void testGetDateString() throws UnexpectedException {
@@ -154,8 +145,9 @@ public class TestPropertiesProviderImpl {
 	}
 	
 	/**
-	 * tests getPropertyAsDate for date property
-	 * @throws UnexpectedException 
+	 * tests getPropertyAsDate for date property.
+	 *
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test
 	public void testGetDate() throws UnexpectedException {
@@ -165,8 +157,9 @@ public class TestPropertiesProviderImpl {
 	}
 	
 	/**
-	 * tests getPropertyAsDate for date property
-	 * @throws UnexpectedException 
+	 * tests getPropertyAsDate for date property.
+	 *
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test(expected=UnexpectedException.class)
 	public void testGetDate_withInvalidFormat() throws UnexpectedException {
@@ -175,7 +168,7 @@ public class TestPropertiesProviderImpl {
 	}
 	
 	/**
-	 * tests getProperty as boolean for false 
+	 * tests getProperty as boolean for false.
 	 */
 	@Test
 	public void testGetBooleanString() {
@@ -185,7 +178,7 @@ public class TestPropertiesProviderImpl {
 	}
 	
 	/**
-	 * tests getProperty as boolean for false
+	 * tests getProperty as boolean for false.
 	 */
 	@Test
 	public void testGetBooleanInt() {
@@ -195,7 +188,7 @@ public class TestPropertiesProviderImpl {
 	}
 	
 	/**
-	 * tests getPropertyAsDouble for double
+	 * tests getPropertyAsDouble for double.
 	 */
 	@Test
 	public void testGetDouble() {		
@@ -209,7 +202,7 @@ public class TestPropertiesProviderImpl {
 	}
 	
 	/**
-	 * tests getPropertyAsDouble for integer
+	 * tests getPropertyAsDouble for integer.
 	 */
 	@Test
 	public void testGetInt() {
@@ -223,7 +216,7 @@ public class TestPropertiesProviderImpl {
 	}
 
 	/**
-	 * Tests getProperties
+	 * Tests getProperties.
 	 */
 	@Test
 	public void testGetProperties(){
@@ -233,7 +226,7 @@ public class TestPropertiesProviderImpl {
 	}
 	
 	/**
-	 * Tests getPropertyValue
+	 * Tests getPropertyValue.
 	 */
 	@Test
 	public void testGetPropertyValue(){
@@ -243,7 +236,7 @@ public class TestPropertiesProviderImpl {
 	}
 	
 	/**
-	 * Tests getMainProperty
+	 * Tests getMainProperty.
 	 */
 	@Test
 	public void testGetMainProperty(){
@@ -253,8 +246,9 @@ public class TestPropertiesProviderImpl {
 	}
 	
 	/**
-	 * Tests getMainAsDateProperty()
-	 * @throws UnexpectedException 
+	 * Tests getMainAsDateProperty().
+	 *
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test
 	public void testGetMainAsDateProperty() throws UnexpectedException{
@@ -264,8 +258,9 @@ public class TestPropertiesProviderImpl {
 	}
 	
 	/**
-	 * Tests getMainPropertyAsDouble
-	 * @throws UnexpectedException 
+	 * Tests getMainPropertyAsDouble.
+	 *
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test
 	public void testGetMainPropertyAsDouble() throws UnexpectedException{
@@ -275,7 +270,7 @@ public class TestPropertiesProviderImpl {
 	}
 	
 	/**
-	 * Tests getMainPropertyAsBoolean
+	 * Tests getMainPropertyAsBoolean.
 	 */
 	@Test
 	public void testGetMainPropertyAsBoolean(){
@@ -285,7 +280,7 @@ public class TestPropertiesProviderImpl {
 	}
 	
 	/**
-	 * Tests getMainPropertyValue
+	 * Tests getMainPropertyValue.
 	 */
 	@Test
 	public void testGetMainPropertyValue(){
@@ -295,7 +290,7 @@ public class TestPropertiesProviderImpl {
 	}
 	
 	/**
-	 * tests getProperty
+	 * tests getProperty.
 	 */
 	@Test
 	public void testGetProperty_nullValue() {
@@ -303,8 +298,9 @@ public class TestPropertiesProviderImpl {
 	}
 	
 	/**
-	 * tests getPropertyAsDouble
-	 * @throws UnexpectedException 
+	 * tests getPropertyAsDouble.
+	 *
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test
 	public void testGetPropertyAsDouble_nullValue() throws UnexpectedException {
@@ -312,8 +308,9 @@ public class TestPropertiesProviderImpl {
 	}
 	
 	/**
-	 * tests getPropertyAsDouble when value is not a number
-	 * @throws UnexpectedException 
+	 * tests getPropertyAsDouble when value is not a number.
+	 *
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test(expected=UnexpectedException.class)
 	public void testGetPropertyAsDouble_Exception() throws UnexpectedException {
@@ -322,7 +319,7 @@ public class TestPropertiesProviderImpl {
 	}
 	
 	/**
-	 * tests getPropertyAsDouble
+	 * tests getPropertyAsDouble.
 	 */
 	@Test
 	public void testGetPropertyAsBoolean_nullValue() {

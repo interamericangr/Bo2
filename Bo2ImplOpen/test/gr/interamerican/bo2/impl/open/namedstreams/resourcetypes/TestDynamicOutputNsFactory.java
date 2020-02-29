@@ -1,57 +1,59 @@
 package gr.interamerican.bo2.impl.open.namedstreams.resourcetypes;
 
-import gr.interamerican.bo2.impl.open.creation.Factory;
-import gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition;
-import gr.interamerican.bo2.utils.NumberUtils;
-import gr.interamerican.bo2.utils.StringConstants;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.UUID;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.filefilter.FileFilterUtils;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
+
+import gr.interamerican.bo2.impl.open.creation.Factory;
+import gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition;
+import gr.interamerican.bo2.utils.NumberUtils;
+import gr.interamerican.bo2.utils.StringConstants;
 
 /**
- * test suite for {@link DynamicOutputNsFactory}
+ * test suite for {@link DynamicOutputNsFactory}.
  */
 public class TestDynamicOutputNsFactory {
 
-	/**
-	 * {@link DynamicOutputNsFactory}
-	 */
+	/** {@link DynamicOutputNsFactory}. */
 	DynamicOutputNsFactory fac = (DynamicOutputNsFactory) StreamResourceEnum.DYNAMIC.factory;
-	/**
-	 * {@link NamedStreamDefinition}
-	 */
+	
+	/** {@link NamedStreamDefinition}. */
 	NamedStreamDefinition def = Factory.create(NamedStreamDefinition.class);
 
 	/**
-	 *
+	 * 
 	 */
-	private static String PATH = "/temp/tmp/"; //$NON-NLS-1$
+	@Rule
+	public TemporaryFolder testFolder = new TemporaryFolder();
 	/**
 	 *
 	 */
 	private static String BASE_FILENAME = "lala"; //$NON-NLS-1$
 
 	/**
+	 * @throws IOException
 	 *
 	 */
 	@Before
-	public void before() {
-		def.setUri(PATH);
+	public void before() throws IOException {
+		File tempFolder = testFolder.newFolder("folder"); //$NON-NLS-1$
+		def.setUri(tempFolder.getAbsolutePath());
 		def.setName(BASE_FILENAME);
 	}
 
 	/**
-	 * @throws CouldNotCreateNamedStreamException
+	 * After.
+	 *
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */
 	@After
 	public void after() throws CouldNotCreateNamedStreamException {
@@ -59,22 +61,10 @@ public class TestDynamicOutputNsFactory {
 	}
 
 	/**
-	 * delete left-overs
-	 */
-	@AfterClass
-	public static void afterClass() {
-		File dir = new File(PATH);
-		String[] files = dir.list(FileFilterUtils.andFileFilter(FileFilterUtils.fileFileFilter(),
-				FileFilterUtils.prefixFileFilter(BASE_FILENAME)));
-		for (String string : files) {
-			(new File(PATH + string)).delete();
-		}
-	}
-
-	/**
-	 * test case for {@link DynamicOutputNsFactory#testForLockAndLock(NamedStreamDefinition)}
+	 * test case for
+	 * {@link DynamicOutputNsFactory#testForLockAndLock(NamedStreamDefinition)}
 	 *
-	 * @throws CouldNotCreateNamedStreamException
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */
 	@Test
 	public void testTestForLockAndLock() throws CouldNotCreateNamedStreamException {
@@ -84,9 +74,10 @@ public class TestDynamicOutputNsFactory {
 	}
 
 	/**
-	 * test case for {@link DynamicOutputNsFactory#testForLockAndLock(NamedStreamDefinition)}
+	 * test case for
+	 * {@link DynamicOutputNsFactory#testForLockAndLock(NamedStreamDefinition)}
 	 *
-	 * @throws CouldNotCreateNamedStreamException
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */
 	@Test(expected = CouldNotCreateNamedStreamException.class)
 	public void testTestForLockAndLockWithException() throws CouldNotCreateNamedStreamException {
@@ -95,9 +86,10 @@ public class TestDynamicOutputNsFactory {
 	}
 
 	/**
-	 * test case for {@link DynamicOutputNsFactory#testOrCreateDirectory(NamedStreamDefinition)}
+	 * test case for
+	 * {@link DynamicOutputNsFactory#testOrCreateDirectory(NamedStreamDefinition)}
 	 *
-	 * @throws CouldNotCreateNamedStreamException
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */
 	@Test
 	public void testTestOrCreateDirectory() throws CouldNotCreateNamedStreamException {
@@ -111,32 +103,40 @@ public class TestDynamicOutputNsFactory {
 	}
 
 	/**
-	 * test case for {@link DynamicOutputNsFactory#testOrCreateDirectory(NamedStreamDefinition)}
+	 * test case for
+	 * {@link DynamicOutputNsFactory#testOrCreateDirectory(NamedStreamDefinition)}
+	 *
 	 * @throws CouldNotCreateNamedStreamException
 	 */
 	@Test
 	public void testCreateNewFileInDirectory() throws CouldNotCreateNamedStreamException {
 		File f = fac.createNewFileInDirectory(fac.testOrCreateDirectory(def), def);
+		System.out.println(f.getAbsolutePath());
+		System.out.println(f.exists());
 		Assert.assertFalse(f.exists());
 	}
 
 	/**
-	 * @throws CouldNotCreateNamedStreamException
-	 * @throws IOException
+	 * Test create new file in directory custom dir.
+	 *
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	@Test
-	public void testCreateNewFileInDirectoryCustomDir() throws CouldNotCreateNamedStreamException,
-	IOException {
+	public void testCreateNewFileInDirectoryCustomDir() throws CouldNotCreateNamedStreamException, IOException {
 		File f1 = null;
 		File f2 = null;
 		File dir = null;
 		try {
-			String uri = def.getUri() + File.separator + UUID.randomUUID();
+			String uri = def.getUri() + UUID.randomUUID();
+			if (!uri.endsWith(File.separator)) {
+				uri += File.separator;
+			}
 			def.setUri(uri);
-			fac.testOrCreateDirectory(def);
-			f1 = fac.createNewFileInDirectory(fac.testOrCreateDirectory(def), def);
+			dir = fac.testOrCreateDirectory(def);
+			// def.setUri(def.getUri());
+			f1 = fac.createNewFileInDirectory(dir, def);
 			Assert.assertTrue(f1.createNewFile());
-			dir = new File(def.getUri());
 			dir.deleteOnExit();
 			String[] files = dir.list();
 			Assert.assertEquals(1, files.length);
@@ -159,9 +159,10 @@ public class TestDynamicOutputNsFactory {
 	}
 
 	/**
-	 * test case for {@link DynamicOutputNsFactory#openOutputStream(NamedStreamDefinition)}
+	 * test case for
+	 * {@link DynamicOutputNsFactory#openOutputStream(NamedStreamDefinition)}
 	 *
-	 * @throws CouldNotCreateNamedStreamException
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */
 	@Test
 	public void testOpenOutputStream() throws CouldNotCreateNamedStreamException {

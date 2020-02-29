@@ -10,16 +10,16 @@ import javax.xml.ws.Service;
 import javax.xml.ws.WebServiceClient;
 
 /**
- * Utilities for jax-ws
+ * Utilities for jax-ws.
  */
 public class JaxwsUtils {
 	
 	/**
 	 * Fixes the endPoint URL of the web service port, to facilitate
 	 * deployments on different environments.
-	 * 
-	 * @param port
-	 * @param mod 
+	 *
+	 * @param port the port
+	 * @param mod the mod
 	 */
 	public static void fixEndPointAddress(Object port, UrlModifier mod) {
 		if(!(port instanceof BindingProvider)) {
@@ -40,11 +40,10 @@ public class JaxwsUtils {
 	 * Returns the {@link URL} a jax-ws web service would use based on the
 	 * {@link WebServiceClient} annotation present on the web service class, but
 	 * also modified by the {@link UrlModifier} that is passed as an argument.
-	 * 
-	 * @param urlModifier
-	 *            Modifies the default url of the web service
-	 * @param serviceClass
-	 *            Class of the generated web service
+	 *
+	 * @param <S> the generic type
+	 * @param urlModifier            Modifies the default url of the web service
+	 * @param serviceClass            Class of the generated web service
 	 * @return Modified {@link URL} of the web service
 	 */
 	public static <S extends Service> URL getModifiedUrl(UrlModifier urlModifier, Class<S> serviceClass) {
@@ -61,9 +60,9 @@ public class JaxwsUtils {
 	/**
 	 * Returns the {@link QName} a jax-ws web service would use based on the
 	 * {@link WebServiceClient} annotation present on the web service class.
-	 * 
-	 * @param serviceClass
-	 *            Class of the generated web service
+	 *
+	 * @param <S> the generic type
+	 * @param serviceClass            Class of the generated web service
 	 * @return Corresponding QName
 	 */
 	public static <S extends Service> QName getQname(Class<S> serviceClass) {

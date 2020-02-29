@@ -23,30 +23,35 @@ import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.IModel;
 
 /**
- * A {@link DataTable} column that allows to select a single row
- * of the rows contained in the table.
+ * A {@link DataTable} column that allows to select a single row of the rows
+ * contained in the table.
  * 
- * @param <B> Type of object selected.
+ * @param <T>
+ *            the type of the object that will be rendered in this column's
+ *            cells
+ * @param <S>
+ *            the type of the sort property
  */
-public class SingleSelectionColumn<B  extends Serializable> 
-extends AbstractColumn<B> {
+public class SingleSelectionColumn<T extends Serializable, S>
+extends AbstractColumn<T, S> {
 
 	/**
 	 * serial id.
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
-	 * Creates a new SingleSelectionColumn object. 
+	 * Public Constructor.
 	 *
 	 * @param displayModel
+	 *            the display model
 	 */
 	public SingleSelectionColumn(IModel<String> displayModel) {
 		super(displayModel);
 	}
 
-	public void populateItem(Item<ICellPopulator<B>> cellItem, String componentId, final IModel<B> rowModel) {
-		DataTableRadioButtonPanel<B> radioButtonPanel = new DataTableRadioButtonPanel<B>(componentId, rowModel);
-		cellItem.add(radioButtonPanel);
+	@Override
+	public void populateItem(Item<ICellPopulator<T>> cellItem, String componentId, final IModel<T> rowModel) {
+		cellItem.add(new DataTableRadioButtonPanel<>(componentId, rowModel));
 	}
 }

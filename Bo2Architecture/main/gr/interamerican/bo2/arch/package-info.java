@@ -11,11 +11,11 @@
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
 /**
- * This package contains the declaration of the Bo2 architecture. <br/>
+ * This package contains the declaration of the Bo2 architecture. <br>
  * 
  * Bo2 is an architectural framework aiming to facilitate model 
  * driven development of a reusable service oriented java business
- * layer. <br/>
+ * layer. <br>
  * The Bo2 architecture is defined as a set of interfaces.
  *
  */

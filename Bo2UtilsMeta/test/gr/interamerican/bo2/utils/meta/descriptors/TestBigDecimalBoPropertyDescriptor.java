@@ -22,19 +22,17 @@ import java.math.RoundingMode;
 import org.junit.Test;
 
 /**
- * BigDecimalBoPropertyDescriptorTest
+ * BigDecimalBoPropertyDescriptorTest.
  */
 public class TestBigDecimalBoPropertyDescriptor {
 
-	/**
-	 * BigDecimalBoPropertyDescriptor
-	 */
+	/** BigDecimalBoPropertyDescriptor. */
 	private BigDecimalBoPropertyDescriptor bigDecDesc = new BigDecimalBoPropertyDescriptor();
 
 	/**
-	 * Test Parse
-	 * 
-	 * @throws ParseException
+	 * Test Parse.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@Test
 	public void testParse() throws ParseException {
@@ -49,7 +47,7 @@ public class TestBigDecimalBoPropertyDescriptor {
 	}
 
 	/**
-	 * Test format
+	 * Test format.
 	 */
 	@Test
 	public void testFormat() {

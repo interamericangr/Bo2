@@ -12,9 +12,10 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.workers;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
 import gr.interamerican.bo2.arch.EntitiesQuery;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
@@ -26,13 +27,10 @@ import gr.interamerican.bo2.samples.queries.TsEntitiesQueryImpl;
 import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.adapters.Transformation;
 import gr.interamerican.bo2.utils.adapters.mod.Filter;
-import gr.interamerican.bo2.utils.adapters.trans.GetProperty;
 import gr.interamerican.bo2.utils.adapters.trans.Sequence;
 import gr.interamerican.bo2.utils.conditions.Condition;
 import gr.interamerican.bo2.utils.conditions.EqualityCondition;
 import gr.interamerican.bo2.utils.conditions.Not;
-
-import org.junit.Test;
 
 /**
  * Unit tests for {@link TransformedQuery}.
@@ -52,16 +50,12 @@ public class TestTransformedQuery {
 	/**
 	 * Get name.
 	 */
-	@SuppressWarnings("rawtypes")
-	GetProperty<TypedSelectable, String> getName = 
-		new GetProperty<TypedSelectable, String>("name", TypedSelectable.class);	
-	/**
-	 * is empty
-	 */
+	Transformation<TypedSelectable<Long>, String> getName = TypedSelectable::getName;
+	
+	/** is empty. */
 	Condition<String> isEmpty = new EqualityCondition<String>(StringConstants.EMPTY);	
-	/**
-	 * is not empty
-	 */
+	
+	/** is not empty. */
 	Condition<String> isNotEmpty = new Not<String>(isEmpty);
 	/**
 	 * Filter empty strings.
@@ -73,9 +67,7 @@ public class TestTransformedQuery {
 	Transformation<TypedSelectable<Long>, String> transformation =
 		new Sequence<TypedSelectable<Long>, String>(getName, noEmptyStrings);
 		
-	/**
-	 * query to test
-	 */
+	/** query to test. */
 	TransformedQuery<TypedSelectable<Long>, String> query = 
 		new TransformedQuery<TypedSelectable<Long>, String>(wrapped, transformation);
 	
@@ -84,9 +76,10 @@ public class TestTransformedQuery {
 	
 	/**
 	 * Test for the qhole lyfe cycle. 
-	 * @throws UnexpectedException
-	 * @throws DataException
-	 * @throws LogicException
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test()
 	public void testLifecycle() 
@@ -119,7 +112,7 @@ public class TestTransformedQuery {
 	
 	
 	/**
-	 *Tests isAvoidLock 
+	 * Tests isAvoidLock.
 	 */
 	@Test
 	public void testIsAvoidLock(){
@@ -129,7 +122,7 @@ public class TestTransformedQuery {
 	
 	
 	/**
-	 *Tests isAvoidLock 
+	 * Tests isAvoidLock.
 	 */
 	@Test
 	public void testSetAvoidLock(){		

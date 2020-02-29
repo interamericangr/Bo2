@@ -30,9 +30,10 @@ public class TestCrudCmd {
 	
 	/**
 	 * Unit test for all methods.
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@SuppressWarnings("nls")
 	@Test

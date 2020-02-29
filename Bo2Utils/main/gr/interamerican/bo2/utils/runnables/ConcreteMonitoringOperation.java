@@ -5,7 +5,7 @@ import gr.interamerican.bo2.utils.adapters.VoidOperation;
 /**
  * {@link MonitoringOperation} that wraps another {@link VoidOperation}.
  *
- * @param <T>
+ * @param <T> the generic type
  */
 public class ConcreteMonitoringOperation<T> 
 extends AbstractMonitoringOperation<T> {
@@ -23,8 +23,8 @@ extends AbstractMonitoringOperation<T> {
 
 	/**
 	 * Creates a new ConcreteMonitoringOperation.
-	 * 
-	 * @param vo
+	 *
+	 * @param vo the vo
 	 */
 	public ConcreteMonitoringOperation(VoidOperation<T> vo) {
 		super();

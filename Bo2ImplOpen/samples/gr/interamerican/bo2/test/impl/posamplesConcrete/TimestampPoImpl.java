@@ -20,7 +20,7 @@ import gr.interamerican.bo2.test.def.posamples.TimestampPo;
 import java.sql.Timestamp;
 
 /**
- * 
+ * The Class TimestampPoImpl.
  */
 public class TimestampPoImpl 
 extends AbstractModificationRecordPo<TimestampKey> 
@@ -31,9 +31,7 @@ implements TimestampPo {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * timestamp
-	 */
+	/** timestamp. */
 	private Timestamp tms;
 	
 	
@@ -43,14 +41,17 @@ implements TimestampPo {
 	 * @return tms
 	 */
 	
+	@Override
 	public Timestamp getTms() {
 		return tms;
 	}
+	
 	/**
 	 * ��������� tms.
 	 *
-	 * @param tms 
+	 * @param tms the new tms
 	 */
+	@Override
 	public void setTms(Timestamp tms) {
 		this.tms = tms;
 	}
@@ -64,11 +65,13 @@ implements TimestampPo {
 		this.key = Factory.create(TimestampKey.class);
 	}
 
+	@Override
 	public String getTimestampNo() {		
 		return key.getTimestampNo();
 	}
 	
 
+	@Override
 	public void setTimestampNo(String timestampNo) {
 		key.setTimestampNo(timestampNo);
 	}

@@ -23,6 +23,8 @@ import gr.interamerican.bo2.arch.utils.copiers.ImmutableObjectCopier;
 import gr.interamerican.bo2.arch.utils.copiers.KeyCopier;
 import gr.interamerican.bo2.arch.utils.copiers.MoneyCopier;
 import gr.interamerican.bo2.arch.utils.copiers.NullCopier;
+import gr.interamerican.bo2.impl.open.po.utils.DefaultPoAnalyzerResolver;
+import gr.interamerican.bo2.impl.open.po.utils.PoAnalyzerResolver;
 import gr.interamerican.bo2.impl.open.transformations.Copy;
 import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.adapters.Modification;
@@ -60,13 +62,19 @@ public class PoCopier {
 	/**
 	 * Transformation before copying a persistent object.
 	 */
-	private Modification<PersistentObject<?>> onCopyPo = null;
+	private Modification<PersistentObject<?>> onCopyPo;
 
 	/**
 	 * Transformation before copying a persistent object that is annotated
 	 * as child.
 	 */
-	private Modification<PersistentObject<?>> onCopyChildPo = null;
+	private Modification<PersistentObject<?>> onCopyChildPo;
+
+
+	/**
+	 * The {@link PoAnalyzerResolver} in use.
+	 */
+	private PoAnalyzerResolver resolver = DefaultPoAnalyzerResolver.INSTANCE;
 
 
 	/**
@@ -79,11 +87,9 @@ public class PoCopier {
 	}
 
 	/**
-	 * Creates a new PoCopier object.
-	 *
+	 * Hidden Constructor.
 	 */
 	private PoCopier() {
-		super();
 		copiers.registerSelection(Integer.class, new ImmutableObjectCopier<Integer>());
 		copiers.registerSelection(Short.class, new ImmutableObjectCopier<Short>());
 		copiers.registerSelection(Long.class, new ImmutableObjectCopier<Long>());
@@ -118,10 +124,9 @@ public class PoCopier {
 
 	/**
 	 * Finds a registered copier and has the object copied by him.
-	 * 
-	 * @param <T>
-	 * @param objectToCopy
-	 * 
+	 *
+	 * @param <T> the generic type
+	 * @param objectToCopy the object to copy
 	 * @return the copied object.
 	 */
 	@SuppressWarnings("nls")
@@ -130,23 +135,20 @@ public class PoCopier {
 		Copier<T> c = (Copier<T>) copiers.select(objectToCopy);
 		if(c==null) {
 			if (logger.isTraceEnabled()) {
-				String msg = StringUtils.concat(
-						"No suitable copier found for class ",
-						objectToCopy.getClass().getName(),
-						". Returning a reference to the same object.");
+				String msg = StringUtils.concat("No suitable copier found for class ", objectToCopy.getClass()
+						.getName(), ". Returning a reference to the same object.");
 				logger.trace(msg);
 			}
 			return objectToCopy;
-		} else {
+		}
 			logger.trace("Using copier: " + c.getClass().getName());
 			return c.copy(objectToCopy);
 		}
-	}
 
 	/**
 	 * Registers a copier of a type.
-	 * 
-	 * @param <T>
+	 *
+	 * @param <T> the generic type
 	 * @param type type to register
 	 * @param c corresponding copier
 	 */
@@ -173,7 +175,7 @@ public class PoCopier {
 	 * @param onCopyPo the onCopyPo to set
 	 */
 	public void setOnCopyPo(Modification<PersistentObject<?>> onCopyPo) {
-		copier.onCopyPo = onCopyPo;
+		this.onCopyPo = onCopyPo;
 	}
 
 	/**
@@ -192,7 +194,25 @@ public class PoCopier {
 	 */
 	public void setOnCopyChildPo(
 			Modification<PersistentObject<?>> onCopyChildPo) {
-		copier.onCopyChildPo = onCopyChildPo;
+		this.onCopyChildPo = onCopyChildPo;
 	}
 
+	/**
+	 * Gets the {@link PoAnalyzerResolver} in use
+	 * 
+	 * @return Returns the {@link PoAnalyzerResolver} in use
+	 */
+	public PoAnalyzerResolver getResolver() {
+		return resolver;
+}
+
+	/**
+	 * Assigns a new value to the {@link PoAnalyzerResolver} in use
+	 * 
+	 * @param resolver
+	 *            The {@link PoAnalyzerResolver} in use
+	 */
+	public void setResolver(PoAnalyzerResolver resolver) {
+		this.resolver = resolver;
+	}
 }

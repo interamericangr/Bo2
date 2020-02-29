@@ -20,6 +20,7 @@ package gr.interamerican.bo2.samples.abstractimpl;
 public abstract class AbstractExtendedSampleInterfaceImpl 
 extends AbstractSampleInterfaceImpl {
 	
+	@Override
 	public void setField1(String field1) {/*empty*/}
 	
 	

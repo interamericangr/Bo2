@@ -25,7 +25,8 @@ public class JotmUtils {
 	/**
 	 * Enlists a transactional DataSource to the {@link JotmTransactionManager}
 	 * instance associated with the current thread.
-	 * @param ds 
+	 *
+	 * @param ds the ds
 	 */
 	public static void enListTransactionalDataSource(StandardXADataSource ds) {
 		TransactionManager tm = Bo2Session.getProvider().getTransactionManager();
@@ -36,8 +37,8 @@ public class JotmUtils {
 	
 	/**
 	 * Validates a {@link TransactionManager}.
-	 * 
-	 * @param tm
+	 *
+	 * @param tm the tm
 	 */
 	@SuppressWarnings("nls")
 	static void validateTm(TransactionManager tm) {

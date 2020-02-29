@@ -32,23 +32,19 @@ extends UserKey {
 	
 	/**
 	 * Creates a new UserKey object. 
-	 * @param usrId 
 	 *
-	 * @param profileId
+	 * @param usrId the usr id
+	 * @param profileId the profile id
 	 */
 	public UserProfileKey(Integer usrId, Integer profileId) {
 		super(usrId);
 		this.profileId = profileId;
 	}
 
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
-	/**
-	 * id
-	 */
+	/** id. */
 	private Integer profileId;
 
 	/**
@@ -96,6 +92,8 @@ extends UserKey {
 	}
 	
 	/**
+	 * Gets the elements.
+	 *
 	 * @return Returns an array with the key properties.
 	 */
 	Object[] getElements() {

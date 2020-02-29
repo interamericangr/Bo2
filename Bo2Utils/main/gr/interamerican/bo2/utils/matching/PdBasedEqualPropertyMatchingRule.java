@@ -51,6 +51,7 @@ public class PdBasedEqualPropertyMatchingRule<F,S> implements MatchingRule<F, S>
 		this.secondPD = secondPD;
 	}
 
+	@Override
 	public boolean isMatch(Object first, Object second) {
 		Object firstValue = JavaBeanUtils.getProperty(firstPD, first);
 		Object secondValue = JavaBeanUtils.getProperty(secondPD, second);

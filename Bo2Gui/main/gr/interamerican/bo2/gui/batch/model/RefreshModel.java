@@ -31,8 +31,8 @@ public interface RefreshModel extends Serializable {
 
 	/**
 	 * Sets the time of last refresh.
-	 * 
-	 * @param lastRefresh
+	 *
+	 * @param lastRefresh the new last refresh
 	 */
 	void setLastRefresh(Date lastRefresh);
 
@@ -45,8 +45,8 @@ public interface RefreshModel extends Serializable {
 
 	/**
 	 * Sets the auto-refresh flag.
-	 * 
-	 * @param autoRefresh
+	 *
+	 * @param autoRefresh the new auto refresh
 	 */
 	void setAutoRefresh(boolean autoRefresh);
 }

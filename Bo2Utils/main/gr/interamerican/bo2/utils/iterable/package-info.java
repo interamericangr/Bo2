@@ -12,7 +12,7 @@
  ******************************************************************************/
 /**
  * This package contains utility beans that serve for
- * operating on collections. <br/>
+ * operating on collections. <br>
  */
  package gr.interamerican.bo2.utils.iterable;
 

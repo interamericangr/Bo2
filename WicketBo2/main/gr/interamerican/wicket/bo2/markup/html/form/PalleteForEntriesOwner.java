@@ -12,14 +12,14 @@
  ******************************************************************************/
 package gr.interamerican.wicket.bo2.markup.html.form;
 
-import gr.interamerican.bo2.arch.ext.TranslatableEntryOwner;
-import gr.interamerican.wicket.bo2.protocol.http.Bo2WicketSession;
-
 import java.util.Collection;
 import java.util.List;
 
 import org.apache.wicket.extensions.markup.html.form.palette.Palette;
 import org.apache.wicket.model.IModel;
+
+import gr.interamerican.bo2.arch.ext.TranslatableEntryOwner;
+import gr.interamerican.wicket.bo2.protocol.http.Bo2WicketSession;
 
 /**
  * {@link Palette} extension for {@link TranslatableEntryOwner} objects.
@@ -42,17 +42,16 @@ public class PalleteForEntriesOwner<L, T extends TranslatableEntryOwner<Long, ?,
 	/**
 	 * Creates a new PalleteForEntry object. 
 	 *
-	 * @param id
-	 * @param model
-	 * @param choicesModel
-	 * @param rows
-	 * @param allowOrder
-	 * @param session 
+	 * @param id the id
+	 * @param model the model
+	 * @param choicesModel the choices model
+	 * @param rows the rows
+	 * @param allowOrder the allow order
+	 * @param session the session
 	 */
 	public PalleteForEntriesOwner(String id, IModel<List<T>> model, 
 	IModel<? extends Collection<? extends T>> choicesModel, 
 	int rows, boolean allowOrder,Bo2WicketSession<?, L> session) {
 		super(id, model, choicesModel, new ChoiceRendererForEntryOwner<L, T>(session), rows, allowOrder);
 	}
-
 }

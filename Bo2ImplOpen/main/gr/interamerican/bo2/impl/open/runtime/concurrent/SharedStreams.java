@@ -1,3 +1,15 @@
+/*******************************************************************************
+ * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A. 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Lesser Public License v3
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/copyleft/lesser.html
+ * 
+ * This library is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * See the GNU Lesser General Public License for more details.
+ ******************************************************************************/
 package gr.interamerican.bo2.impl.open.runtime.concurrent;
 
 import gr.interamerican.bo2.arch.Provider;
@@ -5,6 +17,7 @@ import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.impl.open.namedstreams.NamedStream;
 import gr.interamerican.bo2.impl.open.namedstreams.NamedStreamsProvider;
 import gr.interamerican.bo2.impl.open.namedstreams.types.NamedPrintStream;
+import static gr.interamerican.bo2.impl.open.runtime.concurrent.BatchProcessConstants.*;
 
 /**
  * Utility class to help create stream names.
@@ -12,57 +25,26 @@ import gr.interamerican.bo2.impl.open.namedstreams.types.NamedPrintStream;
 class SharedStreams {
 	
 	/**
-	 * Provider name for the provider used to initialized shared
-	 * streams used a log files by multithreaded processes.
-	 */
-	private static final String LOGFILES_PROVIDER_NAME = "LOGFILES"; //$NON-NLS-1$
-	
-	/**
-	 * Postfix of successes stream name.
-	 */
-	private static final String SUCCESSES = "_SUCCESSES"; //$NON-NLS-1$
-	
-	/**
-	 * Postfix of failures stream name.
-	 */
-	private static final String FAILURES = "_FAILURES"; //$NON-NLS-1$
-	
-	/**
-	 * Postfix of stacktraces stream name.
-	 */
-	private static final String STACKTRACES = "_STACKTRACES"; //$NON-NLS-1$
-	
-	/**
 	 * Gets the stream name of the successes stream.
-	 * 
-	 * @param prefix
-	 * @param postFix 
-	 * 
+	 *
+	 * @param prefix the prefix
+	 * @param postFix the post fix
 	 * @return Gets the stream name of the successes stream.
 	 */
 	private static final String streamName(String prefix, String postFix) {
 		return prefix.trim() + postFix;		
 	}
 	
-	
-	
-	
-	
-	
 	/**
 	 * Gets the stream from the specified provider, using the
 	 * specified prefix and postfix.
-	 * 
-	 * @param p
-	 *        Provider.
-	 * @param prefix
-	 *        Prefix of stream name.
-	 * @param postfix 
-	 *        Postfix of stream name.
+	 *
+	 * @param p        Provider.
+	 * @param prefix        Prefix of stream name.
+	 * @param postfix        Postfix of stream name.
 	 *        
 	 * @return Returns the stream.
-	 * 
-	 * @throws InitializationException
+	 * @throws InitializationException the initialization exception
 	 */
 	private static NamedPrintStream stream(Provider p, String prefix, String postfix) 
 	throws InitializationException {		
@@ -74,15 +56,12 @@ class SharedStreams {
 	/**
 	 * Gets the successes stream from the specified provider, using the
 	 * specified stream name prefix.
-	 * 
-	 * @param p
-	 *        Provider.
-	 * @param prefix
-	 *        Prefix of stream name.
+	 *
+	 * @param p        Provider.
+	 * @param prefix        Prefix of stream name.
 	 *        
 	 * @return Returns the stream.
-	 * 
-	 * @throws InitializationException
+	 * @throws InitializationException the initialization exception
 	 */
 	public static NamedPrintStream successes(Provider p, String prefix) 
 	throws InitializationException {		
@@ -92,15 +71,12 @@ class SharedStreams {
 	/**
 	 * Gets the successes stream from the specified provider, using the
 	 * specified stream name prefix.
-	 * 
-	 * @param p
-	 *        Provider.
-	 * @param prefix
-	 *        Prefix of stream name.
+	 *
+	 * @param p        Provider.
+	 * @param prefix        Prefix of stream name.
 	 *        
 	 * @return Returns the stream.
-	 * 
-	 * @throws InitializationException
+	 * @throws InitializationException the initialization exception
 	 */
 	public static NamedPrintStream failures(Provider p, String prefix) 
 	throws InitializationException {		
@@ -110,15 +86,12 @@ class SharedStreams {
 	/**
 	 * Gets the stacktraces stream from the specified provider, using the
 	 * specified stream name prefix.
-	 * 
-	 * @param p
-	 *        Provider.
-	 * @param prefix
-	 *        Prefix of stream name.
+	 *
+	 * @param p        Provider.
+	 * @param prefix        Prefix of stream name.
 	 *        
 	 * @return Returns the stream.
-	 * 
-	 * @throws InitializationException
+	 * @throws InitializationException the initialization exception
 	 */
 	public static NamedPrintStream stacktraces(Provider p, String prefix) 
 	throws InitializationException {		
@@ -147,15 +120,12 @@ class SharedStreams {
 	
 	/**
 	 * Gets the stream with the specified name from the specified provider.
-	 * 
-	 * @param p
-	 *        Provider.
-	 * @param streamName
-	 *        stream name.
+	 *
+	 * @param p        Provider.
+	 * @param streamName        stream name.
 	 *        
 	 * @return Returns the stream.
-	 * 
-	 * @throws InitializationException
+	 * @throws InitializationException the initialization exception
 	 */
 	public static NamedStream<?> sharedStream(Provider p, String streamName) 
 	throws InitializationException {		

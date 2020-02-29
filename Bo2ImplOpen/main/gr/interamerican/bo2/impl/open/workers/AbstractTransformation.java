@@ -29,7 +29,8 @@ import gr.interamerican.bo2.utils.adapters.Transformation;
 public abstract class AbstractTransformation<A,R> 
 extends AbstractResourceConsumer 
 implements Transformation<A, R> {
-	
+
+	@Override
 	public R execute(A a) {
 		try {
 			return transform(a);
@@ -39,17 +40,17 @@ implements Transformation<A, R> {
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	/**
 	 * Transformation.
-	 * 
+	 *
 	 * @param a
+	 *            the a
 	 * @return Returns the result of the transformation.
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
+	 * @throws LogicException
+	 *             the logic exception
+	 * @throws DataException
+	 *             the data exception
 	 */
-	protected abstract R transform(A a)
-	throws LogicException, DataException ;
-
+	protected abstract R transform(A a) throws LogicException, DataException;
 }

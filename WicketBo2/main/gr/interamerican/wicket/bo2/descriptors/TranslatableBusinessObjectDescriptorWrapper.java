@@ -18,6 +18,7 @@ import gr.interamerican.bo2.utils.meta.BusinessObjectDescriptor;
 import gr.interamerican.bo2.utils.meta.BusinessObjectValidationExpression;
 import gr.interamerican.bo2.utils.meta.descriptors.BoPropertyDescriptor;
 import gr.interamerican.bo2.utils.meta.exceptions.MultipleValidationsException;
+import gr.interamerican.bo2.utils.meta.ext.descriptors.TranslatableBasicBusinessObjectDescriptor;
 import gr.interamerican.wicket.bo2.protocol.http.Bo2WicketSession;
 
 import java.util.List;
@@ -34,12 +35,13 @@ import java.util.Set;
  *            Type of translation resource id.
  * @param <L>
  *            Type of language id.
+ * @deprecated To be removed - use {@link TranslatableBasicBusinessObjectDescriptor} instead
  */
+@Deprecated
 public class TranslatableBusinessObjectDescriptorWrapper<T, R, L> 
 implements BusinessObjectDescriptor<T>{
-	/**
-	 * 
-	 */
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Descriptor.
@@ -76,6 +78,7 @@ implements BusinessObjectDescriptor<T>{
 		this.resourceId = resourceId;
 	}
 
+	@Override
 	public String getLabel() {
 		/*
 		 * The unchecked conversion assumes that the Translator 
@@ -87,52 +90,65 @@ implements BusinessObjectDescriptor<T>{
 		label = Utils.notNull(label, descriptor.getLabel());
 		return label;
 	}
-	
+
+	@Override
 	public List<BoPropertyDescriptor<?>> getPropertyDescriptors() {
 		return descriptor.getPropertyDescriptors();
 	}
 
+	@Override
 	public Map<BoPropertyDescriptor<?>, Object> get(T object) {
 		return descriptor.get(object);
 	}
 
+	@Override
 	public void validate(T object) throws MultipleValidationsException {
 		descriptor.validate(object);	
 	}
 
+	@Override
 	public String getName() {
 		return descriptor.getName();
 	}
-	
+
+	@Override
 	public void setPropertyDescriptors(List<BoPropertyDescriptor<?>> propertyDescriptors) {
 		throw new RuntimeException("Not allowed"); //$NON-NLS-1$
 	}
+
+	@Override
 	public void set(T object, Map<BoPropertyDescriptor<?>, Object> values)
 	throws MultipleValidationsException {
 		throw new RuntimeException("Not allowed"); //$NON-NLS-1$
 	}
+
+	@Override
 	public void setLabel(String label) {
 		throw new RuntimeException("Not allowed"); //$NON-NLS-1$
 	}
 
+	@Override
 	public void setName(String name) {
 		throw new RuntimeException("Not allowed"); //$NON-NLS-1$
 	}
 
+	@Override
 	public void setExpressions(Set<BusinessObjectValidationExpression> expressions) {
 		throw new RuntimeException("Not allowed"); //$NON-NLS-1$
 	}
 
+	@Override
 	public Set<BusinessObjectValidationExpression> getExpressions() {
 		return descriptor.getExpressions();
 	}
 
+	@Override
 	public BoPropertyDescriptor<?> getDescriptorByName(String descriptorName) {
 		return descriptor.getDescriptorByName(descriptorName);
 	}
 
+	@Override
 	public BoPropertyDescriptor<?> whoAffectsMe(BoPropertyDescriptor<?> affected) {
 		return descriptor.whoAffectsMe(affected);
 	}
-
 }

@@ -64,23 +64,22 @@ extends JPanel {
 	/**
 	 * Available JDBC managers selection.
 	 */
-	JComboBox managersSelection;
+	JComboBox<String> managersSelection;
 	
 	/**
 	 * Number of rows to limit results to.
 	 */
 	JTextField limitField;
-	/**
-	 * field containing the number of results returned in the {@link ResultSet}
-	 */
+	
+	/** field containing the number of results returned in the {@link ResultSet}. */
 	JTextField numberOfResultsField;
 	
-	/**
-	 * Should a row limit be applied?
-	 */
+	/** Should a row limit be applied?. */
 	JCheckBox limitCheckBox;
 	
 	/**
+	 * Inits the text.
+	 *
 	 * @return the initial text in the sql panel.
 	 */
 	String initText() {
@@ -120,7 +119,7 @@ extends JPanel {
 		
 		String[] managers = Bo2DeploymentInfoUtility.get().getJdbcManagers();
 		
-		managersSelection = new JComboBox(managers);
+		managersSelection = new JComboBox<>(managers);
 		BLabel numberOfResultsLabel = new BLabel("resultsLabel");
 		numberOfResultsLabel.setValue("Total results");
 		numberOfResultsField = new JTextField(15);
@@ -159,8 +158,9 @@ extends JPanel {
 	
 	/**
 	 * Action that executes the query.
-	 * @throws DataException
-	 * @throws SQLException
+	 *
+	 * @throws DataException the data exception
+	 * @throws SQLException the SQL exception
 	 */
 	@SuppressWarnings("unused")
 	private void executeQuery() throws DataException, SQLException {
@@ -170,11 +170,10 @@ extends JPanel {
 	
 	/**
 	 * Creates the model for the table based on the query results.
-	 * 
+	 *
 	 * @return table model.
-	 * 
-	 * @throws DataException
-	 * @throws SQLException
+	 * @throws DataException the data exception
+	 * @throws SQLException the SQL exception
 	 */
 	TableModel createTableModel() throws DataException, SQLException {
 		String sql = getSql();

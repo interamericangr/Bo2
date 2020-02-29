@@ -25,7 +25,7 @@ import org.junit.Test;
 public class TestValuesBasedKey {
 	
 	/**
-	 * Tests setField1
+	 * Tests setField1.
 	 */
 	@Test
 	public void testSetField1() {
@@ -36,7 +36,7 @@ public class TestValuesBasedKey {
 	}
 
 	/**
-	 * Tests setField2
+	 * Tests setField2.
 	 */
 	@Test
 	public void testSetField2() {
@@ -47,7 +47,7 @@ public class TestValuesBasedKey {
 	}
 	
 	/**
-	 * Tests setField2
+	 * Tests setField2.
 	 */
 	@Test
 	public void testSetField1and2() {
@@ -59,7 +59,7 @@ public class TestValuesBasedKey {
 	}
 	
 	/**
-	 * Tests getField
+	 * Tests getField.
 	 */
 	@Test
 	public void testGetField() {
@@ -71,7 +71,7 @@ public class TestValuesBasedKey {
 	}
 	
 	/**
-	 * Tests getField
+	 * Tests getField.
 	 */
 	@Test
 	public void testSetFieldDoesNotMessWithOtherFields() {
@@ -89,7 +89,7 @@ public class TestValuesBasedKey {
 	}
 	
 	/**
-	 * Tests getField
+	 * Tests getField.
 	 */
 	@Test
 	public void testGetFieldDoesNotThrowNullPointer() {

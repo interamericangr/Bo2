@@ -34,29 +34,30 @@ implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider{
 	 * serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * Markup builder.
 	 */
 	private String markup;
-	
+
 	/**
 	 * Creates a new TestPanel object. 
 	 *
-	 * @param id
-	 * @param markup 
+	 * @param id the id
+	 * @param markup the markup
 	 */
 	public TestPanel(String id, String markup) {
 		super(id);
 		this.markup = markup;
 	}
 
+	@Override
 	public String getCacheKey(MarkupContainer container, Class<?> containerClass) {
 		return null;
 	}
 
+	@Override
 	public IResourceStream getMarkupResourceStream(MarkupContainer container, Class<?> containerClass) {
 		return new StringAsResourceStream(markup);
 	}
-
 }

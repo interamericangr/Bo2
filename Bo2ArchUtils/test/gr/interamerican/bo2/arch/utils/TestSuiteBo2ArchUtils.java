@@ -24,7 +24,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 /**
- * 
+ * The Class TestSuiteBo2ArchUtils.
  */
 @RunWith(Suite.class)
 @SuiteClasses(

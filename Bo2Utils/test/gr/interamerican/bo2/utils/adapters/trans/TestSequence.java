@@ -12,20 +12,19 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.adapters.trans;
 
-import gr.interamerican.bo2.samples.bean.BeanWith2Fields;
-import gr.interamerican.bo2.utils.adapters.trans.ConditionAdapter;
-import gr.interamerican.bo2.utils.adapters.trans.GetProperty;
-import gr.interamerican.bo2.utils.adapters.trans.Sequence;
-import gr.interamerican.bo2.utils.conditions.Condition;
-import gr.interamerican.bo2.utils.conditions.IsNotNull;
-
 import org.junit.Assert;
 import org.junit.Test;
+
+import gr.interamerican.bo2.samples.bean.BeanWith2Fields;
+import gr.interamerican.bo2.utils.adapters.Transformation;
+import gr.interamerican.bo2.utils.conditions.Condition;
+import gr.interamerican.bo2.utils.conditions.IsNotNull;
 
 /**
  * Unit test for {@link Sequence}.
  */
 public class TestSequence {
+
 	/**
 	 * Unit test for the adapter.
 	 */
@@ -34,20 +33,12 @@ public class TestSequence {
 		BeanWith2Fields bean = new BeanWith2Fields();		
 		bean.setField1("value"); //$NON-NLS-1$
 		bean.setField2(2);
-		
-		GetProperty<BeanWith2Fields, String> getter = 
-			new GetProperty<BeanWith2Fields, String>("field1", BeanWith2Fields.class); //$NON-NLS-1$
 		Condition<String> notNull = new IsNotNull<String>();
 		ConditionAdapter<String> notNullResult = new ConditionAdapter<String>(notNull);
-		
+		Transformation<BeanWith2Fields, String> t = BeanWith2Fields::getField1;
 		Sequence<BeanWith2Fields, Boolean> sequence = 
-			new Sequence<BeanWith2Fields, Boolean>(getter, notNullResult);
-		
+			new Sequence<BeanWith2Fields, Boolean>(t, notNullResult);
 		Boolean val = sequence.execute(bean);
 		Assert.assertTrue(val);
-		
 	}
-	
-
-
 }

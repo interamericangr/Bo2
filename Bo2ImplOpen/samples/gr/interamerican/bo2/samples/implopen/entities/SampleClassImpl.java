@@ -20,29 +20,28 @@ import gr.interamerican.bo2.test.def.samples.SampleCalculator;
 import gr.interamerican.bo2.test.impl.samples.SampleCalculatorImpl;
 
 /**
- * sample abstract class
+ * sample abstract class.
  */
-public abstract class SampleClassImpl implements SampleClass , SampleClass2, SampleCalculator, TypedSelectable{
+public abstract class SampleClassImpl implements SampleClass , SampleClass2, SampleCalculator, TypedSelectable<Long> {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * a sample key field declared as an inteface
-	 */
-	@SuppressWarnings({ "unused", "cast" })
+	/** a sample key field declared as an inteface. */
 	@DelegateProperties("field1, field2")
 	private BeanWith2Fields sampleBean = new BeanWith2Fields();
 	
+	/** The sample calculator. */
 	@DelegateMethods("")
-	private SampleCalculator sampleCalculator = (SampleCalculator) new SampleCalculatorImpl();
+	private SampleCalculator sampleCalculator = new SampleCalculatorImpl();
 	
+	/** The codebar. */
 	private Long codebar;
 	
+	/** The descr. */
 	private String descr;
 	
+	/** The type id. */
 	private Long typeId;
 
 	/**
@@ -86,6 +85,7 @@ public abstract class SampleClassImpl implements SampleClass , SampleClass2, Sam
 	 *
 	 * @return Returns the typeId
 	 */
+	@Override
 	public Long getTypeId() {
 		return typeId;
 	}
@@ -95,12 +95,8 @@ public abstract class SampleClassImpl implements SampleClass , SampleClass2, Sam
 	 *
 	 * @param typeId the typeId to set
 	 */
+	@Override
 	public void setTypeId(Long typeId) {
 		this.typeId = typeId;
 	}
-	
-	
-	
-	
-	
 }

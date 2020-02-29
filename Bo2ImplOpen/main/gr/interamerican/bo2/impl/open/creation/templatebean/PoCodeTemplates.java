@@ -142,9 +142,8 @@ extends FolderInitializedBean {
 	
 	/**
 	 * Gets the factory create code filled.
-	 * 
-	 * @param type 
 	 *
+	 * @param type the type
 	 * @return Returns the poConstructor
 	 */
 	public String getFactoryCreate(Class<?> type) {		
@@ -155,8 +154,8 @@ extends FolderInitializedBean {
 
 	/**
 	 * Gets the fixChildReflective filled.
-	 * @param name 
 	 *
+	 * @param name the name
 	 * @return Returns the fixChildReflective
 	 */
 	public String getFixChildReflective(String name) {		
@@ -166,8 +165,8 @@ extends FolderInitializedBean {
 	
 	/**
 	 * Gets the fixChildReflective filled.
-	 * @param name 
 	 *
+	 * @param name the name
 	 * @return Returns the fixChildReflective
 	 */
 	public String getFixChildDirect(String name) {		
@@ -177,9 +176,8 @@ extends FolderInitializedBean {
 
 	/**
 	 * Gets the poConstructor filled.
-	 * 
-	 * @param variables 
 	 *
+	 * @param variables the variables
 	 * @return Returns the poConstructor
 	 */
 	public String getPoConstructor(Map<String, String> variables) {		
@@ -206,9 +204,8 @@ extends FolderInitializedBean {
 
 	/**
 	 * Fills the template for the abstractKey.getElements() method.
-	 * 
-	 * @param variables
-	 * 
+	 *
+	 * @param variables the variables
 	 * @return Returns the filled template.
 	 */
 	public String getAbstractKeyGetElements(Map<String, String> variables) {

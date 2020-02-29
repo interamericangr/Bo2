@@ -11,17 +11,15 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Test of {@link ServicePanelFactoryImpl}
+ * Test of {@link ServicePanelFactoryImpl}.
  */
 public class TestServicePanelFactoryImpl extends WicketTest {
 	
-	/**
-	 * subject
-	 */
+	/** subject. */
 	ServicePanelFactoryImpl impl = new ServicePanelFactoryImpl();
 	
 	/**
-	 * Unit test for createPanel()
+	 * Unit test for createPanel().
 	 */
 	@Test
 	public void testCreatePanel() {
@@ -33,7 +31,7 @@ public class TestServicePanelFactoryImpl extends WicketTest {
 	}
 	
 	/**
-	 * Unit test for getFixtureResolver()
+	 * Unit test for getFixtureResolver().
 	 */
 	@Test
 	public void testGetFixtureResolver() {

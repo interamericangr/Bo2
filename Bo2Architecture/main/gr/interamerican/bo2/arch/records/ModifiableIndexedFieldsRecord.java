@@ -26,9 +26,8 @@ import java.util.Date;
  * A record that can have its values changed.
  * 
  * The record offers setter methods for modification of its field's values.
- * 
- * @param <T> 
- * 
+ *
+ * @param <T> the generic type
  */
 public interface ModifiableIndexedFieldsRecord<T> 
 extends IndexedFieldsRecord<T> {

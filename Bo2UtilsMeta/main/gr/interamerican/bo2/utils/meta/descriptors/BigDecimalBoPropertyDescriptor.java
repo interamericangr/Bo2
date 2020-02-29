@@ -27,9 +27,7 @@ import java.math.RoundingMode;
 public class BigDecimalBoPropertyDescriptor 
 extends AbstractNumberBoPropertyDescriptor<BigDecimal> {
 		
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**

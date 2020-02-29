@@ -27,16 +27,14 @@ public class LongProcessControlPanel extends BPanel<LongProcessControl> {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Names of buttons
-	 */
+	/** Names of buttons. */
 	@SuppressWarnings("nls")
 	private static final String[] COMMANDS = { "pause", "resume", "forceQuit", "tidy" };
 	
 	/**
 	 * Creates a new LongProcessCommandPanel object. 
 	 *
-	 * @param model
+	 * @param model the model
 	 */
 	public LongProcessControlPanel(LongProcessControl model) {
 		super(model);

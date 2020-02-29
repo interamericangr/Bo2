@@ -31,48 +31,43 @@ implements ParserProvider {
 	SqlParser parser;
 
 	/**
-	 * Creates a new ParserProviderImpl object. 
+	 * Creates a new ParserProviderImpl object.
 	 *
 	 * @param parser
-	 *        Parser for the new object.
+	 *            Parser for the new object.
 	 */
 	public ParserProviderImpl(SqlParser parser) {
-		super();
 		this.parser = parser;
 	}
-	
+
 	/**
-	 * 
-	 * Creates a new ParserProviderImpl object. 
+	 * Creates a new ParserProviderImpl object.
 	 *
 	 * @param parserClass
-	 *        Class of the parser.
+	 *            Class of the parser.
 	 */
 	public ParserProviderImpl(String parserClass) {
-		super();
 		parser = ReflectionUtils.newInstance(parserClass);
 	}
-	
+
 	/**
-	 * 
-	 * Creates a new ParserProviderImpl object. 
+	 * Creates a new ParserProviderImpl object.
 	 *
 	 * @param properties
-	 *        Initialization properties. of the parser.
+	 *            Initialization properties. of the parser.
 	 */
 	public ParserProviderImpl(Properties properties) {
-		super();
 		String parserClass = CollectionUtils.getMandatoryProperty(properties, "parserClass"); //$NON-NLS-1$
 		parser = ReflectionUtils.newInstance(parserClass);
 	}
 
-
+	@Override
 	public SqlParser getParser() {
 		return parser;
 	}
-	
+
+	@Override
 	public void close() throws DataException {
 		/* empty */
 	}
-
 }

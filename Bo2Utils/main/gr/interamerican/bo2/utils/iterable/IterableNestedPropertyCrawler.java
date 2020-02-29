@@ -25,12 +25,9 @@ implements VoidOperation<A> {
 	
 	/**
 	 * Creates a new IterablePropertyCrawler object.
-	 * 
-	 * @param operation
-	 *        Operation to execute on each element of the iterable
-	 *        property.
-	 * @param property
-	 *        name of the iterable property.      
+	 *
+	 * @param op the op
+	 * @param properties the properties
 	 */
 	IterableNestedPropertyCrawler(VoidOperation<T> op, String[] properties) {
 		super();

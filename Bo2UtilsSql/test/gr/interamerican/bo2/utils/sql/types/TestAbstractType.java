@@ -20,17 +20,15 @@ import java.sql.SQLException;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestAbstractType.
  */
 public class TestAbstractType {
 
-	/**
-	 * AbstractTypeImpl
-	 */
+	/** AbstractTypeImpl. */
 	AbstractTypeImpl impl = new AbstractTypeImpl();
 	
 	/**
-	 * Tests statementParameter
+	 * Tests statementParameter.
 	 */
 	@Test
 	public void testStatementParameter(){
@@ -41,7 +39,7 @@ public class TestAbstractType {
 	}
 	
 	/**
-	 * implementation to test
+	 * implementation to test.
 	 */
 	private class AbstractTypeImpl extends AbstractType<Integer>{
 

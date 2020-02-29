@@ -38,9 +38,8 @@ public class SameTypeEqualPropertiesMatchingRule<F> implements MatchingRule<F, F
 	/**
 	 * Creates a new EqualPropertiesMatchingRule object. 
 	 *
-	 * @param clazz
-	 *	  
-	 * @param propertiesToCompare
+	 * @param clazz the clazz
+	 * @param propertiesToCompare the properties to compare
 	 */
 	public SameTypeEqualPropertiesMatchingRule
 	(Class<F> clazz, String[] propertiesToCompare) {
@@ -58,6 +57,7 @@ public class SameTypeEqualPropertiesMatchingRule<F> implements MatchingRule<F, F
 		this.match = new AndMatchingRule<F, F>(rules);		
 	}
 
+	@Override
 	public boolean isMatch(F first, F second) {		
 		return match.isMatch(first, second);
 	}

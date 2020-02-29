@@ -59,17 +59,16 @@ public class TestAbstractHibernateWorker {
 	 */
 	private int id2 = 12807;
 	
-	/**
-	 * user name 1
-	 */
+	/** user name 1. */
 	private String name1 = "user name 1"; //$NON-NLS-1$
 		
 	/**
 	 * Deletes users.
-	 * @param ids
-	 * @throws DataException
-	 * @throws LogicException 
-	 * @throws UnexpectedException 
+	 *
+	 * @param ids the ids
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	private void deleteUsers(final Integer... ids) 
 	throws DataException, LogicException, UnexpectedException{
@@ -97,8 +96,9 @@ public class TestAbstractHibernateWorker {
 	
 	/**
 	 * Creates a user.
-	 * @param id
-	 * @param name
+	 *
+	 * @param id the id
+	 * @param name the name
 	 * @return returns the user.
 	 */
 	private User createUser(int id, String name) {
@@ -112,12 +112,12 @@ public class TestAbstractHibernateWorker {
 	
 	/**
 	 * reads a user.
-	 * 
-	 * @param id
+	 *
+	 * @param id the id
 	 * @return returns the user.
-	 * @throws DataException
-	 * @throws LogicException 
-	 * @throws UnexpectedException 
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	private User readuser(final int id) 
 	throws DataException, LogicException, UnexpectedException {
@@ -147,9 +147,11 @@ public class TestAbstractHibernateWorker {
 	
 	
 	/**
-	 * @throws LogicException
-	 * @throws DataException
-	 * @throws UnexpectedException 
+	 * Before.
+	 *
+	 * @throws LogicException the logic exception
+	 * @throws DataException the data exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Before
 	public void before() throws LogicException,  DataException, UnexpectedException {		
@@ -158,10 +160,10 @@ public class TestAbstractHibernateWorker {
 	
 	/**
 	 * Test setup.
-	 * 
-	 * @throws LogicException
-	 * @throws DataException
-	 * @throws UnexpectedException 
+	 *
+	 * @throws LogicException the logic exception
+	 * @throws DataException the data exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@After
 	public void after() throws LogicException,  DataException, UnexpectedException {		
@@ -170,8 +172,9 @@ public class TestAbstractHibernateWorker {
 	
 	/**
 	 * Tests init, open, close.
-	 * @throws InitializationException 
-	 * @throws DataException 
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testInitOpenClose() 
@@ -192,10 +195,10 @@ public class TestAbstractHibernateWorker {
 	/**
 	 * Tests that persist will not flush and then
 	 * closing the ResourceManager will not flush automatically.
-	 * 
-	 * @throws DataException
-	 * @throws LogicException 
-	 * @throws UnexpectedException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test(expected=PoNotFoundException.class)
 	public void testCloseDoesNotFlush() 
@@ -212,10 +215,10 @@ public class TestAbstractHibernateWorker {
 	
 	/**
 	 * Tests that persist will not flush.
-	 * 
-	 * @throws DataException
-	 * @throws LogicException 
-	 * @throws UnexpectedException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test(expected=PoNotFoundException.class)
 	public void testSaveDoesNotFlush() 
@@ -235,10 +238,10 @@ public class TestAbstractHibernateWorker {
 	
 	/**
 	 * Tests that get will always get an existing user.
-	 * 
-	 * @throws DataException
-	 * @throws LogicException 
-	 * @throws UnexpectedException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test()
 	public void testGetFetchesAnExistingUser() 
@@ -255,10 +258,10 @@ public class TestAbstractHibernateWorker {
 	
 	/**
 	 * Tests that get will always get an existing user.
-	 * 
-	 * @throws DataException
-	 * @throws LogicException 
-	 * @throws UnexpectedException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test()
 	public void testGetDoesNotCreateNotExistingObject() 
@@ -275,10 +278,10 @@ public class TestAbstractHibernateWorker {
 	
 	/**
 	 * Test that get will always get the same object.
-	 * 
-	 * @throws DataException
-	 * @throws LogicException 
-	 * @throws UnexpectedException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test()
 	public void testCallingGetTwiceForSameObject() 
@@ -299,10 +302,10 @@ public class TestAbstractHibernateWorker {
 	
 	/**
 	 * Test that load() will load a saved object.
-	 * 
-	 * @throws DataException
-	 * @throws LogicException 
-	 * @throws UnexpectedException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test()
 	public void testUpdateWithExistingUser() 
@@ -343,10 +346,10 @@ public class TestAbstractHibernateWorker {
 	
 	/**
 	 * Test the management of an exception.
-	 * 
-	 * @throws DataException
-	 * @throws LogicException 
-	 * @throws UnexpectedException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test(expected=UnexpectedException.class)
 	public void testExceptionManagement() 
@@ -365,10 +368,10 @@ public class TestAbstractHibernateWorker {
 	
 	/**
 	 * Test that load() will load a saved object.
-	 * 
-	 * @throws LogicException
-	 * @throws DataException
-	 * @throws UnexpectedException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test()
 	public void testUpdateWithNonExistingUser() 
@@ -404,10 +407,10 @@ public class TestAbstractHibernateWorker {
 	
 	/**
 	 * Test that load() will load a saved object.
-	 * 
-	 * @throws LogicException
-	 * @throws DataException
-	 * @throws UnexpectedException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test()
 	public void testGetEntity() 
@@ -426,10 +429,10 @@ public class TestAbstractHibernateWorker {
 	
 	/**
 	 * Test that load() will load a saved object.
-	 * 
-	 * @throws LogicException
-	 * @throws DataException
-	 * @throws UnexpectedException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test()
 	public void testGetEntity_throwing() 
@@ -465,8 +468,10 @@ public class TestAbstractHibernateWorker {
 		@Child private UserPwImpl userPw = new UserPwImpl();
 		
 		/**
-		 * @param id 
-		 * @param name
+		 * Save.
+		 *
+		 * @param id the id
+		 * @param name the name
 		 * @return user
 		 */
 		User save(int id, String name){
@@ -477,8 +482,9 @@ public class TestAbstractHibernateWorker {
 		}
 		
 		/**
-		 * updates an object
-		 * @param user
+		 * updates an object.
+		 *
+		 * @param user the user
 		 * @return returns the object.
 		 */
 		User update(User user) {
@@ -487,7 +493,9 @@ public class TestAbstractHibernateWorker {
 		}
 		
 		/**
-		 * @param id
+		 * Gets the.
+		 *
+		 * @param id the id
 		 * @return user
 		 */
 		User get(int id){
@@ -497,9 +505,11 @@ public class TestAbstractHibernateWorker {
 		}
 		
 		/**
-		 * @param id 
+		 * Read.
+		 *
+		 * @param id the id
 		 * @return user
-		 * @throws DataException
+		 * @throws DataException the data exception
 		 */
 		User read(int id) 
 		throws DataException {

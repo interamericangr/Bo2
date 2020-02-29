@@ -30,7 +30,7 @@ import org.junit.Test;
 public class TestGenericComparator {
 	
 	/**
-	 * tests equality between two null items
+	 * tests equality between two null items.
 	 */
 	public void testNullEqualsNull() {
 		String s1 = null;
@@ -82,7 +82,7 @@ public class TestGenericComparator {
 
 	
 	/**
-	 * test compare ���� ��� �� ��� ����� ����� null
+	 * test compare ���� ��� �� ��� ����� ����� null.
 	 */
 	@Test
 	public void testCompare_withNullValues(){
@@ -91,7 +91,7 @@ public class TestGenericComparator {
 	}
 	
 	/**
-	 * test findComparator
+	 * test findComparator.
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -223,7 +223,7 @@ public class TestGenericComparator {
 	}
 	
 	/**
-	 * tests compare
+	 * tests compare.
 	 */
 	@Test
 	public void testCompare_NullObjects(){
@@ -237,30 +237,24 @@ public class TestGenericComparator {
 	
 
 	/**
-	 * Simple implementation of GenericComparator for this test
+	 * Simple implementation of GenericComparator for this test.
 	 */
 	private class GenericComparatorImpl extends GenericComparator {
 
-		/**
-		 * value that findComparator returns when it decides to compare numbers
-		 */
+		/** value that findComparator returns when it decides to compare numbers. */
 		private int COMPARE_NUMBERS = 10;
 
-		/**
-		 * value that findComparator returns when it decides to compare dates
-		 */
+		/** value that findComparator returns when it decides to compare dates. */
 		private int COMPARE_DATES = 20;
 
-		/**
-		 * value that findComparator returns when it decides to compare strings
-		 */
+		/** value that findComparator returns when it decides to compare strings. */
 		private int COMPARE_STRINGS = 30;
 
 		/**
-		 * @param o1
-		 *            object to compare
-		 * @param o2
-		 *            object to compare
+		 * Find comparator.
+		 *
+		 * @param o1            object to compare
+		 * @param o2            object to compare
 		 * @return one value depending on what comparison it decides upon
 		 */
 		private int findComparator(Object o1, Object o2) {
@@ -300,13 +294,11 @@ public class TestGenericComparator {
 	 * arbitrary objects
 	 */
 	private class OtherType {
-		/**
-		 * the object has one String member
-		 */
+		
+		/** the object has one String member. */
 		String field1;
-		/**
-		 * and one int member
-		 */
+		
+		/** and one int member. */
 		int field2;
 
 		/**

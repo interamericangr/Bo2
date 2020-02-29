@@ -38,7 +38,7 @@ implements EntitiesQuery<T> {
 	/**
 	 * Creates a new ArrayIteratorQuery object. 
 	 *
-	 * @param array
+	 * @param array the array
 	 */
 	public ArrayIteratorQuery(T[] array) {
 		super();
@@ -54,7 +54,7 @@ implements EntitiesQuery<T> {
 	protected ArrayIteratorQuery() {
 		super();
 	}
-	
+
 	@Override
 	protected final Iterator<T> createIterator() 
 	throws DataException {
@@ -76,18 +76,12 @@ implements EntitiesQuery<T> {
 	 * data. By default it returns the array defined in
 	 * the constructor. It must be overriden in order to
 	 * create the array dynamically. 
-	 * 
+	 *
 	 * @return Returns the iterator.
-	 * 
-	 * @throws DataException 
+	 * @throws DataException the data exception
 	 */
+	@SuppressWarnings("unused")
 	protected T[] createArray() throws DataException {
 		return array;
 	}
-	
-	
-	
-	
-	
-	
 }

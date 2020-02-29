@@ -7,7 +7,7 @@ import gr.interamerican.bo2.arch.exceptions.UnexpectedException;
 import gr.interamerican.bo2.utils.ExceptionUtils;
 
 /**
- * Utility class for 
+ * Utility class for.
  */
 public class Bo2ExceptionUtils {
 	
@@ -18,9 +18,9 @@ public class Bo2ExceptionUtils {
 	
 	/**
 	 * Throws an exception, it is an {@link InitializationException}, otherwise does nothing.
-	 * 
-	 * @param t
-	 * @throws InitializationException
+	 *
+	 * @param t the t
+	 * @throws InitializationException the initialization exception
 	 */
 	public static void throwIfIsInitializationException(Throwable t) throws InitializationException {
 		if (t instanceof InitializationException) {
@@ -30,9 +30,9 @@ public class Bo2ExceptionUtils {
 	
 	/**
 	 * Throws an exception, it is an {@link DataException}, otherwise does nothing.
-	 * 
-	 * @param t
-	 * @throws DataException
+	 *
+	 * @param t the t
+	 * @throws DataException the data exception
 	 */
 	public static void throwIfIsDataException(Throwable t) throws DataException {
 		if (t instanceof DataException) {
@@ -42,9 +42,9 @@ public class Bo2ExceptionUtils {
 	
 	/**
 	 * Throws an exception, it is an {@link LogicException}, otherwise does nothing.
-	 * 
-	 * @param t
-	 * @throws LogicException
+	 *
+	 * @param t the t
+	 * @throws LogicException the logic exception
 	 */
 	public static void throwIfIsLogicException(Throwable t) throws LogicException {
 		if (t instanceof LogicException) {
@@ -54,9 +54,9 @@ public class Bo2ExceptionUtils {
 	
 	/**
 	 * Throws an exception, it is an {@link LogicException}, otherwise does nothing.
-	 * 
-	 * @param t
-	 * @throws Error 
+	 *
+	 * @param t the t
+	 * @throws Error the error
 	 */
 	public static void throwIfIsError(Throwable t) throws Error {
 		if (t instanceof Error) {
@@ -69,11 +69,11 @@ public class Bo2ExceptionUtils {
 	 * Wraps and rethrows a thrown, so that it matches the signature of a 
 	 * method that throws the following checked exceptions:
 	 * {@link DataException}, {@link LogicException}, {@link InitializationException}. 
-	 * 
-	 * @param t
-	 * @throws DataException 
-	 * @throws LogicException
-	 * @throws InitializationException 
+	 *
+	 * @param t the t
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws InitializationException the initialization exception
 	 */
 	public static void throwInitDataLogicBo2dliException(Throwable t) 
 	throws DataException, LogicException, InitializationException {
@@ -88,11 +88,11 @@ public class Bo2ExceptionUtils {
 	 * Wraps and rethrows a thrown, so that it matches the signature of a 
 	 * method that throws the following checked exceptions:
 	 * {@link DataException}, {@link LogicException}, {@link UnexpectedException}. 
-	 * 
-	 * @param t
-	 * @throws DataException 
-	 * @throws LogicException
-	 * @throws UnexpectedException 
+	 *
+	 * @param t the t
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	public static void throwDataLogicOrUnexpectedException(Throwable t) 
 	throws DataException, LogicException, UnexpectedException {		
@@ -106,10 +106,10 @@ public class Bo2ExceptionUtils {
 	 * Wraps and rethrows a thrown, so that it matches the signature of a 
 	 * method that throws the following checked exceptions:
 	 * {@link DataException}, {@link LogicException}. 
-	 * 
-	 * @param t
-	 * @throws DataException 
-	 * @throws LogicException
+	 *
+	 * @param t the t
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	public static void throwDataOrLogicException(Throwable t) 
 	throws DataException, LogicException  {		
@@ -122,11 +122,10 @@ public class Bo2ExceptionUtils {
 	/**
 	 * Wraps and rethrows a thrown, so that it matches the signature of a 
 	 * method that throws the following checked exceptions:
-	 * {@link DataException}, {@link LogicException}. 
+	 * {@link DataException}. 
 	 * 
 	 * @param t
 	 * @throws DataException 
-	 * @throws LogicException
 	 */
 	public static void throwDataException(Throwable t) 
 	throws DataException  {		
@@ -134,7 +133,4 @@ public class Bo2ExceptionUtils {
 		throwIfIsError(t);
 		throw ExceptionUtils.runtimeException(t);
 	}
-	
-	
-
 }

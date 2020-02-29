@@ -18,10 +18,12 @@ import gr.interamerican.wicket.callback.CallbackAction;
 /**
  * A {@link DependentCallbackAction} is an action that depends
  * on a supplied object.
- * <p/>
+ * <p>
  * Typically, the caller will redirect to a WebPage built with data
- * from the supplied object
+ * from the supplied object</p>
+ * @deprecated Not used
  */
+@Deprecated
 public interface DependentCallbackAction 
 extends CallbackAction, CriteriaDependent<Object> {
 	/* empty */

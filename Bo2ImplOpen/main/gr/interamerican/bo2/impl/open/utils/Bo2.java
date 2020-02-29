@@ -4,7 +4,7 @@
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/copyleft/lesser.html
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
@@ -24,6 +24,7 @@ import gr.interamerican.bo2.utils.mail.MailServer;
 import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,9 +65,9 @@ public class Bo2 {
 	/**
 	 * Checks that the specified element is not null and if so,
 	 * throws a {@link RuntimeException}.
-	 * 
-	 * @param object
-	 * @param property
+	 *
+	 * @param object the object
+	 * @param property the property
 	 */
 	@SuppressWarnings("nls")
 	static void checkNotNull(Object object, String property) {
@@ -84,33 +85,20 @@ public class Bo2 {
 	private static void initBo2() {
 		Bo2DeploymentParams dp = DEFAULT_DEPLOYMENT.getDeploymentBean();
 
-		/*
-		 * Debug.
-		 */
 		Debug.setEnabled(dp.getDebugEnabled());
-		/*
-		 * Date formats.
-		 */
-		String shortDf = dp.getShortDateFormat();
-		checkNotNull(shortDf, "shortDateFormat");
-		String isoDf = dp.getIsoDateFormat();
-		checkNotNull(isoDf, "isoDateFormat");
-		String longDf = dp.getLongDateFormat();
-		checkNotNull(longDf, "longDateFormat");
-		/*
-		 * fs text file encoding
-		 */
-		String textCharset = dp.getTextEncoding();
-		checkNotNull(textCharset, "textEncoding");
-		/*
-		 * resource text file
-		 */
-		String resourceFileCharset = dp.getResourceFileEncoding();
-		checkNotNull(resourceFileCharset, "resourceFileEncoding");
+
+		checkNotNull(dp.getShortDateFormat(), "shortDateFormat");
+		checkNotNull(dp.getLongDateFormat(), "longDateFormat");
+		checkNotNull(dp.getTextEncoding(), "textEncoding");
+		checkNotNull(dp.getResourceFileEncoding(), "resourceFileEncoding");
+
 		/*
 		 * set Bo2UtilsEnvironment
 		 */
-		Bo2UtilsEnvironment.setEnvironment(shortDf, isoDf, longDf, textCharset, resourceFileCharset);
+		Properties properties = DEFAULT_DEPLOYMENT.getProperties();
+		Bo2UtilsEnvironment.set(properties);
+
+
 		/*
 		 * SMTP initialization.
 		 */
@@ -120,22 +108,6 @@ public class Bo2 {
 		MailServer.INSTANCE.setPort(smtpPort);
 	}
 
-
-
-
-
-	// /**
-	// * Gets the default logger for Bo2.
-	// *
-	// * @return Returns the logger.
-	// *
-	// * @deprecated Use another logger, preferably one that does not belong to another project.
-	// */
-	// @Deprecated
-	// public static Logger getLogger() {
-	// return LOG;
-	// }
-
 	/**
 	 * The Bo2 class is not being instantiated.
 	 */
@@ -144,8 +116,8 @@ public class Bo2 {
 
 	/**
 	 * Sets the connection of the ThreadLocal variable of
-	 * {@link ThreadLocalConnectionStrategy}. <br/>
-	 * 
+	 * {@link ThreadLocalConnectionStrategy}. <br>
+	 *
 	 * This can be useful in cases where the core system running in the current
 	 * deployment is not a Bo2 system, but a JDBC based system that can only
 	 * use the JDBC connection transaction mechanism. In such a deployment the
@@ -157,11 +129,11 @@ public class Bo2 {
 	 * be called. The core module that uses the Bo2 operation should close the
 	 * resources and commit the transactions explicitly. In this case the Bo2
 	 * deployment should not use any transaction manager; the transaction should
-	 * be coordinated by the calling module. <br/>
+	 * be coordinated by the calling module. <br>
 	 * In a case like this, it would be preferable first to create the {@link Provider}
 	 * and let him coordinate the transaction and provide the JDBC connection to the
 	 * core module.
-	 * 
+	 *
 	 * @param connection
 	 *        JDBC connection to set.
 	 */
@@ -198,7 +170,7 @@ public class Bo2 {
 	/**
 	 * Gets the Bo2Deployment that is defined in the properties file
 	 * found in the specified resource path.
-	 * 
+	 *
 	 * @param path
 	 *        Path to the resource file that contains the deployment
 	 *        properties.
@@ -219,13 +191,13 @@ public class Bo2 {
 
 	/**
 	 * Gets a new provider, created by the default Bo2Deployment.
-	 * 
+	 *
 	 * This method delegates to {@link Bo2Deployment#getProvider()} which
 	 * always creates a new Provider.
-	 * 
+	 *
 	 * @return Returns a new provider, created by the {@link Bo2Deployment}
 	 *         that has been marked as default.
-	 * 
+	 *
 	 * @throws InitializationException
 	 *         If the creation of the Provider fails.
 	 */

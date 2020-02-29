@@ -13,15 +13,15 @@
 package gr.interamerican.wicket.markup.html.panel.listTable;
 
 
-import gr.interamerican.wicket.creators.DataTableCreator;
-import gr.interamerican.wicket.markup.html.panel.back.ServicePanelWithBackDef;
-import gr.interamerican.wicket.markup.html.panel.service.ServicePanelDef;
-
 import java.io.Serializable;
 import java.util.List;
 
 import org.apache.wicket.extensions.markup.html.repeater.data.table.DataTable;
 import org.apache.wicket.model.IModel;
+
+import gr.interamerican.wicket.creators.DataTableProvider;
+import gr.interamerican.wicket.markup.html.panel.back.ServicePanelWithBackDef;
+import gr.interamerican.wicket.markup.html.panel.service.ServicePanelDef;
 
 /**
  * {@link ServicePanelDef} for {@link ListTablePanel}.
@@ -29,16 +29,15 @@ import org.apache.wicket.model.IModel;
  * @param <B> type of bean.
  */
 public interface ListTablePanelDef<B extends Serializable> 
-extends ServicePanelWithBackDef {
+extends ServicePanelWithBackDef, ExportButtonOptions<B> {
 		
 	/**
 	 * Gets the dataTableCreator.
-	 * 
-	 * @see #setDataTableCreator(DataTableCreator)
 	 *
-	 * @return Returns the {@link DataTableCreator}.
+	 * @return Returns the {@link DataTableProvider}.
+	 * @see #setDataTableCreator(DataTableProvider)
 	 */
-	DataTableCreator<B> getDataTableCreator();
+	DataTableProvider<B, ?> getDataTableCreator();
 
 	/**
 	 * [MANDATORY]
@@ -48,14 +47,13 @@ extends ServicePanelWithBackDef {
 	 * @param dataTableCreator 
 	 *        the dataTableCreator to set
 	 */
-	void setDataTableCreator(DataTableCreator<B> dataTableCreator);
+	void setDataTableCreator(DataTableProvider<B, ?> dataTableCreator);
 	
 	/**
 	 * Gets the list that contains the elements of the table.
-	 * 
-	 * @see #setList(List)
-	 * 
+	 *
 	 * @return Returns the list that populates the data table.
+	 * @see #setList(List)
 	 */
 	List<B> getList();
 	
@@ -73,17 +71,16 @@ extends ServicePanelWithBackDef {
 	 * [OPTIONAL]
 	 * Sets the list label resource model. This is displayed on top
 	 * of the panel's table.
-	 * 
-	 * @param label
+	 *
+	 * @param label the new list label model
 	 */
 	void setListLabelModel(IModel<String> label);
 	
 	/**
 	 * Gets the list label.
-	 * 
-	 * @see #setListLabelModel(IModel)
-	 * 
+	 *
 	 * @return list label.
+	 * @see #setListLabelModel(IModel)
 	 */
 	IModel<String> getListLabelModel();
 

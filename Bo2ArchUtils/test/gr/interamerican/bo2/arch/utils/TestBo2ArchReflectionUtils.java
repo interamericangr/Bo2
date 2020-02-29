@@ -56,7 +56,7 @@ public class TestBo2ArchReflectionUtils {
 	
 	/**
 	 * test copyPropertyHandlingCodifieds with Codified<String> that is
-	 * copied to a String property
+	 * copied to a String property.
 	 */
 	@Test
 	@SuppressWarnings("nls")

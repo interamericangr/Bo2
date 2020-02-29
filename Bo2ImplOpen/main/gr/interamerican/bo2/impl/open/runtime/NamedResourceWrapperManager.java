@@ -73,13 +73,10 @@ public class NamedResourceWrapperManager {
 	/**
 	 * Gets the {@link ResourceWrapper} of the specified class.
 	 *
-	 * @param subclass
-	 * @param <C>
-	 *
+	 * @param <C> the generic type
+	 * @param subclass the subclass
 	 * @return Returns the {@link ResourceWrapper} of the specified class.
-	 *
-	 * @throws InitializationException
-	 *         If this manager can't create the required {@link ResourceWrapper}.
+	 * @throws InitializationException         If this manager can't create the required {@link ResourceWrapper}.
 	 */
 	@SuppressWarnings("unchecked")
 	public <C extends ResourceWrapper> C getResource(Class<C> subclass)
@@ -131,10 +128,11 @@ public class NamedResourceWrapperManager {
 		}
 		return wrapper;
 	}
+	
 	/**
 	 * Closes all resource wrappers.
 	 *
-	 * @throws DataException
+	 * @throws DataException the data exception
 	 */
 	public void close() throws DataException {
 		for (ResourceWrapper wrapper : wrappers.values()) {

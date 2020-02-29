@@ -31,9 +31,7 @@ import java.util.Map;
  */
 public class BeanCsvFormatter<B> implements Formatter<B> {
 	
-	/**
-	 * Serial Version UID
-	 */
+	/** Serial Version UID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Extracts the values of the properties.
@@ -48,9 +46,7 @@ public class BeanCsvFormatter<B> implements Formatter<B> {
 	 */
 	String delimiter = StringConstants.SEMICOLON;
 
-	/**
-	 * Option whenever to remove the delimiter from columns and replace it with SPACE
-	 */
+	/** Option whenever to remove the delimiter from columns and replace it with SPACE. */
 	boolean removeDelimiterFromColumns = true;
 	
 	/**
@@ -118,10 +114,9 @@ public class BeanCsvFormatter<B> implements Formatter<B> {
 
 	/**
 	 * Creates a Formatters table with the specified length.
-	 * 
-	 * @param length
-	 * @param specialFormatters 
-	 * 
+	 *
+	 * @param length the length
+	 * @param specialFormatters the special formatters
 	 * @return Returns the table.
 	 */
 	private static Formatter<?>[] defaultFormatters(int length, Map<Integer, Formatter<?>> specialFormatters) {

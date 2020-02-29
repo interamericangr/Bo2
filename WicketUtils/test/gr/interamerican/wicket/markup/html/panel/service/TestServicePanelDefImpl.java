@@ -21,34 +21,26 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Unit test for ServicePanelDefImpl
+ * Unit test for ServicePanelDefImpl.
  */
 public class TestServicePanelDefImpl extends WicketTest{
 
 	
-	/**
-	 * panel to test
-	 */
+	/** panel to test. */
 	ServicePanelDefImpl panel = new ServicePanelDefImpl();
 	
-	/**
-	 * WICKET_ID
-	 */
+	/** WICKET_ID. */
 	private static final String WICKET_ID = "wicketId"; //$NON-NLS-1$
 	
-	/**
-	 * ServicePanelWithBackDefImpl
-	 */
+	/** ServicePanelWithBackDefImpl. */
 	static ServicePanelWithBackDefImpl impl = new ServicePanelWithBackDefImpl();
 	
-	/**
-	 * SERVICE_PANEL
-	 */
+	/** SERVICE_PANEL. */
 	private static ServicePanelWithBack SERVICE_PANEL; 
 
 	
 	/**
-	 * Initialize
+	 * Initialize.
 	 */
 	@Before
 	public void init(){
@@ -58,7 +50,7 @@ public class TestServicePanelDefImpl extends WicketTest{
 	}
 	
 	/**
-	 * Test setWicketId
+	 * Test setWicketId.
 	 */
 	@Test
 	public void testSetWicketId(){
@@ -67,7 +59,7 @@ public class TestServicePanelDefImpl extends WicketTest{
 	}
 	
 	/**
-	 * Test getWicketId
+	 * Test getWicketId.
 	 */
 	@Test
 	public void testGetWicketId(){
@@ -76,8 +68,9 @@ public class TestServicePanelDefImpl extends WicketTest{
 	}
 	
 	/**
-	 * Test setServiceId
+	 * Test setServiceId.
 	 */
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testSetServicePanel(){
 		panel.setServicePanel(SERVICE_PANEL);
@@ -85,8 +78,9 @@ public class TestServicePanelDefImpl extends WicketTest{
 	}
 	
 	/**
-	 * Test getServiceId
+	 * Test getServiceId.
 	 */
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testGetServicePanel(){
 		panel.servicePanel = SERVICE_PANEL;

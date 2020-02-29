@@ -21,9 +21,7 @@ import gr.interamerican.bo2.utils.meta.formatters.nr.NullReturningFormatter;
  */
 public class NrNamedFormatter extends NullReturningFormatter<Named> {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**

@@ -12,12 +12,10 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.adapters.trans;
 
-import gr.interamerican.bo2.utils.adapters.mod.Filter;
-import gr.interamerican.bo2.utils.adapters.trans.ConditionAdapter;
-import gr.interamerican.bo2.utils.conditions.IsNull;
-
 import org.junit.Assert;
 import org.junit.Test;
+
+import gr.interamerican.bo2.utils.conditions.IsNull;
 
 /**
  * Unit test for {@link ConditionAdapter}.

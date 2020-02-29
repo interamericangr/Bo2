@@ -13,6 +13,8 @@
 package gr.interamerican.bo2.utils.conditions;
 
 import gr.interamerican.bo2.samples.bean.BeanWith2Fields;
+import gr.interamerican.bo2.utils.conditions.PropertyEqualsTo;
+import gr.interamerican.bo2.utils.conditions.PropertyExistsIn;
 
 import java.util.Arrays;
 
@@ -22,32 +24,31 @@ import org.junit.Test;
 /**
  * Unit test for {@link PropertyEqualsTo}.
  */
+@Deprecated
 public class TestPropertyExistsIn {
-	
-	/**
-	 * Tests the constructor.
-	 */
-	@Test
-	@SuppressWarnings("nls")	
-	public void testConstructor_withArray() {
-		PropertyExistsIn<BeanWith2Fields> condition = 
-			new PropertyExistsIn<BeanWith2Fields>("field1", BeanWith2Fields.class, "that", "them");
-		Assert.assertNotNull(condition.condition);
-		Assert.assertTrue(condition.condition instanceof ExistsIn);
-	}
-	
-	/**
-	 * Tests the constructor.
-	 */
-	@Test
-	@SuppressWarnings("nls")	
-	public void testConstructor_withCollection() {
-		String[] strings = {"that", "them"};
-		PropertyExistsIn<BeanWith2Fields> condition = 
-			new PropertyExistsIn<BeanWith2Fields>("field1", BeanWith2Fields.class, Arrays.asList(strings));
-		Assert.assertNotNull(condition.condition);
-		Assert.assertTrue(condition.condition instanceof ExistsIn);
-	}
-	
 
+	/**
+	 * Tests the constructor.
+	 */
+	@Test
+	@SuppressWarnings("nls")
+	public void testConstructor_withArray_deprecated() {
+		PropertyExistsIn<BeanWith2Fields> condition = new PropertyExistsIn<>("field1", BeanWith2Fields.class,
+				"that", "them");
+		Assert.assertNotNull(condition.condition);
+		Assert.assertTrue(condition.condition instanceof ExistsIn);
+	}
+
+	/**
+	 * Tests the constructor.
+	 */
+	@Test
+	@SuppressWarnings({ "nls" })
+	public void testConstructor_withCollection_deprecated() {
+		String[] strings = { "that", "them" };
+		PropertyExistsIn<BeanWith2Fields> condition = new PropertyExistsIn<>("field1", BeanWith2Fields.class,
+				Arrays.asList(strings));
+		Assert.assertNotNull(condition.condition);
+		Assert.assertTrue(condition.condition instanceof ExistsIn);
+	}
 }

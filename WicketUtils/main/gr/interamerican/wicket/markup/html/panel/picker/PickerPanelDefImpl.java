@@ -12,18 +12,18 @@
  ******************************************************************************/
 package gr.interamerican.wicket.markup.html.panel.picker;
 
-import gr.interamerican.bo2.utils.adapters.Flag;
-import gr.interamerican.wicket.callback.CallbackAction;
-import gr.interamerican.wicket.markup.html.panel.listTable.ListTablePanelDefImpl;
-
 import java.io.Serializable;
 
 import org.apache.wicket.model.IModel;
 
+import gr.interamerican.bo2.utils.adapters.Flag;
+import gr.interamerican.wicket.callback.PickAction;
+import gr.interamerican.wicket.markup.html.panel.listTable.ListTablePanelDefImpl;
+
 /**
  * Implementation of {@link PickerPanelDef}.
- * 
- * @param <B> 
+ *
+ * @param <B> the generic type
  */
 public class PickerPanelDefImpl<B extends Serializable>
 extends ListTablePanelDefImpl<B>
@@ -32,20 +32,16 @@ implements PickerPanelDef<B> {
 	/** serial id. */
 	private static final long serialVersionUID = 1L;
 	
-	/** 
-	 * item selected {@link CallbackAction}
-	 */ 
-	private CallbackAction itemSelectedAction;
+	/**   item selected {@link PickAction}. */ 
+	private PickAction<B> itemSelectedAction;
 	
 	/**
 	 * itemSelectedAction authorization flag.
 	 */
 	private Flag itemSelectedActionFlag;
 	
-	/** 
-	 * Second item selected {@link CallbackAction}
-	 */ 
-	private CallbackAction secondItemSelectedAction;
+	/**   Second item selected {@link PickAction}. */ 
+	private PickAction<B> secondItemSelectedAction;
 	
 	/**
 	 * secondItemSelectedActionFlag authorization flag.
@@ -72,68 +68,83 @@ implements PickerPanelDef<B> {
 	 */
 	private Boolean refreshListAfterPickAction;
 
-	public CallbackAction getItemSelectedAction() {
+	@Override
+	public PickAction<B> getItemSelectedAction() {
 		return this.itemSelectedAction;
 	}
 
-	public void setItemSelectedAction(CallbackAction itemSelectedAction) {
+	@Override
+	public void setItemSelectedAction(PickAction<B> itemSelectedAction) {
 		this.itemSelectedAction = itemSelectedAction;		
 	}
 
+	@Override
 	public IModel<B> getBeanModel() {
 		return model;
 	}
 
+	@Override
 	public void setBeanModel(IModel<B> model) {
 		this.model = model;
 	}
 
-	public CallbackAction getSecondItemSelectedAction() {
+	@Override
+	public PickAction<B> getSecondItemSelectedAction() {
 		return secondItemSelectedAction;
 	}
 
-	public void setSecondItemSelectedAction(CallbackAction itemSelectedAction) {
+	@Override
+	public void setSecondItemSelectedAction(PickAction<B> itemSelectedAction) {
 		this.secondItemSelectedAction = itemSelectedAction;
 	}
 
+	@Override
 	public IModel<String> getSelectLabelModel() {
 		return selectLabelModel;
 	}
 
+	@Override
 	public void setSelectLabelModel(IModel<String> label) {
 		this.selectLabelModel = label;
 	}
 
+	@Override
 	public IModel<String> getSecondSelectLabelModel() {
 		return secondSelectLabelModel;
 	}
 
+	@Override
 	public void setSecondSelectLabelModel(IModel<String> label) {
 		this.secondSelectLabelModel = label;
 	}
 
+	@Override
 	public Flag getItemSelectedActionFlag() {
 		return itemSelectedActionFlag;
 	}
 
+	@Override
 	public void setItemSelectedActionFlag(Flag itemSelectedActionFlag) {
 		this.itemSelectedActionFlag = itemSelectedActionFlag;
 	}
 
+	@Override
 	public Flag getSecondItemSelectedActionFlag() {
 		return secondItemSelectedActionFlag;
 	}
 
+	@Override
 	public void setSecondItemSelectedActionFlag(Flag secondItemSelectedActionFlag) {
 		this.secondItemSelectedActionFlag = secondItemSelectedActionFlag;
 	}
 
+	@Override
 	public Boolean getRefreshListAfterPickAction() {
 		return refreshListAfterPickAction;
 	}
 
+	@Override
 	public void setRefreshListAfterPickAction(Boolean refreshListAfterPickAction) {
 		this.refreshListAfterPickAction = refreshListAfterPickAction;
 	}
-
 }

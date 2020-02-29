@@ -17,12 +17,12 @@ import org.junit.Test;
 
 
 /**
- * test case for {@link SystemMonitorPanel}
+ * test case for {@link SystemMonitorPanel}.
  */
 public class TestSystemMonitorPanel {
 
 	/**
-	 * test method for {@link SystemMonitorPanel#SystemMonitorPanel()}
+	 * test method for {@link SystemMonitorPanel#SystemMonitorPanel()}.
 	 */
 	@Test
 	public void testSystemMonitorPanel() {

@@ -27,16 +27,14 @@ implements SpanFragment {
 	/**
 	 * Creates a new TextStringElement object. 
 	 *
-	 * @param text
+	 * @param text the text
 	 */
 	PhraseSpanFragment(String text) {
-		super();
 		this.text = text;
 	}
 
-	
+	@Override
 	public void appendTo(TextSpanElement span) {
 		span.newTextNode(text);		
 	}
-
 }

@@ -22,9 +22,7 @@ import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
  */
 public class DoubleParser extends AbstractParser<Double>{
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Decimal digits.
@@ -40,7 +38,8 @@ public class DoubleParser extends AbstractParser<Double>{
 	
 	/**
 	 * Creates a new DoubleParser object. 
-	 * @param decimalDigits 
+	 *
+	 * @param decimalDigits the decimal digits
 	 */
 	public DoubleParser(int decimalDigits) {
 		this.decimalDigits = decimalDigits;

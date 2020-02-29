@@ -27,7 +27,7 @@ import java.util.Set;
  * Compares for equality property values of an object, against an
  * array of predefined values, and returns a list that contains
  * a predefined message for each property that was equal to the 
- * predefined value. <br/>
+ * predefined value. <br>
  * 
  * This transformation is intended to be used mainly for validation
  * of objects in cases when specific values of some properties are
@@ -37,20 +37,20 @@ import java.util.Set;
  * value, a message should be returned by the system to indicate
  * that the property has a not acceptable value. This transformation
  * will do exactly that, and it will return a list that contains
- * the messages that must be returned by the system.<br/>
+ * the messages that must be returned by the system.<br>
  * The property expressions can also be nested properties. This
- * class deals with possible nulls in nested properties. <br/>
- * <br/>
+ * class deals with possible nulls in nested properties. <br>
+ * <br>
  * For example, assume that a class Person has a property named 
  * <code>address</code> of type Address and the class Address 
  * has the properties street and city and zipCode, which are strings.
  * If we want to check that address is not null, and also that
  * street and city of the person's address are not null or empty, then
- * the properties array should contain the property names:<br/>
+ * the properties array should contain the property names:<br>
  * <code>{"address", "address.city", "address.city", "address.street", 
- * "address.street"</code>.<br/>
- * The values array should be:<br/>
- * <code>{null, null, "", null, "",} </code>.<br/>
+ * "address.street"</code>.<br>
+ * The values array should be:<br>
+ * <code>{null, null, "", null, "",} </code>.<br>
  * If the transformations finds that address is null, it will
  * omit to check the value of any nested property of address.
  * So in this case, if address is null, the transformation will
@@ -59,7 +59,7 @@ import java.util.Set;
  * property that contains the nested ones should appear in the properties
  * array, before the nested ones. In this example, address must appear
  * if the array before address.street and address.city.
- *  <br/>
+ *  <br>
  * Note also that the same property can be compared against more
  * than one values. In the example above, address.city and address.street
  * are being check against null and empty string.
@@ -117,8 +117,7 @@ implements Transformation<T, List<String>> {
 		this.messages = messages;		
 	}
 
-
-	
+	@Override
 	public List<String> execute(T a) {
 		Set<String> nulls = new HashSet<String>();
 		List<String> list = new ArrayList<String>();
@@ -137,5 +136,4 @@ implements Transformation<T, List<String>> {
 		}
 		return list;
 	}
-
 }

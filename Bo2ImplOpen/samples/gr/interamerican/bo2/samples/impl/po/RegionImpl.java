@@ -24,16 +24,14 @@ import gr.interamerican.bo2.utils.annotations.Child;
 import java.util.Set;
 
 /**
- * 
+ * The Class RegionImpl.
  */
 @DelegateKeyProperties({})
 public abstract class RegionImpl 
 extends AbstractModificationRecordPo<RegionKey>
 implements Region {
 	
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -46,6 +44,7 @@ implements Region {
 	 */
 	@Child @Property Set<Prefecture> prefectures;
 	
+	@Override
 	public int getPopulation() {
 		int population = 0;
 		for (Populated child : prefectures) {

@@ -19,7 +19,7 @@ import gr.interamerican.bo2.utils.attributes.Named;
 import java.util.Set;
 
 /**
- * 
+ * The Interface City.
  */
 public interface City 
 extends Named, Populated, PersistentObject<CityKey>, ModificationRecord, CityKP {
@@ -34,8 +34,8 @@ extends Named, Populated, PersistentObject<CityKey>, ModificationRecord, CityKP 
 	
 	/**
 	 * Child Collection setter.
-	 * 
-	 * @param suburbs
+	 *
+	 * @param suburbs the new suburbs
 	 */
 	public void setSuburbs(Set<Suburb> suburbs);
 	

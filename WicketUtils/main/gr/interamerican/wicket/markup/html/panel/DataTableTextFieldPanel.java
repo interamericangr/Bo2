@@ -12,59 +12,36 @@
  ******************************************************************************/
 package gr.interamerican.wicket.markup.html.panel;
 
-import gr.interamerican.wicket.util.resource.StringAsResourceStream;
-
-import org.apache.wicket.MarkupContainer;
-import org.apache.wicket.markup.IMarkupCacheKeyProvider;
-import org.apache.wicket.markup.IMarkupResourceStreamProvider;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.PropertyModel;
-import org.apache.wicket.util.resource.IResourceStream;
 
 /**
  * Panel containing a textField.
  * 
- * @param <T> The object type
+ * @param <T>
+ *            The object type
  */
-public class DataTableTextFieldPanel<T> extends Panel 
-implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
-	
+public class DataTableTextFieldPanel<T> extends Panel {
+
 	/**
 	 * serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
-	 * wicket id.
-	 */
-	private static final String TEXTFIELD_ID = "textField"; //$NON-NLS-1$
-	
-	/**
-	 * Creates a new {@link DataTableTextFieldPanel} object. 
+	 * Creates a new {@link DataTableTextFieldPanel} object.
 	 *
 	 * @param id
+	 *            the id
 	 * @param model
-	 * @param property 
+	 *            the model
+	 * @param property
+	 *            the property
 	 */
 	public DataTableTextFieldPanel(String id, IModel<T> model, String property) {
 		super(id, model);
-		TextField<T> field = new TextField<T>(TEXTFIELD_ID, new PropertyModel<T>(model.getObject(), property));
-		add(field);
+		add(new TextField<T>("textField", new PropertyModel<T>(model.getObject(), property))); //$NON-NLS-1$
 	}
-	
-	public IResourceStream getMarkupResourceStream(MarkupContainer container, Class<?> clazz) {
-		final StringBuilder builder = new StringBuilder();
-		builder.append("<html><body>"); //$NON-NLS-1$
-		builder.append("<wicket:panel>"); //$NON-NLS-1$
-		builder.append("<input type=\"text\" wicket:id=\"" + TEXTFIELD_ID + "\"/>"); //$NON-NLS-1$ //$NON-NLS-2$
-		builder.append("</wicket:panel></body></html>"); //$NON-NLS-1$
-		return new StringAsResourceStream(builder.toString());
-	}
-	
-	public String getCacheKey(MarkupContainer arg0, Class<?> arg1) {
-		return null;
-	}
-
 }

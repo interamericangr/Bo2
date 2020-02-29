@@ -22,50 +22,51 @@ import gr.interamerican.wicket.bo2.test.Bo2WicketTest;
 import org.junit.Before;
 
 /**
- * 
+ * A factory for creating BaseClassForTestingComponent objects.
  */
-public class BaseClassForTestingComponentFactory extends Bo2WicketTest{
-	/**
-	 * 
-	 */
+public class BaseClassForTestingComponentFactory extends Bo2WicketTest {
+
+	/** The Constant COMPONENT. */
 	protected static final String COMPONENT = "component"; //$NON-NLS-1$
-	
-	/**
-	 * 
-	 */
+
+	/** The Constant LABEL_ID. */
 	protected static final String LABEL_ID = "label"; //$NON-NLS-1$
-	
+
 	/**
 	 * Bean1.
 	 */
 	protected Bean1 bean1 = new Bean1();
-	/**
-	 * Bean1descriptor
-	 */
+
+	/** Bean1descriptor. */
 	protected Bean1descriptor bean1descriptor = new Bean1descriptor();
-	
+
 	/**
 	 * Cache name.
 	 */
 	protected static final String TEST_CACHE_NAME = "TEST_CACHE"; //$NON-NLS-1$
-	
+
 	/**
 	 * cache registration fixture.
 	 */
 	@Before
 	public void before() {
-		if(CacheRegistry.getRegisteredCache(TEST_CACHE_NAME)!=null) {
+		if (CacheRegistry.getRegisteredCache(TEST_CACHE_NAME) != null) {
 			CacheRegistry.getRegisteredCache(TEST_CACHE_NAME).clear();
-		} else {
-			CacheRegistry.registerCache(TEST_CACHE_NAME, new CacheImpl<Long>(), Long.class);
 		}
 	}
-	
+
 	/**
+	 * Cache.
+	 *
 	 * @return Returns the test cache
 	 */
 	protected Cache<Long> cache() {
-		return CacheRegistry.<Long>getRegisteredCache(TEST_CACHE_NAME);
+		Cache<Long> result = CacheRegistry.getRegisteredCache(TEST_CACHE_NAME);
+		if (result != null) {
+			return result;
+		}
+		CacheImpl<Long> cache = new CacheImpl<Long>();
+		CacheRegistry.registerCache(TEST_CACHE_NAME, cache, Long.class);
+		return cache;
 	}
-	
 }

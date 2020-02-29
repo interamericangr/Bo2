@@ -22,6 +22,7 @@ import gr.interamerican.bo2.samples.providers.MockResourceWrapper;
 public class MockObjectFactoryForResourceWrappers 
 implements ObjectFactory  {
 	
+	@Override
 	@SuppressWarnings("unchecked")
 	public <M> M create(Class<M> type) {
 		if (ResourceWrapper.class.equals(type)) {
@@ -30,6 +31,7 @@ implements ObjectFactory  {
 		throw new RuntimeException();
 	}	
 	
+	@Override
 	public Class<?> getImplementationType(Class<?> declarationType) {
 		if (ResourceWrapper.class.equals(declarationType)) {
 			return MockResourceWrapper.class;
@@ -37,23 +39,28 @@ implements ObjectFactory  {
 		return null;
 	}	
 
+	@Override
 	public String getDeclarationTypeName(Class<?> implementationType) {
 		return null;
 	}
 	
+	@Override
 	public Class<?> getDeclarationType(Class<?> implementationType) {
 		return null;
 	}
 
+	@Override
 	public void registerImplementationAsDeclaration(Class<?> declaration) {
 		/* empty */
 	}
 	
+	@Override
 	public Object create(String declarationTypeName) {
 		return null;
 	}
 
 	
+	@Override
 	public Class<?> getImplementationType(String declarationTypeName) {
 		return null;
 	}
@@ -63,6 +70,7 @@ implements ObjectFactory  {
 		/* empty */
 	}
 	
+	@Override
 	public <M> void registerFixture(Class<M> declarationType, ObjectFactory fixtureFactory) {
 		/* empty */
 	}

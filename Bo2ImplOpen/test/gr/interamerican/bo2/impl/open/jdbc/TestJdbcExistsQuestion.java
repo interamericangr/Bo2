@@ -29,16 +29,15 @@ import org.junit.Test;
  */
 public class TestJdbcExistsQuestion extends AbstractNonTransactionalProviderTest {
 
-	/**
-	 * simpleQuestion to test
-	 */
+	/** simpleQuestion to test. */
 	JdbcExistsQuestionImpl question = new JdbcExistsQuestionImpl();
 	
 	/**
-	 * tests a question
-	 * @throws InitializationException 
-	 * @throws LogicException 
-	 * @throws DataException 
+	 * tests a question.
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testExecuteQuestion_withTrueAnswer() 
@@ -50,14 +49,12 @@ public class TestJdbcExistsQuestion extends AbstractNonTransactionalProviderTest
 	
 	/**
 	 * Asks for an id.
-	 * 
-	 * @param id
-	 * 
+	 *
+	 * @param id the id
 	 * @return Returns the answer.
-	 * 
-	 * @throws InitializationException
-	 * @throws DataException
-	 * @throws LogicException
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	Boolean ask(int id) 
 	throws InitializationException, DataException, LogicException {
@@ -70,10 +67,11 @@ public class TestJdbcExistsQuestion extends AbstractNonTransactionalProviderTest
 	}
 	
 	/**
-	 * tests a question
-	 * @throws InitializationException 
-	 * @throws LogicException 
-	 * @throws DataException 
+	 * tests a question.
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testExecuteQuestion_withFalseAnswer() 
@@ -86,7 +84,7 @@ public class TestJdbcExistsQuestion extends AbstractNonTransactionalProviderTest
 	
 	
 	/**
-	 * implementation to test
+	 * implementation to test.
 	 */
 	@ManagerName("LOCALDB") @SuppressWarnings("unused")
 	@ParametersOrder("id")
@@ -115,7 +113,7 @@ public class TestJdbcExistsQuestion extends AbstractNonTransactionalProviderTest
 	}
 	
 	/**
-	 * implementation to test
+	 * implementation to test.
 	 */
 	@ManagerName("LOCALDB") @SuppressWarnings("unused")
 	private class JdbcExistsQuestionImplWithNamedParams extends JdbcExistsQuestion{	

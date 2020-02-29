@@ -50,9 +50,7 @@ implements Comparator<Number> {
 		return new BigDecimal(n.doubleValue());
 	}
 	
-	/* (non-Javadoc)
-	 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
-	 */
+	@Override
 	public int compare(Number o1, Number o2) {
 		BigDecimal b1 = toBigDecimal(o1);
 		BigDecimal b2 = toBigDecimal(o2);

@@ -12,69 +12,42 @@
  ******************************************************************************/
 package gr.interamerican.wicket.utils;
 
+import static org.junit.Assert.assertEquals;
+
 import org.apache.wicket.markup.html.link.Link;
-import org.apache.wicket.util.tester.WicketTester;
-import org.junit.Before;
 import org.junit.Test;
 
+import gr.interamerican.wicket.samples.pages.EmptyPage;
+import gr.interamerican.wicket.test.WicketTest;
+
 /**
- * 
- * 
- *
+ * Unit tests for {@link LinkUtils}
  */
-public class TestLinkUtils {
-	
-	
-	
+public class TestLinkUtils extends WicketTest {
 	/**
-	 * the WicketTester
+	 * Flag regarding the link being clicked.
 	 */
-	public WicketTester wicketTester = null;
-
+	Boolean isClicked = false;
 
 	/**
-	 * 
+	 * Test create link.
 	 */
-	@Before
-	public void setUp(){	
-		wicketTester = new WicketTester();	
-	}
-
-	
-	/**
-	 * Tests the Page
-	 */
-	@Test
-	public void testPage(){		
-		wicketTester.startPage(WicketPage.class);
-		wicketTester.assertRenderedPage(WicketPage.class);		
-	}
-	
 	@Test
 	public void testCreateLink(){
-		wicketTester.startPage(WicketPage.class);	
-		wicketTester.assertComponent("link", Link.class);
-        wicketTester.clickLink("link");		     
+		Link<String> tested = tester.startComponentInPage(LinkUtils.createLink(EmptyPage.class));
+		tester.clickLink(tested);
+		tester.assertRenderedPage(EmptyPage.class);
 	}
-	
-	@Test
-	public void testCreateLink1(){
-		wicketTester.startPage(WicketPage.class);	
-		wicketTester.assertComponent("gr.interamerican.wicket.utils.WicketPage", Link.class);
-        wicketTester.clickLink("gr.interamerican.wicket.utils.WicketPage");		     
-	}
-	
-	@Test
-	public void testCreateLink2(){
-		wicketTester.startPage(WicketPage.class);	
-		wicketTester.assertComponent("link2", Link.class);
-        wicketTester.clickLink("link2");		     
-	}
-	
-	
-	
-	
-	
-	
 
+	/**
+	 * Test create link 1.
+	 */
+	@SuppressWarnings("nls")
+	@Test
+	public void testCreateLinkWithName() {
+		Link<String> tested = tester.startComponentInPage(LinkUtils.createLink("test", EmptyPage.class));
+		assertEquals("test", tested.getId());
+		tester.clickLink(tested);
+		tester.assertRenderedPage(EmptyPage.class);
+	}
 }

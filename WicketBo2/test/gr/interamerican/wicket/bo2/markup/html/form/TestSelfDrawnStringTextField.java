@@ -22,6 +22,7 @@ import java.util.List;
 import org.apache.wicket.Component;
 import org.apache.wicket.feedback.FeedbackMessage;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.util.tester.FormTester;
 import org.junit.Assert;
 import org.junit.Before;
@@ -36,6 +37,10 @@ public class TestSelfDrawnStringTextField extends WicketTest {
 	 * Descriptor.
 	 */
 	private StringBoPropertyDescriptor descriptor = new StringBoPropertyDescriptor();
+	/**
+	 * Model.
+	 */
+	private Model<String> model = new Model<String>();
 	
 	/**
 	 * Initializes the descriptor.
@@ -44,24 +49,23 @@ public class TestSelfDrawnStringTextField extends WicketTest {
 	@SuppressWarnings("nls")
 	public void before() {
 		descriptor.setMaxLength(20);
-		descriptor.setMinLength(10);
+		descriptor.setMinLength(0);
 		descriptor.setIndex(0);
 		descriptor.setPackageName("gr.interamerican");
 		descriptor.setName("foo");
 		descriptor.setClassName("Foo");
 	}
-
+	
 	/**
 	 * Test creation with no default.
 	 */
 	@Test
 	public void testCreation_nodefault() {
-		tester.startPage(getTestPage());		
-		@SuppressWarnings("unchecked")
-		TextField<String> tf = (TextField<String>) getTestSubject();
+		tester.startPage(getTestPage());
+		SelfDrawnStringTextField tf = (SelfDrawnStringTextField) getTestSubject();
+		
+		assertions(null);
 		Assert.assertTrue(tf.getConvertEmptyInputStringToNull());
-		Assert.assertNull(tf.getModelObject());
-		Assert.assertFalse(getFeedbackPanel().anyErrorMessage());
 	}
 	
 	/**
@@ -72,11 +76,50 @@ public class TestSelfDrawnStringTextField extends WicketTest {
 		descriptor.setHasDefault(true);
 		descriptor.setDefaultValue(StringConstants.EMPTY);
 		tester.startPage(getTestPage());		
-		@SuppressWarnings("unchecked")
-		TextField<String> tf = (TextField<String>) getTestSubject();		
-		Assert.assertNotNull(tf.getModelObject());
-		Assert.assertEquals(StringConstants.EMPTY, tf.getModelObject());
-		Assert.assertFalse(getFeedbackPanel().anyErrorMessage());
+		assertions(StringConstants.EMPTY);
+	}
+	
+	/**
+	 * testEmptyInputSubmitsNull.
+	 */
+	@Test
+	public void testEmptyInputSubmitsNull() {
+		tester.startPage(getTestPage());
+		SelfDrawnStringTextField tf = (SelfDrawnStringTextField) getTestSubject();
+		
+		assertions(null);
+		Assert.assertTrue(tf.getConvertEmptyInputStringToNull());
+		
+		FormTester formTester = tester.newFormTester(formPath());
+		String expected = "hello123456"; //$NON-NLS-1$
+		formTester.setValue(TestPage.TEST_ID, expected);
+		formTester.submit();
+		assertions(expected);
+		
+		formTester = tester.newFormTester(formPath());
+		formTester.setValue(TestPage.TEST_ID, StringConstants.SPACE);
+		formTester.submit();
+		assertions(null);
+	}
+	
+	/**
+	 * testEmptyInputSubmitsNull.
+	 */
+	@Test
+	public void testEmptyInputSubmitsEmpty() {
+		tester.startPage(getTestPage());
+		SelfDrawnStringTextField tf = (SelfDrawnStringTextField) getTestSubject();
+		
+		assertions(null);
+		
+		tf.setConvertEmptyInputStringToNull(false);
+		Assert.assertFalse(tf.getConvertEmptyInputStringToNull());
+		
+		FormTester formTester = tester.newFormTester(formPath());
+		formTester = tester.newFormTester(formPath());
+		formTester.setValue(TestPage.TEST_ID, StringConstants.SPACE);
+		formTester.submit();
+		assertions(StringConstants.EMPTY);
 	}
 	
 	/**
@@ -103,9 +146,23 @@ public class TestSelfDrawnStringTextField extends WicketTest {
 		Assert.assertTrue(msg.contains(expression));
 	}
 	
+	/**
+	 * Common assertions.
+	 *
+	 * @param modelObject the model object
+	 */
+	void assertions(String modelObject) {
+		tester.assertComponent(subjectPath(), SelfDrawnStringTextField.class);
+		SelfDrawnStringTextField subject = (SelfDrawnStringTextField) tester.getComponentFromLastRenderedPage(subjectPath());
+		Assert.assertFalse(subject.isRequired());
+		Assert.assertTrue(model == subject.getModel());
+		Assert.assertTrue(model == subject.getDefaultModel());
+		Assert.assertEquals(modelObject, subject.getModelObject());
+	}
+	
 	@Override
-	protected Component initializeComponent() {
-		return new SelfDrawnStringTextField(TestPage.TEST_ID, descriptor);
+	protected Component initializeComponent(String wicketId) {
+		return new SelfDrawnStringTextField(wicketId, model, descriptor);
 	}
 
 }

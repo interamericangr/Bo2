@@ -28,9 +28,8 @@ import java.util.Locale;
  */
 public class SessionImpl<A, L> 
 implements Session <A, L> {
-	/**
-	 * User
-	 */
+	
+	/** User. */
 	User<A> user;
 	/**
 	 * Language Id.
@@ -42,37 +41,42 @@ implements Session <A, L> {
 	 */
 	Locale locale;
 
-	
+	@Override
 	public User<A> getUser() {
 		return user;
 	}
 
 	/**
 	 * Sets the current user.
-	 * 
-	 * @param user
+	 *
+	 * @param user the new user
 	 */
 	public void setUser(User<A> user) {
 		this.user = user;
 	} 
-	
+
+	@Override
 	public L getLanguageId() {		
 		return languageId;
 	}
+
+	@Override
 	public void setLanguageId(L languageId) {
 		this.languageId = languageId;		
 	}
-	
+
+	@Override
 	public boolean isAuthorized(A authorizationId) {		
 		return user.isAuthorized(authorizationId);
 	}
-	
+
+	@Override
 	public boolean isLogin() {
 		return this.user!=null;
 	}
 
+	@Override
 	public Locale getLocale() {
 		return locale;
 	}
-
 }

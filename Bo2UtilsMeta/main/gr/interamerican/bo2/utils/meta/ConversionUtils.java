@@ -20,69 +20,68 @@ import gr.interamerican.bo2.utils.meta.exceptions.ConversionException;
  * Utilities about conversion.
  */
 public class ConversionUtils {
-	
+
 	/**
-	 * Delegates the conversion of the specified object to
-	 * the specified mapper. <br/>
-	 * 
-	 * This method will wrap any {@link ConversionException} that occured
-	 * during the conversion inside a {@link RuntimeException}.
+	 * Hidden Constructor.
+	 */
+	private ConversionUtils() {
+		// empty
+	}
+
+	/**
+	 * Delegates the conversion of the specified object to the specified mapper.
+	 * <br>
+	 * This method will wrap any {@link ConversionException} that occurred during
+	 * the conversion inside a {@link RuntimeException}.
+	 *
+	 * @param <L>
+	 *            Type of object being converted.
+	 * @param <R>
+	 *            Type of conversion result.
 	 * 
 	 * @param mapper
-	 *        Mapper doing the conversion.
+	 *            Mapper doing the conversion.
 	 * @param l
-	 *        Object being converted.
-	 * @param <L>
-	 *        Type of object being converted.
-	 * @param <R>
-	 *        Type of conversion result.
-	 *  
+	 *            Object being converted.
 	 * @return Returns the result of the conversion.
-	 * 
 	 * @throws RuntimeException
-	 *         If it catches ConversionException during the conversion.
+	 *             If it catches ConversionException during the conversion.
 	 */
-	public static <L,R> R convert(Mapper<L, R> mapper, L l) {
+	public static <L, R> R convert(Mapper<L, R> mapper, L l) {
 		try {
 			return mapper.convert(l);
 		} catch (ConversionException ce) {
 			throw new RuntimeException(ce);
 		}
 	}
-	
+
 	/**
-	 * Delegates the mandatory conversion of the specified object to
-	 * the specified mapper. <br/>
-	 * 
-	 * This method will wrap any {@link ConversionException} that occured
-	 * during the conversion inside a {@link RuntimeException}. I
+	 * Delegates the mandatory conversion of the specified object to the
+	 * specified mapper. <br>
+	 * This method will wrap any {@link ConversionException} that occurred during
+	 * the conversion inside a {@link RuntimeException}.
+	 *
+	 * @param <L>
+	 *            Type of object being converted.
+	 * @param <R>
+	 *            Type of conversion result.
 	 * 
 	 * @param mapper
-	 *        Mapper doing the conversion.
+	 *            Mapper doing the conversion.
 	 * @param l
-	 *        Object being converted.
-	 * @param <L>
-	 *        Type of object being converted.
-	 * @param <R>
-	 *        Type of conversion result.
-	 *  
+	 *            Object being converted.
 	 * @return Returns the result of the conversion. Never returns null.
-	 * 
 	 * @throws RuntimeException
-	 *         If it catches ConversionException during the conversion.
+	 *             If it catches ConversionException during the conversion.
 	 */
 	@SuppressWarnings("nls")
-	public static <L,R> R mandatoryConvert(Mapper<L, R> mapper, L l) {
+	public static <L, R> R mandatoryConvert(Mapper<L, R> mapper, L l) {
 		R r = convert(mapper, l);
-		if (r==null) {
-			String msg = StringUtils.concat(
-					"The mapper " +
-					mapper.toString(),
-					" could not find a mapping for ",
-					l.toString());
+		if (r == null) {
+			String msg = StringUtils.concat("The mapper " + mapper.toString(), " could not find a mapping for ",
+					StringUtils.toString(l));
 			throw new RuntimeException(msg);
 		}
 		return r;
 	}
-
 }

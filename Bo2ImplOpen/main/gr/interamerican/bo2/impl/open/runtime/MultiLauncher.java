@@ -16,16 +16,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The {@link MultiLauncher}'s responsibility is to execute multiple {@link RuntimeCommand}. <br/>
+ * The {@link MultiLauncher}'s responsibility is to execute multiple {@link RuntimeCommand}. <br>
  *
  * This class has only a main method, that takes the name of a {@link RuntimeCommand} class as argument. Then it loads
  * the class, creates an instance of it and executes it.
  */
 public class MultiLauncher {
 
-	/**
-	 * logger
-	 */
+	/** logger. */
 	private static final Logger LOG = LoggerFactory.getLogger(MultiLauncher.class);
 	/**
 	 * Executes a set of commands. If any of them fails, the jvm exits.
@@ -47,7 +45,7 @@ public class MultiLauncher {
 	 * Specifically when running this program using ant and setting to the java task 'fork="true"' this is the only way
 	 * for the ant process to exit.
 	 *
-	 * @param className
+	 * @param className the class name
 	 */
 	private static void launch(String className) {
 		try {

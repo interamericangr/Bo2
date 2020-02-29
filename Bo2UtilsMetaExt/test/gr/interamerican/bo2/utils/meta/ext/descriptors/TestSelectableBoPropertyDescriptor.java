@@ -24,19 +24,17 @@ import java.util.Set;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestSelectableBoPropertyDescriptor.
  */
 public class TestSelectableBoPropertyDescriptor {
 
 	
-	/**
-	 * SelectableBoPropertyDescriptor
-	 */
+	/** SelectableBoPropertyDescriptor. */
 	SelectableBoPropertyDescriptor<String> descriptor = new SelectableBoPropertyDescriptor<String>();
 	
 	
 	/**
-	 * test SetChoices
+	 * test SetChoices.
 	 */
 	@Test
 	public void testSetChoices(){
@@ -46,7 +44,7 @@ public class TestSelectableBoPropertyDescriptor {
 	}
 	
 	/**
-	 * test getChoices
+	 * test getChoices.
 	 */
 	@Test
 	public void testGetChoices(){
@@ -56,8 +54,9 @@ public class TestSelectableBoPropertyDescriptor {
 	}
 	
 	/**
-	 * test parse()
-	 * @throws ParseException 
+	 * test parse().
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -69,7 +68,7 @@ public class TestSelectableBoPropertyDescriptor {
 	}
 	
 	/**
-	 * test format()
+	 * test format().
 	 */
 	@SuppressWarnings("nls")
 	@Test

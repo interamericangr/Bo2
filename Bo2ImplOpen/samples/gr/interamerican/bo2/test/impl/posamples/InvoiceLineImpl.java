@@ -24,9 +24,10 @@ import gr.interamerican.bo2.utils.annotations.Child;
 import java.util.Set;
 
 /**
- * 
+ * invoiceNo, lineNo φτιάχνονται σαν delegateProperties του κλειδιού. Επειδή
+ * δηλώσαμε @DelegateKeyProperties("") θα φτιαχτούν delegates για όλα τα
+ * properties του κλειδιού.
  */
-@SuppressWarnings("unused")
 @DelegateKeyProperties("")
 public abstract class InvoiceLineImpl 
 extends AbstractModificationRecordPo<InvoiceLineKey> 
@@ -36,31 +37,23 @@ implements InvoiceLine {
 	 * serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
-
-	/*
-	 * invoiceNo, lineNo οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ delegateProperties οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½. 
-	 * οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ @DelegateKeyProperties("") οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½ delegates
-	 * οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½ properties οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½.
-	 */
 	
 	/**
-	 * οΏ½οΏ½οΏ½οΏ½οΏ½
+	 * Τύπος
 	 */
 	@Property Integer type;
 	
 	/**
-	 * οΏ½οΏ½οΏ½οΏ½.
+	 * Ποσό
 	 */
 	@Property Double amount;
 	
 	/**
-	 * οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½.
+	 * Πελάτης
 	 */
 	@Property Customer customer;
 	
-	/**
-	 * Sublines
-	 */	
+	/** Sublines. */	
 	@Child	
 	@Property Set<InvoiceSubLine> subLines;
 

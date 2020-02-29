@@ -43,37 +43,46 @@ public class ServicePanelDefImpl implements ServicePanelDef {
 	 * Service panel that is created with this definition instance.
 	 */
 	ServicePanel servicePanel;
-	
+
+	@Override
 	public String getWicketId() {
 		return wicketId;
 	}
 
+	@Override
 	public void setWicketId(String wicketId) {
 		this.wicketId = wicketId;
 	}
 
+	@Override
 	public String getPanelId() {
 		return panelId;
 	}
 
+	@Override
 	public void setPanelId(String panelId) {
 		this.panelId = panelId;
 	}
 
+	@Override
 	public Boolean getDisableUnauthorizedButtons() {
 		return disableUnauthorizedButtons;
 	}
 
+	@Override
 	public void setDisableUnauthorizedButtons(Boolean disableUnauthorizedButtons) {
 		this.disableUnauthorizedButtons = disableUnauthorizedButtons;
 	}
-	
+
+	@Deprecated
+	@Override
 	public ServicePanel getServicePanel() {
 		return servicePanel;
 	}
 
+	@Deprecated
+	@Override
 	public void setServicePanel(ServicePanel servicePanel) {
 		this.servicePanel = servicePanel;
 	}
-
 }

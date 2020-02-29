@@ -33,8 +33,8 @@ public class DocumentEngineException extends Exception {
 	/**
 	 * Creates a new DocumentEngineException object. 
 	 *
-	 * @param message
-	 * @param cause
+	 * @param message the message
+	 * @param cause the cause
 	 */
 	public DocumentEngineException(String message, Throwable cause) {
 		super(message, cause);
@@ -43,7 +43,7 @@ public class DocumentEngineException extends Exception {
 	/**
 	 * Creates a new DocumentEngineException object. 
 	 *
-	 * @param message
+	 * @param message the message
 	 */
 	public DocumentEngineException(String message) {
 		super(message);
@@ -52,7 +52,7 @@ public class DocumentEngineException extends Exception {
 	/**
 	 * Creates a new DocumentEngineException object. 
 	 *
-	 * @param cause
+	 * @param cause the cause
 	 */
 	public DocumentEngineException(Throwable cause) {
 		super(cause);

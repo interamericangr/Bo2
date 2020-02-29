@@ -25,42 +25,46 @@ import gr.interamerican.wicket.markup.html.TestPage;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.model.util.ListModel;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
- * 
+ * A factory for creating TestPalleteCachedEntriesForBoPDComponent objects.
  */
 public class TestPalleteCachedEntriesForBoPDComponentFactory extends BaseClassForTestingComponentFactory{	
-	/**
-	 * TYPE
-	 */
+	
+	/** TYPE. */
 	private static final Long TYPE = 1000L;
-	/**
-	 * SUBTYPE
-	 */
+	
+	/** SUBTYPE. */
 	private static final Long SUBTYPE = 1L;
-	/**
-	 * PARSER
-	 */
+	
+	/** PARSER. */
 	private static final Parser<Long> PARSER = new LongParser();
-	/**
-	 * FORMATTER
-	 */
+	
+	/** FORMATTER. */
 	private static final Formatter<Long> FORMATTER = ObjectFormatter.<Long>getInstance();
 	
-	/**
-	 * 
-	 */
+	/** The pallete cached entries for bo PD component factory. */
 	private PalleteCachedEntriesForBoPDComponentFactory palleteCachedEntriesForBoPDComponentFactory = 
 		new PalleteCachedEntriesForBoPDComponentFactory();
 	
+	/** The multiple choice desc. */
+	private PalleteCachedEntriesBoPropertyDescriptor<?,?> multipleChoiceDesc;
+	
 	/**
-	 * 
+	 * Before 2.
 	 */
-	private PalleteCachedEntriesBoPropertyDescriptor<?,?> multipleChoiceDesc = createPalleteCachedEntriesDescriptor();
+	/**
+	 * Yet  another before method
+	 */
+	@Before
+	public void before2() {
+		multipleChoiceDesc = createPalleteCachedEntriesDescriptor();
+	}
 		
 	/**
-	 * 
+	 * Test draw main first.
 	 */
 	@Test
 	public void testDrawMain_First(){
@@ -70,7 +74,7 @@ public class TestPalleteCachedEntriesForBoPDComponentFactory extends BaseClassFo
 	}
 	
 	/**
-	 * 
+	 * Test draw main sec.
 	 */
 	@Test
 	public void testDrawMain_Sec(){
@@ -83,9 +87,9 @@ public class TestPalleteCachedEntriesForBoPDComponentFactory extends BaseClassFo
 	
 	
 	/**
-	 * Create MultipleChoiceCachedEntryBoPropertyDescriptor
+	 * Create MultipleChoiceCachedEntryBoPropertyDescriptor.
+	 *
 	 * @return MultipleChoiceCachedEntryBoPropertyDescriptor
-	 * 
 	 */
 	public PalleteCachedEntriesBoPropertyDescriptor<?,?> createPalleteCachedEntriesDescriptor(){
 
@@ -127,10 +131,12 @@ public class TestPalleteCachedEntriesForBoPDComponentFactory extends BaseClassFo
 		private static final long serialVersionUID = 1L;
 
 		
+		@Override
 		public String getTranslation(Long languageId) {			
 			return getName();
 		}
 		
+		@Override
 		public Long getTranslationResourceId() {			
 			return getCode();
 		}		

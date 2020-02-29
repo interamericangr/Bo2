@@ -16,16 +16,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * logger class
+ * logger class.
  */
 public class JsqlParserUtils {
 
-	/**
-	 * static logger
-	 */
+	/** static logger. */
 	static final Logger LOGGER = LoggerFactory.getLogger(JsqlParserUtils.class);
 
 	/**
+	 * Gets the logger.
+	 *
 	 * @return the logger
 	 */
 	public static Logger getLogger() {
@@ -33,7 +33,7 @@ public class JsqlParserUtils {
 	}
 
 	/**
-	 * private constructor
+	 * private constructor.
 	 */
 	private JsqlParserUtils() {/* empty */}
 }

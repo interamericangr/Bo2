@@ -50,10 +50,10 @@ public class TestPoFetcher {
 	 * Tests that an object can be fetched.
 	 * Tests that when a cache has been defined for a class, then
 	 * subsequent fetches of an element with the same id
-	 * 
-	 * @throws UnexpectedException
-	 * @throws DataException
-	 * @throws LogicException
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testGet_withoutCache() throws UnexpectedException, DataException, LogicException {
@@ -112,10 +112,10 @@ public class TestPoFetcher {
 	 * Tests that an object can be fetched.
 	 * Tests that when a cache has been defined for a class, then
 	 * subsequent fetches of an element with the same id
-	 * 
-	 * @throws UnexpectedException
-	 * @throws DataException
-	 * @throws LogicException
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testGet() throws UnexpectedException, DataException, LogicException {
@@ -192,10 +192,10 @@ public class TestPoFetcher {
 	 * Tests that an object can be fetched.
 	 * Tests that when a cache has been defined for a class, then
 	 * subsequent fetches of an element with the same id
-	 * 
-	 * @throws UnexpectedException
-	 * @throws DataException
-	 * @throws LogicException
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -273,9 +273,10 @@ public class TestPoFetcher {
 	/**
 	 * Cleans up PoFetched caches.
 	 */
+	@SuppressWarnings("rawtypes")
 	private void cleanUp() {
 		PoFetcher.caches.clear();
-		((Map)ReflectionUtils.get("selections", PoFetcher.modifications)).clear();
+		((Map)ReflectionUtils.get("selections", PoFetcher.modifications)).clear(); //$NON-NLS-1$
 		PoFetcher.fetchMethods.clear();
 	}
 

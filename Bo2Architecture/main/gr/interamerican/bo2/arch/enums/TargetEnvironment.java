@@ -37,13 +37,29 @@ public enum TargetEnvironment {
 	MIGRATION,
 	
 	/**
-	 * The application is in production.
+	 * Staging environment for testing production versions being patched.
 	 */
 	PRDEV,
 	
 	/**
 	 * The application is in production.
 	 */
-	PRODUCTION;
+	PRODUCTION,
+	
+	/**
+	 * The application is in template. It is used to setup data for nightly builds
+	 */
+	TEMPLATE,
+	
+	/**
+	 * The application is being tested as part of a user acceptance
+	 * testing phase.
+	 */
+	TEST,
+	
+	/**
+	 * The application is using multiple database connections ()
+	 */
+	ALL;
 
 }

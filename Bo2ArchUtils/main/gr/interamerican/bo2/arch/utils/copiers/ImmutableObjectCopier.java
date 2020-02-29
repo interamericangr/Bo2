@@ -21,7 +21,8 @@ import gr.interamerican.bo2.arch.ext.Copier;
  *        Type of object beng copied.
  */
 public class ImmutableObjectCopier<T> implements Copier<T> {
-	
+
+	@Override
 	public T copy(T objectToCopy) {
 		return objectToCopy; //This is a new object, since it is immutable.
 	}

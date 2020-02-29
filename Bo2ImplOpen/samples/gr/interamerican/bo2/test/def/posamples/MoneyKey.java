@@ -16,21 +16,23 @@ import gr.interamerican.bo2.arch.Key;
 import gr.interamerican.bo2.impl.open.annotations.KeyProperties;
 
 /**
- * 
+ * The Interface MoneyKey.
  */
 @KeyProperties("moneyNo")
 public interface MoneyKey 
 extends Key {
 	
 	/**
-	 * Gets moneyNo
+	 * Gets moneyNo.
+	 *
 	 * @return moneyNo
 	 */
 	public String getMoneyNo();
 	
 	/**
-	 * Sets moneyNo
-	 * @param moneyNo
+	 * Sets moneyNo.
+	 *
+	 * @param moneyNo the new money no
 	 */
 	public void setMoneyNo(String moneyNo);
 

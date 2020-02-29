@@ -33,90 +33,82 @@ public interface BusinessDocument {
 	
 	/**
 	 * Fields of the template.
-	 * 
+	 *
 	 * @return Returns a list with the fields of the template ordered
 	 *         according to their occurrence in the document.
 	 *         
-	 * @throws DocumentEngineException 
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	List<String> getFields() throws DocumentEngineException;
 	
 	/**
-	 * Sets the values of the document's fields from an object. <br/>
+	 * Sets the values of the document's fields from an object. <br>
 	 * 
 	 * The method uses the name of each field as an OGNL expression.
 	 * This expression gets the value for the specified user defined field.
-	 * 
-	 * @param model
-	 *        Model object.
+	 *
+	 * @param model        Model object.
 	 *        
-	 * @throws DocumentEngineException 
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	void setFields(Object model) throws DocumentEngineException;	
 	
 	/**
 	 * Appends another document.
-	 * 
-	 * @param doc
-	 * 
-	 * @throws DocumentEngineException 
+	 *
+	 * @param doc the doc
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	void append(BusinessDocument doc) throws DocumentEngineException;
 	
 	/**
 	 * Adds a page break.
-	 * 
-	 * @throws DocumentEngineException 
+	 *
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	void pageBreak() throws DocumentEngineException;
 	
 	/**
 	 * The document as a byte array.
-	 * 
+	 *
 	 * @return Returns the document as a byte array.
-	 * 
-	 * @throws DocumentEngineException 
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	byte[] asByteArray() throws DocumentEngineException;
 	
 	/**
 	 * The document as a byte array stream.
-	 * 
+	 *
 	 * @return Returns the document as a byte array stream.
-	 * 
-	 * @throws DocumentEngineException 
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	ByteArrayOutputStream asByteStream() throws DocumentEngineException;
 	
 	/**
 	 * Gets the table with the specified name.
-	 * 
-	 * @param name
-	 *        Table name.
+	 *
+	 * @param name        Table name.
 	 *        
 	 * @return Returns the table with the specified name.
-	 * 
-	 * @throws DocumentEngineException 
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	DocumentTable getTable(String name) throws DocumentEngineException;
 	
 	/**
 	 * Adds text to the end of the document.
-	 * 
-	 * @param text
-	 *        Text to add. 
+	 *
+	 * @param text        Text to add. 
 	 *        
-	 * @throws DocumentEngineException 
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	void addText(String text) throws DocumentEngineException;
 	
 	/**
 	 * Adds a paragraph to the end of the document.
-	 * 
-	 * @param text
-	 *        Paragraph text.
+	 *
+	 * @param text        Paragraph text.
 	 *        
-	 * @throws DocumentEngineException
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	public void addParagraph(String text) throws DocumentEngineException;
 	
@@ -124,29 +116,26 @@ public interface BusinessDocument {
 	 * Inserts the contents of the specified document at the position
 	 * identified by the specified label.
 	 *  
-	 * @param positionLabel
-	 *        Labels the position on the document where the contents of the 
+	 *
+	 * @param positionLabel        Labels the position on the document where the contents of the 
 	 *        other document will be inserted.
 	 *        
-	 * @param document
-	 *        Document to insert to the specified position.
+	 * @param document        Document to insert to the specified position.
 	 *        
-	 * @throws DocumentEngineException 
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	public void insertAt(String positionLabel, BusinessDocument document) 
 	throws DocumentEngineException;
 	
 	/**
 	 * Gets the value of a custom property of the business document.
-	 * 
-	 * @param propertyName
-	 *        Name of the property.
-	 * 
+	 *
+	 * @param propertyName        Name of the property.
 	 * @return Returns the value of the custom property, or null
 	 *         if this BusinessDocument does not have a property with 
 	 *         the specified property name.
 	 *         
-	 * @throws DocumentEngineException 
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	public String getProperty(String propertyName) throws DocumentEngineException;
 

@@ -37,7 +37,7 @@ public class MessagesBean {
 	 * ResourceBundle.
 	 */
 	ResourceBundle resourceBundle;
-	
+
 	/**
 	 * Creates a new Messages object.
 	 * 
@@ -65,25 +65,25 @@ public class MessagesBean {
 			resourceBundle = ResourceBundle.getBundle(resourceBundlePath, new XmlControl());
 		}
 	}
-	
+
 	/**
 	 * Factory method. Uses the default system Locale.
 	 * 
 	 * @param resourceBundlePath
 	 *            Path to a resource file in the class path that contains the
 	 *            resource bundle.
-	 *            
+	 * 
 	 * @return MessagesBean instance.
 	 */
 	public static MessagesBean get(String resourceBundlePath) {
 		return new MessagesBean(resourceBundlePath, null);
 	}
-	
+
 	/**
 	 * Gets the string that corresponds to the specified key.
-	 * 
+	 *
 	 * @param key
-	 * 
+	 *            the key
 	 * @return String
 	 */
 	public String getString(String key) {
@@ -96,9 +96,11 @@ public class MessagesBean {
 
 	/**
 	 * Gets the string that corresponds to the specified key.
-	 * 
+	 *
 	 * @param key
+	 *            the key
 	 * @param params
+	 *            the params
 	 * @return String
 	 */
 	public String getString(String key, Object... params) {
@@ -115,10 +117,8 @@ public class MessagesBean {
 	 * ResourceBundle.Control extension for working with XML files also.
 	 */
 	static class XmlControl extends ResourceBundle.Control {
-		
-		/**
-		 * xml format
-		 */
+
+		/** xml format. */
 		static final String XML = "xml"; //$NON-NLS-1$
 
 		@Override
@@ -133,60 +133,69 @@ public class MessagesBean {
 		}
 
 		@Override
-		public ResourceBundle newBundle(
-		String baseName, Locale locale, String format, ClassLoader loader, boolean reload)
-		throws IllegalAccessException, InstantiationException, IOException {
-			
+		public ResourceBundle newBundle(String baseName, Locale locale, String format, ClassLoader loader,
+				boolean reload) throws IllegalAccessException, InstantiationException, IOException {
 			if (baseName == null || locale == null || format == null || loader == null) {
 				throw new NullPointerException();
 			}
-			
-			ResourceBundle bundle = null;
+
 			if (format.equals(XML)) {
-				
 				String bundleName = toBundleName(baseName, locale);
 				String resourceName = toResourceName(bundleName, format);
-				InputStream stream = null;
-				
-				if (reload) {
-					URL url = loader.getResource(resourceName);
-					if (url != null) {
-						URLConnection connection = url.openConnection();
-						if (connection != null) {
-							connection.setUseCaches(false); // Disable caches to get fresh data for reloading.
-							stream = connection.getInputStream();
+				try (InputStream stream = getStream(loader, reload, resourceName)) {
+					if (stream != null) {
+						try (BufferedInputStream bis = new BufferedInputStream(stream)) {
+							return new XMLResourceBundle(bis);
 						}
 					}
-				} else {
-					stream = loader.getResourceAsStream(resourceName);
 				}
-				if (stream != null) {
-					BufferedInputStream bis = new BufferedInputStream(stream);
-					bundle = new XMLResourceBundle(bis);
-					bis.close();
-				}
-			} else {
-				bundle = super.newBundle(baseName, locale, format, loader, reload);
 			}
-			return bundle;
+			return super.newBundle(baseName, locale, format, loader, reload);
+		}
+
+		/**
+		 * Gets the {@link InputStream} to use.
+		 * 
+		 * @param loader
+		 *            The {@link ClassLoader} in use
+		 * @param reload
+		 *            If Reloading is to be forced
+		 * @param resourceName
+		 *            Resource Name
+		 * @return the {@link InputStream}
+		 * @throws IOException
+		 */
+		private InputStream getStream(ClassLoader loader, boolean reload, String resourceName) throws IOException {
+			if (reload) {
+				URL url = loader.getResource(resourceName);
+				if (url != null) {
+					URLConnection connection = url.openConnection();
+					if (connection != null) {
+						// Disable caches to get fresh data for reloading.
+						connection.setUseCaches(false);
+						return connection.getInputStream();
+					}
+				}
+			}
+			return loader.getResourceAsStream(resourceName);
 		}
 	}
 
 	/**
-	 * Loads an XML ResourceBundle
+	 * Loads an XML ResourceBundle.
 	 */
 	static class XMLResourceBundle extends ResourceBundle {
-		
-		/**
-		 * properties
-		 */
+
+		/** properties. */
 		private Properties props;
 
 		/**
-		 * Creates a new XMLResourceBundle object. 
+		 * Creates a new XMLResourceBundle object.
 		 *
 		 * @param stream
+		 *            the stream
 		 * @throws IOException
+		 *             Signals that an I/O exception has occurred.
 		 */
 		XMLResourceBundle(InputStream stream) throws IOException {
 			props = new Properties();
@@ -200,10 +209,8 @@ public class MessagesBean {
 
 		@Override
 		public Enumeration<String> getKeys() {
-			Set<String> handleKeys = props.stringPropertyNames(); 
-			return Collections.enumeration(handleKeys); 
+			Set<String> handleKeys = props.stringPropertyNames();
+			return Collections.enumeration(handleKeys);
 		}
-
 	}
-
 }

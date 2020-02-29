@@ -29,6 +29,7 @@ import org.junit.Test;
 /**
  * Tests for {@link TranslatableBusinessObjectValidationExpression}.
  */
+@Deprecated
 public class TestTranslatableBusinessObjectValidationExpression 
 extends Bo2WicketTest {
 	

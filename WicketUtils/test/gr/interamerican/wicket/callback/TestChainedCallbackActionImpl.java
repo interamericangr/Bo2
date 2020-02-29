@@ -17,8 +17,9 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 /**
- * Unit tests for {@link ChainedCallbackActionImpl}
+ * Unit tests for {@link ChainedCallbackActionImpl}.
  */
+@Deprecated
 public class TestChainedCallbackActionImpl {
 	
 	/**
@@ -44,7 +45,7 @@ public class TestChainedCallbackActionImpl {
 	}
 	
 	/**
-	 * Test sanity check
+	 * Test sanity check.
 	 */
 	@Test(expected=RuntimeException.class)
 	public void testChain_afterCallback() {

@@ -27,6 +27,7 @@ public class Not<T> implements Condition<T>{
 	Condition<T> condition;
 
 	
+	@Override
 	public boolean check(T t) {		
 		return !condition.check(t);
 	}
@@ -34,7 +35,7 @@ public class Not<T> implements Condition<T>{
 	/**
 	 * Creates a new Not object. 
 	 *
-	 * @param condition
+	 * @param condition the condition
 	 */
 	public Not(Condition<T> condition) {
 		this.condition = condition;

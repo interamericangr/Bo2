@@ -19,14 +19,14 @@ import gr.interamerican.bo2.utils.meta.ext.formatters.MoneyFormatter;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestNfMoneyFormatter.
  */
 public class TestNfMoneyFormatter {
 
 
 	
 	/**
-	 * test Constructor
+	 * test Constructor.
 	 */
 	@Test
 	public void testConstructor(){

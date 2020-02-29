@@ -142,7 +142,8 @@ public class Mediator {
 	 * Loads the properties of the class with the specified name
 	 * to the <code>propertyDescriptors</code> map.
 	 *  
-	 * @param className
+	 *
+	 * @param className the class name
 	 */
 	synchronized void loadPropertiesOfClass(String className) {		
 		Class<?> beanClass;
@@ -226,11 +227,10 @@ public class Mediator {
 	/**
 	 * Gets the values of a beans properties as they are described
 	 * by a {@link BusinessObjectDescriptor} that describes the bean.
-	 * 
+	 *
+	 * @param <T> Type of bean.
 	 * @param descriptor Descriptor of bean.
 	 * @param bean Bean
-	 * @param <T> Type of bean.
-	 * 
 	 * @return Returns a Map that maps the the bean's BoPropertyDescriptors
 	 *         with their corresponding values.
 	 */

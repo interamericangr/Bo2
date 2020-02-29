@@ -17,7 +17,7 @@ import gr.interamerican.bo2.arch.exceptions.LogicException;
 import gr.interamerican.bo2.impl.open.annotations.ManagerName;
 import gr.interamerican.bo2.impl.open.workers.AbstractOperation;
 import gr.interamerican.bo2.samples.archutil.po.User;
-import gr.interamerican.bo2.samples.implopen.pw.JdbcPersistenceWorkerImpl;
+import gr.interamerican.bo2.samples.implopen.pw.UserPwImpl;
 import gr.interamerican.bo2.utils.annotations.Child;
 
 /**
@@ -26,28 +26,23 @@ import gr.interamerican.bo2.utils.annotations.Child;
  * 
  * This operation should succeed.
  * 
- * This implementation depends on 
- * {@link JdbcPersistenceWorkerImpl}.
+ * This implementation depends on {@link UserPwImpl}.
  *
  */
 @ManagerName("LOCALDB")
 public class UpdateUserOperation 
 extends AbstractOperation {
 	
-	/**
-	 * user
-	 */
+	/** user. */
 	protected User user;
 	
-	/**
-	 * child worker
-	 */
-	@Child
-	protected JdbcPersistenceWorkerImpl pw = 
-		new JdbcPersistenceWorkerImpl();
+	/** child worker. */
+	@Child protected UserPwImpl pw = new UserPwImpl();
 	
 
 	/**
+	 * Sets the user.
+	 *
 	 * @param user the user to set
 	 */
 	public void setUser(User user) {

@@ -21,14 +21,12 @@ import gr.interamerican.bo2.utils.meta.descriptors.StringBoPropertyDescriptor;
 import java.util.Arrays;
 
 /**
- * 
+ * The Class ChildBeanDescriptor.
  */
 public class ChildBeanDescriptor 
 	extends BasicBusinessObjectDescriptor<ChildBean> {
 
-		/**
-	 * 
-	 */
+		/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 

@@ -30,13 +30,13 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestSqlUtils.
  */
 public class TestSqlUtils {
 
 	
 	/**
-	 * Tests toString when value is null
+	 * Tests toString when value is null.
 	 */
 	@Test
 	public void testToString_nullValue(){
@@ -46,7 +46,7 @@ public class TestSqlUtils {
 	}
 	
 	/**
-	 * Tests toString 
+	 * Tests toString.
 	 */
 	@Test
 	public void testToString(){
@@ -57,7 +57,7 @@ public class TestSqlUtils {
 	}
 	
 	/**
-	 * Tests toQuotedString when value is null
+	 * Tests toQuotedString when value is null.
 	 */
 	@Test
 	public void testToQuotedString_nullValue(){
@@ -67,7 +67,7 @@ public class TestSqlUtils {
 	}
 	
 	/**
-	 * Tests toQuotedString 
+	 * Tests toQuotedString.
 	 */
 	@Test
 	public void testToQuotedString(){
@@ -79,7 +79,7 @@ public class TestSqlUtils {
 	
 	
 	/**
-	 * Tests sqlString an integer value
+	 * Tests sqlString an integer value.
 	 */
 	@Test
 	public void testSqlString_Integer(){
@@ -91,7 +91,7 @@ public class TestSqlUtils {
 	
 	
 	/**
-	 * Tests sqlString a date value
+	 * Tests sqlString a date value.
 	 */
 	@Test
 	public void testSqlString_Date(){
@@ -102,7 +102,7 @@ public class TestSqlUtils {
 	}
 	
 	/**
-	 * Tests statementParameter a date value
+	 * Tests statementParameter a date value.
 	 */
 	@Test
 	public void testStatementParameter_integerValue(){
@@ -113,7 +113,7 @@ public class TestSqlUtils {
 	}
 	
 	/**
-	 * Tests statementParameter a date value
+	 * Tests statementParameter a date value.
 	 */
 	@Test
 	public void testStatementParameter_dateValue(){
@@ -124,7 +124,7 @@ public class TestSqlUtils {
 	}
 	
 	/**
-	 * Tests statementParameter a null value
+	 * Tests statementParameter a null value.
 	 */
 	@Test
 	public void testStatementParameter_nullValue(){	
@@ -132,7 +132,7 @@ public class TestSqlUtils {
 	}
 	
 	/**
-	 * Unit test for getParameterNames(sql)
+	 * Unit test for getParameterNames(sql).
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -145,7 +145,7 @@ public class TestSqlUtils {
 	}
 	
 	/**
-	 * Unit test for getParameterNames(sql)
+	 * Unit test for getParameterNames(sql).
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -163,7 +163,7 @@ public class TestSqlUtils {
 	}
 	
 	/**
-	 * Unit test for getParameterNames(sql)
+	 * Unit test for getParameterNames(sql).
 	 */
 	@SuppressWarnings("nls")
 	@Test

@@ -19,7 +19,7 @@ import java.util.Arrays;
 import java.util.Iterator;
 
 /**
- * 
+ * The Class StringsQuery.
  */
 public class StringsQuery 
 extends IteratorQuery<String> {
@@ -30,9 +30,8 @@ extends IteratorQuery<String> {
 
 	/**
 	 * Creates a new StringsQuery object. 
-	 * 
-	 * @param countOfString 
 	 *
+	 * @param countOfString the count of string
 	 */
 	public StringsQuery(int countOfString) {
 		super();

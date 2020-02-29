@@ -17,7 +17,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 /**
- * 
+ * The Class TestSuiteBo2OdftoolkitSpan.
  */
 @RunWith(Suite.class)
 @SuiteClasses(

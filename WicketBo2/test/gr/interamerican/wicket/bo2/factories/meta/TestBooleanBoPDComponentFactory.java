@@ -15,6 +15,7 @@ package gr.interamerican.wicket.bo2.factories.meta;
 import gr.interamerican.bo2.samples.utils.meta.Bean1;
 import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.meta.descriptors.BooleanBoPropertyDescriptor;
+import gr.interamerican.wicket.bo2.markup.html.form.SelfDrawnBooleanDdc;
 import gr.interamerican.wicket.bo2.markup.html.form.SelfDrawnCheckBox;
 import gr.interamerican.wicket.markup.html.TestPage;
 
@@ -23,24 +24,20 @@ import org.apache.wicket.model.PropertyModel;
 import org.junit.Test;
 
 /**
- * 
+ * A factory for creating TestBooleanBoPDComponent objects.
  */
 public class TestBooleanBoPDComponentFactory extends BaseClassForTestingComponentFactory {	
 	
-	/**
-	 * 
-	 */
+	/** The boolean bo PD component factory. */
 	private BooleanBoPDComponentFactory booleanBoPDComponentFactory = 
 		new BooleanBoPDComponentFactory();
 	
-	/**
-	 * 
-	 */
+	/** The boolean bo property descriptor. */
 	private BooleanBoPropertyDescriptor booleanBoPropertyDescriptor = 
 		bean1descriptor.booleanDescriptor();
 	
 	/**
-	 * 
+	 * Test draw main first.
 	 */
 	@Test
 	public void testDrawMain_First(){
@@ -48,8 +45,9 @@ public class TestBooleanBoPDComponentFactory extends BaseClassForTestingComponen
 		tester.startPage(getTestPage(component));
 		tester.assertComponent(path(StringConstants.EMPTY), SelfDrawnCheckBox.class); 
 	}
+	
 	/**
-	 * 
+	 * Test draw main second.
 	 */
 	@Test
 	public void testDrawMain_Second(){
@@ -57,6 +55,33 @@ public class TestBooleanBoPDComponentFactory extends BaseClassForTestingComponen
 		Component component = booleanBoPDComponentFactory.drawMain(TestPage.TEST_ID, model, booleanBoPropertyDescriptor);
 		tester.startPage(getTestPage(component));
 		tester.assertComponent(path(StringConstants.EMPTY), SelfDrawnCheckBox.class); 
+	}
+	
+	/**
+	 * Test draw main first null allowed.
+	 */
+	@Test
+	public void testDrawMain_First_nullAllowed(){
+		BooleanBoPropertyDescriptor descriptor = bean1descriptor.booleanDescriptor();
+		descriptor.setNullAllowed(true);
+		
+		Component component = booleanBoPDComponentFactory.drawMain(descriptor, TestPage.TEST_ID);
+		tester.startPage(getTestPage(component));
+		tester.assertComponent(path(StringConstants.EMPTY), SelfDrawnBooleanDdc.class); 
+	}
+	
+	/**
+	 * Test draw main second null allowed.
+	 */
+	@Test
+	public void testDrawMain_Second_nullAllowed(){
+		BooleanBoPropertyDescriptor descriptor = bean1descriptor.booleanDescriptor();
+		descriptor.setNullAllowed(true);
+		
+		PropertyModel<Bean1> model = new PropertyModel<Bean1>(bean1,descriptor.getName());
+		Component component = booleanBoPDComponentFactory.drawMain(TestPage.TEST_ID, model, descriptor);
+		tester.startPage(getTestPage(component));
+		tester.assertComponent(path(StringConstants.EMPTY), SelfDrawnBooleanDdc.class); 
 	}
 
 }

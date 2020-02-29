@@ -46,8 +46,9 @@ public class BeanWith2Fields implements Serializable {
 	
 	/**
 	 * Creates a new BeanWith2Fields object. 
-	 * @param field1 
-	 * @param field2 
+	 *
+	 * @param field1 the field 1
+	 * @param field2 the field 2
 	 */
 	public BeanWith2Fields(String field1, Integer field2) {
 		super();
@@ -65,8 +66,8 @@ public class BeanWith2Fields implements Serializable {
 
 	/**
 	 * Sets field 1.
-	 * 
-	 * @param field1
+	 *
+	 * @param field1 the new field 1
 	 */
 	public void setField1(String field1) {
 		this.field1=field1;		
@@ -82,8 +83,8 @@ public class BeanWith2Fields implements Serializable {
 	
 	/**
 	 * Sets field 2.
-	 * 
-	 * @param field2
+	 *
+	 * @param field2 the new field 2
 	 */
 	public void setField2(Integer field2) {
 		this.field2=field2;

@@ -50,7 +50,8 @@ public abstract class AbstractHibernateDetachStrategy implements DetachStrategy 
 	 * Needed for proper {@link #detach(Object, Provider)} implementation.
 	 */
 	protected Set<Object> transientObjectsOnLastReattach = new HashSet<Object>();
-	
+
+	@Override
 	public void markExplicitSave(Object object, Provider provider) {
 		HibernateSessionProvider hProv = HibernateBo2Utils.getHibernateSessionProvider(object, provider);
 		if(hProv!=null) {
@@ -58,22 +59,23 @@ public abstract class AbstractHibernateDetachStrategy implements DetachStrategy 
 			hProv.setExcluded(object);
 		}
 	}
-	
+
+	@Override
 	public void reattach(Object object, Provider provider) {
 		reattach(object, provider, false);
 	}
-	
+
+	@Override
 	public void reattachForUpdate(Object object, Provider provider) {
 		reattach(object, provider, true);
 	}
-	
-	
+
 	/**
-	 * Internal implementation
-	 * 
-	 * @param object
-	 * @param provider
-	 * @param forUpdate
+	 * Internal implementation.
+	 *
+	 * @param object the object
+	 * @param provider the provider
+	 * @param forUpdate the for update
 	 */
 	@SuppressWarnings("nls")
 	private void reattach(Object object, Provider provider, boolean forUpdate) {
@@ -108,7 +110,7 @@ public abstract class AbstractHibernateDetachStrategy implements DetachStrategy 
 			}
 		}
 		
-		LOGGER.debug("--->reattach " + object.getClass().getName() + object.toString());
+		LOGGER.debug("---&gt;reattach " + object.getClass().getName() + object.toString());
 		
 		if(!HibernateBo2Utils.isTransient((PersistentObject<?>) object)) {
 			try {
@@ -158,23 +160,23 @@ public abstract class AbstractHibernateDetachStrategy implements DetachStrategy 
 		
 		LOGGER.debug("Manual reattach candidates: " + objectsToReattachManually.size() + ". Reattached: " + i);
 		LOGGER.debug("Transient objects: " + transientObjects.size() + ". Detached manually: " + j);
-		LOGGER.debug("reattached " + object.getClass().getName() + object + "<---");
+		LOGGER.debug("reattached " + object.getClass().getName() + object + "&lt;---");
 		
 	}
 	
 	/**
 	 * Re-attaches the entity depending on its concrete {@link DetachStrategy}.
-	 * 
-	 * @param object
-	 * @param session
+	 *
+	 * @param object the object
+	 * @param session the session
 	 */
 	protected abstract void doReattach(Object object, Session session);
 	
 	/**
 	 * Detaches the entity.
-	 * 
-	 * @param object
-	 * @param session
+	 *
+	 * @param object the object
+	 * @param session the session
 	 * @return Whether it was indeed detached.
 	 */
 	private boolean detachTransientObjectAttachedByCascade(Object object, Session session) {
@@ -200,9 +202,9 @@ public abstract class AbstractHibernateDetachStrategy implements DetachStrategy 
 	
 	/**
 	 * Indicates if an entity may be locked or updated.
-	 * 
-	 * @param object
-	 * @param session 
+	 *
+	 * @param object the object
+	 * @param session the session
 	 * @return True, if the entity can be locked.
 	 */
 	private boolean mayLockOrUpdate(Object object, Session session) {
@@ -221,7 +223,8 @@ public abstract class AbstractHibernateDetachStrategy implements DetachStrategy 
 	/**
 	 * Sets the current user as the last modifier of a ModificationRecord po
 	 * if there is no lastModifiedBy set.
-	 * @param o
+	 *
+	 * @param o the new last modified by
 	 */
 	void setLastModifiedBy(Object o) {
 		if(!(o instanceof ModificationRecord)) {
@@ -233,5 +236,4 @@ public abstract class AbstractHibernateDetachStrategy implements DetachStrategy 
 			mdf.setLastModifiedBy(userId);
 		}
 	}
-
 }

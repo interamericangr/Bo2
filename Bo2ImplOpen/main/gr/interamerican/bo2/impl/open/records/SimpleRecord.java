@@ -35,7 +35,8 @@ public class SimpleRecord extends AbstractBaseRecord {
 	
 	/**
 	 * Creates a new SimpleRecord object. 
-	 * @param charset 
+	 *
+	 * @param charset the charset
 	 */
 	public SimpleRecord(Charset charset) {
 		super();

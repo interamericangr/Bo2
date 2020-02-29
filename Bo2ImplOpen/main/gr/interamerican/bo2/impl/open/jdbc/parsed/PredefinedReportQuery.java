@@ -126,7 +126,8 @@ OrderedNamedFieldsContainer, TransformationSpec {
 	String rowClassName() {
 		return ROW_CLASS_PKG+StringConstants.DOT+ROW_CLASS_PREFIX+report.getUniqueId();
 	}	
-	
+
+	@Override
 	public Object getEntity() throws DataAccessException {
 		try {
 			Object row = Factory.create(rowClass);
@@ -141,29 +142,34 @@ OrderedNamedFieldsContainer, TransformationSpec {
 			throw new DataAccessException(e);
 		}
 	}
-	
+
 	@Override
 	public String baseSql() {
 		return report.getSql();
 	}
-	
+
+	@Override
 	public int getFieldOrder(String field) {		
 		Integer order = Utils.notNull(columnNames.getRight(field), -1);
 		return order.intValue();
 	}
-	
+
+	@Override
 	public String getFieldName(int field) {
 		return columnNames.getLeft(field); 
 	}
-	
+
+	@Override
 	public int getFieldsCount() {	
 		return columnNames.size();
 	}
-	
+
+	@Override
 	public Class<?> getArgumentType() {
 		return criteriaClass;
 	}
-	
+
+	@Override
 	public Class<?> getResultType() {		
 		return rowClass;
 	}
@@ -188,5 +194,4 @@ OrderedNamedFieldsContainer, TransformationSpec {
 		}
 		return clean.toArray(new Parameter[]{});
 	}	
-
 }

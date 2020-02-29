@@ -16,6 +16,7 @@ import gr.interamerican.bo2.utils.beans.Pair;
 import gr.interamerican.bo2.utils.matching.SameTypeAllPropertiesEqualMatchingRule;
 import gr.interamerican.bo2.utils.matching.SameTypeEqualPropertiesMatchingRule;
 
+import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashMap;
@@ -36,6 +37,67 @@ public class Utils {
 	 */
 	private Utils() {
 		/* empty */
+	}
+	
+	/**
+	 * Ελέγχει ότι όλα τα αντικείμενα που περνάμε στο property χωρισμένα με
+	 * τελεία (".") δεν είναι null και επιστρέφει την τιμή του τελευταίου
+	 * property.
+	 * 
+	 * Αν κάποιο είναι null, επιστρέφει την default τιμή του datatype.
+	 * 
+	 * Παράδειγμα: 
+	 * Έχουμε το Foo που έχει ένα Bar που έχει το name. 
+	 * Περνάμε σαν property το "bar.name" και σαν object. 
+	 * Αν και το foo, το bar και το name είναι not null, επιστρέφει το name.
+	 * Αν κάποιο είναι null, επιστρέφει "".
+	 * 
+	 * @param property 
+	 * @param object
+	 * @param datatype 
+	 * @return αν κάποιο από τα αντικείμενα είναι null επιστρέφει την default τιμή βάση του datatype, διαφορετικά την τιμή του property.
+	 */
+	public static <T> T nullSafeGetValueWithDefault(String property, Object object, Class<T> datatype) {
+		return nullSafeGetValueWithDefault(property, object, Defaults.getDefaultValue(datatype));
+	}
+	
+	/**
+	 * Ελέγχει ότι όλα τα αντικείμενα που περνάμε στο property χωρισμένα με
+	 * τελεία (".") δεν είναι null και επιστρέφει την τιμή του τελευταίου
+	 * property.
+	 * 
+	 * Αν κάποιο είναι null, επιστρέφει την defaultValue.
+	 * 
+	 * Παράδειγμα: 
+	 * Έχουμε το Foo που έχει ένα Bar που έχει το name. 
+	 * Περνάμε σαν property το "bar.name" και σαν object. 
+	 * Αν και το foo, το bar και το name είναι not null, επιστρέφει το name.
+	 * Αν κάποιο είναι null, επιστρέφει "".
+	 * 
+	 * @param property
+	 * @param object
+	 * @param defaultValue 
+	 * @return αν κάποιο από τα αντικείμενα είναι null επιστρέφει την defaultValue, διαφορετικά την τιμή του property.
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> T nullSafeGetValueWithDefault(String property, Object object, T defaultValue) {
+		if (object == null) {
+			return defaultValue;
+		}
+		String[] properties = property.split("\\."); //$NON-NLS-1$
+		Object in = object;
+		for (String prop : properties) {
+			if(ReflectionUtils.getProperties(in).containsKey(prop)) {
+				in = ReflectionUtils.getProperty(prop, in);
+			} else {
+				Method m = ReflectionUtils.getMethodByUniqueName(prop, in.getClass());
+				in = ReflectionUtils.invoke(m, in);
+			}
+			if (in == null) {
+				return defaultValue;
+			}
+		}
+		return (T) in;
 	}
 
 	/**
@@ -60,9 +122,8 @@ public class Utils {
 	 * empty (applicable for arrays, collections and Strings)
 	 * 
 	 * TODO: Add other cases for which empty makes sense.
-	 * 
-	 * @param obj
-	 * 
+	 *
+	 * @param obj the obj
 	 * @return Returns true if the argument is null or empty.
 	 */
 	public static Boolean isNullOrEmpty(Object obj) {
@@ -83,14 +144,12 @@ public class Utils {
 	
 	/**
 	 * Returns a default value if the argument is null or empty.
-	 * 
-	 * @param <T> 
-	 * @param val 
-	 * @param defaultVal
-	 * 
-	 * @see #isNullOrEmpty(Object)
-	 * 
+	 *
+	 * @param <T> the generic type
+	 * @param val the val
+	 * @param defaultVal the default val
 	 * @return The val if it is not null, otherwise defaultVal.
+	 * @see #isNullOrEmpty(Object)
 	 */
 	public static <T> T notNullOrEmpty(T val, T defaultVal) {
 		if(isNullOrEmpty(val)) {
@@ -101,9 +160,9 @@ public class Utils {
 
 	/**
 	 * Generates a hashcode from the hashcodes of the elements of an array.
-	 * 
+	 *
 	 * @param array
-	 * 
+	 *            the array
 	 * @return Returns a hashcode.
 	 */
 	public static int generateHashCode(Object[] array) {
@@ -118,12 +177,12 @@ public class Utils {
 
 	/**
 	 * Equality check.
-	 * 
+	 *
 	 * @param one
+	 *            the one
 	 * @param two
+	 *            the two
 	 * @return Returns true if one equals two.
-	 * 
-	 * TODO: οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½ οΏ½οΏ½ TypedSelectables.
 	 */
 	public static boolean equals(Object one, Object two) {
 		if (one == two) {
@@ -132,14 +191,14 @@ public class Utils {
 		if (one == null || two == null) {
 			return (one == null && two == null);
 		}
-		
+
 		if (Iterable.class.isAssignableFrom(one.getClass())) {
 			Iterable<?> iterOne = (Iterable<?>) one;
 			Iterable<?> iterTwo = (Iterable<?>) two;
 			return iterableEquals(iterOne, iterTwo);
 		}
 		if (Object[].class.isAssignableFrom(one.getClass())) {
-			
+
 			Object[] arrOne = (Object[]) one;
 			Object[] arrTwo = (Object[]) two;
 			return iterableEquals(Arrays.asList(arrOne), Arrays.asList(arrTwo));
@@ -147,51 +206,49 @@ public class Utils {
 		if (one.getClass().isAssignableFrom(two.getClass())) {
 			return one.equals(two);
 		}
-		if (two.getClass().isAssignableFrom(one.getClass())) {			
+		if (two.getClass().isAssignableFrom(one.getClass())) {
 			return two.equals(one);
 		}
-		
+
 		return one.equals(two);
 	}
-	
+
 	/**
 	 * Checks if two objects of the same class are identical having some
 	 * properties included.
 	 * 
-	 * The method compares all properties of both objects. If any of
-	 * these properties has a different value, then the method returns
-	 * false. If all properties of both objects are equal, then the
-	 * method returns true.
-	 * 
-	 * @param left 
-	 *        First element to compare.
+	 * The method compares all properties of both objects. If any of these
+	 * properties has a different value, then the method returns false. If all
+	 * properties of both objects are equal, then the method returns true.
+	 *
+	 * @param <T>
+	 *            Type of objects being compared.
+	 * @param left
+	 *            First element to compare.
 	 * @param right
-	 *        Second element to compare.
+	 *            Second element to compare.
 	 * @param propertiesToExclude
-	 *        Array with strings that contains the properties of the
-	 *        objects that should be excluded from the matching. 
-	 * @param <T> 
-	 *        Type of objects being compared.
-	 * 
-	 * @return Returns true if the objects are same excluding the specified 
+	 *            Array with strings that contains the properties of the objects
+	 *            that should be excluded from the matching.
+	 * @return Returns true if the objects are same excluding the specified
 	 *         properties. Otherwise returns false.
 	 */
 	public static <T> boolean same(T left, T right, String... propertiesToExclude) {
-		if (left==null) {
-			return right==null;
+		if (left == null) {
+			return right == null;
 		}
-		if (right==null) {
-			return left==null;
+		if (right == null) {
+			return left == null;
 		}
 		@SuppressWarnings("unchecked")
 		Class<T> clazz = (Class<T>) left.getClass();
-		
-		SameTypeAllPropertiesEqualMatchingRule<T> match =
-			new SameTypeAllPropertiesEqualMatchingRule<T>(clazz, propertiesToExclude);		
-		
+
+		SameTypeAllPropertiesEqualMatchingRule<T> match = new SameTypeAllPropertiesEqualMatchingRule<T>(clazz,
+				propertiesToExclude);
+
 		return match.isMatch(left, right);
 	}
-	
+
 	/**
 	 * Checks if two objects look alike, in the sense that they have
 	 * some of their properties equal.
@@ -200,18 +257,13 @@ public class Utils {
 	 * these properties has a different value, then the method returns
 	 * false. If all properties of both objects are equal, then the
 	 * method returns true. The properties are specified in the method.
-	 * 
-	 * @param left 
-	 *        First element to compare.
-	 * @param right
-	 *        Second element to compare.
-	 * @param propertiesToCompare
-	 *        Array with strings that contains the properties of the
+	 *
+	 * @param <T>        Type of objects being compared.
+	 * @param left        First element to compare.
+	 * @param right        Second element to compare.
+	 * @param propertiesToCompare        Array with strings that contains the properties of the
 	 *        objects that should be compared. 
-	 * @param <T> 
-	 *        Type of objects being compared.
-	 * 
-	 * @return Returns true if the objects are same excluding the specified 
+	 * @return Returns true if the objects are same excluding the specified
 	 *         properties. Otherwise returns false.
 	 */
 	public static <T> boolean alike(T left, T right, String... propertiesToCompare) {
@@ -239,20 +291,13 @@ public class Utils {
 	 * <code>alike(T left, T right, String... pralikeopertiesToCompare)</code> 
 	 * method. If all pairs have elements which are alike with each other,
 	 * then the method returns true, otherwise the method returns false.
-	 * 
-	 * @param left 
-	 *        First set.
-	 * @param right
-	 *        Second set.
-	 * @param keyProperty
-	 *        Name of the property that contains the matching key
-	 * @param propertiesToCompare
-	 *        Properties used to find if the objects are alike.
-	 * @param clazz
-	 *        Type of objects being compared.
-	 * @param <T> 
-	 *        Type of objects being compared.
-	 * 
+	 *
+	 * @param <T>        Type of objects being compared.
+	 * @param left        First set.
+	 * @param right        Second set.
+	 * @param clazz        Type of objects being compared.
+	 * @param keyProperty        Name of the property that contains the matching key
+	 * @param propertiesToCompare        Properties used to find if the objects are alike.
 	 * @return Returns true if all objects in the left and right sets
 	 *         match according to their key property and are alike
 	 *         having in pairs the specified properties equal.
@@ -305,8 +350,8 @@ public class Utils {
 	/**
 	 * Gets a hashmap that can be used to check equality of the 
 	 * elements of two iterables.
-	 * 
-	 * @param iterable
+	 *
+	 * @param iterable the iterable
 	 * @return Returns a hashmap.
 	 */
 	private static Object comparableCollection(Iterable<?> iterable) {
@@ -323,12 +368,12 @@ public class Utils {
 
 	/**
 	 * Null safe comparison.
-	 * 
-	 * @param <T>
-	 * @param left
-	 * @param right
+	 *
+	 * @param <T> the generic type
+	 * @param left the left
+	 * @param right the right
 	 * @return If both arguments are null, otherwise returns the result of their comparison.
-	 *         If one of the arguments is null, then it is assumed to be less than the other. 
+	 *         If one of the arguments is null, then it is assumed to be less than the other.
 	 */
 	public static <T extends Comparable<? super T>> int nullSafeCompare(T left, T right) {
 		if (left==null & right==null) {

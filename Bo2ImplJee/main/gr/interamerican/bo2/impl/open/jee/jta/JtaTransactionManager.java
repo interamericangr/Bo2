@@ -39,6 +39,7 @@ implements TransactionManager {
 	 */
 	protected UserTransaction ut;
 
+	@Override
 	public void begin() throws CouldNotBeginException {
 		try {
 			ut.begin();
@@ -48,7 +49,8 @@ implements TransactionManager {
 			throw new CouldNotBeginException(se);
 		}
 	}
-	
+
+	@Override
 	public void commit() throws CouldNotCommitException {
 		try {
 			ut.commit();
@@ -65,14 +67,15 @@ implements TransactionManager {
 			throw new CouldNotCommitException(hre);
 		} catch (SystemException syse) {
 			throw new CouldNotCommitException(syse);
-		} catch (DataException e) { //job submission
+		} catch (DataException e) { // job submission
 			throw new RuntimeException(e);
 		} finally {
 			clearScheduledJobs();
 		}
-		
+
 	}
 
+	@Override
 	public void rollback() throws CouldNotRollbackException {
 		try {
 			ut.rollback();
@@ -83,20 +86,21 @@ implements TransactionManager {
 			throw new CouldNotRollbackException(se);
 		} catch (SystemException syse) {
 			throw new CouldNotRollbackException(syse);
-		} catch (DataException e) { //job submission
+		} catch (DataException e) { // job submission
 			throw new RuntimeException(e);
 		} finally {
 			clearScheduledJobs();
 		}
 	}
 
+	@Override
 	public boolean hasBeenMarkedRollbackOnly() {
 		try {
 			return ut.getStatus() == Status.STATUS_MARKED_ROLLBACK;
 		} catch (SystemException e) {
 			LOGGER.error("Got SystemException while querying JTA transaction status: " + e.getMessage()); //$NON-NLS-1$
-			return true; //If a SystemException is caught something is wrong anyway.
+			return true; // If a SystemException is caught something is wrong
+							// anyway.
 		}
 	}
-
 }

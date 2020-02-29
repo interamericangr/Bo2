@@ -36,6 +36,7 @@ implements Transformation<Number, Number>{
 		calculators.registerSelection(Short.class, new AbsoluteValueShort());
 	}	
 	
+	@Override
 	public Number execute(Number a) {
 		@SuppressWarnings("rawtypes")
 		Transformation calc = calculators.select(a);
@@ -46,7 +47,4 @@ implements Transformation<Number, Number>{
 		Number result = (Number) calc.execute(a); 
 		return result;
 	}
-	
-	
-
 }

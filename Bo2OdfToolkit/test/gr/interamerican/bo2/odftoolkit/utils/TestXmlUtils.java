@@ -28,7 +28,8 @@ public class TestXmlUtils {
 	
 	/**
 	 * Unit test for getAllNodesOfType(node, clazz, list).
-	 * @throws Exception 
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test
 	public void testGetAllNodesOfType() throws Exception {		

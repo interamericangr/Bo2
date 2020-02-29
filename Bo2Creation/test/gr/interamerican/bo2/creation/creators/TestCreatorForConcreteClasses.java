@@ -30,7 +30,8 @@ public class TestCreatorForConcreteClasses {
 	
 	/**
 	 * Unit test for create.
-	 * @throws ClassCreationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
 	 */
 	@Test
 	public void testCreate() throws ClassCreationException {
@@ -60,7 +61,8 @@ public class TestCreatorForConcreteClasses {
 	
 	/**
 	 * Unit test for create.
-	 * @throws ClassCreationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
 	 */
 	@Test(expected=ClassCreationException.class)
 	public void testCreate_withInvalidType() 

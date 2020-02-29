@@ -23,7 +23,7 @@ import java.util.Date;
 import java.util.Map;
 
 /**
- * 
+ * The Class DynamicQueryImpl.
  */
 public abstract class DynamicQueryImpl extends AbstractHqlQuery<Object> {
 
@@ -59,21 +59,16 @@ public abstract class DynamicQueryImpl extends AbstractHqlQuery<Object> {
 	
 	
 	
-	/**
-	 * integer1
-	 */
+	/** integer1. */
 	@Property @Parameter Integer integer1;
-	/**
-	 * integer2
-	 */
+	
+	/** integer2. */
 	@Property @Parameter Integer integer2;
-	/**
-	 * string
-	 */
+	
+	/** string. */
 	@Property @Parameter String string;
-	/**
-	 * date
-	 */
+	
+	/** date. */
 	@Property @Parameter Date date;
 	
 	

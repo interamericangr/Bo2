@@ -27,9 +27,7 @@ import java.util.Set;
 public class SelectionBoPropertyDescriptor<T> 
 extends AbstractBoPropertyDescriptor<T> {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**

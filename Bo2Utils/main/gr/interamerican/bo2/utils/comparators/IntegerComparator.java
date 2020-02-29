@@ -29,14 +29,11 @@ implements Comparator<Number> {
 	private Integer toInteger(Number n) {
 		return n.intValue();
 	}
-	
-	/* (non-Javadoc)
-	 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
-	 */	
+
+	@Override
 	public int compare(Number o1, Number o2) {
 		Integer b1 = toInteger(o1);
 		Integer b2 = toInteger(o2);
 		return b1.compareTo(b2);
 	}
-
 }

@@ -21,9 +21,7 @@ import org.junit.Test;
  */
 public class TestShortFormatter {
 
-	/**
-	 * TypedSelectableFormatter to test
-	 */
+	/** TypedSelectableFormatter to test. */
 	ShortFormatter formatter = new ShortFormatter();
 
 	/**

@@ -12,10 +12,22 @@
  ******************************************************************************/
 package gr.interamerican.wicket.markup.html.panel.searchFlow;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.panel.EmptyPanel;
+import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.IModel;
+
 import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.StringUtils;
-import gr.interamerican.wicket.callback.CallbackAction;
-import gr.interamerican.wicket.callback.CallbackWrapper;
+import gr.interamerican.bo2.utils.Utils;
+import gr.interamerican.wicket.callback.LegacyCallbackAction;
+import gr.interamerican.wicket.callback.MultiplePickAction;
+import gr.interamerican.wicket.callback.SearchAction;
 import gr.interamerican.wicket.markup.html.panel.back.ServicePanelWithBack;
 import gr.interamerican.wicket.markup.html.panel.bean.SingleBeanPanel;
 import gr.interamerican.wicket.markup.html.panel.bean.SingleBeanPanelDef;
@@ -36,35 +48,24 @@ import gr.interamerican.wicket.markup.html.panel.service.ServicePanel;
 import gr.interamerican.wicket.util.resource.StringResourceUtils;
 import gr.interamerican.wicket.util.resource.WellKnownResourceIds;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.wicket.Component;
-import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.panel.EmptyPanel;
-import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.IModel;
-
 /**
  * {@link ServicePanel} that manages a simple UI flow of a query.
  * This UI flow consists of:
- * 
+ * <ul>
  * <li> A screen that allows the user to define criteria for the query
  * and execute it. </li>
  * <li> A screen that shows the results and allows the user to select
  * one (or more) items or go back to the previous screen. </li>
- * 
- * Anyone using this, should provide the following {@link CallbackAction}s.
- * 
- * <li> back action (optionally).
- * <li> query action (should put the results in this panel's definition).
+ * </ul>
+ * Anyone using this, should provide the following Action's.
+ * <ul>
+ * <li> back action (optionally).</li>
+ * <li> {@link SearchAction} (should put the results in this panel's definition).</li>
  * <li> selected item(s) action (should retrieve the selected item(s) from this
- *      panel's definition and do something with it.
+ *      panel's definition and do something with it.</li>
  * <li> delete, update, save action (should retrieve the item to perform
- *      the operation on from the beanModel of this panel's definition.
- * 
+ *      the operation on from the beanModel of this panel's definition.</li>
+ * </ul>
  * @param <C>
  *        Type of search criteria.
  * @param <B>
@@ -76,45 +77,14 @@ public class SearchFlowPanel
 B extends Serializable>
 extends ServicePanelWithBack {
 
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * ID of criteriaPanel
-	 */
+	/** ID of criteriaPanel. */
 	public static final String CRITERIA_PANEL_ID = "criteriaPanel"; //$NON-NLS-1$
 
-	/**
-	 * ID of resiltsPanel
-	 */
+	/** ID of resiltsPanel. */
 	public static final String RESULTS_PANEL_ID = "resultsPanel"; //$NON-NLS-1$
-
-	/**
-	 * the criteria panel.
-	 */
-	protected Panel criteriaPanel;
-
-	/**
-	 *  the criteria panel definition.
-	 */
-	protected SingleBeanPanelDef<C> criteriaPanelDef;
-
-	/**
-	 * the results panel.
-	 */
-	protected Panel resultsPanel;
-
-	/**
-	 *  the criteria panel definition.
-	 */
-	protected ListTablePanelDef<B> resultsPanelDef;
-
-	/**
-	 * state of the panel.
-	 */
-	protected SearchFlowPanelState state;
 
 	/**
 	 * Indicates if the results panel is a {@link CrudPickerPanel}.
@@ -132,19 +102,9 @@ extends ServicePanelWithBack {
 	private Boolean hasMultipleSelectionsPanel;
 
 	/**
-	 * Bean class.
-	 */
-	private Class<B> beanClass;
-
-	/**
-	 * Criteria class.
-	 */
-	private Class<C> criteriaClass;
-
-	/**
 	 * Creates a new QueryFlowPanel object.
-	 * 
-	 * @param definition
+	 *
+	 * @param definition the definition
 	 */
 	public SearchFlowPanel(SearchFlowPanelDef<C, B> definition) {
 		super(definition);
@@ -158,41 +118,32 @@ extends ServicePanelWithBack {
 
 	@Override
 	protected void paint() {
-		state.paint(this);
-		add(criteriaPanel);
+		SingleBeanPanelDef<C> criteriaPanelDef = createCriteriaPanelDef();
+		add(new SingleBeanPanel<>(criteriaPanelDef));
+		EmptyPanel resultsPanel = new EmptyPanel(RESULTS_PANEL_ID);
 		add(resultsPanel);
+		paintState(SearchFlowPanelState.CRITERIA);
 		add(feedBackPanel);
 		paintBackButton();
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void init() {
 		super.init();
 		hasCrudPickerPanel = (getDefinition().getDeleteAction()!=null)
 				|| (getDefinition().getUpdateAction()!=null)
-				|| (getDefinition().getSaveAction()!=null);
+				|| (getDefinition().getSaveAction()!=null)
+				|| getDefinition().getViewEnabled();
 		hasPickerPanel = (getDefinition().getPickAction()!=null)
 				&& !getDefinition().getAllowMultipleSelections()
 				&& !hasCrudPickerPanel;
 		hasMultipleSelectionsPanel = getDefinition().getAllowMultipleSelections()
 				&& !hasCrudPickerPanel
 				&& !hasPickerPanel;
-		if(!hasMultipleSelectionsPanel) {
-			beanClass = (Class<B>) getDefinition().getBeanModel().getObject().getClass();
-		}
-		criteriaClass = (Class<C>) getDefinition().getCriteriaModel().getObject().getClass();
-
-		getDefinition().getQueryAction().setCaller(this);
-
-		criteriaPanelDef = createCriteriaPanelDef();
-		resultsPanelDef = createResultsPanelDef();
-		criteriaPanel = new CriteriaPanel(criteriaPanelDef);
-		resultsPanel = new EmptyPanel(RESULTS_PANEL_ID);
-		state = SearchFlowPanelState.CRITERIA;
 	}
 
-	@SuppressWarnings("nls")
+	@SuppressWarnings({ "nls", "deprecation" })
 	@Override
 	protected void validateDef() {
 		super.validateDef();
@@ -212,7 +163,9 @@ extends ServicePanelWithBack {
 			getDefinition().setRequestConfirmOnDelete(false);
 		}
 		if(getDefinition().getAllowMultipleSelections() == null) {
-			getDefinition().setAllowMultipleSelections(false);
+			boolean multiple = getDefinition().getMultiplePickAction() != null
+					|| getDefinition().getSecondMultiplePickAction() != null;
+			getDefinition().setAllowMultipleSelections(multiple);
 		}
 		if(getDefinition().getRefreshAfterDataOp() == null) {
 			getDefinition().setRefreshAfterDataOp(false);
@@ -246,6 +199,12 @@ extends ServicePanelWithBack {
 					"that has a null model object in its definition.";
 			throw new RuntimeException(msg);
 		}
+		if (getDefinition().getBeanModel() != null && getDefinition().getBeanModel().getObject() != null
+				&& getDefinition().getBeanCreator() == null) {
+			@SuppressWarnings("unchecked")
+			Class<B> beanClass = (Class<B>) getDefinition().getBeanModel().getObject().getClass();
+			getDefinition().setBeanCreator(ReflectionUtils.supplier(beanClass));
+		}
 		if(getDefinition().getCriteriaModel() == null) {
 			String msg = "Cannot initialize a SearchFlowPanel with null criteria model " +
 					"in its definition.";
@@ -256,10 +215,43 @@ extends ServicePanelWithBack {
 					"that has a null model object in its definition.";
 			throw new RuntimeException(msg);
 		}
-		if(getDefinition().getQueryAction()==null) {
-			String msg = "Cannot initialize a SearchFlowPanel without a query action.";
-			throw new RuntimeException(msg);
+		if (getDefinition().getCriteriaBeanCreator() == null) {
+			@SuppressWarnings("unchecked")
+			Class<C> criteriaBeanClass = (Class<C>) getDefinition().getCriteriaModel().getObject().getClass();
+			getDefinition().setCriteriaBeanCreator(ReflectionUtils.supplier(criteriaBeanClass));
 		}
+		if(getDefinition().getQueryAction()==null) {
+			throw new RuntimeException("Cannot initialize a SearchFlowPanel without a query action.");
+		}
+		if ((getDefinition().getPickAction() != null || getDefinition().getSecondPickAction() != null)
+				&& (getDefinition().getMultiplePickAction() != null
+						|| getDefinition().getSecondMultiplePickAction() != null)) {
+			throw new RuntimeException(
+					"Both PickAction and MultiplePickAction were set - only one of these is allowed.");
+		}
+		if (getDefinition().getAllowMultipleSelections()) {
+			@SuppressWarnings("unchecked")
+			MultiplePickAction<B> multiplePickAction = Utils.notNull(getDefinition().getMultiplePickAction(),
+					(MultiplePickAction<B>) getDefinition().getPickAction());
+			getDefinition().setMultiplePickAction(multiplePickAction);
+			@SuppressWarnings("unchecked")
+			MultiplePickAction<B> secondMultiplePickAction = Utils.notNull(
+					getDefinition().getSecondMultiplePickAction(),
+					(MultiplePickAction<B>) getDefinition().getSecondPickAction());
+			getDefinition().setSecondMultiplePickAction(secondMultiplePickAction);
+		}
+	}
+
+	/**
+	 * Paints the state of the {@link SearchFlowPanel}. In essence it controls
+	 * the visibility of the criteria and results panel according the input
+	 * {@link SearchFlowPanelState}.
+	 * 
+	 * @param state
+	 *            Current State
+	 */
+	private void paintState(SearchFlowPanelState state) {
+		state.paint(get(CRITERIA_PANEL_ID), get(RESULTS_PANEL_ID));
 	}
 
 	/**
@@ -268,7 +260,6 @@ extends ServicePanelWithBack {
 	 * @return a {@link SingleBeanPanelDef}.
 	 */
 	protected SingleBeanPanelDef<C> createCriteriaPanelDef() {
-
 		IModel<String> executeQueryLabel = StringResourceUtils.getResourceModel(
 				WellKnownResourceIds.SFP_SBP_EXECUTE_QUERY_BTN_LABEL, this, getDefinition().getExecuteQueryLabelModel(), null);
 		IModel<String> clearCriteriaLabel = StringResourceUtils.getResourceModel(
@@ -276,17 +267,18 @@ extends ServicePanelWithBack {
 		IModel<String> criteriaPanelLabel = StringResourceUtils.getResourceModel(
 				WellKnownResourceIds.SFP_SBP_CRITERIA_PANEL_LABEL, this, getDefinition().getCriteriaPanelLabelModel(), null);
 
-		SingleBeanPanelDef<C> cpDef = new SingleBeanPanelDefImpl<C>();
-		cpDef.setWicketId(CRITERIA_PANEL_ID);
-		cpDef.setShowClearButton(true);
-		cpDef.setBeanAction(new QueryWrapperAction(getDefinition().getQueryAction()));
-		cpDef.setBackAction(null);
-		cpDef.setBeanFieldsPanelCreator(getDefinition().getCriteriaFieldsPanelCreator());
-		cpDef.setBeanModel(getDefinition().getCriteriaModel());
-		cpDef.setExecuteLabelModel(executeQueryLabel);
-		cpDef.setClearLabelModel(clearCriteriaLabel);
-		cpDef.setPanelLabelModel(criteriaPanelLabel);
-		return cpDef;
+		SingleBeanPanelDef<C> def = new SingleBeanPanelDefImpl<C>();
+		def.setWicketId(CRITERIA_PANEL_ID);
+		def.setBeanCreator(this::newCriteriaBean);
+		def.setShowClearButton(true);
+		def.setBeanAction(this::doSearch);
+		def.setBackAction(null);
+		def.setBeanFieldsPanelCreator(getDefinition().getCriteriaFieldsPanelCreator());
+		def.setBeanModel(getDefinition().getCriteriaModel());
+		def.setExecuteLabelModel(executeQueryLabel);
+		def.setClearLabelModel(clearCriteriaLabel);
+		def.setPanelLabelModel(criteriaPanelLabel);
+		return def;
 	}
 
 	/**
@@ -295,15 +287,6 @@ extends ServicePanelWithBack {
 	 * @return a sub-type of {@link ListTablePanelDef}.
 	 */
 	protected ListTablePanelDef<B> createResultsPanelDef() {
-		CallbackAction backAction = null;
-		if(getDefinition().getResultsHidesCriteria()) {
-			backAction = new BackToCriteriaAction();
-		}
-
-		IModel<String> backToCriteriaLabel = StringResourceUtils.getResourceModel(
-				WellKnownResourceIds.SFP_LTP_BACK_BTN_LABEL, this, getDefinition().getBackToCriteriaLabelModel(), null);
-		IModel<String> resultsLabel = StringResourceUtils.getResourceModel(
-				WellKnownResourceIds.SFP_LTP_LIST_TABLE_LABEL, this, getDefinition().getResultsLabelModel(), null);
 		IModel<String> selectLabel = StringResourceUtils.getResourceModel(
 				WellKnownResourceIds.SFP_PP_SELECT_BTN_LABEL, this, getDefinition().getSelectLabelModel(), null);
 		IModel<String> secondSelectLabel = StringResourceUtils.getResourceModel(
@@ -311,41 +294,21 @@ extends ServicePanelWithBack {
 
 		if(hasPickerPanel) {
 			PickerPanelDef<B> ppDef = new PickerPanelDefImpl<B>();
-			ppDef.setWicketId(RESULTS_PANEL_ID);
-			ppDef.setBackAction(backAction);
-			ppDef.setDataTableCreator(getDefinition().getDataTableCreator());
-			ppDef.setList(getDefinition().getResults());
-			ppDef.setItemSelectedAction(getDefinition().getPickAction());
-			ppDef.setItemSelectedActionFlag(getDefinition().getPickActionFlag());
-			ppDef.setSecondItemSelectedAction(getDefinition().getSecondPickAction());
-			ppDef.setSecondItemSelectedActionFlag(getDefinition().getSecondPickActionFlag());
-			ppDef.setRefreshListAfterPickAction(getDefinition().getRefreshListAfterPickAction());
-			ppDef.setBeanModel(getDefinition().getBeanModel());
-			ppDef.setListLabelModel(resultsLabel);
-			ppDef.setSecondSelectLabelModel(secondSelectLabel);
-			ppDef.setSelectLabelModel(selectLabel);
-			ppDef.setBackLabelModel(backToCriteriaLabel);
+			setPickerPanelResultsDefinitionFields(ppDef, selectLabel, secondSelectLabel);
 			return ppDef;
 		}
 		if(hasMultipleSelectionsPanel) {
 			IModel<String> checkGroupSelectorLabel = StringResourceUtils.getResourceModel(
 					WellKnownResourceIds.SFP_MSP_CHECKGROUP_SELECTOR_LABEL, this, getDefinition().getCheckGroupSelectorLabelModel(), null);
-
 			MultipleSelectionsPanelDef<B> mspDef = new MultipleSelectionsPanelDefImpl<B>();
-			mspDef.setWicketId(RESULTS_PANEL_ID);
-			mspDef.setBackAction(backAction);
-			mspDef.setDataTableCreator(getDefinition().getDataTableCreator());
-			mspDef.setList(getDefinition().getResults());
-			mspDef.setSelectionsModel(getDefinition().getSelectionsModel());
-			mspDef.setItemsSelectedAction(getDefinition().getPickAction());
+			mspDef.setItemsSelectedAction(getDefinition().getMultiplePickAction());
 			mspDef.setItemsSelectedActionFlag(getDefinition().getPickActionFlag());
-			mspDef.setSecondItemsSelectedAction(getDefinition().getSecondPickAction());
+			mspDef.setSecondItemsSelectedAction(getDefinition().getSecondMultiplePickAction());
 			mspDef.setSecondItemsSelectedActionFlag(getDefinition().getSecondPickActionFlag());
-			mspDef.setListLabelModel(resultsLabel);
+			mspDef.setSelectionsModel(getDefinition().getSelectionsModel());
 			mspDef.setSelectLabelModel(selectLabel);
 			mspDef.setSecondSelectLabelModel(secondSelectLabel);
 			mspDef.setCheckGroupSelectorLabelModel(checkGroupSelectorLabel);
-			mspDef.setBackLabelModel(backToCriteriaLabel);
 			return mspDef;
 		}
 		if(hasCrudPickerPanel) {
@@ -369,57 +332,96 @@ extends ServicePanelWithBack {
 					WellKnownResourceIds.SFP_CPP_SBP_PANEL_LABEL, this, getDefinition().getBeanFieldsPanelLabelModel(), null);
 
 			CrudPickerPanelDef<B> cppDef = new CrudPickerPanelDefImpl<B>();
-			cppDef.setWicketId(RESULTS_PANEL_ID);
-			cppDef.setDataTableCreator(getDefinition().getDataTableCreator());
-			cppDef.setList(getDefinition().getResults());
-			cppDef.setItemSelectedAction(getDefinition().getPickAction());
-			cppDef.setItemSelectedActionFlag(getDefinition().getPickActionFlag());
-			cppDef.setRefreshListAfterPickAction(getDefinition().getRefreshListAfterPickAction());
-			cppDef.setBackAction(backAction);
-			cppDef.setBeanModel(getDefinition().getBeanModel());
+			setPickerPanelResultsDefinitionFields(cppDef, selectLabel, secondSelectLabel);
+			cppDef.setBeanCreator(this::newBean);
+			cppDef.setBeanFieldsPanelBackLabelModel(sbpBackButtonLabel);
 			cppDef.setBeanFieldsPanelCreator(getDefinition().getBeanFieldsPanelCreator());
-			cppDef.setSaveAction(getDefinition().getSaveAction());
-			cppDef.setSaveActionFlag(getDefinition().getSaveActionFlag());
-			cppDef.setUpdateAction(getDefinition().getUpdateAction());
-			cppDef.setUpdateActionFlag(getDefinition().getUpdateActionFlag());
+			cppDef.setClearLabelModel(sbpClearButtonLabel);
+			cppDef.setCopyBean(this::copyBean);
+			cppDef.setCustomSingleBeanPanelDisabling(getDefinition().getCustomSingleBeanPanelDisabling());
 			cppDef.setDeleteAction(getDefinition().getDeleteAction());
 			cppDef.setDeleteActionFlag(getDefinition().getDeleteActionFlag());
-			cppDef.setReadBeforeEdit(getDefinition().getReadBeforeEdit());
-			cppDef.setViewEnabled(getDefinition().getViewEnabled());
-			cppDef.setRequestConfirmOnDelete(getDefinition().getRequestConfirmOnDelete());
-			cppDef.setListLabelModel(resultsLabel);
-			cppDef.setSecondSelectLabelModel(secondSelectLabel);
-			cppDef.setSecondItemSelectedAction(getDefinition().getSecondPickAction());
-			cppDef.setSelectLabelModel(selectLabel);
-			cppDef.setSaveLabelModel(sbpSaveButtonLabel);
-			cppDef.setUpdateLabelModel(sbpUpdateButtonLabel);
-			cppDef.setEditLabelModel(editButtonLabel);
-			cppDef.setNewLabelModel(newButtonLabel);
 			cppDef.setDeleteLabelModel(deleteButtonLabel);
-			cppDef.setViewLabelModel(viewButtonLabel);
-			cppDef.setBackLabelModel(backToCriteriaLabel);
-			cppDef.setBeanFieldsPanelBackLabelModel(sbpBackButtonLabel);
-			cppDef.setClearLabelModel(sbpClearButtonLabel);
-			cppDef.setSingleBeanPanelLabelModel(sbpPanelLabel);
-			cppDef.setSaveValidator(getDefinition().getSaveValidator());
-			cppDef.setUpdateValidator(getDefinition().getUpdateValidator());
 			cppDef.setDeleteValidator(getDefinition().getDeleteValidator());
+			cppDef.setEditLabelModel(editButtonLabel);
+			cppDef.setHideSingleBeanPanelButtons(getDefinition().getHideSingleBeanPanelButtons());
+			cppDef.setNewLabelModel(newButtonLabel);
 			cppDef.setPreEditValidator(getDefinition().getPreEditValidator());
-			cppDef.setCustomSingleBeanPanelDisabling(getDefinition().getCustomSingleBeanPanelDisabling());
-			cppDef.setSingleBeanFormContainsFileUpload(getDefinition().getSingleBeanFormContainsFileUpload());
+			cppDef.setReadBean(this::read);
+			cppDef.setReadBeforeEdit(getDefinition().getReadBeforeEdit());
 			if(getDefinition().getRefreshAfterDataOp()) {
-				cppDef.setRefreshAfterDataOpAction(new QueryWrapperAction(getDefinition().getQueryAction()));
+				cppDef.setRefreshAfterDataOpAction(this::repeatSearch);
 			}
+			cppDef.setRequestConfirmOnDelete(getDefinition().getRequestConfirmOnDelete());
+			cppDef.setSaveAction(getDefinition().getSaveAction());
+			cppDef.setSaveActionFlag(getDefinition().getSaveActionFlag());
+			cppDef.setSaveLabelModel(sbpSaveButtonLabel);
+			cppDef.setSaveValidator(getDefinition().getSaveValidator());
+			cppDef.setSingleBeanFormContainsFileUpload(getDefinition().getSingleBeanFormContainsFileUpload());
+			cppDef.setSingleBeanPanelLabelModel(sbpPanelLabel);
+			cppDef.setUpdateAction(getDefinition().getUpdateAction());
+			cppDef.setUpdateActionFlag(getDefinition().getUpdateActionFlag());
+			cppDef.setUpdateLabelModel(sbpUpdateButtonLabel);
+			cppDef.setUpdateValidator(getDefinition().getUpdateValidator());
+			cppDef.setViewEnabled(getDefinition().getViewEnabled());
+			cppDef.setViewLabelModel(viewButtonLabel);
 			return cppDef;
 		}
-		ListTablePanelDef<B> ltpDef = new ListTablePanelDefImpl<B>();
-		ltpDef.setWicketId(RESULTS_PANEL_ID);
-		ltpDef.setBackAction(backAction);
-		ltpDef.setDataTableCreator(getDefinition().getDataTableCreator());
-		ltpDef.setList(getDefinition().getResults());
-		ltpDef.setBackLabelModel(getDefinition().getBackLabelModel());
-		ltpDef.setListLabelModel(getDefinition().getResultsLabelModel());
-		return ltpDef;
+		return new ListTablePanelDefImpl<>();
+	}
+
+	/**
+	 * Sets the fields of a {@link PickerPanelDef} for the Results Panel of
+	 * this.<br>
+	 * The fields that are set in
+	 * {@link #setCommonResultsDefinitionFields(ListTablePanelDef)} are not set
+	 * here.
+	 * 
+	 * @param ppDef
+	 *            Definition to modify
+	 * @param selectLabel
+	 *            Label of the Select Button
+	 * @param secondSelectLabel
+	 *            Label of the Second Select Button
+	 */
+	private void setPickerPanelResultsDefinitionFields(PickerPanelDef<B> ppDef, IModel<String> selectLabel,
+			IModel<String> secondSelectLabel) {
+		ppDef.setBeanModel(getDefinition().getBeanModel());
+		ppDef.setItemSelectedAction(getDefinition().getPickAction());
+		ppDef.setItemSelectedActionFlag(getDefinition().getPickActionFlag());
+		ppDef.setSelectLabelModel(selectLabel);
+		ppDef.setSecondItemSelectedAction(getDefinition().getSecondPickAction());
+		ppDef.setSecondItemSelectedActionFlag(getDefinition().getSecondPickActionFlag());
+		ppDef.setSecondSelectLabelModel(secondSelectLabel);
+		ppDef.setRefreshListAfterPickAction(getDefinition().getRefreshListAfterPickAction());
+	}
+
+	/**
+	 * Sets the fields of a {@link ListTablePanelDef} for the Results Panel of
+	 * this.
+	 * 
+	 * @param def
+	 *            Definition to modify
+	 */
+	private void setCommonResultsDefinitionFields(ListTablePanelDef<B> def) {
+		IModel<String> backToCriteriaLabel = StringResourceUtils.getResourceModel(
+				WellKnownResourceIds.SFP_LTP_BACK_BTN_LABEL, this, getDefinition().getBackToCriteriaLabelModel(), null);
+		IModel<String> resultsLabel = StringResourceUtils.getResourceModel(
+				WellKnownResourceIds.SFP_LTP_LIST_TABLE_LABEL, this, getDefinition().getResultsLabelModel(), null);
+		LegacyCallbackAction backAction = null;
+		if (getDefinition().getResultsHidesCriteria()) {
+			backAction = this::backToCriteriaAction;
+		}
+		def.setExportActionCreator(getDefinition().getExportActionCreator());
+		def.setExportLabel(getDefinition().getExportLabel());
+		def.setExportSetupModifier(getDefinition().getExportSetupModifier());
+		def.setWicketId(RESULTS_PANEL_ID);
+		def.setBackAction(backAction);
+		def.setDataTableCreator(getDefinition().getDataTableCreator());
+		def.setList(getDefinition().getResults());
+		def.setBackLabelModel(backToCriteriaLabel);
+		def.setListLabelModel(resultsLabel);
+		def.setDisableUnauthorizedButtons(getDefinition().getDisableUnauthorizedButtons());
 	}
 
 	/**
@@ -427,71 +429,56 @@ extends ServicePanelWithBack {
 	 * 
 	 * @return the new results panel.
 	 */
-	@SuppressWarnings("serial")
 	protected Panel createResultsPanel() {
-		if(hasPickerPanel) {
-			Panel newResultsPanel = new PickerPanel<B>((PickerPanelDef<B>) resultsPanelDef);
-			return newResultsPanel;
+		ListTablePanelDef<B> resultsPanelDef = createResultsPanelDef();
+		setCommonResultsDefinitionFields(resultsPanelDef);
+		if (hasPickerPanel) {
+			return new PickerPanel<B>((PickerPanelDef<B>) resultsPanelDef);
 		}
-		if(hasMultipleSelectionsPanel) {
-			Panel newResultsPanel = new MultipleSelectionsPanel<B>((MultipleSelectionsPanelDef<B>) resultsPanelDef);
-			return newResultsPanel;
+		if (hasMultipleSelectionsPanel) {
+			return new MultipleSelectionsPanel<B>((MultipleSelectionsPanelDef<B>) resultsPanelDef);
 		}
-		if(hasCrudPickerPanel) {
-			Panel newResultsPanel = new CrudPickerPanel<B>((CrudPickerPanelDef<B>) resultsPanelDef) {
-				@Override protected B newBean() {
-					return SearchFlowPanel.this.newBean();
-				}
-				@Override protected B readBean() {
-					return SearchFlowPanel.this.readBean();
-				}
-				@Override protected B copyBean(B bean) {
-					return SearchFlowPanel.this.copyBean(bean);
-				}
-			};
-			return newResultsPanel;
+		if (hasCrudPickerPanel) {
+			return new CrudPickerPanel<B>((CrudPickerPanelDef<B>) resultsPanelDef);
 		}
-		Panel newResultsPanel = new ListTablePanel<B>(resultsPanelDef);
-		return newResultsPanel;
+		return new ListTablePanel<B>(resultsPanelDef);
 	}
-
 
 	/**
 	 * Creates a new instance of B.
 	 * 
 	 * @return a new B.
+	 * @deprecated Stop Overwriting this - use
+	 *             {@link SearchFlowPanelDef#setBeanCreator(gr.interamerican.bo2.utils.functions.SerializableSupplier)}
 	 */
-	@SuppressWarnings("nls")
+	@Deprecated
 	protected B newBean() {
-		try {
-			B instance = ReflectionUtils.newInstance(beanClass);
-			return instance;
-		} catch (RuntimeException re) {
-			String msg = StringUtils.concat(
-					"Could not create a bean instance for SearchFlowPanel with ",
-					"wicket:id " + getDefinition().getWicketId() + ". ",
-					"Consider overriding newBean().");
-			throw new RuntimeException(msg, re);
-		}
+		return getDefinition().getBeanCreator().get();
 	}
 
 	/**
 	 * Creates a new instance of C.
 	 * 
 	 * @return a new C.
+	 * 
+	 * @deprecated Stop Overwriting this - use
+	 *             {@link SearchFlowPanelDef#setCriteriaBeanCreator(gr.interamerican.bo2.utils.functions.SerializableSupplier)}
 	 */
-	@SuppressWarnings("nls")
+	@Deprecated
 	protected C newCriteriaBean() {
-		try {
-			C instance = ReflectionUtils.newInstance(criteriaClass);
-			return instance;
-		} catch (RuntimeException re) {
-			String msg = StringUtils.concat(
-					"Could not create a criteria bean instance for SearchFlowPanel with ",
-					"wicket:id " + getDefinition().getWicketId() + ". ",
-					"Consider overriding newCriteriaBean().");
-			throw new RuntimeException(msg, re);
+		return getDefinition().getCriteriaBeanCreator().get();
 		}
+
+	/**
+	 * Temporary method that simply delegates to {@link #readBean()} and ignores
+	 * the input.
+	 * 
+	 * @param in
+	 *            Input
+	 * @return B we have read
+	 */
+	private B read(@SuppressWarnings("unused") B in) {
+		return readBean();
 	}
 
 	/**
@@ -502,139 +489,123 @@ extends ServicePanelWithBack {
 	 *       message in a feedback panel that is ajax updated.
 	 * 
 	 * @return Returns a fresh copy of B from the persistence layer.
+	 * @deprecated Stop Overwriting this - use
+	 *             {@link SearchFlowPanelDef#setReadBean(gr.interamerican.bo2.utils.functions.SerializableUnaryOperator)}
 	 */
+	@Deprecated
 	protected B readBean() {
-
-		String msg = StringUtils.concat(
-				"If you want to read before editing ", //$NON-NLS-1$
-				"you MUST override readBean()."); //$NON-NLS-1$
+		if (getDefinition().getReadBean() == null) {
+			String msg = StringUtils.concat("If you want to read before editing ", //$NON-NLS-1$
+					"you MUST fill CrudPickerPanelDef#setReadBean."); //$NON-NLS-1$
 		throw new RuntimeException(msg);
 	}
-
-	/**
-	 * Hook intended to be overridden by the user. This is useful
-	 * if when updating a B instance there is a chance that the update
-	 * will be aborted after submitting the update form. This could happen,
-	 * for example, if a validation message is shown and the user decides
-	 * to go back instead of correcting the error and submitting the
-	 * update form again.
-	 * 
-	 * If readBeforeEdit is true, this is not used, as instead of deep
-	 * copying, a new instance is created from the persistence layer, which
-	 * has the same effect.
-	 * 
-	 * @param bean instance to copy.
-	 * 
-	 * @return Returns a copy of B.
-	 */
-	protected B copyBean(B bean) {
-		return bean;
+		return getDefinition().getReadBean().apply(getDefinition().getBeanModel().getObject());
 	}
 
 	/**
-	 * Override this if you want to execute some code before
-	 * going back to the criteria form from the results.
+	 * Hook intended to be overridden by the user.
 	 * 
-	 * @param target
+	 * @param bean
+	 *            instance to copy.
+	 * 
+	 * @return Returns a copy of B.
+	 * @deprecated Stop Overwriting this - use
+	 *             {@link SearchFlowPanelDef#setCopyBean(gr.interamerican.bo2.utils.functions.SerializableUnaryOperator)}
 	 */
-	protected void backToCriteria(@SuppressWarnings("unused") AjaxRequestTarget target) { 
-		/* empty hook */
+	@Deprecated
+	protected B copyBean(B bean) {
+		if (getDefinition().getCopyBean() == null) {
+		return bean;
+	}
+		return getDefinition().getCopyBean().apply(bean);
 	}
 
 	/**
 	 * This action will hide the resultsPanel and show the criteriaPanel.
+	 * @param target 
 	 */
-	public class BackToCriteriaAction implements CallbackAction {
-		
-		/**
-		 * serialVersionUID
-		 */
-		private static final long serialVersionUID = 1L;
+	private void backToCriteriaAction(AjaxRequestTarget target) {
+		target.add(this);
+		backToCriteria(target);
+		paintState(SearchFlowPanelState.CRITERIA);
+	}
 
-		public void callBack(AjaxRequestTarget target) {
-			work(target);
-		}
-
-		public void callBack(AjaxRequestTarget target, Form<?> form) {
-			work(target);
-		}
-
-		/**
-		 * work.
-		 * @param target
-		 */
-		void work(AjaxRequestTarget target) {
-			target.add(SearchFlowPanel.this);
-			backToCriteria(target);
-			state = SearchFlowPanelState.CRITERIA;
-			state.paint(SearchFlowPanel.this);
-		}
-
-		public void setCaller(Component caller) { /* empty */ }
-		public Component getCaller() {
-			return SearchFlowPanel.this;
+	/**
+	 * Override this if you want to execute some code before going back to the
+	 * criteria form from the results.
+	 *
+	 * @param target
+	 *            the target
+	 * @deprecated Stop Overwriting this - use
+	 *             {@link SearchFlowPanelDef#setBackToCriteriaAction(LegacyCallbackAction)}
+	 */
+	@Deprecated
+	protected void backToCriteria(AjaxRequestTarget target) {
+		LegacyCallbackAction action = getDefinition().getBackToCriteriaAction();
+		if (action != null) {
+			action.doInvoke(target);
 		}
 	}
 
 	/**
-	 * Wrapper around the query callback action that connects
-	 * the callback action of the criteriaPanel with the resultsPanel.
+	 * This method supports the refreshing the result panel. This is useful in cases
+	 * where the beans of the result list are updated (through pick action or a
+	 * modal window) and you must show the changes to the screen. <br>
+	 * You must be careful when you update the result beans. You should do the
+	 * following <br>
+	 * <code>def.getResults().clear(); <br> 
+	 * def.getResults().addAll(results);</code> <br>
+	 * instead of <br>
+	 * <code>def.setResults(results);</code>
+	 * 
+	 * @param target 
 	 */
-	private class QueryWrapperAction extends CallbackWrapper {
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L;
-
-		/**
-		 * Creates a new QueryAction object.
-		 *
-		 * @param action
-		 */
-		public QueryWrapperAction(CallbackAction action) {
-			super(action);
-		}
-
-		@Override public void before() {
-			resultsPanelDef.getList().clear();
-		}
-
-		@Override public void after() {
-			List<B> queryResults =  getDefinition().getResults();
-			if(queryResults==null) { return; }
-			resultsPanelDef.setList(queryResults);
-			Panel newResultsPanel = createResultsPanel();
-			resultsPanel.replaceWith(newResultsPanel);
-			resultsPanel = newResultsPanel;
-			if (getDefinition().getResultsHidesCriteria()) {
-				state = SearchFlowPanelState.RESULTS;
-			} else {
-				state = SearchFlowPanelState.BOTH;
-			}
-			state.paint(SearchFlowPanel.this);
-		}
+	public void refreshResults(AjaxRequestTarget target) {
+		target.add(this);
+		replace(createResultsPanel());
 	}
 
 	/**
-	 * CriteriaPanel.
+	 * @param target
+	 * @param bean
+	 * @throws Exception 
 	 */
-	private class CriteriaPanel extends SingleBeanPanel<C> {
-		/**
-		 * serialVersionUID.
-		 */
-		private static final long serialVersionUID = 1L;
-
-		/**
-		 * Creates a new SearchFlowPanel.CriteriaPanel object.
-		 * @param definition
-		 */
-		public CriteriaPanel(SingleBeanPanelDef<C> definition) {
-			super(definition);
+	@SuppressWarnings("deprecation")
+	void doSearch(AjaxRequestTarget target, C bean) throws Exception {
+		getDefinition().getResults().clear();
+		SearchAction<C, B> search = getDefinition().getQueryAction();
+		// backwards compatibility
+		List<B> queryResults;
+		if (search instanceof gr.interamerican.wicket.callback.CallbackAction) {
+			gr.interamerican.wicket.callback.CallbackAction callback = (gr.interamerican.wicket.callback.CallbackAction) search;
+			callback.setCaller(this);
+			callback.callBack(target, (Form<?>) get(CRITERIA_PANEL_ID).get(SingleBeanPanel.FORM_ID));
+			queryResults = getDefinition().getResults();
+		} else {
+			queryResults = search.search(bean);
 		}
-
-		@Override protected C newBean() {
-			return SearchFlowPanel.this.newCriteriaBean();
+		if (queryResults == null) {
+			return;
 		}
+		getDefinition().setResults(queryResults);
+		replace(createResultsPanel());
+		SearchFlowPanelState state;
+		if (getDefinition().getResultsHidesCriteria()) {
+			state = SearchFlowPanelState.RESULTS;
+		} else {
+			state = SearchFlowPanelState.BOTH;
+		}
+		paintState(state);
+		target.add(this);
 	}
 
+	/**
+	 * Repeats the search
+	 * 
+	 * @param target
+	 * @throws Exception 
+	 */
+	void repeatSearch(AjaxRequestTarget target) throws Exception {
+		doSearch(target, getDefinition().getCriteriaModel().getObject());
+	}
 }

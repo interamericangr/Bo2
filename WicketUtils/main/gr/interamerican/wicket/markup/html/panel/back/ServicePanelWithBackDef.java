@@ -12,15 +12,15 @@
  ******************************************************************************/
 package gr.interamerican.wicket.markup.html.panel.back;
 
-import gr.interamerican.wicket.callback.CallbackAction;
-import gr.interamerican.wicket.markup.html.panel.service.ServicePanelDef;
-
 import org.apache.wicket.model.IModel;
+
+import gr.interamerican.wicket.callback.LegacyCallbackAction;
+import gr.interamerican.wicket.markup.html.panel.service.ServicePanelDef;
 
 
 /**
  * {@link ServicePanelWithBackDef} is definition bean for of wicket
- * service panels that have a back (or cancel) button. <br/>
+ * service panels that have a back (or cancel) button. <br>
  *
  */
 public interface ServicePanelWithBackDef extends ServicePanelDef {
@@ -30,7 +30,7 @@ public interface ServicePanelWithBackDef extends ServicePanelDef {
 	 *
 	 * @return Returns the backAction
 	 */
-	CallbackAction getBackAction();
+	LegacyCallbackAction getBackAction();
 
 	/**
 	 * [OPTIONAL]
@@ -39,7 +39,7 @@ public interface ServicePanelWithBackDef extends ServicePanelDef {
 	 *
 	 * @param backAction the backAction to set
 	 */
-	void setBackAction(CallbackAction backAction);
+	void setBackAction(LegacyCallbackAction backAction);
 	
 	/**
 	 * Gets the back button label resource model.
@@ -50,8 +50,8 @@ public interface ServicePanelWithBackDef extends ServicePanelDef {
 	
 	/**
 	 * [OPTIONAL] Sets the back button label resource model.
-	 * 
-	 * @param labelModel
+	 *
+	 * @param labelModel the new back label model
 	 */
 	void setBackLabelModel(IModel<String> labelModel);
 	

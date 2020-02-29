@@ -29,7 +29,8 @@ public class PersonBean {
 	Address address;
 
 	/**
-	 * 
+	 * Gets the address.
+	 *
 	 * @return address
 	 */
 	public Address getAddress() {
@@ -37,15 +38,17 @@ public class PersonBean {
 	}
 
 	/**
-	 * 
-	 * @param address
+	 * Sets the address.
+	 *
+	 * @param address the new address
 	 */
 	public void setAddress(Address address) {
 		this.address = address;
 	}
 
 	/**
-	 * 
+	 * Gets the first name.
+	 *
 	 * @return fistName
 	 */
 	public String getFirstName() {
@@ -53,15 +56,17 @@ public class PersonBean {
 	}
 
 	/**
-	 * 
-	 * @param firstName
+	 * Sets the first name.
+	 *
+	 * @param firstName the new first name
 	 */
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
 
 	/**
-	 * 
+	 * Gets the last name.
+	 *
 	 * @return lastName
 	 */
 	public String getLastName() {
@@ -69,8 +74,9 @@ public class PersonBean {
 	}
 
 	/**
-	 * 
-	 * @param lastName
+	 * Sets the last name.
+	 *
+	 * @param lastName the new last name
 	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;

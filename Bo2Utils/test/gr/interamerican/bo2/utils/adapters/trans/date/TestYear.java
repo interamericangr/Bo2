@@ -10,7 +10,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Tests for {@link CalculateYear}.
+ * Tests for {@link Year}.
  */
 public class TestYear {
 	

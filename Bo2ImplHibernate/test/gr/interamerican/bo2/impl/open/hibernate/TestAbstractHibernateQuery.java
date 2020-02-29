@@ -35,7 +35,7 @@ import org.junit.Test;
 public class TestAbstractHibernateQuery {
 	
 	/**
-	 * Unit test for setAvoidLock
+	 * Unit test for setAvoidLock.
 	 */
 	@Test
 	public void testSetAvoidLock() {
@@ -45,7 +45,7 @@ public class TestAbstractHibernateQuery {
 	}
 	
 	/**
-	 * Unit test for isAvoidLock
+	 * Unit test for isAvoidLock.
 	 */
 	@Test
 	public void testIsAvoidLock() {
@@ -56,9 +56,10 @@ public class TestAbstractHibernateQuery {
 	
 	/**
 	 * Tests the full lifecycle of a query.
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testExecuteAndNext() 
@@ -86,11 +87,10 @@ public class TestAbstractHibernateQuery {
 	
 	/**
 	 * Tests the use of an {@link AbstractHibernateQuery} as a question.
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
-	 * 
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testAsk() 
@@ -126,10 +126,10 @@ public class TestAbstractHibernateQuery {
 	
 	/**
 	 * Tests execute when a HibernateException is thrown.
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test(expected=DataException.class)
 	public void testExecute_throwingException() 
@@ -148,10 +148,10 @@ public class TestAbstractHibernateQuery {
 	
 	/**
 	 * Tests execute when a HibernateException is thrown.
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test(expected=DataAccessException.class)
 	public void testNext_throwingException() 
@@ -235,12 +235,18 @@ public class TestAbstractHibernateQuery {
 	 */
 	@ManagerName("LOCALDB")
 	private class FailingIterator implements Iterator<Object> {
+		
+		@Override
 		public boolean hasNext() {			
 			return true;
 		}
+		
+		@Override
 		public Object next() {
 			throw new HibernateException(StringConstants.EMPTY);
 		}
+		
+		@Override
 		public void remove() {/*empty*/}		
 	}
 

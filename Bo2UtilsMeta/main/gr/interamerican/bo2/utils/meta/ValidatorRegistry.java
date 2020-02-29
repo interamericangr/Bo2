@@ -32,13 +32,11 @@ public class ValidatorRegistry {
 	
 	/**
 	 * Registers the validator for the specified type.
-	 * 
-	 * @param validator
-	 *        Validator to register
-	 * @param type
-	 *        Type being validated by the specified validator.
+	 *
+	 * @param <T> the generic type
+	 * @param validator        Validator to register
+	 * @param type        Type being validated by the specified validator.
 	 *     
-	 * @param <T>
 	 */
 	public static <T> void register(Validator<T> validator, Class<T> type) {
 		validators.registerSelection(type, validator);
@@ -47,12 +45,10 @@ public class ValidatorRegistry {
 	/**
 	 * Gets the appropriate validator for the specified type,
 	 * if one is registered.
-	 * 
-	 * @param type
-	 *        Type to find a validator.
-	 * @param <T>
-	 * 
-	 * @return Returns the validator that has been registered for the 
+	 *
+	 * @param <T> the generic type
+	 * @param type        Type to find a validator.
+	 * @return Returns the validator that has been registered for the
 	 *         specified type. If there is no validator registered for
 	 *         the specified type, returns null.
 	 */

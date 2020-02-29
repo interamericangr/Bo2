@@ -18,38 +18,37 @@ import java.util.Collection;
  * Condition that checks if a property of an object exists in a collection.
  * 
  * @param <T>
- *        Type of objects being checked by the condition. 
- * 
+ *            Type of objects being checked by the condition.
+ * @deprecated Use {@link gr.interamerican.bo2.utils.conditions.functional.PropertyExistsIn}
  */
-public class PropertyExistsIn<T> 
-extends ConditionOnProperty<T> {
+@Deprecated
+public class PropertyExistsIn<T> extends ConditionOnProperty<T> {
 
 	/**
-	 * Creates a new PropertyExistsInSetCondition object. 
+	 * Creates a new PropertyExistsInSetCondition object.
 	 *
 	 * @param property
-	 *        Name of property.
+	 *            Name of property.
 	 * @param clazz
-	 *        Class of objects being checked by the condition.
+	 *            Class of objects being checked by the condition.
 	 * @param collection
-	 *        Values.
+	 *            Values.
 	 */
 	public PropertyExistsIn(String property, Class<T> clazz, Collection<?> collection) {
-		super(property, clazz, new ExistsIn<Object>(collection));		
-	}
-	
-	/**
-	 * Creates a new PropertyExistsInSetCondition object. 
-	 *
-	 * @param property
-	 *        Name of property.
-	 * @param clazz
-	 *        Class of objects being checked by the condition.
-	 * @param collection
-	 *        Values.
-	 */
-	public PropertyExistsIn(String property, Class<T> clazz, Object... collection) {
-		super(property, clazz, new ExistsIn<Object>(collection));		
+		super(property, clazz, new ExistsIn<Object>(collection));
 	}
 
+	/**
+	 * Creates a new PropertyExistsInSetCondition object.
+	 *
+	 * @param property
+	 *            Name of property.
+	 * @param clazz
+	 *            Class of objects being checked by the condition.
+	 * @param collection
+	 *            Values.
+	 */
+	public PropertyExistsIn(String property, Class<T> clazz, Object... collection) {
+		super(property, clazz, new ExistsIn<Object>(collection));
+	}
 }

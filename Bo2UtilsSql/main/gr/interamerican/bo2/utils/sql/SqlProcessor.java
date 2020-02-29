@@ -64,17 +64,14 @@ public class SqlProcessor {
 	/**
 	 * This utility unmasks named parameters converted to string literals.
 	 * For example, ':name' will be converted to :name.
-	 * 
-	 * @see #maskNamedParameters(String, Set)
-	 * 
-	 * @param sql
-	 *        The SQL statement with named parameters.
-	 * @param namedParameters
-	 *        List of named parameters of the original SQL statement 
+	 *
+	 * @param sql        The SQL statement with named parameters.
+	 * @param namedParameters        List of named parameters of the original SQL statement 
 	 *        (before masking occurred). The named parameters are
 	 *        expected without the ':'.
 	 *        
 	 * @return Returns the same SQL statement with unmasked parameters.
+	 * @see #maskNamedParameters(String, Set)
 	 */
 	public static String unmaskNamedParameters(String sql, Set<String> namedParameters) {
 		String result = sql;
@@ -87,8 +84,8 @@ public class SqlProcessor {
 	
 	/**
 	 * Normalizes an SQL string.
-	 * 
-	 * @param sql
+	 *
+	 * @param sql the sql
 	 * @return normalized sql.
 	 */
 	public static String normalizeSql(String sql) {
@@ -115,8 +112,8 @@ public class SqlProcessor {
 	
 	/**
 	 * Removes -- style SQL comments.
-	 * 
-	 * @param sql
+	 *
+	 * @param sql the sql
 	 * @return SQL without comments.
 	 */
 	static String removeDoubleHyphenSqlComments(String sql) {

@@ -88,7 +88,8 @@ public abstract class AbstractAddHeaderAndFooterOperation extends AbstractOperat
 	}
 	
 	/**
-	 * User defined headers
+	 * User defined headers.
+	 *
 	 * @return headers
 	 */
 	protected String[] headers() {
@@ -96,7 +97,8 @@ public abstract class AbstractAddHeaderAndFooterOperation extends AbstractOperat
 	}
 	
 	/**
-	 * User defined footers
+	 * User defined footers.
+	 *
 	 * @return footers
 	 */
 	protected String[] footers() {

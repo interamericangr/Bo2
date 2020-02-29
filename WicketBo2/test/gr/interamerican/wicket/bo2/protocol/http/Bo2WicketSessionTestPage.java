@@ -23,14 +23,10 @@ import org.apache.wicket.model.Model;
  */
 public class Bo2WicketSessionTestPage extends WebPage{
 		
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
-	/**
-	 * 
-	 */
+	/** The feedback panel. */
 	private FeedbackPanel feedbackPanel = new FeedbackPanel("feedBackPanel"); //$NON-NLS-1$
 
 	/**

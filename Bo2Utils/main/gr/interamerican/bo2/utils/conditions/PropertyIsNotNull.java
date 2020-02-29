@@ -14,21 +14,24 @@ package gr.interamerican.bo2.utils.conditions;
 
 /**
  * Checks if the specified property is null.
- * 
- * @param <T> 
- * 
+ *
+ * @param <T>
+ *            the generic type
+ * @deprecated use
+ *             {@link gr.interamerican.bo2.utils.conditions.functional.PropertyIsNotNull}
  */
-public class PropertyIsNotNull<T> 
-extends ConditionOnProperty<T> {
+@Deprecated
+public class PropertyIsNotNull<T> extends ConditionOnProperty<T> {
 
 	/**
-	 * Creates a new PropertyIsNotNull object. 
+	 * Creates a new PropertyIsNotNull object.
 	 *
 	 * @param property
+	 *            the property
 	 * @param clazz
+	 *            the clazz
 	 */
 	public PropertyIsNotNull(String property, Class<T> clazz) {
 		super(property, clazz, new IsNotNull<Object>());
 	}
-
 }

@@ -17,7 +17,7 @@ import gr.interamerican.bo2.arch.exceptions.LogicException;
 import gr.interamerican.bo2.utils.concurrent.ThreadUtils;
 
 /**
- * sample operation prints
+ * sample operation prints.
  */
 public class PrintStringWithDelayOperation extends PrintStringOperation {
 	

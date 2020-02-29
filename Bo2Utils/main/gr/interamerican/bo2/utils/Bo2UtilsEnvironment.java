@@ -13,7 +13,7 @@
 package gr.interamerican.bo2.utils;
 
 import java.nio.charset.Charset;
-import java.text.SimpleDateFormat;
+import java.util.Properties;
 
 /**
  * Runtime environment for Bo2Utils.
@@ -23,144 +23,160 @@ public class Bo2UtilsEnvironment {
 	/**
 	 * Singleton instance.
 	 */
-	static final Bo2UtilsEnvironment SINGLETON = new Bo2UtilsEnvironment(); 
+	private static Bo2UtilsEnvironment env = new Bo2UtilsEnvironment();
 	
 	/**
-	 * Sets the environment parameters.
-	 * <br/>
-	 * This is not part of the public API, do not use it.
-	 * 
-	 * @param shortDf 
-	 * @param isoDf 
-	 * @param longDf 
-	 * @param textCharset 	   
-	 * @param resourceFileCharset 
-	 */
-	public static void setEnvironment(String shortDf, String isoDf, String longDf, String textCharset, String resourceFileCharset) {
-		SINGLETON.dfShortPattern = shortDf;
-		SINGLETON.dfIsoPattern = isoDf;
-		SINGLETON.dfLongPattern = longDf;
-		SINGLETON.textCharset = Charset.forName(textCharset);
-		SINGLETON.resourceFileCharset = Charset.forName(resourceFileCharset);
-	}
-	
-	/**
-	 * Gets the defaultTextCharset.
+	 * Creates a new Bo2UtilsEnvironment object.
 	 *
-	 * @return Returns the defaultTextCharset
+	 * @param properties the properties
 	 */
-	public static Charset getDefaultTextCharset() {
-		return SINGLETON.textCharset;
+	public static void set (Properties properties) {	
+		if (properties==null) {
+			env = new Bo2UtilsEnvironment();
+		} else {
+			env = new Bo2UtilsEnvironment(properties);
+		}
 	}
 	
+	
 	/**
-	 * Gets the defaultResourceFileCharset.
+	 * Gets the environment.
 	 *
-	 * @return Returns the defaultResourceFileCharset
+	 * @return Returns the environment
 	 */
-	public static Charset getDefaultResourceFileCharset() {
-		return SINGLETON.resourceFileCharset;
+	public static Bo2UtilsEnvironment get() {
+		return env;
 	}
 	
-	/**
-	 * Gets the short date format pattern.
-	 * 
-	 * @return Returns the short date format pattern.
-	 */
-	public static String getShortDateFormatPattern() {		
-		return  SINGLETON.dfShortPattern;
-	}
-	
-	/**
-	 * Gets the iso date format pattern.
-	 * 
-	 * @return Returns the iso date format pattern.
-	 */
-	public static String getIsoDateFormatPattern() {		
-		return  SINGLETON.dfIsoPattern;
-	}
-	
-	/**
-	 * Gets the long date format pattern.
-	 * 
-	 * @return Returns the long date format pattern.
-	 */
-	public static String getLongDateFormatPattern() {		
-		return  SINGLETON.dfLongPattern;
-	}
 	
 	/**
 	 * Default date format (short format).
 	 */
-	private String dfShortPattern = "dd/MM/yyyy";  //$NON-NLS-1$
-
-	/**
-	 * ISO date format (ISO format).
-	 * 
-	 */
-	private String dfIsoPattern = "yyyy-MM-dd"; //$NON-NLS-1$
+	String shortDateFormat = "dd/MM/yyyy";  //$NON-NLS-1$
 	
 	 /**
-	 * long date format for calendar objets with time
+	 * long date format for calendar objets with time 
+	 * as well as for timestamp objects.
 	 */
-	private String dfLongPattern = "yyyy-MM-dd-HH:mm:ss.SSS"; //$NON-NLS-1$
+	String longDateFormat = "yyyy-MM-dd-HH:mm:ss.SSS"; //$NON-NLS-1$
 	
 	/**
 	 * Default text charset. This is the charset that should be used when reading or writing
 	 * text files. Initialized with the default platform Charset.
 	 */
-	private Charset textCharset = Charset.defaultCharset();
+	Charset textEncoding = Charset.defaultCharset();
 	
 	/**
 	 * Default resource file charset. This is the charset that should be used when reading
 	 * resource files. Initialized with the default platform Charset.
 	 */
-	private Charset resourceFileCharset = Charset.defaultCharset();
+	Charset resourceFileEncoding = Charset.defaultCharset();
+		
+	/**
+	 * Properties.
+	 */
+	Properties properties;
+	
 	
 	/**
-	 * Creates a new Bo2UtilsEnvironment object. 
-	 * 
-	 * Hidden constructor.
+	 * Creates a new Bo2UtilsEnvironment object.
 	 *
 	 */
 	private Bo2UtilsEnvironment() {
 		super();
-	}
-
-	/**
-	 * Gets the dfShort.
-	 *
-	 * @return Returns the dfShort
-	 */
-	SimpleDateFormat getDfShort() {
-		return new SimpleDateFormat(dfShortPattern);
-	}
-
-	/**
-	 * Gets the dfIso.
-	 *
-	 * @return Returns the dfIso
-	 */
-	SimpleDateFormat getDfIso() {
-		return new SimpleDateFormat(dfIsoPattern);
-	}
-
-	/**
-	 * Gets the dfLong.
-	 *
-	 * @return Returns the dfLong
-	 */
-	SimpleDateFormat getDfLong() {
-		return new SimpleDateFormat(dfLongPattern);
+		this.properties = new Properties();
 	}
 	
+	
+	/**
+	 * Creates a new Bo2UtilsEnvironment object.
+	 *
+	 * @param properties the properties
+	 */
+	@SuppressWarnings("nls")
+	private Bo2UtilsEnvironment(Properties properties) {
+		this();
+		this.properties = properties;
+		setString(properties, "shortDateFormat");
+		setString(properties, "longDateFormat");
+		setCharset(properties, "textEncoding");
+		setCharset(properties, "resourceFileEncoding");
+	}
+	
+	/**
+	 * Sets a String property.
+	 *
+	 * @param p the p
+	 * @param property the property
+	 */
+	private void setString(Properties p, String property) {
+		String s = p.getProperty(property);
+		if (s!=null) {
+			ReflectionUtils.set(property, s, this);
+		}
+	}
+	
+	/**
+	 * Sets a String property.
+	 *
+	 * @param p the p
+	 * @param property the property
+	 */
+	private void setCharset(Properties p, String property) {
+		String s = p.getProperty(property);
+		if (s!=null) {
+			Charset charset = Charset.forName(s);
+			ReflectionUtils.set(property, charset, this);
+		}
+	}
+	
+
+	/**
+	 * Gets the dfShortPattern.
+	 *
+	 * @return Returns the dfShortPattern
+	 */
+	public String getShortDateFormatPattern() {
+		return shortDateFormat;
+	}
+
+	/**
+	 * Gets the dfLongPattern.
+	 *
+	 * @return Returns the dfLongPattern
+	 */
+	public String getLongDateFormatPattern() {
+		return longDateFormat;
+	}
+
 	/**
 	 * Gets the textCharset.
 	 *
 	 * @return Returns the textCharset
 	 */
-	Charset getTextCharset() {
-		return textCharset;
+	public Charset getDefaultTextCharset() {
+		return textEncoding;
 	}
+	
+	/**
+	 * Gets the resourceFileCharset.
+	 *
+	 * @return Returns the resourceFileCharset
+	 */
+	public Charset getDefaultResourceFileCharset() {
+		return resourceFileEncoding;
+	}
+
+
+	/**
+	 * Gets the properties.
+	 *
+	 * @return Returns the properties
+	 */
+	public Properties getProperties() {
+		return properties;
+	}
+
+	
 
 }

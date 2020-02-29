@@ -17,33 +17,37 @@ import gr.interamerican.bo2.arch.Money;
 import gr.interamerican.bo2.arch.PersistentObject;
 
 /**
- * 
+ * The Interface MoneyPo.
  */
 public interface MoneyPo 
 extends PersistentObject<MoneyKey>, ModificationRecord 
 {
 	
 	/**
-	 * Gets moneyNo
+	 * Gets moneyNo.
+	 *
 	 * @return moneyNo
 	 */
 	public String getMoneyNo();
 	
 	/**
-	 * Sets moneyNo
-	 * @param moneyNo
+	 * Sets moneyNo.
+	 *
+	 * @param moneyNo the new money no
 	 */
 	public void setMoneyNo(String moneyNo);
 	
 	/**
-	 * Gets money
+	 * Gets money.
+	 *
 	 * @return money
 	 */
 	public Money getMoney();
 	
 	/**
-	 * Sets money
-	 * @param money
+	 * Sets money.
+	 *
+	 * @param money the new money
 	 */
 	public void setMoney(Money money);
 	

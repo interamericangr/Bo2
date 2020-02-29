@@ -31,14 +31,13 @@ extends Worker {
 	
 	/**
 	 * Reads the persistent object with the specified key.
-	 * 
-	 * @param key
-	 *        Key of the persistent object.
+	 *
+	 * @param key        Key of the persistent object.
 	 *        
 	 * @return Returns the persistent object.
-	 * @throws DataException 
+	 * @throws DataException the data exception
 	 */
-	public P get(K key) throws DataException;
+	P get(K key) throws DataException;
 	
 	/**
 	 * Reads the persistent object that has a key that is either
@@ -48,16 +47,12 @@ extends Worker {
 	 * This method is optional for classes implementing this interface.
 	 * If a class does not support this method, then a {@link DataOperationNotSupportedException}
 	 * should be thrown. 
-	 * 
-	 * @param key
-	 *        Object with its properties equal with the properties
+	 *
+	 * @param key        Object with its properties equal with the properties
 	 *        of the persistent object's key.
 	 *        
 	 * @return Returns the persistent object.
-	 * @throws DataException 
+	 * @throws DataException the data exception
 	 */
-	public P getByProperties(Object key) throws DataException;
-	
-	
-
+	P getByProperties(Object key) throws DataException;
 }

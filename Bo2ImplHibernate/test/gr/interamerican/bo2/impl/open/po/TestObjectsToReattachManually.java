@@ -34,9 +34,7 @@ import org.junit.Test;
  */
 public class TestObjectsToReattachManually {
 	
-	/**
-	 * samples factory
-	 */
+	/** samples factory. */
 	private SamplesFactory factory=SamplesFactory.getBo2Factory();
 	
 	/**
@@ -56,10 +54,10 @@ public class TestObjectsToReattachManually {
 	
 	/**
 	 * Clear data and setup a sample Invoice. 
-	 * 
-	 * @throws UnexpectedException
-	 * @throws DataException
-	 * @throws LogicException
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Before
 	public void before() throws UnexpectedException, DataException, LogicException {
@@ -82,10 +80,10 @@ public class TestObjectsToReattachManually {
 	
 	/**
 	 * Tests execute.
-	 * 
-	 * @throws UnexpectedException
-	 * @throws DataException
-	 * @throws LogicException
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testExecute() throws UnexpectedException, DataException, LogicException {

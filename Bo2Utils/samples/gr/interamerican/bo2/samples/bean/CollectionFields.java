@@ -5,25 +5,21 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * 
+ * The Class CollectionFields.
  */
 public class CollectionFields {
-	/**
-	 * List
-	 */
+	
+	/** List. */
 	@SuppressWarnings("rawtypes")
 	List rawList;
-	/**
-	 * List of String
-	 */
+	
+	/** List of String. */
 	List<String> stringList;
-	/**
-	 * String
-	 */
+	
+	/** String. */
 	String string;
-	/**
-	 * Collection of (Set of String)
-	 */
+	
+	/** Collection of (Set of String). */
 	Collection<Set<String>> setsCollection;
 
 	/**

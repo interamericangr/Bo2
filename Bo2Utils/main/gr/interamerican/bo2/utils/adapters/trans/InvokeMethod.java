@@ -30,16 +30,9 @@ implements Transformation<A, R>
 	/**
 	 * Creates a new InvokeMethod object. 
 	 *
-	 * @param clazz
-	 *        Class that has a public method that will be invoked.
-	 * @param methodName
-	 *        name of public method.
-	 * @param argumentType
-	 *        Argument type of the method. The method must have only one argument.
-	 * @param target
-	 *        Target object on which the method will be invoked.
-	 * 
-	 *        
+	 * @param target        Target object on which the method will be invoked.
+	 * @param methodName        name of public method.
+	 * @param argumentType        Argument type of the method. The method must have only one argument.
 	 */
 	public InvokeMethod(Object target, String methodName, Class<?> argumentType) {
 		super(new ThrowingExceptionHandler(), methodName, target, argumentType);

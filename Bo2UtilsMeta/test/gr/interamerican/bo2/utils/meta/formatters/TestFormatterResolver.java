@@ -17,12 +17,12 @@ import org.junit.Test;
 
 
 /**
- * Unit tests for {@link FormatterResolver}
+ * Unit tests for {@link FormatterResolver}.
  */
 public class TestFormatterResolver {
 	
 	/**
-	 * Unit test for getFormatter()
+	 * Unit test for getFormatter().
 	 */
 	@Test
 	public void testGetFormatter() {

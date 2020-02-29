@@ -21,12 +21,16 @@ import java.io.Serializable;
 public interface FooBarTPSCH extends Serializable {
 	
 	/**
+	 * Gets the id.
+	 *
 	 * @return id
 	 */
 	Integer getId();
 	
 	/**
-	 * @param id
+	 * Sets the id.
+	 *
+	 * @param id the new id
 	 */
 	void setId(Integer id);
 

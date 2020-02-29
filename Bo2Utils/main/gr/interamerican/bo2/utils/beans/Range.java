@@ -28,16 +28,14 @@ public class Range<T extends Comparable<? super T>>
 extends Pair<T, T>
 implements Comparable<Range<T>> {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
 	/**
 	 * Unsafe rawtype delegate to range.contains(t).
-	 * 
+	 *
 	 * @param range Range
-	 * @param object
+	 * @param object the object
 	 * @return Returns true if object is contained in the range.
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -55,10 +53,9 @@ implements Comparable<Range<T>> {
 	 * Casts the specified <code>left</code> and <code>right</code> arguments
 	 * to <code>Comparable</code> and then creates a new {@link Range} with the
 	 * specified limits.
-	 * 
-	 * @param left
-	 * @param right
-	 * 
+	 *
+	 * @param left the left
+	 * @param right the right
 	 * @return Returns a new Range with the specified limits.
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -78,9 +75,9 @@ implements Comparable<Range<T>> {
 
 	/**
 	 * Creates a new Range object.
-	 * 
-	 * @param left
-	 * @param right
+	 *
+	 * @param left the left
+	 * @param right the right
 	 */
 	public Range(T left, T right) {
 		super();
@@ -172,6 +169,7 @@ implements Comparable<Range<T>> {
 				&& (Utils.nullSafeCompare(value, getRight()) <= 0);
 	}
 
+	@Override
 	public int compareTo(Range<T> other) {
 		if (other == null) {
 			return 1;
@@ -265,9 +263,8 @@ implements Comparable<Range<T>> {
 	
 	/**
 	 * Indicates if this range contains another range.
-	 * 
-	 * @param other
-	 * 
+	 *
+	 * @param other the other
 	 * @return Returns true if this range contains the specified
 	 *         other range.
 	 */

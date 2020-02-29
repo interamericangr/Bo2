@@ -12,17 +12,21 @@
  ******************************************************************************/
 package gr.interamerican.wicket.bo2.markup.html.form;
 
-import gr.interamerican.wicket.bo2.callbacks.Bo2WicketBlock;
-
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.IModel;
+
+import gr.interamerican.wicket.bo2.callbacks.Bo2WicketBlock;
+import gr.interamerican.wicket.links.ConsumerLink;
+import gr.interamerican.wicket.links.RunnableLink;
 
 /**
  * A {@link Link} that executes a {@link Bo2WicketBlock}.
  * 
  * @param <T> 
- *        Type of model object. 
+ *        Type of model object.
+ * @deprecated Use {@link RunnableLink} and {@link ConsumerLink} instead 
  */
+@Deprecated
 public class Bo2WicketBlockLink<T> extends Link<T>{
 	
 	/**

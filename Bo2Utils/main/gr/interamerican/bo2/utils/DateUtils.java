@@ -12,62 +12,80 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils;
 
-import gr.interamerican.bo2.utils.beans.Range;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.HashSet;
-import java.util.Set;
+
+import gr.interamerican.bo2.utils.beans.Range;
 
 /**
- * Utilities for dates
- * 
- * 
+ * Utilities for dates.
  */
 public class DateUtils {
+
 	/**
 	 * Milliseconds of a day.
 	 */
-	private static final long HOUR_IN_MILLIS = 60*60*1000;
-	
+	private static final long HOUR_IN_MILLIS = 60 * 60 * 1000;
+
 	/**
 	 * Milliseconds of a day.
 	 */
-	private static final long DAY_IN_MILLIS = 24*HOUR_IN_MILLIS;
-
+	private static final long DAY_IN_MILLIS = 24 * HOUR_IN_MILLIS;
 
 	/**
-	 * Date format YYYYMMDD.
+	 * Thread Local containing a Date format for YYYYMMDD.
 	 */
-	private static DateFormat dfYYYYMMDD = new SimpleDateFormat("yyyyMMdd"); //$NON-NLS-1$
+	private static ThreadLocal<DateFormat> dfYYYYMMDD = new ThreadLocal<DateFormat>() {
 
+		@Override
+		protected DateFormat initialValue() {
+			return new SimpleDateFormat("yyyyMMdd"); //$NON-NLS-1$
+		}
+	};
 
+	/**
+	 * ISO date format (ISO format).
+	 */
+	private static final String ISO_DATE_FORMAT_PATTERN = "yyyy-MM-dd"; //$NON-NLS-1$
+
+	/**
+	 * Thread Local containing an ISO date format (ISO format).
+	 */
+	private static ThreadLocal<DateFormat> dfIso = new ThreadLocal<DateFormat>() {
+
+		@Override
+		protected DateFormat initialValue() {
+			return new SimpleDateFormat(ISO_DATE_FORMAT_PATTERN);
+		}
+	};
 
 	/**
 	 * Calendar constant 1/1/0001
 	 */
-	private static Calendar ZERO_CAL = zero();
-	
-    /**
-     * Calendar of epoch. On Gregorian it's January 1, 1970
-     */
-    private static Calendar EPOCH_CAL = epoch();
+	private static final Calendar ZERO_CAL = zero();
 
 	/**
-	 * date constant 1/1/0001
+	 * Calendar of epoch. On Gregorian it's January 1, 1970
 	 */
-	private static Date ZERO_DT = ZERO_CAL.getTime();
+	private static final Calendar EPOCH_CAL = epoch();
 
+	/** date constant 1/1/0001. */
+	private static final Date ZERO_DT = ZERO_CAL.getTime();
+
+	/**
+	 * VM argument to override the value of today().
+	 */
+	static final String valueOfTodayArg = "Bo2.valueOfToday"; //$NON-NLS-1$
 
 	/**
 	 * Hidden constructor.
 	 * 
-	 * This is a utility class having only static methods.
-	 * There is no need to create any instance of this class.
+	 * This is a utility class having only static methods. There is no need to
+	 * create any instance of this class.
 	 */
 	private DateUtils() {
 		/* empty */
@@ -79,9 +97,9 @@ public class DateUtils {
 	 * @return date 1/1/0001
 	 */
 	private static Calendar zero() {
-		Calendar cal=new GregorianCalendar();
+		Calendar cal = new GregorianCalendar();
 		cal.set(Calendar.YEAR, 1);
-		cal.set(Calendar.MONTH,Calendar.JANUARY);
+		cal.set(Calendar.MONTH, Calendar.JANUARY);
 		cal.set(Calendar.DATE, 1);
 		removeTime(cal);
 		return cal;
@@ -99,19 +117,21 @@ public class DateUtils {
 	/**
 	 * Gets the first day of the specified month.
 	 * 
-	 * @param year year
-	 * @param month month. Use {@link Calendar} constants for months.
+	 * @param year
+	 *            year
+	 * @param month
+	 *            month. Use {@link Calendar} constants for months.
 	 * 
 	 * @return Returns the first day of month.
 	 */
 	public static Date getMonth1st(int year, int month) {
-		return getDate(year,month,1);
+		return getDate(year, month, 1);
 
 	}
 
 	/**
-	 * date of epoch of Gregorian calendar
-	 * 
+	 * date of epoch of Gregorian calendar.
+	 *
 	 * @return date 01/01/1970
 	 */
 	private static Calendar epoch() {
@@ -122,33 +142,32 @@ public class DateUtils {
 	}
 
 	/**
-	 * Gets a date at midnight (time is zero)
-	 * 
+	 * Gets a date at midnight (time is zero).
+	 *
 	 * @param year
 	 *            year
 	 * @param month
 	 *            month. Use {@link Calendar} constants for months.
 	 * @param day
 	 *            day
-	 * 
 	 * @return Returns the first day of month.
 	 */
 	public static Date getDate(int year, int month, int day) {
-		Calendar cal=new GregorianCalendar();
+		Calendar cal = new GregorianCalendar();
 		cal.set(Calendar.YEAR, year);
-		cal.set(Calendar.MONTH,month);
-		cal.set(Calendar.DATE,day);
+		cal.set(Calendar.MONTH, month);
+		cal.set(Calendar.DATE, day);
 		removeTime(cal);
 		return new Date(cal.getTimeInMillis());
 	}
-
 
 	/**
 	 * removes time from a calendar.
 	 * 
 	 * The calendar remains with the same date and time set to 00:00:00.000
 	 * 
-	 * @param cal calendar object who's time is removed.
+	 * @param cal
+	 *            calendar object who's time is removed.
 	 */
 	public static void removeTime(Calendar cal) {
 		cal.set(Calendar.HOUR_OF_DAY, 0);
@@ -162,7 +181,8 @@ public class DateUtils {
 	 * 
 	 * The date remains with the same date and time set to 00:00:00.000
 	 * 
-	 * @param date Date who's time is removed.
+	 * @param date
+	 *            Date who's time is removed.
 	 */
 	public static void removeTime(Date date) {
 		Calendar cal = Calendar.getInstance();
@@ -174,7 +194,8 @@ public class DateUtils {
 	/**
 	 * Shows if a date equals 1/1/0001.
 	 * 
-	 * @param dt date.
+	 * @param dt
+	 *            date.
 	 * @return returns true is date equals 1/1/0001.
 	 */
 	public static boolean isZero(Date dt) {
@@ -184,7 +205,8 @@ public class DateUtils {
 	/**
 	 * Shows if a calendar equals 1/1/0001.
 	 * 
-	 * @param cal calendar.
+	 * @param cal
+	 *            calendar.
 	 * @return returns true is date equals 1/1/0001.
 	 */
 	public static boolean isZero(Calendar cal) {
@@ -194,29 +216,26 @@ public class DateUtils {
 	/**
 	 * Gets the time passed between two dates.
 	 * 
-	 * The time is counted in days, months or years,
-	 * according to the parameter <code>type</code> specified.
-	 * The first parameter <code>fromDate</code> must be less
-	 * or equal than the second parameter <code>toDate</code>.
+	 * The time is counted in days, months or years, according to the parameter
+	 * <code>type</code> specified. The first parameter <code>fromDate</code>
+	 * must be less or equal than the second parameter <code>toDate</code>.
 	 * Otherwise the method will return 0.
-	 * 
+	 *
 	 * @param fromDate
-	 * 
+	 *            the from date
 	 * @param toDate
-	 * 
+	 *            the to date
 	 * @param type
-	 *        Rime integral of the result period of time. Valid values
-	 *        are <code>Calendar.DATE, Calendar.YEAR, Calendar.MONTH</code>
-	 * 
-	 * @return Returns the time passed from <code>fromDate</code>
-	 *         until <code>toDate</code>
-	 * 
+	 *            Rime integral of the result period of time. Valid values are
+	 *            <code>Calendar.DATE, Calendar.YEAR, Calendar.MONTH</code>
+	 * @return Returns the time passed from <code>fromDate</code> until
+	 *         <code>toDate</code>
 	 */
 	static int dateDif(Calendar fromDate, Calendar toDate, int type) {
-		if (Calendar.DAY_OF_MONTH==type) {			
+		if (Calendar.DAY_OF_MONTH == type) {
 			return daysDifPositive(fromDate, toDate);
 		}
-		
+
 		Calendar from = new GregorianCalendar();
 		from.setTime(fromDate.getTime());
 		Calendar to = new GregorianCalendar();
@@ -230,63 +249,54 @@ public class DateUtils {
 		}
 		return count;
 	}
-	
-	
-	
+
 	/**
 	 * Gets the days between two dates.
 	 * 
-	 * The first parameter <code>fromDate</code> must be less
-	 * or equal than the second parameter <code>toDate</code>.
-	 * Otherwise the method will return 0.
+	 * The first parameter <code>fromDate</code> must be less or equal than the
+	 * second parameter <code>toDate</code>. Otherwise the method will return 0.
 	 * 
 	 * @param fromDate
+	 *            From Date
 	 * @param toDate
+	 *            To Date
 	 * 
-	 * @param type
-	 *        Rime integral of the result period of time. Valid values
-	 *        are <code>Calendar.DATE, Calendar.YEAR, Calendar.MONTH</code>
-	 * 
-	 * @return Returns the time passed from <code>fromDate</code>
-	 *         until <code>toDate</code>
-	 * 
+	 * @return Returns the time passed from <code>fromDate</code> until
+	 *         <code>toDate</code>
 	 */
-	static int daysDifPositive(Calendar fromDate, Calendar toDate) {		
-		int days=DateUtils.daysDif(fromDate, toDate);
-		if (days<0) {
+	static int daysDifPositive(Calendar fromDate, Calendar toDate) {
+		int days = DateUtils.daysDif(fromDate, toDate);
+		if (days < 0) {
 			return 0;
 		}
 		return days;
 	}
-	
-	
+
 	/**
 	 * Gets the time between two dates in days.
-	 * 
-	 * @param fromDate
-	 * 
-	 * @param toDate
 	 *
-	 * 
-	 * @return Returns the days passed from <code>fromDate</code>
-	 *         until <code>toDate</code>
-	 * 
+	 * @param fromDate
+	 *            the from date
+	 * @param toDate
+	 *            the to date
+	 * @return Returns the days passed from <code>fromDate</code> until
+	 *         <code>toDate</code>
 	 */
 	static int daysDif(Calendar fromDate, Calendar toDate) {
 		Range<Calendar> period = new Range<Calendar>(fromDate, toDate);
-		boolean isNegative = period.getLeft().equals(toDate);		
-		
+		boolean isNegative = period.getLeft().equals(toDate);
+
 		long from = period.getLeft().getTimeInMillis();
 		long to = period.getRight().getTimeInMillis();
 		long dif = to - from;
 		long days = dif / DAY_IN_MILLIS;
 		/*
-		 * Fix for BOTWO-14: 
-		 * Wrong result if from is in winter time zone and to in summer time zone. 
+		 * Fix for BOTWO-14: Wrong result if from is in winter time zone and to
+		 * in summer time zone.
 		 */
-		long remainder = dif % DAY_IN_MILLIS;		
-		long hours = remainder / HOUR_IN_MILLIS;		
-		if (hours > 22) {			
+		long remainder = dif % DAY_IN_MILLIS;
+		long hours = remainder / HOUR_IN_MILLIS;
+		if (hours > 22) {
 			days++;
 		}
 		if (isNegative) {
@@ -294,27 +304,19 @@ public class DateUtils {
 		}
 		return Long.valueOf(days).intValue();
 	}
-	
-	
-	
-	
-	
 
 	/**
 	 * Gets the time passed between two dates in days.
 	 * 
-	 * The first parameter <code>fromDate</code> must be less
-	 * or equal than the second parameter <code>toDate</code>.
-	 * Otherwise the method will return 0.
-	 * 
+	 * The first parameter <code>fromDate</code> must be less or equal than the
+	 * second parameter <code>toDate</code>. Otherwise the method will return 0.
+	 *
 	 * @param fromDate
-	 * 
+	 *            the from date
 	 * @param toDate
-	 * 
-	 * 
-	 * @return Returns the time passed from <code>fromDate</code>
-	 *         until <code>toDate</code>
-	 * 
+	 *            the to date
+	 * @return Returns the time passed from <code>fromDate</code> until
+	 *         <code>toDate</code>
 	 */
 	public static int difDays(Calendar fromDate, Calendar toDate) {
 		return dateDif(fromDate, toDate, Calendar.DATE);
@@ -323,18 +325,15 @@ public class DateUtils {
 	/**
 	 * Gets the time passed between two dates in years.
 	 * 
-	 * The first parameter <code>fromDate</code> must be less
-	 * or equal than the second parameter <code>toDate</code>.
-	 * Otherwise the method will return 0.
-	 * 
+	 * The first parameter <code>fromDate</code> must be less or equal than the
+	 * second parameter <code>toDate</code>. Otherwise the method will return 0.
+	 *
 	 * @param fromDate
-	 * 
+	 *            the from date
 	 * @param toDate
-	 * 
-	 * 
-	 * @return Returns the time passed from <code>fromDate</code>
-	 *         until <code>toDate</code>
-	 * 
+	 *            the to date
+	 * @return Returns the time passed from <code>fromDate</code> until
+	 *         <code>toDate</code>
 	 */
 	public static int difYears(Calendar fromDate, Calendar toDate) {
 		return dateDif(fromDate, toDate, Calendar.YEAR);
@@ -343,20 +342,17 @@ public class DateUtils {
 	/**
 	 * Gets the time passed between two dates in months.
 	 * 
-	 * The time is counted in days, months or years,
-	 * according to the parameter <code>type</code> specified.
-	 * The first parameter <code>fromDate</code> must be less
-	 * or equal than the second parameter <code>toDate</code>.
+	 * The time is counted in days, months or years, according to the parameter
+	 * <code>type</code> specified. The first parameter <code>fromDate</code>
+	 * must be less or equal than the second parameter <code>toDate</code>.
 	 * Otherwise the method will return 0.
-	 * 
+	 *
 	 * @param fromDate
-	 * 
+	 *            the from date
 	 * @param toDate
-	 * 
-	 * 
-	 * @return Returns the time passed from <code>fromDate</code>
-	 *         until <code>toDate</code>
-	 * 
+	 *            the to date
+	 * @return Returns the time passed from <code>fromDate</code> until
+	 *         <code>toDate</code>
 	 */
 	public static int difMonths(Calendar fromDate, Calendar toDate) {
 		return dateDif(fromDate, toDate, Calendar.MONTH);
@@ -365,25 +361,22 @@ public class DateUtils {
 	/**
 	 * Gets the time passed between two dates in days.
 	 * 
-	 * The time is counted in days, months or years,
-	 * according to the parameter <code>type</code> specified.
-	 * The first parameter <code>fromDate</code> must be less
-	 * or equal than the second parameter <code>toDate</code>.
+	 * The time is counted in days, months or years, according to the parameter
+	 * <code>type</code> specified. The first parameter <code>fromDate</code>
+	 * must be less or equal than the second parameter <code>toDate</code>.
 	 * Otherwise the method will return 0.
-	 * 
+	 *
 	 * @param fromDate
-	 * 
+	 *            the from date
 	 * @param toDate
-	 * 
-	 * 
-	 * @return Returns the time passed from <code>fromDate</code>
-	 *         until <code>toDate</code>
-	 * 
+	 *            the to date
+	 * @return Returns the time passed from <code>fromDate</code> until
+	 *         <code>toDate</code>
 	 */
 	public static int difDays(Date fromDate, Date toDate) {
-		GregorianCalendar from=new GregorianCalendar();
+		GregorianCalendar from = new GregorianCalendar();
 		from.setTime(fromDate);
-		GregorianCalendar to=new GregorianCalendar();
+		GregorianCalendar to = new GregorianCalendar();
 		to.setTime(toDate);
 
 		return dateDif(from, to, Calendar.DATE);
@@ -392,25 +385,22 @@ public class DateUtils {
 	/**
 	 * Gets the time passed between two dates in years.
 	 * 
-	 * The time is counted in days, months or years,
-	 * according to the parameter <code>type</code> specified.
-	 * The first parameter <code>fromDate</code> must be less
-	 * or equal than the second parameter <code>toDate</code>.
+	 * The time is counted in days, months or years, according to the parameter
+	 * <code>type</code> specified. The first parameter <code>fromDate</code>
+	 * must be less or equal than the second parameter <code>toDate</code>.
 	 * Otherwise the method will return 0.
-	 * 
+	 *
 	 * @param fromDate
-	 * 
+	 *            the from date
 	 * @param toDate
-	 * 
-	 * 
-	 * @return Returns the time passed from <code>fromDate</code>
-	 *         until <code>toDate</code>
-	 * 
+	 *            the to date
+	 * @return Returns the time passed from <code>fromDate</code> until
+	 *         <code>toDate</code>
 	 */
 	public static int difYears(Date fromDate, Date toDate) {
-		GregorianCalendar from=new GregorianCalendar();
+		GregorianCalendar from = new GregorianCalendar();
 		from.setTime(fromDate);
-		GregorianCalendar to=new GregorianCalendar();
+		GregorianCalendar to = new GregorianCalendar();
 		to.setTime(toDate);
 
 		return dateDif(from, to, Calendar.YEAR);
@@ -419,25 +409,22 @@ public class DateUtils {
 	/**
 	 * Gets the time passed between two dates in months.
 	 * 
-	 * The time is counted in days, months or years,
-	 * according to the parameter <code>type</code> specified.
-	 * The first parameter <code>fromDate</code> must be less
-	 * or equal than the second parameter <code>toDate</code>.
+	 * The time is counted in days, months or years, according to the parameter
+	 * <code>type</code> specified. The first parameter <code>fromDate</code>
+	 * must be less or equal than the second parameter <code>toDate</code>.
 	 * Otherwise the method will return 0.
-	 * 
+	 *
 	 * @param fromDate
-	 * 
+	 *            the from date
 	 * @param toDate
-	 * 
-	 * 
-	 * @return Returns the time passed from <code>fromDate</code>
-	 *         until <code>toDate</code>
-	 * 
+	 *            the to date
+	 * @return Returns the time passed from <code>fromDate</code> until
+	 *         <code>toDate</code>
 	 */
 	public static int difMonths(Date fromDate, Date toDate) {
-		GregorianCalendar from=new GregorianCalendar();
+		GregorianCalendar from = new GregorianCalendar();
 		from.setTime(fromDate);
-		GregorianCalendar to=new GregorianCalendar();
+		GregorianCalendar to = new GregorianCalendar();
 		to.setTime(toDate);
 
 		return dateDif(from, to, Calendar.MONTH);
@@ -446,10 +433,13 @@ public class DateUtils {
 	/**
 	 * Adds days months or years to a date.
 	 * 
-	 * @param datein input date
+	 * @param datein
+	 *            input date
 	 * @param type
 	 *            (Calendar.DATE,Calendar.MONTH,Calendar.YEAR)
-	 * @param amount days, months or years that will be added to datein. Can be negative.
+	 * @param amount
+	 *            days, months or years that will be added to datein. Can be
+	 *            negative.
 	 * @return returns the result
 	 */
 	private static Date add(Date datein, int type, int amount) {
@@ -462,12 +452,13 @@ public class DateUtils {
 	/**
 	 * Adds days to a date.
 	 * 
-	 * The parameter <code>days</code> can be negative. In this case
-	 * the result will be a date before the input parameter
-	 * <code>datein</code>.
-	 * 
+	 * The parameter <code>days</code> can be negative. In this case the result
+	 * will be a date before the input parameter <code>datein</code>.
+	 *
 	 * @param datein
+	 *            the datein
 	 * @param days
+	 *            the days
 	 * @return result date
 	 */
 	public static Date addDays(Date datein, int days) {
@@ -477,12 +468,13 @@ public class DateUtils {
 	/**
 	 * Adds months to a date.
 	 * 
-	 * The parameter <code>months</code> can be negative. In this case
-	 * the result will be a date before the input parameter
-	 * <code>datein</code>.
-	 * 
+	 * The parameter <code>months</code> can be negative. In this case the
+	 * result will be a date before the input parameter <code>datein</code>.
+	 *
 	 * @param datein
+	 *            the datein
 	 * @param months
+	 *            the months
 	 * @return result date
 	 */
 	public static Date addMonths(Date datein, int months) {
@@ -492,12 +484,13 @@ public class DateUtils {
 	/**
 	 * Adds years to a date.
 	 * 
-	 * The parameter <code>years</code> can be negative. In this case
-	 * the result will be a date before the input parameter
-	 * <code>datein</code>.
-	 * 
+	 * The parameter <code>years</code> can be negative. In this case the result
+	 * will be a date before the input parameter <code>datein</code>.
+	 *
 	 * @param datein
+	 *            the datein
 	 * @param years
+	 *            the years
 	 * @return result date as string
 	 */
 	public static Date addYears(Date datein, int years) {
@@ -505,21 +498,47 @@ public class DateUtils {
 	}
 
 	/**
+	 * Parses a date using a sequence of patterns.
+	 * 
+	 * If parsing is successful, the result is returned. Otherwise, the
+	 * ParseException that was thrown by the last parse attempt is thrown.
+	 *
+	 * @param date
+	 *            the date
+	 * @param patterns
+	 *            the patterns
+	 * @return Returns the date.
+	 * @throws ParseException
+	 *             the parse exception
+	 */
+	public static Date parse(String date, String... patterns) throws ParseException {
+		ParseException last = null;
+		for (int i = 0; i < patterns.length; i++) {
+			String pattern = patterns[i];
+			SimpleDateFormat df = new SimpleDateFormat(pattern);
+			try {
+				return df.parse(date);
+			} catch (ParseException pe) {
+				last = pe;
+			}
+		}
+		throw last;
+	}
+
+	/**
 	 * Gets a date from the parameter dt.
 	 * 
-	 * If dt is a date type (Calendar, Timestamp etc) it will be
-	 * converted to a Date object. Otherwise the result of the
-	 * objects <code>toString()</code> will be converted to date
-	 * according to the system locale.
-	 * 
-	 * @param dt object representing a date.
-	 * 
+	 * If dt is a date type (Calendar, Timestamp etc) it will be converted to a
+	 * Date object. Otherwise the result of the objects <code>toString()</code>
+	 * will be converted to date according to the system locale.
+	 *
+	 * @param dt
+	 *            object representing a date.
 	 * @return Returns a date for this object.
-	 * 
 	 * @throws ParseException
+	 *             the parse exception
 	 */
-	public static Date getDate(Object dt)
-			throws ParseException {
+	public static Date getDate(Object dt) throws ParseException {
 		if (dt == null) {
 			return null;
 		}
@@ -531,76 +550,71 @@ public class DateUtils {
 			return new Date(cal.getTimeInMillis());
 		}
 		String str = dt.toString().trim();
-		try {
-			return Bo2UtilsEnvironment.SINGLETON.getDfShort().parse(str);
-		} catch (ParseException pe) {
-			/* try once more with the long date format */
-			try {
-				return Bo2UtilsEnvironment.SINGLETON.getDfLong().parse(str);
-			} catch (ParseException pe2) {
-				/* Now try one last time with the iso date format */
-				return Bo2UtilsEnvironment.SINGLETON.getDfIso().parse(str);
-			}
-		}
+		String[] patterns = { Bo2UtilsEnvironment.get().getShortDateFormatPattern(),
+				Bo2UtilsEnvironment.get().getLongDateFormatPattern(), ISO_DATE_FORMAT_PATTERN };
+		return parse(str, patterns);
 	}
 
 	/**
 	 * Creates a formatted string from a Date.
 	 * 
-	 * The formatted string is based on the short date format
-	 * specified by {@link Bo2UtilsEnvironment#getDfShort()}.
+	 * The formatted string is based on the short date format specified by
+	 * {@link Bo2UtilsEnvironment#getShortDateFormatPattern()}.
 	 * 
 	 * @param dt
-	 *        Date to format.
+	 *            Date to format.
 	 * 
 	 * @return Returns a formatted string for this date.
 	 */
 	public static String formatDate(Date dt) {
-		return Bo2UtilsEnvironment.SINGLETON.getDfShort().format(dt);
+		SimpleDateFormat df = new SimpleDateFormat(Bo2UtilsEnvironment.get().getShortDateFormatPattern());
+		return df.format(dt);
 	}
 
 	/**
 	 * Creates a formatted string from a Date.
 	 * 
-	 * The formatted string is based on the ISO date format
-	 * specified by {@link Bo2UtilsEnvironment#getDfIso()}.
+	 * The formatted string is based on the ISO date format (
+	 * {@link #ISO_DATE_FORMAT_PATTERN} ).
 	 * 
 	 * @param dt
-	 *        Date to format.
+	 *            Date to format.
 	 * 
 	 * @return Returns a formatted string for this date.
 	 */
 	public static String formatDateIso(Date dt) {
-		return Bo2UtilsEnvironment.SINGLETON.getDfIso().format(dt);
+		return dfIso.get().format(dt);
 	}
 
 	/**
-	 * Creates a formatted string from a Date.
+	 * Creates a formatted string from a {@link Calendar}.<br>
+	 * The formatted string is based on the long date format specified by
+	 * {@link Bo2UtilsEnvironment#getLongDateFormatPattern()}.
 	 * 
-	 * The formatted string is based on the long date format
-	 * specified by {@link Bo2UtilsEnvironment#getDfLong()}.
-	 * 
-	 * @param cal Date to format.
+	 * @param cal
+	 *            Date to format.
 	 * 
 	 * @return Returns a formatted string for this date.
 	 */
 	public static String formatCalendar(Calendar cal) {
-		return Bo2UtilsEnvironment.SINGLETON.getDfLong().format(cal.getTime());
+		Date dt = cal.getTime();
+		return formatCalendar(dt);
 	}
 
 	/**
 	 * Creates a formatted string from a Date.
 	 * 
-	 * The formatted string is based on the long date format
-	 * specified by {@link Bo2UtilsEnvironment#getDfLong()}.
+	 * The formatted string is based on the long date format specified by
+	 * {@link Bo2UtilsEnvironment#getLongDateFormatPattern()}.
 	 * 
 	 * @param dt
-	 *        Date to format.
+	 *            Date to format.
 	 * 
 	 * @return Returns a formatted string for this date.
 	 */
 	public static String formatCalendar(Date dt) {
-		return Bo2UtilsEnvironment.SINGLETON.getDfLong().format(dt);
+		SimpleDateFormat df = new SimpleDateFormat(Bo2UtilsEnvironment.get().getLongDateFormatPattern());
+		return df.format(dt);
 	}
 
 	/**
@@ -609,6 +623,9 @@ public class DateUtils {
 	 * @return Returns the current date.
 	 */
 	public static Date today() {
+		if (valueOfToday() != null) {
+			return valueOfToday();
+		}
 		Calendar cal = Calendar.getInstance();
 		cal.setTimeInMillis(System.currentTimeMillis());
 		removeTime(cal);
@@ -616,10 +633,29 @@ public class DateUtils {
 	}
 
 	/**
+	 * @return the value of today as set by the user in the argument
+	 *         {@link DateUtils#valueOfTodayArg}. Date is set on
+	 *         {@link DateUtils#ISO_DATE_FORMAT_PATTERN}
+	 */
+	static Date valueOfToday() {
+		String today = System.getProperty(valueOfTodayArg);
+		if (today == null) {
+			return null;
+		}
+		Date bo2Today;
+		try {
+			bo2Today = dfIso.get().parse(today);
+		} catch (ParseException e) {
+			return null;
+		}
+		return bo2Today;
+	}
+
+	/**
 	 * Converts a Date to a Calendar object.
 	 * 
 	 * @param dt
-	 *        Date to convert.
+	 *            Date to convert.
 	 * 
 	 * @return Returns a calendar with the same value as the specified date.
 	 */
@@ -630,22 +666,10 @@ public class DateUtils {
 	}
 
 	/**
-	 * Formats a Date using a format yyyyMMdd.
-	 * 
-	 * @param dt
-	 *        Date to convert.
-	 * 
-	 * @return Returns a calendar with the same value as the specified date.
-	 */
-	public static synchronized String formatYYYYMMDD(Date dt) {
-		return dfYYYYMMDD.format(dt);
-	}
-
-	/**
 	 * Gets the year of the specified date.
 	 * 
 	 * @param date
-	 *        Date.
+	 *            Date.
 	 * 
 	 * @return Returns the year of the specified date.
 	 */
@@ -676,7 +700,7 @@ public class DateUtils {
 	 * The first day of month returns 1.
 	 * 
 	 * @param date
-	 *        Date.
+	 *            Date.
 	 * 
 	 * @return Returns the day of month of the specified date.
 	 */
@@ -701,60 +725,27 @@ public class DateUtils {
 		Calendar cal = DateUtils.getCalendar(date);
 		if (cal.after(EPOCH_CAL)) {
 			return difDays(EPOCH_CAL, cal);
-		} else {
-			return difDays(cal, EPOCH_CAL) * -1;
 		}
+		return difDays(cal, EPOCH_CAL) * -1;
 	}
 
 	/**
-	 * Parses a String dd/mm/yyyy representation of a date
-	 * and returns a {@link Date}.
+	 * Formats a Date using a format yyyyMMdd.
 	 * 
-	 * @param ddmmyyyy
+	 * @param dt
+	 *            Date to convert.
 	 * 
-	 * @return a {@link Date} instance.
+	 * @return Returns a calendar with the same value as the specified date.
 	 */
-	public static Date getDateDDMMYYYY(String ddmmyyyy) {
-		try {
-			return Bo2UtilsEnvironment.SINGLETON.getDfShort().parse(ddmmyyyy);
-		} catch (ParseException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	/**
-	 * returns the date on the orthodox easter on the given year.
-	 * 
-	 * @param myear
-	 *            the year to get the easter date.
-	 * @return the date of the orthodox easter.
-	 */
-	static Date getOrthodoxEaster(int myear) {
-		Calendar dof = Calendar.getInstance();
-		int r1 = myear % 4;
-		int r2 = myear % 7;
-		int r3 = myear % 19;
-		int r4 = ((19 * r3) + 15) % 30;
-		int r5 = ((2 * r1) + (4 * r2) + (6 * r4) + 6) % 7;
-		int mdays = r5 + r4 + 13;
-		if (mdays > 39) {
-			mdays = mdays - 39;
-			dof.set(myear, 4, mdays);
-		} else if (mdays > 9) {
-			mdays = mdays - 9;
-			dof.set(myear, 3, mdays);
-		} else {
-			mdays = mdays + 22;
-			dof.set(myear, 2, mdays);
-		}
-		// return dof;
-		return getDateAtMidnight(dof.getTime());
+	public static String formatYYYYMMDD(Date dt) {
+		return dfYYYYMMDD.get().format(dt);
 	}
 
 	/**
 	 * returns the date with the time part cleared.
-	 * 
+	 *
 	 * @param d
+	 *            the d
 	 * @return date.
 	 */
 	public static Date getDateAtMidnight(Date d) {
@@ -765,29 +756,10 @@ public class DateUtils {
 	}
 
 	/**
-	 * Returns all the holidays associated with the easter.
-	 * 
-	 * @param year	   
-	 * 
-	 * @return Returns a list of {@link Date} objects, each one 
-	 *         representing   date that is a public holiday due
-	 *         to the Greek Orthodox Easter of the specified year.
-	 */
-	static Set<Date> getOrthodoxEasterHolidays(int year) {
-		Set<Date> dates = new HashSet<Date>();
-		Date easter = getOrthodoxEaster(year);
-		dates.add(easter);
-		dates.add(addDays(easter, 1));// Monday.
-		dates.add(addDays(easter, -2));// Friday.
-		dates.add(addDays(easter, -48));// ash Monday.
-		dates.add(addDays(easter, 50));// holy spirit.
-		return dates;
-	}
-
-	/**
-	 * returns if the given date is saturday or sunday.
-	 * 
+	 * returns if the given date is Saturday or Sunday.
+	 *
 	 * @param d
+	 *            the d
 	 * @return true if the given date corresponds to weekend date
 	 */
 	public static boolean isWeekend(Date d) {
@@ -800,7 +772,10 @@ public class DateUtils {
 	}
 
 	/**
+	 * Gets the year.
+	 *
 	 * @param d
+	 *            the d
 	 * @return this (current) year.
 	 */
 	public static int getYear(Date d) {
@@ -811,47 +786,14 @@ public class DateUtils {
 
 	/**
 	 * compare two dates ignoring the time.
-	 * 
+	 *
 	 * @param d1
+	 *            the d 1
 	 * @param d2
+	 *            the d 2
 	 * @return If the dates are equal (ignoring the time part of the dates)
 	 */
 	public static boolean equalDatesIgnoringTime(Date d1, Date d2) {
 		return getDateAtMidnight(d1).equals(getDateAtMidnight(d2));
-	}
-
-	/**
-	 * return known holidays for the given year.
-	 * 
-	 * @param year
-	 * @return a set of dates that are known holidays.
-	 */
-	public static Set<Date> getKnownGreekHolidays(int year) {
-		Set<Date> dates = new HashSet<Date>();
-		dates.add(getDate(year, Calendar.JANUARY, 1));
-		dates.add(getDate(year, Calendar.JANUARY, 6));
-		dates.add(getDate(year, Calendar.DECEMBER, 25));
-		dates.add(getDate(year, Calendar.DECEMBER, 26));
-		dates.add(getDate(year, Calendar.AUGUST, 15));
-		dates.add(getDate(year, Calendar.MARCH, 25));
-		dates.add(getDate(year, Calendar.OCTOBER, 28));
-		dates.add(getDate(year, Calendar.MAY, 1));
-		dates.addAll(getOrthodoxEasterHolidays(year));
-		return dates;
-	}
-
-	/**
-	 * method that identifies whether the given date is a holiday or weekend day in Greece.
-	 * 
-	 * @param d
-	 * @return true if the given date is part of the standard Greek holidays.
-	 */
-	public static boolean isStandardGreekHoliday(Date d) {
-		Date date = getDateAtMidnight(d);
-		boolean isWeekend = isWeekend(date);
-		int year=getYear(date);
-		Set<Date> dates = getKnownGreekHolidays(year);
-		boolean isHoliday = dates.contains(date);
-		return isWeekend || isHoliday;
 	}
 }

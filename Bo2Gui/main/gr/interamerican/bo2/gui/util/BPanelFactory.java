@@ -25,10 +25,10 @@ import java.util.Properties;
 
 /**
  * Factory that creates {@link BPanel} objects from a
- * properties file. <br/>
+ * properties file. <br>
  * 
  * The properties file must obligatory have the following properties:
- * <table> 
+ * <table summary="">
  * <tr>  
  * <td> panelType </td>
  * <td> Fully qualified class name of the BPanel sub-type
@@ -45,26 +45,21 @@ import java.util.Properties;
 public class BPanelFactory {
 	
 	/**
-	 * Creates a new BPanel from a properties file. <br/>
+	 * Creates a new BPanel from a properties file. <br>
 	 * 
-	 * The properties file must have the following property set.
+	 * The properties file must have the following property set.<ul>
 	 * <li><code>panelType</code> : 
 	 *     Fully qualified class name of the panel's class </li>
-	 *     
+	 *     </ul>
 	 * The method instantiates the panel using {@link #create(Class)}.
 	 * Then it uses {@link JavaBeanUtils#copyFromProperties(Properties, Object)} 
 	 * to modify the panel's model with the values from the specified 
 	 * properties object.
-	 * 
-	 * 
-	 * @param properties
-	 *        Properties object specifying the panel and model	  
+	 *
+	 * @param <T>        Type of model.  	          
+	 * @param <P>        Type of panel.      
+	 * @param properties        Properties object specifying the panel and model	  
 	 *        types and the model object's property values. 
-	 * @param <P> 
-	 *        Type of panel.      
-	 * @param <T> 
-	 *        Type of model.  	          
-	 * 
 	 * @return Returns a new panel with a model created according to
 	 *         the the specified properties.
 	 */
@@ -81,21 +76,17 @@ public class BPanelFactory {
 	}
 	
 	/**
-	 * Creates a new BPanel of the specified type. <br/>
+	 * Creates a new BPanel of the specified type. <br>
 	 * 
 	 * The factory method uses {@link GenericsUtils} to find the class
 	 * of this panel type's model. Then a model object is instantiated 
 	 * by {@link Factory}. The panel is created using the constructor
 	 * that takes the model as argument. If no such constructor exists,
 	 * then a RuntimeException is thrown.
-	 * 
-	 * @param panelType 
-	 *        Type of panel.
-	 * @param <P>
-	 *        Type of panel.
-	 * @param <T> 
-	 *        Type of model.       
-	 * 
+	 *
+	 * @param <T>        Type of model.       
+	 * @param <P>        Type of panel.
+	 * @param panelType        Type of panel.
 	 * @return Returns a new panel with a model of the specified class.
 	 */	
 	public static <T,P extends BPanel<T>> 
@@ -106,22 +97,16 @@ public class BPanelFactory {
 	}
 	
 	/**
-	 * Creates a new BPanel of the specified type. <br/>
+	 * Creates a new BPanel of the specified type. <br>
 	 * 
 	 * The panel is created using the constructor that takes the model as 
 	 * argument. If no such constructor exists, then a RuntimeException is 
 	 * thrown.
-	 * 
-	 * @param panelType 
-	 *        Type of panel.
-	 * @param model 
-	 *        Model of the specified panel type.       
-	 * @param <P>
-	 *        Type of panel.
-	 * @param <T> 
-	 *        Type of model.       
-	 * 
-	 * 
+	 *
+	 * @param <T>        Type of model.       
+	 * @param <P>        Type of panel.
+	 * @param panelType        Type of panel.
+	 * @param model        Model of the specified panel type.       
 	 * @return Returns a new panel with a model of the specified class.
 	 */	
 	public static <T,P extends BPanel<T>> 
@@ -142,11 +127,10 @@ public class BPanelFactory {
 	
 	/**
 	 * Gets the model class of the specified panel class.
-	 * 
-	 * @param <T>
-	 * @param <P>
-	 * @param panelClass
-	 * 
+	 *
+	 * @param <T> the generic type
+	 * @param <P> the generic type
+	 * @param panelClass the panel class
 	 * @return Returns the model class of the specified panel type.
 	 */
 	@SuppressWarnings("unchecked")

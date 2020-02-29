@@ -24,16 +24,46 @@ import gr.interamerican.bo2.arch.PersistentObject;
 public interface InvoiceCustomer 
 extends InvoiceKP, PersistentObject<InvoiceKey>, ModificationRecord {
 	
+	/**
+	 * Gets the role id.
+	 *
+	 * @return the role id
+	 */
 	public Integer getRoleId();
 	
+	/**
+	 * Sets the role id.
+	 *
+	 * @param roleId the new role id
+	 */
 	public void setRoleId(Integer roleId);
 	
+	/**
+	 * Gets the address no for invoice.
+	 *
+	 * @return the address no for invoice
+	 */
 	public Integer getAddressNoForInvoice();
 	
+	/**
+	 * Sets the address no for invoice.
+	 *
+	 * @param addressNo the new address no for invoice
+	 */
 	public void setAddressNoForInvoice(Integer addressNo);
 	
+	/**
+	 * Gets the customer.
+	 *
+	 * @return the customer
+	 */
 	public Customer getCustomer();
 	
+	/**
+	 * Sets the customer.
+	 *
+	 * @param customer the new customer
+	 */
 	public void setCustomer(Customer customer);
 
 }

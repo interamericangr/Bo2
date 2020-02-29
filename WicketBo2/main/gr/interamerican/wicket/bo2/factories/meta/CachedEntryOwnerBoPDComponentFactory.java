@@ -26,17 +26,18 @@ import org.apache.wicket.model.IModel;
  * Factory for {@link SelfDrawnDropDownChoiceForEntryOwner}.
  */
 @SuppressWarnings({ "rawtypes", "unchecked" })
-public class CachedEntryOwnerBoPDComponentFactory 
-extends AbstractBoPDComponentFactory<CachedEntryOwnerBoPropertyDescriptor<?,?>> {
-	
-public Component drawMain(CachedEntryOwnerBoPropertyDescriptor<?,?> descriptor,String wicketId) {
+public class CachedEntryOwnerBoPDComponentFactory
+extends AbstractBoPDComponentFactory<CachedEntryOwnerBoPropertyDescriptor<?, ?>> {
+
+	@Override
+	public Component drawMain(CachedEntryOwnerBoPropertyDescriptor<?, ?> descriptor, String wicketId) {
 		List<?> choices = new ArrayList(descriptor.getValues());
 		return new SelfDrawnDropDownChoiceForEntryOwner(wicketId, descriptor, choices, Bo2WicketSession.get());
-	}	
-	
-	public Component drawMain(String wicketId, IModel<?> model, CachedEntryOwnerBoPropertyDescriptor<?,?> descriptor) {
+	}
+
+	@Override
+	public Component drawMain(String wicketId, IModel<?> model, CachedEntryOwnerBoPropertyDescriptor<?, ?> descriptor) {
 		List<?> choices = new ArrayList(descriptor.getValues());
 		return new SelfDrawnDropDownChoiceForEntryOwner(wicketId, model, descriptor, choices, Bo2WicketSession.get());
 	}
-
 }

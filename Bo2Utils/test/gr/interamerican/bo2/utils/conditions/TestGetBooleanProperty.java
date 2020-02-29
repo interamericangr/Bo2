@@ -8,6 +8,7 @@ import gr.interamerican.bo2.samples.bean.BeanWithBoolean;
 /**
  * Test for {@link GetBooleanProperty}.
  */
+@Deprecated
 public class TestGetBooleanProperty {
 	
 	/**
@@ -26,5 +27,4 @@ public class TestGetBooleanProperty {
 		Assert.assertFalse(condition.check(bFalse));
 		
 	}
-
 }

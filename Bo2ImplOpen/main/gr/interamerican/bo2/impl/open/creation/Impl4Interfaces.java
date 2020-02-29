@@ -72,8 +72,8 @@ public class Impl4Interfaces extends ImplementorForInterfaces {
 	 * 
 	 * 
 	 * TODO: Fix this for AbstractKey.
-	 * 
-	 * @throws ClassCreationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
 	 */
 	void supportKey() throws ClassCreationException {
 		if (isKey()) {	
@@ -90,8 +90,7 @@ public class Impl4Interfaces extends ImplementorForInterfaces {
 			addUpdater(updater);
 		}
 	}
-	
-	
+
 	@Override
 	protected void supportType() throws ClassCreationException {
 		super.supportType();
@@ -113,6 +112,4 @@ public class Impl4Interfaces extends ImplementorForInterfaces {
 		return new ClassCreationException(msg);
 			
 	}
-	
-	
 }

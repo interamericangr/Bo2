@@ -8,7 +8,7 @@ import java.util.Set;
 /**
  * Bean that contains collections.
  *
- * @param <T>
+ * @param <T> the generic type
  */
 public class BeanWithCollections<T> {
 	

@@ -27,104 +27,111 @@ import java.util.Set;
  * 
  * Objects of this set can be searched by their key.
  * 
- * @param <P> Type of persistent object contained in the set. 
+ * @param <P>
+ *            Type of persistent object contained in the set.
  */
-public class PoSet<P extends PersistentObject<?>> 
-implements Set<P>, Serializable {
-	
-	/**
-	 * serialVersionUID
-	 */
+public class PoSet<P extends PersistentObject<?>> implements Set<P>, Serializable {
+
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * Map containing the persistent objects.
 	 * 
-	 * 
-	 * <T extends Object & Comparable<? super T>>
+	 * &lt;T extends Object &amp; Comparable&lt;? super T&gt;&gt;
 	 */
 	private Map<Object, P> map;
-	
+
 	/**
-	 * Creates a new PoSet object. 
+	 * Public Default Constructor.
 	 *
 	 */
 	public PoSet() {
-		super();	
-		map= new HashMap<Object, P>();
+		map = new HashMap<Object, P>();
 	}
-	
+
 	/**
-	 * Creates a new PoSet object. 
-	 * @param set 
+	 * Creates a new PoSet object.
 	 *
+	 * @param set
+	 *            the set
 	 */
 	public PoSet(Set<P> set) {
 		this();
 		for (P p : set) {
 			map.put(p.getKey(), p);
-		}		
+		}
 	}
-	
+
+	@Override
 	public int size() {
 		return map.size();
 	}
 
+	@Override
 	public boolean isEmpty() {
 		return map.isEmpty();
 	}
 
+	@Override
 	public boolean contains(Object o) {
 		return map.containsValue(o);
 	}
 
+	@Override
 	public Iterator<P> iterator() {
 		return map.values().iterator();
 	}
 
+	@Override
 	public Object[] toArray() {
 		return map.values().toArray();
 	}
 
+	@Override
 	public <T> T[] toArray(T[] a) {
 		return map.values().toArray(a);
 	}
 
+	@Override
 	public boolean add(P e) {
-		if(map.containsKey(e.getKey()))
+		if (map.containsKey(e.getKey())) {
 			return false;
-		else {
-			map.put(e.getKey(), e);
-			return true;
 		}
+		map.put(e.getKey(), e);
+		return true;
 	}
 
+	@Override
 	public boolean remove(Object o) {
 		try {
 			@SuppressWarnings("unchecked")
 			P element = (P) o;
-			P removed = map.remove(element.getKey()); 
-			return removed!=null;
+			P removed = map.remove(element.getKey());
+			return removed != null;
 		} catch (ClassCastException cce) {
 			return false;
 		}
 	}
 
+	@Override
 	public boolean containsAll(Collection<?> c) {
 		return map.values().containsAll(c);
 	}
 
+	@Override
 	public boolean addAll(Collection<? extends P> c) {
 		boolean ret = false;
 		for (P element : c) {
 			P previous = map.put(element.getKey(), element);
-			if (previous==null) {
+			if (previous == null) {
 				ret = true;
 			}
 		}
 		return ret;
 	}
 
+	@Override
 	public boolean retainAll(Collection<?> c) {
 		boolean ret = false;
 		Set<P> toDelete = new HashSet<P>();
@@ -134,11 +141,12 @@ implements Set<P>, Serializable {
 				ret = true;
 			}
 		}
-		for(P element : toDelete)
+		for (P element : toDelete)
 			map.remove(element.getKey());
 		return ret;
 	}
 
+	@Override
 	public boolean removeAll(Collection<?> c) {
 		boolean ret = false;
 		for (Object o : c) {
@@ -149,38 +157,39 @@ implements Set<P>, Serializable {
 		return ret;
 	}
 
+	@Override
 	public void clear() {
 		map.clear();
 	}
-	
+
 	/**
 	 * Gets the PersistentObject of this set that has the specified key.
 	 * 
-	 * @param key Key of object.
+	 * @param key
+	 *            Key of object.
 	 * 
 	 * @return Returns the PersistentObject of this set that has the key
-	 *         specified by the parameter <code>key</code>. If the set
-	 *         does not contain any element with this key, then returns
-	 *         null.
+	 *         specified by the parameter <code>key</code>. If the set does not
+	 *         contain any element with this key, then returns null.
 	 */
 	public P getByKey(Object key) {
 		return map.get(key);
 	}
-	
+
 	/**
 	 * Gets the keys of the PersistentObject in this set.
 	 * 
-	 * The elements in this set are keys of {@link PersistentObject}
-	 * so they are {@link Comparable} with other keys and {@link Serializable}.
+	 * The elements in this set are keys of {@link PersistentObject} so they are
+	 * {@link Comparable} with other keys and {@link Serializable}.
 	 * 
-	 * @return Returns a set containing the keys of the persistent objects
-	 *         in this set.
+	 * @return Returns a set containing the keys of the persistent objects in
+	 *         this set.
 	 */
 	public Set<Object> getKeys() {
 		return map.keySet();
 	}
 
-	@Override	
+	@Override
 	public boolean equals(Object o) {
 		if (this == o) {
 			return true;
@@ -194,7 +203,6 @@ implements Set<P>, Serializable {
 			return (this.containsAll(that) && that.containsAll(this));
 		} catch (ClassCastException ccex) {
 			return false;
-		}		
+		}
 	}
-	
 }

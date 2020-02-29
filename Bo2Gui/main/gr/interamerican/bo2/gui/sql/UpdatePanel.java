@@ -54,7 +54,7 @@ extends JPanel {
 	/**
 	 * Available JDBC managers selection.
 	 */
-	JComboBox managersSelection;
+	JComboBox<String> managersSelection;
 	
 	/**
 	 * Creates a new QueryPanel object. 
@@ -76,7 +76,7 @@ extends JPanel {
 		
 		String[] managers = Bo2DeploymentInfoUtility.get().getJdbcManagers();
 		
-		managersSelection = new JComboBox(managers);
+		managersSelection = new JComboBox<>(managers);
 		
 		add(queryLabel);
 		add(resultArea);
@@ -97,8 +97,9 @@ extends JPanel {
 	
 	/**
 	 * Action that executes the statement.
-	 * @throws DataException
-	 * @throws SQLException
+	 *
+	 * @throws DataException the data exception
+	 * @throws SQLException the SQL exception
 	 */
 	@SuppressWarnings("unused")
 	private void executeQuery() throws DataException, SQLException {
@@ -108,10 +109,9 @@ extends JPanel {
 	
 	/**
 	 * Executes the statement and gets message for modified rows.
-	 * 
+	 *
 	 * @return message for modified rows.
-	 * 
-	 * @throws DataException
+	 * @throws DataException the data exception
 	 */
 	@SuppressWarnings("nls")
 	String executeAndGetResult() throws DataException {

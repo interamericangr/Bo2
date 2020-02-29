@@ -31,26 +31,23 @@ public class CachedEntryOwnerValidator
  C extends Comparable<? super C>> 
 extends AbstractValidator implements Validator<T> {
 	
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * NamedCacheProvider
-	 */
+	/** NamedCacheProvider. */
 	NamedCacheProvider<C> namedCacheProvider;
 		
 	/**
 	 * Creates a new CachedObjectValidator object. 
 	 *
-	 * @param cacheName
+	 * @param cacheName the cache name
 	 */
 	public CachedEntryOwnerValidator(String cacheName) {
 		super();
 		namedCacheProvider = new NamedCacheProvider<C>(cacheName);
 	}
 
+	@Override
 	public void validate(T value) throws ValidationException {
 		if(value!=null && value.getEntry() !=null) {
 			if(namedCacheProvider.cache().get(value.getEntry().getTypeId(), value.getEntry().getCode())==null) {
@@ -58,5 +55,4 @@ extends AbstractValidator implements Validator<T> {
 			}
 		}
 	}
-
 }

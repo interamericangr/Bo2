@@ -14,12 +14,15 @@ package gr.interamerican.wicket.behavior;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
-import org.apache.wicket.markup.html.form.DropDownChoice;
+import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.markup.html.panel.Panel;
 
+import gr.interamerican.wicket.utils.MarkupConstants;
+
 /**
- * This behavior can be added to a {@link DropDownChoice} component just to ensure that
- * the model of the component is updated when the onchange event is triggered.
+ * This behavior can be added to a {@link FormComponent} just to
+ * ensure that the model of the component is updated when the change event is
+ * triggered.
  */
 public class EmptyOnSelectionChangedBehavior extends AjaxFormComponentUpdatingBehavior {
 
@@ -27,21 +30,23 @@ public class EmptyOnSelectionChangedBehavior extends AjaxFormComponentUpdatingBe
 	 * serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
-	 * The panel to rerender.
+	 * The panel to re-render.
 	 */
 	private Panel panel;
-	
+
 	/**
-	 * Creates a new UpdateTypesDropDownChoiceBehavior object. 
-	 * @param panel  The panel to rerender.
+	 * Creates a new EmptyOnSelectionChangedBehavior object.
+	 * 
+	 * @param panel
+	 *            The panel to re-render.
 	 */
-	public EmptyOnSelectionChangedBehavior(Panel panel) { 
-		super("onchange"); //$NON-NLS-1$ 
+	public EmptyOnSelectionChangedBehavior(Panel panel) {
+		super(MarkupConstants.CHANGE);
 		this.panel = panel;
-	} 
-	
+	}
+
 	@Override
 	protected void onUpdate(AjaxRequestTarget target) {
 		target.add(panel);

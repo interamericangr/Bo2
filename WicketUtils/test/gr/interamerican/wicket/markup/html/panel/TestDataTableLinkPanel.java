@@ -12,27 +12,24 @@
  ******************************************************************************/
 package gr.interamerican.wicket.markup.html.panel;
 
-import gr.interamerican.wicket.utils.WicketPage;
-
 import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Before;
 import org.junit.Test;
 
+import gr.interamerican.wicket.utils.WicketPage;
+
 /**
- * 
- * 
- *
+ * The Class TestDataTableLinkPanel.
  */
+@Deprecated
 public class TestDataTableLinkPanel {
 
-	/**
-	 * the WicketTester
-	 */
+	/** the WicketTester. */
 	public WicketTester wicketTester = null;
 
 
 	/**
-	 * 
+	 * Sets the up.
 	 */
 	@Before
 	public void setUp(){	
@@ -41,7 +38,7 @@ public class TestDataTableLinkPanel {
 
 	
 	/**
-	 * Tests the Page
+	 * Tests the Page.
 	 */
 	@Test
 	public void testPage(){		
@@ -50,17 +47,13 @@ public class TestDataTableLinkPanel {
 	}
 	
 	/**
-	 * 
+	 * Test data table link panel.
 	 */
 	@Test
 	public void testDataTableLinkPanel(){
 		wicketTester.startPage(WicketPage.class);
 		wicketTester.assertRenderedPage(WicketPage.class);	
-		wicketTester.clickLink("dateTableLinkPanel:editItemLink",true);
-		wicketTester.clickLink("dateTableLinkPanel1:editItemLink",true);
+		wicketTester.clickLink("dateTableLinkPanel:editItemLink",true); //$NON-NLS-1$
+		wicketTester.clickLink("dateTableLinkPanel1:editItemLink",true); //$NON-NLS-1$
 	}
-	
-	
-	
-	
 }

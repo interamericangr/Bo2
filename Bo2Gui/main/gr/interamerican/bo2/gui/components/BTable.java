@@ -49,6 +49,8 @@ public class BTable extends JTable {
 	
 	/**
 	 * Size the table at its preferred size or the viewport size, whichever is greater.
+	 *
+	 * @return the scrollable tracks viewport width
 	 */
 	@Override
 	public boolean getScrollableTracksViewportWidth() {

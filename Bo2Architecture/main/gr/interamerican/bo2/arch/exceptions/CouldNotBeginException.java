@@ -27,21 +27,27 @@ public class CouldNotBeginException extends TransactionManagerException {
 
     /**
      * Creates a new DataException with a message.
-     * 
-     * @param message 
+     *
+     * @param message the message
      */
     public CouldNotBeginException(String message) {
         super(message);        
     }
+    
     /**
-     * @param message
-     * @param cause
+     * Instantiates a new could not begin exception.
+     *
+     * @param message the message
+     * @param cause the cause
      */
     public CouldNotBeginException(String message, Throwable cause) {
         super(message, cause);
     }
+    
     /**
-     * @param cause
+     * Instantiates a new could not begin exception.
+     *
+     * @param cause the cause
      */
     public CouldNotBeginException(Throwable cause) {
         super(cause);

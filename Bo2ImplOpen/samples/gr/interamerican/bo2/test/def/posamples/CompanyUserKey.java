@@ -16,7 +16,7 @@ import gr.interamerican.bo2.arch.Key;
 import gr.interamerican.bo2.impl.open.annotations.KeyProperties;
 
 /**
- * 
+ * The Interface CompanyUserKey.
  */
 @KeyProperties("id")
 public interface CompanyUserKey extends CompanyUserKP, Key {

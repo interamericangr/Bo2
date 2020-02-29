@@ -185,8 +185,8 @@ public interface BatchProcessParm<T> {
 	
 	/**
 	 * Sets the modification that will set any input parameter to the query.
-	 * 
-	 * @param queryParametersSetter
+	 *
+	 * @param queryParametersSetter the new query parameters setter
 	 */
 	void setQueryParametersSetter(Modification<Object> queryParametersSetter);
 	
@@ -199,8 +199,8 @@ public interface BatchProcessParm<T> {
 	
 	/**
 	 * Sets the modification that will set any input parameter to the operation.
-	 * 
-	 * @param operationParametersSetter
+	 *
+	 * @param operationParametersSetter the new operation parameters setter
 	 */
 	void setOperationParametersSetter(Modification<Object> operationParametersSetter);
 	
@@ -214,8 +214,8 @@ public interface BatchProcessParm<T> {
 	/**
 	 * Sets the modification that will set any input parameter to the 
 	 * pre-processing operation.
-	 * 
-	 * @param preOperationParametersSetter
+	 *
+	 * @param preOperationParametersSetter the new pre operation parameters setter
 	 */
 	void setPreOperationParametersSetter(Modification<Object> preOperationParametersSetter);
 	
@@ -231,65 +231,10 @@ public interface BatchProcessParm<T> {
 	/**
 	 * Sets the modification that will set any input parameter to the 
 	 * post-processing operation.
-	 * 
-	 * @param postOperationParametersSetter
+	 *
+	 * @param postOperationParametersSetter the new post operation parameters setter
 	 */
 	void setPostOperationParametersSetter(Modification<Object> postOperationParametersSetter);
-	
-	/**
-	 * Gets a string that contains a comma separated list of recipiens 
-	 * for a status mail. <br/>
-	 * 
-	 * If this parameter is not empty, then a monitoring mail will be
-	 * sent periodically. The interval between two subsequent messages
-	 * is defined by {@link #setMonitoringMailInterval(int)}.
-	 *  
-	 * @return Returns a string with the recipient mail addresses of the
-	 *         monitoring mail.  
-	 */
-	String getMonitoringMailRecipients();
-	
-	/**
-	 * Sets the recipients for a monitoring mail.
-	 * 
-	 * @param monitoringMailRecipients
-	 *        List with the mail recipients. If this is null
-	 *        or empty ,then no message will be sent.
-	 */
-	void setMonitoringMailRecipients(String monitoringMailRecipients);
-	
-	/**
-	 * Gets the time interval in minutes between two subsequent 
-	 * monitoring messages. If this parameter is set to null or
-	 * empty, then no message will be sent.
-	 *  
-	 * @return Returns the monitoring mail interval.
-	 */
-	int getMonitoringMailInterval();
-	
-	/**
-	 * Sets the time interval for a monitoring mail.
-	 * 
-	 * @param monitoringMailInterval
-	 *        Interval in minutes
-	 */
-	void setMonitoringMailInterval(int monitoringMailInterval);
-	
-	/**
-	 * Gets the time interval in minutes between two subsequent 
-	 * monitoring messages in the system out stream.
-	 *  
-	 * @return Returns the interval.
-	 */
-	int getSysoutInterval();
-	
-	/**
-	 * Sets the time interval for a monitoring system out.
-	 * 
-	 * @param sysoutInterval
-	 *        Interval in minutes
-	 */
-	void setSysoutInterval(int sysoutInterval);
 	
 	/**
 	 * Indicates if the operator can add threads using the UI.
@@ -302,7 +247,8 @@ public interface BatchProcessParm<T> {
 	/**
 	 * Specifies if the operator can add threads from the UI.
 	 *  
-	 * @param uiCanAddThreads
+	 *
+	 * @param uiCanAddThreads the new ui can add threads
 	 */
 	void setUiCanAddThreads(boolean uiCanAddThreads);
 	
@@ -324,14 +270,6 @@ public interface BatchProcessParm<T> {
 	void setNamedStreamDefinitions(List<NamedStreamDefinition> namedStreamDefinitions);
 	
 	/**
-	 * Sets the time interval for tidying the batch process.
-	 * 
-	 * @param tidyInterval
-	 *        Interval in minutes
-	 */
-	void setTidyInterval(int tidyInterval);
-	
-	/**
 	 * Gets the header row to print on the log files.
 	 * 
 	 * @return returns the entity header.
@@ -340,8 +278,8 @@ public interface BatchProcessParm<T> {
 	
 	/**
 	 * Sets the entityHeader.
-	 * 
-	 * @param entityHeader
+	 *
+	 * @param entityHeader the new entity header
 	 */
 	void setEntityHeader(String entityHeader);
 	
@@ -354,8 +292,8 @@ public interface BatchProcessParm<T> {
 	
 	/**
 	 * Sets the sharedStreamNames.
-	 * 
-	 * @param sharedStreamNames
+	 *
+	 * @param sharedStreamNames the new shared stream names
 	 */
 	void setSharedStreamNames(String[] sharedStreamNames);
 	
@@ -372,7 +310,8 @@ public interface BatchProcessParm<T> {
 	 * Specifies if the batch process re-attempts when a 
 	 * {@link TransactionManagerException} is caught.
 	 *  
-	 * @param reattemptOnTmex
+	 *
+	 * @param reattemptOnTmex the new reattempt on tmex
 	 */
 	void setReattemptOnTmex(Boolean reattemptOnTmex);
 	
@@ -388,8 +327,8 @@ public interface BatchProcessParm<T> {
 	/**
 	 * Specifies a text representation of the input that was transformed to
 	 * this object instance. BatchProcessParm factories should set this.
-	 * 
-	 * @param batchProcessInput
+	 *
+	 * @param batchProcessInput the new batch process input as text
 	 */
 	void setBatchProcessInputAsText(String batchProcessInput);
 

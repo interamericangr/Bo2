@@ -21,13 +21,13 @@ import java.util.Date;
 import org.junit.Test;
 
 /**
- * Test for MoneyCopier
+ * Test for MoneyCopier.
  */
 public class TestNullCopier {
 	
 	
 	/**
-	 * Test copy
+	 * Test copy.
 	 */
 	@Test
 	public void testCopy(){

@@ -29,32 +29,26 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestEntryUserType.
  */
 public class TestEntryUserType {
 
-	/**
-	 * ENTRY_USER_PROPERTIES_PATH
-	 */
+	/** ENTRY_USER_PROPERTIES_PATH. */
 	private final String ENTRY_USER_PROPERTIES_PATH = 
 		"/gr/interamerican/rsrc/hibernate/types/EntryUser.properties"; //$NON-NLS-1$
 
 	
-	/**
-	 * ENTRY_USER_TYPE_PROPERTIES_PATH
-	 */
+	/** ENTRY_USER_TYPE_PROPERTIES_PATH. */
 	private final String ENTRY_USER_TYPE_PROPERTIES_PATH = 
 		"/gr/interamerican/rsrc/hibernate/types/EntryUserType.properties"; //$NON-NLS-1$
 
 	
-	/**
-	 * implementation to test
-	 */
+	/** implementation to test. */
 	EntryUserTypeImpl userType = new EntryUserTypeImpl();
 	
 	
 	/**
-	 * tests Disassemble
+	 * tests Disassemble.
 	 */
 	@Test
 	public void testDisassemble(){
@@ -76,7 +70,7 @@ public class TestEntryUserType {
 	}
 	
 	/**
-	 * test setParameterValues when cache has not been registered
+	 * test setParameterValues when cache has not been registered.
 	 */
 	@SuppressWarnings("nls")
 	@Test(expected=RuntimeException.class)
@@ -87,7 +81,7 @@ public class TestEntryUserType {
 	}
 	
 	/**
-	 * tests setParameters when cache is registered but entryTypeId is null
+	 * tests setParameters when cache is registered but entryTypeId is null.
 	 */	
 	@Test(expected = RuntimeException.class)
 	public void testSetParameterValues_withCache(){
@@ -96,7 +90,7 @@ public class TestEntryUserType {
 	}
 	
 	/**
-	 * test returned class when cache is registered,typedId is not null
+	 * test returned class when cache is registered,typedId is not null.
 	 */
 	@Test
 	public void testReturnedClass(){
@@ -110,7 +104,7 @@ public class TestEntryUserType {
 	
 	
 	/**
-	 * tests FromXMLString
+	 * tests FromXMLString.
 	 */
 	@Test
 	public void testFromXMLString(){
@@ -119,19 +113,21 @@ public class TestEntryUserType {
 	}
 	
 	/**
-	 * implemementation to test
+	 * implemementation to test.
 	 */
 	private class EntryUserTypeImpl extends EntryUserType<Integer>{
 
-
+		@Override
 		public String objectToSQLString(Object value) {
 			return null;
 		}
-
+		@Override
 		public String toXMLString(Object value) {
 			return null;
 		}
 
+		@Deprecated
+		@Override
 		public void nullSafeSet(PreparedStatement st, Object value, int index)
 		throws HibernateException, SQLException {
 			/* empty */
@@ -141,7 +137,8 @@ public class TestEntryUserType {
 		protected Integer getCode(ResultSet rs, String name) throws SQLException {		
 			return null;
 		}
-
+	
+		@Override
 		public Object fromXMLString(String xmlValue) {
 			return null;
 		}

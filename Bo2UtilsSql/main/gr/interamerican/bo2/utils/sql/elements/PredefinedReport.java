@@ -31,9 +31,7 @@ public class PredefinedReport {
 	 */
 	Parameter[] parameters;
 	
-	/**
-	 * Report description
-	 */
+	/** Report description. */
 	String description;
 	
 	/**

@@ -12,11 +12,6 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.adapters.trans;
 
-import gr.interamerican.bo2.utils.adapters.trans.Create;
-import gr.interamerican.bo2.utils.adapters.trans.GetProperty;
-
-import java.math.BigDecimal;
-
 import org.junit.Assert;
 import org.junit.Test;
 

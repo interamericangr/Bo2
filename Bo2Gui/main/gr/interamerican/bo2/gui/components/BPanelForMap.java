@@ -1,13 +1,13 @@
 /*******************************************************************************
- * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A. 
+ * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/copyleft/lesser.html
- * 
- * This library is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
 package gr.interamerican.bo2.gui.components;
@@ -27,100 +27,95 @@ import java.util.Set;
 
 /**
  * Panel for invoking a batch process.
- * 
- * @param <T> 
- * 
  *
+ * @param <T> the generic type
  */
-public class BPanelForMap<T extends Map<Object,Object>> 
+public class BPanelForMap<T extends Map<Object,Object>>
 extends BPanel<T> {
-	
+
 	/**
 	 * serial version id.
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * Array with the property names.
 	 * Specifies the order of the fields in the panel.
 	 */
 	String[] propertyNames;
-	
+
 	/**
 	 * Specifies if only panel contains only the fields specified by
 	 * <code>propertyNames</code> or all properties. If this field
-	 * is true, then the panel will contain only the fields specified by 
+	 * is true, then the panel will contain only the fields specified by
 	 * propertyNames. Otherwise, the panel will contain all fields
 	 * contained in the model properties object.
-	 * 
+	 *
 	 */
 	boolean onlyPredefined;
-	
+
 	/**
-	 * Creates a new BatchProcessInputPanel object. 
+	 * Creates a new BatchProcessInputPanel object.
 	 *
-	 * @param model
-	 *        Model Map. 
-	 * @param propertyNames 
-	 *         Array with the property names.
+	 * @param model        Model Map.
+	 * @param propertyNames         Array with the property names.
 	 *         Specifies the order of the fields in the panel.
-	 * @param onlyPredefined 
-	 *        Specifies if only panel contains only the fields specified by
+	 * @param onlyPredefined        Specifies if only panel contains only the fields specified by
 	 *        <code>propertyNames</code> or all properties. If this field
-	 *        is true, then the panel will contain only the fields specified by 
+	 *        is true, then the panel will contain only the fields specified by
 	 *        propertyNames. Otherwise, the panel will contain all fields
 	 *        contained in the model properties object.
-	 * @param paintParameter 
+	 * @param paintParameter the paint parameter
 	 */
 	protected BPanelForMap
 	(T model, String[] propertyNames, boolean onlyPredefined, Object paintParameter) {
 		super();
 		this.paintParameter = paintParameter;
-		this.model = model;		
+		this.model = model;
 		if (propertyNames==null) {
-			this.propertyNames = new String[0];		
+			this.propertyNames = new String[0];
 		} else {
 			this.propertyNames = propertyNames;
 		}
-		this.onlyPredefined = onlyPredefined;		
+		this.onlyPredefined = onlyPredefined;
 		paint();
 		model2panel();
 	}
-	
+
 	/**
-	 * Creates a new BatchProcessInputPanel object. 
+	 * Creates a new BatchProcessInputPanel object.
 	 *
 	 * @param model
-	 *        Model Map. 
-	 * @param propertyNames 
+	 *        Model Map.
+	 * @param propertyNames
 	 *         Array with the property names.
 	 *         Specifies the order of the fields in the panel.
-	 * @param onlyPredefined 
+	 * @param onlyPredefined
 	 *        Specifies if only panel contains only the fields specified by
 	 *        <code>propertyNames</code> or all properties. If this field
-	 *        is true, then the panel will contain only the fields specified by 
+	 *        is true, then the panel will contain only the fields specified by
 	 *        propertyNames. Otherwise, the panel will contain all fields
 	 *        contained in the model properties object.
 	 */
 	public BPanelForMap(T model, String[] propertyNames, boolean onlyPredefined) {
 		this(model,propertyNames,onlyPredefined,null);
 	}
-	
+
 	/**
-	 * Creates a new BatchProcessInputPanel object. 
+	 * Creates a new BatchProcessInputPanel object.
 	 *
-	 * @param model
+	 * @param model the model
 	 */
 	public BPanelForMap(T model) {
 		this(model,null,false);
 	}
-	
-	
+
+
 
 
 	/**
 	 * Component properties.
-	 * 
+	 *
 	 * @return Returns a ComponentProperties object.
 	 */
 	protected TextFieldProperties componentProperties() {
@@ -132,23 +127,23 @@ extends BPanel<T> {
 		properties.setLabelLength(15);
 		return properties;
 	}
-	
-	
+
+
 	/**
-	 * Creates an array that contains all field names that must be drawn. <br/>
-	 * 
-	 * This array contains all fields specified by the <code>propertyNames</code> 
+	 * Creates an array that contains all field names that must be drawn. <br>
+	 *
+	 * This array contains all fields specified by the <code>propertyNames</code>
 	 * array. If <code>onlyPredefined</code> is <code>false</code> then it also
 	 * contains the rest properties of the model object.
-	 * 
-	 *  
+	 *
+	 *
 	 * @return Returns an array that contains all field names that must be drawn.
 
-	 */	
+	 */
 	protected String[] propertiesToDraw() {
 		if (onlyPredefined) {
 			return propertyNames;
-		}		
+		}
 		Set<String> keyset = Utils.cast(model.keySet());
 		Set<String> additional = new HashSet<String>(keyset);
 		Set<String> predefined = CollectionUtils.addAll(new HashSet<String>(), propertyNames);
@@ -166,29 +161,28 @@ extends BPanel<T> {
 		}
 		return all;
 	}
-	
+
 	@Override
 	public void paint() {
 		super.paint();
-		String[] fields = propertiesToDraw();		
+		String[] fields = propertiesToDraw();
 		addModelBoundTextFields(fields, componentProperties());
 		Dimension size = Sizes.square(80, fields.length+3);
 		setPreferredSize(size);
 		Layout.layAsStackOfLabeledFields(this, 5, 5);
 	}
-	
+
 	@Override
 	protected Object getPropertyFromModel(String propertyName) {
 		if (model==null) {
 			return null;
-		} else {
-			return model.get(propertyName);
-		}		
+		}
+		return model.get(propertyName);
 	}
-	
+
 	@Override
 	protected void setPropertyToModel(String propertyName, Object value) {
 		model.put(propertyName, value);
 	}
-	
+
 }

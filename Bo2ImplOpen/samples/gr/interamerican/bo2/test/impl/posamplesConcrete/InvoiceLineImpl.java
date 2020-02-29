@@ -42,9 +42,7 @@ implements InvoiceLine {
 	 */
 	private Integer type;
 	
-	/**
-	 * amount
-	 */
+	/** amount. */
 	private Double amount;
 	
 	/**
@@ -69,57 +67,69 @@ implements InvoiceLine {
 		fixChild(subLines);
 	}
 
+	@Override
 	public String getInvoiceNo() {		
 		return key.getInvoiceNo();
 	}
 
+	@Override
 	public void setInvoiceNo(String invoiceNo) {
 		key.setInvoiceNo(invoiceNo);
 		String[] properties = {"invoiceNo"};
 		fixChildren(properties);
 	}
 	
+	@Override
 	public void setLineNo(Integer lineNo) {
 		key.setLineNo(lineNo);		
 		String[] properties = {"lineNo"};
 		fixChildren(properties);
 	}
 	
+	@Override
 	public Integer getLineNo() {
 		return key.getLineNo();
 	}
 
+	@Override
 	public Integer getType() {
 		return type;
 	}
 
+	@Override
 	public void setType(Integer type) {
 		this.type = type;
 	}
 
+	@Override
 	public Double getAmount() {
 		return amount;
 	}
 
+	@Override
 	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
 
+	@Override
 	public Set<InvoiceSubLine> getSubLines() {
 		Debug.increaseCounter("Invoice.getSubLines()");	//$NON-NLS-1$
 		return subLines;
 	}
 
+	@Override
 	public void setSubLines(Set<InvoiceSubLine> subLines) {
 		Debug.increaseCounter("Invoice.setSubLines()"); //$NON-NLS-1$
 		this.subLines=subLines;
 		fixChild(subLines);
 	}
 
+	@Override
 	public Customer getCustomer() {
 		return customer;
 	}
 
+	@Override
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}

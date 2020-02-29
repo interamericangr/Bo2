@@ -21,7 +21,7 @@ import org.junit.Test;
 public class TestIntegerBoPropertyDescriptor {
 
 	/**
-	 * Tests constructor of IntegerBoPropertyDescriptor
+	 * Tests constructor of IntegerBoPropertyDescriptor.
 	 */
 	@Test
 	public void testConstructor(){

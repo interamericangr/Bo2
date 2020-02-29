@@ -14,58 +14,58 @@ package gr.interamerican.bo2.samples.implopen.po;
 
 
 /**
- * an address implementation
+ * an address implementation.
  */
 public class Address  implements IAddress {
 	
-	/**
-	 * default serial version uid
-	 */
+	/** default serial version uid. */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * primary key of the addresses table
-	 */	
+	/** primary key of the addresses table. */	
 	private Integer id;
 	
-	/**
-	 * the address
-	 */
+	/** the address. */
 	private String address;
 	
-	/**
-	 * the person living here
-	 */
+	/** the person living here. */
 	private IPerson person;
 	
 	/**
-	 * 
+	 * Gets the address.
+	 *
 	 * @return address
 	 */
+	@Override
 	public String getAddress() {
 		return address;
 	}
 
 	/**
-	 * 
-	 * @param address
+	 * Sets the address.
+	 *
+	 * @param address the new address
 	 */
+	@Override
 	public void setAddress(String address) {
 		this.address = address;
 	}
 
 	/**
-	 * 
-	 * @param person
+	 * Sets the person.
+	 *
+	 * @param person the new person
 	 */
+	@Override
 	public void setPerson(IPerson person) {
 		this.person = person;
 	}
 
 	/**
-	 * 
+	 * Gets the person.
+	 *
 	 * @return person
 	 */
+	@Override
 	public IPerson getPerson() {
 		return person;
 	}
@@ -75,6 +75,7 @@ public class Address  implements IAddress {
 	 * 
 	 * @return Returns the id.
 	 */
+	@Override
 	public Integer getId() {
 		return id;
 	}
@@ -84,27 +85,22 @@ public class Address  implements IAddress {
 	 * 
 	 * @param id new id.
 	 */
+	@Override
 	public void setId(Integer id) {
 		this.id = id;
 	}
-	
-	/* (non-Javadoc)
-	 * @see gr.interamerican.bo2.arch.PersistentObject#getKey()
-	 */	
+
+	@Override
 	public AddressKey getKey() {
 		return new AddressKey(id);		
 	}
-	
-	/* (non-Javadoc)
-	 * @see gr.interamerican.bo2.arch.PersistentObject#setKey(gr.interamerican.bo2.arch.Key)
-	 */	
+
+	@Override
 	public void setKey(AddressKey key) {
 		setId(key.getId());
 	}
 	
-	/* (non-Javadoc)
-	 * @see gr.interamerican.bo2.arch.PersistentObject#tidy()
-	 */
+	@Override
 	public void tidy() {
 		/* empty */
 	}

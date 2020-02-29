@@ -32,10 +32,10 @@ public class TestLongProcessToString {
 	
 	/**
 	 * Creates a mock MultiThreadedLongProcess.
-	 * 
-	 * @param start
-	 * @param end
-	 * @param finished 
+	 *
+	 * @param start the start
+	 * @param end the end
+	 * @param finished the finished
 	 * @return Returns the mock.
 	 */
 	static MultiThreadedLongProcess mockForToString(Date start, Date end, boolean finished) {

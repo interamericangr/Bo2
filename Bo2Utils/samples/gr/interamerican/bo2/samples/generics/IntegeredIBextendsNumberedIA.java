@@ -13,7 +13,7 @@
 package gr.interamerican.bo2.samples.generics;
 
 /**
- * 
+ * The Interface IntegeredIBextendsNumberedIA.
  */
 public interface IntegeredIBextendsNumberedIA 
 extends NumberedIA<Integer> {

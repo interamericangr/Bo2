@@ -28,8 +28,8 @@ public interface ValueComponent extends NamedComponent {
 	
 	/**
 	 * Sets the value.
-	 * 
-	 * @param value
+	 *
+	 * @param value the new value
 	 */
 	void setValue(Object value);
 

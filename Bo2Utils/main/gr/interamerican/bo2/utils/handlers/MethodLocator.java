@@ -132,8 +132,8 @@ public class MethodLocator {
 	
 	/**
 	 * Validates that a method is static.
-	 * 
-	 * @param m
+	 *
+	 * @param method the method
 	 */
 	void validateStatic(Method method) {
 		if (!Modifier.isStatic(method.getModifiers())) {

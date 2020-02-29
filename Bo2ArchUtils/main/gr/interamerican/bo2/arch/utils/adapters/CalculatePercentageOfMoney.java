@@ -24,13 +24,13 @@ import java.util.Currency;
 
 /**
  * {@link CalculatePercentageOfMoney} calculates a property of an object
- * by applying a percentage to another property of the object. <br/>
+ * by applying a percentage to another property of the object. <br>
  * 
  * Either property can be of type {@link Money} or of type {@link BigDecimal}.
- * The operation will do automatically any conversion. <br/>
+ * The operation will do automatically any conversion. <br>
  * The amounts are always rounded to the closest number that has the same
  * number of decimal places as the currency that has been specified in
- * this calculator's constructor. <br/>
+ * this calculator's constructor. <br>
  * The same calculator can be used sequentially for more than one objects.
  * In this case, it is sometimes required to add the remainder of the previous
  * rounding to the result of the current multiplication. This is useful
@@ -106,22 +106,20 @@ public class CalculatePercentageOfMoney<T> implements VoidOperation<T>{
 	}
 	
 	/**
-	 * Returns the object to set on the calculated property. <br/>
+	 * Returns the object to set on the calculated property. <br>
 	 * 
 	 * This object is either a {@link Money} object with the specified
 	 * amount and the currency of this object, or the specified {@link BigDecimal}
 	 * <code>amount</code> itself.
-	 * 
-	 * @param amount
-	 * 
+	 *
+	 * @param amount the amount
 	 * @return Returns the object to set to the calculated property.
 	 */
 	private Object objectToSet(BigDecimal amount) {
 		if (calculatedIsMoney) {
 			return new MoneyImpl(amount, currency);
-		} else {
-			return amount;
 		}
+		return amount;
 	}
 	
 	/**
@@ -140,11 +138,11 @@ public class CalculatePercentageOfMoney<T> implements VoidOperation<T>{
 		if (baseIsMoney) {			
 			Money m = (Money) o;
 			return m.getAmount();
-		} else {
-			return (BigDecimal) o;
 		}
+		return (BigDecimal) o;
 	}
 
+	@Override
 	public void execute(T t) {
 		Object val = null;
 		BigDecimal amount = baseAmount(t);
@@ -155,6 +153,4 @@ public class CalculatePercentageOfMoney<T> implements VoidOperation<T>{
 		}
 		JavaBeanUtils.setProperty(calculatedAmountPd, val, t);		
 	}
-	
-
 }

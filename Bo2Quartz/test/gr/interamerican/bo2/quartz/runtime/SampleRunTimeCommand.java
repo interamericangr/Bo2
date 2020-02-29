@@ -9,7 +9,7 @@ import gr.interamerican.bo2.utils.SystemUtils;
 import gr.interamerican.bo2.utils.concurrent.ThreadUtils;
 
 /**
- *
+ * The Class SampleRunTimeCommand.
  */
 public class SampleRunTimeCommand extends AbstractBo2RuntimeCmd {
 

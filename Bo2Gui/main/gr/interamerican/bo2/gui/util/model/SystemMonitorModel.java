@@ -29,6 +29,8 @@ public class SystemMonitorModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
+	 * Gets the used memory.
+	 *
 	 * @return the used memory
 	 */
 	public double getUsedMemory() {
@@ -36,6 +38,8 @@ public class SystemMonitorModel implements Serializable {
 	}
 
 	/**
+	 * Gets the free memory.
+	 *
 	 * @return the free memory
 	 */
 	public double getFreeMemory() {
@@ -43,6 +47,8 @@ public class SystemMonitorModel implements Serializable {
 	}
 
 	/**
+	 * Gets the max memory.
+	 *
 	 * @return the max memory
 	 */
 	public double getMaxMemory() {
@@ -50,6 +56,8 @@ public class SystemMonitorModel implements Serializable {
 	}
 
 	/**
+	 * Gets the total memory.
+	 *
 	 * @return the total memory
 	 */
 	public double getTotalMemory() {
@@ -57,6 +65,8 @@ public class SystemMonitorModel implements Serializable {
 	}
 	
 	/**
+	 * Gets the gc events.
+	 *
 	 * @return gc events.
 	 */
 	public long getGcEvents() {
@@ -64,6 +74,8 @@ public class SystemMonitorModel implements Serializable {
 	}
 	
 	/**
+	 * Gets the gc time.
+	 *
 	 * @return gc time.
 	 */
 	public long getGcTime() {

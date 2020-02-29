@@ -20,7 +20,7 @@ import gr.interamerican.bo2.impl.open.po.PoUtils;
 import gr.interamerican.bo2.utils.adapters.Modification;
 
 /**
- * Sets the DetachStrategy of a PO to HibernateReadOnlyDetachStrategy
+ * Sets the DetachStrategy of a PO to HibernateReadOnlyDetachStrategy.
  */
 public class SetReadDetachStrategy implements Modification<PersistentObject<?>>{
 	
@@ -29,6 +29,7 @@ public class SetReadDetachStrategy implements Modification<PersistentObject<?>>{
 	 */
 	public static final SetReadDetachStrategy INSTANCE = new SetReadDetachStrategy();
 
+	@Override
 	public PersistentObject<?> execute(PersistentObject<?> a) {
 		DetachStrategy d = PoUtils.getDetachStrategy(a);
 		if ((d!=null) && (d instanceof HibernateDetachStrategy)) {
@@ -36,5 +37,4 @@ public class SetReadDetachStrategy implements Modification<PersistentObject<?>>{
 		}
 		return a;			
 	}
-	
 }

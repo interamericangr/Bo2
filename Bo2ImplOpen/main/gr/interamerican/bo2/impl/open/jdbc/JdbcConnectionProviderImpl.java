@@ -12,6 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.jdbc;
 
+import gr.interamerican.bo2.arch.ResourceWrapper;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.arch.utils.ProviderUtils;
@@ -30,23 +31,17 @@ import java.util.Properties;
  */
 public class JdbcConnectionProviderImpl 
 implements JdbcConnectionProvider {
-
 		
-    /**
-     * Input properties Property name for database schema
-     */
+    /** Input properties Property name for database schema. */
 	public static final String KEY_DBSCHEMA = "DBSCHEMA"; //$NON-NLS-1$
-    /**
-     * Input properties Property name for database user id
-     */
+    
+    /** Input properties Property name for database user id. */
 	public static final String KEY_DBUSER = "DBUSER"; //$NON-NLS-1$
-    /**
-     * Input properties Property name for database user's password
-     */
+    
+    /** Input properties Property name for database user's password. */
 	public static final String KEY_DBPASS = "DBPASS"; //$NON-NLS-1$
-    /**
-     * Input properties Property name for database user's password
-     */
+    
+    /** Input properties Property name for database user's password. */
 	public static final String KEY_CONNECTIONSTRATEGY = "connectionStrategy"; //$NON-NLS-1$
 	
 	/**
@@ -59,9 +54,7 @@ implements JdbcConnectionProvider {
 	 */
     private Connection connection;
 	
-	/**
-	 * database schema string
-	 */
+	/** database schema string. */
     private String dbSchema;	
 	
 	/**
@@ -72,33 +65,47 @@ implements JdbcConnectionProvider {
 	/**
 	 * Password for connection to the database.
 	 */
-    private String dbPass; 
+    private String dbPass;
+    
+    /**
+     * Indicates if this {@link ResourceWrapper} is already closed.
+     */
+    protected boolean isClosed = false;
     
 	/**
 	 * Decorator.
 	 */
     protected ConnectionStrategy connectionStrategy;
 	
-	
-	
 	/**
 	 * Creates a JdbcConnectionProviderImpl.
-	 * 
-	 * @param properties 
-	 *        Initialization properties.
+	 *
+	 * @param properties        Initialization properties.
 	 *        
-	 * @throws InitializationException 
+	 * @throws InitializationException the initialization exception
 	 */
 	public JdbcConnectionProviderImpl(Properties properties) 
 	throws InitializationException {
 		this.properties = properties;
-		openConnection();
+		parseProperties();
 	}
 
-	public Connection getConnection() {		
+	@Override
+	public Connection getConnection() {
+		if(isClosed == true) {
+			return null;
+		}
+		if(connection == null) {
+			try {
+				openConnection();
+			} catch (InitializationException e) {
+				throw new RuntimeException(e);
+			}
+		}
 		return connection;
 	}
 
+	@Override
 	public String getDbSchema() {		
 		return dbSchema;
 	}
@@ -134,15 +141,16 @@ implements JdbcConnectionProvider {
 
 	/**
 	 * Opens the connection.
-	 * 
-	 * @throws InitializationException
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	private void openConnection() throws InitializationException {
-		parseProperties();
 		connection = connectionStrategy.doConnect();		 
 	}
-	
+
+	@Override
 	public void close() throws DataException {
+		isClosed = true;
 		try {
 			if (connection!=null) {
 				if (!connection.isClosed()) {
@@ -190,6 +198,4 @@ implements JdbcConnectionProvider {
 	public Properties getProperties() {
 		return properties;
 	}
-	
-
 }

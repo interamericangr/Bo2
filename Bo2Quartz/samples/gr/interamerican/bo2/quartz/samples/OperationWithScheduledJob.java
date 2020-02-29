@@ -35,10 +35,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 @ManagerName("LOCALDB")
 public class OperationWithScheduledJob extends AbstractOperation {
 	
+	/** The Constant FAILING_ID. */
 	public static final String FAILING_ID = "1560";
 	
+	/** The jsp. */
 	JobSchedulerProvider jsp;
 	
+	/** The id. */
 	String id;
 	
 	@Override
@@ -57,12 +60,21 @@ public class OperationWithScheduledJob extends AbstractOperation {
 		}
 	}
 
+	/**
+	 * Sets the id.
+	 *
+	 * @param id the new id
+	 */
 	public void setId(String id) {
 		this.id = id;
 	}
 
+	/**
+	 * The Class ScheduledOperation.
+	 */
 	public static class ScheduledOperation extends AbstractOperation {
 		
+		/** The Constant ctr. */
 		public static final AtomicInteger ctr = new AtomicInteger(0);
 		
 		@Override

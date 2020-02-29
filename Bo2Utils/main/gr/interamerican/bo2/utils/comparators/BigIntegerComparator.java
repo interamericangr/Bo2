@@ -39,15 +39,10 @@ implements Comparator<Number> {
 		return bd.toBigInteger();
 	}
 	
-	/* (non-Javadoc)
-	 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
-	 */	
+	@Override
 	public int compare(Number o1, Number o2) {
 		BigInteger b1 = toBigInteger(o1);
 		BigInteger b2 = toBigInteger(o2);
 		return b1.compareTo(b2);
 	}
-	
-	
-
 }

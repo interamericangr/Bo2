@@ -36,7 +36,8 @@ import org.junit.Test;
 /**
  * This test works because the object graph that is to be
  * copied does not include many to one references.
- */
+ */			
+@SuppressWarnings("deprecation")
 public class TestBatchCopyToOtherSystemOperation {
 	/**
 	 * User No 1.
@@ -103,9 +104,10 @@ public class TestBatchCopyToOtherSystemOperation {
 
 	/**
 	 * Test setup.
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Before
 	public void setup() throws UnexpectedException, DataException, LogicException {		
@@ -119,9 +121,10 @@ public class TestBatchCopyToOtherSystemOperation {
 	
 	/**
 	 * Test tear down.
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@After
 	public void teardown() throws UnexpectedException, DataException, LogicException {
@@ -133,9 +136,10 @@ public class TestBatchCopyToOtherSystemOperation {
 	
 	/**
 	 * Unit test for execute.
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testExecute() 
@@ -143,7 +147,7 @@ public class TestBatchCopyToOtherSystemOperation {
 		new AbstractBo2RuntimeCmd() {			
 			@Override
 			public void work() throws LogicException, DataException,
-			InitializationException, UnexpectedException {				
+			InitializationException, UnexpectedException {	
 				BatchCopyToOtherSystemOperation<User, UserKey> op =
 					new BatchCopyToOtherSystemOperation<User, UserKey>(User.class, FROM, TO);
 				

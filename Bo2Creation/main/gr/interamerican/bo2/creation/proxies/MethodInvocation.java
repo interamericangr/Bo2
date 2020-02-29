@@ -42,11 +42,10 @@ class MethodInvocation {
 	
 	/**
 	 * Creates a {@link MethodInvocation} object for a successful method invocation.
-	 * 
-	 * @param m
-	 * @param arguments
-	 * @param retValue
-	 * 
+	 *
+	 * @param m the m
+	 * @param arguments the arguments
+	 * @param retValue the ret value
 	 * @return Returns a new instance of the method invocation.
 	 */
 	public static MethodInvocation successful(Method m, Object[] arguments, Object retValue) {
@@ -59,11 +58,10 @@ class MethodInvocation {
 	
 	/**
 	 * Creates a {@link MethodInvocation} object for a successful method invocation.
-	 * 
-	 * @param m
-	 * @param arguments
-	 * @param thrown
-	 * 
+	 *
+	 * @param m the m
+	 * @param arguments the arguments
+	 * @param thrown the thrown
 	 * @return Returns a new instance of the method invocation.
 	 */
 	public static MethodInvocation thrown(Method m, Object[] arguments, Throwable thrown) {
@@ -105,11 +103,10 @@ class MethodInvocation {
 	/**
 	 * Checks if this method invocation matches with the specified
 	 * arguments.
-	 * 
-	 * @param methodName
-	 * @param arguments
-	 * 
-	 * @return Returns true if this method invocation matches with the 
+	 *
+	 * @param methodName the method name
+	 * @param arguments the arguments
+	 * @return Returns true if this method invocation matches with the
 	 *         specified arguments.
 	 */
 	public boolean isMatch(String methodName, Object[] arguments) {		
@@ -119,9 +116,9 @@ class MethodInvocation {
 	
 	/**
 	 * Checks for matching arguments.
-	 * 
-	 * @param arguments
-	 * @return Returns true if the arguments match. 
+	 *
+	 * @param arguments the arguments
+	 * @return Returns true if the arguments match.
 	 */
 	private boolean argsMatch(Object[] arguments) {
 		if (ArrayUtils.equals(args, arguments)) {

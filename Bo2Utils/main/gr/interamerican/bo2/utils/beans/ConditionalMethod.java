@@ -29,9 +29,9 @@ import java.util.List;
  * as arguments an object of type T, and an object of type P. The 
  * conditions will be checked against the T type argument. For each
  * condition that evaluates to true for the T argument, the method that
- * pairs with it will be invoked on the P type argument. <br/>
+ * pairs with it will be invoked on the P type argument. <br>
  * The methods, paired with the conditions, must accept no arguments.
- * Return values of the methods are ignored. <br/>
+ * Return values of the methods are ignored. <br>
  * The constructor argument <code>invokeFirstTrueOnly</code> specifies if the
  * {@link ConditionalMethod} will continue checking all conditions that 
  * it contains, or if it will stop after the first condition that evaluates
@@ -96,9 +96,9 @@ public class ConditionalMethod<T, P> {
 	/**
 	 * Creates a new ConditionalMethod object. 
 	 *
-	 * @param invokeFirstTrueOnly
-	 * @param clazzT
-	 * @param clazzP
+	 * @param invokeFirstTrueOnly the invoke first true only
+	 * @param clazzT the clazz T
+	 * @param clazzP the clazz P
 	 */
 	public ConditionalMethod(boolean invokeFirstTrueOnly, Class<T> clazzT, Class<P> clazzP) {
 		super();

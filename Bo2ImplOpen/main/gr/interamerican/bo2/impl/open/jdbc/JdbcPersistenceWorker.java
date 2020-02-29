@@ -27,7 +27,7 @@ import gr.interamerican.bo2.utils.Debug;
  * Abstract implementation of {@link PersistenceWorker} based on 
  * JDBC.
  *
- * @param <PO>
+ * @param <PO> the generic type
  */
 public abstract class JdbcPersistenceWorker <PO extends PersistentObject<?>>
 extends AbstractJdbcWorker
@@ -37,12 +37,13 @@ implements PersistenceWorker<PO> {
 	 * Message key for worker ignores a part of the object message.
 	 */
 	private static final String IGNORES = "JdbcPersistenceWorker.IGNORES"; //$NON-NLS-1$
-	
+
 	/**
-	 * Validates the object's state and makes sure that 
-	 * the operation can be performed.
-	 * @throws DataException 
-	 * 
+	 * Validates the object's state and makes sure that the operation can be
+	 * performed.
+	 *
+	 * @throws DataException
+	 *             the data exception
 	 */
 	private void validateStateOnStoreDelete() throws DataException {
 		validateOpen();
@@ -50,7 +51,8 @@ implements PersistenceWorker<PO> {
 			throw Exceptions.runtime(IGNORES);
 		}
 	}
-	
+
+	@Override
 	public final PO read(PO o) throws DataException, PoNotFoundException {
 		try {
 			Debug.setActiveModule(this);
@@ -58,48 +60,49 @@ implements PersistenceWorker<PO> {
 			Bo2Session.setState(CrudStates.READ);
 			doRead(o);
 			PoUtils.setDetachStrategy(o, JdbcDetachStrategy.INSTANCE);
-			return o;			
+			return o;
 		} finally {
 			Debug.resetActiveModule();
 			Bo2Session.setState(null);
 		}
 
 	}
-	
-	public final PO delete(PO o) 
-	throws DataException, PoNotFoundException {
+
+	@Override
+	public final PO delete(PO o) throws DataException, PoNotFoundException {
 		try {
-			Debug.setActiveModule(this);			
+			Debug.setActiveModule(this);
 			validateStateOnStoreDelete();
 			Bo2Session.setState(CrudStates.PRE_DELETE);
 			o.tidy();
 			Bo2Session.setState(CrudStates.DELETE);
 			doDelete(o);
-			return o;			
-		} finally {
-			Debug.resetActiveModule();
-			Bo2Session.setState(null);
-		}		
-	}
-	
-	public PO store(PO o) throws DataException, PoNotFoundException {
-		try {
-			Debug.setActiveModule(this);
-			validateStateOnStoreDelete();	
-			Bo2Session.setState(CrudStates.PRE_STORE);
-			o.tidy();
-			Bo2Session.setState(CrudStates.STORE);
-			doStore(o);
-			PoUtils.setDetachStrategy(o, JdbcDetachStrategy.INSTANCE);
-			return o;			
+			return o;
 		} finally {
 			Debug.resetActiveModule();
 			Bo2Session.setState(null);
 		}
 	}
-	
-	public final PO update(PO o) 
-	throws DataException, PoNotFoundException {
+
+	@Override
+	public PO store(PO o) throws DataException, PoNotFoundException {
+		try {
+			Debug.setActiveModule(this);
+			validateStateOnStoreDelete();
+			Bo2Session.setState(CrudStates.PRE_STORE);
+			o.tidy();
+			Bo2Session.setState(CrudStates.STORE);
+			doStore(o);
+			PoUtils.setDetachStrategy(o, JdbcDetachStrategy.INSTANCE);
+			return o;
+		} finally {
+			Debug.resetActiveModule();
+			Bo2Session.setState(null);
+		}
+	}
+
+	@Override
+	public final PO update(PO o) throws DataException, PoNotFoundException {
 		try {
 			Debug.setActiveModule(this);
 			validateOpen();
@@ -108,66 +111,69 @@ implements PersistenceWorker<PO> {
 			Bo2Session.setState(CrudStates.UPDATE);
 			doUpdate(o);
 			PoUtils.setDetachStrategy(o, JdbcDetachStrategy.INSTANCE);
-			return o;			
+			return o;
 		} finally {
 			Debug.resetActiveModule();
 			Bo2Session.setState(null);
 		}
 	}
-	
+
+	@Override
 	public abstract boolean ignoresSomething();
 
-	
 	/**
 	 * Reads the object o.
-	 * 
-	 * @param o Object to be read.
-	 * 
+	 *
+	 * @param o
+	 *            Object to be read.
 	 * @throws DataException
+	 *             the data exception
 	 * @throws PoNotFoundException
+	 *             the po not found exception
 	 */
-	protected abstract void doRead(PO o) 
-	throws DataException, PoNotFoundException;
-	
+	protected abstract void doRead(PO o) throws DataException, PoNotFoundException;
+
 	/**
 	 * Stores the object o.
-	 * 
-	 * @param o Object to be stored.
-	 * 
+	 *
+	 * @param o
+	 *            Object to be stored.
 	 * @throws DataException
+	 *             the data exception
 	 * @throws PoNotFoundException
+	 *             the po not found exception
 	 */
-	protected abstract void doStore(PO o)
-	throws DataException, PoNotFoundException;
-	
+	protected abstract void doStore(PO o) throws DataException, PoNotFoundException;
+
 	/**
 	 * Deletes the object o.
-	 * 
-	 * @param o Object to be deleted.
-	 * 
+	 *
+	 * @param o
+	 *            Object to be deleted.
 	 * @throws DataException
+	 *             the data exception
 	 * @throws PoNotFoundException
+	 *             the po not found exception
 	 */
-	protected abstract void doDelete(PO o) 
-	throws DataException, PoNotFoundException;
-	
+	protected abstract void doDelete(PO o) throws DataException, PoNotFoundException;
 
 	/**
 	 * Updates the object o.
-	 * 
-	 * @param o Object to be updated.
-	 * 
+	 *
+	 * @param o
+	 *            Object to be updated.
 	 * @throws DataException
+	 *             the data exception
 	 * @throws PoNotFoundException
+	 *             the po not found exception
 	 */
-	protected void doUpdate(PO o) 
-	throws DataException, PoNotFoundException {
+	protected void doUpdate(PO o) throws DataException, PoNotFoundException {
 		delete(o);
 		store(o);
 	}
-	
+
+	@Override
 	public DetachStrategy getDetachStrategy() {
 		return JdbcDetachStrategy.INSTANCE;
 	}
-	
 }

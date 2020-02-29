@@ -27,26 +27,35 @@ public class DataAccessException extends DataException {
 	private static final long serialVersionUID = 2L;
 
     /**
-     * 
+     * Instantiates a new data access exception.
      */
     public DataAccessException() {
         super();        
     }
+    
     /**
-     * @param message
+     * Instantiates a new data access exception.
+     *
+     * @param message the message
      */
     public DataAccessException(String message) {
         super(message);        
     }
+    
     /**
-     * @param message
-     * @param cause
+     * Instantiates a new data access exception.
+     *
+     * @param message the message
+     * @param cause the cause
      */
     public DataAccessException(String message, Throwable cause) {
         super(message, cause);
     }
+    
     /**
-     * @param cause
+     * Instantiates a new data access exception.
+     *
+     * @param cause the cause
      */
     public DataAccessException(Throwable cause) {
         super(cause);

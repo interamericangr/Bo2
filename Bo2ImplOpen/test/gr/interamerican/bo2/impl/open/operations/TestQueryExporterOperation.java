@@ -36,9 +36,10 @@ public class TestQueryExporterOperation {
 	
 	/**
 	 * test.
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testLifecycle() throws UnexpectedException, DataException, LogicException {
@@ -83,6 +84,8 @@ public class TestQueryExporterOperation {
 	 * Transformation.
 	 */
 	class GetBytes implements Transformation<String, byte[]> {		
+		
+		@Override
 		public byte[] execute(String a) {			
 			return (a+"\n").getBytes(); //$NON-NLS-1$
 		}

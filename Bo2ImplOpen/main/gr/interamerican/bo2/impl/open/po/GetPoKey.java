@@ -20,7 +20,8 @@ import gr.interamerican.bo2.utils.adapters.Transformation;
  * object is not a PersistentObject.
  */
 public class GetPoKey implements Transformation<Object, Object> {
-	
+
+	@Override
 	public Object execute(Object a) {
 		if (a instanceof PersistentObject<?>) {
 			PersistentObject<?> po = (PersistentObject<?>) a;

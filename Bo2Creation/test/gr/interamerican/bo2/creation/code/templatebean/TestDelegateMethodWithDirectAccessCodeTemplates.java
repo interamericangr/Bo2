@@ -17,7 +17,7 @@ import gr.interamerican.bo2.samples.bean.BeanWith1Field;
 import java.util.Map;
 
 /**
- * 
+ * The Class TestDelegateMethodWithDirectAccessCodeTemplates.
  */
 public class TestDelegateMethodWithDirectAccessCodeTemplates 
 extends BaseTestMethodCodeTemplates{

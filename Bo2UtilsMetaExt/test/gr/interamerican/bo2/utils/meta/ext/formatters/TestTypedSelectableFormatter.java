@@ -20,38 +20,28 @@ import gr.interamerican.bo2.utils.StringUtils;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestTypedSelectableFormatter.
  */
 public class TestTypedSelectableFormatter {
 
 	
-	/**
-	 * TypedSelectableFormatter to test
-	 */
+	/** TypedSelectableFormatter to test. */
 	TypedSelectableFormatter formatter = new TypedSelectableFormatter();
 	
-	/**
-	 * sample
-	 */
+	/** sample. */
 	TypedSelectableImpl<Integer> impl = new TypedSelectableImpl<Integer>();
 	
-	/**
-	 * CODE
-	 */
+	/** CODE. */
 	private static final Integer CODE = 1;
 	
-	/**
-	 * TYPE_ID
-	 */
+	/** TYPE_ID. */
 	private static final Long TYPE_ID = 2L;
 	
-	/**
-	 * TYPE_ID
-	 */
+	/** TYPE_ID. */
 	private static final Long SUBTYPE_ID = 0L;
 	
 	/**
-	 * Tests format
+	 * Tests format.
 	 */
 	@Test
 	public void testFormat(){

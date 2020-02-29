@@ -16,7 +16,7 @@ import gr.interamerican.bo2.utils.attributes.SimpleCommand;
 
 /**
  * {@link PeriodicCommand} turns the behavior of a {@link SimpleCommand}
- * to periodic. <br/>
+ * to periodic. <br>
  * 
  * PeriodicCommand is a wrapper around a SimpleCommand. The SimpleCommand
  * will be executed once for every x executions of the PeriodicCommand, 
@@ -25,9 +25,7 @@ import gr.interamerican.bo2.utils.attributes.SimpleCommand;
 public class PeriodicCommand
 implements SimpleCommand {
 	
-	/**
-	 * 
-	 */
+	/** The command. */
 	SimpleCommand command;
 	
 	/**
@@ -50,12 +48,15 @@ implements SimpleCommand {
 	/**
 	 * Creates a new PeriodicCommand object. 
 	 *
-	 * @param command
-	 * @param period
+	 * @param command the command
+	 * @param period the period
 	 */
 	public PeriodicCommand(SimpleCommand command, long period) {
 		super();
 		this.period = period;
+		if(period ==0) {
+			throw new RuntimeException("Cannot create a PeriodicCommand with 0 period!"); //$NON-NLS-1$
+		}
 		this.command = command;		
 		this.cycle = 0;		
 	}

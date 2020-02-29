@@ -24,11 +24,10 @@ import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
 public abstract class AbstractParser<T> 
 implements Parser<T> {
 	
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
-	
+
+	@Override
 	public T parse(String value) throws ParseException {
 		if (value==null || StringConstants.NULL.equalsIgnoreCase(value)) {
 			return null;
@@ -39,14 +38,11 @@ implements Parser<T> {
 	
 	/**
 	 * Main parse method.
-	 * 
-	 * @param value
-	 *        string to parse.
+	 *
+	 * @param value        string to parse.
 	 *        
 	 * @return Returns the parsed value.
-	 * 
-	 * @throws ParseException 
+	 * @throws ParseException the parse exception
 	 */
 	protected abstract T mainParse(String value) throws ParseException;
-
 }

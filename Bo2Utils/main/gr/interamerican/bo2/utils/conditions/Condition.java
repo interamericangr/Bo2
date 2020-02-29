@@ -12,6 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.conditions;
 
+import java.util.function.Predicate;
 
 /**
  * Interface for a condition check on an object.
@@ -19,7 +20,8 @@ package gr.interamerican.bo2.utils.conditions;
  * @param <T>
  *        Type of object being checked. 
  */
-public interface Condition<T> {
+@FunctionalInterface
+public interface Condition<T> extends Predicate<T> {
 	
 	/**
 	 * Checks if the condition is met for the specified object.
@@ -31,4 +33,9 @@ public interface Condition<T> {
 	 *         specified object.
 	 */
 	public boolean check(T t);
+
+	@Override
+	default boolean test(T t) {
+		return check(t);
+	}
 }

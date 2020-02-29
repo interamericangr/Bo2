@@ -39,8 +39,8 @@ public class JavabeanDefinition {
 	/**
 	 * Creates a new JavabeanDefinition object. 
 	 *
-	 * @param typeName
-	 * @param fields
+	 * @param typeName the type name
+	 * @param fields the fields
 	 */
 	public JavabeanDefinition(String typeName, List<VariableDefinition<?>> fields) {
 		super();

@@ -47,10 +47,10 @@ public class TestImpl4Interfaces extends BaseTestForInterfaceImplementors {
 	
 	/**
 	 * Test for create.
-	 * 
-	 * @throws ClassCreationException
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@SuppressWarnings("nls")
 	@Test

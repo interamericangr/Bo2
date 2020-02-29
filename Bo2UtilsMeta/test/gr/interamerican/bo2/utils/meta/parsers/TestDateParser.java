@@ -22,14 +22,13 @@ import org.junit.Test;
 public class TestDateParser {
 	
 
-	/**
-	 * DateParser
-	 */
+	/** DateParser. */
 	DateParser dateParser = new DateParser();	
 	
 	/**
-	 * Test Parse
-	 * @throws ParseException 
+	 * Test Parse.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	
 	@Test
@@ -41,8 +40,9 @@ public class TestDateParser {
 	}
 	
 	/**
-	 * Test Parse
-	 * @throws ParseException 
+	 * Test Parse.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	
 	@Test(expected = ParseException.class)

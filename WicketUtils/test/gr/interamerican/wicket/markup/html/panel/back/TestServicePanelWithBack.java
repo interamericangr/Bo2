@@ -13,18 +13,17 @@
 package gr.interamerican.wicket.markup.html.panel.back;
 
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import gr.interamerican.wicket.ajax.markup.html.form.CallbackAjaxButton;
-import gr.interamerican.wicket.callback.CallbackAction;
-import gr.interamerican.wicket.markup.html.BaseTestPage;
-import gr.interamerican.wicket.markup.html.TestPage;
-import gr.interamerican.wicket.samples.actions.DummyCallback;
-import gr.interamerican.wicket.test.WicketTest;
 
 import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.util.tester.ITestPageSource;
 import org.junit.Test;
+
+import gr.interamerican.wicket.ajax.markup.html.form.CallbackAjaxButton;
+import gr.interamerican.wicket.callback.MockedCallback;
+import gr.interamerican.wicket.markup.html.BaseTestPage;
+import gr.interamerican.wicket.markup.html.Markup;
+import gr.interamerican.wicket.markup.html.TestPage;
+import gr.interamerican.wicket.test.WicketTest;
 
 /**
  * Unit test for {@link ServicePanelWithBack}.
@@ -40,39 +39,22 @@ extends WicketTest {
 	 */	
 	ServicePanelWithBackDef createDef() {
 		ServicePanelWithBackDef def = new ServicePanelWithBackDefImpl();
-		def.setBackAction(null);		
+		def.setBackAction(null);
 		def.setWicketId(BaseTestPage.TEST_ID);
 		return def;
 	}
-	
-	
-	/**
-	 * Creates a page source
-	 * 
-	 * @param def
-	 * @return Returns a page source.
-	 */
-	@SuppressWarnings("serial")
-	ITestPageSource pageSource(final ServicePanelWithBackDef def) {		
-		return new ITestPageSource() {
-			public Page getTestPage() {
-				ServicePanelWithBack panel = new ServicePanelWithBack(def);
-				return new TestPage(panel);
-			}
-		};
-		
-	}
-	
 	
 	/**
 	 * Tests creation of {@link ServicePanelWithBack}.
 	 */	
 	@Test
 	public void testCreation_withCallback() {	
-		final CallbackAction action = new DummyCallback();
-		final ServicePanelWithBackDef def = createDef();
+		MockedCallback action = new MockedCallback();
+		ServicePanelWithBackDef def = createDef();
 		def.setBackAction(action);
-		ITestPageSource source = pageSource(def);
+		ServicePanelWithBack panel = new ServicePanelWithBack(def);
+		Page source = new TestPage(panel, Markup.div);
+
 		
 		tester.startPage(source);
 		tester.assertRenderedPage(TestPage.class);
@@ -80,9 +62,6 @@ extends WicketTest {
 		
 		tester.assertComponent(path("backForm:backButton"),CallbackAjaxButton.class);
 		tester.assertVisible(path("backForm:backButton"));			
-		CallbackAjaxButton button = (CallbackAjaxButton) 
-			tester.getComponentFromLastRenderedPage(path("backForm:backButton"));
-		assertSame(action, button.getAction());
 	}
 	
 	/**
@@ -90,8 +69,9 @@ extends WicketTest {
 	 */	
 	@Test
 	public void testCreation_withoutCallback() {
-		final ServicePanelWithBackDef def = createDef();			
-		ITestPageSource source = pageSource(def);	
+		final ServicePanelWithBackDef def = createDef();
+		ServicePanelWithBack panel = new ServicePanelWithBack(def);
+		Page source = new TestPage(panel, Markup.div);
 		tester.startPage(source);
 		tester.assertRenderedPage(TestPage.class);
 		tester.assertInvisible(path("backForm"));
@@ -106,17 +86,12 @@ extends WicketTest {
 	
 	
 	/**
-	 * Test ValidateDef
+	 * Test ValidateDef.
 	 */
 	@Test(expected = RuntimeException.class)
 	public void testValidateDef(){
 		ServicePanelWithBackDef def = new ServicePanelWithBackDefImpl();
-		def.setWicketId("wicketId");
-		ServicePanelWithBack panel = new ServicePanelWithBack(def);
 		def.setWicketId(null);
-		panel.validateDef();
+		new ServicePanelWithBack(def);
 	}
-	
-	
-
 }

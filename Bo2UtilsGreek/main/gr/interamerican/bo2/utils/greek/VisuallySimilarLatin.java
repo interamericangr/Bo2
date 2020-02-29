@@ -59,9 +59,8 @@ public class VisuallySimilarLatin {
 	 * with the specified latin character.
 	 * 
 	 * Only capital letters have a visually similar character. 
-	 * 
-	 * @param latin
-	 * 
+	 *
+	 * @param latin the latin
 	 * @return Returns the Greek character that is visually similar
 	 *         with the specified character. If the specified character 
 	 *         is not a Latin capital letter, or if it has not a visually
@@ -76,9 +75,8 @@ public class VisuallySimilarLatin {
 	 * with the specified greek character.
 	 * 
 	 * Only capital letters have a visually similar character. 
-	 * 
-	 * @param greek
-	 * 
+	 *
+	 * @param greek the greek
 	 * @return Returns the Latin character that is visually similar
 	 *         with the specified character. If the specified character 
 	 *         is not a Greek capital letter, or if it has not a visually
@@ -91,7 +89,7 @@ public class VisuallySimilarLatin {
 	/**
 	 * Removes all characters that are not letters or digits, converts to 
 	 * upper case and then replaces any latin character that has a similar 
-	 * greek character with its greek similar (visually equal) character. <br/>
+	 * greek character with its greek similar (visually equal) character. <br>
 	 * 
 	 * @param str
 	 *        String to process.
@@ -105,7 +103,7 @@ public class VisuallySimilarLatin {
 	/**
 	 * Removes all characters that are not letters or digits, converts to 
 	 * upper case and then replaces any greek character that has a similar 
-	 * latin character with its latin similar (visually equal) character. <br/>
+	 * latin character with its latin similar (visually equal) character. <br>
 	 * 
 	 * @param str
 	 *        String to process.
@@ -121,16 +119,16 @@ public class VisuallySimilarLatin {
 	/**
 	 * Removes all characters that are not letters or digits, converts to 
 	 * upper case and then replaces any latin character that has a similar 
-	 * greek character with its greek similar (visually equal) character, and vice versa. <br/>
+	 * greek character with its greek similar (visually equal) character, and vice versa. <br>
 	 * if it has not a visually similar character, then returns the character as it is.
 	 * 
 	 * @param str
 	 *        String to process.
 	 * @param latinToGreek
 	 *        if latinToGreek is true, converts to upper case and then replaces any latin character that has a similar 
-	 *        greek character with its greek similar (visually equal) character. <br/>
+	 *        greek character with its greek similar (visually equal) character. <br>
 	 *        if latinToGreek is false,converts to upper case and then replaces any greek character that has a similar 
-	 *        latin character with its latin similar (visually equal) character. <br/>
+	 *        latin character with its latin similar (visually equal) character. <br>
 	 * 
 	 * @return Returns the result of the process.
 	 */

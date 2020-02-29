@@ -15,17 +15,15 @@ package gr.interamerican.bo2.impl.open.hibernate;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestSmallTableLoaderQuery.
  */
 public class TestSmallTableLoaderQuery {
 
-	/**
-	 * query to test 
-	 */
+	/** query to test. */
 	SmallTableLoaderQueryImpl query = new SmallTableLoaderQueryImpl();
 	
 	/**
-	 * tests GetCriteria
+	 * tests GetCriteria.
 	 */
 	@Test
 	public void testGetCriteria(){
@@ -35,7 +33,7 @@ public class TestSmallTableLoaderQuery {
 	
 	
 	/**
-	 * implementation to test
+	 * implementation to test.
 	 */
 	private class SmallTableLoaderQueryImpl extends SmallTableLoaderQuery<String>{
 

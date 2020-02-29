@@ -15,22 +15,17 @@ package gr.interamerican.bo2.samples;
 import java.io.Serializable;
 
 /**
- * sample bean class
+ * sample bean class.
  */
 public class SampleBean2 implements Serializable {
-	/**
- * 
- */
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * field1
-	 */
+	/** field1. */
 	String field1;
 
-	/**
-	 * field 2
-	 */
+	/** field 2. */
 	String field2;
 
 	/**
@@ -73,8 +68,8 @@ public class SampleBean2 implements Serializable {
 
 	/**
 	 * Gets the input value.
-	 * 
-	 * @param valueToGet
+	 *
+	 * @param valueToGet the value to get
 	 * @return Returns the input parameter valueToGet.
 	 */
 	public String getField2(String valueToGet) {

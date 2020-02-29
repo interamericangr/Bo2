@@ -36,7 +36,7 @@ public class TestSimpleTemplateFillerOperation {
 	};
 	
 	/**
-	 * Test for setModel()
+	 * Test for setModel().
 	 */
 	@Test
 	public void testSetModel() {
@@ -46,7 +46,7 @@ public class TestSimpleTemplateFillerOperation {
 	}
 	
 	/**
-	 * Test for getModel()
+	 * Test for getModel().
 	 */
 	@Test
 	public void testGetModel() {
@@ -55,7 +55,7 @@ public class TestSimpleTemplateFillerOperation {
 	}
 	
 	/**
-	 * Test for setModel()
+	 * Test for setModel().
 	 */
 	@Test
 	public void testSetDocument() {		
@@ -65,7 +65,7 @@ public class TestSimpleTemplateFillerOperation {
 	}
 	
 	/**
-	 * Test for getModel()
+	 * Test for getModel().
 	 */
 	@Test
 	public void testGetDocument() {

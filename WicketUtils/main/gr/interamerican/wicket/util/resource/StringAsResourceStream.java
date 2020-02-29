@@ -33,8 +33,8 @@ public class StringAsResourceStream extends AbstractStringResourceStream {
 	/**
 	 * Creates a new StringAsResourceStream object.
 	 *  
-	 * @param string 
 	 *
+	 * @param string the string
 	 */
 	public StringAsResourceStream(String string) {
 		super();
@@ -44,8 +44,8 @@ public class StringAsResourceStream extends AbstractStringResourceStream {
 	/**
 	 * Creates a new StringAsResourceStream object. 
 	 *
-	 * @param contentType
-	 * @param string 
+	 * @param contentType the content type
+	 * @param string the string
 	 */
 	public StringAsResourceStream(String contentType, String string) {
 		super(contentType);

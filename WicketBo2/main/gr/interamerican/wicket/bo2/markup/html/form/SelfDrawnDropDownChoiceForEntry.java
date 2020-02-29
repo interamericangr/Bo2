@@ -43,10 +43,11 @@ extends DropDownChoiceForEntry<L,T> {
 
 	/**
 	 * Creates a new SelfDrawnDropDownChoice object. 
-	 * @param id 
-	 * @param descriptor 
-	 * @param choices 
-	 * @param session 
+	 *
+	 * @param id the id
+	 * @param descriptor the descriptor
+	 * @param choices the choices
+	 * @param session the session
 	 */
 	public SelfDrawnDropDownChoiceForEntry(String id, 
 	CachedEntryBoPropertyDescriptor<T, ?> descriptor, List<? extends T> choices, Bo2WicketSession<?,L> session) {
@@ -56,12 +57,12 @@ extends DropDownChoiceForEntry<L,T> {
 	
 	/**
 	 * Creates a new SelfDrawnDropDownChoice object.
-	 * 
-	 * @param model 
-	 * @param id 
-	 * @param descriptor 
-	 * @param choices 
-	 * @param session 
+	 *
+	 * @param id the id
+	 * @param model the model
+	 * @param descriptor the descriptor
+	 * @param choices the choices
+	 * @param session the session
 	 */
 	public SelfDrawnDropDownChoiceForEntry(String id, IModel<T> model, 
 	CachedEntryBoPropertyDescriptor<T, ?> descriptor, List<? extends T> choices, Bo2WicketSession<?,L> session) {

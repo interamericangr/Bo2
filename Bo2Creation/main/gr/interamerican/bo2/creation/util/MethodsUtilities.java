@@ -20,7 +20,7 @@ import java.lang.reflect.Modifier;
 import java.util.List;
 
 /**
- * 
+ * The Class MethodsUtilities.
  */
 public class MethodsUtilities {
 
@@ -31,9 +31,8 @@ public class MethodsUtilities {
 	
 	/**
 	 * Gets the compareTo method of a comparable class.
-	 * 
-	 * @param clazz
-	 * 
+	 *
+	 * @param clazz the clazz
 	 * @return Returns the compare to method.
 	 */
 	public static Method compareTo(Class<?> clazz) {
@@ -55,9 +54,8 @@ public class MethodsUtilities {
 	
 	/**
 	 * Finds if the specified method is the <code>equals(object)</code> method.
-	 * 
-	 * @param method
-	 * 
+	 *
+	 * @param method the method
 	 * @return Returns true if the specified method is equals.
 	 */
 	public static boolean isEquals(Method method) {
@@ -66,9 +64,8 @@ public class MethodsUtilities {
 	
 	/**
 	 * Finds if the specified method is the <code>hashcode()</code> method.
-	 * 
-	 * @param method
-	 * 
+	 *
+	 * @param method the method
 	 * @return Returns true if the specified method is hashcode.
 	 */
 	public static boolean isHashCode(Method method) {
@@ -77,9 +74,8 @@ public class MethodsUtilities {
 	
 	/**
 	 * Finds if the specified method is the <code>hashcode()</code> method.
-	 * 
-	 * @param method
-	 * 
+	 *
+	 * @param method the method
 	 * @return Returns true if the specified method is hashcode.
 	 */
 	public static boolean isToString(Method method) {
@@ -90,12 +86,11 @@ public class MethodsUtilities {
 	/**
 	 * Finds if the specified method has the specified name
 	 * and argument types.
-	 * 
-	 * @param method
-	 * @param name
-	 * @param argumentTypes
-	 * 
-	 * @return Returns true if the specified method has the specified name, 
+	 *
+	 * @param method the method
+	 * @param name the name
+	 * @param argumentTypes the argument types
+	 * @return Returns true if the specified method has the specified name,
 	 *         and argument types.
 	 */
 	static boolean is(Method method, String name, Class<?>... argumentTypes) {

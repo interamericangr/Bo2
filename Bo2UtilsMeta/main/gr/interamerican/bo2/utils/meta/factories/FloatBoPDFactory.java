@@ -25,13 +25,11 @@ public class FloatBoPDFactory {
 
 	/**
 	 * Creates a {@link FloatBoPropertyDescriptor}.
-	 * 
-	 * @param pd
-	 *        PropertyDescriptorDefinition
+	 *
+	 * @param pd        PropertyDescriptorDefinition
 	 *        
 	 * @return FloatBoPropertyDescriptor
-	 * 
-	 * @throws ParseException 
+	 * @throws ParseException the parse exception
 	 */
 	@SuppressWarnings("nls")
 	public static FloatBoPropertyDescriptor create(PropertyDefinition pd) throws ParseException {

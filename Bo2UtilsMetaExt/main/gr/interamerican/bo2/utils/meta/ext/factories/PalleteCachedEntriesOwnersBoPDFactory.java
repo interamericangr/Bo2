@@ -28,24 +28,20 @@ import gr.interamerican.bo2.utils.meta.parsers.ParserResolver;
 import java.util.Collection;
 
 /**
- * 
+ * A factory for creating PalleteCachedEntriesOwnersBoPD objects.
  */
 public class PalleteCachedEntriesOwnersBoPDFactory {
 	
 	/**
 	 * Creates a {@link MultipleCachedEntriesOwnersBoPropertyDescriptor} given
 	 * a {@link PropertyDefinition}.
-	 * 
-	 * @param <T> 
-	 *        Type of entry Owners.
-	 * @param <C> 
-	 *        Type of cache code.
-	 * @param pd
-	 *        PropertyDefinition
+	 *
+	 * @param <T>        Type of entry Owners.
+	 * @param <C>        Type of cache code.
+	 * @param pd        PropertyDefinition
 	 *        
 	 * @return Returns a MultipleCachedEntriesOwnersBoPropertyDescriptor
-	 * 
-	 * @throws ParseException
+	 * @throws ParseException the parse exception
 	 */
 	@SuppressWarnings("nls")
 	public static <T extends TranslatableEntryOwner<C,?,?>,C extends Comparable<? super C>> 

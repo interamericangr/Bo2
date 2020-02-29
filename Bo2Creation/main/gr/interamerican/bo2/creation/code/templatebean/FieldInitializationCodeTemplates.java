@@ -86,9 +86,8 @@ extends FolderInitializedBean {
 	
 	/**
 	 * Gets the reflective filled.
-	 * 
-	 * @param variables 
 	 *
+	 * @param variables the variables
 	 * @return Returns the reflective
 	 */
 	public String getReflective(Map<String, String> variables) {
@@ -97,9 +96,8 @@ extends FolderInitializedBean {
 	
 	/**
 	 * Gets the direct filled.
-	 * 
-	 * @param variables 
 	 *
+	 * @param variables the variables
 	 * @return Returns the reflective
 	 */
 	public String getDirect(Map<String, String> variables) {

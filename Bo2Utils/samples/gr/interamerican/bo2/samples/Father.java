@@ -15,18 +15,14 @@ package gr.interamerican.bo2.samples;
 import gr.interamerican.bo2.samples.anno.MethodAnno;
 
 /**
- * sample class
+ * sample class.
  */
 public class Father extends GrandFather {
 
-	/**
-	 * sample class field
-	 */
+	/** sample class field. */
 	private Object field4;
 
-	/**
-	 * sample class field
-	 */
+	/** sample class field. */
 	@SuppressWarnings("unused")
 	private Object field5;
 
@@ -53,11 +49,11 @@ public class Father extends GrandFather {
 	}
 
 	/**
-	 * sample method
-	 * 
-	 * @param s
+	 * sample method.
+	 *
+	 * @param s the s
 	 */
-	public void sampleMethod(String s) {
+	public void sampleMethod(@SuppressWarnings("unused") String s) {
 		// empty
 	}
 

@@ -47,54 +47,52 @@ extends Named, Labeled, Serializable {
 	
 	/**
 	 * Gets the values of the business properties from an object.
-	 * 
-	 * @param object
-	 * 
+	 *
+	 * @param object the object
 	 * @return Returns a Map that associates the beans' BoPropertyDescriptors
-	 *         with the values of their properties. 
+	 *         with the values of their properties.
 	 */
 	public Map<BoPropertyDescriptor<?>, Object> get(T object);
 	
 	/**
 	 * Sets the values of the business properties from an object.
-	 * 
-	 * @param object 
-	 *        Object on which the values are set.
+	 *
+	 * @param object        Object on which the values are set.
 	 *        
-	 * @param values 
-	 *        Map associating {@link BoPropertyDescriptor} objects with the
+	 * @param values        Map associating {@link BoPropertyDescriptor} objects with the
 	 *        values of the properties they describe.
 	 *       
-	 * 
-	 * @throws MultipleValidationsException 
+	 * @throws MultipleValidationsException the multiple validations exception
 	 */
 	public void set(T object, Map<BoPropertyDescriptor<?>, Object> values)
 	throws MultipleValidationsException;
 	
 	/**
 	 * Validates the bean's values against this descriptor.
-	 * 
+	 *
 	 * @param object bean to validate.
-	 * 
-	 * @throws MultipleValidationsException
+	 * @throws MultipleValidationsException the multiple validations exception
 	 */
 	public void validate(T object) throws MultipleValidationsException;
 		
 	/**
-	 * @param expressions
-	 *        Expressions against which a T can be validated.
+	 * Sets the expressions.
+	 *
+	 * @param expressions        Expressions against which a T can be validated.
 	 */
 	public void setExpressions(Set<BusinessObjectValidationExpression> expressions);
 	
 	/**
+	 * Gets the expressions.
+	 *
 	 * @return Returns the expressions against which a T can be validated.
 	 */
 	public Set<BusinessObjectValidationExpression> getExpressions();
 	
 	/**
 	 * Returns the BoPropertyDescriptor with the specified name.
-	 * 
-	 * @param descriptorName
+	 *
+	 * @param descriptorName the descriptor name
 	 * @return Returns the BoPropertyDescriptor with the specified name.
 	 */
 	public BoPropertyDescriptor<?> getDescriptorByName(String descriptorName);

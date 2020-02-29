@@ -12,23 +12,24 @@
  ******************************************************************************/
 package gr.interamerican.wicket.factories;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import gr.interamerican.wicket.ajax.markup.html.form.CallbackAjaxButton;
-import gr.interamerican.wicket.callback.CallbackAction;
+import static org.junit.Assert.*;
 
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Test;
 import org.mockito.Mockito;
+
+import gr.interamerican.wicket.ajax.markup.html.form.CallbackAjaxButton;
+import gr.interamerican.wicket.callback.CallbackAction;
 
 /**
  * Unit tests for ButtonFactory.
  */
-public class TestButtonFactory {
-	
+@Deprecated
+public class TestButtonFactory extends WicketTester {
+
 	/**
 	 * Unit test for create.
 	 */
@@ -37,13 +38,11 @@ public class TestButtonFactory {
 		String id = "buttonId"; //$NON-NLS-1$
 		CallbackAction action = Mockito.mock(CallbackAction.class);
 		AjaxButton button = ButtonFactory.createButton(id, action);
-		assertNotNull(button);		
-		assertEquals(id,button.getId());
-		assertTrue(button instanceof CallbackAjaxButton);		
-		CallbackAjaxButton cab = (CallbackAjaxButton) button;
-		assertEquals(action,cab.getAction());
+		assertNotNull(button);
+		assertEquals(id, button.getId());
+		assertTrue(button instanceof CallbackAjaxButton);
 	}
-	
+
 	/**
 	 * Unit test for create.
 	 */
@@ -51,15 +50,13 @@ public class TestButtonFactory {
 	public void testCreate_withActionAndPanel() {
 		String id = "buttonId"; //$NON-NLS-1$
 		CallbackAction action = Mockito.mock(CallbackAction.class);
-		FeedbackPanel panel = Mockito.mock(FeedbackPanel.class);		
+		FeedbackPanel panel = Mockito.mock(FeedbackPanel.class);
 		AjaxButton button = ButtonFactory.createButton(id, action, panel);
-		assertNotNull(button);		
-		assertEquals(id,button.getId());
-		assertTrue(button instanceof CallbackAjaxButton);		
-		CallbackAjaxButton cab = (CallbackAjaxButton) button;
-		assertEquals(action,cab.getAction());		
+		assertNotNull(button);
+		assertEquals(id, button.getId());
+		assertTrue(button instanceof CallbackAjaxButton);
 	}
-	
+
 	/**
 	 * Unit test for create.
 	 */
@@ -70,12 +67,9 @@ public class TestButtonFactory {
 		FeedbackPanel panel = Mockito.mock(FeedbackPanel.class);
 		Model<String> model = new Model<String>(id);
 		AjaxButton button = ButtonFactory.createButton(id, model, action, panel);
-		assertNotNull(button);		
-		assertEquals(id,button.getId());
-		assertEquals(model,button.getModel());
-		assertTrue(button instanceof CallbackAjaxButton);		
-		CallbackAjaxButton cab = (CallbackAjaxButton) button;
-		assertEquals(action,cab.getAction());		
+		assertNotNull(button);
+		assertEquals(id, button.getId());
+		assertEquals(model, button.getModel());
+		assertTrue(button instanceof CallbackAjaxButton);
 	}
-
 }

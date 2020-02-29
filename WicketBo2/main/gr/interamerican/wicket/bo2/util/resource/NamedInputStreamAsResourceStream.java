@@ -32,9 +32,7 @@ import org.apache.wicket.util.resource.AbstractResourceStream;
 public class NamedInputStreamAsResourceStream 
 extends AbstractResourceStream {
 	
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
 	/**

@@ -111,7 +111,7 @@ public class TestSelfDrawnTextArea extends WicketTest {
 	}
 	
 	/**
-	 * test disable
+	 * test disable.
 	 */
 	@Test
 	public void testDisable() {
@@ -124,8 +124,8 @@ public class TestSelfDrawnTextArea extends WicketTest {
 	}
 	
 	@Override
-	protected Component initializeComponent() {
-		return new SelfDrawnTextArea(TestPage.TEST_ID, descriptor);
+	protected Component initializeComponent(String wicketId) {
+		return new SelfDrawnTextArea(wicketId, descriptor);
 	}
 
 }

@@ -18,19 +18,17 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestArrayHasOnlyNulls.
  */
 public class TestArrayHasOnlyNulls {
 
 	
-	/**
-	 * ArrayHasOnlyNulls
-	 */
+	/** ArrayHasOnlyNulls. */
 	ArrayHasOnlyNulls<Integer> condition = new ArrayHasOnlyNulls<Integer> ();
 	
 	
 	/**
-	 * test Check
+	 * test Check.
 	 */
 	@Test
 	public void testCheck_nullValues(){
@@ -39,7 +37,7 @@ public class TestArrayHasOnlyNulls {
 	}
 	
 	/**
-	 * test Check
+	 * test Check.
 	 */
 	@Test
 	public void testCheck_noNullValues(){

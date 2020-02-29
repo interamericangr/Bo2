@@ -17,19 +17,13 @@ package gr.interamerican.bo2.utils.meta.parsers;
  */
 class Constants {
 	
-	/**
-	 * MAX VALUE
-	 */
+	/** MAX VALUE. */
 	static String MAX_VALUE = "maxValue"; //$NON-NLS-1$
 	
-	/**
-	 * MAX VALUE
-	 */
+	/** MAX VALUE. */
 	static String MIN_VALUE = "minValue"; //$NON-NLS-1$
 	
-	/**
-	 * NAN
-	 */
+	/** NAN. */
 	static String NAN = "NaN"; //$NON-NLS-1$
 
 	/**

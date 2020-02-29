@@ -15,12 +15,23 @@ package gr.interamerican.bo2.test.def.posamples2;
 import gr.interamerican.bo2.arch.Key;
 
 /**
- * 
+ * The Interface PersonKey.
  */
 public interface PersonKey 
 extends Key {
 	
+	/**
+	 * Gets the person id.
+	 *
+	 * @return the person id
+	 */
 	public Integer getPersonId();
+	
+	/**
+	 * Sets the person id.
+	 *
+	 * @param personId the new person id
+	 */
 	public void setPersonId(String personId);
 
 

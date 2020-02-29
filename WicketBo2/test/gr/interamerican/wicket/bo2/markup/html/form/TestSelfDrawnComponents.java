@@ -35,13 +35,11 @@ import org.junit.Test;
 @SuppressWarnings("nls")
 public class TestSelfDrawnComponents {
 
-	/**
-	 * the WicketTester
-	 */
+	/** the WicketTester. */
 	private static WicketTester wicketTester = null;
 
 	/**
-	 * 
+	 * Sets the up.
 	 */
 	@BeforeClass
 	public static void setUp(){	
@@ -60,7 +58,7 @@ public class TestSelfDrawnComponents {
 	
 
 	/**
-	 * 
+	 * Test self drawn label.
 	 */
 	@Test
 	public void testSelfDrawnLabel(){
@@ -74,7 +72,7 @@ public class TestSelfDrawnComponents {
 
 	
 	/**
-	 * 
+	 * Test self drawn text area.
 	 */
 	@SuppressWarnings("unchecked")
 	@Test 
@@ -89,7 +87,7 @@ public class TestSelfDrawnComponents {
 	
 	
 	/**
-	 * 
+	 * Test self drawn boolean check box.
 	 */
 	@Test
 	public void testSelfDrawnBooleanCheckBox(){
@@ -99,7 +97,7 @@ public class TestSelfDrawnComponents {
 	}
 
 	/**
-	 * 
+	 * Test self date field.
 	 */
 	@Test
 	public void testSelfDateField(){
@@ -112,7 +110,7 @@ public class TestSelfDrawnComponents {
 
 		
 	/**
-	 * 
+	 * Test self drop down choice.
 	 */
 	@SuppressWarnings("rawtypes")
 	@Test

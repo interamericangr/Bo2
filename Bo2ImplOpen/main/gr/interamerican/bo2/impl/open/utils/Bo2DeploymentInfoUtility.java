@@ -14,6 +14,7 @@ package gr.interamerican.bo2.impl.open.utils;
 
 import gr.interamerican.bo2.creation.ObjectFactory;
 import gr.interamerican.bo2.creation.beans.ObjectFactoryAssistant;
+import gr.interamerican.bo2.impl.open.jdbc.DriverConnectionStrategy;
 import gr.interamerican.bo2.impl.open.jdbc.JdbcConnectionProviderImpl;
 import gr.interamerican.bo2.utils.CollectionUtils;
 import gr.interamerican.bo2.utils.ExceptionUtils;
@@ -34,7 +35,9 @@ import java.util.Properties;
 public class Bo2DeploymentInfoUtility {
 	
 	/**
-	 * @param managerName
+	 * Gets the qualifier.
+	 *
+	 * @param managerName the manager name
 	 * @return the default qualifier for the given manager
 	 */
 	public String getQualifier(String managerName) {
@@ -43,9 +46,10 @@ public class Bo2DeploymentInfoUtility {
 	}
 
 	/**
-	 * @param deplPath
-	 * @param managerName
-	 * 
+	 * Gets the info for manager.
+	 *
+	 * @param deplPath the depl path
+	 * @param managerName the manager name
 	 * @return Returns a short summary of configuration data for the specified manager name in the specified deployment.
 	 */
 	@SuppressWarnings({ "nls", "unchecked" })
@@ -75,8 +79,8 @@ public class Bo2DeploymentInfoUtility {
 			info.batchProviderClass = props.getProperty("JWF_JDBCPROVIDER_CLASS");
 		} catch (RuntimeException e) {
 			String msg = StringUtils.concat(
-					"Inspection failed " + ExceptionUtils.getThrowableStackTrace(e),
-					"Salvaged info: \n" + info.toString());
+					"Inspection failed " , ExceptionUtils.getThrowableStackTrace(e),
+					"Salvaged info: ", System.lineSeparator(), info.toString());
 			return msg;
 		}
 		
@@ -110,8 +114,11 @@ public class Bo2DeploymentInfoUtility {
 			String[] managerPaths = StreamUtils.readResourceFile(path);
 			for(String managerPath : managerPaths) {
 				Properties p = CollectionUtils.readEnhancedProperties(managerPath);
-				String name = p.getProperty("resourceWrappersManagerName"); //$NON-NLS-1$
-				if(!StringUtils.isNullOrBlank(p.getProperty("DBURL"))) { //$NON-NLS-1$
+				String name = p.getProperty(Bo2Utils.RW_MANAGER_NAME_KEY);
+				boolean createsJdbcResources = 
+						!StringUtils.isNullOrBlank(p.getProperty(DriverConnectionStrategy.KEY_DBURL)) || 
+						!StringUtils.isNullOrBlank(p.getProperty("DBJNDINAME")); //$NON-NLS-1$
+				if(createsJdbcResources) {
 					managers.add(name);
 				}
 			}
@@ -124,9 +131,9 @@ public class Bo2DeploymentInfoUtility {
 	/**
 	 * Gets the configuration of a specified manager. A defensive copy of the
 	 * real configuration is supplied.
-	 * 
-	 * @param managerName
-	 * @param deplPath
+	 *
+	 * @param managerName the manager name
+	 * @param deplPath the depl path
 	 * @return Properties with configuration.
 	 */
 	public Properties getPropertiesOfManager(String managerName, String deplPath) {
@@ -136,10 +143,10 @@ public class Bo2DeploymentInfoUtility {
 			String path = bo2Depl.getDeploymentBean().getPathToManagersList();
 			String[] managerPaths = StreamUtils.readResourceFile(path);
 			for(String managerPath : managerPaths) {
-				Properties p = CollectionUtils.readEnhancedProperties(managerPath);
-				String name = p.getProperty("resourceWrappersManagerName"); //$NON-NLS-1$
+				Properties p = getPropertiesOfManager0(managerPath);
+				String name = p.getProperty(Bo2Utils.RW_MANAGER_NAME_KEY);
 				if(name.equals(managerNameLocal)) {
-					return new Properties(p);
+					return p;
 				}
 			}
 		}catch(IOException ioe) {
@@ -149,10 +156,33 @@ public class Bo2DeploymentInfoUtility {
 	}
 	
 	/**
+	 * Returns the properties of a specific manager configuration file. This is a
+	 * defensive copy, the user cannot alter the actual configuration using this.
+	 * 
+	 * @param managerPath
+	 *        Resource path of manager factory configuration
+	 *        
+	 * @return Returns the properties of a specific manager configuration file.
+	 */
+	Properties getPropertiesOfManager0(String managerPath) {
+		Properties props = CollectionUtils.readProperties(managerPath);
+		
+		Properties enhancedProps = CollectionUtils.readEnhancedProperties(managerPath);
+		Properties result = new Properties();
+		
+		for (Object key : props.keySet()) {
+			if(enhancedProps.get(key)!=null && !JdbcConnectionProviderImpl.KEY_DBPASS.equals(key)) {
+				result.put(key, enhancedProps.get(key));
+			}
+		}
+		
+		return result;
+	}
+	
+	/**
 	 * Gets the configuration of a specified manager.
-	 * 
-	 * @param managerName
-	 * 
+	 *
+	 * @param managerName the manager name
 	 * @return Properties with configuration.
 	 */
 	public Properties getPropertiesOfManager(String managerName) {
@@ -160,7 +190,9 @@ public class Bo2DeploymentInfoUtility {
 	}
 	
 	/**
-	 * @param managerName
+	 * Gets the info for manager.
+	 *
+	 * @param managerName the manager name
 	 * @return Returns a short summary of configuration data for the specified manager name
 	 *         in the current default deployment.
 	 */
@@ -172,10 +204,9 @@ public class Bo2DeploymentInfoUtility {
 	 * Gets the real manager name for an alias in the specified Bo2 deployment. 
 	 * If the name supplied is not an alias, it returns the name. If the name 
 	 * does not exist, null is returned.
-	 * 
-	 * @param managerName
-	 * @param deplPath
-	 * 
+	 *
+	 * @param managerName the manager name
+	 * @param deplPath the depl path
 	 * @return Concrete manager name.
 	 */
 	public String getRealManagerNameForAlias(String managerName, String deplPath) {
@@ -201,8 +232,8 @@ public class Bo2DeploymentInfoUtility {
 	 * Gets the real manager name for an alias. If the name supplied is not
 	 * alias, it returns the name. If the name does not exist, null is returned.
 	 * The managers of the default Bo2 deployment are considered. 
-	 * 
-	 * @param managerName
+	 *
+	 * @param managerName the manager name
 	 * @return Concrete manager name.
 	 */
 	public String getRealManagerNameForAlias(String managerName) {
@@ -220,8 +251,8 @@ public class Bo2DeploymentInfoUtility {
 	
 	/**
 	 * Returns the manager names of a deployment. This does not include aliases.
-	 * 
-	 * @param deplPath
+	 *
+	 * @param deplPath the depl path
 	 * @return Manager names.
 	 */
 	public List<String> getManagerNames(String deplPath) {
@@ -236,7 +267,7 @@ public class Bo2DeploymentInfoUtility {
 		}
 		for(String managerPath : managerPaths) {
 			Properties p = CollectionUtils.readEnhancedProperties(managerPath);
-			String name = p.getProperty("resourceWrappersManagerName"); //$NON-NLS-1$
+			String name = p.getProperty(Bo2Utils.RW_MANAGER_NAME_KEY);
 			managers.add(name);
 		}
 		return managers;
@@ -251,28 +282,99 @@ public class Bo2DeploymentInfoUtility {
 	}
 	
 	/**
-	 * Hidden 
+	 * Hidden.
 	 */
 	private Bo2DeploymentInfoUtility() {
 		super();
 	}
 	
 	/**
+	 * Gets the configuration summary.
+	 *
+	 * @return Returns the configuration summary of the default deployment.
+	 */
+	@SuppressWarnings("nls")
+	public String getConfigurationSummary() {
+		StringBuilder sb = new StringBuilder();
+		String te = String.valueOf(Bo2.getDefaultDeployment().getDeploymentBean().getTargetEnvironment());
+		String newLine = System.lineSeparator();
+		sb.append("Environment: " + te + newLine);
+		sb.append("--------------------------------------------" + newLine);
+		
+		List<String> managerNames = get().getManagerNames();
+		for (String name : managerNames) {
+			String real = get().getRealManagerNameForAlias(name);
+			if(real.equals(name)) {
+				sb.append(name + newLine);
+				sb.append("--------------------------------------------" + newLine);
+				Properties props = get().getPropertiesOfManager(name);
+				sb.append(propsToString(props) + newLine);
+				sb.append("--------------------------------------------" + newLine);
+			} else {
+				sb.append(name + " is an alias of " + real + newLine);
+				sb.append("--------------------------------------------" + newLine);
+			}
+			
+		}
+		sb.append("System Variables " + newLine);
+		sb.append("--------------------------------------------" + newLine);
+		Properties properties = System.getProperties();
+		properties.forEach((k, v) -> sb.append(k + "=" + v+ newLine));
+		sb.append("--------------------------------------------" + newLine);
+		
+		
+		return sb.toString();
+	}
+	
+	/**
+	 * Props to string.
+	 *
+	 * @param props the props
+	 * @return String representation of Properties instance.
+	 */
+	@SuppressWarnings("nls")
+	private String propsToString(Properties props) {
+		String result = props.toString();
+		result = result.replaceAll("\\{", "");
+		result = result.replaceAll("\\}", "");
+		result = result.replaceAll(", ", System.lineSeparator());
+		return result;
+	}
+	
+	
+	/**
 	 * Info wrapper class.
 	 */
-	@SuppressWarnings("javadoc")
 	private static class Bo2DeploymentInfo {
 		
+		/** The Constant NOT_APPLICABLE. */
 		private static final String NOT_APPLICABLE = "N/A"; //$NON-NLS-1$
+		
+		/** The Constant FAILED. */
 		private static final String FAILED = "failed to inspect"; //$NON-NLS-1$
 		
+		/** The db url. */
 		private String dbUrl = FAILED;
+		
+		/** The ds jndi. */
 		private String dsJndi = FAILED;
+		
+		/** The db schema. */
 		private String dbSchema = FAILED;
+		
+		/** The transaction manager. */
 		private String transactionManager = FAILED;
+		
+		/** The connection strategy. */
 		private String connectionStrategy = FAILED;
+		
+		/** The environment. */
 		private String environment = FAILED;
+		
+		/** The manager. */
 		private String manager = FAILED;
+		
+		/** The batch provider class. */
 		private String batchProviderClass = FAILED;
 		
 		/**
@@ -282,25 +384,24 @@ public class Bo2DeploymentInfoUtility {
 		static Bo2DeploymentInfo newInstance() {
 			return new Bo2DeploymentInfo();
 		}
-		
+
 		@Override
 		@SuppressWarnings("nls")
 		public String toString() {
 			String info = StringUtils.concat(
-					"*******************************************",
-					"\nInfo for manager " + manager,
-					"\n-----------------------------------------",
-					"\n[DEPLOYMENT] Environment: " + environment,
-					"\n[DEPLOYMENT] TransactionManager: " + transactionManager,
-					"\n[MANAGER] Database schema: " + Utils.notNull(dbSchema, NOT_APPLICABLE),
-					"\n[MANAGER] Database URL: " + Utils.notNull(dbUrl, NOT_APPLICABLE),
-					"\n[MANAGER] Datasource JNDI: " + Utils.notNull(dsJndi, NOT_APPLICABLE),
-					"\n[MANAGER] Connection strategy: " + Utils.notNull(connectionStrategy, NOT_APPLICABLE),
-					"\n[Manager] Batch provider class: " + Utils.notNull(batchProviderClass, NOT_APPLICABLE),
-					"\n*******************************************\n");
+					"*******************************************",System.lineSeparator(),
+					"Info for manager " + manager,System.lineSeparator(),
+					"-----------------------------------------",System.lineSeparator(),
+					"[DEPLOYMENT] Environment: " + environment,System.lineSeparator(),
+					"[DEPLOYMENT] TransactionManager: " + transactionManager,System.lineSeparator(),
+					"[MANAGER] Database schema: " + Utils.notNull(dbSchema, NOT_APPLICABLE),System.lineSeparator(),
+					"[MANAGER] Database URL: " + Utils.notNull(dbUrl, NOT_APPLICABLE),System.lineSeparator(),
+					"[MANAGER] Datasource JNDI: " + Utils.notNull(dsJndi, NOT_APPLICABLE),System.lineSeparator(),
+					"[MANAGER] Connection strategy: " + Utils.notNull(connectionStrategy, NOT_APPLICABLE),System.lineSeparator(),
+					"[Manager] Batch provider class: " + Utils.notNull(batchProviderClass, NOT_APPLICABLE),System.lineSeparator(),
+					"*******************************************",System.lineSeparator());
 			
 			return info;
 		}
 	}
-
 }

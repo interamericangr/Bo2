@@ -21,9 +21,7 @@ import org.apache.wicket.extensions.yui.calendar.DatePicker;
  */
 public class CustomDatePicker extends DatePicker{
 
-	/**
-	 * serial
-	 */
+	/** serial. */
 	private static final long serialVersionUID = 1L;	
 	
 	/**
@@ -33,13 +31,15 @@ public class CustomDatePicker extends DatePicker{
 	public CustomDatePicker() {
 		super();
 	}
+	
 	@Override
 	protected boolean enableMonthYearSelection( ) {
         return true;
     }
-    @Override
+    
+      @Override
 	protected String getDatePattern( ) {
-        return Bo2UtilsEnvironment.getShortDateFormatPattern();
+        return Bo2UtilsEnvironment.get().getShortDateFormatPattern();
     }
 
 }

@@ -12,12 +12,19 @@
  ******************************************************************************/
 package gr.interamerican.wicket.markup.html.panel.bean;
 
+import java.io.Serializable;
+
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.IModel;
+
 import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.wicket.ajax.markup.html.form.CallbackAjaxButton;
-import gr.interamerican.wicket.callback.AbstractCallbackAction;
-import gr.interamerican.wicket.condition.AbstractAjaxEnabledCondition;
-import gr.interamerican.wicket.condition.AjaxEnabledCondition;
+import gr.interamerican.wicket.callback.PickAction;
+import gr.interamerican.wicket.condition.AjaxCondition;
 import gr.interamerican.wicket.creators.PanelCreator;
 import gr.interamerican.wicket.markup.html.panel.ServicePanelUtils;
 import gr.interamerican.wicket.markup.html.panel.back.ServicePanelWithBack;
@@ -27,16 +34,6 @@ import gr.interamerican.wicket.markup.html.panel.service.ServicePanel;
 import gr.interamerican.wicket.util.resource.StringResourceUtils;
 import gr.interamerican.wicket.util.resource.WellKnownResourceIds;
 
-import java.io.Serializable;
-
-import org.apache.wicket.AttributeModifier;
-import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.Model;
-
 /**
  * {@link ServicePanel} that allows the user to perform an action
  * on a bean. This can be, for example, a save/update action or an
@@ -45,8 +42,8 @@ import org.apache.wicket.model.Model;
  * The action implementation code should expect to find the bean
  * as shown in the UI (i.e. with user changes) in the <code>beanModel</code>
  * property of this panel's definition.
- * 
- * @param <B> 
+ *
+ * @param <B> the generic type
  */
 public class SingleBeanPanel<B extends Serializable> 
 extends ServicePanelWithBack {
@@ -102,11 +99,6 @@ extends ServicePanelWithBack {
 	protected Form<B> beanForm;
 	
 	/**
-	 * Bean class.
-	 */
-	private Class<B> beanClass;
-	
-	/**
 	 * Form submit button.
 	 */
 	protected CallbackAjaxButton executeButton;
@@ -124,7 +116,7 @@ extends ServicePanelWithBack {
 	/**
 	 * Creates a new SingleBeanPanel object. 
 	 *
-	 * @param definition
+	 * @param definition the definition
 	 */
 	public SingleBeanPanel(SingleBeanPanelDef<B> definition) {
 		super(definition);
@@ -136,45 +128,22 @@ extends ServicePanelWithBack {
 		return (SingleBeanPanelDef<B>)definition;
 	}	
 	
-	@SuppressWarnings({ "nls", "serial", "unchecked" })
+	@SuppressWarnings("nls")
 	@Override
 	protected void init() {
 		super.init();
-		
-		beanClass = (Class<B>) getDefinition().getBeanModel().getObject().getClass();
-		
-		AjaxEnabledCondition<B> validator = getDefinition().getFormValidator(); 
-		if(validator instanceof AbstractAjaxEnabledCondition) {
-			((AbstractAjaxEnabledCondition<B>)validator).setCaller(this);
-		}
-		
 		IModel<String> executeLabel = StringResourceUtils.getResourceModel(
 				WellKnownResourceIds.SBP_EXECUTE_BTN_LABEL, null, getDefinition().getExecuteLabelModel(), "Execute");
 		IModel<String> clearLabel = StringResourceUtils.getResourceModel(
 				WellKnownResourceIds.SBP_CLEAR_BTN_LABEL, null, getDefinition().getClearLabelModel(), "Clear");
 		IModel<String> legendLabelModel = StringResourceUtils.getResourceModel(
 				WellKnownResourceIds.SBP_PANEL_LABEL, null, getDefinition().getPanelLabelModel(), StringConstants.EMPTY);
-		
-		executeButton = new CallbackAjaxButton(EXEC_BUTTON_ID, 
-			executeLabel, getDefinition().getBeanAction(), getFeedBackPanel()){
-			@Override 
-			public void onSubmit(AjaxRequestTarget target, Form<?> form) {
-				if(!ServicePanelUtils.authorizedByFlag(getDefinition().getBeanActionFlag())) {
-					target.add(feedBackPanel);
-					SingleBeanPanel.this.error(getDefinition().getBeanActionFlag().getDownMessage());
-					return;
-				}
-				target.add(SingleBeanPanel.this);
-				B bean = getDefinition().getBeanModel().getObject();
-				if(getDefinition().getFormValidator().check(bean, target)) {
-					super.onSubmit(target, form);
-				}
-			}
-		};
-		
+
+		executeButton = new CallbackAjaxButton(EXEC_BUTTON_ID, executeLabel, this::submit, getFeedBackPanel());
+
 		ServicePanelUtils.disableButton(getDefinition(), getDefinition().getBeanActionFlag(), executeButton);
 		
-		clearButton = new CallbackAjaxButton(CLEAR_BUTTON_ID, clearLabel, new ClearFormAction(), getFeedBackPanel());
+		clearButton = new CallbackAjaxButton(CLEAR_BUTTON_ID, clearLabel, this::clearForm, getFeedBackPanel());
 		clearButton.setDefaultFormProcessing(false);
 		if(!getDefinition().getShowClearButton()) {
 			clearButton.setVisible(false);
@@ -186,7 +155,6 @@ extends ServicePanelWithBack {
 		beanForm.setOutputMarkupId(true);
 		if(getDefinition().getSingleBeanFormContainsFileUpload()) {
 			beanForm.setMultiPart(true);
-			beanForm.add(new AttributeModifier("enctype", new Model<String>("multipart/form-data")));
 		}
 		formFieldsPanel = creator.createPanel(getBeanPanelDef());
 		formFieldsPanel.setOutputMarkupId(true);
@@ -214,7 +182,7 @@ extends ServicePanelWithBack {
 		super.validateDef();
 		
 		if(getDefinition().getFormValidator() == null) {
-			getDefinition().setFormValidator(new EmptyValidator());
+			getDefinition().setFormValidator(AjaxCondition.alwaysTrue());
 		}
 		if(getDefinition().getShowClearButton() == null) {
 			getDefinition().setShowClearButton(false);
@@ -236,26 +204,24 @@ extends ServicePanelWithBack {
 		if(!StringConstants.EMPTY.equals(msg)) {
 			throw new RuntimeException(msg);
 		}
+		if (getDefinition().getBeanCreator() == null) {
+			@SuppressWarnings("unchecked")
+			Class<B> beanClass = (Class<B>) getDefinition().getBeanModel().getObject().getClass();
+			getDefinition().setBeanCreator(ReflectionUtils.supplier(beanClass));
+		}
 	}
 	
 	/**
-	 * Creates a new instance of B. There is an assumption that the runtime class
-	 * of B will have a default constructor. If this is not the case, the default
-	 * implementation will throw a RuntimeException. If this happens, this method
-	 * must be overridden.
+	 * Creates a new instance of B.
 	 * 
 	 * @return a new B.
+	 * 
+	 * @deprecated Stop Overwriting this - use
+	 *             {@link SingleBeanPanelDef#setBeanCreator(gr.interamerican.bo2.utils.functions.SerializableSupplier)}
 	 */
-	@SuppressWarnings("nls")
+	@Deprecated
 	protected B newBean() {
-		try {
-			B instance = ReflectionUtils.newInstance(beanClass);
-			return instance;
-		} catch (RuntimeException re) {
-			String msg = "Could not create a new instance of " + beanClass.getName()
-						+" . You have to override newBean().";
-			throw new RuntimeException(msg, re);
-		}
+		return getDefinition().getBeanCreator().get();
 	}
 	
 	/**
@@ -269,52 +235,49 @@ extends ServicePanelWithBack {
 		def.setWicketId(FORM_FIELDS_PANEL_ID);
 		return def;
 	}
-		
-	/**
-	 * Empty validator that is used when no validator is set.
-	 * This validator always returns true (success).
-	 */
-	private class EmptyValidator implements AjaxEnabledCondition<B> {
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L;
 
-		public boolean check(B b, AjaxRequestTarget t) { return true; }
-	}
-	
 	/**
-	 * Action that cleans the form.
+	 * Submits the form of this.
+	 * 
+	 * @param target
+	 *            the target
+	 * @param form
+	 *            the form
 	 */
-	private class ClearFormAction extends AbstractCallbackAction {
-		
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L;
-
-		public void callBack(AjaxRequestTarget target) { 
-			clearForm(target); 
+	@SuppressWarnings("deprecation")
+	public void submit(AjaxRequestTarget target, Form<?> form) {
+		if (!ServicePanelUtils.authorizedByFlag(getDefinition().getBeanActionFlag())) {
+			error(getDefinition().getBeanActionFlag().getDownMessage());
+			return;
 		}
-		
-		public void callBack(AjaxRequestTarget target, Form<?> form) { 
-			clearForm(target); 
+		target.add(this);
+		B bean = getDefinition().getBeanModel().getObject();
+		if (!getDefinition().getFormValidator().check(bean, target, this)) {
+			return;
 		}
-		
-		/**
-		 * Clears the form.
-		 * @param target
-		 */
-		private void clearForm(AjaxRequestTarget target) {
-			target.add(SingleBeanPanel.this);
-			B newBean = newBean();
-			getDefinition().getBeanModel().setObject(newBean);
-			beanForm.setDefaultModelObject(newBean);
-			Panel replacement = getDefinition().getBeanFieldsPanelCreator().
-				createPanel(getBeanPanelDef());
-			formFieldsPanel.replaceWith(replacement);
-			formFieldsPanel = replacement;
+		PickAction<B> action = getDefinition().getBeanAction();
+		// backwards compatibility
+		if (action instanceof gr.interamerican.wicket.callback.CallbackAction) {
+			gr.interamerican.wicket.callback.CallbackAction callback = (gr.interamerican.wicket.callback.CallbackAction) action;
+			callback.callBack(target, form);
+		} else {
+			action.doPick(target, bean);
 		}
 	}
- 
+
+	/**
+	 * Clears the form.
+	 *
+	 * @param target
+	 *            the target
+	 */
+	void clearForm(AjaxRequestTarget target) {
+		target.add(this);
+		B newBean = newBean();
+		getDefinition().getBeanModel().setObject(newBean);
+		beanForm.setDefaultModelObject(newBean);
+		Panel replacement = getDefinition().getBeanFieldsPanelCreator().createPanel(getBeanPanelDef());
+		formFieldsPanel.replaceWith(replacement);
+		formFieldsPanel = replacement;
+	}
 }

@@ -37,8 +37,9 @@ public class TestAbstractJdbcWorker extends AbstractNonTransactionalProviderTest
 	
 	/**
 	 * tests prepare().
-	 * @throws InitializationException 
-	 * @throws DataException 
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testPrepare_withoutParameterMarker() 
@@ -55,8 +56,9 @@ public class TestAbstractJdbcWorker extends AbstractNonTransactionalProviderTest
 	
 	/**
 	 * tests prepare().
-	 * @throws InitializationException 
-	 * @throws DataException 
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testPrepare_withNamedParameter() 
@@ -73,8 +75,9 @@ public class TestAbstractJdbcWorker extends AbstractNonTransactionalProviderTest
 	
 	/**
 	 * tests prepare().
-	 * @throws InitializationException 
-	 * @throws DataException 
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testPrepare_withParameterMarker() 
@@ -91,8 +94,9 @@ public class TestAbstractJdbcWorker extends AbstractNonTransactionalProviderTest
 	
 	/**
 	 * tests prepare().
-	 * @throws InitializationException 
-	 * @throws DataException 
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testGetPreparedStatement() 
@@ -116,8 +120,9 @@ public class TestAbstractJdbcWorker extends AbstractNonTransactionalProviderTest
 	
 	/**
 	 * tests prepare().
-	 * @throws InitializationException 
-	 * @throws DataException 
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testGetPreparedStatement_withSubClass() 
@@ -144,9 +149,10 @@ public class TestAbstractJdbcWorker extends AbstractNonTransactionalProviderTest
 	
 	/**
 	 * tests that a field annotated as SQL can be executed as query.
-	 * @throws InitializationException 
-	 * @throws DataException 
-	 * @throws SQLException 
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
+	 * @throws SQLException the SQL exception
 	 */
 	@Test
 	public void testSelectField() 
@@ -160,9 +166,10 @@ public class TestAbstractJdbcWorker extends AbstractNonTransactionalProviderTest
 	
 	/**
 	 * tests that a method annotated as SQL can be executed as query.
-	 * @throws InitializationException 
-	 * @throws DataException 
-	 * @throws SQLException 
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
+	 * @throws SQLException the SQL exception
 	 */
 	@Test
 	public void testSelectMethod() 
@@ -179,10 +186,10 @@ public class TestAbstractJdbcWorker extends AbstractNonTransactionalProviderTest
 	 * 
 	 * Both are tested on the same test case, because the first method inserts a row
 	 * and the second deletes it.
-	 * 
-	 * @throws InitializationException 
-	 * @throws DataException 
-	 * @throws SQLException 
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
+	 * @throws SQLException the SQL exception
 	 */
 	@Test
 	public void testUpdatesField() 
@@ -208,10 +215,10 @@ public class TestAbstractJdbcWorker extends AbstractNonTransactionalProviderTest
 	 * 
 	 * Both are tested on the same test case, because the first method inserts a row
 	 * and the second deletes it.
-	 * 
-	 * @throws SQLException 
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 *
+	 * @throws SQLException the SQL exception
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test
 	public void testStaticStatements() 
@@ -229,9 +236,9 @@ public class TestAbstractJdbcWorker extends AbstractNonTransactionalProviderTest
 	
 	/**
 	 * tests showPreparedStatement.	 
-	 * 
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -257,10 +264,11 @@ public class TestAbstractJdbcWorker extends AbstractNonTransactionalProviderTest
 	}	
 	
 	/**
-	 * Test createStatement
-	 * @throws InitializationException
-	 * @throws DataException
-	 * @throws SQLException
+	 * Test createStatement.
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
+	 * @throws SQLException the SQL exception
 	 */
 	@Test
 	public void testExecutePreparedQuery() throws InitializationException, DataException, SQLException{
@@ -272,10 +280,11 @@ public class TestAbstractJdbcWorker extends AbstractNonTransactionalProviderTest
 	}
 	
 	/**
-	 * Test createStatement
-	 * @throws InitializationException
-	 * @throws DataException
-	 * @throws SQLException
+	 * Test createStatement.
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
+	 * @throws SQLException the SQL exception
 	 */
 	@Test
 	public void testExecuteUpdate() throws InitializationException, DataException, SQLException{
@@ -296,26 +305,22 @@ public class TestAbstractJdbcWorker extends AbstractNonTransactionalProviderTest
 	@ManagerName("LOCALDB")
 	private static class AbstractJdbcWorkerImpl extends AbstractJdbcWorker {
 		
-		/**
-		 * select statement string
-		 */
-		private String select1 = "select * from X__X.USERS"; //$NON-NLS-1$
+		/** select statement string. */
+		private String select1 = "select * from TEST.USERS"; //$NON-NLS-1$
 		
-		/**
-		 * update statement
-		 */		
+		/** update statement. */		
 		private String update1 = 
-			"insert into X__X.USERS "  //$NON-NLS-1$
+			"insert into TEST.USERS "  //$NON-NLS-1$
 		 +	" (ID, USR_ID, USR_NM, ROLE_ID)  values (?, ?, ?, ?) "; //$NON-NLS-1$
 			                  
-		/**
-		 * static field update statement
-		 */		
+		/** static field update statement. */		
 		private static final String STATIC_UPDATE = 
-			"update X__X.USERS set usr_nm = ? where id = ? ";  //$NON-NLS-1$
+			"update TEST.USERS set usr_nm = ? where id = ? ";  //$NON-NLS-1$
 		
 			
 		/**
+		 * Static update method.
+		 *
 		 * @return an update statement string
 		 */
 		private static final String staticUpdateMethod() {
@@ -325,6 +330,8 @@ public class TestAbstractJdbcWorker extends AbstractNonTransactionalProviderTest
 		
 		
 		/**
+		 * Select method.
+		 *
 		 * @return a select statement string
 		 */
 		protected String selectMethod() {
@@ -332,20 +339,23 @@ public class TestAbstractJdbcWorker extends AbstractNonTransactionalProviderTest
 		}
 		
 		/**
+		 * Update method.
+		 *
 		 * @return a select statement string
 		 */
 		private String updateMethod() {
-			return "delete from X__X.USERS where ID = ? "; //$NON-NLS-1$
+			return "delete from TEST.USERS where ID = ? "; //$NON-NLS-1$
 		}
 		
 		/**
 		 * Makes an update.
+		 *
 		 * @return count of lines.
-		 * @throws SQLException
-		 * @throws DataException 
+		 * @throws SQLException the SQL exception
+		 * @throws DataException the data exception
 		 */
 		int updateSomething() throws SQLException, DataException {
-			String stmt = "Update X__X.USERS set id=? where id=?"; //$NON-NLS-1$
+			String stmt = "Update TEST.USERS set id=? where id=?"; //$NON-NLS-1$
 			Object[] parms = {4578266, 2545788};
 			int i = executePreparedUpdate(stmt, parms);
 			return i;

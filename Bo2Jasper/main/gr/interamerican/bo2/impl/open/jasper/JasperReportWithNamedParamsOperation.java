@@ -15,7 +15,7 @@ package gr.interamerican.bo2.impl.open.jasper;
 import java.util.Map;
 
 /**
- * 
+ * The Class JasperReportWithNamedParamsOperation.
  */
 public abstract class JasperReportWithNamedParamsOperation 
 extends JasperReportOperation {
@@ -23,8 +23,8 @@ extends JasperReportOperation {
 	/**
 	 * Creates a new JasperReportWithNamedParamsOperation object. 
 	 *
-	 * @param reportName
-	 * @param templateName
+	 * @param reportName the report name
+	 * @param templateName the template name
 	 */
 	public JasperReportWithNamedParamsOperation(String reportName, String templateName) {
 		super(reportName, templateName);

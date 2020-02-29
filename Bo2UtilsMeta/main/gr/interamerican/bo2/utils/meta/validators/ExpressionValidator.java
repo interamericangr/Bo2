@@ -21,9 +21,7 @@ public class ExpressionValidator
 extends AbstractValidator
 implements Validator<String> {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Regular expression.
@@ -32,12 +30,14 @@ implements Validator<String> {
 	
 	/**
 	 * Creates a new ExpressionValidator object. 
-	 * @param expression 
+	 *
+	 * @param expression the expression
 	 */
 	public ExpressionValidator(String expression) {
 		this.expression = expression;
 	}
 
+	@Override
 	public void validate(String value) throws ValidationException {
 		if(value==null) {
 			return;

@@ -53,9 +53,7 @@ implements FeedbackOwner, WicketOutputMedium {
 	 */
 	public static final String FEEDBACK_PANEL_ID = "feedback"; //$NON-NLS-1$
 	
-	/**
-	 * feedback panel
-	 */
+	/** feedback panel. */
 	protected FeedbackPanel feedbackPanel = new FeedbackPanel(FEEDBACK_PANEL_ID);
 	
 	/**
@@ -67,31 +65,30 @@ implements FeedbackOwner, WicketOutputMedium {
 	 */
 	private Label errorLabel = new Label("errorLabel", errorLabelModel); //$NON-NLS-1$
 	
-	/**
-	 * Was an error rendered?
-	 */
+	/** Was an error rendered?. */
 	private boolean error = false;
 
 	/**
 	 * Creates a new BaseTestPage object.
 	 */
 	public BaseTestPage() {
-		super();
 		feedbackPanel.setOutputMarkupId(true);
 		errorLabel.setOutputMarkupId(true);
 		add(feedbackPanel);
 		add(errorLabel);
 	}
-	
+
+	@Override
 	public FeedbackPanel getFeedBackPanel() {
 		return feedbackPanel;
 	}
-	
+	@Override
 	public void clearMessages(AjaxRequestTarget target) {
 		target.add(errorLabel);
 		errorLabelModel.setObject(StringConstants.EMPTY);
 	}
-	
+
+	@Override
 	public void showError(Throwable t, AjaxRequestTarget target) {
 		error = true;
 		target.add(errorLabel);

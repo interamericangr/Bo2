@@ -21,13 +21,13 @@ import gr.interamerican.bo2.arch.exceptions.UnexpectedException;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestAbstractUncheckedBo2RuntimeCmd.
  */
 public class TestAbstractUncheckedBo2RuntimeCmd {
 
 	
 	/**
-	 * Test execute
+	 * Test execute.
 	 */
 	@Test(expected=RuntimeException.class)
 	public void testExecute_withRuntimeException(){
@@ -36,7 +36,7 @@ public class TestAbstractUncheckedBo2RuntimeCmd {
 	}
 
 	/**
-	 * Test execute
+	 * Test execute.
 	 */
 	@Test(expected=Error.class)
 	public void testExecute_withError(){
@@ -45,7 +45,7 @@ public class TestAbstractUncheckedBo2RuntimeCmd {
 	}
 	
 	/**
-	 * Test execute
+	 * Test execute.
 	 */
 	@Test(expected=RuntimeException.class)
 	public void testExecute_withDataException(){
@@ -54,7 +54,7 @@ public class TestAbstractUncheckedBo2RuntimeCmd {
 	}
 	
 	/**
-	 * Test execute
+	 * Test execute.
 	 */
 	@Test(expected=RuntimeException.class)
 	public void testExecute_withLogicException(){
@@ -63,7 +63,7 @@ public class TestAbstractUncheckedBo2RuntimeCmd {
 	}
 	
 	/**
-	 * Test execute
+	 * Test execute.
 	 */
 	@Test(expected=RuntimeException.class)
 	public void testExecute_withInitializationException(){
@@ -72,7 +72,7 @@ public class TestAbstractUncheckedBo2RuntimeCmd {
 	}
 	
 	/**
-	 * Test execute
+	 * Test execute.
 	 */
 	@Test(expected=RuntimeException.class)
 	public void testExecute_withUnexpectedException(){
@@ -82,18 +82,17 @@ public class TestAbstractUncheckedBo2RuntimeCmd {
 	}
 	
 	/**
-	 * implementation to test
+	 * implementation to test.
 	 */
 	class AssertException extends AbstractUncheckedBo2RuntimeCmd {
-		/**
-		 * throwable to throw;
-		 */
+		
+		/** throwable to throw;. */
 		Throwable t;
 
 		/**
 		 * Creates a new AssertException object.
-		 * 
-		 * @param t 
+		 *
+		 * @param t the t
 		 */
 		public AssertException(Throwable t) {
 			super();

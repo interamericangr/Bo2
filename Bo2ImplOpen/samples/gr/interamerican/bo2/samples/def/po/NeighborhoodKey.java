@@ -16,7 +16,7 @@ import gr.interamerican.bo2.arch.Key;
 import gr.interamerican.bo2.impl.open.annotations.KeyProperties;
 
 /**
- * 
+ * The Interface NeighborhoodKey.
  */
 @KeyProperties("planetId,continentId,countryId,regionId,prefectureId,cityId,suburbId,neighborhoodId")
 public interface NeighborhoodKey extends NeighborhoodKP, Key {

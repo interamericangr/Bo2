@@ -23,14 +23,13 @@ import org.junit.Test;
  */
 public class TestShortParser {
 		
-	/**
-	 * ShortParser
-	 */
+	/** ShortParser. */
 	ShortParser parser = new ShortParser();
 	
 	/**
-	 * unit test for parse
-	 * @throws ParseException
+	 * unit test for parse.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -45,11 +44,10 @@ public class TestShortParser {
 	
 	/**
 	 * main test method.
-	 * @param string 
-	 *        parse input
-	 * @param val
-	 *        expected output.     
-	 * @throws ParseException
+	 *
+	 * @param string        parse input
+	 * @param val        expected output.     
+	 * @throws ParseException the parse exception
 	 */
 	private void test(String string, Short val) throws ParseException {		
 		Short lg = parser.parse(string);
@@ -59,8 +57,9 @@ public class TestShortParser {
 	
 	
 	/**
-	 * Test parse a value that is null
-	 * @throws ParseException
+	 * Test parse a value that is null.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@Test
 	public void testParseNullValue() throws ParseException{
@@ -68,8 +67,9 @@ public class TestShortParser {
 	}
 	
 	/**
-	 * Test parse a value that is not number
-	 * @throws ParseException
+	 * Test parse a value that is not number.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@Test(expected=ParseException.class)
 	public void testParseFalseValue() throws ParseException{

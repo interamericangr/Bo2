@@ -26,7 +26,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Unit tests for {@link ColumnBasedSplitCsvFileOperation}
+ * Unit tests for {@link ColumnBasedSplitCsvFileOperation}.
  */
 public class TestColumnBasedSplitCsvFileOperation {
 	
@@ -37,10 +37,10 @@ public class TestColumnBasedSplitCsvFileOperation {
 	
 	/**
 	 * Tests the lifeCycle of the operation.
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testLifeCycle() throws UnexpectedException, DataException, LogicException {

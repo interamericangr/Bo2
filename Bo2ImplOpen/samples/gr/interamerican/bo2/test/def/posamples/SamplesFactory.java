@@ -67,7 +67,7 @@ public class SamplesFactory {
 	/**
 	 * Creates a new SamplesFactored object. 
 	 *
-	 * @param factory
+	 * @param factory the factory
 	 */
 	private SamplesFactory(ObjectFactory factory) {
 		this.factory = factory;
@@ -80,8 +80,8 @@ public class SamplesFactory {
 	
 	/**
 	 * Creates a sample customer with two addresses.
-	 * 
-	 * @param taxId
+	 *
+	 * @param taxId the tax id
 	 * @return customer.
 	 */
 	public Customer sampleCustomer(String taxId) {
@@ -95,14 +95,34 @@ public class SamplesFactory {
 	}
 	
 	/**
-	 * Creates a sample address.
+	 * Creates a sample customer with the specified count of addresses.<br>
+	 * Also sets a specific customerNo.
 	 * 
-	 * @param number
+	 * @param taxId
+	 *            Tax Id to set
+	 * @param addressCount
+	 *            Number of addresses
+	 * @return customer.
+	 */
+	public Customer sampleCustomer(String taxId, int addressCount) {
+		Customer cust = factory.create(Customer.class);
+		cust.setCustomerNo("codeOfSample"); //$NON-NLS-1$
+		cust.setTaxId(taxId);
+		for (int i = 0; i < addressCount; i++) {
+			cust.getAddresses().add(sampleAddress(i));
+		}
+		return cust;
+	}
+	
+	/**
+	 * Creates a sample address.
+	 *
+	 * @param number the number
 	 * @return address.
 	 */
 	public CustomerAddress sampleAddress(int number) {
 		CustomerAddress addr = factory.create(CustomerAddress.class);
-		addr.setStreet("���� �����"); //$NON-NLS-1$
+		addr.setStreet("random street"); //$NON-NLS-1$
 		addr.setStreetNo(Integer.toString(number));
 		addr.setAddressNo(number);
 		return addr;
@@ -122,8 +142,8 @@ public class SamplesFactory {
 	
 	/**
 	 * Creates a sample {@link InvoiceLine}.
-	 * 
-	 * @param lineNo
+	 *
+	 * @param lineNo the line no
 	 * @return InvoiceLine.
 	 */
 	public InvoiceLine sampleInvoiceLine(int lineNo) {
@@ -136,8 +156,8 @@ public class SamplesFactory {
 	
 	/**
 	 * Creates a sample {@link InvoiceSubLine}.
-	 * 
-	 * @param subLineNo
+	 *
+	 * @param subLineNo the sub line no
 	 * @return InvoiceSubLine.
 	 */
 	public InvoiceSubLine sampleInvoiceSubLine(int subLineNo) {
@@ -149,8 +169,8 @@ public class SamplesFactory {
 	
 	/**
 	 * Creates a sample {@link InvoiceSubRule}.
-	 * 
-	 * @param subRuleCd
+	 *
+	 * @param subRuleCd the sub rule cd
 	 * @return InvoiceSubRule
 	 */
 	public InvoiceSubRule sampleInvoiceSubRule(Long subRuleCd) {
@@ -162,8 +182,8 @@ public class SamplesFactory {
 	
 	/**
 	 * Creates a sample {@link InvoiceRule}.
-	 * 
-	 * @param ruleCd
+	 *
+	 * @param ruleCd the rule cd
 	 * @return InvoiceSubRule
 	 */
 	public InvoiceRule sampleInvoiceRule(Long ruleCd) {
@@ -175,9 +195,9 @@ public class SamplesFactory {
 	
 	/**
 	 * Creates a sample {@link InvoiceRule}.
-	 * 
-	 * @param ruleCd
-	 * @param countOfSubRules 
+	 *
+	 * @param ruleCd the rule cd
+	 * @param countOfSubRules the count of sub rules
 	 * @return InvoiceSubRule
 	 */
 	public InvoiceRule sampleInvoiceRuleWithSubRules(Long ruleCd, int countOfSubRules) {
@@ -193,7 +213,8 @@ public class SamplesFactory {
 	
 	/**
 	 * Creates a sample Invoice.
-	 * @param invoiceNo 
+	 *
+	 * @param invoiceNo the invoice no
 	 * @return Invoice.
 	 */
 	public Invoice sampleInvoice(String invoiceNo) {
@@ -208,7 +229,8 @@ public class SamplesFactory {
 	
 	/**
 	 * Creates a sample Invoice that contains rules and lines.
-	 * @param countOfLines
+	 *
+	 * @param countOfLines the count of lines
 	 * @return Invoice.
 	 */
 	public Invoice sampleInvoiceFull(int countOfLines) {
@@ -237,9 +259,9 @@ public class SamplesFactory {
 	
 	/**
 	 * Returns a sample User with the specified number of profiles.
-	 * @param userId 
-	 * 
-	 * @param countOfProfiles
+	 *
+	 * @param userId the user id
+	 * @param countOfProfiles the count of profiles
 	 * @return User.
 	 */
 	@SuppressWarnings("nls")
@@ -260,8 +282,8 @@ public class SamplesFactory {
 	}
 	
 	/**
-	 * Creates an {@link Invoice}
-	 * 
+	 * Creates an {@link Invoice}.
+	 *
 	 * @return Invoice.
 	 */
 	public Invoice newInvoice() {
@@ -269,8 +291,8 @@ public class SamplesFactory {
 	}
 	
 	/**
-	 * Creates an {@link InvoiceCustomer}
-	 * 
+	 * Creates an {@link InvoiceCustomer}.
+	 *
 	 * @return InvoiceCustomer.
 	 */
 	public InvoiceCustomer newInvoiceCustomer() {

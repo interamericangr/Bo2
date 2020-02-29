@@ -26,21 +26,17 @@ import org.apache.wicket.model.Model;
  */
 public class SelfDrawnTextArea extends TextArea<String>{
 
-    /**
-     * serialVersionUID
-     */
+    /** serialVersionUID. */
     private static final long serialVersionUID = 1L;
     
-    /**
-     * maxLength
-     */
+    /** maxLength. */
     int maxLength;
     
     /**
      * Creates a new SelfDrawnTextArea object.
      *
-     * @param id
-     * @param descriptor
+     * @param id the id
+     * @param descriptor the descriptor
      */
     public SelfDrawnTextArea(String id, StringBoPropertyDescriptor descriptor) {
         super(id, new Model<String>());
@@ -51,9 +47,9 @@ public class SelfDrawnTextArea extends TextArea<String>{
     /**
      * Creates a new SelfDrawnTextArea object.
      *
-     * @param id
-     * @param descriptor
-     * @param model
+     * @param id the id
+     * @param model the model
+     * @param descriptor the descriptor
      */
     public SelfDrawnTextArea(String id, IModel<String> model, StringBoPropertyDescriptor descriptor) {
         super(id, model);
@@ -63,6 +59,8 @@ public class SelfDrawnTextArea extends TextArea<String>{
 
     /**
      * Defines default columns and rows size.
+     *
+     * @param tag the tag
      */
     @Override
     protected void onComponentTag(ComponentTag tag) {
@@ -74,7 +72,7 @@ public class SelfDrawnTextArea extends TextArea<String>{
         super.onComponentTag(tag);
     }
     
-    @Override
+      @Override
     protected void onDisabled(ComponentTag tag) {
     	tag.put(MarkupConstants.READONLY, MarkupConstants.READONLY);
     }

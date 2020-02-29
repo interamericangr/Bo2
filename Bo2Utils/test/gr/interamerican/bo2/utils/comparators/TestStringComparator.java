@@ -17,12 +17,12 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestStringComparator.
  */
 public class TestStringComparator {
 
 	/**
-	 * tests compare
+	 * tests compare.
 	 */
 	@Test
 	public void testCompare(){

@@ -23,14 +23,13 @@ import org.junit.Test;
  */
 public class TestLongParser {
 		
-	/**
-	 * LongParser
-	 */
+	/** LongParser. */
 	LongParser parser = new LongParser();
 	
 	/**
-	 * unit test for parse
-	 * @throws ParseException
+	 * unit test for parse.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -47,11 +46,10 @@ public class TestLongParser {
 	
 	/**
 	 * main test method.
-	 * @param string 
-	 *        parse input
-	 * @param val
-	 *        expected output.     
-	 * @throws ParseException
+	 *
+	 * @param string        parse input
+	 * @param val        expected output.     
+	 * @throws ParseException the parse exception
 	 */
 	private void test(String string, Long val) throws ParseException {
 		
@@ -62,8 +60,9 @@ public class TestLongParser {
 	
 	
 	/**
-	 * Test parse a value that is null
-	 * @throws ParseException
+	 * Test parse a value that is null.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@Test
 	public void testParseNullValue() throws ParseException{
@@ -71,8 +70,9 @@ public class TestLongParser {
 	}
 	
 	/**
-	 * Test parse a value that is not number
-	 * @throws ParseException
+	 * Test parse a value that is not number.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@Test(expected=ParseException.class)
 	public void testParseFalseValue() throws ParseException{

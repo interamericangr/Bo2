@@ -22,33 +22,31 @@ import org.apache.wicket.markup.html.form.Form;
 class StatefulAjaxTabbedPanelSubmitLink 
 extends AjaxSubmitLink {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;	
 	
 	/**
 	 * Owner StatefulAjaxTabbedPanel.
 	 */
 	StatefulAjaxTabbedPanel owner;
+
 	/**
 	 * Tab index.
 	 */
 	int index;
-	
+
 	/**
-	 * Creates a new StatefulAjaxTabbedPanelSubmitLink object. 
+	 * Creates a new StatefulAjaxTabbedPanelSubmitLink object.
 	 *
 	 * @param id
-	 *        Link id
-	 * @param owner 
-	 *        StatefulAjaxTabbedPanel
-	 * @param index 
-	 *        index of the selected tab
+	 *            Link id
+	 * @param owner
+	 *            StatefulAjaxTabbedPanel
+	 * @param index
+	 *            index of the selected tab
 	 */
-	public StatefulAjaxTabbedPanelSubmitLink
-	(String id, StatefulAjaxTabbedPanel owner, int index) {
-		super(id, owner.form);
+	public StatefulAjaxTabbedPanelSubmitLink(String id, StatefulAjaxTabbedPanel owner, int index) {
+		super(id);
 		this.owner = owner;
 		this.index = index;
 	}
@@ -58,19 +56,16 @@ extends AjaxSubmitLink {
 		owner.setSelectedTab(index);
 		if (target != null) {
 			target.add(owner);
-			if (owner.button != null){
-				target.add(owner.form);
+			if (form1 != null){
+				target.add(form1);
 			}
 		}
 		owner.callOnAjaxUpdate(target);
 	}
-	
+
 	@Override
 	protected void onError(AjaxRequestTarget target, Form<?> form) {
 		target.add(owner);
 		owner.callOnAjaxUpdate(target);
 	}
-
-
-
 }

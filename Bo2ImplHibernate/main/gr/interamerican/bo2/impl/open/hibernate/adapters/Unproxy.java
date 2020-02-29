@@ -19,13 +19,13 @@ import org.hibernate.proxy.HibernateProxy;
 
 /**
  * Initializes a hibernate proxy.
- * <br/>
+ * <br>
  * {@link HibernateProxy} implementations created on runtime by hibernate
  * do not delegate equals() and hashCode() to the wrapped entity instance.
  * For this reason, in scenarios where the entities override equals() and
  * hashCode() we have to unwrap the instance manually (e.g. when working 
  * with Collections).
- * <br/>
+ * <br>
  * However, note that having to use this something fishy is happening. Most
  * likely there exist simultaneously a HibernateProxy AND an entity instance
  * with the same database id in the scope of your unit of work. In a scenario
@@ -40,12 +40,11 @@ public class Unproxy implements Modification<PersistentObject<?>> {
 	 */
 	public static final Unproxy INSTANCE = new Unproxy();
 
+	@Override
 	public PersistentObject<?> execute(PersistentObject<?> a) {
 		if (a instanceof HibernateProxy) {
 			return DoUnproxy.INSTANCE.execute(a);		
 		}
 		return a;
 	}
-	
-	
 }

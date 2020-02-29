@@ -20,9 +20,8 @@ implements VoidOperation<Iterable<T>>{
 	
 	/**
 	 * Creates a new IteratorProcessor.
-	 * 
-	 * @param iterable        
-	 * @param operation
+	 *
+	 * @param operation the operation
 	 */
 	public IterableCrawler(VoidOperation<T> operation) {
 		super();		

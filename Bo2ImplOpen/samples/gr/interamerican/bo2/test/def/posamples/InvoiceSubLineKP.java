@@ -18,7 +18,17 @@ package gr.interamerican.bo2.test.def.posamples;
 @SuppressWarnings("all")
 public interface InvoiceSubLineKP extends InvoiceLineKP {
 
+	/**
+	 * Gets the sub line no.
+	 *
+	 * @return the sub line no
+	 */
 	public Integer getSubLineNo();
 	
+	/**
+	 * Sets the sub line no.
+	 *
+	 * @param subLineNo the new sub line no
+	 */
 	public void setSubLineNo(Integer subLineNo);
 }

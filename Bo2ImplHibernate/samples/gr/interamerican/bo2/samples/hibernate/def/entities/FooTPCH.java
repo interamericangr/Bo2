@@ -20,12 +20,16 @@ package gr.interamerican.bo2.samples.hibernate.def.entities;
 public interface FooTPCH extends FooBarTPCH {
 	
 	/**
+	 * Gets the foo.
+	 *
 	 * @return foo
 	 */
 	String getFoo();
 	
 	/**
-	 * @param foo
+	 * Sets the foo.
+	 *
+	 * @param foo the new foo
 	 */
 	void setFoo(String foo);
 

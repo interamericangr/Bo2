@@ -14,14 +14,18 @@ package gr.interamerican.wicket.bo2.factories;
 
 import gr.interamerican.wicket.bo2.callbacks.Bo2WicketBlock;
 import gr.interamerican.wicket.bo2.markup.html.form.Bo2WicketBlockLink;
+import gr.interamerican.wicket.links.ConsumerLink;
+import gr.interamerican.wicket.links.RunnableLink;
 
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.ResourceModel;
 
 /**
- * Factory of Bo2 enabled links components. 
+ * Factory of Bo2 enabled links components.
+ * @deprecated Use {@link RunnableLink} and {@link ConsumerLink} instead 
  */
+@Deprecated
 public class Bo2LinkFactory {
 	
 	/**

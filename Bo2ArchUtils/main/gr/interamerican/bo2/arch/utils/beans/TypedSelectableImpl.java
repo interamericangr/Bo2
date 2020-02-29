@@ -20,7 +20,8 @@ import gr.interamerican.bo2.utils.Utils;
 
 /**
  * Javabean implementation of {@link TypedSelectable}.
- * @param <C> 
+ *
+ * @param <C> the generic type
  */
 public class TypedSelectableImpl<C extends Comparable<? super C>> 
 implements TypedSelectable<C> {
@@ -41,10 +42,10 @@ implements TypedSelectable<C> {
 	/**
 	 * Creates a new TypedSelectableMock object. 
 	 *
-	 * @param code
-	 * @param typeId
-	 * @param subTypeId
-	 * @param name
+	 * @param typeId the type id
+	 * @param subTypeId the sub type id
+	 * @param code the code
+	 * @param name the name
 	 */
 	public TypedSelectableImpl(Long typeId, Long subTypeId, C code, String name) {
 		super();
@@ -54,51 +55,54 @@ implements TypedSelectable<C> {
 		this.name = name;
 	}
 
-	/**
-	 * code
-	 */
+	/** code. */
 	private C code;
-	/**
-	 * typeId
-	 */
-	private Long typeId;
-	/**
-	 * subtypeid
-	 */
-	private Long subTypeId;
-	/**
-	 * name
-	 */
-	private String name;
 	
+	/** typeId. */
+	private Long typeId;
+	
+	/** subtypeid. */
+	private Long subTypeId;
+	
+	/** name. */
+	private String name;
+
+	@Override
 	public C getCode() {
 		return code;
 	}
 
+	@Override
 	public void setCode(C code) {
 		this.code = code;
 	}
 
+	@Override
 	public Long getTypeId() {
 		return typeId;
 	}
 
+	@Override
 	public void setTypeId(Long typeId) {
 		this.typeId = typeId;
 	}
 
+	@Override
 	public Long getSubTypeId() {
 		return subTypeId;
 	}
 
+	@Override
 	public void setSubTypeId(Long subTypeId) {
 		this.subTypeId = subTypeId;
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}
 
+	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -121,11 +125,12 @@ implements TypedSelectable<C> {
 		return Utils.generateHashCode(fields);
 	}
 
+	@Override
 	public int compareTo(Codified<C> o) {
 		if(o==null) { return 1; }
 		return Utils.nullSafeCompare(o.getCode(), this.getCode());
 	}
-	
+
 	@Override
 	public String toString() {
 		return StringUtils.concat(
@@ -137,8 +142,6 @@ implements TypedSelectable<C> {
 				StringUtils.toString(getCode()),
 				StringConstants.COMMA,
 				StringUtils.toString(getName()),
-				StringConstants.RIGHT_BRACKET);	
-		
+				StringConstants.RIGHT_BRACKET);		
 	}
-
 }

@@ -71,13 +71,14 @@ implements DocumentEngineProvider {
 			throw new RuntimeException(cnfe);
 		}
 	}
-	
+
+	@Override
 	public void close() throws DataException {
 		/* empty */
 	}
-	
+
+	@Override
 	public DocumentEngine getDocumentEngine() {
 		return documentEngine;
 	}
-
 }

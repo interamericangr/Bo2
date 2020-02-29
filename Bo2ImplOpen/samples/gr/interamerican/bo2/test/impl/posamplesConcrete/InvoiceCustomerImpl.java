@@ -19,7 +19,7 @@ import gr.interamerican.bo2.test.def.posamples.InvoiceCustomer;
 import gr.interamerican.bo2.test.def.posamples.InvoiceKey;
 
 /**
- * 
+ * The Class InvoiceCustomerImpl.
  */
 public class InvoiceCustomerImpl 
 extends AbstractModificationRecordPo<InvoiceKey> 
@@ -55,35 +55,43 @@ implements InvoiceCustomer {
 		this.key = Factory.create(InvoiceKey.class);
 	}
 
+	@Override
 	public void setInvoiceNo(String invoiceNo) {
 		key.setInvoiceNo(invoiceNo);		
 		fixKeysOfChildren();
 	}
 	
+	@Override
 	public String getInvoiceNo() {
 		return key.getInvoiceNo();
 	}
 
+	@Override
 	public Integer getRoleId() {
 		return roleId;
 	}
 
+	@Override
 	public void setRoleId(Integer roleId) {
 		this.roleId = roleId;
 	}
 
+	@Override
 	public Integer getAddressNoForInvoice() {
 		return addressNoForInvoice;
 	}
 
+	@Override
 	public void setAddressNoForInvoice(Integer addressNoForInvoice) {
 		this.addressNoForInvoice = addressNoForInvoice;
 	}
 
+	@Override
 	public Customer getCustomer() {
 		return customer;
 	}
 
+	@Override
 	public void setCustomer(Customer customer) {
 		this.customer = customer;
 	}

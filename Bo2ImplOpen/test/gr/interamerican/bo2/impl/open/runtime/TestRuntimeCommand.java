@@ -67,10 +67,11 @@ public class TestRuntimeCommand {
 	}
 
 	/**
-	 * Tests that the command runs
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 * Tests that the command runs.
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testExecute() 
@@ -81,10 +82,11 @@ public class TestRuntimeCommand {
 	}
 	
 	/**
-	 * Test handle
-	 * @throws UnexpectedException
-	 * @throws DataException
-	 * @throws LogicException
+	 * Test handle.
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test(expected=LogicException.class)
 	public void testHandle_logicException() 
@@ -95,10 +97,11 @@ public class TestRuntimeCommand {
 	}
 	
 	/**
-	 * Test handle
-	 * @throws UnexpectedException
-	 * @throws DataException
-	 * @throws LogicException
+	 * Test handle.
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test(expected=DataException.class)
 	public void testHandle_DataException() throws UnexpectedException, DataException, LogicException{
@@ -108,10 +111,11 @@ public class TestRuntimeCommand {
 	}
 	
 	/**
-	 * Test handle
-	 * @throws UnexpectedException
-	 * @throws DataException
-	 * @throws LogicException
+	 * Test handle.
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test(expected=UnexpectedException.class)
 	public void testHandle_UnexpectedException() throws UnexpectedException, DataException, LogicException{
@@ -127,6 +131,7 @@ public class TestRuntimeCommand {
 	 * Assertion that the provider is transactional. 
 	 */
 	class AssertProviderIsTransactional extends AbstractOperation {		
+		
 		@Override
 		public void execute() throws LogicException, DataException {
 			Provider p = this.getProvider();
@@ -140,6 +145,7 @@ public class TestRuntimeCommand {
 	 * Assertion that the provider is transactional. 
 	 */
 	class AssertProviderIsNonTransactional extends AbstractOperation {		
+		
 		@Override
 		public void execute() throws LogicException, DataException {
 			Provider p = this.getProvider();

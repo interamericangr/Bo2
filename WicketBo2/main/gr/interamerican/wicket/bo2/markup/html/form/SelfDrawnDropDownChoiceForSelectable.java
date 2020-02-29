@@ -27,17 +27,15 @@ import org.apache.wicket.model.IModel;
  */
 public class SelfDrawnDropDownChoiceForSelectable extends DropDownChoiceForSelectable {
 	
-  	/**
-	 * serialVersionUID
-	 */
+  	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Creates a new SelfDrawnDropDownChoiceForSelectable object. 
 	 *
-	 * @param id
-	 * @param model
-	 * @param descriptor
+	 * @param id the id
+	 * @param model the model
+	 * @param descriptor the descriptor
 	 */
 	public SelfDrawnDropDownChoiceForSelectable(String id, IModel<Selectable<?>> model, SelectableBoPropertyDescriptor<?> descriptor) {
 		super(id, model, new ArrayList<Selectable<?>>(descriptor.getChoices()));

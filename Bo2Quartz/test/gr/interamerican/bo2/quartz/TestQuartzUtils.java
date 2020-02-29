@@ -20,13 +20,11 @@ import org.quartz.JobKey;
 
 
 /**
- *
+ * The Class TestQuartzUtils.
  */
 public class TestQuartzUtils {
 
-	/**
-	 * bean without parameters
-	 */
+	/** bean without parameters. */
 	static final JobDescription bean;
 	static {
 		bean = Factory.create(JobDescription.class);
@@ -48,9 +46,8 @@ public class TestQuartzUtils {
 	 * parameter value for bean with param.
 	 */
 	private static final int PARAM_VALUE_FOR_BEAN = 5;
-	/**
-	 * bean with parameters
-	 */
+	
+	/** bean with parameters. */
 	public static final JobDescription beanWithParams;
 	static {
 		beanWithParams = Factory.create(JobDescription.class);
@@ -60,34 +57,29 @@ public class TestQuartzUtils {
 		beanWithParams.setParameters(params);
 	}
 
-	/**
-	 * single bean list
-	 */
+	/** single bean list. */
 	public static final List<JobDescription> singleBeanList;
 	static{
 		singleBeanList=new ArrayList<JobDescription>();
 		singleBeanList.add(bean);
 	}
-	/**
-	 * single bean list
-	 */
+	
+	/** single bean list. */
 	public static final List<JobDescription> singleBeanListWithParam;
 	static {
 		singleBeanListWithParam = new ArrayList<JobDescription>();
 		singleBeanListWithParam.add(beanWithParams);
 	}
-	/**
-	 * single bean list
-	 */
+	
+	/** single bean list. */
 	public static final List<JobDescription> dualBeanList;
 	static{
 		dualBeanList=new ArrayList<JobDescription>();
 		dualBeanList.add(bean);
 		dualBeanList.add(beanWithParams);
 	}
-	/**
-	 * single bean list
-	 */
+	
+	/** single bean list. */
 	public static final List<JobDescription> dualDuplicateBeanList;
 	static {
 		dualDuplicateBeanList = new ArrayList<JobDescription>();
@@ -96,7 +88,9 @@ public class TestQuartzUtils {
 	}
 
 	/**
-	 * @throws DataException
+	 * Test schedule duplicate job description bean.
+	 *
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testScheduleDuplicateJobDescriptionBean() throws DataException {
@@ -105,10 +99,11 @@ public class TestQuartzUtils {
 		Assert.assertTrue(QuartzUtils.getNumberOfScheduledJobs(null) == 2);
 		QuartzUtils.waitJobToComplete(bean);
 	}
+	
 	/**
 	 * Test method for {@link gr.interamerican.bo2.quartz.util.QuartzUtils#getJobName(JobDescription)}.
 	 *
-	 * @throws DataException
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testGetJobName() throws DataException {
@@ -146,7 +141,7 @@ public class TestQuartzUtils {
 	/**
 	 * Test method for {@link gr.interamerican.bo2.quartz.util.QuartzUtils#getScheduledJobKeys(java.lang.String)}.
 	 *
-	 * @throws DataException
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testGetScheduledJobKeys() throws DataException {
@@ -160,7 +155,7 @@ public class TestQuartzUtils {
 	/**
 	 * Test method for {@link gr.interamerican.bo2.quartz.util.QuartzUtils#getNumberOfScheduledJobs(java.lang.String)}.
 	 *
-	 * @throws DataException
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testGetNumberOfScheduledJobs() throws DataException {
@@ -174,7 +169,7 @@ public class TestQuartzUtils {
 	/**
 	 * Test method for {@link gr.interamerican.bo2.quartz.util.QuartzUtils#getMaximumNumberOfThreads()}.
 	 *
-	 * @throws DataException
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testGetMaximumNumberOfThreads() throws DataException {
@@ -184,7 +179,7 @@ public class TestQuartzUtils {
 	/**
 	 * Test method for {@link QuartzUtils#isJobScheduled(String, String)}.
 	 *
-	 * @throws DataException
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testIsJobScheduled() throws DataException {
@@ -197,7 +192,7 @@ public class TestQuartzUtils {
 	}
 
 	/**
-	 * test method for {@link QuartzUtils#getParamFromJobDescriptionBean(JobDescription, String)}
+	 * test method for {@link QuartzUtils#getParamFromJobDescriptionBean(JobDescription, String)}.
 	 */
 	@Test
 	public void testGetParamFromQuartzDescriptionBean() {
@@ -212,9 +207,9 @@ public class TestQuartzUtils {
 
 	/**
 	 * test method for
-	 * {@link QuartzUtils#getStringParamFromQuartzDescriptionBean(QuartzjobDescription, String)}
+	 * {@link QuartzUtils#getStringParamFromQuartzDescriptionBean(QuartzjobDescription, String)}.
 	 *
-	 * @throws DataException
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testGetStringParamFromQuartzDescriptionBean() throws DataException {

@@ -20,7 +20,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestNewJavabeanClassCreator.
  */
 public class TestNewJavabeanClassCreator {
 	
@@ -39,9 +39,10 @@ public class TestNewJavabeanClassCreator {
 	
 	/**
 	 * Unit test for the constructor.
-	 * @throws ClassCreationException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
 	@SuppressWarnings({"nls","rawtypes"})

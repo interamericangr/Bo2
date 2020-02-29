@@ -18,10 +18,15 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestEnhancedProperties.
  */
 public class TestEnhancedProperties {
 	
+	/**
+	 * Test get property.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	@SuppressWarnings("nls")
 	@Test
 	public void testGetProperty() throws IOException {
@@ -43,6 +48,11 @@ public class TestEnhancedProperties {
 		
 	}
 	
+	/**
+	 * Test load cyclic.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	@SuppressWarnings("nls")
 	@Test(expected = RuntimeException.class)
 	public void testLoad_cyclic() throws IOException {
@@ -50,6 +60,11 @@ public class TestEnhancedProperties {
 		dp.load(this.getClass().getResourceAsStream("/gr/interamerican/bo2/utils/dprops3.properties"));
 	}
 	
+	/**
+	 * Test load unreachable.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
 	@SuppressWarnings("nls")
 	@Test(expected = RuntimeException.class)
 	public void testLoad_unreachable() throws IOException {

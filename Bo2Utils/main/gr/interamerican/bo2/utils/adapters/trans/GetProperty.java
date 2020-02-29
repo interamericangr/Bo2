@@ -21,14 +21,17 @@ import java.beans.PropertyDescriptor;
 /**
  * Applies a property getter.
  * 
- * Gets the property with the specified name from the specified object.
- * If the specified argument is null, then the adapter will return null.
+ * Gets the property with the specified name from the specified object. If the
+ * specified argument is null, then the adapter will return null.
  * 
- * @param <A> 
- *        Type of argument.
- * @param <R> 
- *        Type of result.
+ * @param <A>
+ *            Type of argument.
+ * @param <R>
+ *            Type of result.
+ * @deprecated Just replace this with the appreciate functional interface ( i.e.
+ *             new GetProperty("name", Method.class) becomes Method::getName )
  */
+@Deprecated
 public class GetProperty<A,R> implements Transformation<A, R>{
 	
 	/**
@@ -36,16 +39,15 @@ public class GetProperty<A,R> implements Transformation<A, R>{
 	 */
 	PropertyDescriptor property;
 	
-	/**
-	 * Property expression
-	 */
+	/** Property expression. */
 	String propertyName;
 	
 	/**
 	 * Indication if this is a nested property.
 	 */
 	Boolean isNestedProperty = false;
-	
+
+	@Override
 	@SuppressWarnings("unchecked")
 	public R execute(A a) {		
 		if (a==null) {
@@ -53,10 +55,8 @@ public class GetProperty<A,R> implements Transformation<A, R>{
 		}
 		if (isNestedProperty) {
 			return (R) JavaBeanUtils.getNestedProperty(a, propertyName);
-		} else {
-			return (R) JavaBeanUtils.getProperty(property, a);
 		}
-		
+		return (R) JavaBeanUtils.getProperty(property, a);
 	}
 
 	/**
@@ -79,7 +79,4 @@ public class GetProperty<A,R> implements Transformation<A, R>{
 		}
 		this.propertyName = propertyName;
 	}
-
-	
-
 }

@@ -30,96 +30,102 @@ import org.junit.Test;
  *
  */
 public class TestStreamsProviderImpl {
-	
+
 	/**
 	 * Tests the successful execution of getOutputStream.
 	 * 
-	 * Creates an OutputStream, writes some data in it, then 
-	 * Creates an InputStream and reads the data.
-	 * @throws DataException 
-	 * @throws IOException 
+	 * Creates an OutputStream, writes some data in it, then Creates an
+	 * InputStream and reads the data.
+	 *
+	 * @throws DataException
+	 *             the data exception
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	@Test
-	public void testGetOutputStream_withoutException() 
-	throws DataException, IOException {
+	public void testGetOutputStream_withoutException() throws DataException, IOException {
 		String filename = "TestStreamsProviderImpl.testfile1.txt"; //$NON-NLS-1$
 		String path = UtilityForBo2Test.getTestStreamPath(filename);
-		StreamsProviderImpl impl = new StreamsProviderImpl();		
-		OutputStream out = impl.getOutputStream(path);
-		String text = "Hello, this is a test\n";  //$NON-NLS-1$
-		out.write(text.getBytes());
-		out.close();
+		StreamsProviderImpl impl = new StreamsProviderImpl();
+		try (OutputStream out = impl.getOutputStream(path)) {
+			String text = "Hello, this is a test\n"; //$NON-NLS-1$
+			out.write(text.getBytes());
+		}
 		impl.close();
 	}
-	
+
 	/**
 	 * Tests the failure of an output stream creation.
-	 * 
+	 *
 	 * @throws DataException
+	 *             the data exception
 	 */
-	@Test(expected=DataException.class)
+	@Test(expected = DataException.class)
 	public void testGetOutputStream_withException() throws DataException {
-		String path = "\\ / /\\//123:: 3 goobaz";		 //$NON-NLS-1$
-		StreamsProviderImpl impl = new StreamsProviderImpl();		
+		String path = "\\ / /\\//123:: 3 goobaz"; //$NON-NLS-1$
+		StreamsProviderImpl impl = new StreamsProviderImpl();
 		@SuppressWarnings("unused")
 		OutputStream out = impl.getOutputStream(path);
 	}
-	
+
 	/**
 	 * Tests the successful execution of getOutputStream.
 	 * 
-	 * Creates an OutputStream, writes some data in it, then 
-	 * Creates an InputStream and reads the data.
-	 * @throws DataException 
-	 * @throws IOException 
+	 * Creates an OutputStream, writes some data in it, then Creates an
+	 * InputStream and reads the data.
+	 *
+	 * @throws DataException
+	 *             the data exception
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	@Test
-	public void testInputStream_withoutException() 
-	throws DataException, IOException {
+	public void testInputStream_withoutException() throws DataException, IOException {
 		String filename = "TestStreamsProviderImpl.testfile2.txt"; //$NON-NLS-1$
 		String path = UtilityForBo2Test.getTestStreamPath(filename);
-		StreamsProviderImpl impl = new StreamsProviderImpl();		
-		OutputStream out = impl.getOutputStream(path);
-		String text = "Hello, this is a test\n";  //$NON-NLS-1$
-		out.write(text.getBytes());
-		out.close();
-		
+		StreamsProviderImpl impl = new StreamsProviderImpl();
+		String text = "Hello, this is a test\n"; //$NON-NLS-1$
+		try (OutputStream out = impl.getOutputStream(path)) {
+			out.write(text.getBytes());
+		}
+
 		InputStream in = impl.getInputStream(path);
 		byte[] buffer = new byte[100000];
-		int bytesRead = in.read(buffer);		
+		int bytesRead = in.read(buffer);
 		byte[] contents = ArrayUtils.copyOf(buffer, bytesRead);
-		
+
 		assertEquals(new String(contents), text);
-		
+
 		impl.close();
 	}
-	
+
 	/**
 	 * Tests the failure of an output stream creation.
-	 * 
+	 *
 	 * @throws DataException
+	 *             the data exception
 	 */
-	@Test(expected=DataException.class)
+	@Test(expected = DataException.class)
 	public void testGetInputStream_withException() throws DataException {
-		String path = "\\ / /\\//123:: 3 goobaz";		 //$NON-NLS-1$
-		StreamsProviderImpl impl = new StreamsProviderImpl();		
+		String path = "\\ / /\\//123:: 3 goobaz"; //$NON-NLS-1$
+		StreamsProviderImpl impl = new StreamsProviderImpl();
 		@SuppressWarnings("unused")
 		InputStream in = impl.getInputStream(path);
 	}
-	
+
 	/**
 	 * Tests getPath.
 	 */
 	@SuppressWarnings("nls")
 	@Test
 	public void testGetPath() {
-		String tempDir = "/opt"+File.separator; //$NON-NLS-1$
+		String tempDir = "/opt" + File.separator; //$NON-NLS-1$
 		Properties properties = new Properties();
-		properties.put(StreamsProviderImpl.WORK_DIR, tempDir); //$NON-NLS-1$
+		properties.put(StreamsProviderImpl.WORK_DIR, tempDir); // $NON-NLS-1$
 		StreamsProviderImpl impl = new StreamsProviderImpl(properties);
 		String fd = "file.txt";
 		String path = impl.getPath(fd);
-		assertEquals("/opt"+File.separator + "file.txt", path);
+		assertEquals("/opt" + File.separator + "file.txt", path);
 	}
 
 }

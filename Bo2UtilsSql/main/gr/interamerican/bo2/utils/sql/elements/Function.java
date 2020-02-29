@@ -43,7 +43,8 @@ public class Function {
 
 
 	/**
-	 * Count of arguments of the function
+	 * Count of arguments of the function.
+	 *
 	 * @return how many arguments needs the function
 	 */
 	public int getArguments() {
@@ -51,7 +52,8 @@ public class Function {
 	}
 
 	/**
-	 * function name
+	 * function name.
+	 *
 	 * @return function name
 	 */
 	public String getName() {
@@ -60,9 +62,8 @@ public class Function {
 
 	/**
 	 * Sets the count of arguments.
-	 * 
-	 * @param arguments
-	 *        
+	 *
+	 * @param arguments the new arguments
 	 */
 	public void setArguments(int arguments) {
 		this.arguments = arguments;
@@ -70,8 +71,8 @@ public class Function {
 
 	/**
 	 * Sets the name.
-	 * 
-	 * @param name
+	 *
+	 * @param name the new name
 	 */
 	public void setName(String name) {
 		this.name = name;

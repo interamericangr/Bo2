@@ -60,7 +60,7 @@ public class BigDecimalBoPDFactory {
 	}
 	
 	/**
-	 * empty hidden constructor 
+	 * empty hidden constructor.
 	 */
 	private BigDecimalBoPDFactory() { /* empty */ }
 

@@ -27,14 +27,10 @@ public interface SqlParser {
 	 */
 	public static final Character PARM_CHAR = ':'; 
 	
-	/**
-	 * SQL AND predicate
-	 */
+	/** SQL AND predicate. */
 	public static final String AND = "AND"; //$NON-NLS-1$
 	
-	/**
-	 * SQL OR predicate
-	 */
+	/** SQL OR predicate. */
 	public static final String OR = "OR"; //$NON-NLS-1$
 	
 	/**
@@ -44,34 +40,32 @@ public interface SqlParser {
 	
 	/**
 	 * Gets a list with the parameters that are found in the specified SQL 
-	 * string. <br/>
+	 * string. <br>
 	 * 
 	 * Each parameters occurs in the list as many times as it is found in the
 	 * SQL string.  
-	 * 
-	 * @param sql
-	 *        String being parsed.
+	 *
+	 * @param sql        String being parsed.
 	 *        
 	 * @return Returns a list with the parameters found in the specified SQL string.
 	 *         
-	 * @throws SqlParseException 
+	 * @throws SqlParseException the sql parse exception
 	 */
 	public List<Parameter> getParameters(String sql)
 	throws SqlParseException;
 	
 	/**
 	 * Gets a list with the columns that are found in the specified SQL 
-	 * string. <br/>
+	 * string. <br>
 	 * 
 	 * Each column occurs in the list as many times as it is found in the
 	 * SQL string.  
-	 * 
-	 * @param sql
-	 *        String being parsed.
+	 *
+	 * @param sql        String being parsed.
 	 *        
 	 * @return Returns a list with the columns returned from the specified SQL string.
 	 *         
-	 * @throws SqlParseException 
+	 * @throws SqlParseException the sql parse exception
 	 */
 	public List<Column> getColumns(String sql)
 	throws SqlParseException;
@@ -79,17 +73,15 @@ public interface SqlParser {
 	/**
 	 * Parses the specified SQL string and removes any part of the statement
 	 * that depends on the specified parameter.
-	 * 
-	 * @param parameter 
-	 *        Name of the parameter that will be removed from the specified
+	 *
+	 * @param parameter        Name of the parameter that will be removed from the specified
 	 *        SQL string.
-	 * @param sql
-	 *        SQL String parsed
+	 * @param sql        SQL String parsed
 	 *        
 	 * @return Returns the new SQL statement after removing any part that
 	 *         depends on the specified parameter.
 	 *         
-	 * @throws SqlParseException 
+	 * @throws SqlParseException the sql parse exception
 	 */
 	public String removeParameter(String parameter, String sql)
 	throws SqlParseException;
@@ -97,14 +89,13 @@ public interface SqlParser {
 	/**
 	 * Parses the specified SQL string and removes any joins that are not
 	 * useful for the result set columns or the where clause.
-	 * 
-	 * @param sql
-	 *        SQL String parsed
+	 *
+	 * @param sql        SQL String parsed
 	 *        
 	 * @return Returns the new SQL statement after removing any joins that
 	 *         are redundant.
 	 *         
-	 * @throws SqlParseException 
+	 * @throws SqlParseException the sql parse exception
 	 */
 	public String removeUselessJoins(String sql)
 	throws SqlParseException;

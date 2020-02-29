@@ -28,12 +28,26 @@ import gr.interamerican.bo2.arch.exceptions.CouldNotRollbackException;
  * a mock objects library.
  */
 public class MockTransactionManager implements TransactionManager {
+	
+	@Override
 	public void rollback() throws CouldNotRollbackException {/*empty*/}	
+	
+	@Override
 	public void commit() throws CouldNotCommitException {/*empty*/}					
+	
+	@Override
 	public void begin() throws CouldNotBeginException {/*empty*/}	
+	
+	@Override
 	public void enList(ResourceWrapper resource) throws CouldNotEnlistException {/*empty*/}	
+	
+	@Override
 	public void deList(ResourceWrapper resource) throws CouldNotDelistException {/*empty*/}
+	
+	@Override
 	public void close() {/*empty*/}
+	
+	@Override
 	public boolean hasBeenMarkedRollbackOnly() { return false; }	
 
 }

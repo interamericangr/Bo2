@@ -4,15 +4,19 @@ import gr.interamerican.bo2.impl.open.po.AbstractKey;
 import gr.interamerican.bo2.test.def.posamples.CustomerAddressKey;
 
 /**
- * 
+ * The Class CustomerAddressKeyImpl.
  */
 public class CustomerAddressKeyImpl extends AbstractKey implements CustomerAddressKey {
 
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
 	String customerNo;
+	/**
+	 * 
+	 */
 	Integer addressNo;
 	
 	@Override

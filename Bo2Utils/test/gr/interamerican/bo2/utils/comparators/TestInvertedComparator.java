@@ -17,19 +17,19 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestInvertedComparator.
  */
 public class TestInvertedComparator {
 
 
 	/**
-	 * Return the opposite result that the regular comparator
+	 * Return the opposite result that the regular comparator.
 	 */
 	@Test
 	public void testCompare_Number(){
 		
 		NumberComparator numberComparator =  new NumberComparator();
-		InvertedComparator<Number> numberComp = new InvertedComparator(numberComparator);
+		InvertedComparator<Number> numberComp = new InvertedComparator<>(numberComparator);
 		
 		assertEquals(1,numberComp.compare(1, 2));
 		assertEquals(-1,numberComp.compare(2, 1));
@@ -37,13 +37,13 @@ public class TestInvertedComparator {
 	}
 	
 	/**
-	 * Return the opposite result that the regular comparator
+	 * Return the opposite result that the regular comparator.
 	 */
 	@Test
 	public void testCompare_String(){
 		
 		StringComparator stringComparator =  new StringComparator();
-		InvertedComparator<String> stringCorp = new InvertedComparator(stringComparator);
+		InvertedComparator<Object> stringCorp = new InvertedComparator<>(stringComparator);
 		
 		assertEquals(1,stringCorp.compare("a", "b")); //$NON-NLS-1$ //$NON-NLS-2$
 		assertEquals(-1,stringCorp.compare("b", "a")); //$NON-NLS-1$ //$NON-NLS-2$
@@ -51,13 +51,13 @@ public class TestInvertedComparator {
 	}
 	
 	/**
-	 * Return the opposite result that the regular comparator
+	 * Return the opposite result that the regular comparator.
 	 */
 	@Test
 	public void testCompare_Array(){
 		
 		ArrayComparator arrayComparator =  new ArrayComparator();
-		InvertedComparator<Object[]> arrayCorp = new InvertedComparator(arrayComparator);
+		InvertedComparator<Object[]> arrayCorp = new InvertedComparator<>(arrayComparator);
 
 		Object[] array1 = {new Integer(1),"string", new String("string")}; //$NON-NLS-1$ //$NON-NLS-2$
 		Object[] array2 = {new Long(1),new String("string"),"string"}; //$NON-NLS-1$ //$NON-NLS-2$

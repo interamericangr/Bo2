@@ -25,7 +25,7 @@ import org.junit.Test;
 public class TestDeepCopy {
 	
 	/**
-	 * test
+	 * test.
 	 */		
 	@Test
 	public void testCopy() {

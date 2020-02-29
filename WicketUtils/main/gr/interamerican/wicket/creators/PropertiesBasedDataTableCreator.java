@@ -37,20 +37,17 @@ import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
  * are used.
  * 
  * @param <B> type of bean.
- * 
+ * @deprecated Use {@link FunctionalDataTableCreator}
  */
+@Deprecated
 public class PropertiesBasedDataTableCreator
 <B extends Serializable> 
 extends AbstractDataTableCreator<B>{
 	
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
-	/**
-	 * Class of B
-	 */
+	/** Class of B. */
 	protected Class<B> beanClass;
 	
 	/**
@@ -76,7 +73,7 @@ extends AbstractDataTableCreator<B>{
 	/**
 	 * Extra columns. These are appended after the property columns.
 	 */
-	protected ArrayList<IColumn<B>> extraColumns = new ArrayList<IColumn<B>>();
+	protected ArrayList<IColumn<B,String>> extraColumns = new ArrayList<IColumn<B,String>>();
 	
 	/**
 	 * Indicates if this table will be tolerant to faulty property expressions.
@@ -172,13 +169,13 @@ extends AbstractDataTableCreator<B>{
 	}
 
 	@Override
-	public DataTable<B> createDataTable(String id, List<B> elements) {
+	public DataTable<B, String> createDataTable(String id, List<B> elements) {
 		List<B> data = elements;
 		if(sortProperty != null) {
 			data = CollectionUtils.sort(data, beanClass, sortProperty);
 		}
 		SortableDataProvider<B> provider = new SortableDataProvider<B>(data, beanClass);
-		return new DefaultDataTable<B>(id, createColumns(), provider, Utils.notNull(rowsPerPage, 10));
+		return new DefaultDataTable<B,String>(id, createColumns(), provider, Utils.notNull(rowsPerPage, 10));
 	}
 	
 	/**
@@ -186,11 +183,11 @@ extends AbstractDataTableCreator<B>{
 	 * 
 	 * @return the columns.
 	 */
-	protected List<IColumn<B>> createColumns() {
-		List<IColumn<B>> columns = ColumnFactory.createPropertyColumns(properties, labels, properties, faultyExpressionsTolerant, formatters);
-		for(IColumn<B> column : columns) {
+	protected List<IColumn<B,String>> createColumns() {
+		List<IColumn<B,String>> columns = ColumnFactory.createPropertyColumns(properties, labels, properties, faultyExpressionsTolerant, formatters);
+		for(IColumn<B,String> column : columns) {
 			if(column instanceof EnhancedPropertyColumn && !StringUtils.isNullOrBlank(faultyValue)) {
-				((EnhancedPropertyColumn<B>)column).setFaultyValue(faultyValue);
+				((EnhancedPropertyColumn<B,String>)column).setFaultyValue(faultyValue);
 			}
 		}
 		columns.addAll(extraColumns);
@@ -215,19 +212,20 @@ extends AbstractDataTableCreator<B>{
 	/**
 	 * Adds user-created extra columns to the DataTable.
 	 * The user is responsible for adding labels to these columns.
-	 * 
-	 * @param columns
+	 *
+	 * @param columns the columns
 	 */
-	public void addExtraColumns(IColumn<B>... columns) {
-		for(IColumn<B> column : columns) {
+	@SafeVarargs
+	public final void addExtraColumns(IColumn<B,String>... columns) {
+		for(IColumn<B,String> column : columns) {
 			extraColumns.add(column);
 		}
 	}
 	
 	/**
 	 * Assigns a value to tolerantToFaultyExpressions.
-	 * 
-	 * @param tolerant
+	 *
+	 * @param tolerant the new tolerant to faulty expressions
 	 */
 	public void setTolerantToFaultyExpressions(boolean tolerant) {
 		this.faultyExpressionsTolerant = tolerant;
@@ -235,11 +233,10 @@ extends AbstractDataTableCreator<B>{
 	
 	/**
 	 * Assigns a value to faultyValue.
-	 * 
-	 * @param faultyValue
+	 *
+	 * @param faultyValue the new faulty value
 	 */
 	public void setFaultyValue(String faultyValue) {
 		this.faultyValue = faultyValue;
 	}
-
 }

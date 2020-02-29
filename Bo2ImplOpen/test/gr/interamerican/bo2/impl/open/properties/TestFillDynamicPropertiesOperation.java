@@ -29,14 +29,16 @@ import java.util.Properties;
 import org.junit.Test;
 
 /**
- * unit test for {@link FillDynamicProperiesOperation} 
+ * unit test for {@link FillDynamicProperiesOperation}.
  */
 public class TestFillDynamicPropertiesOperation {
+	
 	/**
-	 * tests the operation
-	 * @throws InitializationException 
-	 * @throws DataException 
-	 * @throws LogicException 
+	 * tests the operation.
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws LogicException the logic exception
+	 * @throws DataException the data exception
 	 */
 	@SuppressWarnings("nls")
 	@Test

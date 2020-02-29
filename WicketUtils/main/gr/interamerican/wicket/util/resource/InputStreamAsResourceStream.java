@@ -24,9 +24,7 @@ import org.apache.wicket.util.resource.AbstractResourceStream;
 public class InputStreamAsResourceStream 
 extends AbstractResourceStream {
 	
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
 	/**
@@ -37,19 +35,20 @@ extends AbstractResourceStream {
 	/**
 	 * Creates a new InputStreamAsResourceStream object. 
 	 *
-	 * @param stream
+	 * @param stream the stream
 	 */
 	public InputStreamAsResourceStream(InputStream stream) {
 		super();
 		this.stream = stream;
 	}
 
+	@Override
 	public InputStream getInputStream() {
 		return stream;
 	}
 
+	@Override
 	public void close() throws IOException {
 		stream.close();		
 	}
-
 }

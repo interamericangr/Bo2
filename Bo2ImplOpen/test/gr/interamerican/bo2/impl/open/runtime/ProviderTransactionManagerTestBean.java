@@ -46,10 +46,11 @@ public class ProviderTransactionManagerTestBean {
 	 * Reads two users.
 	 */
 	private ReadUserFromBothDb read;
+	
 	/**
 	 * Creates a new ProviderTransactionManagerTestBean object. 
 	 *
-	 * @param hib 
+	 * @param hib the hib
 	 */
 	public ProviderTransactionManagerTestBean(boolean hib) {
 		super();
@@ -61,11 +62,10 @@ public class ProviderTransactionManagerTestBean {
 	
 	/**
 	 * Tests that commit is successful.
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
-	 * 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	public void testCommit() throws DataException, LogicException, UnexpectedException {
 		Execute.transactional(delete); 
@@ -79,10 +79,11 @@ public class ProviderTransactionManagerTestBean {
 	/**
 	 *  Tests that commit is successful.
 	 *  
-	 * @param deployment
-	 * @throws DataException
-	 * @throws LogicException
-	 * @throws UnexpectedException
+	 *
+	 * @param deployment the deployment
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	public void testCommit(String deployment) 
 	throws DataException, LogicException, UnexpectedException {
@@ -96,11 +97,10 @@ public class ProviderTransactionManagerTestBean {
 	
 	/**
 	 * Tests that rollback is successful.
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
-	 * 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	public void testRollback() 
 	throws DataException, LogicException, UnexpectedException {
@@ -126,13 +126,11 @@ public class ProviderTransactionManagerTestBean {
 	
 	/**
 	 * Tests that rollback is successful.
-	 * 
-	 * @param deployment 
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
-	 * 
+	 *
+	 * @param deployment the deployment
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	public void testRollback(String deployment) 
 	throws DataException, LogicException, UnexpectedException {

@@ -16,32 +16,36 @@ import gr.interamerican.bo2.arch.ModificationRecord;
 import gr.interamerican.bo2.arch.PersistentObject;
 
 /**
- * 
+ * The Interface ArrayWithoutAnnot.
  */
 public interface ArrayWithoutAnnot 
 extends PersistentObject<ArrayWithoutAnnotKey>, ModificationRecord {
 	
 	/**
-	 * Gets InvoiceCustomerArrayWithoutAnnotNo
+	 * Gets InvoiceCustomerArrayWithoutAnnotNo.
+	 *
 	 * @return InvoiceCustomerArrayWithoutAnnotNo
 	 */
 	public String getInvoiceCustomerArrayWithoutAnnotNo();
 	
 	/**
-	 * Sets invoiceCustomerArrayWithoutAnnotNo
-	 * @param invoiceCustomerArrayWithoutAnnotNo
+	 * Sets invoiceCustomerArrayWithoutAnnotNo.
+	 *
+	 * @param invoiceCustomerArrayWithoutAnnotNo the new invoice customer array without annot no
 	 */
 	public void setInvoiceCustomerArrayWithoutAnnotNo(String invoiceCustomerArrayWithoutAnnotNo);
 			
 	/**
-	 * Gets arrayOfObjects
+	 * Gets arrayOfObjects.
+	 *
 	 * @return arrayOfObjects
 	 */
 	public Object[] getArrayOfObjects();
 	
 	/**
-	 * Sets arrayOfObjects
-	 * @param arrayOfObjects
+	 * Sets arrayOfObjects.
+	 *
+	 * @param arrayOfObjects the new array of objects
 	 */
 	public void setArrayOfObjects(Object[] arrayOfObjects);
 }

@@ -44,9 +44,8 @@ implements EntitiesQuery<T> {
 	
 	/**
 	 * Extracts the current entity from properties of the operation.
-	 * 
-	 * @param op
-	 * 
+	 *
+	 * @param op the op
 	 * @return Returns the entity.
 	 */
 	protected abstract T extractEntity(O op);  
@@ -55,7 +54,6 @@ implements EntitiesQuery<T> {
 	/**
 	 * Creates a new OperationWrapperQuery object.
 	 * @param operation
-	 * @param condition
 	 */
 	public OperationEntitiesQuery(O operation) {
 		super();
@@ -91,8 +89,8 @@ implements EntitiesQuery<T> {
 	
 	/**
 	 * Executes the operation.
-	 * 
-	 * @throws DataAccessException
+	 *
+	 * @throws DataAccessException the data access exception
 	 */
 	void executeOperation() throws DataAccessException {
 		try {

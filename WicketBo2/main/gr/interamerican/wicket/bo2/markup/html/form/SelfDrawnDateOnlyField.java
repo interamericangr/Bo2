@@ -36,8 +36,8 @@ public class SelfDrawnDateOnlyField extends DateOnlyField {
 	/**
 	 * Creates a new SelfDrawnDateField object.
 	 *
-	 * @param id
-	 * @param descriptor
+	 * @param id the id
+	 * @param descriptor the descriptor
 	 */
 	public SelfDrawnDateOnlyField(String id, DateBoPropertyDescriptor descriptor) {
 		super(id, new Model<Date>());
@@ -47,9 +47,9 @@ public class SelfDrawnDateOnlyField extends DateOnlyField {
 	/**
 	 * Creates a new SelfDrawnDateField object.
 	 *
-	 * @param id
-	 * @param descriptor
-	 * @param model
+	 * @param id the id
+	 * @param model the model
+	 * @param descriptor the descriptor
 	 */
 	public SelfDrawnDateOnlyField(String id, IModel<Date> model, DateBoPropertyDescriptor descriptor) {
 		super(id, model);

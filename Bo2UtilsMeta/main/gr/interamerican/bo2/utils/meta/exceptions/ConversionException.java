@@ -33,8 +33,8 @@ public class ConversionException extends Exception {
 	/**
 	 * Creates a new ConversionException object. 
 	 *
-	 * @param message
-	 * @param cause
+	 * @param message the message
+	 * @param cause the cause
 	 */
 	public ConversionException(String message, Throwable cause) {
 		super(message, cause);
@@ -43,7 +43,7 @@ public class ConversionException extends Exception {
 	/**
 	 * Creates a new ConversionException object. 
 	 *
-	 * @param cause
+	 * @param cause the cause
 	 */
 	public ConversionException(Throwable cause) {
 		super(cause);
@@ -53,7 +53,7 @@ public class ConversionException extends Exception {
 	/**
 	 * Creates a new ConversionException object. 
 	 *
-	 * @param message
+	 * @param message the message
 	 */
 	public ConversionException(String message) {
 		super(message);

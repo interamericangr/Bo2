@@ -21,12 +21,14 @@ public interface SqlOwner extends Serializable {
 
 	/**
 	 * Sets the sql.
-	 * 
-	 * @param sql
+	 *
+	 * @param sql the new sql
 	 */
 	void setSql(String sql);
 
 	/**
+	 * Gets the sql.
+	 *
 	 * @return the sql.
 	 */
 	String getSql();

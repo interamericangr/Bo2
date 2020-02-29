@@ -15,36 +15,33 @@ package gr.interamerican.wicket.components;
 import org.apache.wicket.Component;
 import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.markup.ComponentTag;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptReferenceHeaderItem;
+import org.apache.wicket.request.resource.JavaScriptResourceReference;
 
 /**
- * 
+ * A Behavior that will call a java-script on change that formats the number for
+ * specific number of decimals.
  */
 public class NumberFormatBehaviour extends Behavior {
 
-	/**
-	 *  the serial version UID
-	 */
+	/** the serial version UID. */
 	private static final long serialVersionUID = 1L;
-	/**
-	 * the number of decimals.
-	 * 
-	 */
-	private Integer decimals;
 
 	/**
-	 * Creates a new NumberFormatBehaviour object. 
-	 * 
-	 * @param decimals 
-	 *
+	 * Java-script
 	 */
-	public NumberFormatBehaviour(Integer decimals){
-		this.decimals = decimals;
+	static final JavaScriptResourceReference JS = new JavaScriptResourceReference(NumberFormatBehaviour.class,
+			"js/format.js"); //$NON-NLS-1$
+
+	@Override
+	public void renderHead(Component component, IHeaderResponse response) {
+		response.render(JavaScriptReferenceHeaderItem.forReference(JS));
 	}
 
 	@Override
 	@SuppressWarnings("nls")
-	public void onComponentTag(final Component component, final ComponentTag tag) { 
-		tag.getAttributes().put("onchange","format_number(id,value,"+decimals+");");  
+	public void onComponentTag(final Component component, final ComponentTag tag) {
+		tag.getAttributes().put("onchange", "format_number(id,value)");
 	}
-	
 }

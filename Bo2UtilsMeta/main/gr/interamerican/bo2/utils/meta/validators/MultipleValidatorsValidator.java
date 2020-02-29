@@ -27,9 +27,7 @@ import java.util.Collection;
  */
 public class MultipleValidatorsValidator<T> implements Validator<T> {
 	
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -44,14 +42,16 @@ public class MultipleValidatorsValidator<T> implements Validator<T> {
 	
 	/**
 	 * Creates a new MultipleValidatorsValidator object. 
-	 * @param validators 
-	 * @param label 
+	 *
+	 * @param validators the validators
+	 * @param label the label
 	 */
 	public MultipleValidatorsValidator(Collection<Validator<T>> validators, String label) {
 		this.validators = validators;
 		this.label = label;
 	}
 
+	@Override
 	public void validate(T value) throws ValidationException {
 		String msg = StringConstants.EMPTY;
 		if(validators == null) {

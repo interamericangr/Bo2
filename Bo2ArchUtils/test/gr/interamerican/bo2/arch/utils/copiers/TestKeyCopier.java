@@ -18,18 +18,16 @@ import gr.interamerican.bo2.samples.po.SampleKey;
 import org.junit.Test;
 
 /**
- * Test for KeyCopier
+ * Test for KeyCopier.
  */
 public class TestKeyCopier {
 
-	/**
-	 * KeyCopier
-	 */
+	/** KeyCopier. */
 	KeyCopier copier = new KeyCopier();
 	
 	
 	/**
-	 * Test copy
+	 * Test copy.
 	 */
 	@Test
 	public void testCopy(){

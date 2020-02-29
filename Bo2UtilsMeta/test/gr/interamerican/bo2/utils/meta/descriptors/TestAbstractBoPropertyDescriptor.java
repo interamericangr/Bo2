@@ -47,7 +47,7 @@ public class TestAbstractBoPropertyDescriptor {
 	}
 	
 	/**
-	 * Test constructor
+	 * Test constructor.
 	 */
 	@Test
 	public void testConstructor(){
@@ -57,8 +57,9 @@ public class TestAbstractBoPropertyDescriptor {
 	}	
 		
 	/**
-	 * Test setNullAllowed, validate
-	 * @throws ValidationException
+	 * Test setNullAllowed, validate.
+	 *
+	 * @throws ValidationException the validation exception
 	 */
 	@Test 	
 	public void testSetNullAllowedAndValidate() throws ValidationException{
@@ -80,7 +81,7 @@ public class TestAbstractBoPropertyDescriptor {
 	}
 	
 	/**
-	 * TestGetFullyQualifiedName
+	 * TestGetFullyQualifiedName.
 	 */
 	@Test
 	public void testGetFullyQualifiedName() {
@@ -91,7 +92,7 @@ public class TestAbstractBoPropertyDescriptor {
 	}
 	
 	/**
-	 * TestGetFullyQualifiedClassName
+	 * TestGetFullyQualifiedClassName.
 	 */
 	@Test 
 	public void testGetFullyQualifiedClassName(){
@@ -101,7 +102,7 @@ public class TestAbstractBoPropertyDescriptor {
 	}
 
 	/**
-	 * TestCheckDefault
+	 * TestCheckDefault.
 	 */
 	@Test
 	public void testCheckDefault(){
@@ -114,8 +115,9 @@ public class TestAbstractBoPropertyDescriptor {
 	}
 	
 	/**
-	 * Test parse
-	 * @throws ParseException 
+	 * Test parse.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@Test
 	public void testParse() throws ParseException{
@@ -124,9 +126,10 @@ public class TestAbstractBoPropertyDescriptor {
 	}
 	
 	/**
-	 * Test Parse and Validate
-	 * @throws ParseException
-	 * @throws ValidationException
+	 * Test Parse and Validate.
+	 *
+	 * @throws ParseException the parse exception
+	 * @throws ValidationException the validation exception
 	 */
 	@Test
 	public void testParseAndValidate() throws ParseException, ValidationException{
@@ -135,7 +138,7 @@ public class TestAbstractBoPropertyDescriptor {
 	}
 	
 	/**
-	 * Test Equals
+	 * Test Equals.
 	 */
 	@Test
 	@SuppressWarnings("nls")
@@ -156,7 +159,7 @@ public class TestAbstractBoPropertyDescriptor {
 	}
 	
 	/**
-	 * Test HasCode
+	 * Test HasCode.
 	 */
 	@Test
 	public void testHasCode(){
@@ -164,7 +167,7 @@ public class TestAbstractBoPropertyDescriptor {
 	}
 	
 	/**
-	 * Test Format
+	 * Test Format.
 	 */
 	@Test
 	public void testFormat(){
@@ -173,7 +176,7 @@ public class TestAbstractBoPropertyDescriptor {
 	}
 	
 	/**
-	 * Test isReadOnly
+	 * Test isReadOnly.
 	 */
 	@Test
 	public void testIsReadOnly(){
@@ -184,7 +187,7 @@ public class TestAbstractBoPropertyDescriptor {
 	}
 	
 	/**
-	 * Test isReadOnly
+	 * Test isReadOnly.
 	 */
 	@Test
 	public void testGetDefaultValue(){
@@ -195,7 +198,7 @@ public class TestAbstractBoPropertyDescriptor {
 	}
 	
 	/**
-	 * Test getIndex
+	 * Test getIndex.
 	 */
 	@Test
 	public void  testGetIndex(){
@@ -206,7 +209,7 @@ public class TestAbstractBoPropertyDescriptor {
 	}
 	
 	/**
-	 * Test setLabel
+	 * Test setLabel.
 	 */
 	@Test
 	@SuppressWarnings("nls")
@@ -221,7 +224,7 @@ public class TestAbstractBoPropertyDescriptor {
 	}
 	
 	/**
-	 * Test getRegisteredValidatorWithType
+	 * Test getRegisteredValidatorWithType.
 	 */
 	@Test
 	@SuppressWarnings("unchecked")
@@ -233,9 +236,8 @@ public class TestAbstractBoPropertyDescriptor {
 	 * Implementation of descriptor for the tests.
 	 */
 	private class Descriptor extends AbstractBoPropertyDescriptor<String> {
-		/**
-		 * 
-		 */
+		
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 1L;
 
 		/**

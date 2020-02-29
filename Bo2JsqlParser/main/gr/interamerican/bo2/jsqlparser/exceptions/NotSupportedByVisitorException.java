@@ -20,15 +20,13 @@ package gr.interamerican.bo2.jsqlparser.exceptions;
 public class NotSupportedByVisitorException 
 extends RuntimeException {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Creates a new NotSupportedByVisitorException object. 
 	 *
-	 * @param message
+	 * @param message the message
 	 */
 	public NotSupportedByVisitorException(String message) {
 		super(message);

@@ -13,15 +13,15 @@
 package gr.interamerican.wicket.markup.html.panel.picker;
 
 
-import gr.interamerican.bo2.utils.adapters.Flag;
-import gr.interamerican.wicket.callback.CallbackAction;
-import gr.interamerican.wicket.markup.html.panel.listTable.ListTablePanelDef;
-import gr.interamerican.wicket.markup.html.panel.service.BeanPanelDef;
-import gr.interamerican.wicket.markup.html.panel.service.ServicePanelDef;
-
 import java.io.Serializable;
 
 import org.apache.wicket.model.IModel;
+
+import gr.interamerican.bo2.utils.adapters.Flag;
+import gr.interamerican.wicket.callback.PickAction;
+import gr.interamerican.wicket.markup.html.panel.listTable.ListTablePanelDef;
+import gr.interamerican.wicket.markup.html.panel.service.BeanPanelDef;
+import gr.interamerican.wicket.markup.html.panel.service.ServicePanelDef;
 
 /**
  * {@link ServicePanelDef} for {@link PickerPanel}.
@@ -33,12 +33,11 @@ extends ListTablePanelDef<B>, BeanPanelDef<B> {
 
 	/**
 	 * Gets the itemSelectedAction.
-	 * 
-	 * @see #setItemSelectedAction(CallbackAction)
 	 *
 	 * @return Returns the itemSelectedAction
+	 * @see #setItemSelectedAction(PickAction)
 	 */
-	public CallbackAction getItemSelectedAction();
+	public PickAction<B> getItemSelectedAction();
 	
 	/**
 	 * [MANDATORY]
@@ -52,7 +51,7 @@ extends ListTablePanelDef<B>, BeanPanelDef<B> {
 	 *
 	 * @param itemSelectedAction the itemSelectedAction to set
 	 */
-	public void setItemSelectedAction(CallbackAction itemSelectedAction);
+	public void setItemSelectedAction(PickAction<B> itemSelectedAction);
 	
 	/**
 	 * Gets the itemSelectedActionFlag.
@@ -64,19 +63,18 @@ extends ListTablePanelDef<B>, BeanPanelDef<B> {
 	/**
 	 * [OPTIONAL]
 	 * Sets the itemSelectedActionFlag.
-	 * 
-	 * @param itemSelectedActionFlag
+	 *
+	 * @param itemSelectedActionFlag the new item selected action flag
 	 */
 	public void setItemSelectedActionFlag(Flag itemSelectedActionFlag);
 	
 	/**
 	 * Gets the secondItemSelectedAction.
-	 * 
-	 * @see #setSecondItemSelectedAction(CallbackAction)
 	 *
 	 * @return Returns the secondItemSelectedAction
+	 * @see #setSecondItemSelectedAction(PickAction)
 	 */
-	public CallbackAction getSecondItemSelectedAction();
+	public PickAction<B> getSecondItemSelectedAction();
 
 	/**
 	 * [OPTIONAL]
@@ -92,7 +90,7 @@ extends ListTablePanelDef<B>, BeanPanelDef<B> {
 	 *
 	 * @param secondItemSelectedAction the secondItemSelectedAction to set
 	 */
-	public void setSecondItemSelectedAction(CallbackAction secondItemSelectedAction);
+	public void setSecondItemSelectedAction(PickAction<B> secondItemSelectedAction);
 	
 	/**
 	 * Gets the secondItemSelectedActionFlag.
@@ -104,59 +102,56 @@ extends ListTablePanelDef<B>, BeanPanelDef<B> {
 	/**
 	 * [OPTIONAL]
 	 * Sets the secondItemSelectedActionFlag.
-	 * 
-	 * @param secondItemSelectedActionFlag
+	 *
+	 * @param secondItemSelectedActionFlag the new second item selected action flag
 	 */
 	public void setSecondItemSelectedActionFlag(Flag secondItemSelectedActionFlag);
 	
 	/**
 	 * Gets the selectLabel.
-	 * 
-	 * @see #setSelectLabelModel(IModel)
-	 * 
+	 *
 	 * @return selectLabel
+	 * @see #setSelectLabelModel(IModel)
 	 */
 	public IModel<String> getSelectLabelModel();
 	
 	/**
 	 * [OPTIONAL] 
 	 * Sets a custom label for the select button.
-	 * 
-	 * @param label
+	 *
+	 * @param label the new select label model
 	 */
 	public void setSelectLabelModel(IModel<String> label);
 	
 	/**
 	 * Gets the secondSelectLabel.
-	 * 
-	 * @see #setSecondSelectLabelModel(IModel)
-	 * 
+	 *
 	 * @return secondSelectLabel
+	 * @see #setSecondSelectLabelModel(IModel)
 	 */
 	public IModel<String> getSecondSelectLabelModel();
 	
 	/**
 	 * [OPTIONAL] 
 	 * Sets a custom label for the second select button.
-	 * 
-	 * @param label
+	 *
+	 * @param label the new second select label model
 	 */
 	public void setSecondSelectLabelModel(IModel<String> label);
 	
 	/**
 	 * Gets the refreshListAfterPickAction.
-	 * 
-	 * @see #setRefreshListAfterPickAction(Boolean)
-	 * 
+	 *
 	 * @return refreshListAfterPickAction
+	 * @see #setRefreshListAfterPickAction(Boolean)
 	 */
 	public Boolean getRefreshListAfterPickAction();
 	
 	/**
 	 * [OPTIONAL]
 	 * Will repaint the data table after any select action is executed.
-	 * 
-	 * @param refreshListAfterPickAction
+	 *
+	 * @param refreshListAfterPickAction the new refresh list after pick action
 	 */
 	public void setRefreshListAfterPickAction(Boolean refreshListAfterPickAction);
 

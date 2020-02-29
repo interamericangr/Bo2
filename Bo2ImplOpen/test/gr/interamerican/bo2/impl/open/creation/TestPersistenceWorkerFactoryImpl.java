@@ -14,6 +14,9 @@ package gr.interamerican.bo2.impl.open.creation;
 
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 import gr.interamerican.bo2.arch.DetachStrategy;
 import gr.interamerican.bo2.arch.PersistenceWorker;
 import gr.interamerican.bo2.samples.archutil.po.User;
@@ -22,6 +25,7 @@ import gr.interamerican.bo2.samples.implopen.pw.UserPwImpl;
 import java.util.Properties;
 
 import org.junit.Test;
+import org.mockito.Mockito;
 
 
 
@@ -110,7 +114,7 @@ public class TestPersistenceWorkerFactoryImpl {
 	}
 	
 	/**
-	 * Tests GetDetachStrategy
+	 * Tests GetDetachStrategy.
 	 */
 	@Test
 	public void testGetDetachStrategy() {
@@ -120,11 +124,56 @@ public class TestPersistenceWorkerFactoryImpl {
 	}
 	
 	/**
+	 * Test method for {@link PersistenceWorkerFactoryImpl#registerPwFixture(Class, PersistenceWorker)}
+	 */
+	@Test
+	public void testRegisterPwFixture(){
+		@SuppressWarnings("unchecked")
+		PersistenceWorker<User> mockPw = Mockito.mock(PersistenceWorker.class);
+		factory.registerPwFixture(User.class, mockPw);
+		assertEquals(mockPw, factory.createPw(User.class));
+		factory.resetPwFixtures();
+	}
+	
+	/**
+	 * Test method for {@link PersistenceWorkerFactoryImpl#resetPwFixtures}
+	 */
+	@Test
+	public void testResetPwFixtures(){
+		@SuppressWarnings("unchecked")
+		PersistenceWorker<User> mockPw = Mockito.mock(PersistenceWorker.class);
+		factory.registerPwFixture(User.class, mockPw);
+		factory.resetPwFixtures();
+		assertNotEquals(mockPw, factory.createPw(User.class));
+	}
+	
+	/**
+	 * Test method for {@link PersistenceWorkerFactoryImpl#resetPwFixtures}
+	 */
+	@Test
+	public void testResetPwFixtures_withoutFixtures(){
+		factory.resetPwFixtures();
+	}
+	
+	/**
 	 * Tests GetDetachStrategy
 	 */
 	@Test(expected=RuntimeException.class)
 	public void testNoImplementationy() {		
 		factory.noImplementation(User.class);
+	}
+	
+	/**
+	 * Test method for {@link PersistenceWorkerFactoryImpl#nullFixtureMappings()}
+	 */
+	@Test
+	public void testNullFixtureMappings(){
+		assertTrue(factory.nullFixtureMappings());
+		@SuppressWarnings("unchecked")
+		PersistenceWorker<User> mockPw = Mockito.mock(PersistenceWorker.class);
+		factory.registerPwFixture(User.class, mockPw);
+		assertFalse(factory.nullFixtureMappings());
+		factory.resetPwFixtures();
 	}
 
 }

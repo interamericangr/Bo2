@@ -23,24 +23,20 @@ import org.apache.wicket.model.PropertyModel;
 import org.junit.Test;
 
 /**
- * 
+ * A factory for creating TestIntegerBoPDComponent objects.
  */
 public class TestIntegerBoPDComponentFactory extends BaseClassForTestingComponentFactory{	
 	
-	/**
-	 * 
-	 */
+	/** The integer bo PD component factory. */
 	private IntegerBoPDComponentFactory integerBoPDComponentFactory = 
 		new IntegerBoPDComponentFactory();
 	
-	/**
-	 * 
-	 */
+	/** The integer bo property descriptor. */
 	private IntegerBoPropertyDescriptor integerBoPropertyDescriptor = 
 		bean1descriptor.integerDescriptor();
 		
 	/**
-	 * 
+	 * Test draw main first.
 	 */
 	@Test
 	public void testDrawMain_First(){
@@ -50,7 +46,7 @@ public class TestIntegerBoPDComponentFactory extends BaseClassForTestingComponen
 	}
 	
 	/**
-	 * 
+	 * Test draw main second.
 	 */
 	@Test
 	public void testDrawMain_Second(){

@@ -21,7 +21,7 @@ import gr.interamerican.bo2.test.def.posamples.Customer;
 
 
 /**
- * 
+ * The Class CustomerPwImpl.
  */
 public class CustomerPwImpl 
 extends GenericHibernatePersistenceWorker<Customer> {

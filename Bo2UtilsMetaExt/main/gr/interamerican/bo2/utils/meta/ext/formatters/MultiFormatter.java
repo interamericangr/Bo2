@@ -36,9 +36,7 @@ import java.util.Date;
 public class MultiFormatter 
 implements Formatter<Object>{
 	
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
 	/**
@@ -57,7 +55,7 @@ implements Formatter<Object>{
 		formatters.registerSelection(Money.class, MoneyFormatter.INSTANCE);
 		formatters.registerSelection(Double.class, new DecimalFormatter<Double>(decimalDigits));
 		formatters.registerSelection(BigDecimal.class, new DecimalFormatter<BigDecimal>(decimalDigits));
-		DateFormat df = new SimpleDateFormat(Bo2UtilsEnvironment.getShortDateFormatPattern());
+		DateFormat df = new SimpleDateFormat(Bo2UtilsEnvironment.get().getShortDateFormatPattern());
 		formatters.registerSelection(Time.class, new ObjectFormatter());
 		formatters.registerSelection(Date.class, new DateFormatter(df));
 		formatters.registerSelection(TranslatableEntry.class, new TranslatableEntryFormatter<Object>());

@@ -27,9 +27,7 @@ public class NumberDecimalLengthValidator<T extends Number>
 extends AbstractValidator
 implements Validator<T> {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Maximum length of decimal part.
@@ -38,12 +36,14 @@ implements Validator<T> {
 	
 	/**
 	 * Creates a new NumberDecimalLengthValidator object. 
-	 * @param maxDecimalLength 
+	 *
+	 * @param maxDecimalLength the max decimal length
 	 */
 	public NumberDecimalLengthValidator(int maxDecimalLength) {
 		this.maxDecimalLength = maxDecimalLength;
 	}
 
+	@Override
 	public void validate(T value) throws ValidationException {
 		if(value==null) {
 			return;

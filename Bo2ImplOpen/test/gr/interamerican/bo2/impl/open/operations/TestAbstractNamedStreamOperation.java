@@ -32,9 +32,10 @@ public class TestAbstractNamedStreamOperation {
 	
 	/**
 	 * Test.
-	 * @throws UnexpectedException
-	 * @throws DataException
-	 * @throws LogicException
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testLifeCycle() 

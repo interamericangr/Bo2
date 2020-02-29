@@ -21,8 +21,12 @@ import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 /**
  * Behavior with disabled the  Lazy Loader Indicator, 
  * that on Component's update action, 
- * performs a specific action {@link CallbackAction}
+ * performs a specific action {@link CallbackAction}.
+ * @deprecated Either use {@link CallbackActionOnChangeBehaviorIndicatorAware} or
+ *             {@link CallbackChoiceUpdatingBehaviorIndicatorAware} or manually extend the
+ *             {@link AjaxFormComponentUpdatingBehavior}
  */
+@Deprecated
 public class CallbackActionBehaviorIndicatorAware 
 extends AjaxFormComponentUpdatingBehavior implements IAjaxIndicatorAware{
 
@@ -39,26 +43,21 @@ extends AjaxFormComponentUpdatingBehavior implements IAjaxIndicatorAware{
 	/**
 	 * Creates a new CallbackActionBehaviorIndicatorAware object. 
 	 *
-	 * @param event
-	 * @param callbackAction 
+	 * @param event the event
+	 * @param callbackAction the callback action
 	 */
 	public CallbackActionBehaviorIndicatorAware(String event,CallbackAction callbackAction) {
 		super(event);
 		this.callbackAction = callbackAction;
 	}
-	
+
 	@Override
 	protected void onUpdate(AjaxRequestTarget target) {
 		callbackAction.callBack(target);
 	}
-	/**
-	 * Returns the id of the AjaxButton's busy indicator. 
-	 * if ajaxIndicator is false then the busy indicator is not displayed.
-	 * 
-	 * @return if ajaxIndicator is true return the ajaxIndicatorId else returns null
-	 */
+
+	@Override
 	public String getAjaxIndicatorMarkupId() {
 		return null;
 	}
-
 }

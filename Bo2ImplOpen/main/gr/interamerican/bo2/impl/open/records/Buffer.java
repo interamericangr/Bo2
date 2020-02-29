@@ -30,10 +30,10 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Buffer is a fixed length byte array with named fields of fixed length. <br/>
+ * Buffer is a fixed length byte array with named fields of fixed length. <br>
  * 
  * The most frequent use of a buffer is to be printed as a record
- * in a fixed columns file. <br/>
+ * in a fixed columns file. <br>
  * Buffer corresponds to data structures of other programming languages.
  * The c language equivalent is <code>struct {...}</code>.
  * The basic language equivalent is <code>type</code>. 
@@ -50,28 +50,26 @@ implements ModifiableIndexedFieldsRecord<String> {
 	/**
 	 * Record specification structure.
 	 * 
-	 * There is only on BufferSpec for each sub-type of Buffer.
-	 * The specification of each sub-type is created by the 
-	 * constructor and gets stored in the <code>subtypeSpecifications</code>
+	 * There is only on BufferSpec for each sub-type of Buffer. The
+	 * specification of each sub-type is created by the constructor and gets
+	 * stored in the <code>subtypeSpecifications</code>
 	 * 
 	 */
-	private BufferSpec spec; 	
+	private BufferSpec spec;
 
-	/**
-	 * buffer
-	 */
+	/** buffer. */
 	private char[] buffer;
-	
+
 	/**
 	 * Positions to put a delimiter in order to transform the record to CSV.
 	 */
 	private Set<Integer> delimiterPositions;
-		
+
 	/**
 	 * Creates a new Buffer object.
 	 * 
 	 * @param spec
-	 *        Buffer specification. 
+	 *            Buffer specification.
 	 */
 	public Buffer(BufferSpec spec) {
 		this.spec = spec;
@@ -82,74 +80,86 @@ implements ModifiableIndexedFieldsRecord<String> {
 		delimiterPositions = spec.getFieldPositions();
 		delimiterPositions.remove(0);
 	}
-		
-	public byte[] getBytes(String field) {		
+
+	@Override
+	public byte[] getBytes(String field) {
 		char[] chars = getChars(field);
 		return toByteArray(chars);
 	}
-	
+
+	@Override
 	public void setBytes(String field, byte[] value) {
 		char[] chars = toCharArray(value);
 		setChars(field, chars);
 	}
-		
-	public String getString(String field) {	
+
+	@Override
+	public String getString(String field) {
 		int pos = spec.getPosition(field);
 		int len = spec.getLength(field);
-		return new String(buffer,pos,len);
+		return new String(buffer, pos, len);
 	}
-		
+
+	@Override
 	public void setString(String field, String value) {
-		setChars(field,value.toCharArray());		
+		setChars(field, value.toCharArray());
 	}
-		
+
+	@Override
 	public boolean getBoolean(String field) {
 		String val = getString(field);
 		return StringUtils.string2Bool(val);
 	}
-	
+
+	@Override
 	public void setBoolean(String field, boolean value) {
 		String val = StringUtils.bool2String(value);
-		setString(field, val);		
+		setString(field, val);
 	}
-		
-	public int getInt(String field) {		
-		String val = getString(field);		
+
+	@Override
+	public int getInt(String field) {
+		String val = getString(field);
 		return NumberUtils.string2Int(val);
 	}
-		
+
+	@Override
 	public void setInt(String field, int value) {
 		int len = spec.getLength(field);
-		String val= Integer.toString(value);
-		val = StringUtils.fixedLengthPadRight(val, len);		
-		setString(field, val);		
+		String val = Integer.toString(value);
+		val = StringUtils.fixedLengthPadRight(val, len);
+		setString(field, val);
 	}
-		
+
+	@Override
 	public long getLong(String field) {
 		String val = getString(field);
 		return NumberUtils.string2Long(val);
 	}
-		
+
+	@Override
 	public void setLong(String field, long value) {
 		int len = spec.getLength(field);
-		String val= Long.toString(value);
-		val = StringUtils.fixedLengthPadRight(val, len);		
-		setString(field, val);		
+		String val = Long.toString(value);
+		val = StringUtils.fixedLengthPadRight(val, len);
+		setString(field, val);
 	}
-	
-	
+
+	@Override
 	public double getDouble(String field) {
 		String val = getString(field);
 		return NumberUtils.string2Double(val);
-	}	
-	
-	public void setDouble(String field, double value) {		
+	}
+
+	@Override
+	public void setDouble(String field, double value) {
 		int len = spec.getLength(field);
-		String val= NumberUtils.format(value);
-		val = StringUtils.fixedLengthPadRight(val, len);		
-		setString(field, val);		
-	}	
-	
+		String val = NumberUtils.format(value);
+		val = StringUtils.fixedLengthPadRight(val, len);
+		setString(field, val);
+	}
+
+	@Override
 	public Date getDate(String field) {
 		String val = getString(field);
 		try {
@@ -157,101 +167,119 @@ implements ModifiableIndexedFieldsRecord<String> {
 		} catch (ParseException e) {
 			throw new RuntimeException(e);
 		}
-	}	
-	
+	}
+
+	@Override
 	public void setDate(String field, Date value) {
 		String val = DateUtils.formatDate(value);
 		setString(field, val);
-	}	
-	
+	}
+
+	@Override
 	public Calendar getCalendar(String field) {
 		Date dt = getDate(field);
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(dt);
 		return cal;
-	}	
-	
+	}
+
+	@Override
 	public void setCalendar(String field, Calendar value) {
 		String val = DateUtils.formatCalendar(value);
-		setString(field, val);		
-	}	
-	
+		setString(field, val);
+	}
+
+	@Override
 	public BigDecimal getBigDecimal(String field) {
 		String val = getString(field);
 		return NumberUtils.string2BigDecimal(val);
-	}	
-	
+	}
+
+	@Override
 	public void setBigDecimal(String field, BigDecimal value) {
 		int len = spec.getLength(field);
-		String val=value.toString();
-		val = StringUtils.fixedLengthPadRight(val, len);		
-		setString(field, val);		
-	}	
-	
-	public short getShort(String field) {		
+		String val = value.toString();
+		val = StringUtils.fixedLengthPadRight(val, len);
+		setString(field, val);
+	}
+
+	@Override
+	public short getShort(String field) {
 		return new Integer(getInt(field)).shortValue();
 	}
-	
+
+	@Override
 	public void setShort(String field, short value) {
 		setInt(field, value);
 	}
-	
-	public float getFloat(String field) {		
+
+	@Override
+	public float getFloat(String field) {
 		return new Double(getDouble(field)).floatValue();
 	}
-	
-	public void setFloat(String field, float value) {		
+
+	@Override
+	public void setFloat(String field, float value) {
 		setDouble(field, value);
 	}
-	
-	public byte getByte(String field) {		
+
+	@Override
+	public byte getByte(String field) {
 		byte[] bytes = getBytes(field);
-		if (bytes==null || bytes.length==0) {
+		if (bytes == null || bytes.length == 0) {
 			return 0;
 		}
 		return bytes[0];
 	}
-	
+
+	@Override
 	public void setByte(String field, byte value) {
-		byte[] bytes = {value};
+		byte[] bytes = { value };
 		setBytes(field, bytes);
-	}	
-	
-	public Object getObject(String field) {		
+	}
+
+	@Override
+	public Object getObject(String field) {
 		return getString(field);
 	}
-	
+
+	@Override
 	public void setObject(String field, Object value) {
 		String v = value == null ? "" : value.toString(); //$NON-NLS-1$
 		setString(field, v);
-	}	
-	
-	public byte[] getBytes() {		
+	}
+
+	@Override
+	public byte[] getBytes() {
 		return toByteArray(buffer);
-	}	
-	
-	public String getBuffer() {		
+	}
+
+	@Override
+	public String getBuffer() {
 		return new String(getBytes(), charset());
 	}
-	
+
+	@Override
 	public void setBytes(byte[] arg) {
 		char[] chars = toCharArray(arg);
 		setChars(chars);
 	}
-	
+
+	@Override
 	public void setBuffer(String arg) {
-		setBytes(arg.getBytes(charset()));		
+		setBytes(arg.getBytes(charset()));
 	}
-	
-	public List<String> getFields() {		
+
+	@Override
+	public List<String> getFields() {
 		return spec.getFieldNames();
 	}
-	
+
 	@Override
 	public String toString() {
 		return getBuffer();
 	}
-	
+
 	/**
 	 * Sets a String with right justification.
 	 * 
@@ -268,9 +296,8 @@ implements ModifiableIndexedFieldsRecord<String> {
 	
 	/**
 	 * Converts a byte array to char array.
-	 * 
-	 * @param bytes
-	 * 
+	 *
+	 * @param bytes the bytes
 	 * @return Returns the char array.
 	 */
 	char[] toCharArray(byte[] bytes) {
@@ -280,9 +307,8 @@ implements ModifiableIndexedFieldsRecord<String> {
 	
 	/**
 	 * Converts a char array to byte array.
-	 * 
-	 * @param chars
-	 * 
+	 *
+	 * @param chars the chars
 	 * @return Returns the byte array.
 	 */
 	byte[] toByteArray(char[] chars) {
@@ -312,8 +338,8 @@ implements ModifiableIndexedFieldsRecord<String> {
 	
 	/**
 	 * Sets the contents of the buffer.
-	 * 
-	 * @param arg
+	 *
+	 * @param arg the new chars
 	 */
 	void setChars(char[] arg) {
 		int lengthToCopy = 
@@ -363,8 +389,4 @@ implements ModifiableIndexedFieldsRecord<String> {
 		}
 		return sb.toString();
 	}
-	
-	
-	
-
 }

@@ -24,7 +24,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Unit test for Stored
+ * Unit test for Stored.
  */
 public class TestStoredJdbcQuery {
 	
@@ -35,7 +35,8 @@ public class TestStoredJdbcQuery {
 	
 	/**
 	 * Setup tests.
-	 * @throws InitializationException 
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Before
 	public void setup() throws InitializationException {
@@ -45,9 +46,9 @@ public class TestStoredJdbcQuery {
 	
 	/**
 	 * Unit test for the whole life cycle.
-	 * 
-	 * @throws InitializationException 
-	 * @throws DataException 
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testLifecycle() throws InitializationException, DataException {

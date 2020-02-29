@@ -33,11 +33,10 @@ public interface OrderedFieldsUpdatableContainer {
 	
 	/**
 	 * Sets the value of a field assigning to it a string.
-	 * 
+	 *
 	 * @param field field order.
 	 * @param value value to set to the field.
-	 * 
-	 * @throws DataAccessException
+	 * @throws DataAccessException the data access exception
 	 */
 	public void setString(int field, String value)
 	throws DataAccessException;
@@ -45,11 +44,10 @@ public interface OrderedFieldsUpdatableContainer {
 	
 	/**
 	 * Sets the value of a field assigning to it a big decimal.
-	 * 
+	 *
 	 * @param field field order.
 	 * @param value value to set to the field.
-	 * 
-	 * @throws DataAccessException
+	 * @throws DataAccessException the data access exception
 	 */
 	public void setBigDecimal(int field, BigDecimal value)
 	throws DataAccessException;
@@ -57,66 +55,60 @@ public interface OrderedFieldsUpdatableContainer {
 	
 	/**
 	 * Sets the value of a field assigning to it a double.
-	 * 
+	 *
 	 * @param field field order.
 	 * @param value value to set to the field.
-	 * 
-	 * @throws DataAccessException
+	 * @throws DataAccessException the data access exception
 	 */
 	public void setDouble(int field, double value)
 	throws DataAccessException;
 	
 	/**
 	 * Sets the value of a field assigning to it a float.
-	 * 
+	 *
 	 * @param field field order.
 	 * @param value value to set to the field.
-	 * 
-	 * @throws DataAccessException
+	 * @throws DataAccessException the data access exception
 	 */
 	public void setFloat(int field, float value)
 	throws DataAccessException;
 	
 	/**
 	 * Sets the value of a field assigning to it a double.
-	 * 
+	 *
 	 * @param field field order.
 	 * @param value value to set to the field.
-	 * 
-	 * @throws DataAccessException
+	 * @throws DataAccessException the data access exception
 	 */
 	public void setInt(int field, int value)
 	throws DataAccessException;
 	
 	/**
 	 * Sets the value of a field assigning to it a long.
-	 * 
+	 *
 	 * @param field field order.
 	 * @param value value to set to the field.
-	 * 
-	 * @throws DataAccessException
+	 * @throws DataAccessException the data access exception
 	 */
 	public void setLong(int field, long value)
 	throws DataAccessException;
 	
 	/**
 	 * Sets the value of a field assigning to it a short.
-	 * 
+	 *
 	 * @param field field order.
 	 * @param value value to set to the field.
-	 * 
-	 * @throws DataAccessException
+	 * @throws DataAccessException the data access exception
 	 */
 	public void setShort(int field, short value)
 	throws DataAccessException;
 	
 	/**
 	 * Sets the value of a field assigning to it a boolean.
-	 * 
+	 *
 	 * @param field field order.
 	 * @param value value to set to the field.
-	 * 
-	 * @throws DataAccessException
+	 * @throws DataAccessException the data access exception
 	 */
 	public void setBoolean(int field, boolean value)
 	throws DataAccessException;
@@ -124,33 +116,30 @@ public interface OrderedFieldsUpdatableContainer {
 	
 	/**
 	 * Sets the value of a field assigning to it a byte.
-	 * 
+	 *
 	 * @param field field order.
 	 * @param value value to set to the field.
-	 * 
-	 * @throws DataAccessException
+	 * @throws DataAccessException the data access exception
 	 */
 	public void setByte(int field, byte value)
 	throws DataAccessException;
 
 	/**
 	 * Sets the value of a field assigning to it a byte array.
-	 * 
+	 *
 	 * @param field field order.
 	 * @param value value to set to the field.
-	 * 
-	 * @throws DataAccessException
+	 * @throws DataAccessException the data access exception
 	 */
 	public void setBytes(int field, byte[] value)
 	throws DataAccessException;
 	
 	/**
 	 * Sets the value of a field assigning to it a date.
-	 * 
+	 *
 	 * @param field field order.
 	 * @param value value to set to the field.
-	 * 
-	 * @throws DataAccessException
+	 * @throws DataAccessException the data access exception
 	 */
 	public void setDate(int field, Date value)
 	throws DataAccessException;
@@ -158,11 +147,10 @@ public interface OrderedFieldsUpdatableContainer {
 	
 	/**
 	 * Sets the value of a field assigning to it a calendar.
-	 * 
+	 *
 	 * @param field field order.
 	 * @param value value to set to the field.
-	 * 
-	 * @throws DataAccessException
+	 * @throws DataAccessException the data access exception
 	 */
 	public void setCalendar(int field, Calendar value)
 	throws DataAccessException;
@@ -170,11 +158,10 @@ public interface OrderedFieldsUpdatableContainer {
 	
 	/**
 	 * Sets the value of a field assigning to it an object.
-	 * 
+	 *
 	 * @param field field order.
 	 * @param value value to set to the field.
-	 * 
-	 * @throws DataAccessException
+	 * @throws DataAccessException the data access exception
 	 */
 	public void setObject(int field, Object value)
 	throws DataAccessException;

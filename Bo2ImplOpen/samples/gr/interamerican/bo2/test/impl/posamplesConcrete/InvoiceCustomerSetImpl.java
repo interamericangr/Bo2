@@ -21,7 +21,7 @@ import gr.interamerican.bo2.test.def.posamples.InvoiceCustomerSetKey;
 import java.util.Set;
 
 /**
- * 
+ * The Class InvoiceCustomerSetImpl.
  */
 public class InvoiceCustomerSetImpl 
 extends AbstractModificationRecordPo<InvoiceCustomerSetKey> 
@@ -33,9 +33,7 @@ implements InvoiceCustomerSet {
 	private static final long serialVersionUID = 1L;
 
 
-	/**
-	 * set with invoice customers
-	 */
+	/** set with invoice customers. */
 	private Set<InvoiceCustomer> customers;
 
 	
@@ -45,6 +43,7 @@ implements InvoiceCustomerSet {
 	 * @return customers
 	 */
 	
+	@Override
 	public Set<InvoiceCustomer> getCustomers() {
 		return customers;
 	}
@@ -52,18 +51,21 @@ implements InvoiceCustomerSet {
 	/**
 	 * ��������� customers.
 	 *
-	 * @param customers 
+	 * @param customers the new customers
 	 */
+	@Override
 	public void setCustomers(Set<InvoiceCustomer> customers) {
 		this.customers = customers;
 	}
 
 
+	@Override
 	public String getInvoiceCustomerSetNo() {		
 		return key.getInvoiceCustomerSetNo();
 	}
 	
 
+	@Override
 	public void setInvoiceCustomerSetNo(String invoiceCustomerSetNo) {
 		key.setInvoiceCustomerSetNo(invoiceCustomerSetNo);
 	}

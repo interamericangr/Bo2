@@ -13,7 +13,7 @@
 package gr.interamerican.bo2.samples.generics;
 
 /**
- * 
+ * The Class BimplementsIB.
  */
 public class BimplementsIB implements IntegeredIBextendsNumberedIA {
 //

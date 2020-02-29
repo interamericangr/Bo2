@@ -16,16 +16,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
-import gr.interamerican.bo2.samples.bean.BeanWithOrderedFields;
-import gr.interamerican.bo2.samples.collections.BeanCollections;
-import gr.interamerican.wicket.creators.DataTableCreator;
-import gr.interamerican.wicket.markup.html.TestPage;
-import gr.interamerican.wicket.samples.actions.DummyCallback;
-import gr.interamerican.wicket.samples.creators.DataTableCreatorForBeanWithOrderedFieldsWithRadios;
-import gr.interamerican.wicket.samples.flags.AlwaysDownFlag;
-import gr.interamerican.wicket.test.WicketTest;
-
-import java.util.Map;
 
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.DataTable;
@@ -37,8 +27,16 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.serialize.java.JavaSerializer;
 import org.junit.Test;
 
+import gr.interamerican.bo2.samples.bean.BeanWithOrderedFields;
+import gr.interamerican.bo2.samples.collections.BeanCollections;
+import gr.interamerican.wicket.callback.MockedCallback;
+import gr.interamerican.wicket.markup.html.TestPage;
+import gr.interamerican.wicket.samples.creators.SampleDataTableCreators;
+import gr.interamerican.wicket.samples.flags.AlwaysDownFlag;
+import gr.interamerican.wicket.test.WicketTest;
+
 /**
- * Unit tests for {@link PickerPanel}
+ * Unit tests for {@link PickerPanel}.
  */
 @SuppressWarnings("nls")
 public class TestPickerPanel extends WicketTest {
@@ -46,34 +44,18 @@ public class TestPickerPanel extends WicketTest {
 	/**
 	 * Dummy callback for item selection.
 	 */
-	private DummyCallback callback = new DummyCallback();
-	
-	/**
-	 * table creator.
-	 */
-	private DataTableCreatorForBeanWithOrderedFieldsWithRadios creator = createCreator();
-	
-	/**
-	 * Creates the {@link DataTableCreator}.
-	 * 
-	 * @return Returns a DataTableCreatorForBeanWithOrderedFields.
-	 */
-	DataTableCreatorForBeanWithOrderedFieldsWithRadios createCreator() {
-		DataTableCreatorForBeanWithOrderedFieldsWithRadios cr = 
-			new DataTableCreatorForBeanWithOrderedFieldsWithRadios();		
-		cr.setRowsPerPage(5);
-		return cr;
-	}
-	
+	private MockedCallback callback = new MockedCallback();
+
 	/**
 	 * Creates a sample definition.
 	 * 
 	 * @return returns a definition.
 	 */
+	@SuppressWarnings("unchecked")
 	PickerPanelDef<BeanWithOrderedFields> createDef() {		
 		PickerPanelDef<BeanWithOrderedFields> def = new PickerPanelDefImpl<BeanWithOrderedFields>();
 		def.setBackAction(null);
-		def.setDataTableCreator(creator);
+		def.setDataTableCreator(SampleDataTableCreators.radio(5));
 		def.setItemSelectedAction(callback);
 		def.setBeanModel(new CompoundPropertyModel<BeanWithOrderedFields>(new BeanWithOrderedFields()));
 		def.setList(BeanCollections.listOfBeanWithOrderedFields());
@@ -131,26 +113,6 @@ public class TestPickerPanel extends WicketTest {
 
 		callback.setExecuted(false);
 		
-		/*
-		 * We insert the values in the request parameters manually, because
-		 * the formTester.submit() will assign new ids in the path of the
-		 * radio buttons and, as a result, the AjaxEvent will fail to locate
-		 * the correct radio and retrieve the model. So, normally we would do:
-		 * 
-		 * FormTester formTester = tester.newFormTester(path("tableForm"));
-		 * formTester.select("radioGroup", 0);
-     	 * formTester.submit();
-     	 * 
-     	 * TODO: is there a way to have the ajaxevent submit the form maybe?
-     	 * Having to do this in two steps is a bit counter-intuitive.
-		 * 
-		 * The following line is the equivalent of having clicked the first
-		 * row radio. "radio" is the wicket:id of the radio buttons and 0 stands
-		 * for the first row.
-		 */
-		Map<String, String[]> map= tester.getRequest().getParameterMap();	
-		map.put("testId:tableForm:radioGroup", new String[]{"radio0"});
-
 		tester.executeAjaxEvent(button, "onclick");
 		
 		BeanWithOrderedFields modelOb2 = radioGroup.getModelObject();
@@ -229,5 +191,4 @@ public class TestPickerPanel extends WicketTest {
 		assertEquals(AlwaysDownFlag.DOWN_MESSAGE, fm.getMessage().toString());
 		
 	}
-
 }

@@ -12,12 +12,10 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.namedstreams;
 
-import static gr.interamerican.bo2.utils.StringConstants.EQUALS;
-import static gr.interamerican.bo2.utils.StringConstants.COMMA;
+import static gr.interamerican.bo2.utils.StringConstants.*;
 import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResource;
 import gr.interamerican.bo2.impl.open.namedstreams.types.StreamType;
 import gr.interamerican.bo2.utils.Bo2UtilsEnvironment;
-import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.StringUtils;
 
 import java.nio.charset.Charset;
@@ -70,7 +68,7 @@ public class NamedStreamDefinition {
 	/**
 	 * stream encoding. 
 	 */
-	Charset encoding = Bo2UtilsEnvironment.getDefaultTextCharset();
+	Charset encoding = Bo2UtilsEnvironment.get().getDefaultTextCharset();
 	
 	/**
 	 * Gets the name.
@@ -178,7 +176,6 @@ public class NamedStreamDefinition {
 	 * 
 	 * @return returns the specification string.
 	 */
-	@SuppressWarnings("unchecked")
 	public String getSpecsString() {
 		String reclen = RECORD_LENGTH_PREFIX+Integer.toString(recordLength);
 		String charset = ENCODING_PREFIX+encoding.toString();

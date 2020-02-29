@@ -23,18 +23,16 @@ import java.text.ParseException;
 import org.junit.Test;
 
 /**
- * Unit tests for {@link NumberUtils}
+ * Unit tests for {@link NumberUtils}.
  */
 @SuppressWarnings("nls")
 public class TestNumberUtils {
 	
-	/**
-	 * epsilon for equality check of doubles by assertEquals
-	 */
+	/** epsilon for equality check of doubles by assertEquals. */
 	private static final double EPSILON = 0.0;
 	
 	/**
-	 * tests string2Double
+	 * tests string2Double.
 	 */
 	@Test
 	public void testString2Double() {		
@@ -60,7 +58,7 @@ public class TestNumberUtils {
 	}
 	
 	/**
-	 * tests string2Double
+	 * tests string2Double.
 	 */
 	@Test
 	public void testString2Double_FalseValue() {	
@@ -71,7 +69,7 @@ public class TestNumberUtils {
 	}
 	
 	/**
-	 * tests string2BigDecimal
+	 * tests string2BigDecimal.
 	 */
 	@Test
 	public void testString2BigDecimal() {
@@ -99,7 +97,7 @@ public class TestNumberUtils {
 	
 	
 	/**
-	 * tests round
+	 * tests round.
 	 */
 	@Test
 	public void testRound_Double() {		
@@ -121,7 +119,7 @@ public class TestNumberUtils {
 	}
 	
 	/**
-	 * tests round up
+	 * tests round up.
 	 */
 	@Test
 	public void testRoundUp_Double() {		
@@ -144,7 +142,7 @@ public class TestNumberUtils {
 	
 
 	/**
-	 * tests sum
+	 * tests sum.
 	 */
 	@Test
 	public void testSum() {
@@ -159,7 +157,7 @@ public class TestNumberUtils {
 	
 	
 	/**
-	 * tests format
+	 * tests format.
 	 */
 	@Test	
 	public void testFormat() {
@@ -185,7 +183,7 @@ public class TestNumberUtils {
 	}
 	
 	/**
-	 * tests format with decimals
+	 * tests format with decimals.
 	 */
 	@Test	
 	public void testFormatWithDecimal() {
@@ -217,7 +215,7 @@ public class TestNumberUtils {
 	
 	
 	/**
-	 * tests string2Int
+	 * tests string2Int.
 	 */	
 	@Test
 	public void testString2Int() {		
@@ -242,7 +240,7 @@ public class TestNumberUtils {
 	}
 	
 	/**
-	 * tests string2Int
+	 * tests string2Int.
 	 */	
 	@Test
 	public void testString2Long() {		
@@ -269,7 +267,7 @@ public class TestNumberUtils {
 	
 
 	/**
-	 * tests isNumeric
+	 * tests isNumeric.
 	 */		
 	@Test
 	public void testIsNumeric() {
@@ -288,8 +286,9 @@ public class TestNumberUtils {
 	
 	
 	/**
-	 * test parses a double
-	 * @throws ParseException 
+	 * test parses a double.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@Test
 	public void testParseDouble() throws ParseException {		
@@ -316,8 +315,9 @@ public class TestNumberUtils {
 	
 	
 	/**
-	 * test parses a double
-	 * @throws ParseException 
+	 * test parses a double.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@Test
 	public void testParseFloat() throws ParseException {		
@@ -343,7 +343,7 @@ public class TestNumberUtils {
 	}
 	
 	/**
-	 * tests string2Double
+	 * tests string2Double.
 	 */
 	@Test
 	public void testInt2BigDecimal() {		
@@ -365,7 +365,7 @@ public class TestNumberUtils {
 	}	
 	
 	/**
-	 * test round 
+	 * test round.
 	 */
 	@Test
 	public void testRound_BigDecimal() {	
@@ -384,7 +384,7 @@ public class TestNumberUtils {
 	}
 	
 	/**
-	 * test formatInteger
+	 * test formatInteger.
 	 */
 	@Test
 	public void testFormatInteger() {
@@ -399,30 +399,28 @@ public class TestNumberUtils {
 	}
 
 	/**
-	 * test max
+	 * test max.
 	 */
 	@Test(expected = RuntimeException.class)
 	public void testMax_Exception() {
 		NumberUtils.max();
 	}
-	
+
 	/**
-	 * test max
+	 * test max.
 	 */
 	@Test
 	public void testMax() {
-		
-		assertEquals(2,NumberUtils.max(2));
-		assertEquals(10,NumberUtils.max(10));
-		
-		assertEquals(7,NumberUtils.max(4,5,7));
-		assertEquals(30,NumberUtils.max(10,20,30));
+
+		assertEquals(new Integer(2), NumberUtils.max(2));
+		assertEquals(new Integer(10), NumberUtils.max(10));
+
+		assertEquals(new Integer(7), NumberUtils.max(4, 5, 7));
+		assertEquals(new Integer(30), NumberUtils.max(10, 20, 30));
 	}
-	
-	
-	
+
 	/**
-	 * test BigDecimal
+	 * test BigDecimal.
 	 */
 	@Test
 	public void testNewBigDecimal() {
@@ -442,7 +440,7 @@ public class TestNumberUtils {
 	}
 	
 	/**
-	 * test randomInt
+	 * test randomInt.
 	 */
 	@Test
 	public void testRandomInt() {
@@ -464,7 +462,7 @@ public class TestNumberUtils {
 	}
 	
 	/**
-	 * test isNullOrZero
+	 * test isNullOrZero.
 	 */
 	@Test
 	public void testIsNullOrZero() {
@@ -477,7 +475,7 @@ public class TestNumberUtils {
 	}
 	
 	/**
-	 * test gcd
+	 * test gcd.
 	 */
 	@Test
 	public void testGcd_long() {
@@ -488,7 +486,7 @@ public class TestNumberUtils {
 	}
 	
 	/**
-	 * test gcd
+	 * test gcd.
 	 */
 	@Test
 	public void testGcd_int() {

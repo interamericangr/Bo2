@@ -29,6 +29,7 @@ import org.junit.Test;
 /**
  * Unit test for {@link EntitiesQuery2CsvOperation}.
  */
+@Deprecated
 @SuppressWarnings("nls")
 public class TestEntitiesQuery2CsvOperation {
 	/**
@@ -49,10 +50,10 @@ public class TestEntitiesQuery2CsvOperation {
 	
 	/**
 	 * Test for execute.
-	 * 
-	 * @throws UnexpectedException
-	 * @throws DataException
-	 * @throws LogicException
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testExecute() 
@@ -78,9 +79,9 @@ public class TestEntitiesQuery2CsvOperation {
 
 		/**
 		 * Creates a new Op object.
-		 * 
-		 * @param properties
-		 * @param formatters
+		 *
+		 * @param properties the properties
+		 * @param formatters the formatters
 		 */
 		public Oper(String[] properties, Formatter<?>[] formatters) {
 			super(new TsEntitiesQueryImpl(), properties, formatters, "TestEntitiesQuery2CsvOperation.csv");

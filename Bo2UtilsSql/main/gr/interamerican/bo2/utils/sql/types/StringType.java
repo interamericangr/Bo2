@@ -33,14 +33,17 @@ extends QuotedType<String> {
 		super();
 	}
 	
+	@Override
 	public String get(ResultSet rs, String columnIndex) throws SQLException {		
 		return rs.getString(columnIndex);
 	}
 	
+	@Override
 	public String get(ResultSet rs, int columnIndex) throws SQLException {		
 		return rs.getString(columnIndex);
 	}
 
+	@Override
 	public Class<String> getJavaType() {		
 		return String.class;
 	}

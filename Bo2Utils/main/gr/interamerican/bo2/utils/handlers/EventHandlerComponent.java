@@ -16,21 +16,19 @@ import gr.interamerican.bo2.utils.exc.ExceptionHandler;
 
 /**
  * Concrete AbstractEventHandler without any additional method or field.
- * 
- * @param <C> 
+ *
+ * @param <C> the generic type
  */
 public class EventHandlerComponent<C> 
 extends AbstractEventHandler<C> {
 	
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Creates a new EventHandlerComponent object. 
-	 * 
-	 * @param exceptionHandler
+	 *
+	 * @param exceptionHandler the exception handler
 	 */
 	public EventHandlerComponent(ExceptionHandler exceptionHandler) {
 		super(exceptionHandler);
@@ -48,8 +46,4 @@ extends AbstractEventHandler<C> {
 		this(exceptionHandler);
 		setCaller(caller);
 	}
-	
-	
-
-
 }

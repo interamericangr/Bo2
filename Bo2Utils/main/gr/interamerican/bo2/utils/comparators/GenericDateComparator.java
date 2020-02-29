@@ -33,8 +33,8 @@ implements Comparator<Object> {
 	
 	/**
 	 * Converts an object to date.
-	 * 
-	 * @param o
+	 *
+	 * @param o the o
 	 * @return Returns the object that is represented by the date.
 	 *         if the object does not represent a date, returns null.
 	 */
@@ -47,6 +47,7 @@ implements Comparator<Object> {
 		
 	}	
 	
+	@Override
 	public int compare(Object o1, Object o2) {	
 		Date dt1 = convert(o1);
 		Date dt2 = convert(o2);

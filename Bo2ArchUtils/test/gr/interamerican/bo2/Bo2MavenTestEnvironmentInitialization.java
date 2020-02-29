@@ -12,9 +12,7 @@ import org.junit.Test;
  */
 public class Bo2MavenTestEnvironmentInitialization {
 
-	/**
-	 * for test
-	 */
+	/** for test. */
 	public static boolean initialized = false;
 
 

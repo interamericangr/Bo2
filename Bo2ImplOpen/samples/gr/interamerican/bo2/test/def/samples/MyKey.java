@@ -20,14 +20,20 @@ import gr.interamerican.bo2.impl.open.annotations.KeyProperties;
  */
 @KeyProperties("string")
 public interface MyKey extends Key {
-	/** 
-	 * field getter 
+	
+	/**
+	 *  
+	 * field getter .
+	 *
 	 * @return string
-	 **/
+	 */
 	String getString();
-	/** 
-	 * field setter
-	 * @param string 
-	 **/
+	
+	/**
+	 *  
+	 * field setter.
+	 *
+	 * @param string the new string
+	 */
 	void setString(String string);
 }

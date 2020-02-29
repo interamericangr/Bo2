@@ -37,6 +37,7 @@ import org.junit.Test;
 /**
  * Unit tests for {@link CopyToOtherSystemOperation} with Hibernate.
  */
+@SuppressWarnings("deprecation")
 public class TestBatchCopyToOtherSystemOperation_Hibernate {
 	
 	/**
@@ -64,14 +65,10 @@ public class TestBatchCopyToOtherSystemOperation_Hibernate {
 	 */
 	private String toManager = "OTHERDB"; //$NON-NLS-1$
 	
-	/**
-	 * Sample Invoice 1
-	 */
+	/** Sample Invoice 1. */
 	private Invoice invoice1;
 	
-	/**
-	 * Sample Invoice 2
-	 */
+	/** Sample Invoice 2. */
 	private Invoice invoice2;
 	
 	/**
@@ -136,10 +133,10 @@ public class TestBatchCopyToOtherSystemOperation_Hibernate {
 	
 	/**
 	 * Clear data and setup a sample Invoice. 
-	 * 
-	 * @throws UnexpectedException
-	 * @throws DataException
-	 * @throws LogicException
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Before
 	public void before() throws UnexpectedException, DataException, LogicException {
@@ -161,9 +158,10 @@ public class TestBatchCopyToOtherSystemOperation_Hibernate {
 	
 	/**
 	 * Test tear down.
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@After
 	public void teardown() throws UnexpectedException, DataException, LogicException {
@@ -184,9 +182,10 @@ public class TestBatchCopyToOtherSystemOperation_Hibernate {
 	
 	/**
 	 * Test execute.
-	 * @throws DataException 
-	 * @throws LogicException 
-	 * @throws UnexpectedException 
+	 *
+	 * @throws LogicException the logic exception
+	 * @throws DataException the data exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test
 	public void testExecute() throws LogicException, DataException, UnexpectedException {

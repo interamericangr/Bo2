@@ -32,7 +32,9 @@ import org.junit.runners.Suite.SuiteClasses;
 		TestMultipleCachedEntriesBoPropertyDescriptor.class,
 		TestMultipleCachedEntriesOwnersBoPropertyDescriptor.class,
 		TestPalleteCachedEntriesOwnersBoPropertyDescriptor.class,
-		TestPalleteCachedEntriesBoPropertyDescriptor.class
+		TestPalleteCachedEntriesBoPropertyDescriptor.class,
+		TestTranslatableBasicBusinessObjectDescriptor.class,
+		TestTranslatableBoPropertyDescriptorWrapper.class
 		
 	}
 )

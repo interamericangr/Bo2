@@ -13,59 +13,51 @@
 package gr.interamerican.wicket.bo2.util.resource;
 
 import static gr.interamerican.wicket.bo2.protocol.http.Bo2WicketRequestCycle.provider;
-import gr.interamerican.bo2.arch.exceptions.InitializationException;
-import gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition;
-import gr.interamerican.bo2.impl.open.namedstreams.NamedStreamUtils;
-import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResource;
-import gr.interamerican.bo2.impl.open.namedstreams.types.NamedInputStream;
-import gr.interamerican.bo2.impl.open.namedstreams.types.StreamType;
-import gr.interamerican.bo2.utils.Bo2UtilsEnvironment;
-import gr.interamerican.wicket.bo2.protocol.http.Bo2WicketRequestCycle;
-import gr.interamerican.wicket.bo2.test.MockApplicationForWicketBo2;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 
 import org.apache.wicket.request.cycle.RequestCycle;
-import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
+
+import gr.interamerican.bo2.arch.exceptions.InitializationException;
+import gr.interamerican.bo2.impl.open.namedstreams.NamedStreamUtils;
+import gr.interamerican.bo2.impl.open.namedstreams.types.NamedInputStream;
+import gr.interamerican.wicket.bo2.protocol.http.Bo2WicketRequestCycle;
+import gr.interamerican.wicket.bo2.test.Bo2WicketTest;
 
 /**
  * Unit tests for {@link Bo2WicketRequestCycle}.
  * 
  */
-public class TestNamedInputStreamAsResourceStream {
+public class TestNamedInputStreamAsResourceStream extends Bo2WicketTest {
 	
-	/**
-	 * the WicketTester
-	 */
-	public WicketTester wicketTester =
-		new WicketTester(new MockApplicationForWicketBo2());
 	
 	/**
 	 * Unit test for a request cycle.
-	 * @throws InitializationException 
-	 * @throws IOException 
+	 *
+	 * @throws InitializationException
+	 *             the initialization exception
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	@SuppressWarnings("nls")
 	@Test
-	public void testLifeCycle() throws InitializationException, IOException{
+	public void testLifeCycle() throws InitializationException, IOException {
 		Bo2WicketRequestCycle.beginRequest(RequestCycle.get());
 		String name = "MockNs";
-		String manager = "LOCALFS";	
+		String manager = "LOCALFS";
 		InputStream stream = Mockito.mock(InputStream.class);
-		
-		Charset encoding=Charset.defaultCharset();
-		NamedInputStream nis = new NamedInputStream(null, stream, name, 100, null, encoding,null);
+
+		Charset encoding = Charset.defaultCharset();
+		NamedInputStream nis = new NamedInputStream(null, stream, name, 100, null, encoding, null);
 		NamedStreamUtils.registerStream(nis, provider(), manager);
-		NamedInputStreamAsResourceStream resource = 
-			new NamedInputStreamAsResourceStream(manager, name);
-		Assert.assertEquals(nis, resource.nis);
-		resource.close();
+		try (NamedInputStreamAsResourceStream resource = new NamedInputStreamAsResourceStream(manager, name)) {
+			Assert.assertEquals(nis, resource.nis);
+		}
 		Bo2WicketRequestCycle.endRequest(RequestCycle.get());
 	}
-	
 }

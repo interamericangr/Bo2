@@ -5,9 +5,9 @@ import java.util.Map;
 
 /**
  * Class that owns a Map.
- * 
- * @param <K> 
- * @param <V> 
+ *
+ * @param <K> the key type
+ * @param <V> the value type
  */
 public class MapOwner<K,V> {
 	

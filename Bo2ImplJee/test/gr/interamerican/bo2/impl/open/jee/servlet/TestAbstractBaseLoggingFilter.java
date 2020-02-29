@@ -18,10 +18,10 @@ import org.mockito.Mockito;
 public class TestAbstractBaseLoggingFilter {
 	
 	/**
-	 * Test doFilter()
-	 * 
-	 * @throws IOException
-	 * @throws ServletException
+	 * Test doFilter().
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ServletException the servlet exception
 	 */
 	@Test
 	public void testDoFilter() throws IOException, ServletException {

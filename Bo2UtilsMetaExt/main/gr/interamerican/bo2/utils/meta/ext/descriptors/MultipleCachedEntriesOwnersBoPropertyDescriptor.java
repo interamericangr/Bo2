@@ -43,20 +43,18 @@ public class MultipleCachedEntriesOwnersBoPropertyDescriptor
 <T extends TranslatableEntryOwner<C,?,?>,C extends Comparable<? super C>>
 extends AbstractCacheRelatedObjectBoPropertyDescriptor<Collection<T>, C> {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 
 	/**
 	 * Creates a new MultipleChoiceCachedEntryBoPropertyDescriptor object. 
 	 *
-	 * @param typeId
-	 * @param subTypeId
-	 * @param cacheName
-	 * @param codeParser
-	 * @param codeFormatter 
+	 * @param typeId the type id
+	 * @param subTypeId the sub type id
+	 * @param cacheName the cache name
+	 * @param codeParser the code parser
+	 * @param codeFormatter the code formatter
 	 */
 	public MultipleCachedEntriesOwnersBoPropertyDescriptor(
 	Long typeId, Long subTypeId, String cacheName, Parser<C> codeParser, Formatter<C> codeFormatter) {
@@ -106,8 +104,8 @@ extends AbstractCacheRelatedObjectBoPropertyDescriptor<Collection<T>, C> {
 
 	/**
 	 * Gets the owner of an entry.
-	 * 
-	 * @param typedSelectable
+	 *
+	 * @param typedSelectable the typed selectable
 	 * @return Returns the owner of an entry.
 	 */
 	@SuppressWarnings("unchecked")

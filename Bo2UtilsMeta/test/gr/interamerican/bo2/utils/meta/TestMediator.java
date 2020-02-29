@@ -32,45 +32,42 @@ import java.util.Map;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestMediator.
  */
 public class TestMediator {
 
-	 /**
-	 * Mediator
-	 */
+	 /** Mediator. */
 	Mediator mediator = Mediator.getInstance();
-	/**
-	 * Bean1
-	 */
+	
+	/** Bean1. */
 	Bean1 bean1 = getMyFullBean();
-	/**
-	 * Lista me descriptors
-	 */
+	
+	/** Lista me descriptors. */
 	List<BoPropertyDescriptor<?>> descriptors = getDescriptors();
 
 	
 	/**
-	 * Create a Bean
+	 * Create a Bean.
+	 *
 	 * @return bean1
-	 * 
 	 */
 	private Bean1 getMyFullBean() {
-		Bean1 bean1 = new Bean1();
-		bean1.setDescription("description1"); //$NON-NLS-1$
-		bean1.setAmount(new BigDecimal(10000));
-		return bean1;
+		Bean1 returned = new Bean1();
+		returned.setDescription("description1"); //$NON-NLS-1$
+		returned.setAmount(new BigDecimal(10000));
+		return returned;
 	}
     
 	/**
-	 * Return one list with BoPropertyDescriptors
+	 * Return one list with BoPropertyDescriptors.
+	 *
 	 * @return List<BoPropertyDescriptor<?>>
 	 */
 	private List<BoPropertyDescriptor<?>> getDescriptors(){
 		
 		 Bean1descriptor descriptor =  new Bean1descriptor();
-		 List<BoPropertyDescriptor<?>> descriptors = descriptor.getPropertyDescriptors();
-		 return descriptors;
+		 List<BoPropertyDescriptor<?>> returned = descriptor.getPropertyDescriptors();
+		 return returned;
 	}
 	/**
 	 * Test GetValue
@@ -92,7 +89,8 @@ public class TestMediator {
 	/**
 	 * Test Set Value
 	 * Sets the value to the property defined by the {@link BoPropertyDescriptor}.
-	 * @throws ValidationException 
+	 *
+	 * @throws ValidationException the validation exception
 	 */
 	@Test
 	public void testSetValue() throws ValidationException {
@@ -120,7 +118,8 @@ public class TestMediator {
 	 * Test setValues
 	 * Gets the values of a beans properties as they are described
 	 * by a {@link BusinessObjectDescriptor} that describes the bean.
-	 * @throws MultipleValidationsException 
+	 *
+	 * @throws MultipleValidationsException the multiple validations exception
 	 */
 	@Test
 	public void testSetValues() throws MultipleValidationsException{
@@ -135,7 +134,8 @@ public class TestMediator {
 	/**
 	 *  Test Validate
 	 *  Validates a set of values each against a BoPropertyDescriptor.
-	 * @throws MultipleValidationsException 
+	 *
+	 * @throws MultipleValidationsException the multiple validations exception
 	 */
 	@Test
 	public void testValidateValues() throws MultipleValidationsException{
@@ -152,7 +152,8 @@ public class TestMediator {
 	/**
 	 *  Test Validate
 	 *  Validates a set of values each against a BoPropertyDescriptor.
-	 * @throws MultipleValidationsException 
+	 *
+	 * @throws MultipleValidationsException the multiple validations exception
 	 */
 	@Test(expected=MultipleValidationsException.class )
 	public void testValidateNullValues() throws MultipleValidationsException{
@@ -169,7 +170,8 @@ public class TestMediator {
 	 * Test Validate
 	 * Validates the values of a bean against a {@link BusinessObjectDescriptor}
 	 * that describes it.
-	 * @throws MultipleValidationsException
+	 *
+	 * @throws MultipleValidationsException the multiple validations exception
 	 */
 	@Test (expected = MultipleValidationsException.class)
 	public void testValidateDescriptor() throws MultipleValidationsException{
@@ -183,7 +185,8 @@ public class TestMediator {
 	 * Test Validate
 	 * Validates the values of a bean against a {@link BusinessObjectDescriptor}
 	 * that describes it.
-	 * @throws MultipleValidationsException
+	 *
+	 * @throws MultipleValidationsException the multiple validations exception
 	 */
 
 	@Test

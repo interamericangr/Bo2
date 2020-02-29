@@ -2,7 +2,8 @@ package gr.interamerican.bo2.utils.meta.descriptors;
 
 /**
  * Wrapper of a {@link BoPropertyDescriptor}.
- * @param <T> 
+ *
+ * @param <T> the generic type
  */
 public interface BoPropertyDescriptorWrapper<T> {
 	

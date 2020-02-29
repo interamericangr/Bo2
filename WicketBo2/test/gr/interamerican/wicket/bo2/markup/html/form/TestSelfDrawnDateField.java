@@ -12,10 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.wicket.bo2.markup.html.form;
 
-import gr.interamerican.bo2.utils.meta.descriptors.DateBoPropertyDescriptor;
-import gr.interamerican.wicket.markup.html.TestPage;
-import gr.interamerican.wicket.test.WicketTest;
-
+import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -25,6 +22,11 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.util.tester.FormTester;
 import org.junit.Assert;
 import org.junit.Test;
+
+import gr.interamerican.bo2.utils.DateUtils;
+import gr.interamerican.bo2.utils.meta.descriptors.DateBoPropertyDescriptor;
+import gr.interamerican.wicket.markup.html.TestPage;
+import gr.interamerican.wicket.test.WicketTest;
 
 /**
  * Unit tests for {@link SelfDrawnDateField}.
@@ -47,13 +49,17 @@ public class TestSelfDrawnDateField extends WicketTest {
 	}
 
 	/**
+	 * Test form submission.
+	 *
 	 * @param dateField
+	 *            the date field
 	 */
 	private void testFormSubmission(DateField dateField) {
 		FormTester formTester = tester.newFormTester(formPath());
 		String datePathId = TestPage.TEST_ID + ":date"; //$NON-NLS-1$
 
-		formTester.setValue(datePathId, "01/04/1981"); //$NON-NLS-1$
+		String date = DateFormat.getDateInstance(DateFormat.SHORT).format(DateUtils.getMonth1st(1981, Calendar.APRIL));
+		formTester.setValue(datePathId, date);
 		formTester.submit();
 
 		Calendar c = Calendar.getInstance();
@@ -65,30 +71,30 @@ public class TestSelfDrawnDateField extends WicketTest {
 		c.set(Calendar.SECOND, 0);
 		c.set(Calendar.MILLISECOND, 0);
 		Assert.assertEquals(c.getTime(), dateField.getDefaultModelObject());
-		
+
 		commonAssertions_noError();
 	}
 
 	/**
-	 * 
 	 * Use 01/04/1980 to see the joda time date conversion issue Cannot parse
 	 * "01/04/1980": Illegal instant due to time zone offset transition
-	 * (Europe/Athens)
+	 * (Europe/Athens).
 	 */
 	private void testFormSubmission_error() {
 		FormTester formTester = tester.newFormTester(formPath());
 		String datePathId = TestPage.TEST_ID + ":date"; //$NON-NLS-1$
 		String badDate = "01/04/1980"; //$NON-NLS-1$
-		
+		String label = "date"; //$NON-NLS-1$
 		formTester.setValue(datePathId, badDate);
 		formTester.submit();
 
-		commonAssertions_error(badDate);
+		commonAssertions_error(label);
 	}
-	
+
 	/**
 	 * Test getInternalDateTextField.
 	 */
+	@SuppressWarnings("cast")
 	@Test
 	public void testGetInternalDateTextField() {
 		DateBoPropertyDescriptor descriptor = new DateBoPropertyDescriptor();

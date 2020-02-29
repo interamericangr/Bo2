@@ -44,10 +44,10 @@ extends DropDownChoiceForEntryOwner<L, T>{
 	/**
 	 * Creates a new SelfDrawnDropDownChoiceForEntryOwner object. 
 	 *
-	 * @param id
-	 * @param descriptor 
-	 * @param choices
-	 * @param session
+	 * @param id the id
+	 * @param descriptor the descriptor
+	 * @param choices the choices
+	 * @param session the session
 	 */
 	public SelfDrawnDropDownChoiceForEntryOwner(String id, 
 	CachedEntryOwnerBoPropertyDescriptor<T, ?> descriptor, List<? extends T> choices, Bo2WicketSession<?, L> session) {
@@ -59,8 +59,8 @@ extends DropDownChoiceForEntryOwner<L, T>{
 	 * Creates a new SelfDrawnDropDownChoiceForEntryOwner object. 
 	 *
 	 * @param id Drop down choice id.
-	 * @param descriptor 
-	 * @param model
+	 * @param model the model
+	 * @param descriptor the descriptor
 	 * @param choices List of choices.
 	 * @param session Current session.
 	 */

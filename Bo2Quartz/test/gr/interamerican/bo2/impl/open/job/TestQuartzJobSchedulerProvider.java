@@ -19,23 +19,17 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Integration test 
+ * Integration test.
  */
 public class TestQuartzJobSchedulerProvider {
 	
-	/**
-	 * tm
-	 */
+	/** tm. */
 	JobCapableTransactionManager tm;
 	
-	/**
-	 * job
-	 */
+	/** job. */
 	JobDescription job = Factory.create(JobDescription.class);
 	
-	/**
-	 * job
-	 */
+	/** job. */
 	JobDescription nonTxJob = Factory.create(JobDescription.class);
 	
 	/**
@@ -63,10 +57,11 @@ public class TestQuartzJobSchedulerProvider {
 	}
 	
 	/**
-	 * integration test
-	 * @throws DataException
-	 * @throws LogicException
-	 * @throws UnexpectedException
+	 * integration test.
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test
 	public void integrationTest() throws DataException, LogicException, UnexpectedException {
@@ -99,9 +94,10 @@ public class TestQuartzJobSchedulerProvider {
 	}
 	
 	/**
-	 * integration test
-	 * @throws LogicException 
-	 * @throws DataException 
+	 * integration test.
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void integrationTest_rollback() throws DataException, LogicException {
@@ -125,23 +121,28 @@ public class TestQuartzJobSchedulerProvider {
 					Assert.assertEquals(1, tm.schedulerHandlers.size());
 					Assert.assertEquals(2, tm.schedulerHandlers.iterator().next().getScheduledJobs().size());
 					
-					throw new RuntimeException(); //fail the uow
+					throw new RuntimeException(); //fail the uow; provider will close
 				}
 			}.execute();
 		} catch(UnexpectedException rtex) {/* ok */}
 		
 		QuartzUtils.waitGroupToComplete(null);
 		
-		Assert.assertEquals(1, tm.schedulerHandlers.size());
+		Assert.assertEquals(0, tm.schedulerHandlers.size());
 		
 		Assert.assertEquals(1, TestOperation.times.get());
 		
 	}
 	
-	@SuppressWarnings("javadoc")
+	/**
+	 * The Class TestOperation.
+	 */
 	public static class TestOperation extends AbstractOperation {
+		
+		/** The times. */
 		static AtomicInteger times;
 		
+		/** The foo. */
 		String foo;
 
 		@Override
@@ -149,6 +150,11 @@ public class TestQuartzJobSchedulerProvider {
 			System.out.println(times.incrementAndGet() + foo);
 		}
 		
+		/**
+		 * Sets the foo.
+		 *
+		 * @param foo the new foo
+		 */
 		public void setFoo(String foo) {
 			this.foo = foo;
 		}

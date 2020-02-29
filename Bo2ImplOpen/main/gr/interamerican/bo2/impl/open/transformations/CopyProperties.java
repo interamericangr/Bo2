@@ -42,21 +42,19 @@ implements Transformation<A, R> {
 	/**
 	 * Creates a new CopyTo object. 
 	 *
-	 * @param argumentClass
-	 * @param resultClass
+	 * @param argumentClass the argument class
+	 * @param resultClass the result class
 	 */
 	public CopyProperties(Class<A> argumentClass, Class<R> resultClass) {
 		super();
 		this.argumentClass = argumentClass;
 		this.resultClass = resultClass;
 	}
-	
+
+	@Override
 	public R execute(A a) {
 		R r = Factory.create(resultClass);		
 		ReflectionUtils.copyProperties(a, r);
 		return r;
 	}
-	
-	
-
 }

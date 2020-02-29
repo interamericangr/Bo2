@@ -15,7 +15,7 @@ package gr.interamerican.bo2.samples.implopen.entities;
 import gr.interamerican.bo2.impl.open.annotations.KeyProperties;
 
 /**
- * sample interface
+ * sample interface.
  */
 @KeyProperties("field1, field2")
 public interface SampleClassKey 

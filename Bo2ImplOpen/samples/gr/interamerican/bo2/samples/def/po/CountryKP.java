@@ -13,7 +13,7 @@
 package gr.interamerican.bo2.samples.def.po;
 
 /**
- * 
+ * The Interface CountryKP.
  */
 public interface CountryKP extends ContinentKP {
 	/**
@@ -24,7 +24,8 @@ public interface CountryKP extends ContinentKP {
 	
 	/**
 	 * Set country id.
-	 * @param countryId
+	 *
+	 * @param countryId the new country id
 	 */
 	void setCountryId(Long countryId);
 

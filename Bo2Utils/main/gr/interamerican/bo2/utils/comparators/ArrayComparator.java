@@ -36,9 +36,7 @@ public class ArrayComparator implements Comparator<Object[]> {
 	private static final Comparator<Object> COMPARATOR = 
 		new GenericComparator();
 
-	/* (non-Javadoc)
-	 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
-	 */	
+	@Override
 	public int compare(Object[] array1, Object[] array2) {
 		if (array1==array2) {
 			return 0;
@@ -58,5 +56,4 @@ public class ArrayComparator implements Comparator<Object[]> {
 		}
 		return new Integer(array1.length).compareTo(array2.length);
 	}
-
 }

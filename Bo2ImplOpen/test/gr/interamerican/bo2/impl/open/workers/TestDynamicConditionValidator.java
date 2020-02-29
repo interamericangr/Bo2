@@ -86,9 +86,9 @@ public class TestDynamicConditionValidator {
 	
 	/**
 	 * Tests the apply().
-	 * 
-	 * @throws DataException 
-	 * @throws RuleException 
+	 *
+	 * @throws RuleException the rule exception
+	 * @throws DataException the data exception
 	 */
 	@SuppressWarnings("unchecked")
 	@Test(expected=RuleException.class)
@@ -96,7 +96,7 @@ public class TestDynamicConditionValidator {
 		MessagesBean bean = mock(MessagesBean.class);
 		String key = "X"; //$NON-NLS-1$		
 		Condition<Object> condition= Mockito.mock(Condition.class);
-		Mockito.when(condition.check(Mockito.anyObject())).thenReturn(true);		
+		Mockito.when(condition.check(Mockito.any())).thenReturn(true);		
 		ConcreteConditionValidator validator = new ConcreteConditionValidator(true, bean, key);		validator.setValidatedObject(new Object());
 		validator.condition = condition;
 		validator.setValidatedObject(new Object());
@@ -105,9 +105,9 @@ public class TestDynamicConditionValidator {
 	
 	/**
 	 * Tests the apply().
-	 * 
-	 * @throws DataException 
-	 * @throws RuleException 
+	 *
+	 * @throws RuleException the rule exception
+	 * @throws DataException the data exception
 	 */
 	@SuppressWarnings("unchecked")
 	@Test
@@ -115,7 +115,7 @@ public class TestDynamicConditionValidator {
 		MessagesBean bean = mock(MessagesBean.class);
 		String key = "X"; //$NON-NLS-1$		
 		Condition<Object> condition= Mockito.mock(Condition.class);
-		Mockito.when(condition.check(Mockito.anyObject())).thenReturn(false);		
+		Mockito.when(condition.check(Mockito.any())).thenReturn(false);		
 		ConcreteConditionValidator validator = new ConcreteConditionValidator(true, bean,  key);		validator.setValidatedObject(new Object());
 		validator.condition = condition;
 		validator.setValidatedObject(new Object());
@@ -125,9 +125,9 @@ public class TestDynamicConditionValidator {
 	
 	/**
 	 * Tests apply().
-	 * 
-	 * @throws DataException 
-	 * @throws RuleException 
+	 *
+	 * @throws RuleException the rule exception
+	 * @throws DataException the data exception
 	 */
 	@SuppressWarnings("unchecked")
 	@Test
@@ -135,7 +135,7 @@ public class TestDynamicConditionValidator {
 		MessagesBean bean = mock(MessagesBean.class);
 		String key = "X"; //$NON-NLS-1$		
 		Condition<Object> condition= Mockito.mock(Condition.class);
-		Mockito.when(condition.check(Mockito.anyObject())).thenReturn(true);		
+		Mockito.when(condition.check(Mockito.any())).thenReturn(true);		
 		ConcreteConditionValidator validator = new ConcreteConditionValidator(false, bean,  key);		validator.setValidatedObject(new Object());
 		validator.condition = condition;
 		validator.setValidatedObject(new Object());
@@ -145,9 +145,9 @@ public class TestDynamicConditionValidator {
 	
 	/**
 	 * Tests apply().
-	 * 
-	 * @throws DataException 
-	 * @throws RuleException 
+	 *
+	 * @throws RuleException the rule exception
+	 * @throws DataException the data exception
 	 */
 	@SuppressWarnings("unchecked")
 	@Test(expected=RuleException.class)
@@ -155,7 +155,7 @@ public class TestDynamicConditionValidator {
 		MessagesBean bean = mock(MessagesBean.class);
 		String key = "X"; //$NON-NLS-1$		
 		Condition<Object> condition= Mockito.mock(Condition.class);
-		Mockito.when(condition.check(Mockito.anyObject())).thenReturn(false);		
+		Mockito.when(condition.check(Mockito.any())).thenReturn(false);		
 		ConcreteConditionValidator validator = new ConcreteConditionValidator(false, bean,  key);		validator.setValidatedObject(new Object());
 		validator.condition = condition;
 		validator.setValidatedObject(new Object());
@@ -179,6 +179,13 @@ public class TestDynamicConditionValidator {
 		 */
 		Object vo;
 
+		/**
+		 * Instantiates a new concrete condition validator.
+		 *
+		 * @param failOn the fail on
+		 * @param messages the messages
+		 * @param messageKey the message key
+		 */
 		@SuppressWarnings("nls")
 		public ConcreteConditionValidator(boolean failOn, MessagesBean messages, String messageKey) {
 			super(failOn, messages, messageKey, "vo");

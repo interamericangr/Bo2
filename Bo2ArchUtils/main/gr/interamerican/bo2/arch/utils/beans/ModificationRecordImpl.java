@@ -29,31 +29,35 @@ public class ModificationRecordImpl implements ModificationRecord {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * ����� ������� ���������������.
+	 * TimeStamp of the last modification
 	 */
 	private Date lastModified;
 	
 	/**
-	 * ������� ��� ����� ��� ��������� �����������.
+	 * User who performed the last modification
 	 */
 	private String lastModifiedBy;
 
+	@Override
 	public Date getLastModified() {
 		return lastModified;
 	}
 
+	@Override
 	public void setLastModified(Date lastModified) {
 		this.lastModified = lastModified;
 	}
 
+	@Override
 	public String getLastModifiedBy() {
 		return lastModifiedBy;
 	}
 
+	@Override
 	public void setLastModifiedBy(String lastModifiedBy) {
 		this.lastModifiedBy = lastModifiedBy;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj==null) {
@@ -66,7 +70,7 @@ public class ModificationRecordImpl implements ModificationRecord {
 		}
 		return false;
 	}
-	
+
 	@Override
 	public int hashCode() {	
 		Object[] values = {
@@ -74,7 +78,7 @@ public class ModificationRecordImpl implements ModificationRecord {
 		};
 		return Utils.generateHashCode(values);
 	}
-	
+
 	@Override
 	@SuppressWarnings("nls")
 	public String toString() {
@@ -83,5 +87,4 @@ public class ModificationRecordImpl implements ModificationRecord {
 		}
 		return "NULL - " + StringUtils.toString(getLastModifiedBy());
 	}
-	
 }

@@ -14,11 +14,12 @@ package gr.interamerican.bo2.utils.conditions;
 
 /**
  * Is not null {@link Condition}.
- * 
- * @param <T> 
+ *
+ * @param <T> the generic type
  */
 public class IsNotNull<T> implements Condition<T> {
 	
+	@Override
 	public boolean check(T t) {		
 		return t!=null;
 	}

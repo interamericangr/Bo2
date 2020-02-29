@@ -37,7 +37,7 @@ import org.junit.Test;
 public class TestCopyPropertiesForReflectionUtils {
 	
 	/**
-	 * test getProperty(string,object)
+	 * test getProperty(string,object).
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -61,7 +61,7 @@ public class TestCopyPropertiesForReflectionUtils {
 	}
 	
 	/**
-	 * test getProperties
+	 * test getProperties.
 	 */
 	@SuppressWarnings("nls")
 	@Test

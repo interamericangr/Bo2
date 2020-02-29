@@ -27,9 +27,8 @@ implements Condition<Object>{
 	 */
 	public static final IsProxy INSTANCE = new IsProxy();
 
-	
+	@Override
 	public boolean check(Object t) {		
 		return t instanceof HibernateProxy;
 	}
-
 }

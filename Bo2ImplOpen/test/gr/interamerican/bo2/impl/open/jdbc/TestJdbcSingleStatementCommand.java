@@ -31,15 +31,13 @@ import org.junit.Test;
  */
 public class TestJdbcSingleStatementCommand extends AbstractNonTransactionalProviderTest {
 
-
 	/**
 	 * Executes.
-	 * 
-	 * @param cmd
-	 * @param id
-	 * 
-	 * @throws InitializationException
-	 * @throws DataException
+	 *
+	 * @param cmd the cmd
+	 * @param id the id
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
 	 */
 	void exec(AbstractJdbcSingleStatementCommandSample cmd, int id)
 			throws InitializationException, DataException {
@@ -52,9 +50,9 @@ public class TestJdbcSingleStatementCommand extends AbstractNonTransactionalProv
 
 	/**
 	 * tests the question that uses named parameters.
-	 * 
-	 * @throws InitializationException
-	 * @throws DataException
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testExecute_withNamedParams()
@@ -65,9 +63,9 @@ public class TestJdbcSingleStatementCommand extends AbstractNonTransactionalProv
 
 	/**
 	 * tests the question that uses named parameters.
-	 * 
-	 * @throws InitializationException
-	 * @throws DataException
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testExecute_withAnno()
@@ -75,8 +73,6 @@ public class TestJdbcSingleStatementCommand extends AbstractNonTransactionalProv
 		Integer id = UtilityForBo2Test.getNotExistingUserId();
 		exec(new CommandWithAnno(), id);
 	}
-
-
 
 	/**
 	 * implementation to test.
@@ -102,7 +98,6 @@ public class TestJdbcSingleStatementCommand extends AbstractNonTransactionalProv
 			this.id = id;
 		}
 
-
 		@Override
 		protected int executeUpdatePs(PreparedStatement ps, String statement, Object[] params) throws SQLException, StaleTransactionException {
 			int recs = super.executeUpdatePs(ps, statement, params);
@@ -111,10 +106,8 @@ public class TestJdbcSingleStatementCommand extends AbstractNonTransactionalProv
 		}
 	}
 
-
-
 	/**
-	 * implementation to test
+	 * implementation to test.
 	 */
 	@ManagerName("LOCALDB")
 	@ParametersOrder("id")
@@ -127,7 +120,7 @@ public class TestJdbcSingleStatementCommand extends AbstractNonTransactionalProv
 	}
 
 	/**
-	 * implementation to test
+	 * implementation to test.
 	 */
 	@ManagerName("LOCALDB")
 	private class CommandWithNamedParams
@@ -137,6 +130,4 @@ public class TestJdbcSingleStatementCommand extends AbstractNonTransactionalProv
 		 */
 		@Sql private String sql = "delete from X__X.users where id = :id"; //$NON-NLS-1$
 	}
-
-
 }

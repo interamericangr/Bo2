@@ -29,12 +29,14 @@ import javax.transaction.SystemException;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestJtaTransactionManager.
  */
 public class TestJtaTransactionManager {
+	
 	/**
 	 * tests begin.
-	 * @throws CouldNotBeginException
+	 *
+	 * @throws CouldNotBeginException the could not begin exception
 	 */
 	@Test
 	public void testBegin_suceed() throws CouldNotBeginException {
@@ -45,7 +47,8 @@ public class TestJtaTransactionManager {
 	
 	/**
 	 * tests begin.
-	 * @throws CouldNotBeginException
+	 *
+	 * @throws CouldNotBeginException the could not begin exception
 	 */
 	@Test(expected=CouldNotBeginException.class)
 	public void testBegin_fail1() throws CouldNotBeginException {
@@ -56,7 +59,8 @@ public class TestJtaTransactionManager {
 	
 	/**
 	 * tests begin.
-	 * @throws CouldNotBeginException
+	 *
+	 * @throws CouldNotBeginException the could not begin exception
 	 */
 	@Test(expected=CouldNotBeginException.class)
 	public void testBegin_fail2() throws CouldNotBeginException {
@@ -67,7 +71,8 @@ public class TestJtaTransactionManager {
 	
 	/**
 	 * tests commit.
-	 * @throws CouldNotCommitException
+	 *
+	 * @throws CouldNotCommitException the could not commit exception
 	 */
 	@Test()
 	public void testCommit_suceed() throws CouldNotCommitException {
@@ -78,7 +83,8 @@ public class TestJtaTransactionManager {
 	
 	/**
 	 * tests commit.
-	 * @throws CouldNotCommitException
+	 *
+	 * @throws CouldNotCommitException the could not commit exception
 	 */
 	@Test(expected=CouldNotCommitException.class)
 	public void testCommit_fail1() throws CouldNotCommitException {
@@ -89,7 +95,8 @@ public class TestJtaTransactionManager {
 	
 	/**
 	 * tests commit.
-	 * @throws CouldNotCommitException
+	 *
+	 * @throws CouldNotCommitException the could not commit exception
 	 */
 	@Test(expected=CouldNotCommitException.class)
 	public void testCommit_fail2() throws CouldNotCommitException {
@@ -100,7 +107,8 @@ public class TestJtaTransactionManager {
 	
 	/**
 	 * tests commit.
-	 * @throws CouldNotCommitException
+	 *
+	 * @throws CouldNotCommitException the could not commit exception
 	 */
 	@Test(expected=CouldNotCommitException.class)
 	public void testCommit_fail3() throws CouldNotCommitException {
@@ -111,7 +119,8 @@ public class TestJtaTransactionManager {
 	
 	/**
 	 * tests commit.
-	 * @throws CouldNotCommitException
+	 *
+	 * @throws CouldNotCommitException the could not commit exception
 	 */
 	@Test(expected=CouldNotCommitException.class)
 	public void testCommit_fail4() throws CouldNotCommitException {
@@ -122,7 +131,8 @@ public class TestJtaTransactionManager {
 	
 	/**
 	 * tests commit.
-	 * @throws CouldNotCommitException
+	 *
+	 * @throws CouldNotCommitException the could not commit exception
 	 */
 	@Test(expected=CouldNotCommitException.class)
 	public void testCommit_fail5() throws CouldNotCommitException {
@@ -133,7 +143,8 @@ public class TestJtaTransactionManager {
 	
 	/**
 	 * tests commit.
-	 * @throws CouldNotCommitException
+	 *
+	 * @throws CouldNotCommitException the could not commit exception
 	 */
 	@Test(expected=CouldNotCommitException.class)
 	public void testCommit_fail6() throws CouldNotCommitException {
@@ -144,7 +155,8 @@ public class TestJtaTransactionManager {
 	
 	/**
 	 * tests rollback.
-	 * @throws CouldNotRollbackException
+	 *
+	 * @throws CouldNotRollbackException the could not rollback exception
 	 */
 	@Test()
 	public void testRollback_succeed() throws CouldNotRollbackException {
@@ -155,7 +167,8 @@ public class TestJtaTransactionManager {
 	
 	/**
 	 * tests rollback.
-	 * @throws CouldNotRollbackException
+	 *
+	 * @throws CouldNotRollbackException the could not rollback exception
 	 */
 	@Test(expected=CouldNotRollbackException.class)
 	public void testRollback_fail1() throws CouldNotRollbackException {
@@ -166,7 +179,8 @@ public class TestJtaTransactionManager {
 	
 	/**
 	 * tests rollback.
-	 * @throws CouldNotRollbackException
+	 *
+	 * @throws CouldNotRollbackException the could not rollback exception
 	 */
 	@Test(expected=CouldNotRollbackException.class)
 	public void testRollback_fail2() throws CouldNotRollbackException {
@@ -177,7 +191,8 @@ public class TestJtaTransactionManager {
 	
 	/**
 	 * tests rollback.
-	 * @throws CouldNotRollbackException
+	 *
+	 * @throws CouldNotRollbackException the could not rollback exception
 	 */
 	@Test(expected=CouldNotRollbackException.class)
 	public void testRollback_fail3() throws CouldNotRollbackException {
@@ -188,7 +203,8 @@ public class TestJtaTransactionManager {
 	
 	/**
 	 * tests Enlist .
-	 * @throws CouldNotEnlistException 
+	 *
+	 * @throws CouldNotEnlistException the could not enlist exception
 	 */
 	@Test
 	public void testEnlist() throws CouldNotEnlistException {
@@ -198,7 +214,8 @@ public class TestJtaTransactionManager {
 	
 	/**
 	 * tests Enlist.
-	 * @throws CouldNotDelistException 
+	 *
+	 * @throws CouldNotDelistException the could not delist exception
 	 */
 	@Test
 	public void testDelist() throws CouldNotDelistException {

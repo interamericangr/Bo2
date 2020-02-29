@@ -51,10 +51,9 @@ implements Transformation<LongProcess, String> {
 	
 	/**
 	 * Records the current status of a {@link LongProcess}.
-	 * 
-	 * @param process
-	 * 
-	 * @return Returns the status. 
+	 *
+	 * @param process the process
+	 * @return Returns the status.
 	 */
 	ModifiableLongProcessStatus getStatus(LongProcess process) {
 		ModifiableLongProcessStatus status = 

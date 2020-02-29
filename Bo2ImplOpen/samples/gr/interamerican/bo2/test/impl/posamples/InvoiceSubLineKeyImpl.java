@@ -4,22 +4,30 @@ import gr.interamerican.bo2.impl.open.po.AbstractKey;
 import gr.interamerican.bo2.test.def.posamples.InvoiceSubLineKey;
 
 /**
- * 
+ * The Class InvoiceSubLineKeyImpl.
  */
 public class InvoiceSubLineKeyImpl extends AbstractKey implements InvoiceSubLineKey {
 
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
 	String invoiceNo;
+	/**
+	 * 
+	 */
 	Integer lineNo;
+	/**
+	 * 
+	 */
 	Integer subLineNo;
 	/**
 	 * Gets the subLineNo.
 	 *
 	 * @return Returns the subLineNo
 	 */
+	@Override
 	public Integer getSubLineNo() {
 		return subLineNo;
 	}
@@ -29,6 +37,7 @@ public class InvoiceSubLineKeyImpl extends AbstractKey implements InvoiceSubLine
 	 *
 	 * @param subLineNo the subLineNo to set
 	 */
+	@Override
 	public void setSubLineNo(Integer subLineNo) {
 		this.subLineNo = subLineNo;
 	}
@@ -38,6 +47,7 @@ public class InvoiceSubLineKeyImpl extends AbstractKey implements InvoiceSubLine
 	 *
 	 * @return Returns the lineNo
 	 */
+	@Override
 	public Integer getLineNo() {
 		return lineNo;
 	}
@@ -47,6 +57,7 @@ public class InvoiceSubLineKeyImpl extends AbstractKey implements InvoiceSubLine
 	 *
 	 * @param lineNo the lineNo to set
 	 */
+	@Override
 	public void setLineNo(Integer lineNo) {
 		this.lineNo = lineNo;
 	}
@@ -56,6 +67,7 @@ public class InvoiceSubLineKeyImpl extends AbstractKey implements InvoiceSubLine
 	 *
 	 * @return Returns the invoiceNo
 	 */
+	@Override
 	public String getInvoiceNo() {
 		return invoiceNo;
 	}
@@ -65,6 +77,7 @@ public class InvoiceSubLineKeyImpl extends AbstractKey implements InvoiceSubLine
 	 *
 	 * @param invoiceNo the invoiceNo to set
 	 */
+	@Override
 	public void setInvoiceNo(String invoiceNo) {
 		this.invoiceNo = invoiceNo;
 	}

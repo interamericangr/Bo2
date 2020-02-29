@@ -4,10 +4,32 @@
 	<parent>
 		<groupId>gr.interamerican.bo2</groupId>
 		<artifactId>Bo2</artifactId>
-		<version>2.3.12-SNAPSHOT</version>
+		<version>3.4.1</version>
 	</parent>
 
 	<artifactId>Bo2OdfToolkit</artifactId>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>RunODFServer</id>
+						<phase>compile</phase>
+					</execution>
+					<execution>
+						<id>KillODFServer</id>
+						<phase>post-integration-test</phase>
+					</execution>
+					<execution>
+						<id>wait5</id>
+						<phase>test-compile</phase>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 
 	<dependencies>
 
@@ -31,7 +53,15 @@
 			<artifactId>jsoup</artifactId>
 		</dependency>
 
-		<!-- +++ -->
+		<dependency>
+			<groupId>net.sf.barcode4j</groupId>
+			<artifactId>barcode4j</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.javassist</groupId>
+			<artifactId>javassist</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>gr.interamerican.bo2</groupId>
@@ -79,7 +109,6 @@
 			<groupId>gr.interamerican.bo2</groupId>
 			<artifactId>Bo2TestsDeploymentBase</artifactId>
 			<version>${project.version}</version>
-			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
 
@@ -87,10 +116,7 @@
 			<groupId>gr.interamerican.bo2</groupId>
 			<artifactId>Bo2TestsDeploymentJdbc</artifactId>
 			<version>${project.version}</version>
-			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
-
 	</dependencies>
-
 </project>

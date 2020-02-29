@@ -31,10 +31,10 @@ public class DropDownChoiceForSelectable extends DropDownChoice<Selectable<?>> {
 	
 	/**
 	 * Creates a new DropDownChoiceForSelectable object. 
-	 * 
-	 * @param id 
-	 * @param model 
-	 * @param choices 
+	 *
+	 * @param id the id
+	 * @param model the model
+	 * @param choices the choices
 	 */
 	public DropDownChoiceForSelectable(String id, IModel<Selectable<?>> model, List<? extends Selectable<?>> choices) {
 		super(id, model, choices, new ChoiceRendererForSelectable());
@@ -43,9 +43,9 @@ public class DropDownChoiceForSelectable extends DropDownChoice<Selectable<?>> {
 	
 	/**
 	 * Creates a new DropDownChoiceForSelectable object. 
-	 * 
-	 * @param id 
-	 * @param choices 
+	 *
+	 * @param id the id
+	 * @param choices the choices
 	 */
 	public DropDownChoiceForSelectable(String id, List<? extends Selectable<?>> choices) {
 		super(id, choices, new ChoiceRendererForSelectable());

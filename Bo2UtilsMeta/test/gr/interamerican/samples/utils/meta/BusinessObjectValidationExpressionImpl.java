@@ -17,36 +17,45 @@ import gr.interamerican.bo2.utils.meta.BusinessObjectValidationExpression;
 /**
  * Sample implementation of {@link BusinessObjectValidationExpression}.
  */
-public class BusinessObjectValidationExpressionImpl
-implements BusinessObjectValidationExpression {
-	
-	/**
-	 * serialVersionUID
-	 */
+public class BusinessObjectValidationExpressionImpl implements BusinessObjectValidationExpression {
+
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * expression.
 	 */
 	private String expression;
-	
+
 	/**
 	 * message.
 	 */
 	private String message;
 
+	@Override
 	public String getExpression() {
 		return expression;
 	}
 
+	/**
+	 * Sets the expression.
+	 * 
+	 * @param expression
+	 */
 	public void setExpression(String expression) {
 		this.expression = expression;
 	}
 
+	@Override
 	public String getMessage() {
 		return message;
 	}
 
+	/**
+	 * Sets the message.
+	 * 
+	 * @param message
+	 */
 	public void setMessage(String message) {
 		this.message = message;
 	}

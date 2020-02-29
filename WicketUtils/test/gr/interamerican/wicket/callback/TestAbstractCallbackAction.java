@@ -17,10 +17,13 @@ import org.apache.wicket.markup.html.form.Form;
 import org.junit.Assert;
 import org.junit.Test;
 
+import gr.interamerican.wicket.test.WicketTest;
+
 /**
  * Unit tests for {@link AbstractCallbackAction}.
  */
-public class TestAbstractCallbackAction {
+@Deprecated
+public class TestAbstractCallbackAction extends WicketTest {
 	/**
 	 * Action to test.
 	 */
@@ -30,9 +33,11 @@ public class TestAbstractCallbackAction {
 		 */
 		private static final long serialVersionUID = 1L;
 		
+		@Override
 		public void callBack(AjaxRequestTarget target, Form<?> form) {
 			/* empty */
 		}		
+		@Override
 		public void callBack(AjaxRequestTarget target) {
 			/* empty */
 		}
@@ -57,5 +62,4 @@ public class TestAbstractCallbackAction {
 		action.caller = form;
 		Assert.assertEquals(form, action.getCaller());
 	}
-
 }

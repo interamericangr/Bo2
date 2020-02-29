@@ -13,12 +13,21 @@
 package gr.interamerican.bo2.utils;
 
 import static gr.interamerican.bo2.utils.ReflectionUtils.copyPropertiesWithDefaults;
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+
+import org.junit.Assert;
+import org.junit.Test;
+
 import gr.interamerican.bo2.samples.Child;
 import gr.interamerican.bo2.samples.Father;
 import gr.interamerican.bo2.samples.GrandFather;
@@ -33,6 +42,7 @@ import gr.interamerican.bo2.samples.anno.MethodAnno;
 import gr.interamerican.bo2.samples.bean.BeanWith1Field;
 import gr.interamerican.bo2.samples.bean.BeanWith2Fields;
 import gr.interamerican.bo2.samples.bean.SomeComparable;
+import gr.interamerican.bo2.samples.enums.Vehicle;
 import gr.interamerican.bo2.samples.hierarchies.AimplementsIA;
 import gr.interamerican.bo2.samples.hierarchies.BextendsAimplementsIB;
 import gr.interamerican.bo2.samples.hierarchies.CextendsBimplementsIC;
@@ -46,25 +56,14 @@ import gr.interamerican.bo2.samples.ibean.IbeanWithIdFromTwoParentsAndIdentified
 import gr.interamerican.bo2.samples.ibean.SampleInterface;
 import gr.interamerican.bo2.utils.beans.Range;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
-
-import org.junit.Assert;
-import org.junit.Test;
-
 /**
  * Unit test for {@link ReflectionUtils}.
  */
+@SuppressWarnings("nls")
 public class TestReflectionUtils {
 
 	/**
-	 * tests checkFieldType(field, type, messageKey)
+	 * tests checkFieldType(field, type, messageKey).
 	 */
 	@Test
 	public void testCheckFieldType() {
@@ -75,7 +74,7 @@ public class TestReflectionUtils {
 	}
 
 	/**
-	 * tests checkFieldType(field, type, messageKey)
+	 * tests checkFieldType(field, type, messageKey).
 	 */
 	@Test (expected=RuntimeException.class)
 	public void testCheckFieldType_WithException() {
@@ -86,7 +85,7 @@ public class TestReflectionUtils {
 	
 	
 	/**
-	 * Tests allFields(type, baseType)
+	 * Tests allFields(type, baseType).
 	 */
 	@Test
 	public void testAllFields() {
@@ -103,7 +102,7 @@ public class TestReflectionUtils {
 	}
 
 	/**
-	 * tests get(field, object)
+	 * tests get(field, object).
 	 */
 	@Test
 	public void testGet() {
@@ -116,20 +115,19 @@ public class TestReflectionUtils {
 	}
 	
 	/**
-	 * tests get(string, object)
+	 * tests get(string, object).
 	 */
 	@Test
 	public void testGet_WithString_simpleCase() {
 		BeanWith2Fields bean = new BeanWith2Fields();
 		bean.setField1(StringConstants.ZERO);
-		assertEquals(StringConstants.ZERO, ReflectionUtils.get("field1", bean)); //$NON-NLS-1$
+		assertEquals(StringConstants.ZERO, ReflectionUtils.get("field1", bean));
 	}
 	
 	/**
 	 * tests get(string, object)
 	 * test that inherited fields are retrievable.
 	 */
-	@SuppressWarnings("nls")
 	@Test
 	public void testGet_WithString_inheritedFields() {
 		Father f1 = new Father();
@@ -138,9 +136,8 @@ public class TestReflectionUtils {
 	
 	/**
 	 * tests get(string, object)
-	 * test that inherited private fields do not mess with results
+	 * test that inherited private fields do not mess with results.
 	 */
-	@SuppressWarnings("nls")
 	@Test
 	public void testGet_WithString_inheritedPrivateFields() {		
 		Father f = new Father();
@@ -159,7 +156,6 @@ public class TestReflectionUtils {
 	 * tests get(string, object)
 	 * test that inherited fields are retrievable.
 	 */
-	@SuppressWarnings("nls")
 	@Test
 	public void testGet_WithString_static() {
 		BeanWithStaticField bean = new BeanWithStaticField();
@@ -170,8 +166,9 @@ public class TestReflectionUtils {
 
 	/**
 	 * Utils.getAnnotated()
-	 * @throws IllegalAccessException 
-	 * @throws IllegalArgumentException 
+	 *
+	 * @throws IllegalArgumentException the illegal argument exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
 	public void testGetAnnotated() throws IllegalArgumentException, IllegalAccessException {
@@ -186,26 +183,28 @@ public class TestReflectionUtils {
 		List<Field> annotatedFields = ReflectionUtils.getAnnotated(fields, Anno.class);
 		assertEquals(2, annotatedFields.size());		
 		Child c = new Child();
-		assertEquals("field2", annotatedFields.get(0).get(c)); //$NON-NLS-1$		
+		assertEquals("field2", annotatedFields.get(0).get(c));		
 	}
 
 	
 	/**
 	 * Utils.getFirstByType()
-	 * @throws IllegalAccessException 
-	 * @throws IllegalArgumentException 
+	 *
+	 * @throws IllegalArgumentException the illegal argument exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
 	public void testGetFirstByType() throws IllegalArgumentException, IllegalAccessException {
 		Field field = ReflectionUtils.getFirstByType(String.class, Father.class);
 		Father father = new Father();
-		assertEquals(field.get(father), "field1"); //$NON-NLS-1$
+		assertEquals(field.get(father), "field1");
 	}
 	
 	
 	/**
 	 * Utils.getFirstByType()
-	 * @throws IllegalArgumentException 
+	 *
+	 * @throws IllegalArgumentException the illegal argument exception
 	 */
 	@Test
 	public void testGetFirstByType_noField() throws IllegalArgumentException {
@@ -246,7 +245,7 @@ public class TestReflectionUtils {
 	public void testGetDeclaredMethods(){
 		Method[] methods = ReflectionUtils.getDeclaredMethods(null, Child.class);
 		assertEquals(3, methods.length);
-		methods = ReflectionUtils.getDeclaredMethods(new String[]{"setField6", "sampleMethod"}, Child.class); //$NON-NLS-1$ //$NON-NLS-2$
+		methods = ReflectionUtils.getDeclaredMethods(new String[]{"setField6", "sampleMethod"}, Child.class);
 		assertEquals(2, methods.length);
 	}	
 
@@ -255,12 +254,11 @@ public class TestReflectionUtils {
 	 */
 	@Test (expected=RuntimeException.class)
 	public void testGetDeclaredMethods_WithException(){
-		@SuppressWarnings("unused")
-		Method[] methods = ReflectionUtils.getDeclaredMethods(new String[]{"setField6", "sampleMethod", "nonExistingMethod"}, Child.class); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+		ReflectionUtils.getDeclaredMethods(new String[]{"setField6", "sampleMethod", "nonExistingMethod"}, Child.class);
 	}
 	
 	/**
-	 * Tests getDeclaredMethods()
+	 * Tests getDeclaredMethods().
 	 */
 	@Test
 	public void testGetDeclaredMethodsAsList() {
@@ -269,7 +267,7 @@ public class TestReflectionUtils {
 	}
 	
 	/**
-	 * Tests testGetPublicMethods()
+	 * Tests testGetPublicMethods().
 	 */
 	@Test
 	public void testGetPublicMethods_ParameterizedClass() {
@@ -297,8 +295,9 @@ public class TestReflectionUtils {
 	}
 	
 	/**
-	 * Tests testGetPublicMethods()
-	 * @throws SecurityException 
+	 * Tests testGetPublicMethods().
+	 *
+	 * @throws SecurityException the security exception
 	 */
 	@Test
 	public void testGetPublicMethods_SameMethodInMoreThanOneInterfaces() 
@@ -326,7 +325,7 @@ public class TestReflectionUtils {
 	}
 	
 	/**
-	 * Tests testGetPublicMethods()
+	 * Tests testGetPublicMethods().
 	 */
 	@Test
 	public void testGetPublicMethods_SameMethodInMoreThanOneInterfacesAndGeneric() {
@@ -351,9 +350,8 @@ public class TestReflectionUtils {
 	
 	
 	/**
-	 * Tests getPublicMethod()
+	 * Tests getPublicMethod().
 	 */
-	@SuppressWarnings("nls")
 	@Test
 	public void testGetPublicMethod() {
 		assertNotNull(ReflectionUtils.getPublicMethod("sampleMethod", Child.class, String.class));
@@ -364,7 +362,6 @@ public class TestReflectionUtils {
 	/**
 	 * Tests Utils.testGetMethodWithoutParamsByName().
 	 */
-	@SuppressWarnings("nls")
 	@Test
 	public void testGetPublicMethodWithoutParamsByName() {
 		Method method = ReflectionUtils.getPublicMethodWithoutParamsByName
@@ -382,30 +379,29 @@ public class TestReflectionUtils {
 	}
 	
 	/**
-	 * unit test for invokeMethodByUniqueName
+	 * unit test for invokeMethodByUniqueName.
 	 */
 	@Test
 	public void testInvokeMethodByUniqueName() {
-		String field1 = "s"; //$NON-NLS-1$
+		String field1 = "s";
 		Integer field2 = 1;
 		BeanWith2Fields bw2f = new BeanWith2Fields(field1, field2);
 		
 		String expected = field1;
-		String actual = ReflectionUtils.<String>invokeMethodByUniqueName(bw2f, "getField1"); //$NON-NLS-1$
+		String actual = ReflectionUtils.<String>invokeMethodByUniqueName(bw2f, "getField1");
 		assertEquals(expected, actual);
 		
-		actual = ReflectionUtils.<String>invokeMethodByUniqueName(bw2f, "getField1String"); //$NON-NLS-1$
+		actual = ReflectionUtils.<String>invokeMethodByUniqueName(bw2f, "getField1String");
 		assertEquals(expected, actual);
 		
 		expected = field2.toString();
-		actual = ReflectionUtils.<String>invokeMethodByUniqueName(bw2f, "getField2AsString"); //$NON-NLS-1$
+		actual = ReflectionUtils.<String>invokeMethodByUniqueName(bw2f, "getField2AsString");
 		assertEquals(expected, actual);
 	}
 	
 	/**
-	 * unit test for invokeMethodByUniqueName when the method doesn't exist
+	 * unit test for invokeMethodByUniqueName when the method doesn't exist.
 	 */
-	@SuppressWarnings("nls")
 	@Test(expected=RuntimeException.class)
 	public void testInvokeMethodByUniqueName_withNoExistingMethod() {
 		BeanWith2Fields bw2f = new BeanWith2Fields("hello", 13);
@@ -413,9 +409,8 @@ public class TestReflectionUtils {
 	}
 	
 	/**
-	 * unit test for invokeMethodByUniqueName when args doesn't match
+	 * unit test for invokeMethodByUniqueName when args doesn't match.
 	 */
-	@SuppressWarnings("nls")
 	@Test(expected=RuntimeException.class)
 	public void testInvokeMethodByUniqueName_whenArgsNotMatch() {
 		Child c = new Child();
@@ -423,9 +418,8 @@ public class TestReflectionUtils {
 	}
 	
 	/**
-	 * unit test for getPublicMethodsByName
+	 * unit test for getPublicMethodsByName.
 	 */
-	@SuppressWarnings("nls")
 	@Test
 	public void testGetPublicMethodsByName() {
 		List<Method> list = ReflectionUtils.getPublicMethodsByName("sampleMethod",Child.class);
@@ -433,9 +427,8 @@ public class TestReflectionUtils {
 	}
 	
 	/**
-	 * unit test for getPublicMethodsByName
+	 * unit test for getPublicMethodsByName.
 	 */
-	@SuppressWarnings("nls")
 	@Test
 	public void testGetPublicMethodsByName_withAbstractClass() {
 		List<Method> list = ReflectionUtils.getPublicMethodsByName
@@ -445,26 +438,26 @@ public class TestReflectionUtils {
 	
 	
 	/**
-	 * unit test for getMethodByUniqueName
+	 * unit test for getMethodByUniqueName.
 	 */
 	@Test
 	public void testGetMethodByUniqueName_withExistingMethod() {		
-		Method m = ReflectionUtils.getMethodByUniqueName("getField1", BeanWith2Fields.class); //$NON-NLS-1$
+		Method m = ReflectionUtils.getMethodByUniqueName("getField1", BeanWith2Fields.class);
 		assertNotNull(m);
 		assertEquals(m.getParameterTypes().length, 0);
 	}	
 	
 	/**
-	 * unit test for getMethodByUniqueName
+	 * unit test for getMethodByUniqueName.
 	 */
 	@Test
 	public void testGetMethodByUniqueName_withNotExistingMethod() {		
-		Method m = ReflectionUtils.getMethodByUniqueName("noMethod", BeanWith2Fields.class); //$NON-NLS-1$
+		Method m = ReflectionUtils.getMethodByUniqueName("noMethod", BeanWith2Fields.class);
 		assertNull(m);		
 	}
 	
 	/**
-	 * unit test for getPublicMethodByUniqueName
+	 * unit test for getPublicMethodByUniqueName.
 	 */
 	@Test(expected=RuntimeException.class)
 	public void testGetMethodByUniqueName_withAmbiguousName() {
@@ -472,34 +465,34 @@ public class TestReflectionUtils {
 			@SuppressWarnings("unused")
 			public void toString(String s) {/* empty */}
 		};		
-		ReflectionUtils.getMethodByUniqueName("toString", o.getClass()); //$NON-NLS-1$
+		ReflectionUtils.getMethodByUniqueName("toString", o.getClass());
 	}
 	
 	/**
-	 * unit test for getPublicMethodByUniqueName
+	 * unit test for getPublicMethodByUniqueName.
 	 */
 	@Test
 	public void testGetPublicMethodByUniqueName_withExistingMethod() {		
-		Method m = ReflectionUtils.getPublicMethodByUniqueName("getField1", BeanWith2Fields.class, true); //$NON-NLS-1$
+		Method m = ReflectionUtils.getPublicMethodByUniqueName("getField1", BeanWith2Fields.class, true);
 		assertNotNull(m);
 		assertEquals(m.getParameterTypes().length, 0);
 		
-		Method m1 = ReflectionUtils.getPublicMethodByUniqueName("getField1", BeanWith2Fields.class, false); //$NON-NLS-1$
+		Method m1 = ReflectionUtils.getPublicMethodByUniqueName("getField1", BeanWith2Fields.class, false);
 		assertNotNull(m1);
 		assertEquals(m1.getParameterTypes().length, 0);
 	}
 	
 	/**
-	 * unit test for getMethodByUniqueName
+	 * unit test for getMethodByUniqueName.
 	 */
 	@Test
 	public void testGetPublicMethodByUniqueName_withNotExistingMethod() {		
-		Method m = ReflectionUtils.getPublicMethodByUniqueName("noMethod", BeanWith2Fields.class, true); //$NON-NLS-1$
+		Method m = ReflectionUtils.getPublicMethodByUniqueName("noMethod", BeanWith2Fields.class, true);
 		assertNull(m);		
 	}
 	
 	/**
-	 * unit test for getPublicMethodByUniqueName
+	 * unit test for getPublicMethodByUniqueName.
 	 */
 	@Test(expected=RuntimeException.class)
 	public void testGetPublicMethodByUniqueName_withAmbiguousName() {
@@ -507,7 +500,7 @@ public class TestReflectionUtils {
 			@SuppressWarnings("unused")
 			public void toString(String s) {/* empty */}
 		};		
-		ReflectionUtils.getPublicMethodByUniqueName("toString", o.getClass(), false); //$NON-NLS-1$
+		ReflectionUtils.getPublicMethodByUniqueName("toString", o.getClass(), false);
 	}
 	
 	/**
@@ -515,17 +508,24 @@ public class TestReflectionUtils {
 	 * 
 	 * Fails due to issue BOTWO-2
 	 */
-	@SuppressWarnings("nls")
 	@Test
 	public void testGetPublicMethodsByName_overloadedMethods() {
 		List<Method> list = ReflectionUtils.getPublicMethodsByName("contains",Range.class);
 		assertEquals(3, list.size());
 	}
-	
-
 
 	/**
-	 * tests get(field, val, obj)
+	 * Tests a corner case that happens on non eclipse compiler
+	 */
+	@Test
+	public void testGetPublicMethodsCornerCase() {
+		assertEquals(19, Vehicle.CAR.getClass().getMethods().length);
+		List<Method> methods = ReflectionUtils.getPublicMethods(Vehicle.CAR.getClass());
+		assertEquals(17, methods.size());
+	}
+
+	/**
+	 * tests get(field, val, obj).
 	 */
 	@Test (expected=RuntimeException.class)
 	public void testGet_WithException() {
@@ -536,9 +536,8 @@ public class TestReflectionUtils {
 	}
 	
 	/**
-	 * tests get(field, obj) when field doesn't exist
+	 * tests get(field, obj) when field doesn't exist.
 	 */
-	@SuppressWarnings("nls")
 	@Test (expected=RuntimeException.class)
 	public void testGet_noSuchField() {
 		Father father = new Father();
@@ -547,7 +546,7 @@ public class TestReflectionUtils {
 
 	
 	/**
-	 * tests set(field, val, obj)
+	 * tests set(field, val, obj).
 	 */
 	@Test
 	public void testSet() {
@@ -563,28 +562,28 @@ public class TestReflectionUtils {
 	}
 	
 	/**
-	 * tests set(string, val, obj)
+	 * tests set(string, val, obj).
 	 */
 	@Test
 	public void testSet_WithString() {
 		BeanWith2Fields bean = new BeanWith2Fields();
-		ReflectionUtils.set("field1", StringConstants.ZERO, bean); //$NON-NLS-1$
+		ReflectionUtils.set("field1", StringConstants.ZERO, bean);
 		assertEquals(StringConstants.ZERO, bean.getField1());
 	}
 	
 	/**
-	 * tests set(string, val, obj)
+	 * tests set(string, val, obj).
 	 */
 	@Test
 	public void testSet_WithString_andStatic() {
 		BeanWithStaticField bean = new BeanWithStaticField();
 		BeanWithStaticField.field = 12;
-		ReflectionUtils.set("field", 5, bean); //$NON-NLS-1$
+		ReflectionUtils.set("field", 5, bean);
 		assertEquals(Integer.valueOf(5), BeanWithStaticField.field);
 	}
 
 	/**
-	 * tests set(field, type, messageKey)
+	 * tests set(field, type, messageKey).
 	 */
 	@Test (expected=RuntimeException.class)
 	public void testSet_WithRuntimeException() {
@@ -599,9 +598,8 @@ public class TestReflectionUtils {
 	
 	
 	/**
-	 * tests set(field,value, obj) when field doesn't exist
+	 * tests set(field,value, obj) when field doesn't exist.
 	 */
-	@SuppressWarnings("nls")
 	@Test (expected=RuntimeException.class)
 	public void testSet_noSuchField() {
 		Father father = new Father();
@@ -609,14 +607,13 @@ public class TestReflectionUtils {
 	}
 
 	
-
-	
 	/**
 	 * Unit test for setNullToDuplicateFieldsOfSuper.
-	 * @throws NoSuchFieldException 
-	 * @throws SecurityException 
+	 *
+	 * @throws SecurityException the security exception
+	 * @throws NoSuchFieldException the no such field exception
 	 */
-	@SuppressWarnings({ "nls", "unchecked" })
+	@SuppressWarnings("unchecked")
 	@Test
 	public void testSetNullToDuplicateFieldsOfSuper() 
 	throws SecurityException, NoSuchFieldException {
@@ -633,13 +630,13 @@ public class TestReflectionUtils {
 	}
 	
 	/**
-	 * Tests getUnique()
+	 * Tests getUnique().
 	 */
 	@Test
 	public void testGetUnique() {
 		Field field = ReflectionUtils.getUnique
 			(Arrays.asList(BeanWithUnique.class.getDeclaredFields()), Anno.class);
-		assertEquals(field.getName(), "unique"); //$NON-NLS-1$
+		assertEquals(field.getName(), "unique");
 		Field expectedNull = ReflectionUtils.getUnique
 			(Arrays.asList(BeanWithNone.class.getDeclaredFields()), Anno.class);
 		assertNull(expectedNull);
@@ -655,9 +652,8 @@ public class TestReflectionUtils {
 	}
 	
 	/**
-	 * Tests getAnnotatedMethods()
+	 * Tests getAnnotatedMethods().
 	 */
-	@SuppressWarnings("nls")
 	@Test
 	public void testGetAnnotatedMethods() {
 		List<Method> methods = ReflectionUtils.getAnnotatedMethods(Child.class, MethodAnno.class);
@@ -668,7 +664,7 @@ public class TestReflectionUtils {
 	}
 	
 	/**
-	 * Tests getAnnotatedType()
+	 * Tests getAnnotatedType().
 	 */
 	@Test
 	public void getAnnotatedType() {
@@ -686,7 +682,7 @@ public class TestReflectionUtils {
 	
 	
 	/**
-	 * Tests newInstance(clazz, args)
+	 * Tests newInstance(clazz, args).
 	 */
 	@Test
 	public void testNewInstance_withoutArgs() {
@@ -695,7 +691,7 @@ public class TestReflectionUtils {
 	}
 	
 	/**
-	 * Tests newInstance(clazz, args)
+	 * Tests newInstance(clazz, args).
 	 */
 	@Test
 	public void testNewInstance_withStringArgument() {
@@ -704,7 +700,7 @@ public class TestReflectionUtils {
 	}
 	
 	/**
-	 * Tests newInstance(clazz, args) when there is no such constructor
+	 * Tests newInstance(clazz, args) when there is no such constructor.
 	 */
 	@Test(expected = RuntimeException.class)
 	public void testNewInstance_noConstructor() {
@@ -712,7 +708,7 @@ public class TestReflectionUtils {
 	}
 	
 	/**
-	 * Tests newInstance(clazz, args) when there is no such constructor
+	 * Tests newInstance(clazz, args) when there is no such constructor.
 	 */
 	@Test()
 	public void testAttemptNewInstance() {
@@ -723,7 +719,7 @@ public class TestReflectionUtils {
 	}
 	
 	/**
-	 * Tests isInstanceOf
+	 * Tests isInstanceOf.
 	 */
 	@Test
 	public void testIsInstanceOf() {
@@ -735,12 +731,12 @@ public class TestReflectionUtils {
 	
 	
 	/**
-	 * Tests newInstance(clazz, args)
+	 * Tests newInstance(clazz, args).
 	 */
 	@Test
 	public void testNewInstance_withArgs() {
 		//two-arg constructor
-		String str = "str"; //$NON-NLS-1$
+		String str = "str";
 		SampleMultiConstructorClass stac = ReflectionUtils.newInstance(
 				SampleMultiConstructorClass.class, 1, str);
 		Object[] expecteds = new Object[]{1, str};
@@ -770,9 +766,8 @@ public class TestReflectionUtils {
 
 	
 	/**
-	 * Tests getPropertyGetters
+	 * Tests getPropertyGetters.
 	 */
-	@SuppressWarnings("nls")
 	@Test
 	public void testGetPropertyGetters() {
 		String [] properties = {"field1","field2"};
@@ -827,7 +822,6 @@ public class TestReflectionUtils {
 	/**
 	 * Unit test for hasField().
 	 */
-	@SuppressWarnings("nls")
 	@Test
 	public void testHasFields() {
 		assertFalse(ReflectionUtils.hasField(BeanWith2Fields.class, "noExisting", Integer.class));
@@ -846,13 +840,8 @@ public class TestReflectionUtils {
 		assertFalse(ReflectionUtils.isNoDefaultConstructor(BeanWithCopyConstructor.class));
 	}
 	
-	
-		
-	
-	/*-------------------------------SAMPLES-----------------------------------*/
-	
 	/**
-	 * tests getPropertiesFromResource
+	 * tests {@link ReflectionUtils#getValuesOfFields(Object, List, Class, boolean)}.
 	 */
 	@Test
 	public void testGetValuesOfFields(){
@@ -862,37 +851,58 @@ public class TestReflectionUtils {
 			ReflectionUtils.setAccessible(f);
 		}
 		BeanWith2Fields bean = new BeanWith2Fields();
-		bean.setField1("1"); //$NON-NLS-1$
+		bean.setField1("1");
 		bean.setField2(2);
 		List<?> list = ReflectionUtils.getValuesOfFields(bean, fields, Object.class,  true);
-		Object [] epxected = {"1",2}; //$NON-NLS-1$
+		Object [] epxected = {"1",2};
 		for (int i = 0; i < list.size(); i++) {
 			Object expected = epxected[i];
 			Object actual = list.get(i);
 			assertEquals(expected,actual);
 		 }
 	}
-	
-
-	
-	
 
 	/**
-	 * tests generateHashCode
+	 * tests {@link ReflectionUtils#getProperties(Object)}
+	 */
+	@Test
+	public void testGetProperties() {
+		BeanWith2Fields bean = new BeanWith2Fields("31212", 12311);
+		Map<String, Object> result = ReflectionUtils.getProperties(bean);
+		assertEquals(2, result.size());
+		assertEquals("31212", result.get("field1"));
+		assertEquals(12311, result.get("field2"));
+	}
+
+	/**
+	 * tests {@link ReflectionUtils#getProperties(Object)} with a bean that has
+	 * null values on fields.
+	 */
+	@Test
+	public void testGetProperties_Null() {
+		BeanWith2Fields bean = new BeanWith2Fields();
+		Map<String, Object> result = ReflectionUtils.getProperties(bean);
+		assertEquals(2, result.size());
+		assertNull(result.get("field1"));
+		assertNull(result.get("field2"));
+	}
+
+	/**
+	 * tests generateHashCode.
 	 */
 	@Test
 	public void testInvoke(){
 	    Object[] args = null;
 	    BeanWith2Fields bean = new BeanWith2Fields();
 	    bean.setField2(2);
-		Method method = ReflectionUtils.getPublicMethodWithoutParamsByName("getField2", BeanWith2Fields.class); //$NON-NLS-1$
+		Method method = ReflectionUtils.getPublicMethodWithoutParamsByName("getField2", BeanWith2Fields.class);
 	    Integer expected = 2;
 	    Object actual = ReflectionUtils.invoke(method, bean, args);
 	    assertEquals(expected,actual);
 	}
 	
 	/**
-	 * Tests isCollection()
+	 * Tests isCollection().
 	 */
 	@Test
 	public void testIsCollection() {
@@ -901,12 +911,12 @@ public class TestReflectionUtils {
 	}
 	
 	/**
-	 * Tests isArray()
+	 * Tests isArray().
 	 */
 	@Test
 	public void testIsArray() {
 		Object[] array = new Object[3];
-		String s = "s"; //$NON-NLS-1$
+		String s = "s";
 		assertTrue(ReflectionUtils.isArray(array.getClass()));
 		assertFalse(ReflectionUtils.isArray(s.getClass()));
 	}
@@ -915,7 +925,7 @@ public class TestReflectionUtils {
 	
 	
 	/**
-	 * Unit test for isConcreteClass()
+	 * Unit test for isConcreteClass().
 	 */
 	@Test
 	public void testIsConcreteClass() {
@@ -926,7 +936,7 @@ public class TestReflectionUtils {
 	}
 		
 	/**
-	 * Unit test for argumentTypesMatchParameterTypes()
+	 * Unit test for argumentTypesMatchParameterTypes().
 	 */
 	@Test
 	public void testArgumentTypesMatchParameterTypes() {
@@ -965,7 +975,7 @@ public class TestReflectionUtils {
 	}
 	
 	/**
-	 * Unit test for argumentsMatchParameterTypes()
+	 * Unit test for argumentsMatchParameterTypes().
 	 */
 	@Test
 	public void testArgumentsMatchParameterTypes() {
@@ -990,7 +1000,7 @@ public class TestReflectionUtils {
 		assertFalse(ReflectionUtils.argumentsMatchParameterTypes(paramTypes, args));
 		
 		paramTypes = new Class<?>[]{Number.class, Object.class};
-		args = new Object[]{new Integer(1), ""}; //$NON-NLS-1$
+		args = new Object[]{new Integer(1), ""};
 		assertTrue(ReflectionUtils.argumentsMatchParameterTypes(paramTypes, args));
 		
 		paramTypes = new Class<?>[]{Number.class, String.class};
@@ -1004,55 +1014,55 @@ public class TestReflectionUtils {
 	
 	
 	/**
-	 * Unit test for isImplemented
+	 * Unit test for isImplemented.
 	 */
 	@Test
 	public void testIsImplemented_implementationInAbstractClass() {
 		Method m1 = ReflectionUtils.getPublicMethodWithoutParamsByName
-			("getField1", AbstractSampleInterfaceImpl.class); //$NON-NLS-1$
+			("getField1", AbstractSampleInterfaceImpl.class);
 		boolean b = ReflectionUtils.isImplemented(m1, AbstractSampleInterfaceImpl.class);
 		assertTrue(b);
 		
 		Method m2 = ReflectionUtils.getPublicMethodWithoutParamsByName
-			("getField1", SampleInterface.class); //$NON-NLS-1$
+			("getField1", SampleInterface.class);
 		b = ReflectionUtils.isImplemented(m2, AbstractSampleInterfaceImpl.class);
 		assertTrue(b);		
 	}
 	
 	/**
-	 * Unit test for isImplemented
+	 * Unit test for isImplemented.
 	 */
 	@Test
 	public void testIsImplemented_implementationInSuperclass() {
 		Method m = ReflectionUtils.getPublicMethodWithoutParamsByName
-			("toString", AbstractSampleInterfaceImpl.class); //$NON-NLS-1$
+			("toString", AbstractSampleInterfaceImpl.class);
 		boolean b = ReflectionUtils.isImplemented(m, AbstractSampleInterfaceImpl.class);
 		assertTrue(b);
 	}
 	
 	/**
-	 * Unit test for isImplemented
+	 * Unit test for isImplemented.
 	 */
 	@Test
 	public void testIsImplemented_abstractDeclaration() {
 		Method m = ReflectionUtils.getPublicMethodWithoutParamsByName
-			("someMethod", AbstractSampleInterfaceImpl.class); //$NON-NLS-1$
+			("someMethod", AbstractSampleInterfaceImpl.class);
 		boolean b = ReflectionUtils.isImplemented(m, AbstractSampleInterfaceImpl.class);
 		assertFalse(b);
 	}
 	
 	/**
-	 * Unit test for isImplemented
+	 * Unit test for isImplemented.
 	 */
 	@Test
 	public void testIsImplemented_noDeclaration() {
 		Method m1 = ReflectionUtils.getPublicMethodWithoutParamsByName
-			("getField2", AbstractSampleInterfaceImpl.class); //$NON-NLS-1$
+			("getField2", AbstractSampleInterfaceImpl.class);
 		boolean b = ReflectionUtils.isImplemented(m1, AbstractSampleInterfaceImpl.class);
 		assertFalse(b);
 		
 		Method m2 = ReflectionUtils.getPublicMethodWithoutParamsByName
-			("getField2", SampleInterface.class); //$NON-NLS-1$
+			("getField2", SampleInterface.class);
 		b = ReflectionUtils.isImplemented(m1, AbstractSampleInterfaceImpl.class);
 		assertFalse(b);
 		
@@ -1060,29 +1070,29 @@ public class TestReflectionUtils {
 	}
 	
 	/**
-	 * Unit test for isImplemented
+	 * Unit test for isImplemented.
 	 */
 	@Test
 	public void testIsImplemented_interface1() {
 		Method m = ReflectionUtils.getPublicMethodWithoutParamsByName
-			("getField2", SampleInterface.class); //$NON-NLS-1$
+			("getField2", SampleInterface.class);
 		boolean b = ReflectionUtils.isImplemented(m, SampleInterface.class);
 		assertFalse(b);
 	}
 	
 	/**
-	 * Unit test for isImplemented
+	 * Unit test for isImplemented.
 	 */
 	@Test
 	public void testIsImplemented_interface2() {
 		Method m = ReflectionUtils.getPublicMethodWithoutParamsByName
-			("getField1", SampleInterface.class); //$NON-NLS-1$
+			("getField1", SampleInterface.class);
 		boolean b = ReflectionUtils.isImplemented(m, SampleInterface.class);
 		assertFalse(b);
 	}
 	
 	/**
-	 * Unit test for getInterfaceHierarchy
+	 * Unit test for getInterfaceHierarchy.
 	 */
 	@Test
 	public void testGetInterfaceHierarchy() {
@@ -1098,7 +1108,7 @@ public class TestReflectionUtils {
 	}
 	
 	/**
-	 * Unit test for getTypeHierarchy
+	 * Unit test for getTypeHierarchy.
 	 */
 	@Test
 	public void testGetTypeHierarchy() {
@@ -1116,7 +1126,6 @@ public class TestReflectionUtils {
 	 * Test.
 	 */
 	@Test
-	@SuppressWarnings("nls")
 	public void testNamesOfPropertiesWithDifferentValue() {
 		BeanWith2Fields b1 = new BeanWith2Fields();
 		b1.setField1("b1");
@@ -1133,7 +1142,6 @@ public class TestReflectionUtils {
 	/**
 	 * tests Utils.testCopyProperties()
 	 */
-	@SuppressWarnings("nls")
 	@Test	
 	public void testCopyPropertiesWithDefaults() {
 		
@@ -1170,12 +1178,12 @@ public class TestReflectionUtils {
 	
 	
 	/**
-	 * Unit test for invocationException(method,throwable)
+	 * Unit test for invocationException(method,throwable).
 	 */
 	@Test
 	public void testInvocationException() {
 		Method m = ReflectionUtils.getMethodByUniqueName
-			("testInvocationException", this.getClass()); //$NON-NLS-1$
+			("testInvocationException", this.getClass());
 		NullPointerException npex = new NullPointerException();
 		InvocationTargetException itex = 
 			new InvocationTargetException(npex);
@@ -1185,7 +1193,43 @@ public class TestReflectionUtils {
 		Assert.assertEquals(itex,rtex.getCause());
 		
 	}
- 	
+	
+	/**
+	 * Tests copy property.
+	 */
+	@Test
+	public void testCopyProperty_sameType() {
+		BeanWith2Fields bean1 = new BeanWith2Fields();
+		String expected = "su";
+		bean1.setField1(expected);
+		BeanWith2Fields bean2 = new BeanWith2Fields();
+		ReflectionUtils.copyProperty(bean1, bean2, "field1");
+		String actual = bean2.getField1();
+		Assert.assertEquals(expected, actual);
+	}
+	
+	/**
+	 * Tests copy property.
+	 */
+	@Test
+	public void testCopyProperty_notInTarget() {
+		BeanWith2Fields bean1 = new BeanWith2Fields();
+		String expected = "su";
+		bean1.setField1(expected);
+		BeanWithTwo bean2 = new BeanWithTwo();
+		ReflectionUtils.copyProperty(bean1, bean2, "field1");
+		/* should not fail */ 		
+	}
+	
+	/**
+	 * Tests copy property.
+	 */
+	@Test(expected=RuntimeException.class)
+	public void testCopyProperty_notInSource() {
+		BeanWith2Fields bean1 = new BeanWith2Fields();		
+		BeanWith2Fields bean2 = new BeanWith2Fields();
+		ReflectionUtils.copyProperty(bean1, bean2, "fieldx");
+	}
 	
 	
 	/*
@@ -1193,48 +1237,43 @@ public class TestReflectionUtils {
 	 */
 		
 	/**
-	 * Class with a field annotated
+	 * Class with a field annotated.
 	 */
 	@SuppressWarnings("unused")
 	private static class BeanWithNone {
-		/**
-		 * field
-		 */
+		
+		/** field. */
 		Integer notAnnotated;
 	}
 	
 	/**
-	 * Class with a field annotated
+	 * Class with a field annotated.
 	 */	
 	private static class BeanWithUnique {
-		/**
-		 * field
-		 */
+		
+		/** field. */
 		@Anno Integer unique;
 	}
 	
 	/**
-	 * Class with two fields annotated
+	 * Class with two fields annotated.
 	 */	
 	private static class BeanWithTwo {
-		/**
-		 * field
-		 */
+		
+		/** field. */
 		@Anno Integer first;
-		/**
-		 * field
-		 */		
+		
+		/** field. */		
 		@Anno Integer second;
 	}
 	
 	/**
-	 * Class with a field annotated
+	 * Class with a field annotated.
 	 */	
 	@SuppressWarnings("unused")
 	private static class BeanWithCopyConstructor {
-		/**
-		 * String
-		 */
+		
+		/** String. */
 		String string;
 
 		/**
@@ -1246,8 +1285,8 @@ public class TestReflectionUtils {
 		
 		/**
 		 * Creates a new BeanWithCopyConstructor object.
-		 * 
-		 * @param bean 
+		 *
+		 * @param bean the bean
 		 */
 		public BeanWithCopyConstructor(BeanWithCopyConstructor bean) {
 			super();		
@@ -1268,9 +1307,8 @@ public class TestReflectionUtils {
 	 * Class with a static field.
 	 */
 	private static class BeanWithStaticField {
-		/**
-		 * field
-		 */
+		
+		/** field. */
 		static Integer field;
 	}
 	

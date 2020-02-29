@@ -85,7 +85,7 @@ public class TestPersistenceWorkerFactoryImpl {
 	}
 	
 	/**
-	 * Tests GetDetachStrategy
+	 * Tests GetDetachStrategy.
 	 */
 	@Test
 	public void testGetDetachStrategy() {

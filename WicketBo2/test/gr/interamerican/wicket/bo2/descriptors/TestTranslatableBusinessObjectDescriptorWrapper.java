@@ -26,50 +26,37 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * 
+ * Tests {@link TranslatableBusinessObjectDescriptorWrapper}
  */
+@Deprecated
 public class TestTranslatableBusinessObjectDescriptorWrapper  extends Bo2WicketTest{
 	
-	/**
-	 * Bean1descriptor
-	 */
+	/** Bean1descriptor. */
 	private Bean1descriptor bean1Descriptor = new Bean1descriptor();
 	
-	/**
-	 * translator
-	 */
+	/** translator. */
 	private TranslatorImpl<String,Long> translator = new TranslatorImpl<String,Long>();
 	
-	/**
-	 * resourceId
-	 */
+	/** resourceId. */
 	private String resourceId = "resourceId"; //$NON-NLS-1$
 	
-	/**
-	 * session
-	 */
+	/** session. */
 	@SuppressWarnings("unchecked")
 	private Bo2WicketSession<?,Long> session = Bo2WicketSession.get();
 
-	/**
-	 * NAME
-	 */
+	/** NAME. */
 	private static final String NAME = "descriptorName"; //$NON-NLS-1$
 	
-	/**
-	 * TRANSLATION
-	 */
+	/** TRANSLATION. */
 	private static final String TRANSLATION = "translatedValue"; //$NON-NLS-1$
 	
-	/**
-	 * TranslatableBoPropertyDescriptorWrapper to test
-	 */
+	/** TranslatableBoPropertyDescriptorWrapper to test. */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private TranslatableBusinessObjectDescriptorWrapper<Bean1, ?, ?> wrapper = 
 		new TranslatableBusinessObjectDescriptorWrapper(bean1Descriptor,resourceId,this.getClass().getName()); 
 	
 	/**
-	 * Init
+	 * Init.
 	 */
 	@Before
 	public void Init(){		
@@ -82,7 +69,7 @@ public class TestTranslatableBusinessObjectDescriptorWrapper  extends Bo2WicketT
 	}
 	
 	/**
-	 * Test getLabel
+	 * Test getLabel.
 	 */
 	@Test
 	public void testGetLabel(){
@@ -91,7 +78,7 @@ public class TestTranslatableBusinessObjectDescriptorWrapper  extends Bo2WicketT
 	}
 	
 	/**
-	 * Test getDescriptors
+	 * Test getDescriptors.
 	 */
 	@Test
 	public void testGetDescriptors(){
@@ -99,16 +86,18 @@ public class TestTranslatableBusinessObjectDescriptorWrapper  extends Bo2WicketT
 	}
 	
 	/**
-	 * Test parseAndValidate
-	 * @throws MultipleValidationsException 
+	 * Test parseAndValidate.
+	 *
+	 * @throws MultipleValidationsException the multiple validations exception
 	 */
 	@Test (expected = MultipleValidationsException.class)
 	public void testValidate() throws MultipleValidationsException{
 		Bean1 bean1 = new Bean1();
 		wrapper.validate(bean1);
 	}
+	
 	/**
-	 * Test getName
+	 * Test getName.
 	 */
 	@Test
 	public void testGetName(){
@@ -116,7 +105,7 @@ public class TestTranslatableBusinessObjectDescriptorWrapper  extends Bo2WicketT
 	}
 	
 	/**
-	 * Test setLabel
+	 * Test setLabel.
 	 */
 	@Test(expected = RuntimeException.class)
 	public void testSetLabel(){
@@ -124,7 +113,7 @@ public class TestTranslatableBusinessObjectDescriptorWrapper  extends Bo2WicketT
 	}
 	
 	/**
-	 * Test setPropertyDescriptors
+	 * Test setPropertyDescriptors.
 	 */
 	@Test(expected = RuntimeException.class)
 	public void testSetPropertyDescriptors(){
@@ -132,7 +121,7 @@ public class TestTranslatableBusinessObjectDescriptorWrapper  extends Bo2WicketT
 	}
 	
 	/**
-	 * Test setName
+	 * Test setName.
 	 */
 	@Test(expected = RuntimeException.class)
 	public void testSetName(){

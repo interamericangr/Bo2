@@ -15,33 +15,25 @@ package gr.interamerican.bo2.samples;
 import gr.interamerican.bo2.samples.anno.Anno;
 
 /**
- * sample class
+ * sample class.
  */
 @SuppressWarnings("unused")
 public class GrandFather {
 
-	/**
-	 * sample class field
-	 */	
+	/** sample class field. */	
 	private String field1 = "field1"; //$NON-NLS-1$
 
-	/**
-	 * sample class field
-	 */
+	/** sample class field. */
 
 	@Anno
 	private String field2 = "field2"; //$NON-NLS-1$
 
-	/**
-	 * sample class field
-	 */
+	/** sample class field. */
 	@Anno
 	private Object field3;
 	
 
-	/**
-	 * sample class field
-	 */
+	/** sample class field. */
 	private Object field4;
 	
 	/**

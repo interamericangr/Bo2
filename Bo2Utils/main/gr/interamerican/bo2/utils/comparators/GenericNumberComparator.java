@@ -19,8 +19,6 @@ import java.util.Comparator;
 
 /**
  * Compares two objects that represent a Date.
- * 
- * 
  */
 public class GenericNumberComparator 
 implements Comparator<Object> {
@@ -33,8 +31,8 @@ implements Comparator<Object> {
 	
 	/**
 	 * Converts an object to date.
-	 * 
-	 * @param o
+	 *
+	 * @param o the o
 	 * @return Returns the object that is represented by the date.
 	 *         if the object does not represent a date, returns null.
 	 */
@@ -44,15 +42,11 @@ implements Comparator<Object> {
 		}
 		return NumberUtils.string2Double(o.toString());
 	}
-	
-	/* (non-Javadoc)
-	 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
-	 */	
+
+	@Override
 	public int compare(Object o1, Object o2) {		
 		Number n1 = convert(o1);
 		Number n2 = convert(o2);
 		return NUMBER_COMPARATOR.compare(n1, n2);
 	}
-	
-
 }

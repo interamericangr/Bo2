@@ -65,9 +65,7 @@ implements Transformation<T, Buffer> {
 	 */
 	Map<String, Formatter<Object>> formatters;
 	
-	/**
-	 * 
-	 */
+	/** The format nulls as max length spaces. */
 	private boolean formatNullsAsMaxLengthSpaces = false;
 	
 	/**
@@ -117,29 +115,26 @@ implements Transformation<T, Buffer> {
 	/**
 	 * Creates a new ToBuffer object. 
 	 *
-	 * @param bufferSpec
 	 *        Buffer specification.
 	 * @param descriptor
 	 *        Business object descriptor for the object to be transformed
 	 *        to a Buffer.
-	 * @param alternateFormatters
-	 *        Maps field names with formatters. This parameters provides a
+	 * @param alternateFormatters        Maps field names with formatters. This parameters provides a
 	 *        way to override the format of the objects. This map doesn't need
 	 *        to contain formatters for all fields. It can even be empty or 
 	 *        even null. For the fields for which there is no formatter
 	 *        specified in this map, the {@link BoPropertyDescriptor} will
 	 *        be used to format the values.  
-	 * @param formatNullsAsMaxLengthSpaces if true all null values will 
+	 * @param formatNullsAsMaxLengthSpaces if true all null values will
 	 * 		  be formatted as a sequence of spaces with the length of MaxValue
 	 */
 	public ToBuffer(BusinessObjectDescriptor<T> descriptor, 
 			        Map<String, Pair<Integer,Formatter<?>> > alternateFormatters, boolean formatNullsAsMaxLengthSpaces) {
-		super();
 		this.descriptor = descriptor;
 		this.formatNullsAsMaxLengthSpaces = formatNullsAsMaxLengthSpaces;
 		List<String> fieldNames = new ArrayList<String>();
 		List<BoPropertyDescriptor<?>> sortedList =
-			CollectionUtils.sort(descriptor.getPropertyDescriptors(), BoPropertyDescriptor.class, "index"); //$NON-NLS-1$
+			CollectionUtils.sort(descriptor.getPropertyDescriptors(), BoPropertyDescriptor::getIndex);
 		propertyDescriptors = new HashSet<BoPropertyDescriptor<Object>>();		
 		formatters = new HashMap<String, Formatter<Object>>();
 		int[] lengths=new int[sortedList.size()];
@@ -179,7 +174,7 @@ implements Transformation<T, Buffer> {
 		this(bufferSpec,descriptor,null);
 	}
 
-	
+	@Override
 	public Buffer execute(T a) {
 		Buffer buffer = new Buffer(bufferSpec);
 		for (BoPropertyDescriptor<Object> boPD : propertyDescriptors) {
@@ -202,11 +197,4 @@ implements Transformation<T, Buffer> {
 		}
 		return buffer;
 	}
-
-
-
-	
-	
-	
-
 }

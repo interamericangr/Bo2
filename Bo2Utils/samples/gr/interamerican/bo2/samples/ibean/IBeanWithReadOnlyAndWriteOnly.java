@@ -27,8 +27,8 @@ public interface IBeanWithReadOnlyAndWriteOnly {
 	
 	/**
 	 * Sets the state.
-	 * 
-	 * @param state
+	 *
+	 * @param state the new state
 	 */
 	public void setState(String state);
 	
@@ -41,8 +41,8 @@ public interface IBeanWithReadOnlyAndWriteOnly {
 	
 	/**
 	 * Sets the id.
-	 * 
-	 * @param id
+	 *
+	 * @param id the new id
 	 */
 	public void setId(Long id);
 	

@@ -15,7 +15,6 @@ package gr.interamerican.bo2.impl.open.namedstreams.types;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.DataOperationNotSupportedException;
 import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResource;
-import gr.interamerican.bo2.impl.open.utils.Exceptions;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -31,14 +30,14 @@ public class NamedOutputStream extends AbstractNamedStream<OutputStream> {
 	
 	/**
 	 * Creates a new NamedOutputStream object.
-	 * 
-	 * @param resourceType
-	 * @param stream
-	 * @param name
-	 * @param recordLength
-	 * @param resource 
-	 * @param encoding 
-	 * @param uri 
+	 *
+	 * @param resourceType the resource type
+	 * @param stream the stream
+	 * @param name the name
+	 * @param recordLength the record length
+	 * @param resource the resource
+	 * @param encoding the encoding
+	 * @param uri the uri
 	 */
 	public NamedOutputStream(
 			StreamResource resourceType, OutputStream stream, 

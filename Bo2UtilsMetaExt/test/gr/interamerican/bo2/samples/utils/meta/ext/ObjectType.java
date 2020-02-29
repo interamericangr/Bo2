@@ -21,32 +21,23 @@ import gr.interamerican.bo2.arch.ext.TranslatableEntryOwner;
  */
 public enum ObjectType implements TranslatableEntryOwner<Long, Long, Long> {
 	
-    /**
-     * 
-     */
+    /** The object1. */
 	OBJECT1 ,
 	
-    /**
-     *
-     */
+    /** The object2. */
 	OBJECT2, 
     
-    /**
-     * 
-     */
+    /** The object3. */
 	OBJECT3, 
     
-    /**
-     * 
-     */    
+    /** The object4. */    
 	OBJECT4;
 	
 	
-	/**
-	 * EnumElement
-	 */
+	/** EnumElement. */
 	private EnumElement entry = new EnumElement(1000L, this);
 	
+	@Override
 	public EnumElement getEntry() {
 	return entry;
 	}

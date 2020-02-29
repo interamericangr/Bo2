@@ -21,16 +21,18 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 
 /**
- * BoPDComponentFactory for SelectableBoPropertyDescriptor<?>.
+ * BoPDComponentFactory for SelectableBoPropertyDescriptor&lt;?&gt;.
  */
 @SuppressWarnings("unchecked")
 public class SelectableBoPDComponentFactory extends 
 AbstractBoPDComponentFactory<SelectableBoPropertyDescriptor<?>>{
 
+	@Override
 	public Component drawMain(SelectableBoPropertyDescriptor<?> descriptor, String wicketId) {
 		return new SelfDrawnDropDownChoiceForSelectable(wicketId, new Model<Selectable<?>>(), descriptor);
 	}
 
+	@Override
 	public Component drawMain(String cmpWicketId, IModel<?> model, SelectableBoPropertyDescriptor<?> descriptor) {		
 		return new SelfDrawnDropDownChoiceForSelectable(cmpWicketId, (IModel<Selectable<?>>) model, descriptor);
 	}

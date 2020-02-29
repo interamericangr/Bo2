@@ -22,41 +22,43 @@ import java.sql.SQLException;
 import org.hibernate.HibernateException;
 
 /**
- * Concrete implementation for Codified<String> entries.
+ * Concrete implementation for Codified&lt;String&gt; entries.
  */
-public class EntryUserTypeForString 
-extends EntryUserType<String> {
-  
+public class EntryUserTypeForString extends EntryUserType<String> {
+
 	@Override
-    protected String getCode(ResultSet rs, String name) throws SQLException {		
-    	return rs.getString(name);
-    }
-    
-	public void nullSafeSet(PreparedStatement st, Object value, int index)
-    throws HibernateException, SQLException {
-        if (value==null) {
-            st.setString(index, StringConstants.EMPTY);
-        }else {
-        	@SuppressWarnings("unchecked") 
+	protected String getCode(ResultSet rs, String name) throws SQLException {
+		return rs.getString(name);
+	}
+
+	@Deprecated
+	@Override
+	public void nullSafeSet(PreparedStatement st, Object value, int index) throws HibernateException, SQLException {
+		if (value == null) {
+			st.setString(index, StringConstants.EMPTY);
+		} else {
+			@SuppressWarnings("unchecked")
 			TypedSelectable<String> val = (TypedSelectable<String>) value;
-            st.setString( index, val.getCode());
-        }
-    }
-    
-    public String objectToSQLString(Object value) {
-    	@SuppressWarnings("unchecked")
-		TypedSelectable<String> ts = (TypedSelectable<String>) value; 
-        return ts.getCode();
-    }
- 
-    public String toXMLString(Object value) {
-    	@SuppressWarnings("unchecked")
-		TypedSelectable<String> ts = (TypedSelectable<String>) value; 
-        return ts.getCode();
-    }
-    
-    public Object fromXMLString(String xmlValue) {
+			st.setString(index, val.getCode());
+		}
+	}
+
+	@Override
+	public String objectToSQLString(Object value) {
+		@SuppressWarnings("unchecked")
+		TypedSelectable<String> ts = (TypedSelectable<String>) value;
+		return ts.getCode();
+	}
+
+	@Override
+	public String toXMLString(Object value) {
+		@SuppressWarnings("unchecked")
+		TypedSelectable<String> ts = (TypedSelectable<String>) value;
+		return ts.getCode();
+	}
+
+	@Override
+	public Object fromXMLString(String xmlValue) {
 		return this.cache().get(typeId, xmlValue);
 	}
- 
 }

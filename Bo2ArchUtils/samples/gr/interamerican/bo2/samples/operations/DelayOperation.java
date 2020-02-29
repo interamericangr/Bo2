@@ -12,16 +12,19 @@
  ******************************************************************************/
 package gr.interamerican.bo2.samples.operations;
 
+import gr.interamerican.bo2.arch.Operation;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
+import gr.interamerican.bo2.samples.workers.EmptyWorker;
 import gr.interamerican.bo2.utils.concurrent.ThreadUtils;
 
 /**
  * Operation that stops the execution for a specified
  * time interval.
  */
-public class DelayOperation 
-extends EmptyOperation {
+public class DelayOperation
+extends EmptyWorker
+implements Operation {
 	/**
 	 * Time delay.
 	 */

@@ -75,19 +75,22 @@ public class MockDocumentEngine implements DocumentEngine {
 	public byte[] toPdf(BusinessDocument doc) throws DocumentEngineException {
 		return null;
 	}
-	
+
+	@Deprecated
+	@Override
 	public String toHtml(BusinessDocument doc) throws DocumentEngineException {
 		return null;
 	}
 	
 	/**
 	 * Creates a new MockDocumentEngine object. 
-	 * @param properties 
+	 *
+	 * @param properties the properties
 	 */
 	public MockDocumentEngine(@SuppressWarnings("unused") Properties properties) {
 		this();
 	}
-	
+
 	/**
 	 * Creates a new MockDocumentEngine object. 
 	 *
@@ -95,5 +98,4 @@ public class MockDocumentEngine implements DocumentEngine {
 	public MockDocumentEngine() {
 		/* empty */
 	}
-	
 }

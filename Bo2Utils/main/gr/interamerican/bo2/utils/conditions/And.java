@@ -30,7 +30,7 @@ public class And<T> implements Condition<T>{
 	 */
 	List<Condition<T>> conditions;
 
-	
+	@Override
 	public boolean check(T t) {
 		for (Condition<T> condition : conditions) {
 			if (!condition.check(t)) {
@@ -44,8 +44,9 @@ public class And<T> implements Condition<T>{
 	/**
 	 * Creates a new And object. 
 	 *
-	 * @param conditions
+	 * @param conditions the conditions
 	 */
+	@SafeVarargs
 	public And(Condition<T>... conditions) {
 		this(Arrays.asList(conditions));
 	}
@@ -53,7 +54,7 @@ public class And<T> implements Condition<T>{
 	/**
 	 * Creates a new And object. 
 	 *
-	 * @param conditions
+	 * @param conditions the conditions
 	 */
 	public And(List<Condition<T>> conditions) {
 		super();

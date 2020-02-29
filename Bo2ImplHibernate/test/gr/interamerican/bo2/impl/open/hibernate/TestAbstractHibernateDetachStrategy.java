@@ -44,9 +44,7 @@ import org.junit.Test;
  */
 public class TestAbstractHibernateDetachStrategy {
 	
-	/**
-	 * samples factory
-	 */
+	/** samples factory. */
 	private static SamplesFactory factory=SamplesFactory.getBo2Factory();
 	
 	/**
@@ -64,9 +62,7 @@ public class TestAbstractHibernateDetachStrategy {
 	 */
 	private Invoice invoice;
 	
-	/**
-	 * invoiceNo
-	 */
+	/** invoiceNo. */
 	String invoiceNo = "AA2"; //$NON-NLS-1$
 	
 	/**
@@ -79,10 +75,10 @@ public class TestAbstractHibernateDetachStrategy {
 	
 	/**
 	 * before each test.
-	 * 
-	 * @throws DataException
-	 * @throws LogicException
-	 * @throws UnexpectedException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Before
 	public void beforeEachTest() 
@@ -101,10 +97,10 @@ public class TestAbstractHibernateDetachStrategy {
 	
 	/**
 	 * Unit test for markExplicitSave.
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testMarkExplicitSave() throws UnexpectedException, DataException, LogicException {
@@ -125,11 +121,11 @@ public class TestAbstractHibernateDetachStrategy {
 	}
 	
 	/**
-	 * Tests reattach()
-	 * 
-	 * @throws DataException
-	 * @throws LogicException
-	 * @throws UnexpectedException 
+	 * Tests reattach().
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test
 	public void testReattach() 
@@ -192,9 +188,10 @@ public class TestAbstractHibernateDetachStrategy {
 	
 	/**
 	 * Tests no-ops. Reattaching an attached object is tested in the previous test.
-	 * @throws DataException 
-	 * @throws LogicException 
-	 * @throws UnexpectedException 
+	 *
+	 * @throws LogicException the logic exception
+	 * @throws DataException the data exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test
 	public void testReattach_NoOps() throws LogicException, DataException, UnexpectedException {
@@ -222,6 +219,7 @@ public class TestAbstractHibernateDetachStrategy {
 			session.update(object);
 		}
 
+		@Override
 		public void detach(Object object, Provider provider) {
 			/* empty */
 		}

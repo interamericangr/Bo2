@@ -104,7 +104,7 @@ public class ExpressionEvaluator {
 	 * <code>tolerateErrors</code> flag set on this {@link ExpressionEvaluator}.
 	 * If this flag is set to <code>true</code>, then the method will return
 	 * the value specified in the <code>errorIndicator</code> property.
-	 * Otherwise a RuntimeException will be thrown. <br/>
+	 * Otherwise a RuntimeException will be thrown. <br>
 	 * If the OGNL expression evaluates to <code>null</code>, then the
 	 * method returns the value specified by the <code>nullIndicator</code>
 	 * property of this {@link ExpressionEvaluator}.
@@ -126,39 +126,33 @@ public class ExpressionEvaluator {
 		Object val = parseExpression(ognlExpression, model);
 		return formatter.format(val);
 	}
-	
+
 	/**
 	 * Evaluates an OGNL expression on a specified model object.
 	 * 
 	 * @param ognlExpression
-	 *        Expression to evaluate. 
+	 *            Expression to evaluate.
 	 * @param model
-	 *        Context object to evaluate the expression.
-	 *         
+	 *            Context object to evaluate the expression.
+	 * 
 	 * @return Returns the value.
 	 */
 	@SuppressWarnings("nls")
-	Object parseExpression(String ognlExpression, Object model) {		
+	Object parseExpression(String ognlExpression, Object model) {
 		try {
 			Object v = Ognl.getValue(ognlExpression, model);
-			return v==null ? nullIndicator : v;
-		} catch (OgnlException e) {			
+			return v == null ? nullIndicator : v;
+		} catch (OgnlException e) {
 			if (logger.isErrorEnabled()) {
-				String msg = "Exception caused by expression "  
-					+ ognlExpression + " : " + e.toString();
+				String msg = "Exception caused by expression " + ognlExpression + " : " + e.toString();
 				logger.error(msg);
 			}
 			if (!tolerateErrors) {
-				throw new RuntimeException(e);				
-			} else {
-				return errorIndicator;
+				throw new RuntimeException(e);
 			}
+			return errorIndicator;
 		}
-		
-		
 	}
-	
-	
 
 	/**
 	 * Gets the tolerateOgnlErrors.

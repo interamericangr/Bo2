@@ -19,8 +19,8 @@ public class ThreadUtils {
 	
 	/**
 	 * Sleep in seconds.
-	 * 
-	 * @param seconds
+	 *
+	 * @param seconds the seconds
 	 */
 	public static void sleep(int seconds) {
 		sleepMillis(seconds*1000);		
@@ -28,8 +28,8 @@ public class ThreadUtils {
 	
 	/**
 	 * Sleep in milliseconds.
-	 * 
-	 * @param milliseconds
+	 *
+	 * @param milliseconds the milliseconds
 	 */
 	public static void sleepMillis(long milliseconds) {
 		try {

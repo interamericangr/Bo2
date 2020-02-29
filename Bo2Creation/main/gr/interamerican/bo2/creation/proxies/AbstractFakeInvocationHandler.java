@@ -42,8 +42,8 @@ implements InvocationHandler {
 	 */
 	private ArrayList<MethodInvocation> invocations = 
 		new ArrayList<MethodInvocation>();
-	
 
+	@Override
 	public Object invoke(Object proxy, Method method, Object[] args) 
 	throws Throwable {
 		
@@ -66,26 +66,25 @@ implements InvocationHandler {
 			throw failure(method, args, thrown);
 		}
 	}
-	
+
 	/**
 	 * Handles the specified method invocation.
-	 * 
-	 * @param proxy
-	 * @param method
-	 * @param args
-	 * 
+	 *
+	 * @param proxy the proxy
+	 * @param method the method
+	 * @param args the args
 	 * @return Returns the return object of the method.
-	 * @throws Throwable
+	 * @throws Throwable the throwable
 	 */
 	protected abstract Object doInvoke(Object proxy, Method method, Object[] args) 
 	throws Throwable;
 	
 	/**
 	 * Log  a successful method invocation.
-	 * @param method
-	 * @param args
-	 * @param returnValue
-	 * 
+	 *
+	 * @param method the method
+	 * @param args the args
+	 * @param returnValue the return value
 	 * @return Returns the returnValue.
 	 */
 	private Object success(Method method, Object[] args, Object returnValue) {
@@ -96,10 +95,10 @@ implements InvocationHandler {
 	
 	/**
 	 * Log  a successful method invocation.
-	 * @param method
-	 * @param args
-	 * @param thrown
-	 * 
+	 *
+	 * @param method the method
+	 * @param args the args
+	 * @param thrown the thrown
 	 * @return Returns the thrown.
 	 */
 	private Throwable failure(Method method, Object[] args, Throwable thrown) {
@@ -107,5 +106,4 @@ implements InvocationHandler {
 		invocations.add(invocation);
 		return thrown;
 	}
-	
 }

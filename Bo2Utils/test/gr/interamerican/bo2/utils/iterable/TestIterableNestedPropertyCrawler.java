@@ -1,20 +1,18 @@
 package gr.interamerican.bo2.utils.iterable;
 
-import static org.mockito.Mockito.*;
-import gr.interamerican.bo2.samples.bean.BeanWith3Fields;
-import gr.interamerican.bo2.samples.bean.BeanWithCollections;
-import gr.interamerican.bo2.samples.collections.BeanCollections;
-import gr.interamerican.bo2.utils.Utils;
-import gr.interamerican.bo2.utils.adapters.VoidOperation;
+import static org.mockito.Mockito.mock;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import gr.interamerican.bo2.samples.bean.BeanWithCollections;
+import gr.interamerican.bo2.utils.Utils;
+import gr.interamerican.bo2.utils.adapters.VoidOperation;
 
 /**
  * Tests for {@link IterableNestedPropertyCrawler}.
@@ -108,7 +106,4 @@ public class TestIterableNestedPropertyCrawler {
 		
 		crawler.execute(bean);
 	}
-
-	
-
 }

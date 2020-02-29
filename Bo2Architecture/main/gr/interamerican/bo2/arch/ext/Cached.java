@@ -66,16 +66,16 @@ public interface Cached
 	 * 
 	 * This method is meaningless if the metadata of this
 	 * object specify that it is not sub-typed.
-	 * 
-	 * @param subsetId
+	 *
+	 * @param subsetId the new subset id
 	 */
 	public void setSubsetId(Long subsetId);
 	
 	
 	/**
 	 * Metadata about the type of an entry.
-	 * 
-	 * @param <MC> 
+	 *
+	 * @param <MC> the generic type
 	 */
 	public interface Metadata<MC extends Comparable<? super MC>> 
 	extends TypedSelectable<MC> {

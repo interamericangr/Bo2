@@ -30,119 +30,104 @@ public interface DocumentEngine {
 	
 	/**
 	 * Creates a new {@link BusinessDocument}.
-	 * 
+	 *
 	 * @return Returns the new document.
-	 * 
-	 * @throws DocumentEngineException 
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	BusinessDocument newDocument() throws DocumentEngineException;
 	
 	/**
 	 * Opens a document from a specified path.
-	 * 
-	 * @param path
-	 *        Path to get the document from.
+	 *
+	 * @param path        Path to get the document from.
 	 *        
 	 * @return Returns the document.
-	 * 
-	 * @throws DocumentEngineException 
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	BusinessDocument openDocument (String path) throws DocumentEngineException;
 	
 	/**
 	 * Opens a document from a specified file.
-	 * 
-	 * @param file
-	 *        File.
+	 *
+	 * @param file        File.
 	 *        
 	 * @return Returns the document.
-	 * 
-	 * @throws DocumentEngineException 
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	BusinessDocument openDocument(File file) throws DocumentEngineException;
 	
 	/**
 	 * Opens a document from a specified stream.
-	 * 
-	 * @param stream
-	 *        InputStream.
+	 *
+	 * @param stream        InputStream.
 	 *        
 	 * @return Returns the document.
-	 * 
-	 * @throws DocumentEngineException 
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	BusinessDocument openDocument (InputStream stream) throws DocumentEngineException;
 	
 	/**
 	 * Saves the document to the specified path.
-	 * 
-	 * @param doc
-	 *        BusinessDocument to save.
-	 * @param path
-	 *        Path to save the document.
+	 *
+	 * @param doc        BusinessDocument to save.
+	 * @param path        Path to save the document.
 	 *        
-	 * @throws DocumentEngineException
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	void saveDocument(BusinessDocument doc, String path) throws DocumentEngineException;
 	
 	/**
 	 * Saves the document to the specified file.
-	 * 
-	 * @param doc
-	 *        BusinessDocument to save.
-	 * @param file
-	 *        File to save the document.
+	 *
+	 * @param doc        BusinessDocument to save.
+	 * @param file        File to save the document.
 	 *        
-	 * @throws DocumentEngineException
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	void saveDocument(BusinessDocument doc, File file)  throws DocumentEngineException;
 	
 	/**
 	 * Saves the document to the specified stream.
-	 * 
-	 * @param doc
-	 *        BusinessDocument to save.
-	 * @param stream
-	 *        Stream to save the document.
+	 *
+	 * @param doc        BusinessDocument to save.
+	 * @param stream        Stream to save the document.
 	 *        
-	 * @throws DocumentEngineException
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	void saveDocument(BusinessDocument doc, OutputStream stream)  throws DocumentEngineException;
 	
 	/**
 	 * Saves the document to the file it was last read or saved from.
-	 * 
-	 * @param doc
-	 *        BusinessDocument to save.
+	 *
+	 * @param doc        BusinessDocument to save.
 	 *        
-	 * @throws DocumentEngineException
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	void saveDocument(BusinessDocument doc)  throws DocumentEngineException;
 	
 	/**
 	 * Gets the business document in PDF format.
-	 * 
-	 * @param doc
-	 *        Business document to convert to PDF.
+	 *
+	 * @param doc        Business document to convert to PDF.
 	 *        
 	 * @return Returns a byte array containing the specified business
 	 *         document in PDF format.
 	 *         
-	 * @throws DocumentEngineException 
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	byte[] toPdf(BusinessDocument doc) throws DocumentEngineException;
 	
 	/**
 	 * Gets the business document in HTML format.
-	 * 
-	 * @param doc
-	 *        Business document to convert to HTML.
+	 *
+	 * @param doc        Business document to convert to HTML.
 	 *        
 	 * @return Returns a String containing the specified business
 	 *         document in HTML format.
 	 *         
-	 * @throws DocumentEngineException 
+	 * @throws DocumentEngineException the document engine exception
+	 * @deprecated Reported as not being used - will get dropped then
 	 */
+	@Deprecated
 	String toHtml(BusinessDocument doc) throws DocumentEngineException;
-
 }

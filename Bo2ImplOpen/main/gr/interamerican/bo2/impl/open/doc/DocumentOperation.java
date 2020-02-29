@@ -22,11 +22,11 @@ import gr.interamerican.bo2.utils.doc.DocumentEngine;
 import gr.interamerican.bo2.utils.doc.DocumentEngineException;
 
 /** 
- * Abstract base class for operations on a {@link BusinessDocument}. <br/>
+ * Abstract base class for operations on a {@link BusinessDocument}. <br>
  * 
  * The operation's <code>init(provider)</code> method acquires a 
  * {@link DocumentEngine} which is the available for document
- * specific tasks. <br/>
+ * specific tasks. <br>
  * The operation also would wrap any {@link DocumentEngineException}
  * thrown by the document procesing API into a {@link DataException}.
  */
@@ -57,10 +57,10 @@ extends AbstractOperation {
 	
 	/**
 	 * Creates the documents.
-	 * 
-	 * @throws DataException
-	 * @throws LogicException
-	 * @throws DocumentEngineException
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	protected abstract void work() 
 	throws DataException, LogicException, DocumentEngineException;

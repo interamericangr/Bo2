@@ -12,16 +12,13 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.workers;
 
-import gr.interamerican.bo2.arch.exceptions.DataException;
-import gr.interamerican.bo2.arch.exceptions.LogicException;
-import gr.interamerican.bo2.arch.exceptions.UnexpectedException;
+import org.junit.Assert;
+import org.junit.Test;
+
 import gr.interamerican.bo2.impl.open.creation.Factory;
 import gr.interamerican.bo2.samples.archutil.po.User;
 import gr.interamerican.bo2.samples.archutil.po.UserKey;
 import gr.interamerican.bo2.samples.ibean.Identified;
-
-import org.junit.Assert;
-import org.junit.Test;
 
 /**
  * Unit test for {@link FactorySupportedPoHandler}.
@@ -38,12 +35,8 @@ public class TestFactorySupportedPoHandler {
 		Assert.assertNotNull(handler.pw);		
 	}
 	
-	
 	/**
-	 * Tests execute
-	 * @throws UnexpectedException
-	 * @throws DataException
-	 * @throws LogicException
+	 * Tests execute.
 	 */
 	@Test
 	public void testCreateByKey() {
@@ -56,10 +49,7 @@ public class TestFactorySupportedPoHandler {
 	}
 	
 	/**
-	 * Tests execute
-	 * @throws UnexpectedException
-	 * @throws DataException
-	 * @throws LogicException
+	 * Tests execute.
 	 */
 	@SuppressWarnings("unchecked")
 	@Test
@@ -72,10 +62,4 @@ public class TestFactorySupportedPoHandler {
 		User user = handler.createByKeyProperties(identifier);
 		Assert.assertEquals(user.getId(), id);
 	}
-	
-	
-	
-
-	
-	
 }

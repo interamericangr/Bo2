@@ -7,7 +7,7 @@ import gr.interamerican.bo2.utils.adapters.VoidOperation;
 /**
  * {@link VoidOperation} that adds an element to a Collection.
  *
- * @param <T>
+ * @param <T> the generic type
  */
 public class AddToCollection<T> implements VoidOperation<T> {
 	
@@ -18,8 +18,8 @@ public class AddToCollection<T> implements VoidOperation<T> {
 	
 	/**
 	 * Creates a new AddToCollection object.
-	 * 
-	 * @param collection
+	 *
+	 * @param collection the collection
 	 */
 	public AddToCollection(Collection<T> collection) {
 		super();

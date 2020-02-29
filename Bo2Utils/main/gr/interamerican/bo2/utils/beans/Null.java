@@ -22,9 +22,7 @@ package gr.interamerican.bo2.utils.beans;
  */
 public final class Null implements Comparable<Object>{
 	
-	/**
-	 * Singleton instance;
-	 */
+	/** Singleton instance;. */
 	public static final Null NULL = new Null();	
 	
 	/**
@@ -44,6 +42,7 @@ public final class Null implements Comparable<Object>{
 		return 0;
 	}
 	
+	@Override
 	public int compareTo(Object o) {
 		if (this.equals(o)) {
 			return 0;

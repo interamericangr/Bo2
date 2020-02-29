@@ -26,9 +26,9 @@ public class Assertions {
 	
 	/**
 	 * Assert that big contains little.
-	 * 
-	 * @param big
-	 * @param little
+	 *
+	 * @param big the big
+	 * @param little the little
 	 */
 	public static void assertContains(String big, String little) {		
 		String msg = big + "\n does not contain: " + little; //$NON-NLS-1$
@@ -37,9 +37,9 @@ public class Assertions {
 	
 	/**
 	 * Assert that big contains little.
-	 * 
-	 * @param big
-	 * @param little
+	 *
+	 * @param big the big
+	 * @param little the little
 	 */
 	public static void assertStartsWith(String big, String little) {		
 		String msg = big + "\n does not start with: " + little; //$NON-NLS-1$
@@ -48,9 +48,9 @@ public class Assertions {
 	
 	/**
 	 * Assert that big contains little.
-	 * 
-	 * @param big
-	 * @param little
+	 *
+	 * @param big the big
+	 * @param little the little
 	 */
 	public static void assertEndsWith(String big, String little) {		
 		String msg = big + "\n does not end with: " + little; //$NON-NLS-1$
@@ -59,9 +59,9 @@ public class Assertions {
 	
 	/**
 	 * Assert that big contains all parts..
-	 * 
-	 * @param big
-	 * @param parts
+	 *
+	 * @param big the big
+	 * @param parts the parts
 	 */
 	public static void assertContainsAll(String big, String parts[]) {
 		for (String string : parts) {
@@ -71,8 +71,8 @@ public class Assertions {
 	
 	/**
 	 * Assert that an exception is not null and has a message.
-	 * 
-	 * @param ex
+	 *
+	 * @param ex the ex
 	 */
 	public static void assertException(Exception ex) {
 		Assert.assertNotNull(ex);

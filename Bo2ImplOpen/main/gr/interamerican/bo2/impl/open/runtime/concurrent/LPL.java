@@ -1,7 +1,19 @@
+/*******************************************************************************
+ * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A. 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Lesser Public License v3
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/copyleft/lesser.html
+ * 
+ * This library is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * See the GNU Lesser General Public License for more details.
+ ******************************************************************************/
 package gr.interamerican.bo2.impl.open.runtime.concurrent;
 
+import gr.interamerican.bo2.arch.batch.Launcher;
 import gr.interamerican.bo2.arch.batch.LongProcess;
-import gr.interamerican.bo2.arch.batch.LongProcessLauncher;
 import gr.interamerican.bo2.impl.open.creation.Factory;
 import gr.interamerican.bo2.utils.CollectionUtils;
 import gr.interamerican.bo2.utils.StreamUtils;
@@ -37,30 +49,35 @@ public class LPL {
 	/**
 	 * Main method.
 	 *
-	 * @param args
+	 * @param args the arguments
 	 */
 	@SuppressWarnings({ "nls" })
 	public static void main(String[] args) {
-		LPL lpl = new LPL();
-		Properties p = new Properties();
-		for (int i = 0; i < args.length; i++) {
-			lpl.parseArgument(p, args[i]);
+		try {
+			LPL lpl = new LPL();
+			Properties p = new Properties();
+			for (int i = 0; i < args.length; i++) {
+				lpl.parseArgument(p, args[i]);
+			}
+			String className = p.getProperty(BatchProcessParmNames.LAUNCHER);
+			if (StringUtils.isNullOrBlank(className)) {
+				String msg = "launcher property not set";
+				throw new RuntimeException(msg);
+			}
+			Launcher launcher = (Launcher) Factory.create(className);
+			launcher.launch(p);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.exit(-1);
 		}
-		String className = p.getProperty(BatchProcessParmNames.LAUNCHER);
-		if (StringUtils.isNullOrBlank(className)) {
-			String msg = "launcher property not set";
-			throw new RuntimeException(msg);
-		}
-		LongProcessLauncher launcher = (LongProcessLauncher)Factory.create(className);
-		launcher.launch(p);
 	}
 
 
 	/**
 	 * Parses an argument.
 	 *
-	 * @param properties
-	 * @param argument
+	 * @param properties the properties
+	 * @param argument the argument
 	 */
 	void parseArgument(Properties properties, String argument) {
 		Pair<String, String> pair = parse(argument, '=');
@@ -85,7 +102,7 @@ public class LPL {
 	 *
 	 * @param key
 	 * @param value
-	 * @return
+	 * @return the stream
 	 * @throws IOException
 	 */
 	InputStream getStream(String key, String value) throws IOException {
@@ -103,8 +120,8 @@ public class LPL {
 	/**
 	 * Parses the specified argument.
 	 *
-	 * @param argument
-	 * @param delimiter
+	 * @param argument the argument
+	 * @param delimiter the delimiter
 	 * @return returns the pair that contains the key as left
 	 *         part and the value as right.
 	 */
@@ -119,7 +136,7 @@ public class LPL {
 	/**
 	 * Throws a RuntimeException when an invalid argument is found.
 	 *
-	 * @param argument
+	 * @param argument the argument
 	 */
 	void invalid(String argument) {
 		String msg = "Invalid argument " + argument; //$NON-NLS-1$

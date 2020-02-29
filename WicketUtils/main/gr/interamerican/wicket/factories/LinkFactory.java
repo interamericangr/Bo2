@@ -14,6 +14,9 @@ package gr.interamerican.wicket.factories;
 
 import gr.interamerican.wicket.ajax.markup.html.form.CallbackAjaxLink;
 import gr.interamerican.wicket.callback.CallbackAction;
+import gr.interamerican.wicket.links.LegacyCallbackAjaxLink;
+import gr.interamerican.wicket.links.PickActionAjaxLink;
+import gr.interamerican.wicket.links.RefreshAjaxLink;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.MarkupContainer;
@@ -25,6 +28,7 @@ import org.apache.wicket.model.ResourceModel;
 /**
  * Factory of Bo2 enabled wicket components. 
  */
+@Deprecated
 public class LinkFactory {
 
 	/**
@@ -45,6 +49,7 @@ public class LinkFactory {
 	 *        
 	 * @return Returns a new AjaxButton that will execute the specified
 	 *         Bo2WicketBlock.
+	 * @deprecated Use {@link LegacyCallbackAjaxLink} and {@link PickActionAjaxLink} instead
 	 */
 	public static AjaxLink<String> createLink 
 	(final String id, final IModel<String> model, final CallbackAction action) {
@@ -66,6 +71,7 @@ public class LinkFactory {
 	 *        
 	 * @return Returns a new AjaxButton that will execute the specified
 	 *         Bo2WicketBlock.
+	 * @deprecated Use {@link LegacyCallbackAjaxLink} and {@link PickActionAjaxLink} instead
 	 */
 	public static AjaxLink<String> createLink 
 	(final String id, final CallbackAction action) {
@@ -86,9 +92,9 @@ public class LinkFactory {
 	 *        
 	 * @param container - O container that contains the component and the link.
 	 * 
-	 * @return Returns the link.  
+	 * @return Returns the link.
+	 * @deprecated Use {@link RefreshAjaxLink} instead  
 	 */
-	
 	public static <T> AjaxLink<T> createTogleVisibleLink(final String componentName , final MarkupContainer container){
         AjaxLink<T> refreshLink =
             new AjaxLink<T>(componentName+"Link") { //$NON-NLS-1$

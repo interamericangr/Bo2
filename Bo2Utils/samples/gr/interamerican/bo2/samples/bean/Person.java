@@ -24,9 +24,8 @@ import java.util.Date;
  * Person bean.
  */
 public class Person implements Serializable  {	
-	/**
-	 * 
-	 */
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * First name.
@@ -36,22 +35,18 @@ public class Person implements Serializable  {
 	 * Last name.
 	 */
 	String lastName;
-	/**
-	 * Birthday
-	 */
+	
+	/** Birthday. */
 	Date birthDay;
-	/**
-	 * Social security No
-	 */
+	
+	/** Social security No. */
 	String socialSecurityNo;
 	/**
 	 * Sex.
 	 */
 	Sex sex;
 	
-	/**
-	 * 
-	 */
+	/** The phones. */
 	 String phones [];
 	
 	/**
@@ -136,16 +131,18 @@ public class Person implements Serializable  {
 	}
 	
 	/**
-	 * Gets phones
+	 * Gets phones.
 	 *
 	 * @return Phones
 	 */
 	public String [] getPhones() {
 		return phones;
 	}
+	
 	/**
-	 * Assigns phones
-	 * @param phones
+	 * Assigns phones.
+	 *
+	 * @param phones the new phones
 	 */
 	public void setPhones(String [] phones) {
 		this.phones = phones;

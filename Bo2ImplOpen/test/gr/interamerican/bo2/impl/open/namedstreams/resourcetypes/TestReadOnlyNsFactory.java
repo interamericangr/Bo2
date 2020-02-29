@@ -29,7 +29,7 @@ public class TestReadOnlyNsFactory {
 	}
 
 	/**
-	 * Test for <code>input(stream, name, recordLength, charset)</code>
+	 * Test for <code>input(stream, name, recordLength, charset)</code>.
 	 */
 	@Test
 	public void testInput() {
@@ -76,7 +76,7 @@ public class TestReadOnlyNsFactory {
 	/**
 	 * Test for <code>createNs(stream, def)</code>.
 	 *
-	 * @throws CouldNotCreateNamedStreamException
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */
 	@Test
 	public void testCreateNs_reader() throws CouldNotCreateNamedStreamException {
@@ -110,7 +110,7 @@ public class TestReadOnlyNsFactory {
 	/**
 	 * Test for <code>createNs(stream, def)</code>.
 	 *
-	 * @throws CouldNotCreateNamedStreamException
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */
 	@Test
 	public void testCreateNs_input() throws CouldNotCreateNamedStreamException {
@@ -144,7 +144,7 @@ public class TestReadOnlyNsFactory {
 	/**
 	 * Test for <code>createNs(stream, def)</code>.
 	 *
-	 * @throws CouldNotCreateNamedStreamException
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */
 	@Test(expected=CouldNotCreateNamedStreamException.class)
 	public void testCreateNs_invalid() throws CouldNotCreateNamedStreamException {
@@ -167,7 +167,7 @@ public class TestReadOnlyNsFactory {
 	/**
 	 * Test for <code>createNs(def)</code>.
 	 *
-	 * @throws CouldNotCreateNamedStreamException
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */
 	@Test
 	public void testCreateNs_def() throws CouldNotCreateNamedStreamException {
@@ -200,7 +200,7 @@ public class TestReadOnlyNsFactory {
 	/**
 	 * Test for <code>create(def)</code>.
 	 *
-	 * @throws CouldNotCreateNamedStreamException
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */
 	@Test
 	public void testCreate() throws CouldNotCreateNamedStreamException {
@@ -233,7 +233,7 @@ public class TestReadOnlyNsFactory {
 	/**
 	 * Test for <code>convert(ns1, newType, newName)</code>.
 	 *
-	 * @throws CouldNotConvertNamedStreamException
+	 * @throws CouldNotConvertNamedStreamException the could not convert named stream exception
 	 */
 	@Test
 	public void testConvert_valid() throws CouldNotConvertNamedStreamException {
@@ -268,7 +268,7 @@ public class TestReadOnlyNsFactory {
 	/**
 	 * Test for <code>convert(ns1, newType, newName)</code>.
 	 *
-	 * @throws CouldNotConvertNamedStreamException
+	 * @throws CouldNotConvertNamedStreamException the could not convert named stream exception
 	 */
 	@Test(expected=CouldNotConvertNamedStreamException.class)
 	public void testConvert_invalid() throws CouldNotConvertNamedStreamException {
@@ -292,7 +292,9 @@ public class TestReadOnlyNsFactory {
 	class ConcreteReadOnlyNsFactory extends ReadOnlyNsFactory {
 
 		/**
-		 * @param resourceType
+		 * Instantiates a new concrete read only ns factory.
+		 *
+		 * @param resourceType the resource type
 		 */
 		public ConcreteReadOnlyNsFactory(StreamResource resourceType) {
 			super(resourceType);

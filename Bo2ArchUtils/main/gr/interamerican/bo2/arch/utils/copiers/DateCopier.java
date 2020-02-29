@@ -19,10 +19,11 @@ import java.lang.reflect.Constructor;
 import java.util.Date;
 
 /**
- * 
+ * The Class DateCopier.
  */
 public class DateCopier implements Copier<Date> {
 
+	@Override
 	public Date copy(Date objectToCopy) {
 		if (objectToCopy==null) {
 			return null;

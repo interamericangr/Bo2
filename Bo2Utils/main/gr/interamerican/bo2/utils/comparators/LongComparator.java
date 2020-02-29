@@ -29,14 +29,11 @@ implements Comparator<Number> {
 	private Long toLong(Number n) {
 		return n.longValue();
 	}
-	
-	/* (non-Javadoc)
-	 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
-	 */	
+
+	@Override
 	public int compare(Number o1, Number o2) {
 		Long b1 = toLong(o1);
 		Long b2 = toLong(o2);
 		return b1.compareTo(b2);
 	}
-
 }

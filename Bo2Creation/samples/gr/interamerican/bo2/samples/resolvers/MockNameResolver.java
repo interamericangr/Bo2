@@ -20,10 +20,12 @@ import gr.interamerican.bo2.creation.NameResolver;
 public class MockNameResolver implements NameResolver {
 
 	
+	@Override
 	public String getImplementationName(String interfaceName) {	
 		return null;
 	}
 
+	@Override
 	public String getDeclarationName(String implementationName) {
 		return null;
 	}

@@ -19,29 +19,23 @@ import java.util.ResourceBundle;
 import org.junit.Test;
 
 /**
- * Test for MessageGetter
+ * Test for MessageGetter.
  */
 public class TestMessageGetter {
 
 	
-	/**
-	 * bean bundle name
-	 */
+	/** bean bundle name. */
 	private static final String BEAN_BUNDLE_NAME = 
 		"gr.interamerican.bo2.utils.beans.bean1"; //$NON-NLS-1$
 	
-	/**
-	 * ResourceBundle
-	 */
+	/** ResourceBundle. */
 	ResourceBundle bundle = ResourceBundle.getBundle(BEAN_BUNDLE_NAME);
 	
-	/**
-	 * MessageGetter
-	 */
+	/** MessageGetter. */
 	MessageGetter getter =  new MessageGetter(BEAN_BUNDLE_NAME);
 	
 	/**
-	 * test GetString
+	 * test GetString.
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -52,7 +46,7 @@ public class TestMessageGetter {
 	}
 	
 	/**
-	 * test GetString
+	 * test GetString.
 	 */
 	@SuppressWarnings("nls")
 	@Test

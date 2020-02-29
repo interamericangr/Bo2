@@ -24,8 +24,9 @@ public class TestBooleanParser {
 	
 	
 	/**
-	 * Test Parse
-	 * @throws ParseException 
+	 * Test Parse.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	
 	@Test

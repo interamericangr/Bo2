@@ -7,15 +7,13 @@ import java.lang.reflect.InvocationTargetException;
  * {@link ExceptionUnwrapper} unwraps an exception of a specified type
  * that could be wrapped inside a RuntimeException or an InvocationTargetException.
  *
- * @param <E>
+ * @param <E> the element type
  */
 public class ExceptionUnwrapper<E extends Exception> 
 implements Serializable {
 	
 
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Exception class.
@@ -25,14 +23,12 @@ implements Serializable {
 	/**
 	 * Rethrows the {@link Exception} returned by the
 	 * specified {@link ExceptionUnwrapper}, if it is not null.
-	 * 
-	 * @param unwrapper
-	 *        Unwrapper. 
-	 * @param t 
-	 *        Throwable being analyzed.
+	 *
+	 * @param <Z> the generic type
+	 * @param unwrapper        Unwrapper. 
+	 * @param t        Throwable being analyzed.
 	 *        
-	 * @throws Z
-	 *         Type of exception being rethrown.  
+	 * @throws Z         Type of exception being rethrown.
 	 */
 	public static <Z extends Exception> 
 	void rethrow(ExceptionUnwrapper<Z> unwrapper, Throwable t) throws Z{
@@ -45,8 +41,8 @@ implements Serializable {
 	
 	/**
 	 * Creates a new ExceptionUnwrapper object.
-	 * 
-	 * @param clazz
+	 *
+	 * @param clazz the clazz
 	 */
 	public ExceptionUnwrapper(Class<E> clazz) {
 		super();
@@ -77,11 +73,9 @@ implements Serializable {
 	 * Gets the target exception of the specified argument 
 	 * if it is an instance of the class specified in the 
 	 * constructor of this ExceptionUnwrapper.
-	 * 
-	 * @param t
-	 *        Throwable
-	 *        
-	 * @return Returns the target exception of the specified argument 
+	 *
+	 * @param ite the ite
+	 * @return Returns the target exception of the specified argument
 	 *         if it is an instance of the class specified in the 
 	 *         constructor of this ExceptionUnwrapper. 
 	 *         Otherwise returns null.
@@ -102,11 +96,9 @@ implements Serializable {
 	 * Gets the cause exception of the specified argument 
 	 * if it is an instance of the class specified in the 
 	 * constructor of this ExceptionUnwrapper.
-	 * 
-	 * @param t
-	 *        Throwable
-	 *        
-	 * @return Returns the cause exception of the specified argument 
+	 *
+	 * @param rte the rte
+	 * @return Returns the cause exception of the specified argument
 	 *         if it is an instance of the class specified in the 
 	 *         constructor of this ExceptionUnwrapper. 
 	 *         Otherwise returns null.
@@ -126,9 +118,8 @@ implements Serializable {
 	/**
 	 * Unwraps the exception of the type defined in this
 	 * {@link ExceptionUnwrapper}'s constructor.
-	 * 
-	 * @param t
-	 * 
+	 *
+	 * @param t the t
 	 * @return Returns the unwrapped exception of the specified type,
 	 *         if there is any. Otherwise returns null.
 	 */

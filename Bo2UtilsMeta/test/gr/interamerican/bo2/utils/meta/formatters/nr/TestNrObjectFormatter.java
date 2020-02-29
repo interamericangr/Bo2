@@ -16,7 +16,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestNrObjectFormatter.
  */
 public class TestNrObjectFormatter {
 	/**

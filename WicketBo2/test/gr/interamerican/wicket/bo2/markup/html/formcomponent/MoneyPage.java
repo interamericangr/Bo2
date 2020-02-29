@@ -30,13 +30,11 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.model.Model;
 
 /**
- * 
+ * The Class MoneyPage.
  */
 public class MoneyPage extends WebPage{
 
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -45,9 +43,7 @@ public class MoneyPage extends WebPage{
 	BasicBusinessObjectDescriptor<MoneyOwnerObject> moneyDesc = 
 		new BasicBusinessObjectDescriptor<MoneyOwnerObject>();
 
-	/**
-	 * 
-	 */
+	/** The Constant map. */
 	private static final Map<Class<? extends BoPropertyDescriptor<?> >,BoPropertyDescriptor<?>> map = 
 		new HashMap<Class<? extends BoPropertyDescriptor<?> >,BoPropertyDescriptor<?> >();
 	
@@ -59,7 +55,8 @@ public class MoneyPage extends WebPage{
 	}
 	
 	/**
-	 * 
+	 * Gets the descriptors.
+	 *
 	 */
 	private static void getDescriptors(){
 		MoneyOwnerObjectDescriptor  descriptor =  new MoneyOwnerObjectDescriptor();
@@ -85,9 +82,8 @@ public class MoneyPage extends WebPage{
 	
 	/**
 	 * Creates a new MoneyPage object.
-	 * 
-	 * @param component
-	 * 
+	 *
+	 * @param component the component
 	 */
 	public MoneyPage(Component component) {
 		super();

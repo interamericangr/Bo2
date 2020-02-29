@@ -12,27 +12,36 @@
  ******************************************************************************/
 package gr.interamerican.wicket.markup.html.panel.searchFlow;
 
-import gr.interamerican.bo2.utils.adapters.Flag;
-import gr.interamerican.wicket.callback.CallbackAction;
-import gr.interamerican.wicket.condition.AjaxEnabledCondition;
-import gr.interamerican.wicket.creators.DataTableCreator;
-import gr.interamerican.wicket.creators.PanelCreator;
-import gr.interamerican.wicket.markup.html.panel.back.ServicePanelWithBackDef;
-import gr.interamerican.wicket.markup.html.panel.bean.SingleBeanPanelDef;
-import gr.interamerican.wicket.markup.html.panel.crud.picker.CrudPickerPanel;
-import gr.interamerican.wicket.markup.html.panel.crud.picker.CrudPickerPanelDef;
-import gr.interamerican.wicket.markup.html.panel.listTable.ListTablePanel;
-import gr.interamerican.wicket.markup.html.panel.picker.PickerPanel;
-import gr.interamerican.wicket.markup.html.panel.service.BeanPanelDef;
-import gr.interamerican.wicket.markup.html.panel.service.ModeAwareBeanPanelDef;
-import gr.interamerican.wicket.markup.html.panel.service.ServicePanelDef;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.wicket.markup.html.form.Radio;
 import org.apache.wicket.model.IModel;
+
+import gr.interamerican.bo2.utils.adapters.Flag;
+import gr.interamerican.bo2.utils.functions.SerializableSupplier;
+import gr.interamerican.bo2.utils.functions.SerializableUnaryOperator;
+import gr.interamerican.wicket.callback.Consume;
+import gr.interamerican.wicket.callback.LegacyCallbackAction;
+import gr.interamerican.wicket.callback.MultiplePickAction;
+import gr.interamerican.wicket.callback.PickAction;
+import gr.interamerican.wicket.callback.ProcessAction;
+import gr.interamerican.wicket.callback.SearchAction;
+import gr.interamerican.wicket.condition.AjaxCondition;
+import gr.interamerican.wicket.creators.DataTableProvider;
+import gr.interamerican.wicket.creators.PanelCreator;
+import gr.interamerican.wicket.markup.html.panel.back.ServicePanelWithBackDef;
+import gr.interamerican.wicket.markup.html.panel.bean.SingleBeanPanel;
+import gr.interamerican.wicket.markup.html.panel.bean.SingleBeanPanelDef;
+import gr.interamerican.wicket.markup.html.panel.crud.picker.CrudPickerPanel;
+import gr.interamerican.wicket.markup.html.panel.crud.picker.CrudPickerPanelDef;
+import gr.interamerican.wicket.markup.html.panel.listTable.ExportButtonOptions;
+import gr.interamerican.wicket.markup.html.panel.listTable.ListTablePanel;
+import gr.interamerican.wicket.markup.html.panel.picker.PickerPanel;
+import gr.interamerican.wicket.markup.html.panel.service.BeanPanelDef;
+import gr.interamerican.wicket.markup.html.panel.service.ModeAwareBeanPanelDef;
+import gr.interamerican.wicket.markup.html.panel.service.ServicePanelDef;
 
 /**
  * {@link ServicePanelDef} of {@link SearchFlowPanel}.
@@ -43,18 +52,19 @@ import org.apache.wicket.model.IModel;
  * results are presented.
  * 
  * There are three possibilities for the second panel:<br>
+ * <ul>
  * <li> {@link ListTablePanel}, when we just want to show a
- *      list of the results.
+ *      list of the results. </li>
  * <li> {@link PickerPanel}, when we want to allow the user
- *      to pick a result.
+ *      to pick a result. </li>
  * <li> {@link CrudPickerPanel}, when we want to allow the user
  *      to pick a result, as well as perform CRUD operations on
- *      them.
- * 
+ *      them. </li>
+ * </ul>
  * The definition consists of a {@link SingleBeanPanelDef} and the
  * properties of a {@link CrudPickerPanelDef}. Depending on which
  * of the {@link CrudPickerPanelDef} properties are set, the results
- * panel actual implementation is chosen. <br/>
+ * panel actual implementation is chosen. <br>
  * {@link SearchFlowPanel} extends {@link BeanPanelDef}. For the 
  * SearchFlowPanel to have CRUD functionality, the beanModel property
  * of BeanPanelDef must be set on the SearchFlowPanelDef. Any preferred  
@@ -68,7 +78,7 @@ import org.apache.wicket.model.IModel;
  */
 public interface SearchFlowPanelDef
 <C extends Serializable, B extends Serializable>
-extends ServicePanelWithBackDef, BeanPanelDef<B> {
+extends ServicePanelWithBackDef, BeanPanelDef<B>, ExportButtonOptions<B> {
 	
 	/*
 	 * Component factories
@@ -76,10 +86,9 @@ extends ServicePanelWithBackDef, BeanPanelDef<B> {
 	
 	/**
 	 * Gets the panel creator.
-	 * 
-	 * @see #setBeanFieldsPanelCreator(PanelCreator)
-	 * 
+	 *
 	 * @return Returns the panel creator.
+	 * @see #setBeanFieldsPanelCreator(PanelCreator)
 	 */
 	PanelCreator<B> getBeanFieldsPanelCreator();
 	
@@ -96,10 +105,9 @@ extends ServicePanelWithBackDef, BeanPanelDef<B> {
 	
 	/**
 	 * Gets the panel creator for the criteria panel.
-	 * 
-	 * @see #setCriteriaFieldsPanelCreator(PanelCreator)
-	 * 
+	 *
 	 * @return Returns the panel creator.
+	 * @see #setCriteriaFieldsPanelCreator(PanelCreator)
 	 */
 	PanelCreator<C> getCriteriaFieldsPanelCreator();
 	
@@ -113,29 +121,32 @@ extends ServicePanelWithBackDef, BeanPanelDef<B> {
 	void setCriteriaFieldsPanelCreator(PanelCreator<C> panelCreator);
 	
 	/**
-	 * Gets the {@link DataTableCreator} that creates the DataTable shown
+	 * Gets the {@link DataTableProvider} that creates the DataTable shown
 	 * in the results panel.
-	 * 
-	 * @see #setDataTableCreator(DataTableCreator)
 	 *
-	 * @return Returns the {@link DataTableCreator}.
+	 * @return Returns the {@link DataTableProvider}.
+	 * @see #setDataTableCreator(DataTableProvider)
 	 */
-	DataTableCreator<B> getDataTableCreator();
+	DataTableProvider<B, ?> getDataTableCreator();
 
 	/**
 	 * [MANDATORY]
-	 * Sets the {@link DataTableCreator} that creates the DataTable shown
+	 * Sets the {@link DataTableProvider} that creates the DataTable shown
 	 * in the results panel. The results panel can be either a {@link ListTablePanel}
 	 * or a {@link PickerPanel} depending whether the <code>pickAction</code> is
-	 * null or not. In the first case, the creator should contain a column with
+	 * null or not. In the latter case, the creator should contain a column with
 	 * {@link Radio} buttons.
 	 *
 	 * @param dataTableCreator 
 	 *        the dataTableCreator to set
 	 */
-	void setDataTableCreator(DataTableCreator<B> dataTableCreator);
+	void setDataTableCreator(DataTableProvider<B, ?> dataTableCreator);
 	
-	/**********************************************************************/
+	/**
+	 * *******************************************************************.
+	 *
+	 * @return the criteria model
+	 */
 	
 	/*
 	 * Models and place holders
@@ -151,7 +162,7 @@ extends ServicePanelWithBackDef, BeanPanelDef<B> {
 	IModel<C> getCriteriaModel();
 	
 	/**
-	 * Sets the model of the criteria panel form. <br/>
+	 * Sets the model of the criteria panel form. <br>
 	 * 
 	 * This is intended to allow users to specify whichever {@link IModel}
 	 * implementation they prefer. The model object of this model is the
@@ -174,10 +185,9 @@ extends ServicePanelWithBackDef, BeanPanelDef<B> {
 	
 	/**
 	 * Sets the selections model.
-	 * 
+	 *
+	 * @param selectionsModel the new selections model
 	 * @see #getSelectionsModel()
-	 * 
-	 * @param selectionsModel
 	 */
 	void setSelectionsModel(IModel<ArrayList<B>> selectionsModel);
 	
@@ -198,7 +208,11 @@ extends ServicePanelWithBackDef, BeanPanelDef<B> {
 	 */
 	void setResults(List<B> results);
 	
-	/**********************************************************************/
+	/**
+	 * *******************************************************************.
+	 *
+	 * @return the pick action
+	 */
 	
 	/*
 	 * Actions, flags, conditions
@@ -207,14 +221,14 @@ extends ServicePanelWithBackDef, BeanPanelDef<B> {
 	/**
 	 * Gets the pickAction. This action is executed when the user selects an item.
 	 * 
-	 * @see #setPickAction(CallbackAction)
+	 * @see #setPickAction(PickAction)
 	 *
 	 * @return Returns the queryAction
 	 */
-	CallbackAction getPickAction();
+	PickAction<B> getPickAction();
 
 	/**
-	 * Sets the pickAction. <br/>
+	 * Sets the pickAction. <br>
 	 * 
 	 * This action is necessary only if picker functionality is wanted. 
 	 * This action is executed when the user selects an item.
@@ -223,8 +237,32 @@ extends ServicePanelWithBackDef, BeanPanelDef<B> {
 	 *
 	 * @param pickAction the pickAction to set
 	 */
-	void setPickAction(CallbackAction pickAction);
+	void setPickAction(PickAction<B> pickAction);
 	
+	/**
+	 * Gets the MultiplePickAction. This action is executed when the user selects many items.
+	 * 
+	 * @see #setMultiplePickAction(MultiplePickAction)
+	 *
+	 * @return Returns the MultiplePickAction
+	 */
+	MultiplePickAction<B> getMultiplePickAction();
+
+	/**
+	 * Sets the pickAction. <br>
+	 * 
+	 * This action is necessary only if picker functionality is wanted. This
+	 * action is executed when the user selects many items. If this action is
+	 * null, then there won't be a select button and the results panel will be a
+	 * {@link ListTablePanel} and not a {@link PickerPanel}.<br>
+	 * Do note that only this or {@link #setPickAction(PickAction)} can be set,
+	 * and not both at the same time.
+	 *
+	 * @param multiplePickAction
+	 *            the multiplePickAction to set
+	 */
+	void setMultiplePickAction(MultiplePickAction<B> multiplePickAction);
+
 	/**
 	 * Gets the pickActionFlag.
 	 * 
@@ -235,29 +273,52 @@ extends ServicePanelWithBackDef, BeanPanelDef<B> {
 	/**
 	 * [OPTIONAL]
 	 * Sets the pickActionFlag.
-	 * 
-	 * @param pickActionFlag
+	 *
+	 * @param pickActionFlag the new pick action flag
 	 */
 	void setPickActionFlag(Flag pickActionFlag);
 	
 	/**
 	 * Gets the secondPickAction.
-	 * 
-	 * @see #setSecondPickAction(CallbackAction)
 	 *
 	 * @return Returns the secondPickAction
+	 * @see #setSecondPickAction(PickAction)
 	 */
-	CallbackAction getSecondPickAction();
+	PickAction<B> getSecondPickAction();
 
 	/**
-	 * Sets the secondPickAction. <br/>
+	 * Sets the secondPickAction. <br>
 	 * 
 	 * This action is necessary only if two kinds of picker functionality are wanted. 
 	 *
 	 * @param secondPickAction the secondPickAction to set
 	 */
-	void setSecondPickAction(CallbackAction secondPickAction);
+	void setSecondPickAction(PickAction<B> secondPickAction);
 	
+	/**
+	 * Gets the SecondMultiplePickAction. This action is executed when the user selects many items.
+	 * 
+	 * @see #setSecondMultiplePickAction(MultiplePickAction)
+	 *
+	 * @return Returns the SecondMultiplePickAction
+	 */
+	MultiplePickAction<B> getSecondMultiplePickAction();
+
+	/**
+	 * Sets the Second MultiplePickAction. <br>
+	 * 
+	 * This action is necessary only if picker functionality is wanted. This
+	 * action is executed when the user selects many items. If this action is
+	 * null, then there won't be a select button and the results panel will be a
+	 * {@link ListTablePanel} and not a {@link PickerPanel}.<br>
+	 * Do note that only this or {@link #setPickAction(PickAction)} can be set,
+	 * and not both at the same time.
+	 *
+	 * @param secondMultiplePickAction
+	 *            the secondMultiplePickAction to set
+	 */
+	void setSecondMultiplePickAction(MultiplePickAction<B> secondMultiplePickAction);
+
 	/**
 	 * Gets the secondPickActionFlag.
 	 * 
@@ -268,47 +329,46 @@ extends ServicePanelWithBackDef, BeanPanelDef<B> {
 	/**
 	 * [OPTIONAL]
 	 * Sets the secondPickActionFlag.
-	 * 
-	 * @param secondPickActionFlag
+	 *
+	 * @param secondPickActionFlag the new second pick action flag
 	 */
 	void setSecondPickActionFlag(Flag secondPickActionFlag);
 	
 	/**
 	 * Gets the refreshListAfterPickAction.
-	 * 
-	 * @see #setRefreshListAfterPickAction(Boolean)
-	 * 
+	 *
 	 * @return refreshListAfterPickAction
+	 * @see #setRefreshListAfterPickAction(Boolean)
 	 */
-	public Boolean getRefreshListAfterPickAction();
+	Boolean getRefreshListAfterPickAction();
 	
 	/**
 	 * [OPTIONAL]
 	 * Will repaint the data table after any select action is executed.
-	 * 
-	 * @param refreshListAfterPickAction
+	 *
+	 * @param refreshListAfterPickAction the new refresh list after pick action
 	 */
-	public void setRefreshListAfterPickAction(Boolean refreshListAfterPickAction);
+	void setRefreshListAfterPickAction(Boolean refreshListAfterPickAction);
 	
 	/**
 	 * Gets the deleteAction.
-	 * 
-	 * @see #setDeleteAction(CallbackAction)
-	 * 
+	 *
 	 * @return Returns the deleteAction.
+	 * @see #setDeleteAction(Consume)
 	 */
-	CallbackAction getDeleteAction();
+	Consume<B> getDeleteAction();
 	
 	/**
-	 * [OPTIONAL]
-	 * Assigns a new value to the deleteAction {@link CallbackAction}.
-	 * If this is not set, the results panel cannot be a {@link CrudPickerPanel}.
+	 * [OPTIONAL] Assigns a new value to the deleteAction {@link Consume}. If
+	 * this is not set, the results panel cannot be a {@link CrudPickerPanel}.
 	 * 
 	 * This action should delete the selected bean.
-	 * 
+	 *
 	 * @param deleteAction
+	 *            the new delete action
+	 * @see CrudPickerPanelDef#setDeleteAction(Consume)
 	 */
-	void setDeleteAction(CallbackAction deleteAction);
+	void setDeleteAction(Consume<B> deleteAction);
 	
 	/**
 	 * Gets the deleteActionFlag.
@@ -320,31 +380,32 @@ extends ServicePanelWithBackDef, BeanPanelDef<B> {
 	/**
 	 * [OPTIONAL]
 	 * Sets the deleteActionFlag.
-	 * 
-	 * @param deleteActionFlag
+	 *
+	 * @param deleteActionFlag the new delete action flag
 	 */
 	void setDeleteActionFlag(Flag deleteActionFlag);
 	
 	/**
-	 * Gets the updateAction
-	 * 
-	 * @see #setUpdateAction(CallbackAction)
+	 * Gets the updateAction.
 	 *
 	 * @return Returns the updateAction.
+	 * @see #setUpdateAction(ProcessAction)
 	 */
-	CallbackAction getUpdateAction();
+	ProcessAction<B> getUpdateAction();
 
 	/**
-	 * Assigns a new value to the updateAction {@link CallbackAction}. <br/>
+	 * Assigns a new value to the updateAction {@link ProcessAction}. <br>
 	 * 
-	 * This property is necessary only in order to support CRUD operations.
-	 * If this is not set, the results panel cannot be a {@link CrudPickerPanel}.
-	 * This action should update an existing bean (the one contained
-	 * in this definition's model).
+	 * This property is necessary only in order to support CRUD operations. If
+	 * this is not set, the results panel cannot be a {@link CrudPickerPanel}.
+	 * This action should update an existing bean (the one contained in this
+	 * definition's model).
 	 *
-	 * @param updateAction the updateAction to set
+	 * @param updateAction
+	 *            the updateAction to set
+	 * @see CrudPickerPanelDef#setUpdateAction(ProcessAction)
 	 */
-	void setUpdateAction(CallbackAction updateAction);
+	void setUpdateAction(ProcessAction<B> updateAction);
 	
 	/**
 	 * Gets the updateActionFlag.
@@ -356,30 +417,30 @@ extends ServicePanelWithBackDef, BeanPanelDef<B> {
 	/**
 	 * [OPTIONAL]
 	 * Sets the updateActionFlag.
-	 * 
-	 * @param updateActionFlag
+	 *
+	 * @param updateActionFlag the new update action flag
 	 */
 	void setUpdateActionFlag(Flag updateActionFlag);
 	
 	/**
-	 * Gets the saveAction
-	 * 
-	 * @see #setSaveAction(CallbackAction)
+	 * Gets the saveAction.
 	 *
 	 * @return Returns the saveAction
+	 * @see #setSaveAction(ProcessAction)
 	 */
-	CallbackAction getSaveAction();
+	ProcessAction<B> getSaveAction();
 
 	/**
 	 * [OPTIONAL]
-	 * Assigns a new value to the saveAction {@link CallbackAction}.
+	 * Assigns a new value to the saveAction {@link ProcessAction}.
 	 * If this is not set, the results panel cannot be a {@link CrudPickerPanel}.
 	 * 
 	 * This action should store a new bean.
 	 *
 	 * @param saveAction the saveAction to set
+	 * @see CrudPickerPanelDef#setSaveAction(ProcessAction)
 	 */
-	void setSaveAction(CallbackAction saveAction);
+	void setSaveAction(ProcessAction<B> saveAction);
 	
 	/**
 	 * Gets the saveActionFlag.
@@ -391,13 +452,13 @@ extends ServicePanelWithBackDef, BeanPanelDef<B> {
 	/**
 	 * [OPTIONAL]
 	 * Sets the saveActionFlag.
-	 * 
-	 * @param saveActionFlag
+	 *
+	 * @param saveActionFlag the new save action flag
 	 */
 	void setSaveActionFlag(Flag saveActionFlag);
 	
 	/**
-	 * Gets the queryAction. <br/>
+	 * Gets the queryAction. <br>
 	 * 
 	 * This is the action that queries the data and fills the results
 	 * list. If an exception is caught while performing the query it
@@ -409,73 +470,72 @@ extends ServicePanelWithBackDef, BeanPanelDef<B> {
 	 * exception message (assuming you register this in the caller
 	 * component of the queryAction, which is automatically set to be
 	 * the SearchFlowPanel created by the definition.
-	 * 
-	 * @see #setQueryAction(CallbackAction)
 	 *
 	 * @return Returns the queryAction
+	 * @see #setQueryAction(SearchAction)
 	 */
-	CallbackAction getQueryAction();
+	SearchAction<C, B> getQueryAction();
 
 	/**
 	 * Sets the queryAction.
 	 *
 	 * @param queryAction the queryAction to set
 	 */
-	void setQueryAction(CallbackAction queryAction);
+	void setQueryAction(SearchAction<C, B> queryAction);
 	
 	/**
 	 * [OPTIONAL]
 	 * Sets the validator that is executed when storing a new B.
-	 * 
-	 * @param validator
+	 *
+	 * @param validator the new save validator
 	 */
-	void setSaveValidator(AjaxEnabledCondition<B> validator);
+	void setSaveValidator(AjaxCondition<B> validator);
 	
 	/**
 	 * Gets the validator that is executed when storing a new B.
 	 * 
 	 * @return validator.
 	 */
-	AjaxEnabledCondition<B> getSaveValidator();
+	AjaxCondition<B> getSaveValidator();
 	
 	/**
 	 * [OPTIONAL]
 	 * Sets the validator that is executed when updating an existing B.
-	 * 
-	 * @param validator
+	 *
+	 * @param validator the new update validator
 	 */
-	void setUpdateValidator(AjaxEnabledCondition<B> validator);
+	void setUpdateValidator(AjaxCondition<B> validator);
 	
 	/**
 	 * Gets the validator that is executed when updating an existing B.
 	 * 
 	 * @return validator.
 	 */
-	AjaxEnabledCondition<B> getUpdateValidator();
+	AjaxCondition<B> getUpdateValidator();
 	
 	/**
 	 * [OPTIONAL]
 	 * Sets the validator that is executed when deleting an existing B.
-	 * 
-	 * @param validator
+	 *
+	 * @param validator the new delete validator
 	 */
-	void setDeleteValidator(AjaxEnabledCondition<B> validator);
+	void setDeleteValidator(AjaxCondition<B> validator);
 	
 	/**
 	 * Gets the validator that is executed when deleting an existing B.
 	 * 
 	 * @return validator.
 	 */
-	AjaxEnabledCondition<B> getDeleteValidator();
+	AjaxCondition<B> getDeleteValidator();
 	
 	/**
 	 * [OPTIONAL]
 	 * Sets the validator that is executed when selecting an existing B for update.
 	 * This is applied to the results panel if it is a CrudPickerPanel
-	 * 
-	 * @param validator
+	 *
+	 * @param validator the new pre edit validator
 	 */
-	public void setPreEditValidator(AjaxEnabledCondition<B> validator);
+	void setPreEditValidator(AjaxCondition<B> validator);
 	
 	/**
 	 * Gets the validator that is executed when selecting an existing B for update.
@@ -483,9 +543,13 @@ extends ServicePanelWithBackDef, BeanPanelDef<B> {
 	 * 
 	 * @return validator.
 	 */
-	public AjaxEnabledCondition<B> getPreEditValidator();
+	AjaxCondition<B> getPreEditValidator();
 	
-	/**********************************************************************/
+	/**
+	 * *******************************************************************.
+	 *
+	 * @return the single bean form contains file upload
+	 */
 	
 	/*
 	 * Options
@@ -505,8 +569,8 @@ extends ServicePanelWithBackDef, BeanPanelDef<B> {
 	 * panel includes a file upload item.
 	 * If this is set to true, the single bean panel form is set as 
 	 * <code>setMultipart(true)</code>. Defaults to false.
-	 * 
-	 * @param singleBeanFormContainsFileUpload
+	 *
+	 * @param singleBeanFormContainsFileUpload the new single bean form contains file upload
 	 */
 	void setSingleBeanFormContainsFileUpload(Boolean singleBeanFormContainsFileUpload);
 	
@@ -521,8 +585,8 @@ extends ServicePanelWithBackDef, BeanPanelDef<B> {
 	 * [OPTIONAL]
 	 * Sets whether pressing the delete will open a pop-up confirmation dialog.
 	 * Defaults to false.
-	 * 
-	 * @param requestConfirmOnDelete
+	 *
+	 * @param requestConfirmOnDelete the new request confirm on delete
 	 */
 	void setRequestConfirmOnDelete(Boolean requestConfirmOnDelete);
 	
@@ -572,7 +636,11 @@ extends ServicePanelWithBackDef, BeanPanelDef<B> {
 	 * 
 	 * @return Returns true if the user is allowed to pick more than one result
 	 *         at the same time. 
+	 * @see #setMultiplePickAction(MultiplePickAction)
+	 * @deprecated This is redundant information as there are 2 different
+	 *             actions for single or multiple selections
 	 */
+	@Deprecated
 	Boolean getAllowMultipleSelections();
 	
 	/**
@@ -580,10 +648,15 @@ extends ServicePanelWithBackDef, BeanPanelDef<B> {
 	 * Sets the value of the <code>allowMultipleSelections</code> property.
 	 * 
 	 * @param allowMultipleSelections
-	 *        The new allowMultipleSelections to set.
-	 *        
+	 *            The new allowMultipleSelections to set.
+	 * 
 	 * @see #getAllowMultipleSelections()
+	 * @see #setPickAction(PickAction)
+	 * @see #setMultiplePickAction(MultiplePickAction)
+	 * @deprecated This is redundant information as there are 2 different
+	 *             actions for single or multiple selections
 	 */
+	@Deprecated
 	void setAllowMultipleSelections(Boolean allowMultipleSelections);
 	
 	/**
@@ -592,7 +665,7 @@ extends ServicePanelWithBackDef, BeanPanelDef<B> {
 	 * If this property is true, then the execution of the query action
 	 * will hide the criteria panel and show the results panel. In this 
 	 * case, the result panel's back button will hide the results panel
-	 * and show the criteria panel. <br/>
+	 * and show the criteria panel. <br>
 	 * If this property is false, then both panels will be visible, the
 	 * criteria panel and the results panel.
 	 * 
@@ -617,8 +690,6 @@ extends ServicePanelWithBackDef, BeanPanelDef<B> {
 	 * Indicates if the pick action will be executed automatically if the
 	 * results have only one item.
 	 * 
-	 * TODO: this is not yet implemented
-	 * 
 	 * This property makes sense only if the <code>pickAction</code> property
 	 * is not null, so that the SearchFlowPanel defined by this {@link SearchFlowPanelDef}
 	 * has also picker functionality. In this case, if this property is
@@ -630,7 +701,9 @@ extends ServicePanelWithBackDef, BeanPanelDef<B> {
 	 * 
 	 * @return Returns true if the pick action will be executed automatically
 	 *         in case the results contain only one element.
+	 * @deprecated Dropping it since it was not implemented and never requested to be done so
 	 */
+	@Deprecated
 	Boolean getAutoPickSingleResult();
 	
 	/**
@@ -640,7 +713,9 @@ extends ServicePanelWithBackDef, BeanPanelDef<B> {
 	 *        The new autoPickSingleResult to set.
 	 *        
 	 * @see #getAutoPickSingleResult()
+	 * @deprecated Dropping it since it was not implemented and never requested to be done so
 	 */
+	@Deprecated
 	void setAutoPickSingleResult(Boolean autoPickSingleResult);
 	
 	/**
@@ -652,8 +727,8 @@ extends ServicePanelWithBackDef, BeanPanelDef<B> {
 	
 	/**
 	 * Sets refreshAfterDataOp.
-	 * 
-	 * @param refreshAfterDataOp
+	 *
+	 * @param refreshAfterDataOp the new refresh after data op
 	 */
 	void setRefreshAfterDataOp(Boolean refreshAfterDataOp);
 	
@@ -663,20 +738,18 @@ extends ServicePanelWithBackDef, BeanPanelDef<B> {
 	 * when in view mode. This is useful when some components of the panel need to remain 
 	 * enabled, for example tabs or download links.
 	 * The default is false.
-	 * 
-	 * @see ModeAwareBeanPanelDef
-	 * 
+	 *
 	 * @return Returns customSingleBeanPanelDisabling.
+	 * @see ModeAwareBeanPanelDef
 	 */
 	Boolean getCustomSingleBeanPanelDisabling();
 	
 	/**
 	 * Sets whether the user will handle manually the disabling of the SingleBeanPanel
 	 * of the CrudPickerPanel when in view mode.
-	 * 
+	 *
+	 * @param customSingleBeanPanelDisabling the new custom single bean panel disabling
 	 * @see #getCustomSingleBeanPanelDisabling()
-	 * 
-	 * @param customSingleBeanPanelDisabling
 	 */
 	void setCustomSingleBeanPanelDisabling(Boolean customSingleBeanPanelDisabling);
 	
@@ -791,8 +864,8 @@ extends ServicePanelWithBackDef, BeanPanelDef<B> {
 	
 	/**
 	 * [OPTIONAL] Sets the view button label.
-	 * 
-	 * @param label
+	 *
+	 * @param label the new view label model
 	 */
 	void setViewLabelModel(IModel<String> label);
 	
@@ -837,8 +910,8 @@ extends ServicePanelWithBackDef, BeanPanelDef<B> {
 	
 	/**
 	 * [OPTIONAL] Sets the execute query button label.
-	 * 
-	 * @param label
+	 *
+	 * @param label the new execute query label model
 	 */
 	void setExecuteQueryLabelModel(IModel<String> label);
 	
@@ -851,8 +924,8 @@ extends ServicePanelWithBackDef, BeanPanelDef<B> {
 	
 	/**
 	 * [OPTIONAL] Sets the clear criteria button label.
-	 * 
-	 * @param label
+	 *
+	 * @param label the new clear criteria label model
 	 */
 	void setClearCriteriaLabelModel(IModel<String> label);
 	
@@ -866,8 +939,8 @@ extends ServicePanelWithBackDef, BeanPanelDef<B> {
 	/**
 	 * [OPTIONAL]
 	 * Sets the back label of the SingleBeanPanel of the CrudPickerPanel.
-	 * 
-	 * @param backLabel
+	 *
+	 * @param backLabel the new bean fields panel back label model
 	 */
 	void setBeanFieldsPanelBackLabelModel(IModel<String> backLabel);
 	
@@ -881,8 +954,8 @@ extends ServicePanelWithBackDef, BeanPanelDef<B> {
 	/**
 	 * [OPTIONAL]
 	 * Sets the the label displayed on top of the query criteria panel.
-	 * 
-	 * @param criteriaPanelLabel
+	 *
+	 * @param criteriaPanelLabel the new criteria panel label model
 	 */
 	void setCriteriaPanelLabelModel(IModel<String> criteriaPanelLabel);
 	
@@ -896,8 +969,8 @@ extends ServicePanelWithBackDef, BeanPanelDef<B> {
 	/**
 	 * [OPTIONAL]
 	 * Sets the clear label of the SingleBeanPanel.
-	 * 
-	 * @param clearLabel
+	 *
+	 * @param clearLabel the new bean fields panel clear label model
 	 */
 	void setBeanFieldsPanelClearLabelModel(IModel<String> clearLabel);
 	
@@ -911,14 +984,14 @@ extends ServicePanelWithBackDef, BeanPanelDef<B> {
 	/**
 	 * [OPTIONAL]
 	 * Sets the label (fieldset legend) of the SingleBeanPanel.
-	 * 
-	 * @param label
+	 *
+	 * @param label the new bean fields panel label model
 	 */
 	void setBeanFieldsPanelLabelModel(IModel<String> label);
 	
 	/**
-	 * Gets the checkGroupSelectorLabel
-	 * 
+	 * Gets the checkGroupSelectorLabel.
+	 *
 	 * @return checkGroupSelectorLabel
 	 */
 	IModel<String> getCheckGroupSelectorLabelModel();
@@ -926,9 +999,163 @@ extends ServicePanelWithBackDef, BeanPanelDef<B> {
 	/**
 	 * [OPTIONAL]
 	 * Sets a custom label for the select / deselect all checkbox.
-	 * 
-	 * @param label
+	 *
+	 * @param label the new check group selector label model
 	 */
 	void setCheckGroupSelectorLabelModel(IModel<String> label);
+
+	/**
+	 * [OPTIONAL]
+	 * Gets a {@link SerializableSupplier} that creates new instances of the bean.<br>
+	 * This is called when a new bean is created or when the clear button is
+	 * pressed during edit.<br>
+	 * The default implementation if not filled explicitly will make an
+	 * assumption that the runtime class of B will have a default constructor.
+	 * If this is not the case, the default implementation will throw a
+	 * RuntimeException.
+	 * 
+	 * @return A {@link SerializableSupplier} that creates new instances of the bean.
+	 */
+	SerializableSupplier<B> getBeanCreator();
+
+	/**
+	 * [OPTIONAL]
+	 * Sets a {@link SerializableSupplier} that creates new instances of the bean.
+	 * This is called when a new bean is created or when the clear button is
+	 * pressed during edit.<br>
+	 * The default implementation if not filled explicitly will make an
+	 * assumption that the runtime class of B will have a default constructor.
+	 * If this is not the case, the default implementation will throw a
+	 * RuntimeException.
+	 * 
+	 * @param beanCreator
+	 *            A {@link SerializableSupplier} that creates new instances of the bean.
+	 */
+	void setBeanCreator(SerializableSupplier<B> beanCreator);
+
+	/**
+	 * [OPTIONAL]
+	 * Gets a {@link SerializableSupplier} that creates new instances of the criteria bean.
+	 * This is called when the clear button is
+	 * pressed while filling the search criteria.<br>
+	 * The default implementation if not filled explicitly will make an
+	 * assumption that the runtime class of B will have a default constructor.
+	 * If this is not the case, the default implementation will throw a
+	 * RuntimeException.
+	 * 
+	 * @return A {@link SerializableSupplier} that creates new instances of the bean.
+	 */
+	SerializableSupplier<C> getCriteriaBeanCreator();
+
+	/**
+	 * [OPTIONAL]
+	 * Sets a {@link SerializableSupplier} that creates new instances of the criteria bean.
+	 * This is called when the clear button is
+	 * pressed while filling the search criteria.<br>
+	 * The default implementation if not filled explicitly will make an
+	 * assumption that the runtime class of B will have a default constructor.
+	 * If this is not the case, the default implementation will throw a
+	 * RuntimeException.
+	 * 
+	 * @param criteriaBeanCreator
+	 *            A {@link SerializableSupplier} that creates new instances of the criteria bean.
+	 */
+	void setCriteriaBeanCreator(SerializableSupplier<C> criteriaBeanCreator);
+
+	/**
+	 * [OPTIONAL]
+	 * Gets an {@link SerializableUnaryOperator} to apply on the selected bean
+	 * before editing it.<br>
+	 * By default no modification will be done.<br>
+	 * This is useful if when updating a B instance there is a chance that the
+	 * update will be aborted after submitting the update form. This could
+	 * happen, for example, if a validation message is shown and the user
+	 * decides to go back instead of correcting the error and submitting the
+	 * update form again.<br>
+	 * If readBeforeEdit is true, this is not used, as instead of deep copying,
+	 * a new instance is created from the persistence layer, which has the same
+	 * effect.
+	 * 
+	 * @return {@link SerializableUnaryOperator} to apply on the selected bean before
+	 *         editing it.
+	 */
+	SerializableUnaryOperator<B> getCopyBean();
+
+	/**
+	 * [OPTIONAL]
+	 * Sets an {@link SerializableUnaryOperator} to apply on the selected bean
+	 * before editing it.<br>
+	 * By default no modification will be done.<br>
+	 * This is useful if when updating a B instance there is a chance that the
+	 * update will be aborted after submitting the update form. This could
+	 * happen, for example, if a validation message is shown and the user
+	 * decides to go back instead of correcting the error and submitting the
+	 * update form again.<br>
+	 * If readBeforeEdit is true, this is not used, as instead of deep copying,
+	 * a new instance is created from the persistence layer, which has the same
+	 * effect.
+	 * 
+	 * @param copyBean
+	 *            {@link SerializableUnaryOperator} to apply on the selected bean before
+	 *            editing it.
+	 */
+	void setCopyBean(SerializableUnaryOperator<B> copyBean);
+
+	/**
+	 * [OPTIONAL]
+	 * Gets an {@link SerializableUnaryOperator} to apply on a selected bean
+	 * before viewing/editing it.<br>
+	 * This is only used when {@link #setReadBeforeEdit(Boolean)} is set to
+	 * true.
+	 * 
+	 * @return {@link SerializableUnaryOperator} to apply on a selected bean before
+	 *         viewing/editing it
+	 */
+	SerializableUnaryOperator<B> getReadBean();
+
+	/**
+	 * [OPTIONAL]
+	 * Sets an {@link SerializableUnaryOperator} to apply on a selected bean
+	 * before viewing/editing it.<br>
+	 * This is only used when {@link #setReadBeforeEdit(Boolean)} is set to
+	 * true.
+	 * 
+	 * @param readBean
+	 *            {@link SerializableUnaryOperator} to apply on a selected bean before
+	 *            viewing/editing it
+	 */
+	void setReadBean(SerializableUnaryOperator<B> readBean);
+
+	/**
+	 * Gets the backToCriteriaAction. This action is executed before going back
+	 * to the criteria form from the results.
+	 *
+	 * @return Returns the backToCriteriaAction
+	 */
+	LegacyCallbackAction getBackToCriteriaAction();
+
+	/**
+	 * Sets the backToCriteriaAction. <br>
+	 * This action is executed before going back to the criteria form from the
+	 * results.
+	 *
+	 * @param backToCriteriaAction
+	 */
+	void setBackToCriteriaAction(LegacyCallbackAction backToCriteriaAction);
 	
+	/**
+	 * [OPTIONAL]
+	 * Sets the option to hide the buttons of a {@link SingleBeanPanel}.
+	 *
+	 * @param hideSingleBeanPanelButtons the new hide single bean panel buttons
+	 */
+	void setHideSingleBeanPanelButtons(Boolean hideSingleBeanPanelButtons);
+	
+	/**
+	 * [OPTIONAL]
+	 * Gets the option to hide the buttons of a {@link SingleBeanPanel}.
+	 * 
+	 * @return hideSingleBeanPanelButtons
+	 */
+	Boolean getHideSingleBeanPanelButtons();
 }

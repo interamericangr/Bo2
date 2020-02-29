@@ -29,25 +29,22 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestHibernateInheritanceStrategies.
  */
 public class TestHibernateInheritanceStrategies {
 	
-	/**
-	 * sample
-	 */
+	/** sample. */
 	private String barStr = "BAR"; //$NON-NLS-1$
 	
-	/**
-	 * sample
-	 */
+	/** sample. */
 	private String fooStr = "FOO"; //$NON-NLS-1$
 	
 	/**
 	 * Table per class hierarchy test.
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testTablePerClassHierarchy() throws UnexpectedException, DataException, LogicException {
@@ -90,9 +87,10 @@ public class TestHibernateInheritanceStrategies {
 	
 	/**
 	 * Table per sub-class hierarchy test.
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testTablePerSubClassHierarchy() throws UnexpectedException, DataException, LogicException {

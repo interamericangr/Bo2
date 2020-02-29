@@ -36,7 +36,7 @@ public class TestConditionUtils {
 	String[] strings = {"alpha", "beta", "gamma", "Alpha"};
 	
 	/**
-	 * Tests fillSubset()
+	 * Tests fillSubset().
 	 */	
 	@Test
 	public void testFillSubset() {		
@@ -51,7 +51,7 @@ public class TestConditionUtils {
 	}
 	
 	/**
-	 * Tests fillSubset()
+	 * Tests fillSubset().
 	 */	
 	@Test
 	public void testGetSubset() {		

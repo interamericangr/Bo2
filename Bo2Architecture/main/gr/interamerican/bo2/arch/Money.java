@@ -16,7 +16,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
- * 
+ * The Interface Money.
  */
 public interface Money extends Serializable, Comparable<Money> {
 
@@ -30,7 +30,7 @@ public interface Money extends Serializable, Comparable<Money> {
 	/**
 	 * Sets the currency code. The currency code should correspond to a three
 	 * letter code acceptable by java.util.Currency#getInstance(String).
-	 * <br/>
+	 * <br>
 	 * Empty or null values will lead to the automatic selection of the default 
 	 * currency of the environment's default Locale.
 	 * 

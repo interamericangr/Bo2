@@ -19,9 +19,7 @@ import gr.interamerican.bo2.impl.open.utils.Bo2DeploymentParams;
  */
 public class NamedStreamsWorker extends AbstractBaseWorker {
 	
-	/**
-	 * Underlying NamedStreamsProvider
-	 */
+	/** Underlying NamedStreamsProvider. */
 	NamedStreamsProvider nsp;
 	
 	@Override
@@ -32,9 +30,12 @@ public class NamedStreamsWorker extends AbstractBaseWorker {
 	}
 	
 	/**
-	 * @see NamedStreamsProvider#getStream(String)
-	 * @param streamName
+	 * Gets the stream.
+	 *
+	 * @param <T> the generic type
+	 * @param streamName the stream name
 	 * @return stream
+	 * @see NamedStreamsProvider#getStream(String)
 	 */
 	@SuppressWarnings("unchecked")
 	public <T> NamedStream<T> getStream(String streamName) {
@@ -46,9 +47,12 @@ public class NamedStreamsWorker extends AbstractBaseWorker {
 	}
 	
 	/**
-	 * @see NamedStreamsProvider#getSharedStream(String)
-	 * @param streamName
+	 * Gets the shared stream.
+	 *
+	 * @param <T> the generic type
+	 * @param streamName the stream name
 	 * @return shared stream
+	 * @see NamedStreamsProvider#getSharedStream(String)
 	 */
 	@SuppressWarnings("unchecked")
 	public <T> NamedStream<T> getSharedStream(String streamName) {
@@ -60,41 +64,45 @@ public class NamedStreamsWorker extends AbstractBaseWorker {
 	}
 	
 	/**
+	 * Register stream.
+	 *
+	 * @param stream the stream
 	 * @see NamedStreamsProvider#registerStream(NamedStream)
-	 * 
-	 * @param stream 
 	 */
 	public void registerStream(NamedStream<?> stream) {
 		nsp.registerStream(stream);
 	}
 	
 	/**
+	 * Register stream definition.
+	 *
+	 * @param definition the definition
 	 * @see NamedStreamsProvider#registerStreamDefinition(NamedStreamDefinition)
-	 * 
-	 * @param definition 
 	 */
 	public void registerStreamDefinition(NamedStreamDefinition definition) {
 		nsp.registerStreamDefinition(definition);
 	}
 	
 	/**
+	 * Register shared stream.
+	 *
+	 * @param stream the stream
 	 * @see NamedStreamsProvider#registerSharedStream(NamedStream)
-	 * 
-	 * @param stream 
 	 */
 	public void registerSharedStream(NamedStream<?> stream) {
 		nsp.registerSharedStream(stream);
 	}
 	
 	/**
-	 * @see NamedStreamsProvider#convert(String, StreamType, String)
-	 * 
-	 * @param nameOfStreamToConvert 
-	 * @param typeOfNewStream 
-	 * @param nameOfNewStream
-	 * 
+	 * Convert.
+	 *
+	 * @param <T> the generic type
+	 * @param nameOfStreamToConvert the name of stream to convert
+	 * @param typeOfNewStream the type of new stream
+	 * @param nameOfNewStream the name of new stream
 	 * @return converted stream
-	 * @throws DataException 
+	 * @throws DataException the data exception
+	 * @see NamedStreamsProvider#convert(String, StreamType, String)
 	 */
 	@SuppressWarnings("unchecked")
 	public <T> NamedStream<T> convert(String nameOfStreamToConvert, StreamType typeOfNewStream, String nameOfNewStream) throws DataException {

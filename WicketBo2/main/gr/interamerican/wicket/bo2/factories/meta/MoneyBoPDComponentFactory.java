@@ -25,10 +25,12 @@ import org.apache.wicket.model.IModel;
 public class MoneyBoPDComponentFactory 
 extends AbstractBoPDComponentFactory<MoneyBoPropertyDescriptor>{
 	
+	@Override
 	public Component drawMain(MoneyBoPropertyDescriptor descriptor, String wicketId) {	
 		return new SelfDrawnMoneyField(wicketId, descriptor);
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public Component drawMain(String wicketId, IModel<?> model, MoneyBoPropertyDescriptor descriptor) {
 		return new SelfDrawnMoneyField(wicketId,(IModel<Money>)model, descriptor);

@@ -26,22 +26,22 @@ public abstract class AbstractClassUpdater {
 	
 	/**
 	 * Updates a type.
-	 * @param typeToUpdate
-	 * 
-	 * @throws CannotCompileException 
-	 * @throws NotFoundException 
-	 * @throws ClassCreationException 
+	 *
+	 * @param typeToUpdate the type to update
+	 * @throws CannotCompileException the cannot compile exception
+	 * @throws NotFoundException the not found exception
+	 * @throws ClassCreationException the class creation exception
 	 */
 	public abstract void updateType(CtClass typeToUpdate) 
 	throws CannotCompileException, NotFoundException, ClassCreationException;
 	
 	/**
 	 * Updates a type.
-	 * 
-	 * @param typeToUpdate
-	 * @param newName
+	 *
+	 * @param typeToUpdate the type to update
+	 * @param newName the new name
 	 * @return Returns the updatedType.
-	 * @throws ClassCreationException 
+	 * @throws ClassCreationException the class creation exception
 	 */
 	public Class<?> update(Class<?> typeToUpdate, String newName) 
 	throws ClassCreationException {

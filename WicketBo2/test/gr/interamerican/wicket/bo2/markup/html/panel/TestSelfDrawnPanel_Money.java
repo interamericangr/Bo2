@@ -108,16 +108,18 @@ public class TestSelfDrawnPanel_Money extends WicketTest {
 		
 		commonAssertions_noError();
 	}
-	
+
 	@Override
-	protected Component initializeComponent() {
+	protected Component initializeComponent(String wicketId) {
 		MoneyBean mb = new MoneyBean();
 		mb.setMoneyAmount1(new MoneyImpl(new BigDecimal(1.1d)));
 		model = new CompoundPropertyModel<MoneyBean>(mb);
-		return new SelfDrawnPanel<MoneyBean>(TestPage.TEST_ID, model, createBod());
+		return new SelfDrawnPanel<MoneyBean>(wicketId, model, createBod());
 	}
 	
 	/**
+	 * Creates the bod.
+	 *
 	 * @return Returns the BusinessObjectDescriptor for MoneyBean.
 	 */
 	private BusinessObjectDescriptor<MoneyBean> createBod() {
@@ -129,6 +131,8 @@ public class TestSelfDrawnPanel_Money extends WicketTest {
 	}
 	
 	/**
+	 * Gets the amount 1 decriptor.
+	 *
 	 * @return Returns the LongBoPropertyDescriptor for field2 of MoneyBean.
 	 */
 	private MoneyBoPropertyDescriptor getAmount1Decriptor(){

@@ -25,9 +25,7 @@ public class BLabel
 extends JLabel 
 implements ValueComponent {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;	
 		
 	/**

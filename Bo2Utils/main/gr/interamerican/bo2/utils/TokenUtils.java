@@ -208,9 +208,9 @@ public class TokenUtils {
     
     /**
      * Trims the tokens.
-     * 
-     * @param input
-     * @param includeEmptyTokens 
+     *
+     * @param input the input
+     * @param includeEmptyTokens the include empty tokens
      * @return the input after performing the trimming.
      */
     private static String[] trimTokens(String[] input, boolean includeEmptyTokens) {
@@ -245,19 +245,18 @@ public class TokenUtils {
     }
     
     /**
-	 * Returns the value of an annotation as an array of Strings.
-	 * 
-	 * If the annotation value is an empty array, or has more than one elements,
-	 * then the same array is returned. If the array has only one empty element,
-	 * then an empty array is returned. If the array contains only one string
-	 * that is contained by other strings separated by commas, then this string
-	 * is split to its constituent tokens it and an array with the tokens is 
-	 * returned.
-	 * 
-	 * @param annovalue
-	 * 
-	 * @return Returns an array of strings.
-	 */
+     * Returns the value of an annotation as an array of Strings.
+     * 
+     * If the annotation value is an empty array, or has more than one elements,
+     * then the same array is returned. If the array has only one empty element,
+     * then an empty array is returned. If the array contains only one string
+     * that is contained by other strings separated by commas, then this string
+     * is split to its constituent tokens it and an array with the tokens is 
+     * returned.
+     *
+     * @param annovalue the annovalue
+     * @return Returns an array of strings.
+     */
 	public static String[] tokenize(String[] annovalue) {		
 		if (annovalue.length!=1) {
 			return annovalue;

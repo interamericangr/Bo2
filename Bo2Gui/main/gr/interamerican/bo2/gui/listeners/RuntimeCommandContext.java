@@ -12,6 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.bo2.gui.listeners;
 
+import gr.interamerican.bo2.arch.DetachStrategy;
 import gr.interamerican.bo2.arch.PersistenceWorker;
 import gr.interamerican.bo2.arch.PersistentObject;
 import gr.interamerican.bo2.arch.Provider;
@@ -25,6 +26,7 @@ import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.arch.ext.OutputMedium;
 import gr.interamerican.bo2.arch.utils.ext.Bo2Session;
 import gr.interamerican.bo2.impl.open.creation.Factory;
+import gr.interamerican.bo2.impl.open.po.PoUtils;
 import gr.interamerican.bo2.impl.open.runtime.RuntimeCommand;
 import gr.interamerican.bo2.impl.open.utils.Bo2;
 
@@ -40,7 +42,7 @@ import java.util.Set;
  * 
  * <p>Such an agent will typically include code
  * <pre>
- * RuntimeCommandContext.get().beginProcessing(); <br/>
+ * RuntimeCommandContext.get().beginProcessing(); <br>
  * try {
  *     ...
  *     RuntimeCommandContext.get().open(worker1);
@@ -90,10 +92,9 @@ public class RuntimeCommandContext {
 	 * 
 	 * Any Exception thrown during the operation is wrapped inside a 
 	 * {@link RuntimeException}.
-	 * 
-	 * @param clazz Class of worker.
+	 *
 	 * @param <W> Type of worker defined by <code>clazz</code>.
-	 * 
+	 * @param clazz Class of worker.
 	 * @return Returns a new open instance of W.
 	 */
 	public static final <W extends Worker> W open(Class<W> clazz) {
@@ -115,9 +116,9 @@ public class RuntimeCommandContext {
 	 * 
 	 * Any Exception thrown during the operation is wrapped inside a 
 	 * {@link RuntimeException}.
-	 * 
-	 * @param worker
+	 *
 	 * @param <W> Type of worker.
+	 * @param worker the worker
 	 */
 	public static final <W extends Worker> void open(W worker) {
 		try {
@@ -137,11 +138,10 @@ public class RuntimeCommandContext {
 	 * 
 	 * Any Exception thrown during the operation is wrapped inside a 
 	 * {@link RuntimeException}.
-	 * 
-	 * @param clazz Class of {@link PersistentObject}.
-	 * @param <P> Type of {@link PersistentObject} defined by 
+	 *
+	 * @param <P> Type of {@link PersistentObject} defined by
 	 *        <code>clazz</code>.
-	 * 
+	 * @param clazz Class of {@link PersistentObject}.
 	 * @return Returns a new open PersistenceWorker for P objects.
 	 */
 	public static final <P extends PersistentObject<?>> 
@@ -169,6 +169,18 @@ public class RuntimeCommandContext {
 			threadLocal.set(new RuntimeCommandContext());	
 		}
 		return threadLocal.get();
+	}
+	
+	/**
+	 * This method will reattach a detached PersistentObject.
+	 * 
+	 * @param object
+	 *        The object to re-attach
+	 *        
+	 * @see DetachStrategy
+	 */
+	public static void reattach(Object object) {
+		PoUtils.reattach(object, get().getProvider());
 	}
 	
 	/**
@@ -200,22 +212,16 @@ public class RuntimeCommandContext {
 	
 	/**
 	 * Handles an exception during processing.
-	 * @param t
-	 * @param out
-	 * 
-	 * TODO: remove OutputMedium from this method?
-	 * 
+	 *
+	 * @param t the t
+	 * @param out the out
 	 */
 	public void onException(Throwable t, OutputMedium out) {
 		error = true;
 		
-		/*
-		 * possibly deprecate the OutputMedium mechanism.
-		 */
 		if(out!=null) {
 			out.showError(t);
 		} else {
-			//TODO: Log the error
 			t.printStackTrace();
 		}
 		
@@ -262,7 +268,8 @@ public class RuntimeCommandContext {
 	
 	/**
 	 * Cleans up resources opened during processing.
-	 * @throws DataException
+	 *
+	 * @throws DataException the data exception
 	 */
 	private void cleanup() throws DataException{
 		for(Worker w : managedWorkers) {

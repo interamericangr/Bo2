@@ -28,13 +28,14 @@ public class InstanceOf implements Condition<Object> {
 	/**
 	 * Creates a new InstanceOf object. 
 	 *
-	 * @param clazz
+	 * @param clazz the clazz
 	 */
 	public InstanceOf(Class<?> clazz) {
 		super();
 		this.clazz = clazz;
 	}
 
+	@Override
 	public boolean check(Object t) {
 		if (t==null) {
 			return false;

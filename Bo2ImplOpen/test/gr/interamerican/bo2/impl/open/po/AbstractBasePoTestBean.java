@@ -45,7 +45,7 @@ public class AbstractBasePoTestBean {
 	/**
 	 * Creates a new AbstractBasePoTest object. 
 	 *
-	 * @param factory
+	 * @param factory the factory
 	 */
 	public AbstractBasePoTestBean(SamplesFactory factory) {
 		super();

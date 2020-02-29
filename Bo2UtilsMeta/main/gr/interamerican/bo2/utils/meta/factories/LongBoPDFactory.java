@@ -23,14 +23,12 @@ import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
 public class LongBoPDFactory {
 	
 	/**
-	 * Creates the LongBoPropertyDescriptor
-	 * 
-	 * @param pd
-	 *        PropertyDefinition
+	 * Creates the LongBoPropertyDescriptor.
+	 *
+	 * @param pd        PropertyDefinition
 	 *        
 	 * @return LongBoPropertyDescriptor
-	 * 
-	 * @throws ParseException 
+	 * @throws ParseException the parse exception
 	 */
 	@SuppressWarnings("nls")
 	public static LongBoPropertyDescriptor create(PropertyDefinition pd) throws ParseException {

@@ -26,7 +26,7 @@ import org.junit.Test;
 public class TestComparisonCondition {
 	
 	/**
-	 * Tests constructor
+	 * Tests constructor.
 	 */
 	@Test
 	public void testConstructor_1() {		
@@ -38,7 +38,7 @@ public class TestComparisonCondition {
 	}
 	
 	/**
-	 * Tests constructor
+	 * Tests constructor.
 	 */
 	@Test
 	public void testConstructor_2() {
@@ -49,20 +49,24 @@ public class TestComparisonCondition {
 	
 	
 	/**
-	 * Tests constructor
+	 * Tests constructor.
 	 */
 	@Test(expected=RuntimeException.class)
 	public void testConstructor_fail() {
 		Object o = new Object();
-		CC cc = new CC(o);		
+		new CC(o);		
 	}
 	
+	/**
+	 * The Class CC.
+	 */
 	class CC extends ComparisonCondition<Object> {
+		
 		/**
 		 * Creates a new CC object. 
 		 *
-		 * @param comparator
-		 * @param comparedValue
+		 * @param comparator the comparator
+		 * @param comparedValue the compared value
 		 */
 		CC(Comparator<Object> comparator, Object comparedValue) {
 			super(comparator, comparedValue);
@@ -71,12 +75,13 @@ public class TestComparisonCondition {
 		/**
 		 * Creates a new CC object. 
 		 *
-		 * @param comparedValue
+		 * @param comparedValue the compared value
 		 */
 		CC(Object comparedValue) {
 			super(comparedValue);
 		}
 
+		@Override
 		public boolean check(Object t) {			
 			return false;
 		}		

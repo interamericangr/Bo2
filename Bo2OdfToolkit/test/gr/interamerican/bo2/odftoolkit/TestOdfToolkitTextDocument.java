@@ -36,8 +36,9 @@ import org.junit.Test;
 public class TestOdfToolkitTextDocument {
 	
 	/**
-	 * Unit test
-	 * @throws DocumentEngineException 
+	 * Unit test.
+	 *
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -50,8 +51,9 @@ public class TestOdfToolkitTextDocument {
 	}
 	
 	/**
-	 * Unit test
-	 * @throws Exception 
+	 * Unit test.
+	 *
+	 * @throws Exception the exception
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -88,8 +90,9 @@ public class TestOdfToolkitTextDocument {
 	
 	
 	/**
-	 * Unit test
-	 * @throws DocumentEngineException 
+	 * Unit test.
+	 *
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -107,8 +110,8 @@ public class TestOdfToolkitTextDocument {
 	
 	/**
 	 * Unit test for getTable(string) when the table is on the header.
-	 * 
-	 * @throws DocumentEngineException 
+	 *
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -121,8 +124,9 @@ public class TestOdfToolkitTextDocument {
 	}
 	
 	/**
-	 * Unit test
-	 * @throws DocumentEngineException 
+	 * Unit test.
+	 *
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -137,12 +141,31 @@ public class TestOdfToolkitTextDocument {
 		String outPath = ResourceUtils.outputPath("OdfToolkitTextDocument_SetFields.odt");
 		engine.saveDocument(template,outPath);
 	}
-		
 	
 	/**
-	 * Unit test
-	 * @throws DocumentEngineException 
-	 * @throws ParseException 
+	 * Unit test.
+	 *
+	 * @throws DocumentEngineException the document engine exception
+	 */
+	@SuppressWarnings("nls")
+	@Test
+	public void testSetFields_withBarcode() throws DocumentEngineException {	
+		OdfToolkitEngine engine = new OdfToolkitEngine();
+		String path = ResourceUtils.inputPath("DocumentWithBarcodeTables.odt");		
+		BusinessDocument template = engine.openDocument(path);				
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("foo", "16866789");					
+		template.setFields(map);		
+		String outPath = ResourceUtils.outputPath("OdfToolkitTextDocument_SetFields_Barcode.odt");
+		engine.saveDocument(template,outPath);
+	}
+			
+	
+	/**
+	 * Unit test.
+	 *
+	 * @throws DocumentEngineException the document engine exception
+	 * @throws ParseException the parse exception
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -189,8 +212,8 @@ public class TestOdfToolkitTextDocument {
 	
 	/**
 	 * Test for insertAt().
-	 * 
-	 * @throws DocumentEngineException 
+	 *
+	 * @throws DocumentEngineException the document engine exception
 	 */	
 	@SuppressWarnings("nls")
 	@Test
@@ -209,8 +232,8 @@ public class TestOdfToolkitTextDocument {
 	
 	/**
 	 * Test for insertAt().
-	 * 
-	 * @throws DocumentEngineException 
+	 *
+	 * @throws DocumentEngineException the document engine exception
 	 */	
 	@SuppressWarnings("nls")
 	@Test(expected=DocumentEngineException.class)
@@ -225,8 +248,8 @@ public class TestOdfToolkitTextDocument {
 	
 	/**
 	 * Test for insertAt().
-	 * 
-	 * @throws DocumentEngineException 
+	 *
+	 * @throws DocumentEngineException the document engine exception
 	 */	
 	@SuppressWarnings("nls")
 	@Test
@@ -245,7 +268,8 @@ public class TestOdfToolkitTextDocument {
 	
 	/**
 	 * Test for insertAt().
-	 * @throws Exception 
+	 *
+	 * @throws Exception the exception
 	 */	
 	@SuppressWarnings("nls")
 	@Test
@@ -271,7 +295,8 @@ public class TestOdfToolkitTextDocument {
 	
 	/**
 	 * Test for insertAt().
-	 * @throws Exception 
+	 *
+	 * @throws Exception the exception
 	 */	
 	@SuppressWarnings("nls")
 	@Test
@@ -288,7 +313,8 @@ public class TestOdfToolkitTextDocument {
 	
 	/**
 	 * Test for insertAt().
-	 * @throws Exception 
+	 *
+	 * @throws Exception the exception
 	 */	
 	@SuppressWarnings("nls")
 	@Test

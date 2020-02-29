@@ -15,6 +15,7 @@ package gr.interamerican.wicket.callback;
 import gr.interamerican.wicket.test.WicketTest;
 
 import org.apache.wicket.Page;
+import org.apache.wicket.ajax.AjaxRequestHandler;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.form.Form;
 import org.junit.Assert;
@@ -23,6 +24,7 @@ import org.junit.Test;
 /**
  * Unit tests for {@link AbstractCallbackAction}.
  */
+@Deprecated
 public class TestSimpleCallbackAction 
 extends WicketTest {
 	
@@ -53,7 +55,7 @@ extends WicketTest {
 	public void testCallback_withTwo() {
 		flag = false;
 		Page page = homePage();
-		AjaxRequestTarget target = new AjaxRequestTarget(page); 
+		AjaxRequestTarget target = new AjaxRequestHandler(page);
 		Form<Object> form = new Form<Object>("formId"); //$NON-NLS-1$
 		action.callBack(target, form);
 		Assert.assertTrue(flag);
@@ -66,7 +68,7 @@ extends WicketTest {
 	public void testCallback_withOne() {
 		flag = false;
 		Page page = homePage();
-		AjaxRequestTarget target = new AjaxRequestTarget(page);
+		AjaxRequestTarget target = new AjaxRequestHandler(page);
 		action.callBack(target);
 		Assert.assertTrue(flag);
 	}

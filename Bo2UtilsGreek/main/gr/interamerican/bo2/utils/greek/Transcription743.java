@@ -71,8 +71,8 @@ public class Transcription743 {
 	/**
 	 * Adds replacement pairs for changing 'μπ' in the start
 	 * of the word with Β.
-	 * 
-	 * @param list
+	 *
+	 * @param list the list
 	 */
 	void addPairsForFirstB (List<Pair<String, String>> list) {		
 		String[] greekB = {" μπ", " Μπ", " ΜΠ"};
@@ -84,9 +84,9 @@ public class Transcription743 {
 	
 	/**
 	 * Adds replacement pairs for changing 'αυ' and 'ευ'.
-	 * 
-	 * @param list
-	 * @param caps 
+	 *
+	 * @param list the list
+	 * @param caps the caps
 	 */
 	void addAfAndAv(List<Pair<String, String>> list, boolean caps) {
 		String[] greeksNonCaps = {"αυ", "Αυ", "ευ", "Ευ"};
@@ -132,8 +132,8 @@ public class Transcription743 {
 	
 	/**
 	 * Adds replacement pairs for diphthongs.
-	 * 
-	 * @param list
+	 *
+	 * @param list the list
 	 */
 	void addDiphthongsForNonCaps (List<Pair<String, String>> list) {
 		String[] greek = {"γγ", "γκ", "Γκ", "γξ", "γχ",  "ου", "Ου"};
@@ -145,8 +145,8 @@ public class Transcription743 {
 	
 	/**
 	 * Adds replacement pairs for diphthongs.
-	 * 
-	 * @param list
+	 *
+	 * @param list the list
 	 */
 	void addDiphthongsForCaps (List<Pair<String, String>> list) {
 		String[] greek = {"ΓΓ", "ΓΚ", "ΓΞ", "ΓΧ",  "ΟΥ"};
@@ -159,9 +159,9 @@ public class Transcription743 {
 	/**
 	 * Adds replacement pairs for changing 'μπ' in the start
 	 * of the word with Β.
-	 * 
-	 * @param list
-	 * @param includeOnlyCaps 
+	 *
+	 * @param list the list
+	 * @param includeOnlyCaps the include only caps
 	 */
 	void addRestLetters (List<Pair<String, String>> list, boolean includeOnlyCaps) {		
 		String[] greek = 
@@ -178,7 +178,8 @@ public class Transcription743 {
 	
 	/**
 	 * Adds replacement pairs for changing Χ,Ψ,Θ.
-	 * @param list 
+	 *
+	 * @param list the list
 	 */
 	void addForChiPsiThitaCaps(List<Pair<String, String>> list) {		
 		list.add(new Pair<String, String>("Χ", "CH"));
@@ -188,7 +189,8 @@ public class Transcription743 {
 	
 	/**
 	 * Adds replacement pairs for changing Χ,Ψ,Θ.
-	 * @param list 
+	 *
+	 * @param list the list
 	 */
 	void addForChiPsiThitaSmall(List<Pair<String, String>> list) {
 		list.add(new Pair<String, String>("χ", "ch"));
@@ -209,9 +211,8 @@ public class Transcription743 {
 	
 	/**
 	 * Writes the specified Greek name with Latin characters. 
-	 * 
-	 * @param greek
-	 * 
+	 *
+	 * @param greek the greek
 	 * @return Returns the Latin transcript of the name.
 	 */
 	String transcriptWord(String greek) {
@@ -227,9 +228,8 @@ public class Transcription743 {
 	
 	/**
 	 * Writes the specified Greek name with Latin characters. 
-	 * 
-	 * @param greek
-	 * 
+	 *
+	 * @param greek the greek
 	 * @return Returns the Latin transcript of the name.
 	 */
 	public String transcript(String greek) {

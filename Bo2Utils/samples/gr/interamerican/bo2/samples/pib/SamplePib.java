@@ -29,7 +29,7 @@ public class SamplePib extends PropertiesInitializedBean {
 	/**
 	 * Creates a new SamplePIB object. 
 	 *
-	 * @param properties
+	 * @param properties the properties
 	 */
 	public SamplePib(Properties properties) {
 		super(properties);

@@ -13,7 +13,7 @@
 package gr.interamerican.bo2.samples.ibean;
 
 /**
- * Same method signatures
+ * Same method signatures.
  */
 public interface IOneMoreBeanWithId {
 	/**
@@ -25,8 +25,8 @@ public interface IOneMoreBeanWithId {
 	
 	/**
 	 * Sets the id.
-	 * 
-	 * @param id
+	 *
+	 * @param id the new id
 	 */
 	void setId(Integer id);
 

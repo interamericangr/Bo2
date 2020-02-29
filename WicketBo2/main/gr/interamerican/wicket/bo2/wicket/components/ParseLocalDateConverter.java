@@ -10,24 +10,21 @@ import org.joda.time.LocalDateTime;
 import org.joda.time.format.DateTimeFormatter;
 
 /**
- *
+ * The Class ParseLocalDateConverter.
  */
 public class ParseLocalDateConverter extends PatternDateConverter {
 
 	/**
-	 * constructor
+	 * constructor.
 	 *
-	 * @param datePattern
-	 *
-	 * @param applyTimeZoneDifference
+	 * @param datePattern the date pattern
+	 * @param applyTimeZoneDifference the apply time zone difference
 	 */
 	public ParseLocalDateConverter(String datePattern, boolean applyTimeZoneDifference) {
 		super(datePattern, applyTimeZoneDifference);
 	}
 
-	/**
-	 *
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	@Override

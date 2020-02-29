@@ -28,17 +28,15 @@ implements SpanFragment {
 	/**
 	 * Creates a new TextStringElement object. 
 	 *
-	 * @param length
+	 * @param length the length
 	 */
 	SpaceSpanFragment(int length) {
-		super();
 		this.length = length;
 	}
 
-	
+	@Override
 	public void appendTo(TextSpanElement span) {
 		TextSElement space = span.newTextSElement();
 		space.setTextCAttribute(length);
 	}
-
 }

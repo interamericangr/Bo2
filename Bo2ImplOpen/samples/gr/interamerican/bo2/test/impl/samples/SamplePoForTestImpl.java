@@ -51,7 +51,6 @@ import gr.interamerican.bo2.test.def.samples.SamplePoKey;
  * - type=X must be ignored (no getTypeId() or setTypeId() generated)
  *  
  */
-@SuppressWarnings("unused")
 @DelegateKeyProperties("id, name")
 @TypedSelectableProperties(type="X", subtype="null", code="serialNo", name="")
 public abstract class SamplePoForTestImpl
@@ -59,14 +58,10 @@ extends AbstractBasePo<SamplePoKey>
 implements SamplePoForTest
 {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
-	/**
-	 * serialNo
-	 */
+	/** serialNo. */
 	@Property
 	private Long serialNo;
 	
@@ -76,15 +71,11 @@ implements SamplePoForTest
 	@DelegateProperties("typeId")
 	private static ConstantType ct = new ConstantType(10L);
 	
-	/**
-	 * bean
-	 */	
+	/** bean. */	
 	@DelegateProperties("")
 	private IBeanWithIdAndName bean = new IBeanWithIdAndNameImpl();
 	
-	/**
-	 * calc
-	 */
+	/** calc. */
 	@DelegateMethods("")
 	private SampleCalculator calc = new SampleCalculatorImpl();
 	
@@ -104,6 +95,7 @@ implements SamplePoForTest
 	}
 	
 	
+	@Override
 	public void init() {
 		/* empty */
 	}

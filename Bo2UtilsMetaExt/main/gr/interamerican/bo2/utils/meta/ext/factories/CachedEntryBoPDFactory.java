@@ -32,15 +32,12 @@ public class CachedEntryBoPDFactory {
 	
 	/**
 	 * Creates a {@link CachedEntryBoPropertyDescriptor} given a {@link PropertyDefinition}.
-	 * 
-	 * @param <C> 
-	 *        Type of cache code.
-	 * @param pd
-	 *        PropertyDefinition
+	 *
+	 * @param <C>        Type of cache code.
+	 * @param pd        PropertyDefinition
 	 *        
 	 * @return Returns a CachedEntryBoPropertyDescriptor
-	 * 
-	 * @throws ParseException
+	 * @throws ParseException the parse exception
 	 */
 	@SuppressWarnings("nls")
 	public static <C extends Comparable<? super C>> 

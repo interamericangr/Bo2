@@ -38,79 +38,76 @@ implements Query, NamedFieldsContainer {
 	public NamedStreamQuery() {
 		super();
 	}
-	
+
 	/**
 	 * Current record.
 	 */
 	@SuppressWarnings("unchecked")
-	private IndexedFieldsRecord<String> record = 
+	private IndexedFieldsRecord<String> indexedRecord = 
 		(IndexedFieldsRecord<String>) this.getRecord();
 
 	@Override
 	public byte[] getBytes(String field) {
-		return record.getBytes(field);
+		return indexedRecord.getBytes(field);
 	}
 
 	@Override
 	public double getDouble(String field) {
-		return record.getDouble(field);
+		return indexedRecord.getDouble(field);
 	}
 
 	@Override
 	public int getInt(String field) {
-		return record.getInt(field);
+		return indexedRecord.getInt(field);
 	}
 
 	@Override
 	public long getLong(String field) {
-		return record.getLong(field);
+		return indexedRecord.getLong(field);
 	}
 
 	@Override
 	public boolean getBoolean(String field) {
-		return record.getBoolean(field);
+		return indexedRecord.getBoolean(field);
 	}
 
 	@Override
 	public Date getDate(String field) {
-		return record.getDate(field);
+		return indexedRecord.getDate(field);
 	}
 
 	@Override
 	public Calendar getCalendar(String field) {
-		return record.getCalendar(field);
+		return indexedRecord.getCalendar(field);
 	}
 
 	@Override
 	public BigDecimal getBigDecimal(String field) {
-		return record.getBigDecimal(field);
+		return indexedRecord.getBigDecimal(field);
 	}
 
 	@Override
 	public String getString(String field) {
-		return record.getString(field);
+		return indexedRecord.getString(field);
 	}
 
 	@Override
 	public short getShort(String field) {
-		return record.getShort(field);
+		return indexedRecord.getShort(field);
 	}
 
 	@Override
 	public float getFloat(String field) {
-		return record.getFloat(field);
+		return indexedRecord.getFloat(field);
 	}
 
 	@Override
 	public byte getByte(String field) {
-		return record.getByte(field);
+		return indexedRecord.getByte(field);
 	}
 
 	@Override
 	public Object getObject(String field) {
-		return record.getObject(field);
+		return indexedRecord.getObject(field);
 	}
-
-	
-
 }

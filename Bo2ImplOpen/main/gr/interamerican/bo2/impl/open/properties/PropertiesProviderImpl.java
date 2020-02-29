@@ -38,27 +38,29 @@ public class PropertiesProviderImpl implements PropertiesProvider {
 	 * Properties object.
 	 */
 	private Properties properties;
-	
+
 	/**
 	 * Creates a new PropertiesProviderImpl.
 	 * 
-	 * @param properties 
-	 *        Properties that this object will provide.
+	 * @param properties
+	 *            Properties that this object will provide.
 	 */
 	public PropertiesProviderImpl(Properties properties) {
-		this.properties=properties;
+		this.properties = properties;
 	}
 
-	public Properties getProperties() {		
+	@Override
+	public Properties getProperties() {
 		return properties;
 	}
 
+	@Override
 	public Object getPropertyValue(String key) {
 		return properties.get(key);
 	}
 
-	public Date getPropertyAsDate (String key) 
-	throws UnexpectedException {
+	@Override
+	public Date getPropertyAsDate(String key) throws UnexpectedException {
 		Object value = properties.get(key);
 		try {
 			return DateUtils.getDate(value);
@@ -67,11 +69,11 @@ public class PropertiesProviderImpl implements PropertiesProvider {
 		}
 	}
 
-	public Double getPropertyAsDouble (String key) 
-	throws UnexpectedException {
-		
+	@Override
+	public Double getPropertyAsDouble(String key) throws UnexpectedException {
+
 		Object value = properties.get(key);
-		if (value==null) {
+		if (value == null) {
 			return null;
 		}
 		if (value instanceof Number) {
@@ -87,60 +89,70 @@ public class PropertiesProviderImpl implements PropertiesProvider {
 		}
 	}
 
-	public String getProperty (String key) {		
+	@Override
+	public String getProperty(String key) {
 		Object value = properties.get(key);
-		if (value==null) {
+		if (value == null) {
 			return null;
 		}
 		return value.toString();
 	}
 
-	public Boolean getPropertyAsBoolean (String key) {
-        String s = properties.getProperty(key);
-        if (s==null) {
-        	return null;
-        }
-        s = s.trim();
-        return s.equalsIgnoreCase("TRUE")  //$NON-NLS-1$
-           ||  s.equalsIgnoreCase("YES")   //$NON-NLS-1$                       
-           ||  s.equals("1");              //$NON-NLS-1$
-        
-    } 	
+	@Override
+	public Boolean getPropertyAsBoolean(String key) {
+		String s = properties.getProperty(key);
+		if (s == null) {
+			return null;
+		}
+		s = s.trim();
+		return s.equalsIgnoreCase("TRUE") //$NON-NLS-1$
+				|| s.equalsIgnoreCase("YES") //$NON-NLS-1$
+				|| s.equals("1"); //$NON-NLS-1$
 
-    public String getMainProperty (String key) {
+	}
+
+	@Override
+	public String getMainProperty(String key) {
 		String value = getProperty(key);
-		if (value==null) throw Exceptions.runtime(PARM_NOT_SET, key); 
+		if (value == null)
+			throw Exceptions.runtime(PARM_NOT_SET, key);
 		return value;
-	}	
+	}
 
-	public Date getMainPropertyAsDate (String key) 
-	throws UnexpectedException {
+	@Override
+	public Date getMainPropertyAsDate(String key) throws UnexpectedException {
 		Date value = getPropertyAsDate(key);
-		if (value==null) throw Exceptions.runtime(PARM_NOT_SET, key);
+		if (value == null)
+			throw Exceptions.runtime(PARM_NOT_SET, key);
 		return value;
 	}
 
-	public Double getMainPropertyAsDouble (String key) 
-	throws UnexpectedException {
+	@Override
+	public Double getMainPropertyAsDouble(String key) throws UnexpectedException {
 		Double value = getPropertyAsDouble(key);
-		if (value==null) throw Exceptions.runtime(PARM_NOT_SET, key);
+		if (value == null)
+			throw Exceptions.runtime(PARM_NOT_SET, key);
 		return value;
 	}
 
-	public Boolean getMainPropertyAsBoolean (String key) {
+	@Override
+	public Boolean getMainPropertyAsBoolean(String key) {
 		Boolean value = getPropertyAsBoolean(key);
-		if (value==null) throw Exceptions.runtime(PARM_NOT_SET, key);
+		if (value == null)
+			throw Exceptions.runtime(PARM_NOT_SET, key);
 		return value;
-    }
+	}
 
+	@Override
 	public Object getMainPropertyValue(String key) {
 		Object value = getPropertyValue(key);
-		if (value==null) throw Exceptions.runtime(PARM_NOT_SET, key);
+		if (value == null)
+			throw Exceptions.runtime(PARM_NOT_SET, key);
 		return value;
 	}
-			
-	public void close() throws DataException {
-		/* empty */		
-	}
 
+	@Override
+	public void close() throws DataException {
+		/* empty */
+	}
 }

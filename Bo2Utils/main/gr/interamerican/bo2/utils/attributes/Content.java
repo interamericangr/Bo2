@@ -1,7 +1,7 @@
 package gr.interamerican.bo2.utils.attributes;
 
 /**
- * 
+ * The Interface Content.
  */
 public interface Content {
 	

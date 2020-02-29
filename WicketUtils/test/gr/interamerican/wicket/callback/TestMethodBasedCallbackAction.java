@@ -23,11 +23,10 @@ import org.junit.Test;
 /**
  * Unit tests for {@link MethodBasedCallbackAction}.
  */
+@Deprecated
 @SuppressWarnings("nls")
 public class TestMethodBasedCallbackAction implements Serializable { //HACK
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
 	/**
@@ -44,9 +43,8 @@ public class TestMethodBasedCallbackAction implements Serializable { //HACK
 	
 	/**
 	 * Method to be executed by MethodBasedBo2WicketBlock. 
-	 * 
-	 * @param i
-	 *         
+	 *
+	 * @param i the i
 	 */
 	void onEventWithParams(Integer i) {
 		integer = i;
@@ -60,16 +58,16 @@ public class TestMethodBasedCallbackAction implements Serializable { //HACK
 
 	/**
 	 * Overloaded method.
-	 * 
-	 * @param argument 
+	 *
+	 * @param argument the argument
 	 */
 	void ambiguous(@SuppressWarnings("unused") Integer argument) {/* empty */}
 	
 	/**
 	 * Method to be executed by a {@link CallbackAction} and throw
 	 * an Exception.
-	 * 
-	 * @throws InstantiationException
+	 *
+	 * @throws InstantiationException the instantiation exception
 	 */
 	void doThrow() throws InstantiationException {
 		throw new InstantiationException();

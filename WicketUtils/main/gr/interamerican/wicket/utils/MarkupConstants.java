@@ -18,49 +18,31 @@ package gr.interamerican.wicket.utils;
 @SuppressWarnings("nls")
 public interface MarkupConstants {
 	
-	/**
-	 * 
-	 */
+	/** The Constant INPUT. */
 	public static final String INPUT="input"; 
 	
-	/**
-	 * 
-	 */
+	/** The Constant TYPE. */
 	public static final String TYPE="type"; 
 	
-	/**
-	 * 
-	 */
+	/** The Constant TEXT. */
 	public static final String TEXT="text"; 
 	
-	/**
-	 * 
-	 */
+	/** The Constant STYLE. */
 	public static final String STYLE="style"; 
 	
-	/**
-	 * 
-	 */
+	/** The Constant WIDTH. */
 	public static final String WIDTH="width:200px"; 
 
-	/**
-	 * 
-	 */
+	/** The Constant TEXTAREA. */
 	public static final String TEXTAREA ="textarea"; 
 	
-	/**
-	 * 
-	 */
+	/** The Constant COLS. */
 	public static final String COLS = "cols"; 
 	
-	/**
-	 * 
-	 */
+	/** The Constant COLS_VALUE. */
 	public static final int COLS_VALUE = 50;
 	
-	/**
-	 * 
-	 */
+	/** The Constant ROWS. */
 	public static final String ROWS = "rows"; 
 	
 	/**
@@ -68,51 +50,34 @@ public interface MarkupConstants {
 	 */
 	public static final int MAX_ROWS = 8;
 	
-	/**
-	 * 
-	 */
+	/** The Constant SPAN. */
 	public static final String SPAN="span"; 
 
-	/**
-	 * 
-	 */
+	/** The Constant SELECT. */
 	public static final String SELECT ="select"; 
 	
-	/**
-	 * 
-	 */
+	/** The Constant CHECKBOX. */
 	public static final String CHECKBOX="checkbox"; 
 	
-	/**
-	 * 
-	 */
+	/** The Constant LANGUAGE. */
 	public static final String LANGUAGE = "el"; 
-	/**
-	 * 
-	 */
+	
+	/** The Constant COUNTRY. */
 	public static final String COUNTRY = "GR"; 
 	
-	/**
-	 * 
-	 */
+	/** The Constant CSS_CLASS. */
 	public static final String CSS_CLASS = "class"; 
 	
-	/**
-	 * 
-	 */
+	/** The Constant INVALID. */
 	public static final String INVALID ="invalid"; 
 	
-	/**
-	 * 
-	 */
+	/** The Constant TITLE. */
 	public static final String TITLE ="title"; 
-	/**
-	 * 
-	 */
+	
+	/** The Constant DIV. */
 	public static final String DIV = "div";
-	/**
-	 * 
-	 */
+	
+	/** The Constant FORM. */
 	public static final String FORM = "form";
 	/**
 	 * Read only.
@@ -122,5 +87,10 @@ public interface MarkupConstants {
 	/**
 	 * Source.
 	 */
-	public static final String SRC ="src"; 
+	public static final String SRC ="src";
+
+	/**
+	 * Change Event
+	 */
+	public static final String CHANGE = "change"; 
 }

@@ -2,23 +2,28 @@ package gr.interamerican.bo2.utils.conditions;
 
 import gr.interamerican.bo2.utils.Utils;
 import gr.interamerican.bo2.utils.adapters.Transformation;
-import gr.interamerican.bo2.utils.adapters.trans.GetProperty;
 
 /**
- * Condition that is based on the value of a boolean property of
- * the object being examined.
+ * Condition that is based on the value of a boolean property of the object
+ * being examined.
  *
  * @param <T>
+ *            the generic type
+ * @deprecated Just use the Functional Interface for either {@link Condition} or
+ *             {@link Transformation}
  */
-public class GetBooleanProperty<T> 
-extends GetProperty<T, Boolean> 
+@Deprecated
+public class GetBooleanProperty<T>
+extends gr.interamerican.bo2.utils.adapters.trans.GetProperty<T, Boolean>
 implements Transformation<T, Boolean>, Condition<T> {
 
 	/**
 	 * Creates a new GetBooleanProperty object.
-	 * 
+	 *
 	 * @param propertyName
+	 *            the property name
 	 * @param clazz
+	 *            the clazz
 	 */
 	public GetBooleanProperty(String propertyName, Class<T> clazz) {
 		super(propertyName, clazz);
@@ -29,8 +34,4 @@ implements Transformation<T, Boolean>, Condition<T> {
 		Boolean b = execute(t);
 		return Utils.notNull(b, false);
 	}
-	
-	
-
-
 }

@@ -12,27 +12,27 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.conditions;
 
-import gr.interamerican.bo2.samples.bean.BeanWith2Fields;
-
 import org.junit.Assert;
 import org.junit.Test;
+
+import gr.interamerican.bo2.samples.bean.BeanWith2Fields;
+import gr.interamerican.bo2.utils.conditions.PropertyEqualsTo;
 
 /**
  * Unit test for {@link PropertyEqualsTo}.
  */
+@Deprecated
 public class TestPropertyEqualsTo {
-	
+
 	/**
 	 * Tests the constructor.
 	 */
 	@Test
 	@SuppressWarnings("nls")
 	public void testConstructor() {
-		PropertyEqualsTo<BeanWith2Fields> condition = 
-			new PropertyEqualsTo<BeanWith2Fields>("field1", BeanWith2Fields.class, "that");
+		PropertyEqualsTo<BeanWith2Fields> condition = new PropertyEqualsTo<>("field1", BeanWith2Fields.class,
+				"that");
 		Assert.assertNotNull(condition.condition);
 		Assert.assertTrue(condition.condition instanceof EqualityCondition);
 	}
-	
-
 }

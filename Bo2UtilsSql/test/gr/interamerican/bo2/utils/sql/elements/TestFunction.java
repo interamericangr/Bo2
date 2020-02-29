@@ -17,30 +17,24 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
- * Unit test for Function
+ * Unit test for Function.
  */
 public class TestFunction {
 
 	
-	/**
-	 * NAME
-	 */
+	/** NAME. */
 	private static final String NAME = "functionName"; //$NON-NLS-1$
 		
-	/**
-	 * TYPE
-	 */
+	/** TYPE. */
 	private static final int ARGUMENTS = 10;
 	
 	
-	/**
-	 * parameter to test
-	 */
+	/** parameter to test. */
 	Function function = new Function(NAME,ARGUMENTS);
 	
 	
 	/**
-	 * Test setName
+	 * Test setName.
 	 */
 	@Test
 	public void testSetName(){
@@ -49,7 +43,7 @@ public class TestFunction {
 	}
 	
 	/**
-	 * Test getName
+	 * Test getName.
 	 */
 	@Test
 	public void testGetName(){
@@ -57,7 +51,7 @@ public class TestFunction {
 	}
 	
 	/**
-	 * Test setArguments
+	 * Test setArguments.
 	 */
 	@Test
 	public void testSetArguments(){
@@ -66,7 +60,7 @@ public class TestFunction {
 	}
 	
 	/**
-	 * Test getArguments
+	 * Test getArguments.
 	 */
 	@Test
 	public void testGetArguments(){

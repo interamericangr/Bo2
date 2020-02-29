@@ -22,13 +22,14 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * 
+ * The Class BaseTestMethodCodeTemplates.
  */
 public class BaseTestMethodCodeTemplates {
+	
 	/**
 	 * Creates a new TestPropertyCodeTemplates object. 
 	 *
-	 * @param templates
+	 * @param templates the templates
 	 */
 	public BaseTestMethodCodeTemplates(MethodCodeTemplates templates) {
 		super();

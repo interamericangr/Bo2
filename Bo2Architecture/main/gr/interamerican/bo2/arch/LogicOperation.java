@@ -13,9 +13,9 @@ public interface LogicOperation {
 	
 	/**
 	 * Executes the operation. 
-	 * 
-	 * @throws DataException 
-	 * @throws LogicException
+	 *
+	 * @throws LogicException the logic exception
+	 * @throws DataException the data exception
 	 */
 	public void execute() throws LogicException, DataException;
 

@@ -32,9 +32,9 @@ public class SelfDrawnCheckBox extends CheckBox {
 
 	/**
 	 * Creates a new SelfDrawnCheckBox object.
-	 * 
-	 * @param id
-	 * @param descriptor
+	 *
+	 * @param id the id
+	 * @param descriptor the descriptor
 	 */
 	public SelfDrawnCheckBox(String id, BooleanBoPropertyDescriptor descriptor) {
 		super(id, new Model<Boolean>());
@@ -43,10 +43,10 @@ public class SelfDrawnCheckBox extends CheckBox {
 
 	/**
 	 * Creates a new SelfDrawnCheckBox object.
-	 * 
-	 * @param id
-	 * @param descriptor
-	 * @param model
+	 *
+	 * @param id the id
+	 * @param model the model
+	 * @param descriptor the descriptor
 	 */
 	public SelfDrawnCheckBox(String id, IModel<Boolean> model, BooleanBoPropertyDescriptor descriptor) {
 		super(id, model);
@@ -55,8 +55,8 @@ public class SelfDrawnCheckBox extends CheckBox {
 
 	/**
 	 * Stuff performed after super() on all constructors.
-	 * 
-	 * @param descriptor
+	 *
+	 * @param descriptor the descriptor
 	 */
 	private void postConstruct(BooleanBoPropertyDescriptor descriptor) {
 		if (descriptor.isHasDefault() && getDefaultModelObject()==null) {

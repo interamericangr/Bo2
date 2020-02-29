@@ -13,11 +13,8 @@
 package gr.interamerican.bo2.utils;
 
 import static gr.interamerican.bo2.utils.JavaBeanUtils.copyProperties;
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
+
 import gr.interamerican.bo2.samples.BeanWithNoFieldGetter;
 import gr.interamerican.bo2.samples.Child;
 import gr.interamerican.bo2.samples.SampleBean2;
@@ -35,6 +32,7 @@ import gr.interamerican.bo2.samples.ibean.SuperSampleInterface;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -46,12 +44,12 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestJavaBeanUtils.
  */
 public class TestJavaBeanUtils {
 	
 	/**
-	 * Unit test for getNestedProperty()
+	 * Unit test for getNestedProperty().
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -74,7 +72,7 @@ public class TestJavaBeanUtils {
 	}
 	
 	/**
-	 * Unit test for getNestedProperty()
+	 * Unit test for getNestedProperty().
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -94,9 +92,10 @@ public class TestJavaBeanUtils {
 	
 	/**
 	 * Unit test for getProperty.
-	 * @throws IllegalAccessException
-	 * @throws InvocationTargetException
-	 * @throws NoSuchMethodException
+	 *
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws InvocationTargetException the invocation target exception
+	 * @throws NoSuchMethodException the no such method exception
 	 */
 	@Test
 	public void testGetProperty() 
@@ -111,9 +110,10 @@ public class TestJavaBeanUtils {
 		
 	/**
 	 * Unit test for getProperty.
-	 * @throws IllegalAccessException
-	 * @throws InvocationTargetException
-	 * @throws NoSuchMethodException
+	 *
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws InvocationTargetException the invocation target exception
+	 * @throws NoSuchMethodException the no such method exception
 	 */
 	@Test
 	public void testGetProperty_noGetter() 
@@ -128,9 +128,10 @@ public class TestJavaBeanUtils {
 	
 	/**
 	 * Unit test for setProperty.
-	 * @throws IllegalAccessException
-	 * @throws InvocationTargetException
-	 * @throws NoSuchMethodException
+	 *
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws InvocationTargetException the invocation target exception
+	 * @throws NoSuchMethodException the no such method exception
 	 */
 	@Test
 	public void testSetProperty() 
@@ -144,9 +145,10 @@ public class TestJavaBeanUtils {
 	
 	/**
 	 * Unit test for setProperty.
-	 * @throws IllegalAccessException
-	 * @throws InvocationTargetException
-	 * @throws NoSuchMethodException
+	 *
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws InvocationTargetException the invocation target exception
+	 * @throws NoSuchMethodException the no such method exception
 	 */
 	@Test
 	public void testSetProperty_enum() 
@@ -164,10 +166,10 @@ public class TestJavaBeanUtils {
 	
 	/**
 	 * Unit test for setProperty with java.util.Date.
-	 * 
-	 * @throws IllegalAccessException
-	 * @throws InvocationTargetException
-	 * @throws NoSuchMethodException
+	 *
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws InvocationTargetException the invocation target exception
+	 * @throws NoSuchMethodException the no such method exception
 	 */
 	@Test
 	public void testSetProperty_date() 
@@ -183,10 +185,10 @@ public class TestJavaBeanUtils {
 	
 	/**
 	 * Unit test for setProperty with java.util.Date.
-	 * 
-	 * @throws IllegalAccessException
-	 * @throws InvocationTargetException
-	 * @throws NoSuchMethodException
+	 *
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws InvocationTargetException the invocation target exception
+	 * @throws NoSuchMethodException the no such method exception
 	 */
 	@Test
 	public void testSetProperty_double() 
@@ -201,9 +203,10 @@ public class TestJavaBeanUtils {
 	
 	/**
 	 * Unit test for setProperty.
-	 * @throws IllegalAccessException
-	 * @throws InvocationTargetException
-	 * @throws NoSuchMethodException
+	 *
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws InvocationTargetException the invocation target exception
+	 * @throws NoSuchMethodException the no such method exception
 	 */
 	@Test
 	public void testSetPropertyTyped() 
@@ -217,9 +220,10 @@ public class TestJavaBeanUtils {
 	
 	/**
 	 * Unit test for setProperty.
-	 * @throws IllegalAccessException
-	 * @throws InvocationTargetException
-	 * @throws NoSuchMethodException
+	 *
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws InvocationTargetException the invocation target exception
+	 * @throws NoSuchMethodException the no such method exception
 	 */
 	@Test
 	public void testSetPropertyUntyped() 
@@ -233,9 +237,10 @@ public class TestJavaBeanUtils {
 	
 	/**
 	 * Unit test for setProperty.
-	 * @throws IllegalAccessException
-	 * @throws InvocationTargetException
-	 * @throws NoSuchMethodException
+	 *
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws InvocationTargetException the invocation target exception
+	 * @throws NoSuchMethodException the no such method exception
 	 */
 	@Test
 	public void testIsValidValue() 
@@ -377,6 +382,7 @@ public class TestJavaBeanUtils {
 	 * Utils.getBeansProperties()
 	 * 
 	 */
+	@SuppressWarnings("nls")
 	@Test
 	public void testGetBeansProperties() {
 		//testing a simple class
@@ -405,31 +411,25 @@ public class TestJavaBeanUtils {
 		assertEquals(0, pd5.length);
 		
 		//testing an interface
-		PropertyDescriptor[] pd3 = JavaBeanUtils.getBeansProperties(SuperSampleInterface.class);
-		assertEquals(3, pd3.length);
-		Class<?>[] expecteds3 = {String.class, Integer.class, Object.class};
-		actualsList = new ArrayList<Class<?>>();
-		for(int i=0; i<pd3.length; i++)
-			actualsList.add(pd3[i].getPropertyType());
-		Class<?>[] actuals3 = actualsList.toArray(new Class<?>[0]);
-		assertArrayEquals(expecteds3, actuals3);
-		
+		List<PropertyDescriptor> pd3 = Arrays.asList(JavaBeanUtils.getBeansProperties(SuperSampleInterface.class));
+		assertEquals(3, pd3.size());
+		assertSame(String.class, SelectionUtils.selectFirstByProperty(PropertyDescriptor::getName, "field4", pd3).getPropertyType());
+		assertSame(Integer.class, SelectionUtils.selectFirstByProperty(PropertyDescriptor::getName, "field5", pd3).getPropertyType());
+		assertSame(Object.class, SelectionUtils.selectFirstByProperty(PropertyDescriptor::getName, "field6", pd3).getPropertyType());
 		//testing an interface with super-types
-		PropertyDescriptor[] pd4 = JavaBeanUtils.getBeansProperties(SubSampleInterface.class);
-		assertEquals(7, pd4.length);
-		Class<?>[] expecteds4 = { String.class, String.class, Integer.class, Object.class, String.class, Integer.class, Object.class};
-		actualsList = new ArrayList<Class<?>>();
-		for(int i=0; i<pd4.length; i++)
-			actualsList.add(pd4[i].getPropertyType());
-		Class<?>[] actuals4 = actualsList.toArray(new Class<?>[0]);
-		assertArrayEquals(expecteds4, actuals4);
-		
+		List<PropertyDescriptor> pd4 = Arrays.asList(JavaBeanUtils.getBeansProperties(SubSampleInterface.class));
+		assertEquals(7, pd4.size());
+		assertSame(String.class, SelectionUtils.selectFirstByProperty(PropertyDescriptor::getName, "field0", pd4).getPropertyType());
+		assertSame(String.class, SelectionUtils.selectFirstByProperty(PropertyDescriptor::getName, "field1", pd4).getPropertyType());
+		assertSame(Integer.class, SelectionUtils.selectFirstByProperty(PropertyDescriptor::getName, "field2", pd4).getPropertyType());
+		assertSame(Object.class, SelectionUtils.selectFirstByProperty(PropertyDescriptor::getName, "field3", pd4).getPropertyType());
+		assertSame(String.class, SelectionUtils.selectFirstByProperty(PropertyDescriptor::getName, "field4", pd3).getPropertyType());
+		assertSame(Integer.class, SelectionUtils.selectFirstByProperty(PropertyDescriptor::getName, "field5", pd3).getPropertyType());
+		assertSame(Object.class, SelectionUtils.selectFirstByProperty(PropertyDescriptor::getName, "field6", pd3).getPropertyType());
 	}
-	
-
 
 	/**
-	 * Tests mandatoryProperty()
+	 * Tests mandatoryProperty().
 	 */
 	@Test
 	public void testMandatoryProperty_ok() {
@@ -439,7 +439,7 @@ public class TestJavaBeanUtils {
 	}
 	
 	/**
-	 * Tests mandatoryProperty() throwing runtime exception
+	 * Tests mandatoryProperty() throwing runtime exception.
 	 */
 	@Test(expected=RuntimeException.class)
 	public void testMandatoryProperty_throwingException() {		

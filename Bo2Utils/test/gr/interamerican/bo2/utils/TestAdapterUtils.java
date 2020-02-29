@@ -12,12 +12,15 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils;
 
+import gr.interamerican.bo2.samples.bean.BeanWithReadOnlyAndWriteOnly;
 import gr.interamerican.bo2.utils.adapters.VoidOperation;
 import gr.interamerican.bo2.utils.adapters.mod.Filter;
 import gr.interamerican.bo2.utils.beans.Tree;
 import gr.interamerican.bo2.utils.comparators.SpecificNumberComparator;
 import gr.interamerican.bo2.utils.conditions.Condition;
 import gr.interamerican.bo2.utils.conditions.GreaterThan;
+
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -34,21 +37,21 @@ import org.junit.Test;
 /**
  * Unit tests for {@link AdapterUtils}.
  * 
- * This test uses as sample adapter a Filter that filters
- * values less than or equal to zero. 
+ * This test uses as sample adapter a Filter that filters values less than or
+ * equal to zero.
  */
 public class TestAdapterUtils {
-	
+
 	/**
 	 * Input args array.
 	 */
-	Integer[] argsArray = {-4, -8, 0, 12, null, 21, null};
-	
+	Integer[] argsArray = { -4, -8, 0, 12, null, 21, null };
+
 	/**
 	 * Expected results array.
 	 */
-	Integer[] expectedArray = {null, null, null, 12, null, 21, null};
-	
+	Integer[] expectedArray = { null, null, null, 12, null, 21, null };
+
 	/**
 	 * Comparator for the condition.
 	 */
@@ -61,36 +64,43 @@ public class TestAdapterUtils {
 	 * Filter used as sample adapter.
 	 */
 	Filter<Integer> filter = new Filter<Integer>(condition);
-	
+
 	/**
 	 * Void Operation.
 	 */
-	VoidOperation<Object> print = new VoidOperation<Object>() {
+	class Counter implements VoidOperation<Object> {
+
+		/**
+		 * counter
+		 */
+		int counter = 0;
+
+		@Override
 		public void execute(Object a) {
-			System.out.println(a);
+			counter++;
 		}
-	};
-	
+	}
+
 	/**
 	 * Test apply on a List.
 	 */
 	@Test
 	public void apply_onList() {
 		List<Integer> args = Arrays.asList(argsArray);
-		List<Integer> expected = Arrays.asList(expectedArray);		
-		List<Integer> actual = AdapterUtils.apply(args, filter);		
-		Assert.assertEquals(expected, actual);		
+		List<Integer> expected = Arrays.asList(expectedArray);
+		List<Integer> actual = AdapterUtils.apply(args, filter);
+		Assert.assertEquals(expected, actual);
 	}
-	
+
 	/**
 	 * Test apply on an array.
 	 */
 	@Test
 	public void apply_onArray() {
-		Integer[] actuals = AdapterUtils.apply(argsArray, new Integer[0], filter);		
-		Assert.assertArrayEquals(expectedArray, actuals);		
+		Integer[] actuals = AdapterUtils.apply(argsArray, new Integer[0], filter);
+		Assert.assertArrayEquals(expectedArray, actuals);
 	}
-	
+
 	/**
 	 * Test apply on a Set.
 	 */
@@ -101,19 +111,19 @@ public class TestAdapterUtils {
 		set.add(0);
 		set.add(5);
 		set.add(3);
-		Set<Integer> result = AdapterUtils.apply(set, filter);		
+		Set<Integer> result = AdapterUtils.apply(set, filter);
 		Assert.assertEquals(2, result.size());
 		Assert.assertTrue(result.contains(3));
 		Assert.assertTrue(result.contains(5));
 	}
-	
+
 	/**
 	 * Test apply on a Set.
 	 */
 	@Test
 	public void apply_onMap() {
 		Map<Integer, Integer> map = new HashMap<Integer, Integer>();
-		int[] numbers = {-8, -12, 0, 5, 8};
+		int[] numbers = { -8, -12, 0, 5, 8 };
 		for (int i = 0; i < numbers.length; i++) {
 			map.put(numbers[i], numbers[i]);
 		}
@@ -124,10 +134,9 @@ public class TestAdapterUtils {
 		Assert.assertEquals(null, result.get(0));
 		Assert.assertEquals(new Integer(5), result.get(5));
 		Assert.assertEquals(new Integer(8), result.get(8));
-		
+
 	}
-	
-	
+
 	/**
 	 * Test apply on a tree.
 	 */
@@ -137,35 +146,39 @@ public class TestAdapterUtils {
 		tree.setName("tree"); //$NON-NLS-1$
 		tree.add(1);
 		tree.add(-2);
-		Tree<Integer> result = AdapterUtils.apply(tree, filter);	
+		Tree<Integer> result = AdapterUtils.apply(tree, filter);
 		Assert.assertNotNull(result.getAnyNodeOf((1)));
-		Assert.assertNull(result.getAnyNodeOf(-2));	
+		Assert.assertNull(result.getAnyNodeOf(-2));
 	}
-	
-	
+
 	/**
 	 * Test apply on a tree.
 	 */
 	@Test
 	public void apply_voidOnArray() {
-		Object[] objects = {new Object(), new Object()};
-		AdapterUtils.apply(objects, print);
+		Object[] objects = { new Object(), new Object() };
+		Counter counter = new Counter();
+		AdapterUtils.apply(objects, counter);
+		assertEquals(2, counter.counter);
 	}
-	
+
 	/**
 	 * Test apply on a tree.
 	 */
 	@Test
 	public void apply_voidOnCollection() {
-		Object[] objects = {new Object(), new Object()};
+		Object[] objects = { new Object(), new Object() };
 		List<Object> list = Arrays.asList(objects);
-		AdapterUtils.apply(list, print);
+		Counter counter = new Counter();
+		AdapterUtils.apply(list, counter);
+		assertEquals(2, counter.counter);
 	}
-	
+
 	/**
 	 * Test concat.
 	 */
 	@SuppressWarnings("nls")
+	@Deprecated
 	@Test
 	public void testConcat() {
 		@SuppressWarnings("rawtypes")
@@ -175,13 +188,29 @@ public class TestAdapterUtils {
 		list.add(Class.class);
 		String actual = AdapterUtils.concat(list, "name", Class.class, "-");
 		String expected = "java.lang.Integer-java.lang.String-java.lang.Class";
-		Assert.assertEquals(expected,actual);		
+		Assert.assertEquals(expected, actual);
 	}
-	
+
+	/**
+	 * Test concat.
+	 */
+	@SuppressWarnings("nls")
+	@Test
+	public void testConcat_Functional() {
+		List<Class<?>> list = new ArrayList<>();
+		list.add(Integer.class);
+		list.add(String.class);
+		list.add(Class.class);
+		String actual = AdapterUtils.concat(list, Class::getName, "-");
+		String expected = "java.lang.Integer-java.lang.String-java.lang.Class";
+		Assert.assertEquals(expected, actual);
+	}
+
 	/**
 	 * Test getProperty.
 	 */
 	@SuppressWarnings("nls")
+	@Deprecated
 	@Test
 	public void testGetProperty() {
 		@SuppressWarnings("rawtypes")
@@ -189,16 +218,33 @@ public class TestAdapterUtils {
 		list.add(Integer.class);
 		list.add(String.class);
 		list.add(Class.class);
-		List<String> names = AdapterUtils.getProperty(list, "name", Class.class);		
-		Assert.assertEquals(3,names.size());
+		List<String> names = AdapterUtils.getProperty(list, "name", Class.class);
+		Assert.assertEquals(3, names.size());
 		for (int i = 0; i < list.size(); i++) {
 			Assert.assertEquals(list.get(i).getName(), names.get(i));
 		}
 	}
-	
+
+	/**
+	 * Test getProperty.
+	 */
+	@Test
+	public void testGetProperty_Functional() {
+		List<Class<?>> list = new ArrayList<>();
+		list.add(Integer.class);
+		list.add(String.class);
+		list.add(Class.class);
+		List<String> names = AdapterUtils.getProperty(list, Class::getName);
+		Assert.assertEquals(3, names.size());
+		for (int i = 0; i < list.size(); i++) {
+			Assert.assertEquals(list.get(i).getName(), names.get(i));
+		}
+	}
+
 	/**
 	 * Test getName.
 	 */
+	@Deprecated
 	@Test
 	public void testGetName() {
 		@SuppressWarnings("rawtypes")
@@ -206,13 +252,27 @@ public class TestAdapterUtils {
 		list.add(Integer.class);
 		list.add(String.class);
 		list.add(Class.class);
-		List<String> names = AdapterUtils.getName(list, Class.class);		
-		Assert.assertEquals(3,names.size());
+		List<String> names = AdapterUtils.getName(list, Class.class);
+		Assert.assertEquals(3, names.size());
 		for (int i = 0; i < list.size(); i++) {
 			Assert.assertEquals(list.get(i).getName(), names.get(i));
 		}
 	}
-		
-	
 
+	/**
+	 * Test getName.
+	 */
+	@Test
+	public void testGetName_Functional() {
+		List<BeanWithReadOnlyAndWriteOnly> list = new ArrayList<>();
+		BeanWithReadOnlyAndWriteOnly one = new BeanWithReadOnlyAndWriteOnly();
+		one.setName("first"); //$NON-NLS-1$
+		list.add(one);
+		list.add(new BeanWithReadOnlyAndWriteOnly());
+		List<String> names = AdapterUtils.getName(list);
+		Assert.assertEquals(2, names.size());
+		for (int i = 0; i < list.size(); i++) {
+			Assert.assertEquals(list.get(i).getName(), names.get(i));
+		}
+	}
 }

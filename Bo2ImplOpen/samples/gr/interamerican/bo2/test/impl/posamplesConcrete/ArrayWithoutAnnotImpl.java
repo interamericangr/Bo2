@@ -18,7 +18,7 @@ import gr.interamerican.bo2.test.def.posamples.ArrayWithoutAnnot;
 import gr.interamerican.bo2.test.def.posamples.ArrayWithoutAnnotKey;
 
 /**
- * 
+ * The Class ArrayWithoutAnnotImpl.
  */
 public class ArrayWithoutAnnotImpl 
 extends AbstractModificationRecordPo<ArrayWithoutAnnotKey> 
@@ -29,9 +29,7 @@ implements ArrayWithoutAnnot {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * an array of objetcs
-	 */
+	/** an array of objetcs. */
 	private Object[] arrayOfObjects;	
 	
 
@@ -41,6 +39,7 @@ implements ArrayWithoutAnnot {
 	 * @return arrayOfObjects
 	 */
 	
+	@Override
 	public Object[] getArrayOfObjects() {
 		return arrayOfObjects;
 	}
@@ -48,18 +47,21 @@ implements ArrayWithoutAnnot {
 	/**
 	 * ��������� arrayOfObjects.
 	 *
-	 * @param arrayOfObjects 
+	 * @param arrayOfObjects the new array of objects
 	 */
+	@Override
 	public void setArrayOfObjects(Object[] arrayOfObjects) {
 		this.arrayOfObjects = arrayOfObjects;
 	}
 
 
+	@Override
 	public String getInvoiceCustomerArrayWithoutAnnotNo() {		
 		return key.getInvoiceCustomerArrayWithoutAnnotNo();
 	}
 	
 
+	@Override
 	public void setInvoiceCustomerArrayWithoutAnnotNo(String invoiceCustomerArrayWithoutAnnotNo) {
 		key.setInvoiceCustomerArrayWithoutAnnotNo(invoiceCustomerArrayWithoutAnnotNo);
 	}

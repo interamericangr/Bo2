@@ -12,25 +12,27 @@
  ******************************************************************************/
 package gr.interamerican.wicket.bo2.callbacks;
 
+import org.apache.wicket.request.cycle.RequestCycle;
+
 import gr.interamerican.bo2.arch.Provider;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
+import gr.interamerican.bo2.utils.functions.SerializableRunnable;
 import gr.interamerican.wicket.bo2.protocol.http.Bo2WicketRequestCycle;
 import gr.interamerican.wicket.callback.AbstractCommandCallback;
 import gr.interamerican.wicket.callback.CallbackAction;
 
-import java.io.Serializable;
-
-import org.apache.wicket.request.cycle.RequestCycle;
-
 /**
  * {@link Bo2WicketBlock} provides an abstract method that can
  * be used to run Bo2 operations.
+ * 
+ * @deprecated Implement the proper parent interface instead
  */
+@Deprecated
 public abstract class Bo2WicketBlock 
 extends AbstractCommandCallback
-implements Serializable, CallbackAction {
+implements SerializableRunnable, CallbackAction {
 	
 	/**
 	 * Creates a new Bo2WicketBlock object. 
@@ -49,13 +51,19 @@ implements Serializable, CallbackAction {
 	 * 
 	 * Main work of the operation.
 	 *  
-	 * @throws InitializationException
-	 * @throws DataException
-	 * @throws LogicException
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	public abstract void work() 
 	throws InitializationException, DataException, LogicException;
 
+	@Override
+	public void run() {
+		execute();
+	}
+	
 	/**
 	 * Execution body.
 	 */
@@ -83,6 +91,5 @@ implements Serializable, CallbackAction {
 	protected Provider getProvider() {
 		Bo2WicketRequestCycle requestCycle = Bo2WicketRequestCycle.get();
 		return requestCycle.getProvider();
-	}
-		
+	}		
 }

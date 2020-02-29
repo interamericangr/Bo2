@@ -23,6 +23,7 @@ import org.junit.runners.Suite.SuiteClasses;
  * Test suite for package <code>gr.interamerican.wicket.utils</code>.
  * 
  */
+@SuppressWarnings("deprecation")
 @RunWith(Suite.class)
 @SuiteClasses(
 	{

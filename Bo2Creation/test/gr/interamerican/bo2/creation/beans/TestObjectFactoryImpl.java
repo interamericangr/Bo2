@@ -12,12 +12,18 @@
  ******************************************************************************/
 package gr.interamerican.bo2.creation.beans;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 import gr.interamerican.bo2.creation.ClassCreator;
 import gr.interamerican.bo2.creation.ObjectFactory;
 import gr.interamerican.bo2.creation.creators.DefaultFixtureResolver;
 import gr.interamerican.bo2.creation.creators.ImplementorForInterfaces;
 import gr.interamerican.bo2.creation.exception.ClassCreationException;
 import gr.interamerican.bo2.creation.resolvers.PredefinedSuffixNameResolver;
+import gr.interamerican.bo2.samples.abstractimpl.AbstractSmartCalcImpl;
 import gr.interamerican.bo2.samples.creators.MockClassCreator;
 import gr.interamerican.bo2.samples.empty.Empty1;
 import gr.interamerican.bo2.samples.empty.IEmpty1Impl1;
@@ -36,6 +42,7 @@ import gr.interamerican.bo2.samples.iempty.IEmpty1;
 import gr.interamerican.bo2.samples.iempty.IEmpty2;
 import gr.interamerican.bo2.samples.iempty.IEmpty3;
 import gr.interamerican.bo2.samples.iempty.IEmpty4;
+import gr.interamerican.bo2.samples.interfaces.SmartCalc;
 import gr.interamerican.bo2.samples.pib.SamplePib;
 import gr.interamerican.bo2.samples.resolvers.MockNameResolver;
 import gr.interamerican.bo2.utils.Assertions;
@@ -45,7 +52,6 @@ import gr.interamerican.bo2.utils.StringConstants;
 
 import java.util.Properties;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -147,7 +153,7 @@ public class TestObjectFactoryImpl {
 	 */
 	private void testGetImplementationType(Class<?> declarationType, Class<?> implementationType) {
 		Class<?> impl = factory.getImplementationType(declarationType);
-		Assert.assertEquals(implementationType, impl);
+		assertEquals(implementationType, impl);
 	}
 
 	/**
@@ -158,7 +164,7 @@ public class TestObjectFactoryImpl {
 	 */
 	private void testGetDeclarationType(Class<?> declarationType, Class<?> implementationType) {
 		Class<?> decl = factory.getDeclarationType(implementationType);
-		Assert.assertEquals(declarationType, decl);
+		assertEquals(declarationType, decl);
 	}
 
 	/**
@@ -169,7 +175,7 @@ public class TestObjectFactoryImpl {
 	 */
 	private void testGetImplementationTypeStr(Class<?> declarationType, Class<?> implementationType) {
 		Class<?> impl = factory.getImplementationType(declarationType.getName());
-		Assert.assertEquals(implementationType, impl);
+		assertEquals(implementationType, impl);
 	}
 
 	/**
@@ -183,28 +189,28 @@ public class TestObjectFactoryImpl {
 
 
 	/**
-	 * Tests the constructor that takes three
+	 * Tests the constructor that takes three.
 	 */
 	@Test
 	public void testConstructor_withAssistant() {
 		ObjectFactoryAssistant assistant = new ObjectFactoryAssistant(mock);
 		ObjectFactoryImpl of = new ObjectFactoryImpl(assistant);
-		Assert.assertEquals(assistant, of.assistant);
-		Assert.assertNull(of.properties);
+		assertEquals(assistant, of.assistant);
+		assertNull(of.properties);
 	}
 
 	/**
-	 * Tests the constructor that takes a properties object
+	 * Tests the constructor that takes a properties object.
 	 */
 	@Test
 	public void testConstructor_withPropertiesAndHasPropertiesFalse() {
 		ObjectFactoryImpl of = new ObjectFactoryImpl(mock);
-		Assert.assertNotNull(of.assistant);
-		Assert.assertNull(of.properties);
+		assertNotNull(of.assistant);
+		assertNull(of.properties);
 	}
 
 	/**
-	 * Tests the constructor that takes a properties object
+	 * Tests the constructor that takes a properties object.
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -214,12 +220,12 @@ public class TestObjectFactoryImpl {
 		p.setProperty("hasProperties", "true");
 		p.setProperty("amount", "1000");
 		ObjectFactoryImpl of = new ObjectFactoryImpl(p);
-		Assert.assertNotNull(of.assistant);
-		Assert.assertNotNull(of.properties);
+		assertNotNull(of.assistant);
+		assertNotNull(of.properties);
 	}
 
 	/**
-	 * Tests the constructor that takes a properties object
+	 * Tests the constructor that takes a properties object.
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -228,25 +234,24 @@ public class TestObjectFactoryImpl {
 		p.putAll(mock);
 		p.setProperty("mappingsFilePath", EMPTY);
 		ObjectFactoryImpl of = new ObjectFactoryImpl(p);
-		Assert.assertNotNull(of.assistant);
-		Assert.assertNull(of.properties);
-		Assert.assertEquals(0, of.decl2ImplNames.size());
-		Assert.assertEquals(0, of.decl2ImplTypes.size());
-		Assert.assertEquals(0, of.replacements.size());
+		assertNotNull(of.assistant);
+		assertNull(of.properties);
+		assertEquals(0, of.decl2ImplTypes.size());
+		assertEquals(0, of.replacements.size());
 	}
 
 	/**
-	 * Tests the constructor that takes a properties object
+	 * Tests the constructor that takes a properties object.
 	 */
 	@Test
 	public void testConstructor_withPropertiesAndFullMappings() {
 		ObjectFactoryImpl of = new ObjectFactoryImpl(with);
-		Assert.assertNotNull(of.assistant);
-		Assert.assertNotNull(of.properties);
-		Assert.assertEquals(3, of.decl2ImplNames.size());
-		Assert.assertEquals(0, of.decl2ImplTypes.size());
-		Assert.assertEquals(1, of.replacements.size());
-		Assert.assertTrue(of.assistant.getFixtureResolver() instanceof DefaultFixtureResolver);
+		assertNotNull(of.assistant);
+		assertNotNull(of.properties);
+		assertEquals(4, of.decl2ImplNames.size());
+		assertEquals(0, of.decl2ImplTypes.size());
+		assertEquals(1, of.replacements.size());
+		assertTrue(of.assistant.getFixtureResolver() instanceof DefaultFixtureResolver);
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////
@@ -307,11 +312,11 @@ public class TestObjectFactoryImpl {
 	@Test
 	public void testGetImplementationType_argClass_resolvedAbstractImplementation() {
 		Class<?> impl = factory.getImplementationType(Type2.class);
-		Assert.assertTrue(ReflectionUtils.isConcreteClass(impl));
-		Assert.assertTrue(Type2Impl.class.isAssignableFrom(impl));
+		assertTrue(ReflectionUtils.isConcreteClass(impl));
+		assertTrue(Type2Impl.class.isAssignableFrom(impl));
 
 		Class<?> impl2 = factory.getImplementationType(Type2.class);
-		Assert.assertSame(impl, impl2);
+		assertSame(impl, impl2);
 
 	}
 
@@ -322,11 +327,11 @@ public class TestObjectFactoryImpl {
 	@Test
 	public void testGetImplementationType_argClass_factoredImplementation() {
 		Class<?> impl = factory.getImplementationType(Type3.class);
-		Assert.assertTrue(ReflectionUtils.isConcreteClass(impl));
-		Assert.assertTrue(Type3.class.isAssignableFrom(impl));
+		assertTrue(ReflectionUtils.isConcreteClass(impl));
+		assertTrue(Type3.class.isAssignableFrom(impl));
 
 		Class<?> impl2 = factory.getImplementationType(Type3.class);
-		Assert.assertSame(impl, impl2);
+		assertSame(impl, impl2);
 	}
 
 
@@ -388,14 +393,14 @@ public class TestObjectFactoryImpl {
 	@Test
 	public void testGetImplementationType_argStr_resolvedAbstractImplementation() {
 		Class<?> impl = factory.getImplementationType(Type2.class.getName());
-		Assert.assertTrue(ReflectionUtils.isConcreteClass(impl));
-		Assert.assertTrue(Type2Impl.class.isAssignableFrom(impl));
+		assertTrue(ReflectionUtils.isConcreteClass(impl));
+		assertTrue(Type2Impl.class.isAssignableFrom(impl));
 
 		Class<?> impl2 = factory.getImplementationType(Type2.class.getName());
-		Assert.assertSame(impl, impl2);
+		assertSame(impl, impl2);
 
 		Class<?> impl3 = factory.getImplementationType(Type2.class);
-		Assert.assertSame(impl, impl3);
+		assertSame(impl, impl3);
 
 	}
 
@@ -406,14 +411,14 @@ public class TestObjectFactoryImpl {
 	@Test
 	public void testGetImplementationType_argStr_factoredImplementation() {
 		Class<?> impl = factory.getImplementationType(Type3.class.getName());
-		Assert.assertTrue(ReflectionUtils.isConcreteClass(impl));
-		Assert.assertTrue(Type3.class.isAssignableFrom(impl));
+		assertTrue(ReflectionUtils.isConcreteClass(impl));
+		assertTrue(Type3.class.isAssignableFrom(impl));
 
 		Class<?> impl2 = factory.getImplementationType(Type3.class.getName());
-		Assert.assertSame(impl, impl2);
+		assertSame(impl, impl2);
 
 		Class<?> impl3 = factory.getImplementationType(Type3.class);
-		Assert.assertSame(impl, impl3);
+		assertSame(impl, impl3);
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////
@@ -497,7 +502,7 @@ public class TestObjectFactoryImpl {
 	public void testAssociate() {
 		factory.associate(Type1.class, Type1Impl2.class);
 		Class<?> impl = factory.getImplementationType(Type1.class);
-		Assert.assertEquals(Type1Impl2.class, impl);
+		assertEquals(Type1Impl2.class, impl);
 	}
 
 	/**
@@ -518,7 +523,7 @@ public class TestObjectFactoryImpl {
 	public void testGetDeclarationTypeName() {
 		Class<?> decl = factory.getDeclarationType(Type1Impl.class);
 		String name = factory.getDeclarationTypeName(Type1Impl.class);
-		Assert.assertEquals(decl.getName(), name);
+		assertEquals(decl.getName(), name);
 	}
 
 	////////////////////////////////////////////////////////////////////////////////////////////
@@ -562,7 +567,7 @@ public class TestObjectFactoryImpl {
 	@SuppressWarnings("nls")
 	public void testLoadClassThatMustExist() {
 		Class<?> type = factory.loadClassThatMustExist("java.lang.String");
-		Assert.assertEquals(String.class, type);
+		assertEquals(String.class, type);
 	}
 
 	/**
@@ -587,7 +592,8 @@ public class TestObjectFactoryImpl {
 
 	/**
 	 * Tests registerImplementationAsDeclaration.
-	 * @throws ClassCreationException
+	 *
+	 * @throws ClassCreationException the class creation exception
 	 */
 	@Test()
 	@SuppressWarnings("nls")
@@ -602,9 +608,9 @@ public class TestObjectFactoryImpl {
 		factory.registerImplementationAsDeclaration(clazz);
 
 		Class<?> impl = factory.getImplementationType(clazz);
-		Assert.assertEquals(clazz, impl);
+		assertEquals(clazz, impl);
 		Class<?> decl = factory.getDeclarationType(clazz);
-		Assert.assertEquals(clazz, decl);
+		assertEquals(clazz, decl);
 
 	}
 
@@ -616,7 +622,7 @@ public class TestObjectFactoryImpl {
 	@Test()
 	public void testCreate_argClass() {
 		IBeanWith2Strings bean = factory.create(IBeanWith2Strings.class);
-		Assert.assertNotNull(bean);
+		assertNotNull(bean);
 	}
 
 	/**
@@ -626,7 +632,16 @@ public class TestObjectFactoryImpl {
 	public void testCreate_argString() {
 		IBeanWith2Strings bean = (IBeanWith2Strings)
 				factory.create(IBeanWith2Strings.class.getName());
-		Assert.assertNotNull(bean);
+		assertNotNull(bean);
+	}
+	/**
+	 * Tests create with 3 sequential calls
+	 */
+//	@Test()
+	public void testCreate_Sequential() {
+		factory.create(SmartCalc.class);
+		factory.create(AbstractSmartCalcImpl.class);
+		factory.create(SmartCalc.class);
 	}
 
 	////////////////////////////////////////////////
@@ -647,9 +662,9 @@ public class TestObjectFactoryImpl {
 	public void testCreateInstance_withAndProperties() {
 		ObjectFactoryImpl impl = new ObjectFactoryImpl(with);
 		SamplePib bean = impl.createInstance(SamplePib.class);
-		Assert.assertNotNull(bean);
+		assertNotNull(bean);
 		String sample = impl.properties.getProperty("sample"); //$NON-NLS-1$
-		Assert.assertEquals(sample, bean.getSample());
+		assertEquals(sample, bean.getSample());
 	}
 
 	/**
@@ -659,7 +674,7 @@ public class TestObjectFactoryImpl {
 	public void testCreateInstance_withAndNoProperties() {
 		ObjectFactoryImpl impl = new ObjectFactoryImpl(with);
 		Empty1 obj = impl.createInstance(Empty1.class);
-		Assert.assertNotNull(obj);
+		assertNotNull(obj);
 	}
 
 	/**
@@ -669,7 +684,7 @@ public class TestObjectFactoryImpl {
 	public void testCreateInstance_withoutAndNoProperties() {
 		ObjectFactoryImpl impl = new ObjectFactoryImpl(without);
 		Empty1 obj = impl.createInstance(Empty1.class);
-		Assert.assertNotNull(obj);
+		assertNotNull(obj);
 	}
 
 	/**
@@ -682,37 +697,37 @@ public class TestObjectFactoryImpl {
 	}
 
 	/**
-	 * test registerFixture
+	 * test registerFixture.
 	 */
 	@Test
 	public void testRegisterFixture() {
 		factory.registerFixture(String.class, StringConstants.EMPTY);
-		Assert.assertEquals(StringConstants.EMPTY, factory.create(String.class));
-		Assert.assertEquals(StringConstants.EMPTY, factory.assistant.getFixtureResolver().resolveFixture(String.class));
-		Assert.assertTrue(factory.create(String.class) == factory.assistant.getFixtureResolver().resolveFixture(String.class));
+		assertEquals(StringConstants.EMPTY, factory.create(String.class));
+		assertEquals(StringConstants.EMPTY, factory.assistant.getFixtureResolver().resolveFixture(String.class));
+		assertTrue(factory.create(String.class) == factory.assistant.getFixtureResolver().resolveFixture(String.class));
 		
 		factory.resetFixtures();
 	}
 
 	/**
-	 * test resetFixtures
+	 * test resetFixtures.
 	 */
 	@Test
 	public void testResetFixtures() {
 		ObjectFactoryAssistant fixture = Mockito.mock(ObjectFactoryAssistant.class);
 		factory.registerFixture(ObjectFactoryAssistant.class, fixture);
-		Assert.assertEquals(fixture, factory.assistant.getFixtureResolver().resolveFixture(ObjectFactoryAssistant.class));
+		assertEquals(fixture, factory.assistant.getFixtureResolver().resolveFixture(ObjectFactoryAssistant.class));
 
 		JavabeanDefinition fixture2 = Mockito.mock(JavabeanDefinition.class);
 		ObjectFactory fixtureFactory = Mockito.mock(ObjectFactory.class);
 		Mockito.when(fixtureFactory.create(JavabeanDefinition.class)).thenReturn(fixture2);
 		factory.registerFixture(JavabeanDefinition.class, fixtureFactory);
 		
-		Assert.assertEquals(fixture2, factory.assistant.getFixtureResolver().resolveFixture(JavabeanDefinition.class));
+		assertEquals(fixture2, factory.assistant.getFixtureResolver().resolveFixture(JavabeanDefinition.class));
 		
 		factory.resetFixtures();
-		Assert.assertNull(factory.assistant.getFixtureResolver().resolveFixture(ObjectFactoryAssistant.class));
-		Assert.assertNull(factory.assistant.getFixtureResolver().resolveFixture(JavabeanDefinition.class));
+		assertNull(factory.assistant.getFixtureResolver().resolveFixture(ObjectFactoryAssistant.class));
+		assertNull(factory.assistant.getFixtureResolver().resolveFixture(JavabeanDefinition.class));
 	}
 
 }

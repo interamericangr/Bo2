@@ -22,14 +22,13 @@ import org.junit.Test;
  */
 public class BaseTestForAbstractBasePo {
 	
-	/**
-	 * SamplesFactory
-	 */
+	/** SamplesFactory. */
 	SamplesFactory samplesFactory;
 	
 	/**
 	 * Creates a new TestAbstractBasePo object. 
-	 * @param samplesFactory 
+	 *
+	 * @param samplesFactory the samples factory
 	 */
 	public BaseTestForAbstractBasePo(SamplesFactory samplesFactory) {
 		super();

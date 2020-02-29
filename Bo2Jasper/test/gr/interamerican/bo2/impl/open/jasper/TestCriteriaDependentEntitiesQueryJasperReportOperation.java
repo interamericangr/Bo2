@@ -22,17 +22,18 @@ import gr.interamerican.bo2.samples.jasper.SampleCriteriaDependentEntitiesQueryJ
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestCriteriaDependentEntitiesQueryJasperReportOperation.
  */
 public class TestCriteriaDependentEntitiesQueryJasperReportOperation {
 	
 	
 	
 	/**
-	 * test execute
-	 * @throws LogicException
-	 * @throws DataException
-	 * @throws UnexpectedException 
+	 * test execute.
+	 *
+	 * @throws LogicException the logic exception
+	 * @throws DataException the data exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test
 	public void testExecute() 

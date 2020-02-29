@@ -18,20 +18,21 @@ import gr.interamerican.bo2.utils.meta.BusinessObjectValidationExpression;
 import gr.interamerican.wicket.bo2.protocol.http.Bo2WicketSession;
 
 /**
- * Implementation of {@link BusinessObjectValidationExpression} that
- * provides translatable messages.
+ * Implementation of {@link BusinessObjectValidationExpression} that provides
+ * translatable messages.
  * 
  * @param <R>
- *        Type of translation resource id.
+ *            Type of translation resource id.
  * @param <L>
- *        Type of language id.
+ *            Type of language id.
+ * @deprecated To be removed - create your own implementation of the
+ *             {@link BusinessObjectValidationExpression} interface
  */
+@Deprecated
 public class TranslatableBusinessObjectValidationExpression<R, L> 
 implements BusinessObjectValidationExpression {
 	
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
 	/**
@@ -49,9 +50,10 @@ implements BusinessObjectValidationExpression {
 	
 	/**
 	 * Creates a new TranslatableBusinessObjectEvaluationExpression object. 
-	 * @param expression 
-	 * @param resourceId 
-	 * @param translatorName 
+	 *
+	 * @param expression the expression
+	 * @param resourceId the resource id
+	 * @param translatorName the translator name
 	 */
 	public TranslatableBusinessObjectValidationExpression(
 			BusinessObjectValidationExpression expression,
@@ -61,11 +63,13 @@ implements BusinessObjectValidationExpression {
 		this.resourceId = resourceId;
 		this.translatorName = translatorName;
 	}
-	
+
+	@Override
 	public String getExpression() {
 		return expression.getExpression();
 	}
-	
+
+	@Override
 	public String getMessage() {
 		/*
 		 * The unchecked conversion assumes that the Translator 
@@ -77,20 +81,4 @@ implements BusinessObjectValidationExpression {
 		message = Utils.notNull(message, expression.getMessage());
 		return message;
 	}
-	
-	public void setExpression(String expression) {
-		notAllowed();
-	}
-	
-	public void setMessage(String message) {
-		notAllowed();
-	}
-	
-	/**
-	 * Not allowed.
-	 */
-	private void notAllowed() {
-		throw new UnsupportedOperationException("Not allowed"); //$NON-NLS-1$
-	}
-
 }

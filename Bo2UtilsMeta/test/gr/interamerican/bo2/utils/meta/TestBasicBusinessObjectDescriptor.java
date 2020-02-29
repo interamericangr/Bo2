@@ -29,28 +29,24 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * BasicBusinessObjectDescriptorTest
+ * BasicBusinessObjectDescriptorTest.
  */
 public class TestBasicBusinessObjectDescriptor {
 	
 	
-	/**
-	 * BasicBusinessObjectDescriptor
-	 */
+	/** BasicBusinessObjectDescriptor. */
 	BasicBusinessObjectDescriptor<Bean1> busDesc = new  BasicBusinessObjectDescriptor<Bean1>();
-	/**
-	 * Bean1
-	 */
+	
+	/** Bean1. */
 	Bean1 bean = getMyFullBean();
-	/**
-	 * Lista me BoPropertyDescriptors
-	 */
+	
+	/** Lista me BoPropertyDescriptors. */
 	Bean1descriptor descriptor =  new Bean1descriptor();
 	
 	/**
-	 * Create a Bean
+	 * Create a Bean.
+	 *
 	 * @return bean1
-	 * 
 	 */
 	private Bean1 getMyFullBean() {
 		Bean1 bean1 = new Bean1();
@@ -60,7 +56,7 @@ public class TestBasicBusinessObjectDescriptor {
 	}
     
 	/**
-	 * Test Get
+	 * Test Get.
 	 */
 	@Test 
 	public void testGet(){
@@ -71,8 +67,9 @@ public class TestBasicBusinessObjectDescriptor {
 	
 	
 	/**
-	 * Test Set
-	 * @throws MultipleValidationsException
+	 * Test Set.
+	 *
+	 * @throws MultipleValidationsException the multiple validations exception
 	 */
 	@Test
 	public void testSet() throws MultipleValidationsException{
@@ -88,8 +85,9 @@ public class TestBasicBusinessObjectDescriptor {
 	
 	
 	/**
-	 * Test Validate
-	 * @throws MultipleValidationsException 
+	 * Test Validate.
+	 *
+	 * @throws MultipleValidationsException the multiple validations exception
 	 */
 	@Test 
 	public void testValidate() throws MultipleValidationsException{
@@ -103,8 +101,9 @@ public class TestBasicBusinessObjectDescriptor {
 	}
 	
 	/**
-	 * Test Validate
-	 * @throws MultipleValidationsException 
+	 * Test Validate.
+	 *
+	 * @throws MultipleValidationsException the multiple validations exception
 	 */
 	@Test (expected=MultipleValidationsException.class )
 	public void testValidateDescriptor() throws MultipleValidationsException{
@@ -113,7 +112,7 @@ public class TestBasicBusinessObjectDescriptor {
 	}
 	
 	/**
-	 * Test getLabel
+	 * Test getLabel.
 	 */
 	@Test 
 	public void testGetLabel(){
@@ -125,7 +124,7 @@ public class TestBasicBusinessObjectDescriptor {
 	}
 	
 	/**
-	 * Test getDescriptorWithName
+	 * Test getDescriptorWithName.
 	 */
 	@Test 
 	@SuppressWarnings("nls")
@@ -138,7 +137,7 @@ public class TestBasicBusinessObjectDescriptor {
 	}
 	
 	/**
-	 * Test getDescriptorWithName
+	 * Test getDescriptorWithName.
 	 */
 	@Test 
 	@SuppressWarnings("nls")

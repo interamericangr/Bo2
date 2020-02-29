@@ -38,13 +38,11 @@ public class PsMetadataUtils {
 
 	/**
 	 * Gets the columns of a prepared query statement.
-	 * 
-	 * @param ps
-	 *        Prepared statement.
+	 *
+	 * @param ps        Prepared statement.
 	 *        
 	 * @return Returns the columns.
-	 * 
-	 * @throws SQLException 
+	 * @throws SQLException the SQL exception
 	 */
 	public static Column[] getColumns(PreparedStatement ps) throws SQLException {
 		ResultSetMetaData rsMeta = ps.getMetaData();
@@ -88,13 +86,11 @@ public class PsMetadataUtils {
 	
 	/**
 	 * Gets the parameters of a prepared statement.
-	 * 
-	 * @param ps
-	 *        Prepared statement.
+	 *
+	 * @param ps        Prepared statement.
 	 *        
 	 * @return Returns the parameters of the statement.
-	 * 
-	 * @throws SQLException
+	 * @throws SQLException the SQL exception
 	 */
 	public static Parameter[] getParameters(PreparedStatement ps) throws SQLException {
 		ParameterMetaData parmMeta = ps.getParameterMetaData();

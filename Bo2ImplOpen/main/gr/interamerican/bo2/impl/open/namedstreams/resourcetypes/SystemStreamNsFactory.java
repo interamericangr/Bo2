@@ -11,12 +11,12 @@ import java.io.PrintStream;
 import java.nio.charset.Charset;
 
 /**
- * {@link NamedStreamFactory} for system streams. <br/>
+ * {@link NamedStreamFactory} for system streams. <br>
  * 
  * The <code>create(NamedStreamDefinition def)</code> method can create only
- * NamedPrintStreams for System.out and System.err. <br/>
- * The <code>convert(NamedStream<?> ns, StreamType type, String name)</code>
- * method will always throw an exception. <br/>  
+ * NamedPrintStreams for System.out and System.err. <br>
+ * The <code>convert(NamedStream&lt;?&gt; ns, StreamType type, String name)</code>
+ * method will always throw an exception. <br>  
  *  
  */
 public class SystemStreamNsFactory 
@@ -39,15 +39,12 @@ implements NamedStreamFactory {
 	
 	/**
 	 * Creates a new NamedPrintStream that prints on an OutputStream.
-	 * 
-	 * @param out
-	 * @param name
-	 * @param charset
-	 * @param uri
-	 * 
+	 *
+	 * @param name the name
+	 * @param charset the charset
+	 * @param uri the uri
 	 * @return Returns the NamedPrintStream.
-	 * 
-	 * @throws CouldNotCreateNamedStreamException 
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */
 	@SuppressWarnings("nls")
 	NamedPrintStream systemStream(String name, Charset charset, String uri) throws CouldNotCreateNamedStreamException {

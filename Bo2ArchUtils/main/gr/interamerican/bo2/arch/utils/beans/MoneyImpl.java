@@ -44,7 +44,7 @@ public class MoneyImpl implements Money {
 	private Currency currency=Currency.getInstance("EUR"); //$NON-NLS-1$
 	
 	/**
-	 * Creates a new MoneyImpl object. 
+	 * Public Default Constructor. 
 	 */
 	public MoneyImpl() {
 		/* empty */
@@ -53,18 +53,17 @@ public class MoneyImpl implements Money {
 	/**
 	 * Creates a new MoneyImpl object. 
 	 *
-	 * @param amount	
+	 * @param amount the amount
 	 */
 	public MoneyImpl(BigDecimal amount) {
-		super();
 		setAmount(amount);		
 	}	
 	
 	/**
 	 * Creates a new MoneyImpl object. 
 	 *
-	 * @param amount
-	 * @param currency
+	 * @param amount the amount
+	 * @param currency the currency
 	 */
 	public MoneyImpl(BigDecimal amount, Currency currency) {
 		super();		
@@ -86,10 +85,12 @@ public class MoneyImpl implements Money {
 		return value.setScale(decimalDigits, RoundingMode.HALF_EVEN);
 	}
 
+	@Override
 	public String getCurrencyCode() {
 		return currency.getCurrencyCode();
 	}
-	
+
+	@Override
 	public void setCurrencyCode(String currencyCode) {
 		if(!StringUtils.isNullOrBlank(currencyCode)) {
 			currency = Currency.getInstance(currencyCode);
@@ -97,20 +98,22 @@ public class MoneyImpl implements Money {
 			currency = Currency.getInstance("EUR"); //$NON-NLS-1$
 		}
 	}
-	
+
+	@Override
 	public BigDecimal getAmount() {
 		return amount;
 	}
 
+	@Override
 	public void setAmount(BigDecimal amount) {	
 		this.amount = round(Utils.notNull(amount, BigDecimal.ZERO));
 	}
-	
+
 	@Override
 	public String toString() {		
 		return amount.toPlainString();
 	}	
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj==this) {
@@ -123,17 +126,17 @@ public class MoneyImpl implements Money {
 			Money two = (Money) obj;
 			return Utils.equals(this.getCurrencyCode(), two.getCurrencyCode()) 
 			   &&  Utils.equals(this.getAmount(), two.getAmount());
-		} else {
-			return false;
-		}		
+		}
+		return false;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		Object[] fields = {amount, currency};		
 		return Utils.generateHashCode(fields);
 	}
 
+	@Override
 	public int compareTo(Money o) {
 		if(o==null || o.getAmount()==null || o.getCurrencyCode()==null) {
 			return 1;
@@ -143,5 +146,4 @@ public class MoneyImpl implements Money {
 		}
 		return Utils.nullSafeCompare(this.getAmount(), o.getAmount());
 	}
-	
 }

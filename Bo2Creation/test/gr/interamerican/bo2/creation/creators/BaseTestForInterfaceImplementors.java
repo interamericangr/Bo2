@@ -42,7 +42,7 @@ public class BaseTestForInterfaceImplementors {
 	/**
 	 * Creates a new BaseTestForInterfaceImplementors object. 
 	 *
-	 * @param creator
+	 * @param creator the creator
 	 */
 	public BaseTestForInterfaceImplementors(ImplementorForInterfaces creator) {
 		super();
@@ -51,9 +51,10 @@ public class BaseTestForInterfaceImplementors {
 
 	/**
 	 * Unit test for create.
-	 * @throws ClassCreationException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
 	public void testCreate() 
@@ -72,8 +73,8 @@ public class BaseTestForInterfaceImplementors {
 	
 	/**
 	 * Unit test for create.
-	 * 
-	 * @throws ClassCreationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
 	 */
 	@Test
 	public void testCreate_withInterfacethatIsNotSerializable() 
@@ -84,9 +85,10 @@ public class BaseTestForInterfaceImplementors {
 	
 	/**
 	 * Unit test for create.
-	 * @throws ClassCreationException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
 	public void testCreate_withAllTypesOfPropertyNames() 
@@ -111,8 +113,8 @@ public class BaseTestForInterfaceImplementors {
 	
 	/**
 	 * Unit test for create.
-	 * 
-	 * @throws ClassCreationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
 	 */
 	@Test(expected=ClassCreationException.class)
 	public void testCreate_withOddProperties() 
@@ -122,7 +124,8 @@ public class BaseTestForInterfaceImplementors {
 	
 	/**
 	 * Unit test for create.
-	 * @throws ClassCreationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
 	 */
 	@Test(expected=ClassCreationException.class)
 	public void testCreate_withMethods() 
@@ -132,7 +135,8 @@ public class BaseTestForInterfaceImplementors {
 	
 	/**
 	 * Unit test for create.
-	 * @throws ClassCreationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
 	 */
 	@Test(expected=ClassCreationException.class)
 	public void testCreate_withInvalidType() 
@@ -142,12 +146,12 @@ public class BaseTestForInterfaceImplementors {
 	
 	/**
 	 * Unit test for create for covariant odd properties
-	 *
-	 * TODO: this is not yet supported correctly.
 	 * 
-	 * @throws ClassCreationException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
+	 * TODO: this is not yet supported correctly.
+	 *
+	 * @throws ClassCreationException the class creation exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	//@Test
 	public void testCreate_withOddProperties_covariantGetter()

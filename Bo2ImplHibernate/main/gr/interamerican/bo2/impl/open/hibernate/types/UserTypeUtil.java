@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Utility class for Bo2 custom hibernate types
+ * Utility class for Bo2 custom hibernate types.
  */
 public class UserTypeUtil {
 	
@@ -61,7 +61,7 @@ public class UserTypeUtil {
 	}
 	
 	/**
-	 * hidden constructor 
+	 * hidden constructor.
 	 */
 	private UserTypeUtil() {/*empty */}
 

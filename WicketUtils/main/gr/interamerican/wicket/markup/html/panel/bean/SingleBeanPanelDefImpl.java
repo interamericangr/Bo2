@@ -12,24 +12,24 @@
  ******************************************************************************/
 package gr.interamerican.wicket.markup.html.panel.bean;
 
-import gr.interamerican.bo2.utils.adapters.Flag;
-import gr.interamerican.wicket.callback.CallbackAction;
-import gr.interamerican.wicket.condition.AjaxEnabledCondition;
-import gr.interamerican.wicket.creators.PanelCreator;
-import gr.interamerican.wicket.creators.PanelCreatorMode;
-import gr.interamerican.wicket.markup.html.panel.back.ServicePanelWithBackDefImpl;
-
 import java.io.Serializable;
 
 import org.apache.wicket.model.IModel;
 
+import gr.interamerican.bo2.utils.adapters.Flag;
+import gr.interamerican.bo2.utils.functions.SerializableSupplier;
+import gr.interamerican.wicket.callback.PickAction;
+import gr.interamerican.wicket.condition.AjaxCondition;
+import gr.interamerican.wicket.creators.PanelCreator;
+import gr.interamerican.wicket.creators.PanelCreatorMode;
+import gr.interamerican.wicket.markup.html.panel.back.ServicePanelWithBackDefImpl;
+
 /**
  * Implementation of {@link SingleBeanPanelDef}.
- * 
- * @param <B> 
+ *
+ * @param <B> the generic type
  */
-public class SingleBeanPanelDefImpl
-<B extends Serializable> 
+public class SingleBeanPanelDefImpl <B extends Serializable> 
 extends ServicePanelWithBackDefImpl
 implements SingleBeanPanelDef<B> {
 
@@ -38,10 +38,8 @@ implements SingleBeanPanelDef<B> {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * {@link CallbackAction} for query execution
-	 */
-	private CallbackAction beanAction;
+	/** {@link PickAction} for query execution. */
+	private PickAction<B> beanAction;
 	
 	/**
 	 * beanAction authorization flag.
@@ -58,9 +56,7 @@ implements SingleBeanPanelDef<B> {
 	 */
 	private IModel<B> model;
 	
-	/**
-	 * 
-	 */
+	/** The bean fields panel mode. */
 	private PanelCreatorMode beanFieldsPanelMode;
 	
 	/**
@@ -76,7 +72,7 @@ implements SingleBeanPanelDef<B> {
 	/**
 	 * Form validator.
 	 */
-	private AjaxEnabledCondition<B> formValidator;
+	private AjaxCondition<B> formValidator;
 	
 	/**
 	 * Controls whether the single bean panel form contains
@@ -93,93 +89,129 @@ implements SingleBeanPanelDef<B> {
 	 * Legend of the panel fieldset.
 	 */
 	private IModel<String> panelLabelModel;
-	
-	public CallbackAction getBeanAction() {
+
+	/**
+	 * A {@link SerializableSupplier} that creates new instances of the bean
+	 */
+	private SerializableSupplier<B> beanCreator;
+
+	@Override
+	public PickAction<B> getBeanAction() {
 		return this.beanAction;
 	}
 
-	public void setBeanAction(CallbackAction beanAction) {
+	@Override
+	public void setBeanAction(PickAction<B> beanAction) {
 		this.beanAction = beanAction;
 	}
 
+	@Override
 	public PanelCreator<B> getBeanFieldsPanelCreator() {
 		return beanFieldsPanelCreator;
 	}
 
+	@Override
 	public void setBeanFieldsPanelCreator(PanelCreator<B> panelCreator) {
 		this.beanFieldsPanelCreator = panelCreator;
 	}
 
+	@Override
 	public IModel<B> getBeanModel() {
 		return model;
 	}
 
+	@Override
 	public void setBeanModel(IModel<B> model) {
 		this.model = model;
 	}
 
+	@Override
 	public void setExecuteLabelModel(IModel<String> label) {
 		this.executeLabelModel = label;
 	}
 
+	@Override
 	public IModel<String> getExecuteLabelModel() {
 		return executeLabelModel;
 	}
 
-	public void setFormValidator(AjaxEnabledCondition<B> validator) {
+	@Override
+	public void setFormValidator(AjaxCondition<B> validator) {
 		this.formValidator = validator;
 	}
 
-	public AjaxEnabledCondition<B> getFormValidator() {
+	@Override
+	public AjaxCondition<B> getFormValidator() {
 		return formValidator;
 	}
-	
+
+	@Override
 	public PanelCreatorMode getBeanFieldsPanelMode(){
 		return beanFieldsPanelMode;
 	}
-	
+
+	@Override
 	public void setBeanFieldsPanelMode(PanelCreatorMode mode) {
 		this.beanFieldsPanelMode = mode;
 	}
 
+	@Override
 	public IModel<String> getClearLabelModel() {
 		return clearLabelModel;
 	}
 
+	@Override
 	public void setClearLabelModel(IModel<String> label) {
 		this.clearLabelModel = label;
 	}
 
+	@Override
 	public void setShowClearButton(Boolean showClearButton) {
 		this.showClearButton = showClearButton;
 	}
 
+	@Override
 	public Boolean getShowClearButton() {
 		return showClearButton;
 	}
-	
+
+	@Override
 	public Boolean getSingleBeanFormContainsFileUpload() {
 		return singleBeanFormContainsFileUpload;
 	}
 
+	@Override
 	public void setSingleBeanFormContainsFileUpload(Boolean singleBeanFormContainsFileUpload) {
 		this.singleBeanFormContainsFileUpload = singleBeanFormContainsFileUpload;
 	}
 
+	@Override
 	public Flag getBeanActionFlag() {
 		return beanActionFlag;
 	}
 
+	@Override
 	public void setBeanActionFlag(Flag beanActionFlag) {
 		this.beanActionFlag = beanActionFlag;
 	}
 
+	@Override
 	public IModel<String> getPanelLabelModel() {
 		return panelLabelModel;
 	}
 
+	@Override
 	public void setPanelLabelModel(IModel<String> panelLabel) {
 		this.panelLabelModel = panelLabel;
 	}
 
+	@Override
+	public void setBeanCreator(SerializableSupplier<B> beanCreator) {
+		this.beanCreator = beanCreator;
+	}
+
+	@Override
+	public SerializableSupplier<B> getBeanCreator() {
+		return beanCreator;
+	}
 }

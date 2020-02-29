@@ -13,6 +13,7 @@
 package gr.interamerican.bo2.impl.open.beans;
 
 import gr.interamerican.bo2.arch.ext.Typed;
+import gr.interamerican.bo2.utils.Utils;
 
 import java.io.Serializable;
 
@@ -48,8 +49,8 @@ public class ConstantType implements Serializable {
 	 * 
 	 * It exists so that this class implements the {@link Typed} 
 	 * interface, but it will not change the typeId.
-	 * 
-	 * @param typeId
+	 *
+	 * @param typeId the new type id
 	 */
 	public void setTypeId(@SuppressWarnings("unused") Long typeId) {
 		/* do nothing */
@@ -61,7 +62,17 @@ public class ConstantType implements Serializable {
 	 * @param typeId The typeId of this object.
 	 */
 	public ConstantType(Long typeId) {
-		super();
 		this.typeId = typeId;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+}
+		if (obj instanceof ConstantType) {
+			return Utils.equals(typeId, ((ConstantType) obj).typeId);
+		}
+		return false;
 	}
 }

@@ -7,13 +7,14 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestMetaUtils.
  */
 public class TestMetaUtils {
 	
 	/**
 	 * Test for insertAt().
-	 * @throws Exception 
+	 *
+	 * @throws Exception the exception
 	 */	
 	@SuppressWarnings("nls")
 	@Test

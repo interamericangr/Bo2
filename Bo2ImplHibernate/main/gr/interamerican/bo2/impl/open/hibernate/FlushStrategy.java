@@ -50,7 +50,7 @@ public enum FlushStrategy {
 	OBJECT{
 		@Override
 		public void flush(Object object, Session session, Set<?> managed, Set<?> excluded) {
-			flush(object, session, new HashSet<Object>(managed));			
+			doFlush(object, session, new HashSet<Object>(managed));			
 		}		
 	},
 	
@@ -71,7 +71,7 @@ public enum FlushStrategy {
 	EXCLUDING{
 		@Override
 		public void flush(Object object, Session session, Set<?> managed, Set<?> excluded) {
-			flush(object, session, new HashSet<Object>(excluded));
+			doFlush(object, session, new HashSet<Object>(excluded));
 		}		
 	};
 	
@@ -91,12 +91,12 @@ public enum FlushStrategy {
 	
 	/**
 	 * Flushes the session, excluding the specified objects.
-	 * 
-	 * @param object
-	 * @param session
-	 * @param excluded
+	 *
+	 * @param object the object
+	 * @param session the session
+	 * @param excluded the excluded
 	 */
-	private static void flush(Object object, Session session, Set<?> excluded) {
+	private static void doFlush(Object object, Session session, Set<?> excluded) {
 		if (excluded.isEmpty()) { 
 			session.flush();
 		} else {

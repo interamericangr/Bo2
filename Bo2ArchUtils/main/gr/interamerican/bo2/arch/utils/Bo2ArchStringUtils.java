@@ -28,29 +28,22 @@ public class Bo2ArchStringUtils {
 	private Bo2ArchStringUtils() {/* empty */}
 	
 	/**
-	 * Creates a string representation of a {@link Codified} and
-	 * {@link Named} object.
+	 * Creates a string representation of a {@link Codified} and {@link Named}
+	 * object.<br>
+	 * The string consists of the code and the name.
 	 * 
-	 * The string consists of thwe code and the name.
-	 * 
-	 * @param <T> Type of Codified and Named object.
-	 * @param t Codified and Named object that will be presented as string.
+	 * @param <T>
+	 *            Type of Codified and Named object.
+	 * @param t
+	 *            Codified and Named object that will be presented as string.
 	 * 
 	 * @return Returns a string representation of the specified object.
 	 */
-	public static <T extends Codified<?> & Named>
-	String formatCodifiedNamed(T t) {
-		if (t==null) {
+	public static <T extends Codified<?> & Named> String formatCodifiedNamed(T t) {
+		if (t == null) {
 			return StringConstants.NULL;
 		}
-		return StringUtils.concat(
-				StringUtils.toString(t.getCode()),
-				StringConstants.SPACE,
-				StringConstants.COMMA,
-				StringConstants.SPACE,
+		return StringUtils.<Object> concatSeparated(StringConstants.SPACE, t.getCode(), StringConstants.COMMA,
 				t.getName());
 	}
-	
-	
-
 }

@@ -30,9 +30,9 @@ implements UserTransaction {
 	/**
 	 * Creates a new MockUserTransaction object. 
 	 *
-	 * @param beginException
-	 * @param commitException
-	 * @param rollbackException
+	 * @param beginException the begin exception
+	 * @param commitException the commit exception
+	 * @param rollbackException the rollback exception
 	 */
 	public MockUserTransaction(Exception beginException, Exception commitException, Exception rollbackException) {
 		super();
@@ -45,9 +45,8 @@ implements UserTransaction {
 	 * Exception thrown on begin.
 	 */
 	Exception beginException;
-	/**
-	 * Exception thrown on commit;
-	 */
+	
+	/** Exception thrown on commit;. */
 	Exception commitException;
 	/**
 	 * Exception thrown on rollback.
@@ -57,6 +56,7 @@ implements UserTransaction {
 	 
 	
 
+	@Override
 	public void begin() throws NotSupportedException, SystemException {
 		if (ReflectionUtils.isInstanceOf(beginException, NotSupportedException.class)) {
 			throw (NotSupportedException) beginException;
@@ -68,6 +68,7 @@ implements UserTransaction {
 	}
 
 	
+	@Override
 	public void commit() 
 	throws HeuristicMixedException, HeuristicRollbackException, IllegalStateException,
 	RollbackException, SecurityException, SystemException {
@@ -92,11 +93,13 @@ implements UserTransaction {
 	}
 
 	
+	@Override
 	public int getStatus() throws SystemException {		
 		return 0;
 	}
 
 	
+	@Override
 	public void rollback() throws IllegalStateException, SecurityException, SystemException {
 		if (ReflectionUtils.isInstanceOf(rollbackException, IllegalStateException.class)) {
 			throw (IllegalStateException) rollbackException;
@@ -110,10 +113,12 @@ implements UserTransaction {
 	}
 
 	
+	@Override
 	public void setRollbackOnly() throws IllegalStateException, SystemException {
 		/* empty */		
 	}
 
+	@Override
 	public void setTransactionTimeout(int arg0) throws SystemException {
 		/* empty */		
 	}

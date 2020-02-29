@@ -19,45 +19,45 @@ import java.io.Serializable;
 /**
  * A {@link PropertyDefinition} object has all the necessary 
  * information for the creation of a {@link BoPropertyDescriptor}.
- * <br/>
+ * <br>
  * name: Property name.
- * <br/>
+ * <br>
  * readOnly: The value of the property is read-only.
- * <br/>
+ * <br>
  * hasDefault: The value of the property has a default value.
- * <br/>
+ * <br>
  * defaultValue: The default value of the property (if applicable).
- * <br/>
+ * <br>
  * zeroAllowed: The property value may be zero (applicable for {@link Number} sub-types).
- * <br/>
+ * <br>
  * negativeAllowed: The property value may be negative (applicable for most 
  *                  {@link Number} sub-types).
  *                  
  * nullAllowed:     The property value may be null.
- * <br/>
+ * <br>
  * minLength:       Minimum length of property value string representation.
- * <br/>
+ * <br>
  * maxLength:       Maximum length of property value string representation.
- * <br/>
+ * <br>
  * integerLength:   Maximum length of property value integer digits (applicable for 
  * 	                {@link Number} sub-types). The corresponding minimum value is 
  *                  implicitly considered to be 0.
- * <br/>
+ * <br>
  * decimalLength:   Maximum length of property value decimal digits (applicable for 
  *                  some {@link Number} sub-types). The corresponding minimum value 
  *                  is implicitly considered to be 0.
- * <br/>
+ * <br>
  * listCd:          Code of system list that the value for this property is cached 
  *                  into (if applicable).
- * <br/>
+ * <br>
  * subListCd:       Code of system sub-list that the value for this property is cached 
  *                  into (if applicable).
- * <br/>
+ * <br>
  * cacheName:       Name of the cache that the value of this property is cached to
  *                  (if applicable).
- * <br/>
+ * <br>
  * expression:      A regular expression that can validate the value of the property.
- * <br/>
+ * <br>
  * affected:        The name of a single property definition that this affects. This only
  *                  has meaning within a specific group of PropertyDefinitions
  */
@@ -247,12 +247,15 @@ extends Named, Serializable{
 	void setCacheName(String cacheName);
 	
 	/**
-	 * @param expression
-	 *        Sets an expression to validate the property value with.
+	 * Sets the expression.
+	 *
+	 * @param expression        Sets an expression to validate the property value with.
 	 */
 	void setExpression(String expression);
 	
 	/**
+	 * Gets the expression.
+	 *
 	 * @return Returns the expression.
 	 */
 	String getExpression();
@@ -265,8 +268,25 @@ extends Named, Serializable{
 	void setAffected(String affected);
 	
 	/**
+	 * Gets the affected.
+	 *
 	 * @return Returns the affected.
 	 */
 	String getAffected();
+
+	/**
+	 * Assigns the description of property
+	 * 
+	 * @param description to set
+	 */
+	public void setDescription(String description);
+
+	/**
+	 * Description of property.
+	 *
+	 * @return the description of property
+	 */
+	public String getDescription();
+
 
 }

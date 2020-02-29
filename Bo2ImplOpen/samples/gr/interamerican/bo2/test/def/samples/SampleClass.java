@@ -13,7 +13,7 @@
 package gr.interamerican.bo2.test.def.samples;
 
 /**
- * 
+ * The Interface SampleClass.
  */
 public interface SampleClass extends SampleClassKP {
 

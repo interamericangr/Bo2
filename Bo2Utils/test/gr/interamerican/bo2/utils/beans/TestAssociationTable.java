@@ -134,7 +134,7 @@ public class TestAssociationTable {
 	}
 	
 	/**
-	 * Tests size
+	 * Tests size.
 	 */	
 	@Test
 	public void testSize() {
@@ -146,7 +146,7 @@ public class TestAssociationTable {
 	
 	
 	/**
-	 * Tests iterator
+	 * Tests iterator.
 	 */	
 	@Test
 	public void testIterator() {
@@ -159,7 +159,7 @@ public class TestAssociationTable {
 	}
 	
 	/**
-	 * Tests iterator
+	 * Tests iterator.
 	 */	
 	@Test
 	public void testRemoveLeft() {
@@ -176,7 +176,7 @@ public class TestAssociationTable {
 	}
 	
 	/**
-	 * Tests iterator
+	 * Tests iterator.
 	 */	
 	@Test
 	public void testRemoveRight() {

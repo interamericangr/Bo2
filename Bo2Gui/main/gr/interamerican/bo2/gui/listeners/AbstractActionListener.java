@@ -19,7 +19,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * 
+ * The listener interface for receiving abstractAction events.
+ * The class that is interested in processing a abstractAction
+ * event implements this interface, and the object created
+ * with that class is registered with a component using the
+ * component's <code>addAbstractActionListener</code> method. When
+ * the abstractAction event occurs, that object's appropriate
+ * method is invoked.
+ *
+ * @see AbstractEventHandler
  */
 public abstract class AbstractActionListener
 extends AbstractEventHandler<Object>
@@ -28,7 +36,7 @@ implements ActionListener {
 	/**
 	 * Creates a new AbstractActionListener object. 
 	 *
-	 * @param exceptionHandler
+	 * @param exceptionHandler the exception handler
 	 */
 	public AbstractActionListener(ExceptionHandler exceptionHandler) {
 		super(exceptionHandler);

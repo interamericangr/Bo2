@@ -53,8 +53,8 @@ extends FolderInitializedBean {
 
 	/**
 	 * Gets the voidMethod.
-	 * @param variables 
 	 *
+	 * @param variables the variables
 	 * @return Returns the voidMethod
 	 */
 	public String getCompareToBody(Map<String, String> variables) {		
@@ -63,8 +63,8 @@ extends FolderInitializedBean {
 	
 	/**
 	 * Gets the voidMethod.
-	 * @param variables 
 	 *
+	 * @param variables the variables
 	 * @return Returns the voidMethod
 	 */
 	public String getCompareToFragment(Map<String, String> variables) {		

@@ -33,14 +33,14 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestDocumentOperation.
  */
 public class TestDocumentOperation {
 	
 	/**
 	 * Unit test for init.
-	 * 
-	 * @throws InitializationException
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test
 	public void testInit() throws InitializationException {
@@ -51,10 +51,10 @@ public class TestDocumentOperation {
 	
 	/**
 	 * Unit test for execute.
-	 * 
-	 * @throws InitializationException
-	 * @throws DataException 
-	 * @throws LogicException 
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testExecute() throws InitializationException, DataException, LogicException {

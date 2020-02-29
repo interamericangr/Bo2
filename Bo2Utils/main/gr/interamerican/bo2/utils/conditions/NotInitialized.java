@@ -37,7 +37,7 @@ implements Condition<T> {
 	/**
 	 * Creates a new NotInitialized object. 
 	 *
-	 * @param clazz
+	 * @param clazz the clazz
 	 */
 	public NotInitialized(Class<T> clazz) {
 		super();
@@ -45,6 +45,7 @@ implements Condition<T> {
 	}
 
 
+	@Override
 	public boolean check(T t) {
 		for (int i = 0; i < properties.length; i++) {
 			Object value = JavaBeanUtils.getProperty(properties[i], t);

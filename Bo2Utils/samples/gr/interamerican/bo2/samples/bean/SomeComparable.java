@@ -1,5 +1,8 @@
 package gr.interamerican.bo2.samples.bean;
 
+/**
+ * The Class SomeComparable.
+ */
 public class SomeComparable implements Comparable<SomeComparable> {
 	
 	/**
@@ -41,8 +44,8 @@ public class SomeComparable implements Comparable<SomeComparable> {
 	
 	/**
 	 * Prints the specified string.
-	 * 
-	 * @param s
+	 *
+	 * @param s the s
 	 */
 	public void print(String s) {
 		System.out.println(s);
@@ -50,8 +53,8 @@ public class SomeComparable implements Comparable<SomeComparable> {
 
 	/**
 	 * Prints the specified integer.
-	 * 
-	 * @param s
+	 *
+	 * @param i the i
 	 */
 	public void print(int i) {
 		System.out.println(i);
@@ -59,8 +62,8 @@ public class SomeComparable implements Comparable<SomeComparable> {
 	
 	/**
 	 * Prints the specified object.
-	 * 
-	 * @param s
+	 *
+	 * @param o the o
 	 */
 	public void print(Object o) {
 		System.out.println(o);

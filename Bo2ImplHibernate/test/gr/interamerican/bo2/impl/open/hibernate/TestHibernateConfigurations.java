@@ -30,8 +30,8 @@ public class TestHibernateConfigurations {
 	
 	/**
 	 * Unit test for createSessionFactory.
-	 * 
-	 * @throws InitializationException
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test
 	public void testCreateSessionFactory_succeed() throws InitializationException {
@@ -42,8 +42,8 @@ public class TestHibernateConfigurations {
 	
 	/**
 	 * Unit test for createSessionFactory.
-	 * 
-	 * @throws InitializationException
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=InitializationException.class)
 	public void testCreateSessionFactory_fail() throws InitializationException {
@@ -53,8 +53,8 @@ public class TestHibernateConfigurations {
 	
 	/**
 	 * Unit test for createSessionFactory.
-	 * 
-	 * @throws InitializationException
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test
 	public void testGetSessionFactory() throws InitializationException {

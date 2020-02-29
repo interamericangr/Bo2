@@ -16,13 +16,10 @@ import gr.interamerican.bo2.arch.Key;
 import gr.interamerican.bo2.impl.open.annotations.KeyProperties;
 
 /**
- * 
+ * The Interface InvoiceLineKey.
  */
 @KeyProperties("lineNo, invoiceNo")
 public interface InvoiceLineKey 
 extends InvoiceLineKP, Key {
-
-	
-	
-
+	// empty
 }

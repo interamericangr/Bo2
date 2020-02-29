@@ -1,13 +1,13 @@
 /*******************************************************************************
- * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A. 
+ * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/copyleft/lesser.html
- * 
- * This library is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
 package gr.interamerican.bo2.gui.util;
@@ -20,7 +20,7 @@ import gr.interamerican.bo2.gui.util.model.SystemMonitorModel;
 import gr.interamerican.bo2.impl.open.creation.Factory;
 
 /**
- * panel for monitoring the status of jvm
+ * panel for monitoring the status of jvm.
  */
 public class SystemMonitorPanel extends BPanel<SystemMonitorModel> {
 
@@ -29,9 +29,7 @@ public class SystemMonitorPanel extends BPanel<SystemMonitorModel> {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * fields
-	 */
+	/** fields. */
 	@SuppressWarnings("nls")
 	private static String[] FIELDS = { "environment", "usedMemory", "freeMemory", "totalMemory", "maxMemory", "gcEvents", "gcTime" };
 	/**
@@ -39,34 +37,29 @@ public class SystemMonitorPanel extends BPanel<SystemMonitorModel> {
 	 */
 	public SystemMonitorPanel() {
 		super(Factory.create(SystemMonitorModel.class));
-		
+
 	}
-	
+
 	/**
 	 * Component properties.
-	 * 
+	 *
 	 * @return Returns a ComponentProperties object.
 	 */
 	TextFieldProperties properties() {
 		TextFieldProperties properties = Factory.create(TextFieldProperties.class);
 		properties.setEnabled(true);
 		properties.setEditable(false);
-		properties.setColumns(10);
+		properties.setColumns(15);
 		properties.setHasLabel(true);
 		properties.setLabelLength(10);
 		return properties;
 	}
-	
+
 	@Override
-	public void paint() {			
-		TextFieldProperties fp = properties();		
-		addModelBoundTextFields(FIELDS, fp); 		
-		setPreferredSize(Sizes.square(20, FIELDS.length+1, true));
+	public void paint() {
+		TextFieldProperties fp = properties();
+		addModelBoundTextFields(FIELDS, fp);
+		setPreferredSize(Sizes.square(fp.getColumns() + fp.getLabelLength(), FIELDS.length + 1, true));
 		Layout.layAsStackOfLabeledFields(this, 5, 5);
 	}
-
-	
-
-	
-
 }

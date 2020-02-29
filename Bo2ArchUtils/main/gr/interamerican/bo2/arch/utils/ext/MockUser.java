@@ -1,14 +1,15 @@
 package gr.interamerican.bo2.arch.utils.ext;
 
+import java.util.Set;
+
 import gr.interamerican.bo2.arch.ext.User;
 import gr.interamerican.bo2.utils.StringUtils;
 
 /**
  * Mock user.<br>
  * Mock implementation of {@link User}
- * 
- * @param <A>
- * 
+ *
+ * @param <A> the generic type
  */
 public class MockUser<A>
 implements User<A>{
@@ -21,7 +22,7 @@ implements User<A>{
 	/**
 	 * Creates a new MockUser object.
 	 *
-	 * @param authorized
+	 * @param authorized the authorized
 	 */
 	public MockUser(boolean authorized) {
 		super();
@@ -31,8 +32,8 @@ implements User<A>{
 	/**
 	 * Creates a new MockUser object.
 	 *
-	 * @param authorized
-	 * @param authToken
+	 * @param authorized the authorized
+	 * @param authToken the auth token
 	 */
 	public MockUser(boolean authorized, String authToken) {
 		super();
@@ -106,8 +107,13 @@ implements User<A>{
 		return "mock@email.com"; //$NON-NLS-1$
 	}
 
+	@Override
 	public String getAuthorizationToken(A authorizationId) {
 		return authToken;
 	}
 
+	@Override
+	public Set<String> getAuthorizationValues(A authorizationId) {
+		return null;
+	}
 }

@@ -20,7 +20,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestNfTransformationBasedFormatter.
  */
 public class TestNfTransformationBasedFormatter {
 	/**

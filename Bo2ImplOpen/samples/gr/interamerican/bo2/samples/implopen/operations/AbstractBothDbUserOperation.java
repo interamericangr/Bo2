@@ -23,7 +23,7 @@ import gr.interamerican.bo2.samples.implopen.pw.UserPwImpl;
 import gr.interamerican.bo2.utils.annotations.Child;
 
 /**
- * 
+ * The Class AbstractBothDbUserOperation.
  */
 public abstract class AbstractBothDbUserOperation 
 extends AbstractOperation {
@@ -36,14 +36,10 @@ extends AbstractOperation {
 	 */
 	public static Integer OTHERID = 21687;
 	
-	/**
-	 * PW for localDB
-	 */	
+	/** PW for localDB. */	
 	@Child protected PersistenceWorker<User> local;
 	
-	/**
-	 * PW for otherDB
-	 */
+	/** PW for otherDB. */
 	@Child protected PersistenceWorker<User> other;
 	
 
@@ -69,11 +65,10 @@ extends AbstractOperation {
 	
 	/**
 	 * Deletes the user.
-	 * 
-	 * @param id
-	 * @param pw
-	 * 
-	 * @throws DataException 
+	 *
+	 * @param id the id
+	 * @param pw the pw
+	 * @throws DataException the data exception
 	 */
 	protected void delete(int id, PersistenceWorker<User> pw) throws DataException {
 		User user = new User();
@@ -87,11 +82,10 @@ extends AbstractOperation {
 	
 	/**
 	 * Stores the user.
-	 * 
-	 * @param id
-	 * @param pw
-	 * 
-	 * @throws DataException 
+	 *
+	 * @param id the id
+	 * @param pw the pw
+	 * @throws DataException the data exception
 	 */
 	protected void store(int id, PersistenceWorker<User> pw) throws DataException {
 		User user = new User();
@@ -105,12 +99,11 @@ extends AbstractOperation {
 	
 	/**
 	 * Reads the user.
-	 * 
-	 * @param id
-	 * @param pw
+	 *
+	 * @param id the id
+	 * @param pw the pw
 	 * @return Returns the user.
-	 * 
-	 * @throws DataException 
+	 * @throws DataException the data exception
 	 */
 	protected User read(int id, PersistenceWorker<User> pw) throws DataException {
 		User user = new User();

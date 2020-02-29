@@ -15,24 +15,22 @@ import org.junit.Test;
 
 
 /**
- * test suite for {@link PropertiesLauncher}
+ * test suite for {@link PropertiesLauncher}.
  */
 public class TestPropertiesLauncher {
 
-	/**
-	 *
-	 */
-	String name = TestCmd.class.getCanonicalName();
+	/** The name. */
+	String name = TestWithPropertiesCmd.class.getCanonicalName();
 
 	/**
 	 * Test method for {@link PropertiesLauncher#launchPreprocess(java.util.Properties)}.
 	 *
-	 * @throws UnexpectedException
-	 * @throws LogicException
-	 * @throws DataException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
-	 * @throws ClassNotFoundException
+	 * @throws ClassNotFoundException the class not found exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test
 	public void testLaunchPreprocess() throws ClassNotFoundException, InstantiationException,
@@ -40,19 +38,19 @@ public class TestPropertiesLauncher {
 		Properties p = new Properties();
 		p.setProperty(PropertiesLauncherParamsNames.PRE_PROCESSING_CLASS, name);
 		PropertiesLauncher.launchPreprocess(p);
-		Assert.assertTrue(TestCmd.getRun());
-		Assert.assertFalse(TestCmd.getRun());
+		Assert.assertTrue(TestWithPropertiesCmd.getRun());
+		Assert.assertFalse(TestWithPropertiesCmd.getRun());
 	}
 
 	/**
 	 * Test method for {@link PropertiesLauncher#launchPostprocess(java.util.Properties)}.
 	 *
-	 * @throws UnexpectedException
-	 * @throws LogicException
-	 * @throws DataException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
-	 * @throws ClassNotFoundException
+	 * @throws ClassNotFoundException the class not found exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test
 	public void testLaunchPostprocess() throws ClassNotFoundException, InstantiationException,
@@ -60,27 +58,31 @@ public class TestPropertiesLauncher {
 		Properties p = new Properties();
 		p.setProperty(PropertiesLauncherParamsNames.POST_PROCESSING_CLASS, name);
 		PropertiesLauncher.launchPostprocess(p);
-		Assert.assertTrue(TestCmd.getRun());
-		Assert.assertFalse(TestCmd.getRun());
+		Assert.assertTrue(TestWithPropertiesCmd.getRun());
+		Assert.assertFalse(TestWithPropertiesCmd.getRun());
 	}
 
 	/**
 	 * Test method for
 	 * {@link PropertiesLauncher#launchRuntimeCommand(java.lang.String,java.util.Properties)} .
 	 *
-	 * @throws UnexpectedException
-	 * @throws LogicException
-	 * @throws DataException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
-	 * @throws ClassNotFoundException
+	 * @throws ClassNotFoundException the class not found exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test
 	public void testLaunchRuntimeCommand() throws ClassNotFoundException, InstantiationException,
 	IllegalAccessException, DataException, LogicException, UnexpectedException {
 		PropertiesLauncher.launchRuntimeCommand(name, new Properties());
-		Assert.assertTrue(TestCmd.getRun());
-		Assert.assertFalse(TestCmd.getRun());
+		Assert.assertTrue(TestWithPropertiesCmd.getRun());
+		Assert.assertFalse(TestWithPropertiesCmd.getRun());
+
+		PropertiesLauncher.launchRuntimeCommand(TestOp.class.getCanonicalName(), new Properties());
+		Assert.assertTrue(TestOp.getRun());
+		Assert.assertFalse(TestOp.getRun());
 	}
 
 	/**
@@ -88,12 +90,12 @@ public class TestPropertiesLauncher {
 	 * {@link PropertiesLauncher#launchAbstractBo2RuntimeWithPropertiesCmd(java.lang.String, java.util.Properties)}
 	 * .
 	 *
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
-	 * @throws UnexpectedException
-	 * @throws LogicException
-	 * @throws DataException
-	 * @throws ClassNotFoundException
+	 * @throws ClassNotFoundException the class not found exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
 	public void testLaunchAbstractBo2RuntimeWithPropertiesCmd() throws ClassNotFoundException,
@@ -101,9 +103,13 @@ public class TestPropertiesLauncher {
 	IllegalAccessException {
 		Properties p = new Properties();
 		PropertiesLauncher.launchAbstractBo2RuntimeWithPropertiesCmd(name, p);
+		Assert.assertTrue(TestWithPropertiesCmd.getRun());
+		Assert.assertFalse(TestWithPropertiesCmd.getRun());
+		Assert.assertEquals(p, TestWithPropertiesCmd.getStaticProperties());
+		PropertiesLauncher.launchAbstractBo2RuntimeWithPropertiesCmd(
+				TestCmd.class.getCanonicalName(), p);
 		Assert.assertTrue(TestCmd.getRun());
 		Assert.assertFalse(TestCmd.getRun());
-		Assert.assertEquals(p, TestCmd.getStaticProperties());
 	}
 
 	/**

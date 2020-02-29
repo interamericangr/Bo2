@@ -4,13 +4,25 @@
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/copyleft/lesser.html
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.jdbc;
+
+import java.lang.reflect.Method;
+import java.sql.Connection;
+import java.sql.ParameterMetaData;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import gr.interamerican.bo2.arch.Provider;
 import gr.interamerican.bo2.arch.Worker;
@@ -21,39 +33,21 @@ import gr.interamerican.bo2.arch.utils.ext.WorkerExecutionDetails;
 import gr.interamerican.bo2.impl.open.utils.Exceptions;
 import gr.interamerican.bo2.impl.open.utils.Messages;
 import gr.interamerican.bo2.impl.open.utils.Util;
-import gr.interamerican.bo2.impl.open.workers.AbstractBaseWorker;
 import gr.interamerican.bo2.impl.open.workers.AbstractResourceConsumer;
 import gr.interamerican.bo2.utils.Debug;
 import gr.interamerican.bo2.utils.ExceptionUtils;
-import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.StringUtils;
-import gr.interamerican.bo2.utils.annotations.Child;
 import gr.interamerican.bo2.utils.sql.SqlUtils;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.sql.Connection;
-import java.sql.ParameterMetaData;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Abstract base class for worker implementations based on JDBC.
- * 
+ *
  * JDBC based implementations of {@link Worker} use prepared statement
  * for database operations. The SQL statements are defined as string
  * fields of the class. These fields have to be annotated with the
  * annotation SQL.
- * 
+ *
  */
 public abstract class AbstractJdbcWorker
 extends AbstractResourceConsumer {
@@ -63,11 +57,6 @@ extends AbstractResourceConsumer {
 	 */
 	private static Logger logger =
 			LoggerFactory.getLogger(AbstractJdbcWorker.class);
-
-	/**
-	 * Message key for invalid {@link Child} annotation
-	 */
-	private static final String INVALID_ANNOTATION = Messages.INVALID_ANNOTATION;
 
 	/**
 	 * Message key for message stating that provided session is null.
@@ -114,7 +103,7 @@ extends AbstractResourceConsumer {
 
 	/**
 	 * Sets the SQL connection.
-	 * 
+	 *
 	 * @param connection Connection to set.
 	 */
 	private void setConnection(Connection connection) {
@@ -122,143 +111,39 @@ extends AbstractResourceConsumer {
 	}
 
 	/**
-	 * Sets the database schema string
-	 * @param string
+	 * Sets the database schema string.
+	 *
+	 * @param string the new schema
 	 */
 	private void setSchema(String string) {
 		schema = string;
 	}
 
 	/**
-	 * Gets the key for the first PreparedStatement of this object.
-	 * 
-	 * This method is useful for classes that have only one statement,
-	 * so it is sometimes easy to have access to this statement, without
-	 * knowing the key used for the statement.
-	 * 
-	 * @return Returns the key to the first PreparedStatement found in
-	 *         this object's statements map.
-	 */
-	@SuppressWarnings("unused")
-	@Deprecated
-	private String getFirstStatementKey() {
-		return statements.keySet().iterator().next();
-	}
-
-
-	/**
 	 * Replaces the symbolic schema used in the declarations of the sql
 	 * statements with the actual database schema string.
-	 * 
+	 *
 	 * @param sql
-	 *        SQL statement as it is defined in the object code.
-	 * 
-	 * @return Returns the SQL statement string, ready to be prepared.
-	 *         The symbolic string used for database schema has been
-	 *         replaced by the database schema string that was defined
-	 *         by the runtime layer provider.
+	 *            SQL statement as it is defined in the object code.
+	 *
+	 * @return Returns the SQL statement string, ready to be prepared. The
+	 *         symbolic string used for database schema has been replaced by the
+	 *         database schema string that was defined by the runtime layer
+	 *         provider.
 	 */
 	private String fix(String sql) {
-		if ((SCHEMA_KEY!=null) && (schema!=null)) {
+		if ((SCHEMA_KEY != null) && (schema != null)) {
 			return sql.replace(SCHEMA_KEY, schema);
-		} else {
-			return sql;
 		}
-	}
-
-
-	/**
-	 * Processes fields of this object that are annotated
-	 * with the {@link Sql} annotation.
-	 * 
-	 * Checks that annotated fields are of type String
-	 * and that then created a prepared statement for
-	 * each annotated string field. The statement
-	 * is put in the <code>statements</code> map.
-	 * 
-	 * @throws DataException
-	 */
-	@SuppressWarnings("unused")
-	@Deprecated
-	private void processAnnotatedFields() throws DataException {
-		for (Field field : getFields()) {
-			field.setAccessible(true);
-			if (field.isAnnotationPresent(Sql.class)) {
-				if (field.getType()!=String.class) {
-					throw Exceptions.runtime(INVALID_ANNOTATION, field.getName());
-				}
-				try {
-					String sql = (String)field.get(this);
-					prepare(sql);
-				} catch (IllegalAccessException e) {
-					throw new DataException(e);
-				}
-			}
-		}
-	}
-
-	/**
-	 * Processes methods of this object that are annotated
-	 * with the {@link Sql} annotation.
-	 * 
-	 * Checks that annotated methods return a String
-	 * and that they have no arguments. Then the method
-	 * is invoked and a prepared statement for is created
-	 * for the returned string. The statement
-	 * is put in the <code>statements</code> map.
-	 * 
-	 * @throws DataException
-	 */
-	@SuppressWarnings("unused")
-	@Deprecated
-	private void processAnnotatedMethods() throws DataException {
-		for (Method method : this.getClass().getDeclaredMethods()) {
-			method.setAccessible(true);
-			if (method.isAnnotationPresent(Sql.class)) {
-				if (method.getGenericReturnType()!=String.class) {
-					throw Exceptions.runtime(INVALID_ANNOTATION, method.getName());
-				}
-				try {
-					Object[] parms=null;
-					String sql=(String)method.invoke(this, parms);
-					prepare(sql);
-				} catch (IllegalAccessException e) {
-					throw new DataException(e);
-				} catch (InvocationTargetException e) {
-					throw new DataException(e);
-				}
-			}
-		}
-	}
-
-	/**
-	 * If there are no declared fields on the runtime class, all
-	 * the fields declared on the types between the runtime class
-	 * and the {@link AbstractBaseWorker} class are returned.
-	 * 
-	 * TODO: Between the runtime object class and its superclass
-	 *       would make sense as well, but we might have cases of
-	 *       user defined JDBC workers extending another user defined
-	 *       JDBC worker.
-	 *       Also, do we have to do the same for methods?
-	 * 
-	 * @return Fields.
-	 */
-	private List<Field> getFields() {
-		Field[] fields = this.getClass().getDeclaredFields();
-		if(fields.length > 0) {
-			return Arrays.asList(fields);
-		}
-		return ReflectionUtils.allFields(this.getClass(), AbstractJdbcWorker.class);
+		return sql;
 	}
 
 	/**
 	 * Sets the parameters for the execution of a statement.
-	 * 
+	 *
 	 * @param ps Prepared statement to be executed.
 	 * @param parms Parameters for the statement.
-	 * 
-	 * @throws SQLException
+	 * @throws SQLException the SQL exception
 	 */
 	protected void setParameters(PreparedStatement ps, Object[] parms)
 			throws SQLException {
@@ -278,9 +163,9 @@ extends AbstractResourceConsumer {
 
 	/**
 	 * Logs the statement.
-	 * 
-	 * @param statement
-	 * @param params
+	 *
+	 * @param statement the statement
+	 * @param params the params
 	 */
 	protected void logStatement(String statement, Object[] params) {
 		if (logger.isTraceEnabled()) {
@@ -292,8 +177,8 @@ extends AbstractResourceConsumer {
 
 	/**
 	 * Logs parameters passed to a prepared statement before execution.
-	 * 
-	 * @param params
+	 *
+	 * @param params the params
 	 */
 	protected void logPsParameters(Object[] params) {
 		if (logger.isTraceEnabled()) {
@@ -305,8 +190,8 @@ extends AbstractResourceConsumer {
 
 	/**
 	 * Logs statement preparation.
-	 * 
-	 * @param statement
+	 *
+	 * @param statement the statement
 	 */
 	protected void logStatementPreparation(String statement) {
 		if (logger.isTraceEnabled()) {
@@ -316,16 +201,13 @@ extends AbstractResourceConsumer {
 
 	/**
 	 * Executers an update.
-	 * 
-	 * @param ps
-	 *            Statement.
-	 * @param statement
-	 *            Sql statement (for error logging)
-	 * @param params
-	 *            parameters used for the sql statement (for error logging)
+	 *
+	 * @param ps            Statement.
+	 * @param statement            Sql statement (for error logging)
+	 * @param params            parameters used for the sql statement (for error logging)
 	 * @return Returns the count of lines.
-	 * @throws SQLException
-	 * @throws StaleTransactionException 
+	 * @throws SQLException the SQL exception
+	 * @throws StaleTransactionException the stale transaction exception
 	 */
 	protected int executeUpdatePs(PreparedStatement ps, String statement, Object[] params)
 	throws SQLException, StaleTransactionException {
@@ -347,16 +229,13 @@ extends AbstractResourceConsumer {
 
 	/**
 	 * Executers a query..
-	 * 
-	 * @param ps
-	 *            PreparedStatement.
-	 * @param statement
-	 *            (plain sql for logging purposes)
-	 * @param params
-	 *            (for logging purposes)
+	 *
+	 * @param ps            PreparedStatement.
+	 * @param statement            (plain sql for logging purposes)
+	 * @param params            (for logging purposes)
 	 * @return Returns the resultset.
-	 * @throws SQLException
-	 * @throws StaleTransactionException 
+	 * @throws SQLException the SQL exception
+	 * @throws StaleTransactionException the stale transaction exception
 	 */
 	protected ResultSet executeQueryPs(PreparedStatement ps, String statement, Object[] params)
 	throws SQLException, StaleTransactionException {
@@ -379,21 +258,21 @@ extends AbstractResourceConsumer {
 
 	/**
 	 * Creates a PreparedStatement from the sql string.
-	 * 
+	 *
 	 * Parameter markers are defined in the sql staring with question marks.
 	 * Alternatively parameter markers can be marked with named parameters
 	 * using a parameter name preceded by a colon (:).
 	 * The logical schema string will be replaced by the actual schema string.
 	 * The prepared statement is created and put to the statements map with
 	 * key the <code>sql</code> parameter.
-	 * <p/>
+	 * <p>
+	 *
 	 * Examples of valid statements are:
-	 * <code>select foo, bar from MYTABLE where foo > ? </code> <br/>
-	 * <code>select foo, bar from MYTABLE where foo > :foo </code> <br/>
-	 * 
+	 * <code>select foo, bar from MYTABLE where foo &gt; ? </code> <br>
+	 * <code>select foo, bar from MYTABLE where foo &gt; :foo </code> <br>
+	 * </p>
 	 * @param sql String for the sql statement.
-	 * 
-	 * @throws DataException
+	 * @throws DataException the data exception
 	 */
 	protected void prepare(String sql)
 			throws DataException {
@@ -407,7 +286,7 @@ extends AbstractResourceConsumer {
 
 	/**
 	 * Creates a PreparedStatement from the sql string.
-	 * 
+	 *
 	 * Parameter markers are defined in the sql staring with question marks.
 	 * Alternatively parameter markers can be marked with named parameters
 	 * using a parameter name preceded by a colon (:).
@@ -416,12 +295,11 @@ extends AbstractResourceConsumer {
 	 * key the <code>sql</code> parameter.
 	 * <p/>
 	 * Examples of valid statements are:
-	 * <code>select foo, bar from MYTABLE where foo > ? </code> <br/>
-	 * <code>select foo, bar from MYTABLE where foo > :foo </code> <br/>
-	 * 
+	 * <code>select foo, bar from MYTABLE where foo > ? </code> <br>
+	 * <code>select foo, bar from MYTABLE where foo > :foo </code> <br>
+	 *
 	 * @param sql String for the sql statement.
-	 * 
-	 * @throws SQLException
+	 * @throws SQLException the SQL exception
 	 */
 	private void prepareSql(String sql)
 			throws SQLException {
@@ -436,13 +314,10 @@ extends AbstractResourceConsumer {
 
 	/**
 	 * Gets an already prepared statement, or creates a new one.
-	 * 
-	 * @param sql
-	 *        SQL statement.
-	 * 
+	 *
+	 * @param sql        SQL statement.
 	 * @return Returns the prepared statement.
-	 * 
-	 * @throws DataException
+	 * @throws DataException the data exception
 	 */
 	protected PreparedStatement getPreparedStatement(String sql)
 			throws DataException {
@@ -455,13 +330,10 @@ extends AbstractResourceConsumer {
 
 	/**
 	 * Gets an already prepared statement, or creates a new one.
-	 * 
-	 * @param sql
-	 *        SQL statement.
-	 * 
+	 *
+	 * @param sql        SQL statement.
 	 * @return Returns the prepared statement.
-	 * 
-	 * @throws SQLException
+	 * @throws SQLException the SQL exception
 	 */
 	private PreparedStatement getPreparedSqlStatement(String sql)
 			throws SQLException {
@@ -475,17 +347,14 @@ extends AbstractResourceConsumer {
 
 	/**
 	 * Executes a query PreparedStatement.
-	 * 
+	 *
 	 * @param statement The statement.
-	 * @param params
-	 *        The parameters for the execution of the prepared
+	 * @param params        The parameters for the execution of the prepared
 	 *        statement. If the statement has no parameters,
 	 *        then <code>params</code> should have a value of null.
-	 * 
 	 * @return Returns the ResultSet created by the prepared query.
-	 * 
-	 * @throws SQLException
-	 * @throws DataException
+	 * @throws SQLException the SQL exception
+	 * @throws DataException the data exception
 	 */
 	protected ResultSet executePreparedQuery(String statement,Object[] params)
 			throws SQLException, DataException {
@@ -505,18 +374,15 @@ extends AbstractResourceConsumer {
 
 	/**
 	 * Executes an update PreparedStatement.
-	 * 
+	 *
 	 * @param statement The statement.
-	 * @param params
-	 *        The parameters for the execution of the prepared
+	 * @param params        The parameters for the execution of the prepared
 	 *        statement. If the statement has no parameters,
 	 *        then <code>params</code> should be null or an
 	 *        empty array.
-	 * 
 	 * @return Returns the count of rows affected by the statement.
-	 * 
-	 * @throws SQLException
-	 * @throws DataException
+	 * @throws SQLException the SQL exception
+	 * @throws DataException the data exception
 	 */
 	protected int executePreparedUpdate(String statement,Object[] params)
 			throws SQLException, DataException {
@@ -538,12 +404,11 @@ extends AbstractResourceConsumer {
 
 	/**
 	 * Executes a query PreparedStatement that has no parameters.
-	 * 
+	 *
 	 * @param statement The statement.
-	 * 
 	 * @return Returns the ResultSet created by the prepared query.
-	 * @throws SQLException
-	 * @throws DataException
+	 * @throws SQLException the SQL exception
+	 * @throws DataException the data exception
 	 */
 	protected ResultSet executePreparedQuery(String statement)
 			throws SQLException, DataException {
@@ -553,7 +418,7 @@ extends AbstractResourceConsumer {
 	/**
 	 * Creates a string for an SQL statement, replacing parameter markers
 	 * (?) with the corresponding parameters.
-	 * 
+	 *
 	 * @param sql
 	 *        String SQL statement of the PreparedStatement.
 	 * @param params
@@ -598,8 +463,6 @@ extends AbstractResourceConsumer {
 	public void open() throws DataException {
 		super.open();
 		statements.clear();
-		//processAnnotatedFields();
-		//processAnnotatedMethods();
 	}
 
 	@Override
@@ -614,5 +477,4 @@ extends AbstractResourceConsumer {
 		}
 		super.close();
 	}
-
 }

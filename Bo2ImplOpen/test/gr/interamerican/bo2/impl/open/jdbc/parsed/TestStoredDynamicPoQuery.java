@@ -30,6 +30,7 @@ import org.junit.Test;
 /**
  * Unit tests for {@link StoredDynamicPoQuery}.
  */
+@Deprecated
 public class TestStoredDynamicPoQuery {
 	
 	/**

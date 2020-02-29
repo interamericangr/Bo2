@@ -1,9 +1,9 @@
 package gr.interamerican.bo2.utils.adapters.cmd;
 
-import gr.interamerican.bo2.utils.attributes.SimpleCommand;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import gr.interamerican.bo2.utils.attributes.SimpleCommand;
 
 /**
  * A sequence of simple commands.
@@ -36,7 +36,7 @@ public class SimpleCommandSequence implements SimpleCommand {
 			if (failSafe) {
 				command = new FailSafeCommand(cmd);
 			}
-			this.commands.add(command);			
+			commands.add(command);			
 		}
 	}
 
@@ -62,9 +62,4 @@ public class SimpleCommandSequence implements SimpleCommand {
 			simpleCommand.execute();
 		}
 	}
-	
-	
-	
-	
-
 }

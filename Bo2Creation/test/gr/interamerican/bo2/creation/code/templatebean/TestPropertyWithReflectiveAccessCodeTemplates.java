@@ -14,7 +14,7 @@ package gr.interamerican.bo2.creation.code.templatebean;
 
 
 /**
- * 
+ * The Class TestPropertyWithReflectiveAccessCodeTemplates.
  */
 public class TestPropertyWithReflectiveAccessCodeTemplates 
 extends BaseTestPropertyCodeTemplates {

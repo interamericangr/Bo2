@@ -18,7 +18,17 @@ package gr.interamerican.bo2.test.def.posamples;
 @SuppressWarnings("all")
 public interface CustomerKP {
 	
+	/**
+	 * Gets the customer no.
+	 *
+	 * @return the customer no
+	 */
 	public String getCustomerNo();
 	
+	/**
+	 * Sets the customer no.
+	 *
+	 * @param customerNo the new customer no
+	 */
 	public void setCustomerNo(String customerNo);
 }

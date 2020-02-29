@@ -18,12 +18,10 @@ public class TestSystemStreamNsFactory {
 	
 	/**
 	 * Unit test for create().
-	 * 
-	 * @param uri 
-	 * 
+	 *
+	 * @param uri the uri
 	 * @return Returns the NamedStream.
-	 * 
-	 * @throws CouldNotCreateNamedStreamException 
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */
 	public NamedStream<?> testCreate(String uri) throws CouldNotCreateNamedStreamException {
 		NamedStreamDefinition def = new NamedStreamDefinition();
@@ -53,9 +51,8 @@ public class TestSystemStreamNsFactory {
 
 	/**
 	 * Unit test for create().
-	 * 
-	 * @param type 
-	 * @throws CouldNotCreateNamedStreamException 
+	 *
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */	
 	@Test
 	public void testCreate_sysout() throws CouldNotCreateNamedStreamException {
@@ -64,9 +61,8 @@ public class TestSystemStreamNsFactory {
 	
 	/**
 	 * Unit test for create().
-	 * 
-	 * @param type 
-	 * @throws CouldNotCreateNamedStreamException 
+	 *
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */
 	@Test
 	public void testCreate_syserr() throws CouldNotCreateNamedStreamException {
@@ -75,9 +71,8 @@ public class TestSystemStreamNsFactory {
 	
 	/**
 	 * Unit test for create().
-	 * 
-	 * @param type 
-	 * @throws CouldNotCreateNamedStreamException 
+	 *
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */	
 	@Test(expected=CouldNotCreateNamedStreamException.class)
 	public void testCreate_invalid() throws CouldNotCreateNamedStreamException {
@@ -86,10 +81,9 @@ public class TestSystemStreamNsFactory {
 	
 	/**
 	 * Unit test for create().
-	 * 
-	 * @param type 
-	 * @throws CouldNotConvertNamedStreamException 
-	 * @throws CouldNotCreateNamedStreamException 
+	 *
+	 * @throws CouldNotConvertNamedStreamException the could not convert named stream exception
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */	
 	@Test(expected=CouldNotConvertNamedStreamException.class)
 	public void testConvert() 

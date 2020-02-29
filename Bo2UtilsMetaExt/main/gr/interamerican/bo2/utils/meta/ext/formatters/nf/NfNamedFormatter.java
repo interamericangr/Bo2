@@ -21,9 +21,7 @@ import gr.interamerican.bo2.utils.meta.formatters.nf.NullFilteringFormatter;
  */
 public class NfNamedFormatter extends NullFilteringFormatter<Named> {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**

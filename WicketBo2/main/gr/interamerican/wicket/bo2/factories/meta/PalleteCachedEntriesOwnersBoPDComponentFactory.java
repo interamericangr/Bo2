@@ -29,6 +29,8 @@ import org.apache.wicket.model.util.ListModel;
  */
 public class PalleteCachedEntriesOwnersBoPDComponentFactory 
 extends AbstractBoPDComponentFactory<PalleteCachedEntriesOwnersBoPropertyDescriptor<?,?>> {
+	
+	@Override
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Component drawMain(PalleteCachedEntriesOwnersBoPropertyDescriptor<?,?> descriptor, String wicketId) {
 		List<?> choices = new ArrayList<TranslatableEntryOwner<?, ?, ?>>(descriptor.getSelectableValues());
@@ -44,6 +46,7 @@ extends AbstractBoPDComponentFactory<PalleteCachedEntriesOwnersBoPropertyDescrip
 		return palleteForEntriesOwners;
 	}	
 
+	@Override
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Component drawMain(String wicketId, IModel<?> model, PalleteCachedEntriesOwnersBoPropertyDescriptor<?,?> descriptor) {
 		List<?> choices = new ArrayList<TranslatableEntryOwner<?, ?, ?>>(descriptor.getSelectableValues());

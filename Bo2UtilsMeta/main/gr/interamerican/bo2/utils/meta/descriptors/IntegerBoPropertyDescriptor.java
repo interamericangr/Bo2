@@ -22,9 +22,7 @@ import gr.interamerican.bo2.utils.meta.parsers.ParserResolver;
 public class IntegerBoPropertyDescriptor 
 extends AbstractIntTypesBoPropertyDescriptor<Integer> {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**

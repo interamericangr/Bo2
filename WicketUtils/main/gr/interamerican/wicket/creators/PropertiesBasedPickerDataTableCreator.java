@@ -32,15 +32,14 @@ import org.apache.wicket.model.IModel;
  * are used.
  * 
  * @param <B> type of bean.
- * 
+ * @deprecated Use {@link FunctionalDataTableCreator}
  */
+@Deprecated
 public class PropertiesBasedPickerDataTableCreator
 <B extends Serializable>
 extends PropertiesBasedDataTableCreator<B>{
 	
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
 	/**
@@ -144,15 +143,14 @@ extends PropertiesBasedDataTableCreator<B>{
 		super(beanClass, properties, labels, sortProperty, formatters);
 		this.selectColumnLabelModel = selectColumnLabelModel;
 	}
-	
+
 	@Override
-	public List<IColumn<B>> createColumns() {
+	public List<IColumn<B,String>> createColumns() {
 		selectColumnLabelModel = StringResourceUtils.getResourceModel(
 			WellKnownResourceIds.PDT_SELECT_LABEL, null, selectColumnLabelModel, StringConstants.EMPTY);
-		List<IColumn<B>> tableColumns = new ArrayList<IColumn<B>>();
-		tableColumns.add(new SingleSelectionColumn<B>(selectColumnLabelModel));
+		List<IColumn<B,String>> tableColumns = new ArrayList<IColumn<B,String>>();
+		tableColumns.add(new SingleSelectionColumn<>(selectColumnLabelModel));
 		tableColumns.addAll(super.createColumns());
 		return tableColumns;
 	}
-
 }

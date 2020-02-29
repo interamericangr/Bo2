@@ -15,14 +15,16 @@ import org.quartz.SchedulerException;
 public class Bo2QuartzServletContextListener 
 implements ServletContextListener {
 
+	@Override
 	public void contextInitialized(ServletContextEvent sce) {
 		/* empty */
 	}
 
+	@Override
 	public void contextDestroyed(ServletContextEvent sce) {
 		System.out.println("org.apache.commons.logging.impl.ServletContextCleaner context destruction"); //$NON-NLS-1$
 		new ServletContextCleaner().contextDestroyed(sce);
-		
+
 		System.out.println("Quartz scheduler shutdown"); //$NON-NLS-1$
 		try {
 			QuartzSchedulerRegistry.shutdown();
@@ -30,7 +32,5 @@ implements ServletContextListener {
 			e.printStackTrace();
 			throw new RuntimeException(e);
 		}
-		
 	}
-
 }

@@ -28,16 +28,15 @@ import org.junit.Test;
  */
 public class TestJdbcSimpleQuestion extends AbstractNonTransactionalProviderTest {
 
-	/**
-	 * simpleQuestion to test
-	 */
+	/** simpleQuestion to test. */
 	JdbcSimpleQuestionImpl question = new JdbcSimpleQuestionImpl();
 	
 	/**
-	 * tests a question
-	 * @throws InitializationException 
-	 * @throws LogicException 
-	 * @throws DataException 
+	 * tests a question.
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testExecuteQuestion() 
@@ -63,15 +62,14 @@ public class TestJdbcSimpleQuestion extends AbstractNonTransactionalProviderTest
 	
 	
 	/**
-	 * implementation to test
+	 * implementation to test.
 	 */
 	@ManagerName("LOCALDB")
 	private class JdbcSimpleQuestionImpl extends JdbcSimpleQuestion<Integer>{		
 		/**
 		 * sgl.
 		 */		
-		@Sql @SuppressWarnings("unused")
-		private String sql = "select MAX(id) as answer from test.users"; //$NON-NLS-1$
+		@Sql private String sql = "select MAX(id) as answer from test.users"; //$NON-NLS-1$
 		
 	}
 	

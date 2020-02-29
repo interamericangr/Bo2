@@ -28,24 +28,23 @@ import org.apache.wicket.request.cycle.PageRequestHandlerTracker;
  * 
  * This is not a Bo2WicketApplication.
  */
-public class MockApplicationForWicketBo2 
+class MockApplicationForWicketBo2 
 extends WebApplication {
-	
+
 	@Override
 	public Session newSession(Request request, Response response) {
 		return new Bo2WicketSession<Object, Object>(request);
 	}
-	
+
 	@Override
 	protected void init() {
 		super.init();
 		getRequestCycleListeners().add(new PageRequestHandlerTracker());
 		getRequestCycleListeners().add(new Bo2RequestCycleListener());
 	}
-	
+
 	@Override
 	public Class<? extends Page> getHomePage() {
 		return TestPage.class;
 	}
-	
 }

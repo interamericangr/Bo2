@@ -1,7 +1,6 @@
 package gr.interamerican.bo2.impl.open.namedstreams.resourcetypes;
 
-import static gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResourceValidator.onConvert;
-import static gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResourceValidator.onCreate;
+import static gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResourceValidator.*;
 import gr.interamerican.bo2.impl.open.namedstreams.NamedStream;
 import gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition;
 import gr.interamerican.bo2.impl.open.namedstreams.types.NamedBufferedReader;
@@ -11,8 +10,6 @@ import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.StringUtils;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
@@ -34,7 +31,7 @@ implements NamedStreamFactory {
 	/**
 	 * Creates a new ReadOnlyNsFactory.
 	 *
-	 * @param resourceType
+	 * @param resourceType the resource type
 	 */
 	public ReadOnlyNsFactory(StreamResource resourceType) {
 		super();
@@ -67,12 +64,10 @@ implements NamedStreamFactory {
 	/**
 	 * Creates an InputStream according to the specified {@link NamedStreamDefinition}.
 	 *
-	 * @param def
-	 *        NamedStreamDefinition with the necessary information for the
+	 * @param def        NamedStreamDefinition with the necessary information for the
 	 *        creation of the stream.
-	 *
 	 * @return Returns the InputStream.
-	 * @throws CouldNotCreateNamedStreamException
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */
 	protected abstract InputStream openInputStream(NamedStreamDefinition def)
 			throws CouldNotCreateNamedStreamException;
@@ -80,10 +75,9 @@ implements NamedStreamFactory {
 	/**
 	 * Creates a new NamedStream.
 	 *
-	 * @param def
-	 *
+	 * @param def the def
 	 * @return Returns the {@link NamedStream}.
-	 * @throws CouldNotCreateNamedStreamException
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */
 	NamedStream<?> createNs(NamedStreamDefinition def)
 			throws CouldNotCreateNamedStreamException {
@@ -95,12 +89,10 @@ implements NamedStreamFactory {
 	/**
 	 * Creates a new NamedStream.
 	 *
-	 * @param stream
-	 *
-	 * @param def
-	 *
+	 * @param stream the stream
+	 * @param def the def
 	 * @return Returns the {@link NamedStream}.
-	 * @throws CouldNotCreateNamedStreamException
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */
 	NamedStream<?> createNs(InputStream stream, NamedStreamDefinition def)
 			throws CouldNotCreateNamedStreamException {
@@ -118,23 +110,16 @@ implements NamedStreamFactory {
 
 	/**
 	 * Creates a new NamedBufferedReader that wraps a file.
-	 *
+	 * 
 	 * The specified file provides the underlying resource of the NamedStream.
-	 *
+	 * 
 	 * The file is read using the user-defined encoding in the Bo2 configuration.
 	 *
-	 * @param stream
-	 *            stream.
-	 * @param name
-	 *            Stream name.
-	 * @param encoding
-	 *            Encoding (if applicable).
-	 * @param uri
-	 *            Stream URI.
-	 *
+	 * @param stream            stream.
+	 * @param name            Stream name.
+	 * @param encoding            Encoding (if applicable).
+	 * @param uri            Stream URI.
 	 * @return Returns the NamedBufferedReader.
-	 *
-	 * @throws IOException
 	 */
 	NamedBufferedReader reader(InputStream stream, String name, Charset encoding, String uri) {
 		InputStreamReader insr = new InputStreamReader(stream, encoding);
@@ -144,22 +129,15 @@ implements NamedStreamFactory {
 
 	/**
 	 * Creates a new NamedInputStream that wraps a file.
-	 *
+	 * 
 	 * The specified file provides the underlying resource of the NamedStream.
 	 *
-	 * @param stream
-	 *            stream.
-	 * @param name
-	 *            Stream name.
-	 * @param recordLength
-	 *            Record length.
-	 * @param encoding
-	 *            Encoding (if applicable).
-	 * @param uri
-	 *            Stream URI.
-	 *
+	 * @param stream            stream.
+	 * @param name            Stream name.
+	 * @param recordLength            Record length.
+	 * @param encoding            Encoding (if applicable).
+	 * @param uri            Stream URI.
 	 * @return Returns the NamedInputStream.
-	 * @throws FileNotFoundException
 	 */
 	NamedInputStream input(InputStream stream, String name, int recordLength, Charset encoding, String uri) {
 		return new NamedInputStream(resourceType, stream, name, recordLength, stream, encoding, uri);

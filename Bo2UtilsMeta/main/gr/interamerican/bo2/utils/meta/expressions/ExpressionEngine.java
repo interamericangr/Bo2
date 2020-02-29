@@ -37,11 +37,11 @@ public class ExpressionEngine {
 
 	/**
 	 * Evaluates an expression.
-	 * 
-	 * @param expression
-	 * @param context
-	 * @param failureMessage 
-	 * @throws ValidationException 
+	 *
+	 * @param expression the expression
+	 * @param context the context
+	 * @param failureMessage the failure message
+	 * @throws ValidationException the validation exception
 	 */
 	@SuppressWarnings("nls")
 	public void evaluate(String expression, Map<String, Object> context, String failureMessage)

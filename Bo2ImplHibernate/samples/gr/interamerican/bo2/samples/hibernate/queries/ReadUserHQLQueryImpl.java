@@ -43,8 +43,8 @@ extends AbstractHqlQuery<User> {
 	
 	/**
 	 * Sets the user id.
-	 * 
-	 * @param userId
+	 *
+	 * @param userId the new user id
 	 */
 	public void setUserId(Integer userId) {
 		this.userId = userId;

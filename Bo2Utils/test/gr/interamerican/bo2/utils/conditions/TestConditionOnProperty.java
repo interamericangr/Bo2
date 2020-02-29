@@ -20,33 +20,32 @@ import org.junit.Test;
 /**
  * Tests for {@link ConditionOnProperty}.
  */
+@Deprecated
 public class TestConditionOnProperty {
-	
+
 	/**
-	 * Tests check()
+	 * Tests check().
 	 */
 	@SuppressWarnings("nls")
 	@Test
-	public void testCheck() {
+	public void testCheck_deprecated() {
 		EqualsIgnoreCaseCondition equals = new EqualsIgnoreCaseCondition("vava");
-		ConditionOnProperty<BeanWith2Fields> conditionOnProperty = 
-			new ConditionOnProperty<BeanWith2Fields>("field1", BeanWith2Fields.class, equals);
+		ConditionOnProperty<BeanWith2Fields> conditionOnProperty = new ConditionOnProperty<>("field1",
+				BeanWith2Fields.class, equals);
 		BeanWith2Fields bean = new BeanWith2Fields();
 		bean.setField1("vava");
 		Assert.assertTrue(conditionOnProperty.check(bean));
 	}
-	
+
 	/**
-	 * Tests if the constructor throws a runtime exception 
-	 * for an invalid property.
+	 * Tests if the constructor throws a runtime exception for an invalid
+	 * property.
 	 */
-	@SuppressWarnings({ "nls", "unused" })
-	@Test(expected=RuntimeException.class)
+	@SuppressWarnings({ "nls", "unused"})
+	@Test(expected = RuntimeException.class)
 	public void testConstructor_withInvalidProperty() {
 		EqualsIgnoreCaseCondition equals = new EqualsIgnoreCaseCondition("vava");
-		ConditionOnProperty<BeanWith2Fields> conditionOnProperty = 
-			new ConditionOnProperty<BeanWith2Fields>
-			("nosuchfield", BeanWith2Fields.class, equals);
+		ConditionOnProperty<BeanWith2Fields> conditionOnProperty = new ConditionOnProperty<>("nosuchfield",
+				BeanWith2Fields.class, equals);
 	}
-
 }

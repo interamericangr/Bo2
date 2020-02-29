@@ -12,13 +12,6 @@
  ******************************************************************************/
 package gr.interamerican.wicket.markup.html.panel.listTable;
 
-import gr.interamerican.bo2.utils.StringConstants;
-import gr.interamerican.wicket.creators.DataTableCreator;
-import gr.interamerican.wicket.markup.html.panel.back.ServicePanelWithBack;
-import gr.interamerican.wicket.markup.html.panel.service.ServicePanel;
-import gr.interamerican.wicket.util.resource.StringResourceUtils;
-import gr.interamerican.wicket.util.resource.WellKnownResourceIds;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,14 +21,21 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.IModel;
 
+import gr.interamerican.bo2.utils.StringConstants;
+import gr.interamerican.wicket.creators.DataTableProvider;
+import gr.interamerican.wicket.markup.html.panel.back.ServicePanelWithBack;
+import gr.interamerican.wicket.markup.html.panel.service.ServicePanel;
+import gr.interamerican.wicket.util.resource.StringResourceUtils;
+import gr.interamerican.wicket.util.resource.WellKnownResourceIds;
+
 /**
  * Basic {@link ServicePanel} that shows a List of objects.
  * 
- * This panel has its table drawn by a {@link DataTableCreator}.
+ * This panel has its table drawn by a {@link DataTableProvider}.
  *  
  * @param <B> Type of bean that encapsulates a row of the result set.
  * 
- * TODO: there are cases, where the {@link DataTableCreator} might return
+ * TODO: there are cases, where the {@link DataTableProvider} might return
  * null, indicating that there are two different type of bean lists that
  * can be shown and the results list came up empty, so there is no info
  * on what bean type the user searched for. In this case a label indicating
@@ -65,6 +65,10 @@ extends ServicePanelWithBack {
 	 */
 	public static final String TABLE_FORM_ID = "tableForm"; //$NON-NLS-1$
 
+	/**
+	 * wicket id of the link that exports the data
+	 */
+	public static final String EXPORT_BUTTON_ID = "exportButton"; //$NON-NLS-1$
 	
 	/**
 	 * Form that contains the {@link DataTable}.
@@ -74,7 +78,7 @@ extends ServicePanelWithBack {
 	/**
 	 * DataTable.
 	 */
-	protected DataTable<B> table;
+	protected DataTable<B,?> table;
 	
 	/**
 	 * List label.
@@ -83,14 +87,13 @@ extends ServicePanelWithBack {
 			
 	/**
 	 * Creates a new AbstractQueryResultsPanel object. 
-	 * 
-	 * @param definition 
 	 *
+	 * @param definition the definition
 	 */
 	public ListTablePanel(ListTablePanelDef<B> definition) {			
 		super(definition);	
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public ListTablePanelDef<B> getDefinition() {
@@ -101,21 +104,21 @@ extends ServicePanelWithBack {
 	protected void init() {
 		super.init();
 		tableForm = new Form<B>(TABLE_FORM_ID);
-		DataTableCreator<B> dataTableCreator = getDefinition().getDataTableCreator();
+		DataTableProvider<B, ?> dataTableCreator = getDefinition().getDataTableCreator();
 		List<B> list = getDefinition().getList();
 		table = dataTableCreator.createDataTable(DATATABLE_ID,list);
 		
 		IModel<String> listLabelModel = StringResourceUtils.getResourceModel(
 			WellKnownResourceIds.LTP_LIST_TABLE_LABEL, this, getDefinition().getListLabelModel(), StringConstants.EMPTY);
-		
 		listLabel = new Label(LIST_LABEL_ID, listLabelModel);
 	}
-		
+
 	@Override
 	protected void paint() {
 		add(listLabel);
 		tableForm.add(table);
 		tableForm.add(backButton);
+		tableForm.add(getDefinition().createButton(EXPORT_BUTTON_ID, getDefinition(), this));
 		add(tableForm);
 		add(feedBackPanel);
 	}
@@ -132,5 +135,4 @@ extends ServicePanelWithBack {
 			throw new RuntimeException(msg);
 		}
 	}
-
 }

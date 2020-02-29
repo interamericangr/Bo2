@@ -27,10 +27,11 @@ import org.junit.Test;
 public class TestJasperReportOperation {
 	
 	/**
-	 * test execute
-	 * @throws LogicException
-	 * @throws DataException
-	 * @throws UnexpectedException 
+	 * test execute.
+	 *
+	 * @throws LogicException the logic exception
+	 * @throws DataException the data exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test
 	public void testExecute() 

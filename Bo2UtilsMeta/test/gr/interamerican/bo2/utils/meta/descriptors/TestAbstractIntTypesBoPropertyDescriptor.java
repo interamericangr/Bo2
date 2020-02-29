@@ -23,7 +23,7 @@ import org.junit.Test;
 public class TestAbstractIntTypesBoPropertyDescriptor {
 	
 	/**
-	 * Test setLengthOfDecimalPart
+	 * Test setLengthOfDecimalPart.
 	 */
 	@Test
 	public void testSetLengthOfDecimalPart() {
@@ -37,9 +37,8 @@ public class TestAbstractIntTypesBoPropertyDescriptor {
 	 * Implementation of descriptor for the tests.
 	 */
 	private class Descriptor extends AbstractIntTypesBoPropertyDescriptor<Integer> {
-		/**
-		 * 
-		 */
+		
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 1L;
 
 		/**

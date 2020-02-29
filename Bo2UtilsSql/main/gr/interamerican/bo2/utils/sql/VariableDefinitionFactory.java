@@ -24,12 +24,10 @@ public class VariableDefinitionFactory {
 	
 	/**
 	 * Creates a {@link VariableDefinition} from a {@link Column}.
-	 * 
-	 * @param column 
-	 *        Column.
-	 * @param <T> 
-	 *        Variable type.
+	 *
+	 * @param <T>        Variable type.
 	 *        
+	 * @param column        Column.
 	 * @return Returns the VariableDefinition.
 	 */	
 	public static <T> VariableDefinition<T> create(Column column) {
@@ -59,12 +57,10 @@ public class VariableDefinitionFactory {
 	
 	/**
 	 * Creates a {@link VariableDefinition} from a {@link Parameter}.
-	 * 
-	 * @param parameter 
-	 *        Parameter.
-	 * @param <T> 
-	 *        Variable type.
+	 *
+	 * @param <T>        Variable type.
 	 *        
+	 * @param parameter        Parameter.
 	 * @return Returns the VariableDefinition.
 	 */	
 	public static <T> VariableDefinition<T> create(Parameter parameter) {

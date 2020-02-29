@@ -53,13 +53,13 @@ extends EmptyVisitor {
 	
 	/**
 	 * Stores the table aliases.
-	 * The mapping is: alias  <--> schema.tableName
+	 * The mapping is: alias  &lt;--&gt; schema.tableName
 	 */
 	private Map<String, String> tableAliases = new HashMap<String, String>();
 	
 	/**
 	 * Stores the select aliases.
-	 * The mapping is: select expression <--> alias
+	 * The mapping is: select expression &lt;--&gt; alias
 	 */
 	private Map<String, String> selectAliases = new HashMap<String, String>();
 	

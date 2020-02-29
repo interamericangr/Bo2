@@ -17,14 +17,12 @@ import gr.interamerican.bo2.test.def.samples.SampleClass;
 import gr.interamerican.bo2.test.def.samples.SampleClassKey;
 
 /**
- * sample abstract class
+ * sample abstract class.
  */
 public abstract class SampleClass2Impl implements SampleClass {
 	
-	/**
-	 * a sample key field declared as an inteface
-	 */
-	@SuppressWarnings({ "unused", "cast" })
+	/** a sample key field declared as an inteface. */
+	@SuppressWarnings("cast")
 	@DelegateProperties("field1, field2")
 	private SampleClassKey sampleInterface = (SampleClassKey) new SampleClassKeyImpl();
 	

@@ -12,8 +12,14 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.creation;
 
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import org.junit.Assert;
+import org.junit.Test;
+
 import gr.interamerican.bo2.creation.creators.BaseTestForAbstractClassesImplementors;
 import gr.interamerican.bo2.creation.exception.ClassCreationException;
 import gr.interamerican.bo2.test.def.posamples.InvoiceKey;
@@ -25,12 +31,8 @@ import gr.interamerican.bo2.test.impl.samples.AbstractTs;
 import gr.interamerican.bo2.test.impl.samples.AbstractTsWithWrongAnno;
 import gr.interamerican.bo2.test.impl.samples.SamplePoForTestImpl;
 import gr.interamerican.bo2.test.impl.samples.SamplePoImpl;
-
-import java.util.HashSet;
-import java.util.Set;
-
-import org.junit.Assert;
-import org.junit.Test;
+import gr.interamerican.bo2.test.impl.samples.SampleTypedSelectableWithAnno;
+import gr.interamerican.bo2.utils.reflect.beans.BeanPropertyDefinition;
 
 /**
  * Unit test for {@link Impl4Abstract}.
@@ -43,7 +45,7 @@ public class TestImpl4Abstract extends BaseTestForAbstractClassesImplementors {
 	 * Must override the suffix, so the classes it creates don't mess
 	 * with classes created by other tests.
 	 */
-	static Impl4Abstract impl = new Impl4Abstract() {
+	static SampleImpl4Abstract impl = new SampleImpl4Abstract() {
 		@Override
 		protected String getSuffix() {
 			return "_forTestOfImpl4Abstract";		 //$NON-NLS-1$
@@ -60,10 +62,10 @@ public class TestImpl4Abstract extends BaseTestForAbstractClassesImplementors {
 	
 	/**
 	 * Test for create.
-	 * 
-	 * @throws ClassCreationException
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
 	public void testCreate_AbstractModificationRecordPo() 
@@ -85,10 +87,10 @@ public class TestImpl4Abstract extends BaseTestForAbstractClassesImplementors {
 	
 	/**
 	 * Test for create.
-	 * 
-	 * @throws ClassCreationException
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
 	public void testCreate_AbstractModificationRecordPo_2() 
@@ -102,10 +104,10 @@ public class TestImpl4Abstract extends BaseTestForAbstractClassesImplementors {
 
 	/**
 	 * Test for create.
-	 * 
-	 * @throws ClassCreationException
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
 	public void testCreate_PoIsTs() 
@@ -175,10 +177,10 @@ public class TestImpl4Abstract extends BaseTestForAbstractClassesImplementors {
 	
 	/**
 	 * Test for create.
-	 * 
-	 * @throws ClassCreationException
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
 	public void testCreate_PoIsTs2() 
@@ -190,10 +192,10 @@ public class TestImpl4Abstract extends BaseTestForAbstractClassesImplementors {
 	
 	/**
 	 * Test for create.
-	 * 
-	 * @throws ClassCreationException
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
 	public void testCreate_WithTs() 
@@ -225,8 +227,8 @@ public class TestImpl4Abstract extends BaseTestForAbstractClassesImplementors {
 	
 	/**
 	 * Test for create.
-	 * 
-	 * @throws ClassCreationException
+	 *
+	 * @throws ClassCreationException the class creation exception
 	 */
 	@Test(expected=ClassCreationException.class)
 	public void testCreate_WithWrongTs() 
@@ -234,5 +236,23 @@ public class TestImpl4Abstract extends BaseTestForAbstractClassesImplementors {
 		creator.create(AbstractTsWithWrongAnno.class);
 	}
 	
-
+	/**
+	 * Test for {@link Impl4Abstract#markTsProperty(String, String)}
+	 * @throws ClassCreationException 
+	 */
+	@SuppressWarnings("nls")
+	@Test
+	public void testMarkTsProperty() throws ClassCreationException {
+		creator.create(SampleTypedSelectableWithAnno.class);
+		assertEquals(1, impl.getMockedProperties().size());
+		assertEquals(1, impl.getReplacementProperties().size());
+		
+		BeanPropertyDefinition<?> mockedProp = impl.getMockedProperties().iterator().next();
+		assertEquals("subTypeId", mockedProp.getName());
+		
+		BeanPropertyDefinition<?> delegateProp = impl.getReplacementProperties().keySet().iterator().next();
+		assertEquals("code", delegateProp.getName());
+		BeanPropertyDefinition<?> supportedProp = impl.getReplacementProperties().get(delegateProp);
+		assertEquals("id", supportedProp.getName());
+	}
 }

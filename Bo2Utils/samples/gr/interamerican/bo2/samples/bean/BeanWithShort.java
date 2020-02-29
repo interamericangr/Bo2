@@ -37,7 +37,8 @@ public class BeanWithShort implements Serializable {
 	
 	/**
 	 * Creates a new BeanWithShort object. 
-	 * @param first 
+	 *
+	 * @param first the first
 	 */
 	public BeanWithShort(Short first) {
 		super();

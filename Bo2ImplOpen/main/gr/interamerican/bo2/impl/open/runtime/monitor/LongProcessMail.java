@@ -1,17 +1,20 @@
 /*******************************************************************************
- * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A. 
+ * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/copyleft/lesser.html
- * 
- * This library is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.runtime.monitor;
 
+import static gr.interamerican.bo2.impl.open.runtime.monitor.MonitoringConstants.MONITOR_MESSAGE_FROM;
+import static gr.interamerican.bo2.impl.open.runtime.monitor.MonitoringConstants.MONITOR_MESSAGE_INTERVAL;
+import static gr.interamerican.bo2.impl.open.runtime.monitor.MonitoringConstants.MONITOR_MESSAGE_RECIPIENTS;
 import static gr.interamerican.bo2.utils.StringConstants.COMMA;
 import gr.interamerican.bo2.arch.batch.LongProcess;
 import gr.interamerican.bo2.utils.ArrayUtils;
@@ -21,7 +24,6 @@ import gr.interamerican.bo2.utils.Utils;
 import gr.interamerican.bo2.utils.attributes.ModifiableByProperties;
 import gr.interamerican.bo2.utils.mail.MailMessage;
 import gr.interamerican.bo2.utils.runnables.AbstractMonitoringOperation;
-import gr.interamerican.bo2.utils.runnables.MonitoringOperation;
 
 import java.util.Properties;
 
@@ -30,40 +32,23 @@ import java.util.Properties;
  */
 public class LongProcessMail
 extends AbstractMonitoringOperation<LongProcess>
-implements MonitoringOperation<LongProcess>, ModifiableByProperties {
-	
-	/**
-	 * Property key for monitoringMailRecipients.
-	 */
-	public static final String MONITOR_MESSAGE_RECIPIENTS = "monitoringMailRecipients"; //$NON-NLS-1$
-	/**
-	 * Property key for interval.
-	 * This property defines the interval between two executions
-	 * in milliseconds.
-	 */
-	public static final String MONITOR_MESSAGE_INTERVAL = "monitoringMailInterval"; //$NON-NLS-1$
-	
-	/**
-	 * Property key for monitoringMailFrom.
-	 */
-	public static final String MONITOR_MESSAGE_FROM = "monitoringMailFrom"; //$NON-NLS-1$
-	
-	
+implements ModifiableByProperties {
+
 	/**
 	 * Creates the message.
 	 */
 	LongProcessToString msgCreator = new LongProcessToString();
-	
+
 	/**
 	 * Recipients.
 	 */
 	String[] recipients;
-	
+
 	/**
 	 * Message sender.
 	 */
 	String from;
-	
+
 	/**
 	 * Gets the statusMessageRecipients.
 	 *
@@ -87,8 +72,8 @@ implements MonitoringOperation<LongProcess>, ModifiableByProperties {
 		if (statusMessageRecipients==null) {
 			recipients = null;
 		} else {
-			recipients = TokenUtils.splitTrim(statusMessageRecipients, COMMA);			
-		}		
+			recipients = TokenUtils.splitTrim(statusMessageRecipients, COMMA);
+		}
 	}
 
 	@Override
@@ -96,28 +81,28 @@ implements MonitoringOperation<LongProcess>, ModifiableByProperties {
 		String msg = msgCreator.execute(a);
 		String subject = "Process " + a.getName(); //$NON-NLS-1$
 		MailMessage mail = newMailMessage();
-		mail.setFrom(from);		
+		mail.setFrom(from);
 		mail.setSubject(subject);
 		mail.setMessage(msg);
 		for (String to  : recipients) {
-			mail.addTo(to);			
-		}		
+			mail.addTo(to);
+		}
 		mail.send();
 	}
-	
+
 	/**
 	 * Creates a new empty {@link MailMessage}.
-	 * 
+	 *
 	 * @return Returns a new {@link MailMessage}.
 	 */
 	MailMessage newMailMessage() {
 		return new MailMessage();
 	}
-	
+
 	@Override
 	public void beModified(Properties properties) {
 		setIntervalFromProperties(properties, MONITOR_MESSAGE_INTERVAL);
-		String strRecipients = properties.getProperty(MONITOR_MESSAGE_RECIPIENTS);		
+		String strRecipients = properties.getProperty(MONITOR_MESSAGE_RECIPIENTS);
 		setStatusMessageRecipients(strRecipients);
 		String strFrom = properties.getProperty(MONITOR_MESSAGE_FROM);
 		from = Utils.notNull(strFrom, "LongProcessMonitor"); //$NON-NLS-1$
@@ -125,12 +110,12 @@ implements MonitoringOperation<LongProcess>, ModifiableByProperties {
 
 
 	@Override
-	public boolean isValid() {		
+	public boolean isValid() {
 		if (ArrayUtils.isNullOrEmpty(recipients)) {
 			return false;
 		}
 		return super.isValid();
-	}	
-	
+	}
+
 
 }

@@ -19,14 +19,12 @@ import gr.interamerican.bo2.utils.meta.ext.descriptors.MoneyBoPropertyDescriptor
 import java.util.Arrays;
 
 /**
- * 
+ * The Class MoneyOwnerObjectDescriptor.
  */
 public class MoneyOwnerObjectDescriptor 
 extends BasicBusinessObjectDescriptor<MoneyOwnerObject> {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**

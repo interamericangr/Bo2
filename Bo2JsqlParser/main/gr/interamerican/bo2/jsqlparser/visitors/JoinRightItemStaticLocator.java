@@ -40,11 +40,14 @@ public class JoinRightItemStaticLocator implements FromItemVisitor, SelectVisito
 	private boolean staticValue = false;
 
 	/**
+	 * Gets the static value.
+	 *
 	 * @return static value.
 	 */
 	public boolean getStaticValue() {
 		return staticValue;
 	}
+	
 	@Override
 	public void visit(Table tableName) {
 		// do nothing

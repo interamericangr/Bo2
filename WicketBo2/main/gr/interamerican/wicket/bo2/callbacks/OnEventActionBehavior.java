@@ -12,17 +12,25 @@
  ******************************************************************************/
 package gr.interamerican.wicket.bo2.callbacks;
 
-import gr.interamerican.wicket.components.CallbackActionBehavior;
-
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.IAjaxIndicatorAware;
+import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
+
+import gr.interamerican.wicket.components.CallbackActionBehavior;
+import gr.interamerican.wicket.components.OnChangeSelfUpdatingBehavior;
 
 /**
  * Behavior that on an event,render the component that this handler is bound to.
+ * 
+ * @deprecated Either use {@link OnChangeSelfUpdatingBehavior} or
+ *             {@link FormChoiceSelfUpdatingBehavior} or manually extend the
+ *             {@link AjaxFormComponentUpdatingBehavior}
  */
+@Deprecated
 public class OnEventActionBehavior 
 extends CallbackActionBehavior 
 implements IAjaxIndicatorAware{
+
 	/**
 	 * serial.
 	 */
@@ -31,7 +39,7 @@ implements IAjaxIndicatorAware{
 	/**
 	 * Creates a new OnChangeValueActionBehavior object. 
 	 *
-	 * @param event
+	 * @param event the event
 	 */
 	public OnEventActionBehavior(String event) {
 		super(event);
@@ -39,15 +47,17 @@ implements IAjaxIndicatorAware{
 	}
 	
 	/**
-	 * @param target
+	 * On change value.
+	 *
+	 * @param target the target
 	 */
 	@SuppressWarnings("unused")
 	private void onChangeValue(AjaxRequestTarget target){
 		target.add(this.getComponent());
 	}
-
+	
+	@Override
 	public String getAjaxIndicatorMarkupId() {
 		return null;
 	}
-
 }

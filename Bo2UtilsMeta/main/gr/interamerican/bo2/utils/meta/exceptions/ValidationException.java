@@ -25,7 +25,7 @@ public class ValidationException extends Exception {
 	/**
 	 * Creates a new ValidationException object. 
 	 *
-	 * @param message
+	 * @param message the message
 	 */
 	public ValidationException(String message) {
 		super(message);

@@ -23,15 +23,13 @@ import javassist.NotFoundException;
 public class AddingFieldsClassUpdater 
 extends AbstractClassUpdater {
 	
-	/**
-	 * fields
-	 */
+	/** fields. */
 	private String[] fields;
 	
 	/**
 	 * Creates a new AddingFieldsClassUpdater object. 
 	 *
-	 * @param fields
+	 * @param fields the fields
 	 */
 	public AddingFieldsClassUpdater(String[] fields) {
 		super();

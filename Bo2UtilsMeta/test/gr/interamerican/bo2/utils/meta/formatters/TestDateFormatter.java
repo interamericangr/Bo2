@@ -23,16 +23,15 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestDateFormatter.
  */
 public class TestDateFormatter {
-	/**
-	 * Date
-	 */
+	
+	/** Date. */
 	Date dt = DateUtils.getDate(2011, Calendar.JANUARY, 25);
 	
 	/**
-	 * Test
+	 * Test.
 	 */
 	@Test
 	public void testFormat_createdWithDateFormat() {
@@ -44,7 +43,7 @@ public class TestDateFormatter {
 	}
 	
 	/**
-	 * Test
+	 * Test.
 	 */
 	@Test
 	@SuppressWarnings("nls")

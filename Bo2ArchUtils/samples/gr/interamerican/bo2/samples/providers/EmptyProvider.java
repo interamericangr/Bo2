@@ -23,16 +23,19 @@ import gr.interamerican.bo2.arch.exceptions.InitializationException;
  *
  */
 public class EmptyProvider implements Provider {
-	
+
+	@Override
 	public void close() throws DataException {
 		/* nothing to do */
 	}
-	
-	public <C extends ResourceWrapper> C getResource (String resourceName, Class<C> subclass) 
-	throws InitializationException {
+
+	@Override
+	public <C extends ResourceWrapper> C getResource(String resourceName, Class<C> subclass)
+			throws InitializationException {
 		throw new InitializationException();
 	}
 
+	@Override
 	public TransactionManager getTransactionManager() {
 		return null;
 	}

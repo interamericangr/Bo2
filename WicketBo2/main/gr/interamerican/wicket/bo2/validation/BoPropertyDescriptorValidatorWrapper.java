@@ -16,7 +16,6 @@ import gr.interamerican.bo2.arch.utils.ext.Bo2Session;
 import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.meta.MetaSession;
 import gr.interamerican.bo2.utils.meta.descriptors.BoPropertyDescriptor;
-import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
 import gr.interamerican.bo2.utils.meta.exceptions.ValidationException;
 import gr.interamerican.bo2.utils.meta.parsers.Parser;
 import gr.interamerican.bo2.utils.meta.validators.Validator;
@@ -40,25 +39,23 @@ public class BoPropertyDescriptorValidatorWrapper<T> implements IValidator<T> {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	/**
-	 * Parser
-	 */
+	/** Parser. */
 	Parser<T> parser;
 	
-	/**
-	 * Validator
-	 */
+	/** Validator. */
 	Validator<T> validator;
 	
 	/**
 	 * Creates a new BoPropertyDescriptorValidatorWrapper object. 
-	 * @param descriptor 
+	 *
+	 * @param descriptor the descriptor
 	 */
 	public BoPropertyDescriptorValidatorWrapper(BoPropertyDescriptor<T> descriptor) {
 		this.parser = descriptor.getParser();
 		this.validator = descriptor.getValidator();
 	}
 
+	@Override
 	public void validate(IValidatable<T> validatable) {
 		MetaSession.setLocale(Bo2Session.getLocale());
 		T value = validatable.getValue();
@@ -68,7 +65,6 @@ public class BoPropertyDescriptorValidatorWrapper<T> implements IValidator<T> {
 			 * In normal form processing it is an instance of T.
 			 */
 			if(value instanceof String) {
-				value = parser.parse((String) value);
 				validator.validate(value);
 			} else {
 				/*
@@ -83,8 +79,6 @@ public class BoPropertyDescriptorValidatorWrapper<T> implements IValidator<T> {
 			if(!StringUtils.isNullOrBlank(ve.getMessage())) {
 				validatable.error(new ValidationError().setMessage(ve.getMessage()));
 			}
-		} catch (ParseException e) {
-			throw new RuntimeException(e);
 		}
 	}
 

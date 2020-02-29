@@ -31,50 +31,59 @@ import org.hibernate.usertype.UserType;
  */
 public class MonetaryAmountUserType implements UserType {
 
-	/**
-	 * Type declaration for BigDecimal
-	 */
+	/** Type declaration for BigDecimal. */
 	public static final BigDecimalType BIG_DECIMAL = new BigDecimalType();
 
+	@Override
 	public int[] sqlTypes() {
 		return new int[] {BIG_DECIMAL.sqlType()};
 	}
-	
+
+	@Override
 	@SuppressWarnings("rawtypes")
 	public Class returnedClass() {
 		return MoneyImpl.class;
 	}
 
+	@Override
 	public boolean isMutable() { 
 		return false; 
 	}
 
+	@Override
 	public Object deepCopy(Object value) { 
 		return value; 
 	}
 
+	@Override
 	public Serializable disassemble(Object value) { 
 		return (Serializable) value;
 	}
 
+	@Override
 	public Object assemble(Serializable cached, Object owner) { 
 		return cached; 
 	}
-		
+
+	@Override
 	public Object replace(Object original, Object target, Object owner) throws HibernateException {
 		return original;
 	}
 
+	@Override
 	public boolean equals(Object x, Object y) {
 		if (x == y) return true;
 		if (x == null || y == null) return false;
 		return x.equals(y);
 	}
 
+	@Override
 	public int hashCode(Object x) {
 		return x.hashCode();
 	}
 
+	@Deprecated
+	@Override
 	public Object nullSafeGet(ResultSet resultSet, String[] names, Object owner)
 	throws SQLException {
 		BigDecimal value = resultSet.getBigDecimal(names[0]);
@@ -82,6 +91,8 @@ public class MonetaryAmountUserType implements UserType {
 		return new MoneyImpl(value);
 	}
 
+	@Deprecated
+	@Override
 	public void nullSafeSet(PreparedStatement statement, Object value, int index)
 	throws HibernateException, SQLException {
 		if (value == null) {

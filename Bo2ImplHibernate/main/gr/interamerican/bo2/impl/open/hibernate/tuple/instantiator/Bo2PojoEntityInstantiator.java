@@ -44,12 +44,14 @@ public class Bo2PojoEntityInstantiator implements Instantiator {
 	
 	/**
 	 * Creates a new MyPojoEntityInstantiator object. 
-	 * @param persistentClass 
+	 *
+	 * @param persistentClass the persistent class
 	 */
 	public Bo2PojoEntityInstantiator(PersistentClass persistentClass) {
 		this.entityClass = persistentClass.getMappedClass();
 	}
 
+	@Override
 	@SuppressWarnings("nls")
 	public Object instantiate(Serializable id) {
 		if(logger.isDebugEnabled()) {
@@ -60,14 +62,15 @@ public class Bo2PojoEntityInstantiator implements Instantiator {
 		return Factory.create(entityClass);
 	}
 
+	@Override
 	public Object instantiate() {
 		@SuppressWarnings("nls")
 		String msg = "Attempted to initialize an Entity of type " + entityClass.getName() + " with no id";
 		throw new RuntimeException(msg);
 	}
 
+	@Override
 	public boolean isInstance(Object object) {
 		return entityClass.isInstance(object);
 	}
-
 }

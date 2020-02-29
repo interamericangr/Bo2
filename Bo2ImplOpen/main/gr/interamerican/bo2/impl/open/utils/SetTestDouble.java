@@ -22,9 +22,10 @@ public class SetTestDouble {
 	
 	/**
 	 * Sets a test double query to an {@link AbstractQueryCrawlerOperation}.
-	 * 
-	 * @param operation
-	 * @param query
+	 *
+	 * @param <Q> the generic type
+	 * @param operation the operation
+	 * @param query the query
 	 */
 	public static <Q extends Query> 
 	void set(AbstractQueryCrawlerOperation<Q> operation, Q query) {
@@ -33,9 +34,10 @@ public class SetTestDouble {
 	
 	/**
 	 * Sets a test double persistence worker to an {@link FactorySupportedPoHandler}.
-	 * 
-	 * @param handler 
-	 * @param pw
+	 *
+	 * @param <P> the generic type
+	 * @param handler the handler
+	 * @param pw the pw
 	 */	
 	public static <P extends PersistentObject<?>> 
 	void set(FactorySupportedPoHandler<?,P> handler, PersistenceWorker<P> pw) {
@@ -46,9 +48,10 @@ public class SetTestDouble {
 	
 	/**
 	 * Sets a test double condition to a {@link PredefinedConditionValidator}.
-	 * 
-	 * @param validator 
-	 * @param condition
+	 *
+	 * @param <T> the generic type
+	 * @param validator the validator
+	 * @param condition the condition
 	 */	
 	public static <T> 
 	void set(PredefinedConditionValidator<T> validator, Condition<T> condition) {

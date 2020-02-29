@@ -39,10 +39,9 @@ public class StatementLocator {
 	/**
 	 * Gets the one and only one field of the psecified class 
 	 * that has the {@link Sql} annotation.
-	 * 
-	 * @param clazz
-	 * 
-	 * @return Returns the annotated field 
+	 *
+	 * @param clazz the clazz
+	 * @return Returns the annotated field
 	 */
 	@SuppressWarnings("nls")
 	static Field getSqlField(Class<?> clazz) {

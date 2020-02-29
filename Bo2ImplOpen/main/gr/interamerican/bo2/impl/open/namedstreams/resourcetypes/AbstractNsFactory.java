@@ -22,7 +22,7 @@ implements NamedStreamFactory {
 	/**
 	 * Hidden constructor of utility class.
 	 *
-	 * @param valid
+	 * @param valid the valid
 	 */
 	protected AbstractNsFactory(StreamResource valid) {
 		super();
@@ -32,8 +32,8 @@ implements NamedStreamFactory {
 
 	/**
 	 * Creates the validation failure message.
-	 * @param actual
 	 *
+	 * @param actual the actual
 	 * @return Creates the validation failure message.
 	 */
 	@SuppressWarnings("nls")
@@ -45,13 +45,12 @@ implements NamedStreamFactory {
 
 	/**
 	 * Creates a message indicating a conversion is not supported.
-	 *
+	 * 
 	 * This message is meant to be used by the
 	 * <code>onConvert(StreamType from, StreamType to)</code> method.
 	 *
-	 * @param from
-	 * @param to
-	 *
+	 * @param from the from
+	 * @param to the to
 	 * @return Returns the message.
 	 */
 	protected String conversionNotSupportedMessage(StreamType from, StreamType to) {
@@ -66,7 +65,6 @@ implements NamedStreamFactory {
 	/**
 	 * Validates that the actual StreamResource is equal with the valid one.
 	 * @param actual
-	 * @param valid
 	 * @throws CouldNotCreateNamedStreamException
 	 */
 	protected void onCreate(StreamResource actual)
@@ -80,7 +78,6 @@ implements NamedStreamFactory {
 	/**
 	 * Validates that the actual StreamResource is equal with the valid one.
 	 * @param actual
-	 * @param valid
 	 * @throws CouldNotConvertNamedStreamException
 	 */
 	protected void onConvert(StreamResource actual)
@@ -96,7 +93,6 @@ implements NamedStreamFactory {
 	 *
 	 * @param from
 	 * @param to
-	 * @throws CouldNotConvertNamedStreamException
 	 */
 	protected abstract void onConvert(StreamType from, StreamType to);
 
@@ -104,21 +100,21 @@ implements NamedStreamFactory {
 	/**
 	 * Creates a new NamedStream.
 	 *
-	 * @param file
 	 * @param def
 	 *
 	 * @return Returns the {@link NamedStream}.
-	 * @throws CouldNotCreateNamedStreamException
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */
 	protected abstract NamedStream<?> createNs(NamedStreamDefinition def)
 			throws CouldNotCreateNamedStreamException;
 
 	/**
+	 * Convert ns.
 	 *
 	 * @param ns
 	 * @param type
 	 * @param name
-	 * @return
+	 * @return The {@link NamedStream}
 	 * @throws CouldNotConvertNamedStreamException
 	 */
 	protected abstract NamedStream<?> convertNs(NamedStream<?> ns, StreamType type, String name)

@@ -55,7 +55,8 @@ public class TestBytesAttachment {
 	
 	/**
 	 * Test for the constructor.
-	 * @throws MessagingException 
+	 *
+	 * @throws MessagingException the messaging exception
 	 */
 	@Test
 	@SuppressWarnings("nls")

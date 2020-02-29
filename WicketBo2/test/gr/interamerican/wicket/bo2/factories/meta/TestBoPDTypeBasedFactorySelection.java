@@ -16,17 +16,16 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestBoPDTypeBasedFactorySelection.
  */
 public class TestBoPDTypeBasedFactorySelection {
 	
-	/**
-	 * 
-	 */
+	/** The bo PD type based factory selection. */
 	BoPDTypeBasedFactorySelection boPDTypeBasedFactorySelection = 
 		new BoPDTypeBasedFactorySelection();
+	
 	/**
-	 * 
+	 * Test init bo PD type based factory selection.
 	 */
 	@Test
 	public void testInitBoPDTypeBasedFactorySelection(){

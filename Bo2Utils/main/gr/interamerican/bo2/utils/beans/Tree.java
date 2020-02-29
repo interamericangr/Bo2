@@ -156,9 +156,8 @@ public class Tree<T> {
 			Tree<T> node = nodes.remove(index);
 			node.parent = null;
 			return node;
-		} else {
-			return null;
 		}
+		return null;
 	}
 	
 	/**
@@ -204,11 +203,10 @@ public class Tree<T> {
 		for (Tree<T> child : nodes) {
 			if (Utils.equals(child.rootElement, t)) {
 				return child;
-			} else {
-				Tree<T> grandChild = child.getAnyNodeOf(t);
-				if (grandChild!=null) {
-					return grandChild;
-				}
+			}
+			Tree<T> grandChild = child.getAnyNodeOf(t);
+			if (grandChild!=null) {
+				return grandChild;
 			}			
 		}
 		return null;		
@@ -279,8 +277,9 @@ public class Tree<T> {
 	
 	/**
 	 * Prints a string for a node.
-	 * @param node
-	 * @param level
+	 *
+	 * @param node the node
+	 * @param level the level
 	 * @return returns a String for the node.
 	 */
 	String toString(Tree<T> node, int level) {

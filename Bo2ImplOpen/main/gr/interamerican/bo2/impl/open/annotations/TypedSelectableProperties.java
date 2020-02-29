@@ -31,16 +31,16 @@ import java.lang.annotation.Target;
  * specified by this annotation will be ignored. The subtype
  * attribute can be assigned the value null. This results
  * in a TypedSelectable with no subtype. 
- * <br/>
+ * <br>
  * For example the class SomeClass has the following properties:
  * id, name, type, startDate, operationId, description.
  * If this class is marked with the following annotation: 
- * <br/>
+ * <br>
  * <code>
- * @TypedSelectableProperties
+ * &#64;TypedSelectableProperties
  * (type="X",subtype=null,code="elementId",name="description")
  * </code>
- * <br/>
+ * <br>
  * The attributes type and name will be ignored.
  * The property code will be added to the class, delegated to the
  * elementId property.

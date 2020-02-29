@@ -37,9 +37,9 @@ implements Iterable<Pair<K, Set<V>>> {
 	
 	/**
 	 * Puts the specified value to the map.
-	 * 
-	 * @param key
-	 * @param value
+	 *
+	 * @param key the key
+	 * @param value the value
 	 */
 	public void put(K key, V value) {
 		Set<V> set = map.get(key);
@@ -54,9 +54,8 @@ implements Iterable<Pair<K, Set<V>>> {
 	/**
 	 * Gets a set with all values associated with
 	 * the specified key.
-	 * 
-	 * @param key
-	 * 
+	 *
+	 * @param key the key
 	 * @return Returns a set with the values associated with
 	 *         the specified key.
 	 */
@@ -79,9 +78,8 @@ implements Iterable<Pair<K, Set<V>>> {
 	
 	/**
 	 * Gets the count of values associated with the specified key.
-	 * 
-	 * @param key 
-	 * 
+	 *
+	 * @param key the key
 	 * @return Returns the size of the set that contains the values
 	 *         associated with the specified key.
 	 */
@@ -95,9 +93,7 @@ implements Iterable<Pair<K, Set<V>>> {
 	
 	/**
 	 * Gets the count of keys.
-	 * 
-	 * @param key 
-	 * 
+	 *
 	 * @return Returns the size of the set that contains the values
 	 *         associated with the specified key.
 	 */
@@ -108,34 +104,31 @@ implements Iterable<Pair<K, Set<V>>> {
 	/**
 	 * Removes the specified value from the set of values associated with 
 	 * the specified key.
-	 * 
-	 * @param key
-	 * @param value
+	 *
+	 * @param key the key
+	 * @param value the value
 	 * @return Returns true if the specified value was associated with
-	 *         the specified key. 
+	 *         the specified key.
 	 */
 	public boolean remove(K key, V value) {
 		Set<V> set = map.get(key);
 		if (set!=null) {			
 			return set.remove(value);
-		} else {
-			return false;
 		}
+		return false;
 	}
 	
 	/**
 	 * Removes all values associated with the specified key.
-	 * 
-	 * @param key
-	 * @param value
-	 * @return Returns true if the specified key existed in the map. 
+	 *
+	 * @param key the key
+	 * @return Returns true if the specified key existed in the map.
 	 */
 	public boolean remove(K key) {
 		boolean b = map.containsKey(key);		
 		map.remove(key);
 		return b;
 	}
-
 
 	@Override
 	public Iterator<Pair<K, Set<V>>> iterator() {
@@ -144,10 +137,9 @@ implements Iterable<Pair<K, Set<V>>> {
 	
 	/**
 	 * Checks if this map contains the specified key.
-	 * 
-	 * @param key
-	 * 
-	 * @return Returns true if the specified key exists in the map. 
+	 *
+	 * @param key the key
+	 * @return Returns true if the specified key exists in the map.
 	 */
 	public boolean containsKey(K key) {				
 		return map.containsKey(key);
@@ -156,11 +148,10 @@ implements Iterable<Pair<K, Set<V>>> {
 	/**
 	 * Checks if this map contains the specified association
 	 * between key and value.
-	 * 
-	 * @param key
-	 * @param value 
-	 * 
-	 * @return Returns true if the specified key exists in the map. 
+	 *
+	 * @param key the key
+	 * @param value the value
+	 * @return Returns true if the specified key exists in the map.
 	 */
 	public boolean containsValue(K key, V value) {	
 		Set<V> set = map.get(key);
@@ -169,12 +160,4 @@ implements Iterable<Pair<K, Set<V>>> {
 		}
 		return set.contains(value);
 	}
-
-
-	
-	
-	
-	
-	
-
 }

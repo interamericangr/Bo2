@@ -22,15 +22,13 @@ import javassist.CtMethod;
 public class AddingMethodsClassUpdater 
 extends AbstractClassUpdater {
 			
-	/**
-	 * methods
-	 */
+	/** methods. */
 	private String[] methods;
 
 	/**
 	 * Creates a new AddingMethodsClassUpdater object. 
 	 *
-	 * @param methods
+	 * @param methods the methods
 	 */
 	public AddingMethodsClassUpdater(String[] methods) {
 		super();

@@ -20,34 +20,33 @@ import java.util.Collection;
 /**
  * {@link CallbackAction} that adds an element to an indexed collection.
  * 
- * @param <B> 
- *        Type of elements in the collection.
+ * @param <B>
+ *            Type of elements in the collection.
+ * @deprecated Bad Utility
  */
-public class AddElementToCollectionI<B extends Serializable> 
+@Deprecated
+public class AddElementToCollectionI<B extends Serializable>
 extends AddElementToCollection<B> {
-	
-	/**
-	 * serialVersionUID
-	 */
+
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
-	 * Creates a new AddElementToCollectionAction object. 
+	 * Creates a new AddElementToCollectionAction object.
 	 *
 	 * @param collection
+	 *            the collection
 	 * @param element
-	 * @param indexPropertyName 
+	 *            the element
+	 * @param indexPropertyName
+	 *            the index property name
 	 */
-	public AddElementToCollectionI
-	(Collection<B> collection, B element, String indexPropertyName) {
-		super(collection,element,indexPropertyName);
+	public AddElementToCollectionI(Collection<B> collection, B element, String indexPropertyName) {
+		super(collection, element, indexPropertyName);
 	}
 
 	@Override
 	protected void work() {
 		CollectionUtils.addNextI(collection, element, indexPropertyName);
 	}
-	
-	
-
 }

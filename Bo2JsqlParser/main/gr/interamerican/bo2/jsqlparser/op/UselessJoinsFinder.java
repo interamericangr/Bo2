@@ -47,12 +47,10 @@ public class UselessJoinsFinder {
 	
 	/**
 	 * Finds the useless Joins of an SQL statement.
-	 * 
-	 * @param sql
-	 * 
+	 *
+	 * @param sql the sql
 	 * @return useless Joins
-	 * 
-	 * @throws SqlParseException
+	 * @throws SqlParseException the sql parse exception
 	 */
 	public Set<Join> find(String sql) throws SqlParseException {
 		Set<Join> uselessJoins = new HashSet<Join>();
@@ -141,9 +139,9 @@ public class UselessJoinsFinder {
 	}
 	
 	/**
-	 * Returns the join table of a {@link Join}
-	 * 
-	 * @param j
+	 * Returns the join table of a {@link Join}.
+	 *
+	 * @param j the j
 	 * @return the join table of a {@link Join}.
 	 */
 	private String getJoinTable(Join j) {
@@ -151,9 +149,9 @@ public class UselessJoinsFinder {
 	}
 
 	/**
-	 * Gets the joined tables on a {@link Join}
-	 * 
-	 * @param j
+	 * Gets the joined tables on a {@link Join}.
+	 *
+	 * @param j the j
 	 * @return joined tables.
 	 */
 	private Set<String> getJoinedTables(Join j) {
@@ -166,9 +164,9 @@ public class UselessJoinsFinder {
 	
 	/**
 	 * checks whether a join has static values or not. If it has it won't be removed.
-	 * 
-	 * @param j
-	 * @return
+	 *
+	 * @param j the j
+	 * @return true, if successful
 	 */
 	private boolean hasJoinStaticValues(Join j) {
 		TableNamesFinderInExpression finder = new TableNamesFinderInExpression();

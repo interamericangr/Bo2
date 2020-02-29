@@ -44,13 +44,14 @@ public class Bo2PojoComponentInstantiator implements Instantiator {
 
 	/**
 	 * Creates a new Bo2PojoInstantiator object.
-	 * 
-	 * @param component
+	 *
+	 * @param component the component
 	 */
 	public Bo2PojoComponentInstantiator(Component component) {
 		this.componentClass = component.getComponentClass();
 	}
 
+	@Override
 	@SuppressWarnings("nls")
 	public Object instantiate(Serializable id) {
 		String s = id == null ? "null" : id.toString();
@@ -58,10 +59,12 @@ public class Bo2PojoComponentInstantiator implements Instantiator {
 		throw new RuntimeException(msg);
 	}
 
+	@Override
 	public boolean isInstance(Object object) {
 		return componentClass.isInstance(object);
 	}
 
+	@Override
 	@SuppressWarnings("nls")
 	public Object instantiate() {
 		if(logger.isDebugEnabled()) {
@@ -69,5 +72,4 @@ public class Bo2PojoComponentInstantiator implements Instantiator {
 		}
 		return Factory.create(componentClass);
 	}
-
 }

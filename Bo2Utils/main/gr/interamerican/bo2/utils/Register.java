@@ -20,12 +20,10 @@ public class Register {
 
 	/**
 	 * Gets the object associated with the specified key.
-	 * 
-	 * 
-	 * @param key
-	 * 
+	 *
+	 * @param key the key
 	 * @return Returns the value to which the specified key is mapped,
-     *         or {@code null} if the register contains no mapping for the key.
+	 *         or {@code null} if the register contains no mapping for the key.
 	 */
 	public static Object get(Object key) {
 		return map.get(key);
@@ -33,9 +31,9 @@ public class Register {
 
 	/**
 	 * Puts a value in the register.
-	 * 
-	 * @param key
-	 * @param value
+	 *
+	 * @param key the key
+	 * @param value the value
 	 */
 	public static void put(Object key, Object value) {
 		Object previous = map.put(key, value);
@@ -47,8 +45,8 @@ public class Register {
 	
 	/**
 	 * Removes a value from the register.
-	 * 
-	 * @param key
+	 *
+	 * @param key the key
 	 */
 	public static void remove(Object key) {
 		map.remove(key);

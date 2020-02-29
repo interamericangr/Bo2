@@ -4,7 +4,7 @@ import java.lang.reflect.Method;
 import java.util.Set;
 
 /**
- * 
+ * The Class FunctionalMockImplementorForAbstractClasses.
  */
 public class FunctionalMockImplementorForAbstractClasses 
 extends ImplementorForAbstractClasses {

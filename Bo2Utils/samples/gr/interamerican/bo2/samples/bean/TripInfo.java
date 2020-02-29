@@ -17,7 +17,7 @@ import gr.interamerican.bo2.utils.beans.Range;
 import java.util.Date;
 
 /**
- * 
+ * The Class TripInfo.
  */
 public class TripInfo {
 	/**

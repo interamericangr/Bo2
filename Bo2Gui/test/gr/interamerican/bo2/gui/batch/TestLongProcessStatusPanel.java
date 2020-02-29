@@ -22,12 +22,12 @@ import org.mockito.Mockito;
 
 
 /**
- * test case for {@link LongProcessStatusPanel}
+ * test case for {@link LongProcessStatusPanel}.
  */
 public class TestLongProcessStatusPanel {
 
 	/**
-	 * {@link LongProcessStatusPanel#LongProcessStatusPanel(LongProcessStatus)}
+	 * {@link LongProcessStatusPanel#LongProcessStatusPanel(LongProcessStatus)}.
 	 */
 	@Test
 	public void testConstructor() {
@@ -49,7 +49,7 @@ public class TestLongProcessStatusPanel {
 	}
 
 	/**
-	 * test method for {@link LongProcessStatusPanel#showException()}
+	 * test method for {@link LongProcessStatusPanel#showException()}.
 	 */
 	@Test
 	public void testShowException() {

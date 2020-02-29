@@ -21,9 +21,9 @@ import gr.interamerican.bo2.arch.ext.Copier;
  *        Type of object being copied.
  */
 public class NullCopier<T> implements Copier<T> {
-	
+
+	@Override
 	public T copy(T objectToCopy) {		
 		return null;
 	}
-
 }

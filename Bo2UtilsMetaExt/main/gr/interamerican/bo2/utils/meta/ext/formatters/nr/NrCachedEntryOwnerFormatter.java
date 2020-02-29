@@ -29,9 +29,7 @@ public class NrCachedEntryOwnerFormatter
 <T extends TranslatableEntryOwner<C,?,?>,C extends Comparable<? super C>>
 extends NullReturningFormatter<T>{
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * C formatter.
@@ -40,7 +38,8 @@ extends NullReturningFormatter<T>{
 
 	/**
 	 * Creates a new NrCachedEntryFormatter object. 
-	 * @param codeFormatter 
+	 *
+	 * @param codeFormatter the code formatter
 	 */
 	public NrCachedEntryOwnerFormatter(Formatter<C> codeFormatter) {
 		super(new CachedEntryOwnerFormatter<T, C>(codeFormatter));

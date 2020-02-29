@@ -13,45 +13,33 @@
 package gr.interamerican.bo2.samples.implopen.entities;
 
 /**
- * 
+ * The Class SampleClassKeyImpl1.
  */
 public class SampleClassKeyImpl1 implements SampleClassKey{
 	
-	/**
-	 * sample field
-	 */
+	/** sample field. */
 	private String field1;
 	
-	/**
-	 * sample field
-	 */
+	/** sample field. */
 	private Integer field2;
 
-	/* (non-Javadoc)
-	 * @see gr.interamerican.bo2.test.samples.SampleClassKP#getField1()
-	 */
+	@Override
 	public String getField1() {
 		return field1;
 	}
 
-	/* (non-Javadoc)
-	 * @see gr.interamerican.bo2.test.samples.SampleClassKP#setField1(java.lang.String)
-	 */
+	@Override
 	public void setField1(String field1) {
 		this.field1=field1;
 		
 	}
 
-	/* (non-Javadoc)
-	 * @see gr.interamerican.bo2.test.samples.SampleClassKP#getField2()
-	 */
+	@Override
 	public Integer getField2() {
 		return field2;
 	}
 
-	/* (non-Javadoc)
-	 * @see gr.interamerican.bo2.test.samples.SampleClassKP#setField2(java.lang.Integer)
-	 */
+	@Override
 	public void setField2(Integer field2) {
 		this.field2=field2;
 		

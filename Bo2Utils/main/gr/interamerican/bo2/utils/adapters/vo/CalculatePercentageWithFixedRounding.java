@@ -22,11 +22,11 @@ import java.util.Currency;
 
 /**
  * {@link CalculatePercentageWithFixedRounding} calculates a property of an object
- * by applying a percentage to another property of the object. <br/>
+ * by applying a percentage to another property of the object. <br>
  * 
- * Both properties must be of type {@link BigDecimal}. <br/>
+ * Both properties must be of type {@link BigDecimal}. <br>
  * The amounts are always rounded to the closest number that has the same
- * number of decimal places as specified in this calculator's constructor. <br/>
+ * number of decimal places as specified in this calculator's constructor. <br>
  * The same calculator can be used sequentially for more than one objects.
  * In this case, it is sometimes required to add the remainder of the previous
  * rounding to the result of the current multiplication. This is useful
@@ -36,7 +36,10 @@ import java.util.Currency;
  * 
  * @param <T>
  *        Type of object on which the operation is being applied.
+ *        
+ * @deprecated Use CalculateRoundedPercentage
  */
+@Deprecated
 public class CalculatePercentageWithFixedRounding<T> implements VoidOperation<T>{
 	/**
 	 * Property descriptor of the property that contains the base amount.
@@ -79,8 +82,7 @@ public class CalculatePercentageWithFixedRounding<T> implements VoidOperation<T>
 	 *        Used to set if the remainder of the previous rounding will
 	 *        be added to the result of the next multiplication. 
 	 */
-	public CalculatePercentageWithFixedRounding (
-			String baseAmountName, String calculatedAmountName, Class<T> clazz, BigDecimal 
+	public CalculatePercentageWithFixedRounding (String baseAmountName, String calculatedAmountName, Class<T> clazz, BigDecimal 
 			percentage, int fractionDigits, boolean addRemainder) {
 		super();
 		this.baseAmountPd = JavaBeanUtils.getPropertyDescriptor(clazz, baseAmountName);
@@ -103,6 +105,7 @@ public class CalculatePercentageWithFixedRounding<T> implements VoidOperation<T>
 		return (BigDecimal) JavaBeanUtils.getProperty(baseAmountPd, t);
 	}
 
+	@Override
 	public void execute(T t) {
 		BigDecimal result = null;
 		BigDecimal amount = baseAmount(t);

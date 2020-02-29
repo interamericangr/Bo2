@@ -26,25 +26,21 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestNamedStreamBasicQuery.
  */
 public class TestNamedStreamBasicQuery {
 
 	
-	/**
-	 * NamedStreamQuery to test
-	 */
+	/** NamedStreamQuery to test. */
 	StreamQuery query = new StreamQuery();
 
-	/**
-	 * Number of colums
-	 */
+	/** Number of colums. */
 	private static final int COLUMNS = 14;
 	
 	
 	
 	/**
-	 * Test getGetObject
+	 * Test getGetObject.
 	 */
 	@Test
 	public void testGetRecord(){
@@ -52,7 +48,7 @@ public class TestNamedStreamBasicQuery {
 	}
 	
 	/**
-	 * Test getGetStream
+	 * Test getGetStream.
 	 */
 	@Test
 	public void testGetStream(){
@@ -62,8 +58,9 @@ public class TestNamedStreamBasicQuery {
 	}
 	
 	/**
-	 * Test execute
-	 * @throws DataException 
+	 * Test execute.
+	 *
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testExecute() throws DataException{
@@ -72,7 +69,7 @@ public class TestNamedStreamBasicQuery {
 	}	
 	
 	/**
-	 * tests IsAvoidLock
+	 * tests IsAvoidLock.
 	 */
 	@Test
 	public void testIsAvoidLock(){
@@ -81,7 +78,7 @@ public class TestNamedStreamBasicQuery {
 	}
 	
 	/**
-	 * implementation to test
+	 * implementation to test.
 	 */
 	private class StreamQuery extends NamedStreamBasicQuery{
 
@@ -89,7 +86,7 @@ public class TestNamedStreamBasicQuery {
 		 * Creates a new StreamQuery object. 
 		 */
 		public StreamQuery(){
-			emptyRecord(Bo2UtilsEnvironment.getDefaultTextCharset());
+			emptyRecord(Bo2UtilsEnvironment.get().getDefaultTextCharset());
 		}
 		
 		@Override

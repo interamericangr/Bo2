@@ -15,7 +15,7 @@ package gr.interamerican.bo2.samples.ibean;
 import java.io.Serializable;
 
 /**
- * 
+ * The Interface IBeanWithIdAndName.
  */
 public interface IBeanWithIdAndName extends Serializable {
 	

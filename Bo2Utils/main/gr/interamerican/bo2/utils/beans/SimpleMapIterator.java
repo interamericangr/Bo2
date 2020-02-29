@@ -8,10 +8,18 @@ import java.util.Map;
  * 
  * The SimpleMapIterator does not support the <code>remove()</code>
  * operation.
+ *
+ * @param <K> the key type
+ * @param <V> the value type
  */
 class SimpleMapIterator<K,V> implements Iterator<Pair<K, V>> {
 	
 	
+	/**
+	 * Instantiates a new simple map iterator.
+	 *
+	 * @param map the map
+	 */
 	public SimpleMapIterator(Map<K, V> map) {
 		this.iterator = map.entrySet().iterator();
 	}

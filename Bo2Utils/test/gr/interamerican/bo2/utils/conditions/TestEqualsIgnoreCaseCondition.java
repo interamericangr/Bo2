@@ -21,7 +21,7 @@ import org.junit.Test;
 public class TestEqualsIgnoreCaseCondition {
 	
 	/**
-	 * Tests check()
+	 * Tests check().
 	 */
 	@SuppressWarnings("nls")
 	@Test

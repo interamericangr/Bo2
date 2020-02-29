@@ -19,7 +19,7 @@ import gr.interamerican.bo2.impl.open.namedstreams.NamedStreamsProvider;
 import gr.interamerican.bo2.impl.open.workers.AbstractOperation;
 
 /**
- * Abstract operation that uses a NamedStream. <br/>
+ * Abstract operation that uses a NamedStream. <br>
  * 
  * @param <T> 
  *        Type of stream.
@@ -40,7 +40,7 @@ extends AbstractOperation {
 	/**
 	 * Creates a new AbstractNamedStreamOperation object. 
 	 *
-	 * @param streamName
+	 * @param streamName the stream name
 	 */
 	protected AbstractNamedStreamOperation(String streamName) {
 		super();

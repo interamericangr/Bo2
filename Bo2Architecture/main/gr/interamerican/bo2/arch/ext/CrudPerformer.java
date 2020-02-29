@@ -24,18 +24,14 @@ public interface CrudPerformer {
 	/**
 	 * Performs a crud operation on the specified {@link PersistentObject}, 
 	 * using the specified {@link PersistenceWorker}.
-	 * 
-	 * @param <P>
-	 *        Type of persistent object.
-
-	 * @param po
-	 *        Persistent object.
+	 *
+	 * @param <P>        Type of persistent object.
+	 * @param po        Persistent object.
 	 *        
-	 * @param pw
-	 *        Persistence worker.
+	 * @param pw        Persistence worker.
 	 *        
 	 * @return Returns the result of the persistence worker method call.
-	 * @throws DataException 
+	 * @throws DataException the data exception
 	 */	
 	public <P extends PersistentObject<?>> 
 	P perform(P po, PersistenceWorker<P> pw) throws DataException;

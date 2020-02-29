@@ -30,6 +30,8 @@ public class TableNamesFinderInHaving extends AbstractTableNamesFinder {
 	
 
 	/**
+	 * Gets the having tables.
+	 *
 	 * @return the map of tables in having.
 	 */
 	public Set<String> getHavingTables() {

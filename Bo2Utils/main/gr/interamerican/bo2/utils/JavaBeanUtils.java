@@ -112,13 +112,11 @@ public class JavaBeanUtils {
 	
 	/**
 	 * Copies all common properties of an object to another.
-	 * 
+	 *
+	 * @param source        Object who's properties will be copied to the target object.	         
+	 * @param target        Object to which the properties will be copied.
 	 * @see #copyProperties(Object, Object, String[])
 	 *  
-	 * @param source 
-	 *        Object who's properties will be copied to the target object.	         
-	 * @param target
-	 *        Object to which the properties will be copied.
 	 */
 	public static void copyProperties (Object source, Object target) {
 		copyProperties(source, target, null);
@@ -126,15 +124,11 @@ public class JavaBeanUtils {
 	
 	/**
 	 * Copies all common properties of an object to another excluding some properties.
-	 * 
+	 *
+	 * @param source        Object who's properties will be copied to the target object.	         
+	 * @param target        Object to which the properties will be copied.
+	 * @param excluded        List of properties to exclude.
 	 * @see #copyProperties(Object, Object, String[])
-	 * 
-	 * @param source 
-	 *        Object who's properties will be copied to the target object.	         
-	 * @param target
-	 *        Object to which the properties will be copied.
-	 * @param excluded 
-	 *        List of properties to exclude.
 	 */
 	public static void copyPropertiesExcluding (Object source, Object target, String[] excluded) {
 		if(excluded==null || excluded.length==0) {
@@ -166,12 +160,12 @@ public class JavaBeanUtils {
 	 * converter to convert the source property to a type compatible with
 	 * the target property. This may lead to loss of precision.
 	 * 
-	 * TODO: We could also support other conversions, e.g. Character -> String
-	 * 
-	 * @param source
-	 * @param target
-	 * @param sourcePd
-	 * @param targetPd
+	 * TODO: We could also support other conversions, e.g. Character -&gt; String
+	 *
+	 * @param source the source
+	 * @param target the target
+	 * @param sourcePd the source pd
+	 * @param targetPd the target pd
 	 */
 	public static void copyProperty(Object source, Object target, PropertyDescriptor sourcePd, PropertyDescriptor targetPd) {
 		if(source==null || target==null || sourcePd==null || targetPd==null) {
@@ -210,7 +204,7 @@ public class JavaBeanUtils {
 	 * If the property has a setter method, then it will be called.
 	 * If the property does not have a setter method, the field
 	 * will be set. If there is no such field, then the method will
-	 * ignore it. <br/>
+	 * ignore it. <br>
 	 * The method will box any {@link Exception} thrown during java reflection
 	 * calls inside a {@link RuntimeException}.
 	 * 
@@ -235,7 +229,7 @@ public class JavaBeanUtils {
 	 * If the property has a setter method, then it will be called.
 	 * If the property does not have a setter method, the field
 	 * will be set. If there is no such field, then the method will
-	 * ignore it. <br/>
+	 * ignore it. <br>
 	 * The method will box any {@link Exception} thrown during java reflection
 	 * calls inside a {@link RuntimeException}.
 	 * 
@@ -265,11 +259,10 @@ public class JavaBeanUtils {
 	
 	/**
 	 * Checks if value is a valid value for a property.
-	 * 
-	 * @param pd
-	 * @param value
-	 * 
-	 * @return Returns true if the specified value is valid for 
+	 *
+	 * @param pd the pd
+	 * @param value the value
+	 * @return Returns true if the specified value is valid for
 	 *         the specified property.
 	 */
 	static boolean isValidValue(PropertyDescriptor pd, Object value) {
@@ -307,10 +300,10 @@ public class JavaBeanUtils {
 	 * 
 	 * If the specified object does not have a property
 	 * with the specified name, then nothing will happen.
-	 * 
-	 * @param target
-	 * @param propertyName
-	 * @param propertyValue
+	 *
+	 * @param target the target
+	 * @param propertyName the property name
+	 * @param propertyValue the property value
 	 */
 	static void setPropertyTo
 	(Object target, String propertyName, Object propertyValue) {
@@ -327,7 +320,7 @@ public class JavaBeanUtils {
 	 * If the property has a getter method, then it will be called.
 	 * If the property does not have a getter method, the field
 	 * will be get. If there is no such field, then a RuntimeException
-	 * with cause a NoSuchFieldException will be thrown. <br/>
+	 * with cause a NoSuchFieldException will be thrown. <br>
 	 * The method will box any {@link Exception} thrown during java reflection
 	 * calls inside a {@link RuntimeException}.
 	 * 
@@ -342,15 +335,14 @@ public class JavaBeanUtils {
 		Method getter = pd.getReadMethod();
 		if (getter!=null) {	
 			return ReflectionUtils.invoke(getter, obj);
-		} else {
-			String fieldName = pd.getName();			
-			try {
-				Field field = obj.getClass().getDeclaredField(fieldName);
-				field.setAccessible(true);
-				return ReflectionUtils.get(field, obj);
-			} catch (NoSuchFieldException nse) {
-				throw new RuntimeException(nse);
-			}
+		}
+		String fieldName = pd.getName();			
+		try {
+			Field field = obj.getClass().getDeclaredField(fieldName);
+			field.setAccessible(true);
+			return ReflectionUtils.get(field, obj);
+		} catch (NoSuchFieldException nse) {
+			throw new RuntimeException(nse);
 		}
 	}
 	
@@ -360,7 +352,7 @@ public class JavaBeanUtils {
 	 * If the property has a setter method, then it will be called.
 	 * If the property does not have a setter method, the field
 	 * will be set. If there is no such field, then the method will
-	 * ignore it. <br/>
+	 * ignore it. <br>
 	 * The method will box any {@link Exception} thrown during java reflection
 	 * calls inside a {@link RuntimeException}.
 	 * 
@@ -382,7 +374,7 @@ public class JavaBeanUtils {
 	 * If the property has a getter method, then it will be called.
 	 * If the property does not have a getter method, the field
 	 * will be get. If there is no such field, then a RuntimeException
-	 * with cause a NoSuchFieldException will be thrown. <br/>
+	 * with cause a NoSuchFieldException will be thrown. <br>
 	 * The method will box any {@link Exception} thrown during java reflection
 	 * calls inside a {@link RuntimeException}.
 	 * 
@@ -482,7 +474,7 @@ public class JavaBeanUtils {
 
 	/**
 	 * Finds the properties of a bean.
-	 * 
+	 * <ul>
 	 * <li>If the bean is a concrete class the properties of the bean, for which
 	 * there exists a setter method, a getter method or both. Properties of
 	 * super-types are returned as well.</li>
@@ -492,7 +484,7 @@ public class JavaBeanUtils {
 	 * <li>If the bean is an interface, the properties of the bean are returned.
 	 * The method also queries all super-interfaces and fetches their properties
 	 * as well.</li>
-	 * 
+	 *</ul>
 	 * @param type
 	 *            the bean
 	 * @return Returns the property descriptors of a java bean.
@@ -625,17 +617,13 @@ public class JavaBeanUtils {
 	 * previous in the map, as only one item can be associated with one key. 
 	 * If any element has null on the specified property, then it will not be 
 	 * included in the output map.
-	 * 
-	 * 
-	 * @param set 
-	 *        Set that contains the elements that will be put on the output map. 
-	 * @param property
-	 *        Property descriptor specifying the property used to get the key.
-	 *        
+	 *
 	 * @param <K> Type of property used as key. This will be the type of key
 	 *            in the output map. 
 	 * @param <T> Type of items.
-	 * 
+	 * @param set        Set that contains the elements that will be put on the output map. 
+	 * @param property        Property descriptor specifying the property used to get the key.
+	 *        
 	 * @return Returns a Map that maps items of the specified set with keys the
 	 *         values of a property.
 	 */
@@ -721,8 +709,10 @@ public class JavaBeanUtils {
 	 * setting to the apache commons beanutils (http://commons.apache.org/beanutils/)
 	 * library. This pauses restriction to the formatting of any non
 	 * string property in the properties object.
+	 * <ul>
 	 * <li> dates should be formatted as yyyy-MM-dd </li>
 	 * <li> decimal numbers must be formatted using as xxx.dd </li>
+	 * </ul>
 	 *  
 	 * @param source 
 	 *        Source properties object.	         

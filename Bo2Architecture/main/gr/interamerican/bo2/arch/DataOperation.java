@@ -12,8 +12,8 @@ public interface DataOperation {
 	
 	/**
 	 * Executes the operation.
-	 * 
-	 * @throws DataException 
+	 *
+	 * @throws DataException the data exception
 	 */
 	public void execute() throws DataException;
 

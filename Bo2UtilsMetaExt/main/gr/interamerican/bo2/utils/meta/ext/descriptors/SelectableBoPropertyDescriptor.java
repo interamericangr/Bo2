@@ -34,9 +34,7 @@ import java.util.Set;
 public class SelectableBoPropertyDescriptor<C extends Comparable<? super C>> 
 extends AbstractBoPropertyDescriptor<Selectable<C>> {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * set of values.

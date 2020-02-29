@@ -24,10 +24,10 @@ public class NotPublic {
 	
 	/**
 	 * Call to Document.copyLinkedRefInBatch(OdfElement, Document).
-	 * 
-	 * @param target
-	 * @param sourceCloneEle
-	 * @param source
+	 *
+	 * @param target the target
+	 * @param sourceCloneEle the source clone ele
+	 * @param source the source
 	 */
 	public static void copyLinkedRefInBatch(Document target, OdfElement sourceCloneEle, Document source) {
 		target.copyLinkedRefInBatch(sourceCloneEle, source);
@@ -35,9 +35,9 @@ public class NotPublic {
 	
 	/**
 	 * Call to Document.updateNames(OdfElement).
-	 * 
-	 * @param target
-	 * @param element
+	 *
+	 * @param target the target
+	 * @param element the element
 	 */
 	public static void updateNames(Document target, OdfElement element) {
 		target.updateNames(element);
@@ -45,9 +45,9 @@ public class NotPublic {
 	
 	/**
 	 * Call to Document.updateXMLIds(OdfElement).
-	 * 
-	 * @param target
-	 * @param element
+	 *
+	 * @param target the target
+	 * @param element the element
 	 */
 	public static void updateXMLIds(Document target, OdfElement element) {
 		target.updateXMLIds(element);
@@ -55,10 +55,10 @@ public class NotPublic {
 	
 	/**
 	 * Call to Document.copyForeignStyleRef(OdfElement, Document)
-	 * 
-	 * @param target
-	 * @param sourceCloneEle
-	 * @param srcDoc
+	 *
+	 * @param target the target
+	 * @param sourceCloneEle the source clone ele
+	 * @param srcDoc the src doc
 	 */
 	public static void copyForeignStyleRef(Document target, OdfElement sourceCloneEle, Document srcDoc)  {
 		target.copyForeignStyleRef(sourceCloneEle, srcDoc);
@@ -66,12 +66,11 @@ public class NotPublic {
 	
 	/**
 	 * Call to Document.cloneForeignElement(Node, OdfFileDom, boolean)
-	 * 
-	 * @param target
-	 * @param element
-	 * @param dom
-	 * @param deep
-	 * 
+	 *
+	 * @param target the target
+	 * @param element the element
+	 * @param dom the dom
+	 * @param deep the deep
 	 * @return Returns the cloned node.
 	 */
 	public static Node cloneForeignElement(Document target, Node element, OdfFileDom dom, boolean deep) {

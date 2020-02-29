@@ -40,19 +40,17 @@ public class MultipleCachedEntriesBoPropertyDescriptor
 <T extends TypedSelectable<C>, C extends Comparable<? super C>>
 extends AbstractCacheRelatedObjectBoPropertyDescriptor<Collection<T>, C> {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Creates a new MultipleChoiceCachedEntryBoPropertyDescriptor object. 
 	 *
-	 * @param typeId
-	 * @param subTypeId
-	 * @param cacheName
-	 * @param codeParser
-	 * @param codeFormatter 
+	 * @param typeId the type id
+	 * @param subTypeId the sub type id
+	 * @param cacheName the cache name
+	 * @param codeParser the code parser
+	 * @param codeFormatter the code formatter
 	 */
 	public MultipleCachedEntriesBoPropertyDescriptor(
 	Long typeId, Long subTypeId, String cacheName, Parser<C> codeParser, Formatter<C> codeFormatter) {

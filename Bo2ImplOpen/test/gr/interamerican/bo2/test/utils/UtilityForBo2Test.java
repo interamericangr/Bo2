@@ -75,6 +75,8 @@ public class UtilityForBo2Test {
 	
 	
 	/**
+	 * Gets the test properties.
+	 *
 	 * @return Returns a Properties object with the properties
 	 *         defined in the test.properties file.
 	 */
@@ -198,8 +200,8 @@ public class UtilityForBo2Test {
 	
 	/**
 	 * Full path for the filename in the test streams directory.
-	 * 
-	 * @param filename
+	 *
+	 * @param filename the filename
 	 * @return Returns a path for the filename.
 	 */
 	public static String getTestStreamPath(String filename) {
@@ -220,8 +222,8 @@ public class UtilityForBo2Test {
 	/**
 	 * Creates a new mock {@link Session} with a mock {@link User}
 	 * that has the specified user id and sets it to {@link Bo2Session}.
-	 * 
-	 * @param userId
+	 *
+	 * @param userId the new current user
 	 */
 	public static void setCurrentUser(String userId) {
 		@SuppressWarnings("unchecked")

@@ -72,21 +72,18 @@ public class TestFolderInitializedBean {
 	 * Sample bean for testing.
 	 */
 	private static class Fib extends FolderInitializedBean {
-		/**
-		 * field 1
-		 */
+		
+		/** field 1. */
 		private String field1;
 		
-		/**
-		 * field 2
-		 */
+		/** field 2. */
 		private String field2;		
 
 		/**
 		 * Creates a new Fib object. 
 		 *
-		 * @param path
-		 * @param inClassPath
+		 * @param path the path
+		 * @param inClassPath the in class path
 		 */
 		private Fib(String path, boolean inClassPath) {
 			super(path, inClassPath);

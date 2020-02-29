@@ -25,10 +25,9 @@ import java.util.Properties;
  * 
  * This transformation copies not only to the properties of the target object,
  * but also to its criteria properties.
- * 
- * @param <T> Type of CriteriaDependent object.
+ *
  * @param <C> Type of criteria.
- * 
+ * @param <T> Type of CriteriaDependent object.
  */
 public class CriteriaAwareCopyFromProperties<C,T extends CriteriaDependent<C>> 
 implements Modification<T>{
@@ -47,7 +46,7 @@ implements Modification<T>{
 	/**
 	 * Creates a new CriteriaAwareCopyFromProperties object. 
 	 *
-	 * @param properties
+	 * @param properties the properties
 	 */
 	public CriteriaAwareCopyFromProperties(Properties properties) {
 		copyToElement = new CopyFromProperties<T>(properties);

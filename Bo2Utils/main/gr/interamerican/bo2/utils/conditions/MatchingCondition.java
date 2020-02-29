@@ -47,6 +47,7 @@ implements Condition<Pair<L,R>> {
 	 */
 	MatchingRule<L, R> matchingRule;
 
+	@Override
 	public boolean check(Pair<L, R> t) {		
 		return matchingRule.isMatch(t.getLeft(), t.getRight());
 	}

@@ -32,21 +32,17 @@ extends AbstractKey {
 	/**
 	 * Creates a new UserKey object. 
 	 *
-	 * @param id
+	 * @param id the id
 	 */
 	public AddressKey(Integer id) {
 		super();
 		this.id = id;
 	}
 
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
-	/**
-	 * id
-	 */
+	/** id. */
 	private Integer id;
 
 	/**
@@ -67,9 +63,6 @@ extends AbstractKey {
 		this.id = id;
 	}
 	
-	/* (non-Javadoc)
-	 * @see gr.interamerican.bo2.impl.open.po.AbstractKeyImpl#getFields()
-	 */
 	@Override
 	protected Object[] getElements() {
 		Object[] o = {id};

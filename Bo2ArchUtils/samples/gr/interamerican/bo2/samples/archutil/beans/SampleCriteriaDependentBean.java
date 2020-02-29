@@ -20,11 +20,13 @@ implements CriteriaDependent<BeanWith2Fields> {
 	String property1;
 
 	
+	@Override
 	public BeanWith2Fields getCriteria() {
 		return criteria;
 	}
 
 	
+	@Override
 	public void setCriteria(BeanWith2Fields criteria) {
 		this.criteria = criteria;
 	}

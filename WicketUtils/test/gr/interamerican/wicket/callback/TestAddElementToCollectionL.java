@@ -24,6 +24,7 @@ import org.junit.Test;
 /**
  * Test for {@link AddElementToCollectionL}.
  */
+@Deprecated
 public class TestAddElementToCollectionL {
 	
 	/**
@@ -45,21 +46,15 @@ public class TestAddElementToCollectionL {
 	 * Tests the constructor.
 	 */
 	@Test
-	public void testWork() {
+	public void testCallBack() {
 		String property = "fourth"; //$NON-NLS-1$
 		Set<BeanWithOrderedFields> set = new HashSet<BeanWithOrderedFields>();
 		BeanWithOrderedFields b = new BeanWithOrderedFields();
 		b.setFourth(null);
 		AddElementToCollectionL<BeanWithOrderedFields> add =
 			new AddElementToCollectionL<BeanWithOrderedFields>(set, b, property);		
-		add.work();		
+		add.callBack(null);		
 		assertTrue(set.contains(b));
 		assertEquals(Long.valueOf(1L), b.getFourth());
 	}
-	
-	
-	
-	
-
-
 }

@@ -32,9 +32,7 @@ import java.util.List;
  */
 public class EntitiesQueryCmd<Q extends EntitiesQuery<P>,P> {
 
-	/**
-	 * Instance of Query this Command is Based Upon
-	 */
+	/** Instance of Query this Command is Based Upon. */
 	Q query;
 	
 	/**
@@ -48,10 +46,12 @@ public class EntitiesQueryCmd<Q extends EntitiesQuery<P>,P> {
 	}
 
 	/**
+	 * Gets the results.
+	 *
 	 * @return all results
-	 * @throws LogicException
-	 * @throws DataException
-	 * @throws UnexpectedException
+	 * @throws LogicException the logic exception
+	 * @throws DataException the data exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	public synchronized List<P> getResults() throws LogicException, DataException, UnexpectedException {
 		Cmd command = new Cmd();
@@ -75,9 +75,7 @@ public class EntitiesQueryCmd<Q extends EntitiesQuery<P>,P> {
 	 */
 	class Cmd extends AbstractBo2RuntimeCmd {
 
-		/**
-		 * Results the Query Returned
-		 */
+		/** Results the Query Returned. */
 		List<P> results;
 
 		@Override
@@ -91,8 +89,8 @@ public class EntitiesQueryCmd<Q extends EntitiesQuery<P>,P> {
 		}
 
 		/**
-		 * Returns the results the Query Returned
-		 * 
+		 * Returns the results the Query Returned.
+		 *
 		 * @return Results the Query Returned
 		 */
 		public List<P> getResults() {

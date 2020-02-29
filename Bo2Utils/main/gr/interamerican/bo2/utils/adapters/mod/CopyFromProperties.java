@@ -19,11 +19,11 @@ import java.util.Properties;
 
 /**
  * Modifies an object by setting its properties equal to the values
- * specified in a {@link Properties} object. <br/>
+ * specified in a {@link Properties} object. <br>
  * 
  * The Properties object is specified in the constructor.
  * The modification of the object is performed by
- * {@link JavaBeanUtils#copyFromProperties(Properties, Object)}. <br/> 
+ * {@link JavaBeanUtils#copyFromProperties(Properties, Object)}. <br> 
  *  
  * @param <T> 
  *        Type of object being modified.
@@ -39,7 +39,7 @@ implements Modification<T> {
 	/**
 	 * Creates a new CopyFromProperties object. 
 	 *
-	 * @param properties
+	 * @param properties the properties
 	 */
 	public CopyFromProperties(Properties properties) {
 		super();

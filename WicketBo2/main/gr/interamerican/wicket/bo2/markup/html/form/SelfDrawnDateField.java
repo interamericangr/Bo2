@@ -36,9 +36,9 @@ public class SelfDrawnDateField extends DateField {
 
 	/**
 	 * Creates a new SelfDrawnDateField object.
-	 * 
-	 * @param id
-	 * @param descriptor
+	 *
+	 * @param id the id
+	 * @param descriptor the descriptor
 	 */
 	public SelfDrawnDateField(String id, DateBoPropertyDescriptor descriptor) {
 		super(id, new Model<Date>());
@@ -47,10 +47,10 @@ public class SelfDrawnDateField extends DateField {
 
 	/**
 	 * Creates a new SelfDrawnDateField object.
-	 * 
-	 * @param id
-	 * @param descriptor
-	 * @param model
+	 *
+	 * @param id the id
+	 * @param model the model
+	 * @param descriptor the descriptor
 	 */
 	public SelfDrawnDateField(String id, IModel<Date> model, DateBoPropertyDescriptor descriptor) {
 		super(id, model);
@@ -65,7 +65,7 @@ public class SelfDrawnDateField extends DateField {
 
 	/**
 	 * Gets the internal DateTextField used by this component implementation.
-	 * <br/>
+	 * <br>
 	 * This is useful, for instance when we need to add a behavior on the 'onchange'
 	 * javascript event of this field.
 	 * 

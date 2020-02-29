@@ -16,7 +16,7 @@ import gr.interamerican.bo2.test.def.posamples.Invoice;
 import gr.interamerican.bo2.test.def.samples.InvoiceInfo;
 
 /**
- * Bean used as a Component in mapping of {@link Invoice}
+ * Bean used as a Component in mapping of {@link Invoice}.
  */
 public class InvoiceInfoImpl implements InvoiceInfo{
 
@@ -25,15 +25,15 @@ public class InvoiceInfoImpl implements InvoiceInfo{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	/**
-	 * barCode
-	 */
+	/** barCode. */
 	private String barCode;
 
+	@Override
 	public void setBarCode(String barCode) {
 		this.barCode = barCode;
 	}
 
+	@Override
 	public String getBarCode() {
 		return barCode;
 	}

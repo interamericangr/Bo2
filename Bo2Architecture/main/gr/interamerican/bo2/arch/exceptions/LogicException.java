@@ -24,9 +24,7 @@ package gr.interamerican.bo2.arch.exceptions;
  */
 public class LogicException extends Exception {
 	
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
     /**
@@ -39,8 +37,8 @@ public class LogicException extends Exception {
 
     /**
      * Creates a new LogicException with a message.
-     * 
-     * @param message
+     *
+     * @param message the message
      */
     public LogicException(String message) {        
         super(message);        

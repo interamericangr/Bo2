@@ -17,22 +17,20 @@ import java.util.Properties;
 public abstract class JdbcPropertiesLoaderQuestion 
 extends JdbcSingleStatementQuestion<Properties>{
 	
-	/**
-	 * Answer
-	 */
+	/** Answer. */
 	private Properties answer;
-	
+
 	@Override
 	public Properties getAnswer() {
 		return answer;
 	}
-		
+
 	@Override
 	protected void work() throws DataException, LogicException {
 		answer = new Properties();
 		String stmt = sql();
 		try {			
-			Object[] parms = this.getParamsFromNamedParams();
+			Object[] parms = getParamsFromNamedParams();
 			ResultSet rs = executePreparedQuery(stmt,parms);
 			while(rs.next()) {
 				String key = rs.getString(1);
@@ -55,9 +53,9 @@ extends JdbcSingleStatementQuestion<Properties>{
 	/**
 	 * Handles a duplicate key value. The default implementation throws
 	 * a DataException.
-	 * 
-	 * @param dulpicateKey
-	 * @throws DataException
+	 *
+	 * @param dulpicateKey the dulpicate key
+	 * @throws DataException the data exception
 	 */
 	protected void handleDuplicateKey(Object dulpicateKey) throws DataException {
 		throw new DataException("Duplicate value " + dulpicateKey); //$NON-NLS-1$
@@ -65,10 +63,10 @@ extends JdbcSingleStatementQuestion<Properties>{
 	
 	/**
 	 * Hook for decoding an obfuscated value.
-	 * <br/>
+	 * <br>
 	 * Users of this class may override this to provide a desirable implementation.
-	 * 
-	 * @param obfuscatedValue
+	 *
+	 * @param obfuscatedValue the obfuscated value
 	 * @return The decoded value.
 	 */
 	protected String decode(String obfuscatedValue) {
@@ -76,7 +74,9 @@ extends JdbcSingleStatementQuestion<Properties>{
 	}
 	
 	/**
-	 * @param rs
+	 * Checks if is current row obfuscated.
+	 *
+	 * @param rs the rs
 	 * @return Returns true if the current row is obfuscated.
 	 */
 	boolean isCurrentRowObfuscated(ResultSet rs) {
@@ -86,5 +86,4 @@ extends JdbcSingleStatementQuestion<Properties>{
 			return false;
 		}
 	}
-	
 }

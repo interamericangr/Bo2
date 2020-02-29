@@ -60,9 +60,7 @@ public class FilePanel extends Panel {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	/**
-	 * LOG
-	 */
+	/** LOG. */
 	static final Logger LOG = LoggerFactory.getLogger(FilePanel.class.getName());
 	
 	/**
@@ -110,21 +108,17 @@ public class FilePanel extends Panel {
 	 */
 	private FileUploadField fileChooser;
 	
-	/**
-	 * uploadButtonSubmit
-	 */
+	/** uploadButtonSubmit. */
 	boolean uploadButtonSubmit = false;
 	
-	/**
-	 * Client file name
-	 */
+	/** Client file name. */
 	String fileName;
 
 	/**
 	 * Creates a new FilePanel object. 
 	 *
-	 * @param id
-	 * @param model
+	 * @param id the id
+	 * @param model the model
 	 */
 	public FilePanel(String id, final IModel<byte[]> model) {
 		super(id, model);
@@ -167,7 +161,7 @@ public class FilePanel extends Panel {
 		panelForm.setMultiPart(true);
 		
 		AjaxButton uploadButton = new AjaxButton(
-				UPLOAD_FILE_BUTTON_ID, new StringResourceModel(WellKnownResourceIds.FP_UPLOAD_BTN_LABEL, null)) {
+				UPLOAD_FILE_BUTTON_ID, new StringResourceModel(WellKnownResourceIds.FP_UPLOAD_BTN_LABEL)) {
 			/**
 			 * serialVersionUID.
 			 */
@@ -188,7 +182,8 @@ public class FilePanel extends Panel {
 	/**
 	 * Refreshes the link label.
 	 *  
-	 * @param target
+	 *
+	 * @param target the target
 	 */
 	@SuppressWarnings("nls")
 	private void updateLinkLabel(AjaxRequestTarget target) {
@@ -212,7 +207,7 @@ public class FilePanel extends Panel {
 		/**
 		 * Creates a new ExportCsvLink object. 
 		 *
-		 * @param id
+		 * @param id the id
 		 */
 		public DownloadTemplateLink(String id) {
 			super(id);
@@ -228,10 +223,12 @@ public class FilePanel extends Panel {
 				private static final long serialVersionUID = 1L;
 				
 				InputStream in = null;
+				@Override
 				public InputStream getInputStream()	throws ResourceStreamNotFoundException {
 					in = new ByteArrayInputStream(model.getObject());
 					return in;
 				}
+				@Override
 				public void close() throws IOException {
 					in.close();
 				}
@@ -246,8 +243,10 @@ public class FilePanel extends Panel {
 	}
 	
 	/**
+	 * Gets the file name.
+	 *
 	 * @return Returns the fileName for the local file that was picked.
-	 *         In edit mode, this will always return an empty String. 
+	 *         In edit mode, this will always return an empty String.
 	 */
 	public String getFileName() {
 		return fileName;

@@ -38,7 +38,7 @@ public class TestCopyPropertiesForJavaBeanUtils {
 	
 	
 	/**
-	 * test getProperty(string,object)
+	 * test getProperty(string,object).
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -62,7 +62,7 @@ public class TestCopyPropertiesForJavaBeanUtils {
 	}
 	
 	/**
-	 * test getProperties
+	 * test getProperties.
 	 */
 	@SuppressWarnings("nls")
 	@Test

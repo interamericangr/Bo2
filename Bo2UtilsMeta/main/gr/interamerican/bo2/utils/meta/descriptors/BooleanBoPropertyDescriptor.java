@@ -22,9 +22,7 @@ import gr.interamerican.bo2.utils.meta.parsers.ParserResolver;
 public class BooleanBoPropertyDescriptor 
 extends AbstractBoPropertyDescriptor<Boolean> {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**

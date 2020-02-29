@@ -34,14 +34,17 @@ extends NonQuotedType<Integer> {
 		super();		
 	}
 	
+	@Override
 	public Integer get(ResultSet rs, String columnIndex) throws SQLException {		
 		return rs.getInt(columnIndex);
 	}
 	
+	@Override
 	public Integer get(ResultSet rs, int columnIndex) throws SQLException {		
 		return rs.getInt(columnIndex);
 	}
 	
+	@Override
 	public Class<Integer> getJavaType() {
 		return Integer.class;
 	}	

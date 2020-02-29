@@ -20,7 +20,7 @@ import gr.interamerican.bo2.samples.ibean.IBeanWithId;
 import gr.interamerican.bo2.samples.ibean.IBeanWithIdAndName;
 
 /**
- * 
+ * The Class AbstractTsWithWrongAnno.
  */
 @SuppressWarnings("serial")
 @TypedSelectableProperties(code="id",name="description",subtype="null",type="")

@@ -27,6 +27,7 @@ import java.io.OutputStream;
  */
 public class SaveStreamOperation 
 extends AbstractOperation {
+
 	/**
 	 * Bytes to store.
 	 */
@@ -50,10 +51,8 @@ extends AbstractOperation {
 
 	@Override
 	public void execute() throws LogicException, DataException {
-		try {
-			OutputStream stream = provider.getOutputStream(filename);
+		try (OutputStream stream = provider.getOutputStream(filename)) {
 			stream.write(bytes);
-			stream.close();
 		} catch (IOException e) {
 			throw new DataException(e);
 		}
@@ -70,8 +69,8 @@ extends AbstractOperation {
 
 	/**
 	 * Sets the bytes to store.
-	 * 
-	 * @param bytes
+	 *
+	 * @param bytes the new bytes
 	 */
 	public void setBytes(byte[] bytes) {
 		this.bytes = bytes;
@@ -88,11 +87,10 @@ extends AbstractOperation {
 
 	/**
 	 * Sets the filename.
-	 * 
-	 * @param filename
+	 *
+	 * @param filename the new filename
 	 */
 	public void setFilename(String filename) {
 		this.filename = filename;
 	}
-
 }

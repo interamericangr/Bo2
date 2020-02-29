@@ -19,7 +19,7 @@ import gr.interamerican.bo2.impl.open.workers.AbstractResourceConsumer;
 import gr.interamerican.bo2.utils.StringUtils;
 
 /**
- * Abstract base for queries based on a NamedStream. <br/>
+ * Abstract base for queries based on a NamedStream. <br>
  * 
  * This class serves a base for queries based on named stream
  * regardless of the type of stream (text or binary).  
@@ -38,6 +38,11 @@ implements Query {
 	 */
 	protected NamedStream<?> stream;
 	
+	/**
+	 * Indicates if the underlying stream should be opened as a shared stream.
+	 */
+	boolean isSharedStream = false;
+	
 	@Override
 	public boolean isAvoidLock() {		
 		return true;
@@ -51,7 +56,12 @@ implements Query {
 	public void init(Provider parent) throws InitializationException {		
 		super.init(parent);
 		NamedStreamsProvider provider = getResource(NamedStreamsProvider.class);
-		stream = provider.getStream(streamName);
+		if(isSharedStream) {
+			stream = provider.getSharedStream(streamName);
+		} else {
+			stream = provider.getStream(streamName);
+		}
+		
 		if (stream==null) {
 			String manager = getManagerName();
 			@SuppressWarnings("nls")
@@ -78,6 +88,16 @@ implements Query {
 	 */
 	public void setStreamName(String streamName) {
 		this.streamName = streamName;
-	}	
+	}
+	
+	/**
+	 * Assigns a new value to the isSharedStream. The value indicates if the underlying stream 
+	 * should be opened as a shared stream.
+	 *
+	 * @param isSharedStream the isSharedStream to set
+	 */
+	public void setSharedStream(boolean isSharedStream) {
+		this.isSharedStream = isSharedStream;
+	}
 
 }

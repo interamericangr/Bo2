@@ -68,6 +68,23 @@ public class TestTemplateUtils {
 		String actual = TemplateUtils.fill(template, vars);
 		assertEquals(expected,actual);
 	}
+	
+	/**
+	 * test replace.
+	 */
+	@Test
+	public void testFill_replacementHasDollarSign() {
+		
+		String template = 
+			"name is _:name. Name is _:Name, type is _:type, Type is _:Type";
+		Map<String, String> vars = new HashMap<String, String>();
+		vars.put("name", "pari$");
+		vars.put("type", "$rojan");		
+		String expected = 
+			"name is pari$. Name is Pari$, type is $rojan, Type is $rojan";
+		String actual = TemplateUtils.fill(template, vars);
+		assertEquals(expected,actual);
+	}
 
 
 }

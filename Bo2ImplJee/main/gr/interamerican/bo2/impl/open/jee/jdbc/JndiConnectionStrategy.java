@@ -33,28 +33,28 @@ import javax.sql.DataSource;
  */
 public class JndiConnectionStrategy 
 extends ConnectionStrategy {
-		
-   
+
     /**
      * Input properties Property name for jndi name.
      */
-    static final String KEY_DBJNDINAME="DBJNDINAME"; //$NON-NLS-1$  
+    static final String KEY_DBJNDINAME="DBJNDINAME"; //$NON-NLS-1$
     
     /**
-     * Datasource JNDI name.
+     * Datasource instance. It is crucial that the DataSource is initialized on this object's construction time.
+     * This has to do with integration with Quartz on WebSphere. It should not be a problem in general.
      */
-    String dbJndiName;
-  
+    DataSource dataSource;
 	
 	@Override
 	public void parseProperties() throws InitializationException {		
-		dbJndiName = getMandatoryProperty(KEY_DBJNDINAME);
+		String dbJndiName = getMandatoryProperty(KEY_DBJNDINAME);
+		dataSource = getDatasourceFromJndi(dbJndiName);
 	}
 	
 	
 	@Override
 	public Connection doConnect() throws InitializationException {
-		return getConnectionFromJndi(dbJndiName);		
+		return getConnectionFromJndi();		
 	}
 	
 	/**
@@ -65,23 +65,19 @@ extends ConnectionStrategy {
 	 * will try to connect using the user id and password.
 	 * If the property DBUSER is not set or empty, then the
 	 * method will try to connect without credentials.
-	 * 
-	 * @param jndiKey Key for JNDI lookup.
-	 * 
+	 *
 	 * @return Returns the SQL connection that is returned by
 	 *         the DataSource that is located with the jndiKey.
 	 *          
-	 * @throws InitializationException
+	 * @throws InitializationException the initialization exception
 	 */
-	private Connection getConnectionFromJndi(String jndiKey) 
+	private Connection getConnectionFromJndi() 
 	throws InitializationException {
 		try {	        	        
-	        DataSource ds = getDatasourceFromJndi(jndiKey);	       
 	        if (StringUtils.isNullOrBlank(component.getDbUser())) {
-	        	return ds.getConnection();	        	
-	        } else {
-	        	return ds.getConnection(component.getDbUser(),component.getDbPass());	        	
-	        }	
+	        	return dataSource.getConnection();	        	
+	        }
+	        return dataSource.getConnection(component.getDbUser(),component.getDbPass());	        	
 	    } catch(SQLException sqle) {
 	    	throw new InitializationException(sqle);
 	    } catch (RuntimeException re) {
@@ -91,13 +87,12 @@ extends ConnectionStrategy {
 	
 	/**
 	 * Gets a connection from a JNDI reference.
-	 * 
+	 *
 	 * @param jndiKey Key for JNDI lookup.
-	 * 
 	 * @return Returns the SQL connection that is returned by
 	 *         the DataSource that is located with the jndiKey.
 	 *          
-	 * @throws InitializationException
+	 * @throws InitializationException the initialization exception
 	 */
 	DataSource getDatasourceFromJndi(String jndiKey) 
 	throws InitializationException {

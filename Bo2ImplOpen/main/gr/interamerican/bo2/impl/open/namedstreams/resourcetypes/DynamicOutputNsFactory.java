@@ -11,12 +11,13 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.FileFilterUtils;
 
 /**
- * factory for the dynamic {@link NamedStream} The idea behind the {@link DynamicOutputNsFactory} is
- * that the {@link NamedStreamDefinition#getUri()} denotes a base directory that all the files will
- * be placed. Each file in there will be named by {@link NamedStreamDefinition#getName()}+{serial
- * number}<br>
- * When factory creates a new file, it first creates a directory lock in order for other file
- * creations to wait for this lock to be lifted.
+ * factory for the dynamic {@link NamedStream} The idea behind the
+ * {@link DynamicOutputNsFactory} is that the
+ * {@link NamedStreamDefinition#getUri()} denotes a base directory that all the
+ * files will be placed. Each file in there will be named by
+ * {@link NamedStreamDefinition#getName()}+{serial number}<br>
+ * When factory creates a new file, it first creates a directory lock in order
+ * for other file creations to wait for this lock to be lifted.
  */
 public class DynamicOutputNsFactory extends WriteOnlyNsFactory {
 
@@ -24,9 +25,8 @@ public class DynamicOutputNsFactory extends WriteOnlyNsFactory {
 	 * number of times it will test for the .lock
 	 */
 	private static final int RETRIES = 10;
-	/**
-	 * how much time will wait each retry
-	 */
+	
+	/** how much time will wait each retry. */
 	private static final int SECONDS2WAIT = 1;
 	/**
 	 * .lock filename
@@ -34,14 +34,16 @@ public class DynamicOutputNsFactory extends WriteOnlyNsFactory {
 	private static final String LOCK_FILE = ".lock"; //$NON-NLS-1$
 
 	/**
-	 * default constructor
+	 * default constructor.
 	 */
 	public DynamicOutputNsFactory() {
 		super(StreamResourceEnum.DYNAMIC);
 	}
 
 	/**
-	 * @param def
+	 * Gets the lock dir name.
+	 *
+	 * @param def the def
 	 * @return the name of the lockfile
 	 */
 	String getLockDirName(NamedStreamDefinition def) {
@@ -50,9 +52,9 @@ public class DynamicOutputNsFactory extends WriteOnlyNsFactory {
 
 	/**
 	 * tests for the .lock file and while it's on waits up to RETRIES*SEC2WAIT
-	 *
-	 * @param def
-	 * @throws CouldNotCreateNamedStreamException
+	 * 
+	 * @param def the def
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */
 	void testForLockAndLock(NamedStreamDefinition def) throws CouldNotCreateNamedStreamException {
 		int i = 0;
@@ -73,12 +75,11 @@ public class DynamicOutputNsFactory extends WriteOnlyNsFactory {
 		}
 	}
 
-
 	/**
-	 * unlocks the directory
-	 *
-	 * @param def
-	 * @throws CouldNotCreateNamedStreamException
+	 * unlocks the directory.
+	 * 
+	 * @param def the def
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */
 	void unlockDirectory(NamedStreamDefinition def) throws CouldNotCreateNamedStreamException {
 		String lockFilename = getLockDirName(def);
@@ -87,25 +88,23 @@ public class DynamicOutputNsFactory extends WriteOnlyNsFactory {
 			return;
 		}
 		if (!f.delete()) {
-			throw new CouldNotCreateNamedStreamException(
-					"Could not delete LOCK FILE DO IT MANUALLY"); //$NON-NLS-1$
+			throw new CouldNotCreateNamedStreamException("Could not delete LOCK FILE DO IT MANUALLY"); //$NON-NLS-1$
 		}
 	}
 
 	/**
 	 * tests for the existence or creates the base directory.
-	 *
-	 * @param def
+	 * 
+	 * @param def the def
 	 * @return the created directory.
-	 * @throws CouldNotCreateNamedStreamException
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */
 	File testOrCreateDirectory(NamedStreamDefinition def) throws CouldNotCreateNamedStreamException {
 		String uri = def.getUri();
 		File f = new File(uri);
 		if (f.exists()) {
 			if (!f.isDirectory()) {
-				throw new CouldNotCreateNamedStreamException(uri
-						+ " exists and it's not a directory"); //$NON-NLS-1$
+				throw new CouldNotCreateNamedStreamException(uri + " exists and it's not a directory"); //$NON-NLS-1$
 			}
 		} else {
 			if (!f.mkdir()) {
@@ -116,16 +115,20 @@ public class DynamicOutputNsFactory extends WriteOnlyNsFactory {
 	}
 
 	/**
-	 * @param def
-	 * @return
+	 * Basic file name.
+	 *
+	 * @param def the def
+	 * @return the string
 	 */
 	String basicFileName(NamedStreamDefinition def) {
-		return def.getUri() + File.separator + def.getName();
+		return def.getUri() + def.getName();
 	}
 
 	/**
-	 * @param files
-	 * @param def
+	 * Creates a new DynamicOutputNs object.
+	 *
+	 * @param files the files
+	 * @param def the def
 	 * @return the name of the new file to be created
 	 */
 	String createNameForNewFile(String[] files, NamedStreamDefinition def) {
@@ -133,23 +136,22 @@ public class DynamicOutputNsFactory extends WriteOnlyNsFactory {
 	}
 
 	/**
-	 * creates a new file descriptor in the directory. It wonm't create an actual file, but it can
-	 * be passed to a method that will create the stream.
-	 *
-	 * @param dir
-	 * @param def
+	 * creates a new file descriptor in the directory. It wonm't create an
+	 * actual file, but it can be passed to a method that will create the
+	 * stream.
+	 * 
+	 * @param dir the dir
+	 * @param def the def
 	 * @return the created file.
 	 */
 	File createNewFileInDirectory(File dir, NamedStreamDefinition def) {
-		File f = null;
-		String[] files = dir.list(FileFilterUtils.andFileFilter(FileFilterUtils.fileFileFilter(),
+		String[] files = dir.list(FileFilterUtils.and(FileFilterUtils.fileFileFilter(),
 				FileFilterUtils.prefixFileFilter(def.getName())));
-		f = new File(createNameForNewFile(files, def));
-		return f;
+		return new File(createNameForNewFile(files, def));
 	}
+
 	@Override
-	protected OutputStream openOutputStream(NamedStreamDefinition def)
-			throws CouldNotCreateNamedStreamException {
+	protected OutputStream openOutputStream(NamedStreamDefinition def) throws CouldNotCreateNamedStreamException {
 		File dir = testOrCreateDirectory(def);
 		try {
 			testForLockAndLock(def);
@@ -160,5 +162,4 @@ public class DynamicOutputNsFactory extends WriteOnlyNsFactory {
 			unlockDirectory(def);
 		}
 	}
-
 }

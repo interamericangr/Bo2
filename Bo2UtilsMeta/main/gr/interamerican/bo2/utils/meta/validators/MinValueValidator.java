@@ -24,9 +24,7 @@ public class MinValueValidator<T extends Comparable<T>>
 extends AbstractValidator
 implements Validator<T> {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * minimum value.
@@ -36,7 +34,7 @@ implements Validator<T> {
 	/**
 	 * Creates a new StringMinLengthValidator object. 
 	 *
-	 * @param minimum
+	 * @param minimum the minimum
 	 */
 	public MinValueValidator(T minimum) {
 		super();
@@ -61,6 +59,7 @@ implements Validator<T> {
 		this.minimum = minimum;
 	}
 
+	@Override
 	public void validate(T value) throws ValidationException {
 		if(value==null) {
 			return;

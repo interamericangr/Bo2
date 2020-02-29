@@ -34,14 +34,17 @@ extends NonQuotedType<Byte> {
 		super();		
 	}
 	
+	@Override
 	public Byte get(ResultSet rs, String columnIndex) throws SQLException {		
 		return rs.getByte(columnIndex);
 	}
 	
+	@Override
 	public Byte get(ResultSet rs, int columnIndex) throws SQLException {		
 		return rs.getByte(columnIndex);
 	}
 	
+	@Override
 	public Class<Byte> getJavaType() {		
 		return Byte.class;
 	}

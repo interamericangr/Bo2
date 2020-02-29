@@ -12,17 +12,9 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.namedstreams.types;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import gr.interamerican.bo2.arch.exceptions.DataException;
-import gr.interamerican.bo2.arch.exceptions.DataOperationNotSupportedException;
-import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResource;
-import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResourceEnum;
+import static org.mockito.Mockito.*;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.nio.charset.Charset;
@@ -30,6 +22,11 @@ import java.nio.charset.Charset;
 import org.junit.Assert;
 import org.junit.Test;
 
+import gr.interamerican.bo2.arch.exceptions.DataException;
+import gr.interamerican.bo2.arch.exceptions.DataOperationNotSupportedException;
+import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResource;
+import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResourceEnum;
+import gr.interamerican.bo2.utils.StringConstants;
 
 /**
  * Unit test for {@link NamedPrintStream}.
@@ -40,11 +37,7 @@ public class TestNamedPrintStream {
 	/**
 	 * Array for the tests.
 	 */
-	String[] lines = {
-			"this is a dog",
-			"this is a cat",
-			"cats and dogs are animals"
-	};
+	String[] lines = { "this is a dog", "this is a cat", "cats and dogs are animals" };
 
 	/**
 	 * Creates a sample.
@@ -55,9 +48,8 @@ public class TestNamedPrintStream {
 		Charset encoding = Charset.defaultCharset();
 		OutputStream out = new ByteArrayOutputStream();
 		PrintStream ps = new PrintStream(out);
-		return new NamedPrintStream(null,ps,"NPS",out,encoding,null);
+		return new NamedPrintStream(null, ps, "NPS", out, encoding, null);
 	}
-
 
 	/**
 	 * Test for the constructor.
@@ -70,8 +62,7 @@ public class TestNamedPrintStream {
 		Object resource = new Object();
 		String uri = "foo";
 		Charset encoding = Charset.defaultCharset();
-		NamedPrintStream ns =
-				new NamedPrintStream(resourceType, stream, name, resource, encoding, uri);
+		NamedPrintStream ns = new NamedPrintStream(resourceType, stream, name, resource, encoding, uri);
 		Assert.assertEquals(resourceType, ns.getResourceType());
 		Assert.assertEquals(resource, ns.getResource());
 		Assert.assertEquals(stream, ns.getStream());
@@ -82,33 +73,33 @@ public class TestNamedPrintStream {
 
 	/**
 	 * Unit test for readRecord.
-	 * @throws FileNotFoundException
+	 *
 	 * @throws DataException
+	 *             the data exception
 	 */
-	@Test(expected=DataOperationNotSupportedException.class)
-	public void testReadRecord() throws FileNotFoundException, DataException {
+	@Test(expected = DataOperationNotSupportedException.class)
+	public void testReadRecord() throws DataException {
 		NamedPrintStream ns = sample();
 		ns.readRecord();
 	}
 
 	/**
 	 * Unit test for readString.
-	 * @throws FileNotFoundException
+	 *
 	 * @throws DataException
+	 *             the data exception
 	 */
-	@Test(expected=DataOperationNotSupportedException.class)
-	public void testReadString() throws FileNotFoundException, DataException {
+	@Test(expected = DataOperationNotSupportedException.class)
+	public void testReadString() throws DataException {
 		NamedPrintStream ns = sample();
 		ns.readString();
 	}
 
 	/**
 	 * Unit test for writeString.
-	 * @throws DataException
-	 * @throws IOException
 	 */
-	// @Test() FIX ME
-	public void testWriteString() throws DataException, IOException {
+	@Test
+	public void testWriteString() {
 		NamedPrintStream ns = sample();
 		for (String string : lines) {
 			ns.writeString(string);
@@ -116,9 +107,9 @@ public class TestNamedPrintStream {
 		ByteArrayOutputStream baos = (ByteArrayOutputStream) ns.getResource();
 		byte[] bytes = baos.toByteArray();
 
-		String expected = "";
+		String expected = StringConstants.EMPTY;
 		for (String string : lines) {
-			expected = expected + string + "\r\n";
+			expected = expected + string + System.lineSeparator();
 		}
 		byte[] expecteds = expected.getBytes(Charset.defaultCharset());
 		Assert.assertArrayEquals(expecteds, bytes);
@@ -126,11 +117,9 @@ public class TestNamedPrintStream {
 
 	/**
 	 * Unit test for writeRecord.
-	 * @throws DataException
-	 * @throws IOException
 	 */
-	// @Test() FIX ME
-	public void testWriteRecord() throws DataException, IOException {
+	@Test
+	public void testWriteRecord() {
 		NamedPrintStream ns = sample();
 		for (String string : lines) {
 			byte[] rec = string.getBytes(Charset.defaultCharset());
@@ -139,9 +128,9 @@ public class TestNamedPrintStream {
 		ByteArrayOutputStream baos = (ByteArrayOutputStream) ns.getResource();
 		byte[] bytes = baos.toByteArray();
 
-		String expected = "";
+		String expected = StringConstants.EMPTY;
 		for (String string : lines) {
-			expected = expected + string + "\r\n";
+			expected = expected + string + System.lineSeparator();
 		}
 		byte[] expecteds = expected.getBytes(Charset.defaultCharset());
 		Assert.assertArrayEquals(expecteds, bytes);
@@ -149,11 +138,12 @@ public class TestNamedPrintStream {
 
 	/**
 	 * Unit test for readString.
-	 * @throws FileNotFoundException
+	 *
 	 * @throws DataException
+	 *             the data exception
 	 */
-	@Test(expected=DataOperationNotSupportedException.class)
-	public void testFind() throws FileNotFoundException, DataException {
+	@Test(expected = DataOperationNotSupportedException.class)
+	public void testFind() throws DataException {
 		NamedPrintStream ns = sample();
 		ns.find("foo".getBytes());
 	}
@@ -161,17 +151,15 @@ public class TestNamedPrintStream {
 	/**
 	 * Test for close().
 	 *
-	 * @throws IOException
 	 * @throws DataException
+	 *             the data exception
 	 */
 	@Test
-	public void testClose() throws IOException, DataException {
+	public void testClose() throws DataException {
 		PrintStream stream = mock(PrintStream.class);
 		Charset encoding = Charset.defaultCharset();
-		NamedPrintStream ns =
-				new NamedPrintStream(null, stream, "foo", stream, encoding, "bar");
+		NamedPrintStream ns = new NamedPrintStream(null, stream, "foo", stream, encoding, "bar");
 		ns.close();
-		verify(stream, times(1)).close();
+		verify(stream).close();
 	}
-
 }

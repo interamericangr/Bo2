@@ -12,16 +12,6 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.jdbc;
 
-import gr.interamerican.bo2.arch.Query;
-import gr.interamerican.bo2.arch.def.NamedFieldsContainer;
-import gr.interamerican.bo2.arch.def.OrderedFieldsContainer;
-import gr.interamerican.bo2.arch.exceptions.DataAccessException;
-import gr.interamerican.bo2.arch.exceptions.DataException;
-import gr.interamerican.bo2.utils.StreamUtils;
-import gr.interamerican.bo2.utils.sql.SqlProcessor;
-import gr.interamerican.bo2.utils.sql.SqlUtils;
-import gr.interamerican.bo2.utils.sql.types.Type;
-
 import java.math.BigDecimal;
 import java.sql.Blob;
 import java.sql.PreparedStatement;
@@ -31,36 +21,42 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.List;
+import java.util.function.Supplier;
 
+import gr.interamerican.bo2.arch.Query;
+import gr.interamerican.bo2.arch.def.NamedFieldsContainer;
+import gr.interamerican.bo2.arch.def.OrderedFieldsContainer;
+import gr.interamerican.bo2.arch.exceptions.DataAccessException;
+import gr.interamerican.bo2.arch.exceptions.DataException;
+import gr.interamerican.bo2.utils.StreamUtils;
+import gr.interamerican.bo2.utils.sql.SqlProcessor;
+import gr.interamerican.bo2.utils.sql.types.Type;
 
 /**
  * Abstract implementation of {@link Query} based on JDBC.
- *
+ * 
+ * The abstract <code>sql()</code> must return the query statement. Parameters
+ * can be marked using the :parm notation or unnamed defined with standard JDBC
+ * notation (?). The <code>parameters()</code> method returns the query
+ * parameters.<br>
+ * It's default implementation uses {@link #getParamsFromNamedParams()} and
+ * {@link JdbcUtils#getParameterNamesArrays(Supplier, Supplier)}.<br>
+ * Do note that :parm.subtype is also supported.
  */
 public abstract class JdbcQuery
 extends AbstractJdbcWorker
 implements Query, NamedFieldsContainer, OrderedFieldsContainer {
 
-	/**
-	 * Postfix for select with UR
-	 */
+	/** Postfix for select with UR. */
 	static final String WITH_UR = " with UR "; //$NON-NLS-1$
 
-	/**
-	 * Message key for Blob too long
-	 */
+	/** Message key for Blob too long. */
 	private static final String BLOB_TO_LONG = "JdbcQuery.BLOB_TO_LONG"; //$NON-NLS-1$
 
-	/**
-	 * ResultSet of the query
-	 */
+	/** ResultSet of the query. */
 	protected ResultSet rs;
 
-	/**
-	 * If true sets the query to be executed with isolation level
-	 * uncommitted read
-	 */
+	/** If true sets the query to be executed with isolation level uncommitted read. */
 	boolean withUR;
 
 	/**
@@ -86,10 +82,10 @@ implements Query, NamedFieldsContainer, OrderedFieldsContainer {
 
 	/**
 	 * Parameters for the query.
-	 * <br/>
+	 * <br>
 	 * If the query does not need parameters,
 	 * this method should return null or an empty array.
-	 * <br/>
+	 * <br>
 	 * The default implementation fetches an array with the named parameters.
 	 * 
 	 * @return Returns an array with parameters for the query.
@@ -100,17 +96,7 @@ implements Query, NamedFieldsContainer, OrderedFieldsContainer {
 
 	@Override
 	protected String[] getParameterNamesArray() {
-		String[] names = super.getParameterNamesArray();
-		if (names!=null) {
-			return names;
-		}
-
-		String stmt = sql();
-		List<String> paramNames = SqlUtils.getParameterNames(stmt);
-		if (paramNames.isEmpty()) {
-			return null;
-		}
-		return paramNames.toArray(new String[0]);
+		return JdbcUtils.getParameterNamesArrays(() -> super.getParameterNamesArray(), this::sql);
 	}
 
 	/**
@@ -145,11 +131,6 @@ implements Query, NamedFieldsContainer, OrderedFieldsContainer {
 		} catch (SQLException e) {
 			throw new DataException(e);
 		}
-	}
-
-	@Override
-	public void open() throws DataException {
-		super.open();
 	}
 
 	@Override
@@ -308,17 +289,12 @@ implements Query, NamedFieldsContainer, OrderedFieldsContainer {
 
 	/**
 	 * Gets the value of the specified column.
-	 * 
-	 * @param field
-	 *        Column name.
-	 * @param type
-	 *        SQL type of column.
-	 * @param <T>
-	 *        Java type of column.
-	 * 
+	 *
+	 * @param <T>        Java type of column.
+	 * @param field        Column name.
+	 * @param type        SQL type of column.
 	 * @return Returns the value of the specified column.
-	 * 
-	 * @throws DataAccessException
+	 * @throws DataAccessException the data access exception
 	 */
 	public <T> T get(String field, Type<T> type) throws DataAccessException {
 		try {
@@ -327,7 +303,6 @@ implements Query, NamedFieldsContainer, OrderedFieldsContainer {
 			throw new DataAccessException(e);
 		}
 	}
-
 
 	@Override
 	public String getString(int field) throws DataAccessException {
@@ -355,7 +330,6 @@ implements Query, NamedFieldsContainer, OrderedFieldsContainer {
 			throw new DataAccessException(e);
 		}
 	}
-
 
 	@Override
 	public float getFloat(int field) throws DataAccessException {
@@ -451,9 +425,11 @@ implements Query, NamedFieldsContainer, OrderedFieldsContainer {
 	}
 
 	/**
+	 * Gets the column names.
+	 *
 	 * @return Returns the (ordered) column names of the ResultSet.
-	 * @throws DataAccessException
-	 * @throws SQLException
+	 * @throws DataAccessException the data access exception
+	 * @throws SQLException the SQL exception
 	 */
 	public String[] getColumnNames() throws DataAccessException, SQLException {
 		if((rs==null) || rs.isClosed()) {
@@ -466,5 +442,4 @@ implements Query, NamedFieldsContainer, OrderedFieldsContainer {
 		}
 		return columnNames;
 	}
-
 }

@@ -47,10 +47,10 @@ public class TestScenarioWorkerWithJdbcAndHibernate {
 
 	/**
 	 * Test case, see scenario operation.
-	 * 
-	 * @throws DataException
-	 * @throws LogicException
-	 * @throws UnexpectedException
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test
 	public void testHibSaveJdbcRead()
@@ -62,10 +62,10 @@ public class TestScenarioWorkerWithJdbcAndHibernate {
 
 	/**
 	 * Test case, see scenario operation.
-	 * 
-	 * @throws DataException
-	 * @throws LogicException
-	 * @throws UnexpectedException
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test
 	public void testJdbcSaveHibRead()
@@ -77,10 +77,10 @@ public class TestScenarioWorkerWithJdbcAndHibernate {
 
 	/**
 	 * Test case, see scenario operation.
-	 * 
-	 * @throws DataException
-	 * @throws LogicException
-	 * @throws UnexpectedException
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test
 	public void testHibSaveJdbcDeleteJdbcStoreHibRead()
@@ -96,10 +96,10 @@ public class TestScenarioWorkerWithJdbcAndHibernate {
 	 * Save one user with jdbc and one user with hibernate.
 	 * Commit.
 	 * Read both users on another unit of work.
-	 * 
-	 * @throws LogicException
-	 * @throws DataException
-	 * @throws UnexpectedException
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test
 	public void testSuccessfulCommit()
@@ -129,10 +129,10 @@ public class TestScenarioWorkerWithJdbcAndHibernate {
 	 * Save one user with jdbc and one user with hibernate.
 	 * Fail and Rollback.
 	 * Read both users on another unit of work.
-	 * 
-	 * @throws LogicException
-	 * @throws DataException
-	 * @throws UnexpectedException
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test(expected=LogicException.class)
 	public void testSuccessfulRollback()

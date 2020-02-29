@@ -29,13 +29,13 @@ import java.util.Set;
  * Utils about generics.
  */
 public class GenericsUtils {
+	
 	/**
 	 * Checks if the return type of a method is a {@link TypeVariable}.
 	 * 
-	 * example: public static <C> C doSomething().
-	 * 
-	 * @param method
-	 * 
+	 * example: public static &lt;C&gt; C doSomething().
+	 *
+	 * @param method the method
 	 * @return Returns true if the method is declared as returning
 	 *         a type variable.
 	 */
@@ -47,10 +47,9 @@ public class GenericsUtils {
 	/**
 	 * Checks if the return type of a method is a {@link ParameterizedType}.
 	 * 
-	 * example: public static Set<C> doSomething(C arg).
-	 * 
-	 * @param method
-	 * 
+	 * example: public static Set&lt;C&gt; doSomething(C arg).
+	 *
+	 * @param method the method
 	 * @return Returns true if the method is declared as returning
 	 *         a parameterized type.
 	 */
@@ -62,10 +61,9 @@ public class GenericsUtils {
 	/**
 	 * Checks if any of the argument types of the method is a {@link TypeVariable}.
 	 * 
-	 * example: public static <C> void doSomething(C arg).
-	 * 
-	 * @param method
-	 * 
+	 * example: public static &lt;C&gt; void doSomething(C arg).
+	 *
+	 * @param method the method
 	 * @return Returns true if the method is declared as returning
 	 *         a type variable.
 	 */
@@ -82,10 +80,9 @@ public class GenericsUtils {
 	/**
 	 * Checks if any of the argument types of the method is a {@link TypeVariable}.
 	 * 
-	 * example: public static <C> void doSomething(C arg).
-	 * 
-	 * @param method
-	 * 
+	 * example: public static &lt;C&gt; void doSomething(C arg).
+	 *
+	 * @param method the method
 	 * @return Returns true if the method is declared as returning
 	 *         a type variable.
 	 */
@@ -145,15 +142,15 @@ public class GenericsUtils {
 	 * Finds the type of elements of a {@link Field} who's type is a Collection.
 	 * 
 	 * If the field is not declared as a Collection, a RuntimeException
-	 * is thrown. <br/>  
+	 * is thrown. <br>  
 	 * If the field is declared as a raw Collection, then Object.class is returned.
-	 * <br/>
+	 * <br>
 	 * An assumption is made that the field declaration contains only one
 	 * type argument.
-	 * <br/>
-	 * Disclaimer: This will not work for a declarations like: <br/> 
+	 * <br>
+	 * Disclaimer: This will not work for a declarations like: <br> 
 	 * <code>
-	 * StringList foo; //StringList extends List&ltString&gt.
+	 * StringList foo; //StringList extends List&lt;String&gt;.
 	 * </code> 
 	 * 
 	 * @param field
@@ -171,12 +168,12 @@ public class GenericsUtils {
 	 * Finds the type of elements of a property that declares a Collection.
 	 * Bad input returns null. If the field is not parameterized, Object is
 	 * returned.
-	 * <br/>
+	 * <br>
 	 * An assumption is made that the field declaration contains only one
 	 * type argument.
-	 * <br/>
+	 * <br>
 	 * Disclaimer: This will not work for a declarations like
-	 * StringList foo; //StringList extends List<String>. 
+	 * StringList foo; //StringList extends List&lt;String&gt;. 
 	 * 
 	 * @param clazz 
 	 *        Class declaring the property.
@@ -202,12 +199,9 @@ public class GenericsUtils {
 	
 	/**
 	 * Checks if the generic arguments of two types match.
-	 * 
-	 * @param m1 
-	 * @param m2 
-	 * 
-	 * 
-	 * 
+	 *
+	 * @param m1 the m 1
+	 * @param m2 the m 2
 	 * @return Returns true if the method is declared as returning
 	 *         a type variable.
 	 */
@@ -227,9 +221,9 @@ public class GenericsUtils {
 	
 	/**
 	 * Checks if the generic arguments of two methods match.
-	 * 
-	 * @param t1
-	 * @param t2
+	 *
+	 * @param t1 the t 1
+	 * @param t2 the t 2
 	 * @return Returns true if either arguments are TypeVariables or
 	 *         if they are equal.
 	 */
@@ -243,9 +237,8 @@ public class GenericsUtils {
 	
 	/**
 	 * Gets all generic interfaces of a class.
-	 * 
-	 * @param clazz
-	 * 
+	 *
+	 * @param clazz the clazz
 	 * @return Returns the generic interfaces of the class.
 	 */
 	public static Set<Type> getGenericInterfaces(Class<?> clazz) {
@@ -272,18 +265,18 @@ public class GenericsUtils {
 	 * The extra input required for this to work is worth the trouble, as it
 	 * is certain that the correct result is fetched and not some random 
 	 * parameterized type argument.
-	 * <br/>
+	 * <br>
 	 * For example assume that we are searching for the type argument &lt;T&gt;
 	 * of a A&lt;T&gt; sub-type. The concrete parameter could be declared anywhere in 
 	 * the hierarchy, but always in a sub-type of A. Invoking this method with
-	 * <br/>
+	 * <br>
 	 * baseParameterizedType: A.class
-	 * <br/>
+	 * <br>
 	 * will result to the search of all super-types that are a sub-type of A, 
 	 * up to and including A, closest to the class specified by the type
 	 * argument first. On this search path we are guaranteed to find the correct
 	 * type parameter argument.
-	 * <br/>
+	 * <br>
 	 * Note that parameters that are ParameterizedType are not returned. For instance
 	 * searching a sub-type of A&lt;T&lt;S&gt;&gt; will not return the type argument
 	 * T&lt;S&gt;

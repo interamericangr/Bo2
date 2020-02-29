@@ -12,19 +12,27 @@
  ******************************************************************************/
 package gr.interamerican.wicket.markup.html.panel;
 
-import gr.interamerican.wicket.utils.ImageType;
-
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.extensions.markup.html.repeater.data.table.AbstractColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.DataTable;
 import org.apache.wicket.markup.html.link.AbstractLink;
 import org.apache.wicket.model.IModel;
+
+import gr.interamerican.wicket.extensions.markup.html.repeater.data.table.AjaxLinkImagePickColumn;
+import gr.interamerican.wicket.extensions.markup.html.repeater.data.table.AjaxLinkPickColumn;
+import gr.interamerican.wicket.links.LegacyCallbackAjaxLink;
+import gr.interamerican.wicket.panels.AjaxLinkPanel;
+import gr.interamerican.wicket.panels.AjaxLinkWithImagePanel;
+import gr.interamerican.wicket.utils.ImageType;
 
 /**
  * Panel containing a link in text or icon form, for the execution of an action on a {@link DataTable}.
  * 
  * @param <T> The object type
+ * @deprecated See Constructors for alternatives in each case
  */
+@Deprecated
 public abstract class DataTableAjaxLinkPanel<T> 
 extends DataTableLinkPanel<T> {
 	
@@ -36,20 +44,30 @@ extends DataTableLinkPanel<T> {
 	/**
 	 * Creates a new {@link DataTableAjaxLinkPanel} object. 
 	 *
-	 * @param id
-	 * @param model
-	 * @param linkText 
+	 * @param id the id
+	 * @param model the model
+	 * @param linkText the link text
+	 * @deprecated Use {@link AjaxLinkPanel} or {@link LegacyCallbackAjaxLink} instead and
+	 *             {@link LegacyCallbackAjaxLink#setBody(IModel)} for text. If this was used
+	 *             inside a {@link AbstractColumn} then consider
+	 *             {@link AjaxLinkPickColumn}
 	 */
 	public DataTableAjaxLinkPanel(String id, IModel<T> model, String linkText) {
 		super(id, model, linkText);
 	}
 	
 	/**
-	 * Creates a new {@link DataTableAjaxLinkPanel} object. 
+	 * Creates a new {@link DataTableAjaxLinkPanel} object.
 	 *
 	 * @param id
+	 *            the id
 	 * @param model
-	 * @param imageType 
+	 *            the model
+	 * @param imageType
+	 *            the image type
+	 * @deprecated Use {@link AjaxLinkWithImagePanel} instead. If this was used
+	 *             inside a {@link AbstractColumn} then consider
+	 *             {@link AjaxLinkImagePickColumn}
 	 */
 	public DataTableAjaxLinkPanel(String id, IModel<T> model, ImageType imageType) {
 		super(id, model, imageType);

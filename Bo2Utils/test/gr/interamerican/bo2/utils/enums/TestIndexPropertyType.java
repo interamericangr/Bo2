@@ -15,7 +15,7 @@ public class TestIndexPropertyType {
 	
 	
 	/**
-	 * Test for getIndexPropertyTypeFor(clazz)
+	 * Test for getIndexPropertyTypeFor(clazz).
 	 */
 	@Test
 	public void testGetIndexPropertyTypeFor() {

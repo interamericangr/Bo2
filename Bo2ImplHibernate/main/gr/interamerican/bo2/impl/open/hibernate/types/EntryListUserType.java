@@ -57,9 +57,7 @@ extends AbstractUserType {
 	 */
 	private static final String INVALID_INPUT = "EntryListUserType.INVALID_INPUT"; //$NON-NLS-1$
 
-	/**
-	 * type id
-	 */
+	/** type id. */
 	private Long typeId;
 
 	/**
@@ -67,6 +65,7 @@ extends AbstractUserType {
 	 */
 	private String cacheName;
 
+	@Override
 	@SuppressWarnings({ "nls" })
 	public void setParameterValues(Properties parameters) {
 		String strTypeId = parameters.getProperty("entryTypeId");
@@ -74,31 +73,40 @@ extends AbstractUserType {
 		this.cacheName = parameters.getProperty("cacheName");
 	}
 
+	@Override
 	public int[] sqlTypes() {
 		return new int[] { Types.VARCHAR };
 	}
 
+	@Override
 	public Class<?> returnedClass() {
 		return ArrayList.class;
 	}
 
+	@Deprecated
+	@Override
 	public Object nullSafeGet(ResultSet rs, String[] names, Object owner) throws HibernateException, SQLException {
 		String csv = rs.getString(names[0]);
 		return convertStringToObject(csv);
 	}
 
+	@Deprecated
+	@Override
 	public void nullSafeSet(PreparedStatement st, Object value, int index) throws HibernateException, SQLException {
 		st.setString(index, convertObjectToString(value));
 	}
 
+	@Override
 	public String objectToSQLString(Object value) {
 		return convertObjectToString(value);
 	}
 
+	@Override
 	public String toXMLString(Object value) {
 		return convertObjectToString(value);
 	}
 
+	@Override
 	public Object fromXMLString(String xmlValue) {
 		return convertStringToObject(xmlValue);
 	}
@@ -190,6 +198,8 @@ extends AbstractUserType {
 	}
 
 	/**
+	 * Cache.
+	 *
 	 * @return Returns the named cache
 	 */
 	@SuppressWarnings("unchecked")

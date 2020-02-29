@@ -24,7 +24,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.usertype.UserType;
 
 /**
- * Trims the string value stored in the database before getting the value. <br/>
+ * Trims the string value stored in the database before getting the value. <br>
  * 
  * Useful when the column type is CHAR. In this case, if the value
  * stored in the column is longer than the column length, the value 
@@ -33,50 +33,61 @@ import org.hibernate.usertype.UserType;
  */
 public class TrimmedStringUserType implements UserType {
 
+	@Override
 	public int[] sqlTypes() {
 		return new int[] { Types.CHAR };
 	}
-
+	@Override
 	@SuppressWarnings("rawtypes")
 	public Class returnedClass() {
 		return String.class;
 	}
 
+	@Deprecated
+	@Override
 	public Object nullSafeGet(ResultSet rs, String[] names, Object owner) throws HibernateException, SQLException {
 		String value = rs.getString(names[0]);
 		return value==null ? null : value.trim(); 
 	}
 
+	@Deprecated
+	@Override
 	public void nullSafeSet(PreparedStatement st, Object value, int index) throws HibernateException, SQLException {
 		 st.setString(index, (String)value);
 	}
 
+	@Override
 	public boolean equals(Object x, Object y) throws HibernateException {
 		return Utils.equals(x, y);
 	}
 
+	@Override
 	public int hashCode(Object x) throws HibernateException {
 		return x.hashCode();
 	}
 
+	@Override
 	public Object deepCopy(Object value) throws HibernateException {
 		return value;
 	}
 
+	@Override
 	public boolean isMutable() {
 		return false;
 	}
 
+	@Override
 	public Serializable disassemble(Object value) throws HibernateException {
 		return (Serializable) value;
 	}
 
+	@Override
 	public Object assemble(Serializable cached, Object owner) throws HibernateException {
 		return cached;
 	}
 
+	@Override
 	public Object replace(Object original, Object target, Object owner) throws HibernateException {
 		return original;
 	}
-
 }

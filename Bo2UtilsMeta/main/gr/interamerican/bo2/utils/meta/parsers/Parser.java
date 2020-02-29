@@ -18,18 +18,17 @@ import java.io.Serializable;
 
 /**
  * A {@link Parser} parses string values.
- * @param <T> 
- * 
+ *
+ * @param <T> the generic type
  */
 public interface Parser<T> extends Serializable {
 	
 	/**
 	 * Parses a string.
-	 * 
-	 * @param value
+	 *
+	 * @param value the value
 	 * @return Returns the value of the String.
-	 * 
-	 * @throws ParseException 
+	 * @throws ParseException the parse exception
 	 */
 	T parse(String value) throws ParseException;
 

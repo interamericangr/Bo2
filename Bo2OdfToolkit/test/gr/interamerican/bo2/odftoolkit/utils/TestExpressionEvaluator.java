@@ -29,7 +29,7 @@ import org.junit.Test;
 public class TestExpressionEvaluator {
 	
 	/**
-	 * Unit test for evaluateOgnlExpression
+	 * Unit test for evaluateOgnlExpression.
 	 */	
 	@Test
 	public void testGetValue_NestedPropertyString() {		
@@ -41,7 +41,7 @@ public class TestExpressionEvaluator {
 	}
 	
 	/**
-	 * Unit test for evaluateOgnlExpression
+	 * Unit test for evaluateOgnlExpression.
 	 */	
 	@Test
 	public void testGetValue_NestedPropertyDate() {		
@@ -52,7 +52,7 @@ public class TestExpressionEvaluator {
 	}
 	
 	/**
-	 * Unit test for evaluateOgnlExpression
+	 * Unit test for evaluateOgnlExpression.
 	 */	
 	@Test
 	public void testGetValue_MapAndNestedProperties() {		
@@ -72,7 +72,7 @@ public class TestExpressionEvaluator {
 	
 	
 	/**
-	 * Unit test for parseExpression
+	 * Unit test for parseExpression.
 	 */	
 	@Test
 	public void testParseExpression_tolerating() {		
@@ -88,7 +88,7 @@ public class TestExpressionEvaluator {
 	}
 	
 	/**
-	 * Unit test for parseExpression
+	 * Unit test for parseExpression.
 	 */	
 	@Test
 	public void testParseExpression_withNull() {
@@ -105,7 +105,7 @@ public class TestExpressionEvaluator {
 	}
 	
 	/**
-	 * Unit test for parseExpression
+	 * Unit test for parseExpression.
 	 */	
 	@Test(expected=RuntimeException.class)
 	public void testParseExpression_throwing() {		
@@ -116,7 +116,7 @@ public class TestExpressionEvaluator {
 	}
 	
 	/**
-	 * Unit test for parseExpression
+	 * Unit test for parseExpression.
 	 */	
 	@Test
 	public void testSetErrorIndicator() {
@@ -128,7 +128,7 @@ public class TestExpressionEvaluator {
 	}
 	
 	/**
-	 * Unit test for parseExpression
+	 * Unit test for parseExpression.
 	 */	
 	@Test
 	public void testSetTolerateErrors_() {
@@ -140,7 +140,7 @@ public class TestExpressionEvaluator {
 	}
 	
 	/**
-	 * Unit test for evaluateOgnlExpression
+	 * Unit test for evaluateOgnlExpression.
 	 */	
 	@Test
 	public void testGetValue_MapOwner() {		
@@ -153,7 +153,7 @@ public class TestExpressionEvaluator {
 	}
 	
 	/**
-	 * Unit test for evaluateOgnlExpression
+	 * Unit test for evaluateOgnlExpression.
 	 */	
 	@Test
 	public void testGetValue_MapOwnerComplexObjects() {		

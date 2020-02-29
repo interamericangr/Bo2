@@ -121,7 +121,8 @@ extends Record {
 	
 	
 	/**
-	 * Gets a field's value as a String
+	 * Gets a field's value as a String.
+	 *
 	 * @param field the field index
 	 * @return the contents of the buffer part that is defined with the field index
 	 */

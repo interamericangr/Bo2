@@ -16,13 +16,11 @@ import gr.interamerican.bo2.utils.meta.formatters.Formatter;
 import gr.interamerican.bo2.utils.meta.formatters.ObjectFormatter;
 
 /**
- * 
+ * The Class SampleFormatter.
  */
 public class SampleFormatter implements Formatter<String> {
 	
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	@Override

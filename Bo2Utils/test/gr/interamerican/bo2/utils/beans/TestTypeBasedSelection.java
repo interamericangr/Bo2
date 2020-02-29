@@ -27,9 +27,7 @@ import org.junit.Test;
  */
 public class TestTypeBasedSelection {
 
-	/**
-	 * TypeBasedSelection
-	 */
+	/** TypeBasedSelection. */
 	TypeBasedSelection<String> selection;
 	
 	/**
@@ -41,7 +39,7 @@ public class TestTypeBasedSelection {
 	}
 	
 	/**
-	 * tests RegisterSelection
+	 * tests RegisterSelection.
 	 */
 	@Test
 	public void testRegisterSelection(){
@@ -51,7 +49,7 @@ public class TestTypeBasedSelection {
 	}
 	
 	/**
-	 * tests SelectionForType
+	 * tests SelectionForType.
 	 */
 	@Test
 	public void testSelectionForType(){
@@ -63,7 +61,7 @@ public class TestTypeBasedSelection {
 	}
 	
 	/**
-	 * tests Select for null value
+	 * tests Select for null value.
 	 */
 	@Test
 	public void testSelect_nullValue(){
@@ -71,7 +69,7 @@ public class TestTypeBasedSelection {
 	}
 	
 	/**
-	 * tests Select for a object that is not the same class 
+	 * tests Select for a object that is not the same class.
 	 */
 	@Test
 	public void testSelect_returningNull(){
@@ -81,7 +79,7 @@ public class TestTypeBasedSelection {
 	}
 	
 	/**
-	 * tests Select for a object that is not the same class 
+	 * tests Select for a object that is not the same class.
 	 */
 	@Test
 	public void testSelect_findingValue(){
@@ -93,7 +91,7 @@ public class TestTypeBasedSelection {
 	
 	
 	/**
-	 * tests Select
+	 * tests Select.
 	 */
 	@Test
 	public void testSelect_WhenItLearnTheSubTypes(){
@@ -107,7 +105,7 @@ public class TestTypeBasedSelection {
 	}
 	
 	/**
-	 * tests Select
+	 * tests Select.
 	 */
 	@Test
 	public void testSelect_WithAutoboxing(){

@@ -52,7 +52,7 @@ public class BooleanBoPDFactory {
 	}
 	
 	/**
-	 * Hidden constructor 
+	 * Hidden constructor.
 	 */
 	private BooleanBoPDFactory() { /* empty */ }
 	

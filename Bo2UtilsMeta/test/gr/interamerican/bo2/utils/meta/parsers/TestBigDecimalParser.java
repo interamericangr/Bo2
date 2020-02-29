@@ -32,14 +32,13 @@ public class TestBigDecimalParser {
 	 */
 	int scale = 3;
 	
-	/**
-	 * BigDecimalParser
-	 */
+	/** BigDecimalParser. */
 	BigDecimalParser parser = new BigDecimalParser(scale);
 	
 	/**
-	 * unit test for parse
-	 * @throws ParseException
+	 * unit test for parse.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -55,11 +54,10 @@ public class TestBigDecimalParser {
 	
 	/**
 	 * main test method.
-	 * @param string 
-	 *        parse input
-	 * @param val
-	 *        expected output.     
-	 * @throws ParseException
+	 *
+	 * @param string        parse input
+	 * @param val        expected output.     
+	 * @throws ParseException the parse exception
 	 */
 	private void test(String string, double val) throws ParseException {
 		BigDecimal bd = parser.parse(string);
@@ -69,8 +67,9 @@ public class TestBigDecimalParser {
 	
 	
 	/**
-	 * Test parse a value that is not number
-	 * @throws ParseException
+	 * Test parse a value that is not number.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@Test(expected=ParseException.class)
 	public void testParseFalseValue() throws ParseException{
@@ -78,8 +77,9 @@ public class TestBigDecimalParser {
 	}
 	
 	/**
-	 * test mainParse
-	 * @throws ParseException 
+	 * test mainParse.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@Test
 	public void testMainParse() throws ParseException{

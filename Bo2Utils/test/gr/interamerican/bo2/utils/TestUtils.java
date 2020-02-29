@@ -12,11 +12,9 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import gr.interamerican.bo2.samples.bean.BeanWith3Fields;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -25,6 +23,10 @@ import java.util.Set;
 import org.junit.Assert;
 import org.junit.Test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 /**
  * Unit tests for {@link Utils}.
  * 
@@ -32,7 +34,70 @@ import org.junit.Test;
 public class TestUtils {
 
 	/**
-	 * Tests notNull(v,dv)
+	 * Tests nullSafeGetValueWithDefault.
+	 */
+	@Test
+	@SuppressWarnings("nls")
+	public void testNullSafeGetValueWithDefault() {
+		assertEquals(StringConstants.EMPTY, Utils.nullSafeGetValueWithDefault("bartender.beer.beerName", null, String.class));
+		assertEquals(StringConstants.EIGHT, Utils.nullSafeGetValueWithDefault("bartender.beer.beerName", null, StringConstants.EIGHT));
+		
+		Bar bar = new Bar();
+		assertEquals(StringConstants.EMPTY, Utils.nullSafeGetValueWithDefault("bartender.beer.beerName", bar, String.class));
+		assertEquals(StringConstants.EIGHT, Utils.nullSafeGetValueWithDefault("bartender.beer.beerName", bar, StringConstants.EIGHT));
+	
+		Bartender bartender = new Bartender();
+		bar.bartender = bartender;
+		assertEquals(StringConstants.EMPTY, Utils.nullSafeGetValueWithDefault("bartender.beer.beerName", bar, String.class));
+		assertEquals(StringConstants.EIGHT, Utils.nullSafeGetValueWithDefault("bartender.beer.beerName", bar, StringConstants.EIGHT));
+	
+		Beer beer = new Beer();
+		bartender.beer = beer;
+		assertEquals(StringConstants.EMPTY, Utils.nullSafeGetValueWithDefault("bartender.beer.beerName", bar, String.class));
+		assertEquals(StringConstants.EIGHT, Utils.nullSafeGetValueWithDefault("bartender.beer.beerName", bar, StringConstants.EIGHT));
+		
+		String laTrappe= "La Trappe";
+		beer.beerName = laTrappe;
+		assertEquals(laTrappe, Utils.nullSafeGetValueWithDefault("bartender.beer.beerName", bar, String.class));
+		assertEquals(laTrappe, Utils.nullSafeGetValueWithDefault("bartender.beer.beerName", bar, StringConstants.EIGHT));
+		
+		assertEquals(BigDecimal.ONE, Utils.nullSafeGetValueWithDefault("bartender.beer.price", bar, BigDecimal.ONE));
+		beer.price = BigDecimal.TEN;
+		assertEquals(BigDecimal.TEN, Utils.nullSafeGetValueWithDefault("bartender.beer.price", bar, BigDecimal.ONE));
+		assertEquals(10d, Utils.nullSafeGetValueWithDefault("bartender.beer.price.doubleValue", bar, BigDecimal.ONE));
+	}
+
+
+	@SuppressWarnings("javadoc")
+	class Bar {
+		Bartender bartender;
+		public Bartender getBartender() {
+			return bartender;
+		}
+	}
+	
+	@SuppressWarnings("javadoc")
+	class Bartender {
+		Beer beer;
+		public Beer getBeer() {
+			return beer;
+		}
+	}
+	
+	@SuppressWarnings("javadoc")
+	class Beer {
+		String beerName;
+		BigDecimal price;
+		public String getBeerName() {
+			return beerName;
+		}
+		public BigDecimal getPrice() {
+			return price;
+		}
+	}
+	
+	/**
+	 * Tests notNull(v,dv).
 	 */
 	@Test
 	public void testNotNull() {
@@ -44,7 +109,7 @@ public class TestUtils {
 	}
 	
 	/**
-	 * Tests notNull(v,dv)
+	 * Tests notNull(v,dv).
 	 */
 	@SuppressWarnings("unchecked")
 	@Test
@@ -140,7 +205,7 @@ public class TestUtils {
 	}
 	
 	/**
-	 * 
+	 * Test null safe compare.
 	 */
 	@Test
 	public void testNullSafeCompare() {
@@ -153,7 +218,7 @@ public class TestUtils {
 
 	
 	/**
-	 * tests generateHashCode
+	 * tests generateHashCode.
 	 */
 	@Test
 	public void testGenerateHashCode(){
@@ -163,7 +228,7 @@ public class TestUtils {
 	}
 	
 	/**
-	 * Tests alike
+	 * Tests alike.
 	 */
 	@Test
 	@SuppressWarnings("nls")
@@ -191,7 +256,7 @@ public class TestUtils {
 	}
 	
 	/**
-	 * Tests alike
+	 * Tests alike.
 	 */
 	@Test
 	@SuppressWarnings("nls")
@@ -216,7 +281,7 @@ public class TestUtils {
 	}
 	
 	/**
-	 * Tests alike
+	 * Tests alike.
 	 */
 	@Test
 	@SuppressWarnings("nls")
@@ -243,7 +308,7 @@ public class TestUtils {
 	}
 	
 	/**
-	 * Tests alike
+	 * Tests alike.
 	 */		
 	@Test
 	@SuppressWarnings("nls")
@@ -271,7 +336,7 @@ public class TestUtils {
 	
 	
 	/**
-	 * Tests alike
+	 * Tests alike.
 	 */		
 	@SuppressWarnings("nls")
 	@Test
@@ -282,7 +347,7 @@ public class TestUtils {
 	}
 	
 	/**
-	 * Tests alike
+	 * Tests alike.
 	 */		
 	@SuppressWarnings("nls")
 	@Test
@@ -294,7 +359,7 @@ public class TestUtils {
 	}
 	
 	/**
-	 * Tests equals
+	 * Tests equals.
 	 */		
 	@Test
 	public void testIterable() {

@@ -23,10 +23,10 @@ public interface KeyGenerator<K extends Key> {
 	
 	/**
 	 * Generates a key for a new {@link PersistentObject}.
-	 * 
+	 *
 	 * @return Returns a new unique key.
 	 *  
-	 * @throws DataException
+	 * @throws DataException the data exception
 	 */
 	public K getNewKey() throws DataException;
 

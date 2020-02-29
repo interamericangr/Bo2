@@ -24,7 +24,7 @@ import org.junit.Test;
 public class TestFieldInitializationCodeTemplates {
 
 	/**
-	 * Test 
+	 * Test.
 	 */
 	@Test
 	public void testConstructor() {

@@ -23,13 +23,11 @@ import org.apache.wicket.markup.html.panel.EmptyPanel;
 import org.apache.wicket.util.resource.IResourceStream;
 
 /**
- * 
+ * The Class LinkPage.
  */
 public class LinkPage extends WebPage implements IMarkupResourceStreamProvider,IMarkupCacheKeyProvider{
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * �he wicket id of component that we are going to test.
@@ -54,16 +52,12 @@ public class LinkPage extends WebPage implements IMarkupResourceStreamProvider,I
 		this.add(form);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.apache.wicket.markup.IMarkupCacheKeyProvider#getCacheKey(org.apache.wicket.MarkupContainer, java.lang.Class)
-	 */
+	@Override
 	public String getCacheKey(MarkupContainer container, Class<?> containerClass) {
 		return null;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.apache.wicket.markup.IMarkupResourceStreamProvider#getMarkupResourceStream(org.apache.wicket.MarkupContainer, java.lang.Class)
-	 */
+	@Override
 	public IResourceStream getMarkupResourceStream(MarkupContainer container, Class<?> containerClass) {
 		 StringBuilder sb = new StringBuilder();
 		 sb.append("<html><form wicket:id=\"tf\">"); //$NON-NLS-1$ 

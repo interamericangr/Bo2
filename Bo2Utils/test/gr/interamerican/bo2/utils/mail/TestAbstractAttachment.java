@@ -27,6 +27,7 @@ public class TestAbstractAttachment {
 	 */
 	@SuppressWarnings("nls")
 	AbstractAttachment attach = new AbstractAttachment("F") {		
+		@Override
 		public MimeBodyPart getMimeBodyPart() throws MessagingException {
 			return null;
 		}

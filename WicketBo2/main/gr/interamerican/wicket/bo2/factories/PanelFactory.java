@@ -43,9 +43,10 @@ public class PanelFactory {
 	
 	/**
 	 * Registers a fixture.
-	 * 
-	 * @param panelId
-	 * @param fixture
+	 *
+	 * @param <M> the generic type
+	 * @param panelId the panel id
+	 * @param fixture the fixture
 	 */
 	public static <M extends ServicePanel> void registerFixture(String panelId, M fixture) {
 		factory.getFixtureResolver().registerFixture(panelId, fixture);
@@ -53,7 +54,7 @@ public class PanelFactory {
 	
 	/**
 	 * Resets any fixtures configured programmatically to the underlying
-	 * {@link ServicePanelFactory}
+	 * {@link ServicePanelFactory}.
 	 */
 	public static void resetFixtures() {
 		factory.getFixtureResolver().clearFixturesCache();

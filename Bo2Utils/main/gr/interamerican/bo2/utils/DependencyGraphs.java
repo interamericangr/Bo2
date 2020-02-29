@@ -36,15 +36,12 @@ public class DependencyGraphs {
 	/**
 	 * This method returns an ordered List of nodes in a fashion that no
 	 * element in the list is preceded by any node it depends on.
-	 * 
-	 * @param graph
-	 * 
-	 * @param <T>
-	 *        Type of graph node. Two different object instances that represent 
+	 *
+	 * @param <T>        Type of graph node. Two different object instances that represent 
 	 *        the same node, should be equal.
 	 *        
+	 * @param graph the graph
 	 * @return Ordered list.
-	 * 
 	 * @throws IllegalStateException if the graph is not solvable.
 	 */
 	@SuppressWarnings("nls")
@@ -88,7 +85,10 @@ public class DependencyGraphs {
 	}
 	
 	/**
-	 * @param graph
+	 * Checks if is input valid.
+	 *
+	 * @param <T> the generic type
+	 * @param graph the graph
 	 * @return True, if the input is valid, see javadoc.
 	 */
 	@SuppressWarnings("nls")
@@ -106,12 +106,11 @@ public class DependencyGraphs {
 	/**
 	 * A circular dependency (e.g. A depends on B and B depends on A) is detected here. 
 	 * When this happens, there is no solution to this graph.
-	 * 
-	 * @param <T>
-	 *        Type of graph node. Two different object instances that represent 
+	 *
+	 * @param <T>        Type of graph node. Two different object instances that represent 
 	 *        the same node, should be equal.
 	 *        
-	 * @param graph
+	 * @param graph the graph
 	 * @return True, if the graph is solvable.
 	 */
 	public <T> boolean isSolvable(Map<T, Set<T>> graph) {
@@ -128,15 +127,12 @@ public class DependencyGraphs {
 	
 	/**
 	 * Returns true, if a node ultimately depends on itself.
-	 * 
-	 * @param originalNode
-	 *        The node that is examined.
-	 * @param currentNode
-	 *        For recursive calls.
-	 * @param graph
-	 *        The dependency graph.
-	 * @param explored
-	 *        Nodes explored so far.
+	 *
+	 * @param <T> the generic type
+	 * @param originalNode        The node that is examined.
+	 * @param currentNode        For recursive calls.
+	 * @param graph        The dependency graph.
+	 * @param explored        Nodes explored so far.
 	 *        
 	 * @return Returns true, if this node depends on itself.
 	 */
@@ -164,6 +160,8 @@ public class DependencyGraphs {
 
 	
 	/**
+	 * Gets the.
+	 *
 	 * @return Factory method.
 	 */
 	public static DependencyGraphs get() {

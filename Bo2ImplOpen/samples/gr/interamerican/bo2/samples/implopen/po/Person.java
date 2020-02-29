@@ -18,66 +18,61 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * a person implementation
+ * a person implementation.
  */
 public class Person implements IPerson {
 
-	/**
-	 * default serial uid
-	 */
+	/** default serial uid. */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * the person name
-	 */
+	/** the person name. */
 	private String name;
 
-	/**
-	 * the po key
-	 */	
+	/** the po key. */	
 	private Integer id;
 
-	/**
-	 * the person's associated addresses
-	 */
+	/** the person's associated addresses. */
 	private Set<IAddress> addresses = new HashSet<IAddress>();
 
+	@Override
 	public String getName() {
 		return name;
 	}
 
+	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	@Override
 	public Set<IAddress> getAddresses() {
 		return addresses;
 	}
 
+	@Override
 	public void setAddresses(Set<IAddress> addresses) {
 		this.addresses = addresses;
 	}
 
+	@Override
 	public void addAddress(IAddress address) {
 		address.setPerson(this);
 		addresses.add(address);
 	}
-	
-	/* (non-Javadoc)
-	 * @see gr.interamerican.bo2.arch.PersistentObject#getKey()
-	 */	
+
+	@Override
 	public PersonKey getKey() {
 		return new PersonKey(id);		
 	}
-	
-	/* (non-Javadoc)
-	 * @see gr.interamerican.bo2.arch.PersistentObject#setKey(gr.interamerican.bo2.arch.Key)
-	 */	
+
+	@Override
 	public void setKey(PersonKey key) {
 		setId(key.getId());
 	}
 
 	/**
+	 * Gets the id.
+	 *
 	 * @return the id
 	 */
 	public int getId() {
@@ -85,15 +80,15 @@ public class Person implements IPerson {
 	}
 	
 	/**
-	 * @param id
+	 * Sets the id.
+	 *
+	 * @param id the new id
 	 */
 	public void setId(int id) {
 		this.id = id;
 	}
 	
-	/* (non-Javadoc)
-	 * @see gr.interamerican.bo2.arch.PersistentObject#tidy()
-	 */
+	@Override
 	public void tidy() {
 		/* empty */
 	}

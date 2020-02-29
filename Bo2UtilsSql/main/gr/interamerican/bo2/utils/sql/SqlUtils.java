@@ -39,7 +39,7 @@ public class SqlUtils {
 	
 	/**
 	 * Gets an ArrayList that contains the parameters that are found in the 
-	 * specified SQL string. <br/>
+	 * specified SQL string. <br>
 	 * 
 	 * The position of each parameter in the list is the same as its occurence
 	 * in the SQL statement. Each parameters occurs in the list as many times 
@@ -73,7 +73,7 @@ public class SqlUtils {
 	
 	/**
 	 * Creates an ArrayList {@link Parameter} objects from an ArrayList 
-	 * of parameter names. <br/>
+	 * of parameter names. <br>
 	 * 
 	 * Each parameter occurs in the same position as its name in the 
 	 * <code>parmNames</code> ArrayList
@@ -96,9 +96,8 @@ public class SqlUtils {
 
 	/**
 	 * Null safe toString.
-	 * 
-	 * @param object
-	 * 
+	 *
+	 * @param object the object
 	 * @return If the object is null, returns the string literal null.
 	 *         Otherwise, returns the toString() value of the object.
 	 */
@@ -111,9 +110,8 @@ public class SqlUtils {
 	
 	/**
 	 * Null safe toString.
-	 * 
-	 * @param object
-	 * 
+	 *
+	 * @param object the object
 	 * @return If the object is null, returns the string literal null.
 	 *         Otherwise, returns the toString() value of the object
 	 *         in single quotes.
@@ -160,8 +158,8 @@ public class SqlUtils {
 	
 	/**
 	 * Replaces the parameters in a string with question mark parameter markers.
-	 * @param sql 
-	 * 
+	 *
+	 * @param sql the sql
 	 * @return Returns the replaced string.
 	 */
 	public static String replaceParametersWithMarkers(String sql) {

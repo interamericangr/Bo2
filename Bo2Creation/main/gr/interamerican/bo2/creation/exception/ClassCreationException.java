@@ -33,7 +33,7 @@ public class ClassCreationException extends Exception {
 	/**
 	 * Creates a new ClassCreationException object. 
 	 *
-	 * @param message
+	 * @param message the message
 	 */
 	public ClassCreationException(String message) {
 		super(message);
@@ -42,7 +42,7 @@ public class ClassCreationException extends Exception {
 	/**
 	 * Creates a new ClassCreationException object. 
 	 *
-	 * @param cause
+	 * @param cause the cause
 	 */
 	public ClassCreationException(Throwable cause) {
 		super(cause);
@@ -51,8 +51,8 @@ public class ClassCreationException extends Exception {
 	/**
 	 * Creates a new ClassCreationException object. 
 	 *
-	 * @param message
-	 * @param cause
+	 * @param message the message
+	 * @param cause the cause
 	 */
 	public ClassCreationException(String message, Throwable cause) {
 		super(message, cause);

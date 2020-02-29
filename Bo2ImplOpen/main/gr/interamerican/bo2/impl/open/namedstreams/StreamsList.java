@@ -28,7 +28,7 @@ extends PropertiesInitializedBean {
 	/**
 	 * Creates a new StreamsList object. 
 	 *
-	 * @param properties
+	 * @param properties the properties
 	 */
 	public StreamsList(Properties properties) {
 		super(properties);		
@@ -166,8 +166,8 @@ extends PropertiesInitializedBean {
 	 * Gets an array with the elements contained in the property.
 	 * 
 	 * Empty elements are omitted.
-	 * 
-	 * @param property
+	 *
+	 * @param property the property
 	 * @return Returns an array of strings.
 	 */
 	private String[] getArray(String property) {

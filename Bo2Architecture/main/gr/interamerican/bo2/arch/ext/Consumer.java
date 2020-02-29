@@ -19,10 +19,11 @@ package gr.interamerican.bo2.arch.ext;
  *        Type of object owned by owner. 
  */
 public interface Consumer<R> {
+	
 	/**
 	 * Consumes a resource.
-	 * 
-	 * @param resource
+	 *
+	 * @param resource the resource
 	 */
 	public void consume(R resource);
 

@@ -13,7 +13,7 @@
 package gr.interamerican.wicket.ajax.markup.html.form;
 
 import static org.junit.Assert.assertEquals;
-import gr.interamerican.wicket.samples.actions.DummyCallback;
+import gr.interamerican.wicket.callback.DummyCallback;
 import gr.interamerican.wicket.test.WicketTest;
 
 import org.apache.wicket.model.Model;
@@ -22,6 +22,7 @@ import org.junit.Test;
 /**
  * Unit test for {@link CallbackAjaxLink}.
  */
+@Deprecated
 public class TestCallbackAjaxLink extends WicketTest{
 
 	

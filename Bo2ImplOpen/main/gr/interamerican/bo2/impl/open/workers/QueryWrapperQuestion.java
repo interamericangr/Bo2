@@ -21,20 +21,17 @@ import gr.interamerican.bo2.utils.annotations.Child;
 import java.util.List;
 
 /**
- * QueryWrapperQuestion is a question backed by an {@link EntitiesQuery}.<br/>
+ * QueryWrapperQuestion is a question backed by an {@link EntitiesQuery}.<br>
  * 
  * The answer is a list that contains the entities fetched by the query.
- * 
- * 
- * @param <T> 
+ *
+ * @param <T> the generic type
  */
 public class QueryWrapperQuestion<T>
 extends AbstractBaseWorker
 implements Question<List<T>> {
 	
-	/**
-	 * Query
-	 */
+	/** Query. */
 	@Child EntitiesQuery<T> query;
 	
 	/**
@@ -46,7 +43,7 @@ implements Question<List<T>> {
 	/**
 	 * Creates a new QueryWrapperQuestion object. 
 	 *
-	 * @param query
+	 * @param query the query
 	 */
 	public QueryWrapperQuestion(EntitiesQuery<T> query) {
 		super();

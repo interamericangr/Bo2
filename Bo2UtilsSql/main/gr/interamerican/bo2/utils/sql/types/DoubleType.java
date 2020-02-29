@@ -34,14 +34,17 @@ extends NonQuotedType<Double> {
 		super();		
 	}
 	
+	@Override
 	public Double get(ResultSet rs, String columnIndex) throws SQLException {		
 		return rs.getDouble(columnIndex);
 	}
 	
+	@Override
 	public Double get(ResultSet rs, int columnIndex) throws SQLException {		
 		return rs.getDouble(columnIndex);
 	}
 	
+	@Override
 	public Class<Double> getJavaType() {
 		return Double.class;
 	}	

@@ -13,19 +13,19 @@
 package gr.interamerican.wicket.markup.html.tabs;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.form.Form;
 import org.junit.Test;
 
+import gr.interamerican.wicket.test.WicketTest;
+
 /**
  * Unit tests for {@link StatefulAjaxTabbedPanelSubmitLink}.
  */
-public class TestStatefulAjaxTabbedPanelSubmitLink {
-	
+public class TestStatefulAjaxTabbedPanelSubmitLink extends WicketTest {
+
 	/**
 	 * Tests the constructor.
 	 */
@@ -34,13 +34,12 @@ public class TestStatefulAjaxTabbedPanelSubmitLink {
 		String id = "LinkId"; //$NON-NLS-1$
 		int index = 5;
 		StatefulAjaxTabbedPanel panel = mock(StatefulAjaxTabbedPanel.class);
-		StatefulAjaxTabbedPanelSubmitLink link = 
-			new StatefulAjaxTabbedPanelSubmitLink(id, panel, index);
+		StatefulAjaxTabbedPanelSubmitLink link = new StatefulAjaxTabbedPanelSubmitLink(id, panel, index);
 		assertEquals(id, link.getId());
 		assertEquals(index, link.index);
 		assertEquals(panel, link.owner);
 	}
-	
+
 	/**
 	 * Tests onSubmit().
 	 */
@@ -49,16 +48,16 @@ public class TestStatefulAjaxTabbedPanelSubmitLink {
 		String id = "LinkId"; //$NON-NLS-1$
 		int index = 5;
 		StatefulAjaxTabbedPanel panel = mock(StatefulAjaxTabbedPanel.class);
-		StatefulAjaxTabbedPanelSubmitLink link = 
-			new StatefulAjaxTabbedPanelSubmitLink(id, panel, index);
+		StatefulAjaxTabbedPanelSubmitLink link = new StatefulAjaxTabbedPanelSubmitLink(id, panel, index);
 		AjaxRequestTarget target = mock(AjaxRequestTarget.class);
-		@SuppressWarnings("unchecked") Form<Object> form = mock(Form.class);		
+		@SuppressWarnings("unchecked")
+		Form<Object> form = mock(Form.class);
 		link.onSubmit(target, form);
-		verify(target, times(1)).add(panel);
-		verify(panel, times(1)).setSelectedTab(index);
-		verify(panel, times(1)).callOnAjaxUpdate(target);
+		verify(target).add(panel);
+		verify(panel).setSelectedTab(index);
+		verify(panel).callOnAjaxUpdate(target);
 	}
-	
+
 	/**
 	 * Tests onSubmit().
 	 */
@@ -67,15 +66,12 @@ public class TestStatefulAjaxTabbedPanelSubmitLink {
 		String id = "LinkId"; //$NON-NLS-1$
 		int index = 5;
 		StatefulAjaxTabbedPanel panel = mock(StatefulAjaxTabbedPanel.class);
-		StatefulAjaxTabbedPanelSubmitLink link = 
-			new StatefulAjaxTabbedPanelSubmitLink(id, panel, index);
+		StatefulAjaxTabbedPanelSubmitLink link = new StatefulAjaxTabbedPanelSubmitLink(id, panel, index);
 		AjaxRequestTarget target = mock(AjaxRequestTarget.class);
-		@SuppressWarnings("unchecked") Form<Object> form = mock(Form.class);		
+		@SuppressWarnings("unchecked")
+		Form<Object> form = mock(Form.class);
 		link.onError(target, form);
-		verify(target, times(1)).add(panel);		
-		verify(panel, times(1)).callOnAjaxUpdate(target);
+		verify(target).add(panel);
+		verify(panel).callOnAjaxUpdate(target);
 	}
-
-
-
 }

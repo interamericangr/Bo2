@@ -59,8 +59,9 @@ public class BeanWithNestedBean implements Serializable {
 
 	/**
 	 * Creates a new BeanWithNestedBean object. 
-	 * @param field1 
-	 * @param field2 
+	 *
+	 * @param field1 the field 1
+	 * @param field2 the field 2
 	 */
 	public BeanWithNestedBean(String field1, Integer field2) {
 		this.nested = new BeanWith2Fields(field1, field2);

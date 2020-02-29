@@ -27,7 +27,8 @@ public abstract class FieldInspector {
 	
 	/**
 	 * Inspect the specified instance.
-	 * @param obj
+	 *
+	 * @param obj the obj
 	 */
 	public void inspect(Object obj) {
 		alreadyInspected.clear();
@@ -35,8 +36,9 @@ public abstract class FieldInspector {
 	}
 	
 	/**
-	 * 
-	 * @param obj
+	 * Inspect 0.
+	 *
+	 * @param obj the obj
 	 */
 	void inspect0(Object obj) {
 		if(obj==null){
@@ -89,11 +91,11 @@ public abstract class FieldInspector {
 	
 	/**
 	 * Default reporting action.
-	 * 
-	 * @param inspected
-	 * @param f
-	 * @param fieldValue
-	 * @param owned
+	 *
+	 * @param inspected the inspected
+	 * @param f the f
+	 * @param fieldValue the field value
+	 * @param owned the owned
 	 */
 	protected void doReport(Object inspected, Field f, Object fieldValue, boolean owned) {
 		System.out.println(reportMessage(inspected, f, fieldValue, owned));
@@ -101,11 +103,11 @@ public abstract class FieldInspector {
 	
 	/**
 	 * Default reporting message.
-	 * 
-	 * @param inspected
-	 * @param f
-	 * @param fieldValue
-	 * @param owned
+	 *
+	 * @param inspected the inspected
+	 * @param f the f
+	 * @param fieldValue the field value
+	 * @param owned the owned
 	 * @return reporting message.
 	 */
 	@SuppressWarnings("nls")
@@ -125,13 +127,17 @@ public abstract class FieldInspector {
 	}
 	
 	/**
-	 * @param field
+	 * Should inspect field.
+	 *
+	 * @param field the field
 	 * @return Whether this field should be inspected
 	 */
 	protected abstract boolean shouldInspectField(Field field);
 	
 	/**
-	 * @param fieldValue
+	 * Should report field value.
+	 *
+	 * @param fieldValue the field value
 	 * @return Whether this field value should be included in the report
 	 */
 	protected abstract boolean shouldReportFieldValue(Object fieldValue);

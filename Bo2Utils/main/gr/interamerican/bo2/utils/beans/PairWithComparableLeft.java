@@ -24,16 +24,14 @@ public class PairWithComparableLeft
 <L extends Comparable<? super L>, R>
 extends Pair<L, R> implements Comparable<PairWithComparableLeft<L, R>>{
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Creates a new SortablePair object.
-	 * 
-	 * @param left
-	 * @param right
+	 *
+	 * @param left the left
+	 * @param right the right
 	 */
 	public PairWithComparableLeft(L left, R right) {
 		super(left, right);
@@ -44,6 +42,7 @@ extends Pair<L, R> implements Comparable<PairWithComparableLeft<L, R>>{
 		return super.getLeft();
 	}
 
+	@Override
 	public int compareTo(PairWithComparableLeft<L, R> o) {
 		if(o==null) {
 			return 1;

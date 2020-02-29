@@ -24,23 +24,33 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.quartz.SchedulerException;
 
 /**
- * test suite to stress quartz
+ * test suite to stress quartz.
  */
 @SuppressWarnings("all")
 public class TestStressQuartz {
 
+	/** The Constant PAYLOAD_SIZE. */
 	static final int PAYLOAD_SIZE = 1 * 1024 * 1024;
-	static final int BATCHES = 200;
+	
+	/** The Constant BATCHES. */
+	static final int BATCHES = 20;
+	
+	/** The Constant BATCHES_SIZE. */
 	static final int BATCHES_SIZE = 20;
 	
+	/** The quartz. */
 	static JobScheduler QUARTZ = new QuartzJobSchedulerImpl();
+	
+	/** The all jobs. */
+	static List<JobDescription> ALL_JOBS = new ArrayList<JobDescription>();
 
 	/**
-	 * stress test
-	 * 
-	 * @throws DataException
+	 * stress test.
+	 *
+	 * @throws DataException the data exception
 	 */
 	public void testSchedule() throws DataException {
 		System.out.println(SystemUtils.permgenSize());
@@ -57,7 +67,7 @@ public class TestStressQuartz {
 				bean.setOperationClass(SampleOperation.class);
 				list.add(bean);
 			}
-			Thread t = new Thread(new SchedulerImpl(QUARTZ, list));
+			Thread t = new Thread(new Dispatcher(QUARTZ, list));
 			threads.add(t);
 			t.start();
 		}
@@ -71,7 +81,9 @@ public class TestStressQuartz {
 		}
 
 		System.out.println("========= all jobs scheduled =========");
-
+		
+		Assert.assertTrue(checkJobsScheduleStatus());
+		
 		int times = batchSize * batches;
 
 		QuartzUtils.waitGroupToComplete(QuartzUtils.getJobGroupName(SampleOperation.class));
@@ -79,20 +91,51 @@ public class TestStressQuartz {
 		Assert.assertEquals(times, SampleOperation.counter.get());
 		Assert.assertEquals(times, SampleScheduledOperation.counter.get());
 
+		Assert.assertFalse(checkJobsScheduleStatus());
 		System.out.println("all done");
 		System.out.println(SystemUtils.permgenSize());
+		
+		try {
+			QuartzSchedulerRegistry.shutdown();
+		} catch (SchedulerException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	/**
+	 * Check jobs schedule status.
+	 *
+	 * @return true, if successful
+	 * @throws DataException the data exception
+	 */
+	boolean checkJobsScheduleStatus() throws DataException {
+		boolean atLeastOneJobAtScheduledStatus = false;
+		for(JobDescription jobDescription : ALL_JOBS) {
+			if(QuartzUtils.isJobScheduled(QuartzUtils.getJobGroupName(jobDescription), jobDescription.getJobName())) {
+				atLeastOneJobAtScheduledStatus = true;
+			}
+		}
+		return atLeastOneJobAtScheduledStatus;
 	}
 
-	static class SchedulerImpl implements Runnable {
+	/**
+	 * The Class Dispatcher.
+	 */
+	static class Dispatcher implements Runnable {
 
+		/** The scheduler. */
 		JobScheduler scheduler;
+		
+		/** The jobs. */
 		List<JobDescription> jobs;
 
 		/**
 		 * Creates a new TestStressQuartz.Scheduler object.
-		 * 
+		 *
+		 * @param scheduler the scheduler
+		 * @param jobs the jobs
 		 */
-		public SchedulerImpl(JobScheduler scheduler, List<JobDescription> jobs) {
+		public Dispatcher(JobScheduler scheduler, List<JobDescription> jobs) {
 			this.scheduler = scheduler;
 			this.jobs = jobs;
 		}
@@ -105,6 +148,11 @@ public class TestStressQuartz {
 			}
 		}
 
+		/**
+		 * Do run.
+		 *
+		 * @throws Exception the exception
+		 */
 		void doRun() throws Exception {
 			int i = 0;
 			for (List<JobDescription> batch : CollectionUtils.partition(jobs, 2)) {
@@ -115,10 +163,15 @@ public class TestStressQuartz {
 		}
 	}
 
+	/**
+	 * The Class SampleScheduledOperation.
+	 */
 	public static class SampleScheduledOperation extends AbstractOperation {
 
+		/** The counter. */
 		static AtomicInteger counter = new AtomicInteger(0);
 
+		/** The payload. */
 		byte[] payload;
 
 		@Override
@@ -127,16 +180,27 @@ public class TestStressQuartz {
 			counter.incrementAndGet();
 		}
 		
+		/**
+		 * Sets the payload.
+		 *
+		 * @param payload the new payload
+		 */
 		public void setPayload(byte[] payload) {
 			this.payload = payload;
 		}
 
 	}
 
+	/**
+	 * The Class SampleOperation.
+	 */
 	@ManagerName("LOCALDB")
 	public static class SampleOperation extends AbstractOperation {
+		
+		/** The counter. */
 		static AtomicInteger counter = new AtomicInteger(0);
 
+		/** The jsp. */
 		JobSchedulerProvider jsp;
 
 		@Override
@@ -155,12 +219,20 @@ public class TestStressQuartz {
 			parameters.put("payload", new byte[PAYLOAD_SIZE]);
 			job.setParameters(parameters);
 			jsp.scheduleJob(job);
+			ALL_JOBS.add(job);
 		}
 
 	}
 	
 	
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 * @throws DataException the data exception
+	 */
 	public static void main(String[] args) throws DataException {
+		System.setProperty("org.quartz.properties", "org/quartz/bo2/quartz.properties");
 		new TestStressQuartz().testSchedule();
 	}
 	

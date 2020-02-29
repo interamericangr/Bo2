@@ -15,28 +15,20 @@ package gr.interamerican.wicket.bo2.utils;
 import java.io.Serializable;
 
 /**
- * 
+ * The Class TestBean.
  */
 public class TestBean implements Serializable {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * 
-	 */
+	/** The first attribute. */
 	private Long firstAttribute;
 	
-	/**
-	 * 
-	 */
+	/** The second attribute. */
 	private Long secondAttribute;
 	
-	/**
-	 * 
-	 */
+	/** The third attribute. */
 	private Long thirdAttribute;
 
 	/**

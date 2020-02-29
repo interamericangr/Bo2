@@ -99,7 +99,7 @@ public class TestSelfDrawnBigDecimalTextField extends WicketTest {
 	}
 	
 	/**
-	 * Test creation disabled
+	 * Test creation disabled.
 	 */
 	@Test
 	public void testConstructor_withModel_disabled() {
@@ -117,7 +117,9 @@ public class TestSelfDrawnBigDecimalTextField extends WicketTest {
 	}
 	
 	/**
-	 * @param textField
+	 * Test form submission.
+	 *
+	 * @param textField the text field
 	 */
 	private void testFormSubmission(TextField<BigDecimal> textField) {
 		FormTester formTester = tester.newFormTester(formPath());

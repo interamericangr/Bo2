@@ -24,6 +24,7 @@ import java.math.BigDecimal;
 public class IsGreaterThanZero
 implements Condition<MoneyBean>{
 	
+	@Override
 	public boolean check(MoneyBean t) {	
 		Money m = t.getMoneyAmount1();
 		if (m==null) {

@@ -35,15 +35,15 @@ public class InvertedComparator<T> implements Comparator<T> {
 	/**
 	 * Creates a new InvertedComparator object. 
 	 *
-	 * @param comparator
+	 * @param comparator the comparator
 	 */
 	public InvertedComparator(Comparator<T> comparator) {
 		super();
 		this.comparator = comparator;
 	}
-
+	
+	@Override
 	public int compare(T o1, T o2) {		
 		return (-1) * comparator.compare(o1, o2);
 	}
-
 }

@@ -38,7 +38,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestPredefinedReportQuery.
  */
 public class TestPredefinedReportQuery {
 	
@@ -49,7 +49,8 @@ public class TestPredefinedReportQuery {
 	
 	/**
 	 * Setup tests.
-	 * @throws InitializationException 
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Before
 	public void setup() throws InitializationException {
@@ -59,11 +60,11 @@ public class TestPredefinedReportQuery {
 	
 	/**
 	 * Unit test for the whole lifecycle.
-	 * 
-	 * @throws InitializationException 
-	 * @throws DataException 
-	 * @throws NoSuchFieldException 
-	 * @throws SecurityException 
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
+	 * @throws SecurityException the security exception
+	 * @throws NoSuchFieldException the no such field exception
 	 */
 	@Test
 	public void testLifecycle() 

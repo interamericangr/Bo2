@@ -35,10 +35,9 @@ public interface PersistentObject<K extends Serializable & Comparable<? super K>
 	public K getKey();
 
 	/**
-	 * Sets the key of the persistent object
-	 * 
-	 * @param key
-	 *            the key to set
+	 * Sets the key of the persistent object.
+	 *
+	 * @param key            the key to set
 	 */
 	public void setKey(K key);
 	

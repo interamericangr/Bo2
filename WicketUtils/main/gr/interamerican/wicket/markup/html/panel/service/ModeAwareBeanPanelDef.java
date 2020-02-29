@@ -28,10 +28,9 @@ public interface ModeAwareBeanPanelDef<B extends Serializable> extends BeanPanel
 	
 	/**
 	 * Gets the PanelCreatorMode of the beanFieldsPanel.
-	 * 
-	 * @see #setBeanFieldsPanelMode(PanelCreatorMode)
-	 * 
+	 *
 	 * @return Returns the PanelCreatorMode of the beanFieldsPanel.
+	 * @see #setBeanFieldsPanelMode(PanelCreatorMode)
 	 */
 	public PanelCreatorMode getBeanFieldsPanelMode();
 	

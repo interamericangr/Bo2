@@ -18,9 +18,7 @@ package gr.interamerican.wicket.samples.flags;
  */
 public class AlwaysUpFlag extends AbstractSampleFlag {
 	
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
 	@Override

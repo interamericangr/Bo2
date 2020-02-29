@@ -34,10 +34,9 @@ public enum AccessType {
 	
 	/**
 	 * Returns the appropriate access type.
-	 * 
-	 * @param readable
-	 * @param modifiable
-	 * 
+	 *
+	 * @param readable the readable
+	 * @param modifiable the modifiable
 	 * @return Returns the appropriate access type.
 	 */
 	public static AccessType accessType(boolean readable, boolean modifiable) {
@@ -59,16 +58,14 @@ public enum AccessType {
 	 */
 	private boolean readable;
 	
-	/**
-	 * Indicates if the property has a setter;
-	 */
+	/** Indicates if the property has a setter;. */
 	private boolean modifiable;
 	
 	/**
 	 * Creates a new AccessType object. 
 	 *
-	 * @param readable
-	 * @param modifiable
+	 * @param readable the readable
+	 * @param modifiable the modifiable
 	 */
 	private AccessType(boolean readable, boolean modifiable) {
 		this.readable = readable;

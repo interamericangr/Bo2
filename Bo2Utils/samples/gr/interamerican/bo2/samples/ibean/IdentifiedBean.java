@@ -13,15 +13,18 @@
 package gr.interamerican.bo2.samples.ibean;
 
 /**
- * 
+ * The Interface IdentifiedBean.
  */
 public interface IdentifiedBean 
 extends Identified<Integer>, IBeanWithId, IBeanWithIdAndName, Comparable<IBeanWithId> {
 	
+	@Override
 	public Integer getId();
 	
+	@Override
 	public void setId(Integer id);
 	
+	@Override
 	public int compareTo(IBeanWithId o);
 
 }

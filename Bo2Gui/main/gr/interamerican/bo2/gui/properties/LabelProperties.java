@@ -26,8 +26,8 @@ public interface LabelProperties {
 	
 	/**
 	 * Sets the length of the label.
-	 * 
-	 * @param labelLength
+	 *
+	 * @param labelLength the new label length
 	 */
 	void setLabelLength(int labelLength);
 

@@ -25,23 +25,20 @@ import org.junit.Test;
 
 
 /**
- * 
+ * A factory for creating TestStringBoPDComponent objects.
  */
 public class TestStringBoPDComponentFactory extends BaseClassForTestingComponentFactory {	
-	/**
-	 * 
-	 */
+	
+	/** The string bo PD component factory. */
 	private StringBoPDComponentFactory stringBoPDComponentFactory =
 		new StringBoPDComponentFactory();
 	
-	/**
-	 * 
-	 */
+	/** The string bo property descriptor. */
 	private StringBoPropertyDescriptor stringBoPropertyDescriptor = 
 		bean1descriptor.descriptionDescriptor();
 		
 	/**
-	 * 
+	 * Test draw main first.
 	 */
 	@Test
 	public void testDrawMain_First(){
@@ -51,7 +48,7 @@ public class TestStringBoPDComponentFactory extends BaseClassForTestingComponent
 	}
 	
 	/**
-	 * 
+	 * Test draw main second.
 	 */
 	@Test
 	public void testDrawMain_Second(){
@@ -62,7 +59,7 @@ public class TestStringBoPDComponentFactory extends BaseClassForTestingComponent
 	}
 	
 	/**
-	 * 
+	 * Test draw main first second case.
 	 */
 	@Test
 	public void testDrawMain_First_SecondCase(){
@@ -73,7 +70,7 @@ public class TestStringBoPDComponentFactory extends BaseClassForTestingComponent
 	}
 	
 	/**
-	 * 
+	 * Test draw main second second case.
 	 */
 	@Test
 	public void testDrawMain_Second_SecondCase(){

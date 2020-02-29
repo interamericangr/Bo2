@@ -35,11 +35,10 @@ public class EqualPropertyMatchingRule<F,S> implements MatchingRule<F, S> {
 	/**
 	 * Creates a new PropertyMatchingRule object.
 	 *
-	 * @param firstClass
-	 *        
-	 * @param secondClass
-	 * @param firstProperty
-	 * @param secondProperty
+	 * @param firstClass the first class
+	 * @param secondClass the second class
+	 * @param firstProperty the first property
+	 * @param secondProperty the second property
 	 */
 	public EqualPropertyMatchingRule(Class<F> firstClass, Class<S> secondClass,
 			String firstProperty, String secondProperty) {
@@ -60,8 +59,9 @@ public class EqualPropertyMatchingRule<F,S> implements MatchingRule<F, S> {
 	 * Throws a runtime exception if a class does not have 
 	 * a property with a specified name.
 	 *  
-	 * @param clazz
-	 * @param property
+	 *
+	 * @param clazz the clazz
+	 * @param property the property
 	 */
 	@SuppressWarnings("nls")
 	void invalidProperty(Class<?> clazz, String property) {
@@ -69,6 +69,7 @@ public class EqualPropertyMatchingRule<F,S> implements MatchingRule<F, S> {
 		throw new RuntimeException(msg);
 	}
 
+	@Override
 	public boolean isMatch(F first, S second) {
 		return match.isMatch(first, second);
 	}

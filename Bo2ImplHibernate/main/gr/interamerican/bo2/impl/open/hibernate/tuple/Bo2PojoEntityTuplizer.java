@@ -31,8 +31,8 @@ public class Bo2PojoEntityTuplizer extends PojoEntityTuplizer {
 	/**
 	 * Creates a new MyPojoEntityTuplizer object. 
 	 *
-	 * @param entityMetamodel
-	 * @param mappedEntity
+	 * @param entityMetamodel the entity metamodel
+	 * @param mappedEntity the mapped entity
 	 */
 	public Bo2PojoEntityTuplizer(EntityMetamodel entityMetamodel, PersistentClass mappedEntity) {
 		super(entityMetamodel, mappedEntity);

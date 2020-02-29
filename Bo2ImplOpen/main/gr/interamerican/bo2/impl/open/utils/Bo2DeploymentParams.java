@@ -28,7 +28,7 @@ extends PropertiesInitializedBean {
 	/**
 	 * Creates a new Bo2DeploymentParams object. 
 	 *
-	 * @param properties
+	 * @param properties the properties
 	 */
 	public Bo2DeploymentParams(Properties properties) {
 		super(properties);
@@ -50,9 +50,7 @@ extends PropertiesInitializedBean {
 	 */
 	private Boolean showStackTraceInWebPages;
 	
-	/**
-	 * path To Default Factory Mappings
-	 */
+	/** path To Default Factory Mappings. */
 	private String pathToDefaultFactoryDefinition;
 	
 	/**
@@ -86,18 +84,11 @@ extends PropertiesInitializedBean {
 	private String longDateFormat;
 	
 	/**
-	 * Iso date format.
-	 */
-	private String isoDateFormat;
-	
-	/**
 	 * name of default resource manager for streams used by AbstractRuntimeCommands.
 	 */
 	private String streamsManagerName;
 	
-	/**
-	 * name of default resource manager for scheduling jobs
-	 */
+	/** name of default resource manager for scheduling jobs. */
 	private String schedulerManagerName;
 	
 	/**
@@ -111,15 +102,6 @@ extends PropertiesInitializedBean {
 	private String tempDir;
 	
 	/**
-	 * Application server deployments normally use server provided JTA
-	 * implementations for transaction management. In some cases, it is
-	 * necessary to be able to perform a batch transaction in the container
-	 * environment. For this reason, a secondary deployment configuration
-	 * for batch operations may be defined.
-	 */
-	private String pathToSecondaryBatchDeployment;
-	
-	/**
 	 * Encoding of text files accessed from the filesystem. 
 	 */
 	private String textEncoding;
@@ -128,6 +110,11 @@ extends PropertiesInitializedBean {
 	 * Encoding of text files accessed from jars.
 	 */
 	private String resourceFileEncoding;
+	
+	/**
+	 * Name of this Bo2 application.
+	 */
+	private String applicationName;
 	
 	/**
 	 * Gets the debugEnabled.
@@ -163,15 +150,6 @@ extends PropertiesInitializedBean {
 	 */
 	public String getLongDateFormat() {
 		return longDateFormat;
-	}
-
-	/**
-	 * Gets the isoDateFormat.
-	 *
-	 * @return Returns the isoDateFormat
-	 */
-	public String getIsoDateFormat() {
-		return isoDateFormat;
 	}
 
 	/**
@@ -288,24 +266,6 @@ extends PropertiesInitializedBean {
 	}
 
 	/**
-	 * Gets the pathToSecondaryBatchDeployment.
-	 *
-	 * @return Returns the pathToSecondaryBatchDeployment
-	 */
-	public String getPathToSecondaryBatchDeployment() {
-		return pathToSecondaryBatchDeployment;
-	}
-
-	/**
-	 * Assigns a new value to the pathToSecondaryBatchDeployment.
-	 *
-	 * @param pathToSecondaryBatchDeployment the pathToSecondaryBatchDeployment to set
-	 */
-	public void setPathToSecondaryBatchDeployment(String pathToSecondaryBatchDeployment) {
-		this.pathToSecondaryBatchDeployment = pathToSecondaryBatchDeployment;
-	}
-
-	/**
 	 * Gets the textEncoding.
 	 *
 	 * @return Returns the textEncoding
@@ -339,6 +299,24 @@ extends PropertiesInitializedBean {
 	 */
 	public void setResourceFileEncoding(String resourceFileEncoding) {
 		this.resourceFileEncoding = resourceFileEncoding;
+	}
+
+	/**
+	 * Gets the applicationName.
+	 *
+	 * @return Returns the applicationName
+	 */
+	public String getApplicationName() {
+		return applicationName;
+	}
+
+	/**
+	 * Assigns a new value to the applicationName.
+	 *
+	 * @param applicationName the applicationName to set
+	 */
+	public void setApplicationName(String applicationName) {
+		this.applicationName = applicationName;
 	}
 	
 }

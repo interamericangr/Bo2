@@ -15,7 +15,7 @@ import java.util.TreeSet;
  * {@link Range} objects, each linked to a value.
  * 
  * The purpose of this class is to find the value that is associated
- * with the range that contains a specified dimension value. <br/>
+ * with the range that contains a specified dimension value. <br>
  * 
  * This utility class is suitable for areas with relatively a few
  * segments, because it searches the segments (Ranges) sequentially
@@ -29,9 +29,7 @@ import java.util.TreeSet;
  */
 public class SegmentedDistance<A extends Comparable<? super A>,V> implements Serializable {
 	
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
 	/**
@@ -92,12 +90,11 @@ public class SegmentedDistance<A extends Comparable<? super A>,V> implements Ser
 	/**
 	 * Gets the value that is associated with the range that
 	 * contains the specified dimension. 
-	 * 
-	 * @param dimension
-	 * 
+	 *
+	 * @param dimension the dimension
 	 * @return Returns the value associated with the range that
 	 *         contains the specified dimension, or null if their 
-	 *         is no range containing the specified dimension.  
+	 *         is no range containing the specified dimension.
 	 */
 	public V getValue(A dimension) {
 		Range<A> range = getRange(dimension);
@@ -109,12 +106,11 @@ public class SegmentedDistance<A extends Comparable<? super A>,V> implements Ser
 	
 	/**
 	 * Gets the value that is associated with the specified range. 
-	 * 
-	 * @param range 
-	 * 
+	 *
+	 * @param range the range
 	 * @return Returns the value associated with the specified range.
 	 *         If there is no value associated with the specified range,
-	 *         then returns null.  
+	 *         then returns null.
 	 */
 	public V getValue(Range<A> range) {
 		return ranges.get(range);
@@ -122,12 +118,11 @@ public class SegmentedDistance<A extends Comparable<? super A>,V> implements Ser
 	
 	/**
 	 * Indicates if the specified dimension belongs to this SegmentedDistance. 
-	 * 
-	 * @param dimension
-	 * 
-	 * @return Returns <code>true</code>> if there this distance contains
+	 *
+	 * @param dimension the dimension
+	 * @return Returns <code>true</code> if there this distance contains
 	 * a {@link Range} that contains the specified <code>dimension</code>
-	 * value. Otherwise returns <code>false</code>.  
+	 * value. Otherwise returns <code>false</code>.
 	 */
 	public boolean contains(A dimension) {
 		Range<A> range = getRange(dimension);
@@ -139,12 +134,11 @@ public class SegmentedDistance<A extends Comparable<? super A>,V> implements Ser
 	/**
 	 * Gets the value that is associated with the range that
 	 * contains the specified dimension. 
-	 * 
-	 * @param dimension
-	 * 
+	 *
+	 * @param dimension the dimension
 	 * @return Returns the value associated with the range that
 	 *         contains the specified dimension, or null if their 
-	 *         is no range containing the specified dimension.  
+	 *         is no range containing the specified dimension.
 	 */
 	public Range<A> getRange(A dimension) {
 		Set<Range<A>> set = ranges.keySet();

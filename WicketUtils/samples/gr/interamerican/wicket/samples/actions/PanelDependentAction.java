@@ -12,13 +12,13 @@
  ******************************************************************************/
 package gr.interamerican.wicket.samples.actions;
 
-import gr.interamerican.wicket.callback.CallbackAction;
+import gr.interamerican.wicket.callback.LegacyCallbackAction;
 import gr.interamerican.wicket.def.PanelDependent;
 
 /**
  * Panel dependent callback action.
  */
 public interface PanelDependentAction 
-extends CallbackAction, PanelDependent {
+extends LegacyCallbackAction, PanelDependent {
 	/* empty */
 }

@@ -18,13 +18,13 @@ import gr.interamerican.bo2.utils.sql.SqlUtils;
 /**
  * Abstract implementation of {@link Type} for types that are presented
  * without quotes.
- * 
- * @param <T> 
- * 
+ *
+ * @param <T> the generic type
  */
 public abstract class NonQuotedType<T> 
 extends AbstractType<T> {
 	
+	@Override
 	public String sqlString(T t) {
 		return SqlUtils.toString(t);
 	}

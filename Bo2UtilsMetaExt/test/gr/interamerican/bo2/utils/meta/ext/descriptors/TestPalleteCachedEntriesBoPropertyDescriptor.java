@@ -36,42 +36,31 @@ import org.junit.Test;
  * Unit test for {@link PalleteCachedEntriesBoPropertyDescriptor}.
  */
 public class TestPalleteCachedEntriesBoPropertyDescriptor extends AbstractCacheRelatedTest {
-	/**
-	 * TYPE_ID
-	 */
+	
+	/** TYPE_ID. */
 	static final Long TYPE_ID = 1L;
 	
-	/**
-	 * SUBTYPE_ID
-	 */
+	/** SUBTYPE_ID. */
 	static final Long SUBTYPE_ID = 1000l;
 	
-	/**
-	 * codesParser
-	 */
+	/** codesParser. */
 	Parser<Long> codesParser = new  LongParser();
-	/**
-	 * Formatter
-	 */
+	
+	/** Formatter. */
 	Formatter<Long> formatter = ObjectFormatter.<Long>getInstance();
 	
-	/**
-	 * MultipleCachedEntriesBoPropertyDescriptor
-	 */
+	/** MultipleCachedEntriesBoPropertyDescriptor. */
 	PalleteCachedEntriesBoPropertyDescriptor<TypedSelectable<Long>, Long> descriptor = 
 		new PalleteCachedEntriesBoPropertyDescriptor<TypedSelectable<Long>, Long>(TYPE_ID,SUBTYPE_ID,TEST_CACHE_NAME,codesParser, formatter);
 	
-	/**
-	 * TypedSelectable
-	 */
+	/** TypedSelectable. */
 	TypedSelectable<Long> typed = new TypedSelectableImpl<Long>();
 	
-	/**
-	 * TypedSelectable
-	 */
+	/** TypedSelectable. */
 	TypedSelectable<Long> typed2 = new TypedSelectableImpl<Long>();
 	
 	/**
+	 * Initialize.
 	 */
 	@Before
 	public void initialize(){
@@ -87,8 +76,9 @@ public class TestPalleteCachedEntriesBoPropertyDescriptor extends AbstractCacheR
 	}
 	
 	/**
-	 * test Parse
-	 * @throws ParseException 
+	 * test Parse.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -98,8 +88,9 @@ public class TestPalleteCachedEntriesBoPropertyDescriptor extends AbstractCacheR
 	}
 	
 	/**
-	 * test Validate
-	 * @throws ValidationException 
+	 * test Validate.
+	 *
+	 * @throws ValidationException the validation exception
 	 */
 	@Test
 	public void testValidate() throws ValidationException{
@@ -110,7 +101,7 @@ public class TestPalleteCachedEntriesBoPropertyDescriptor extends AbstractCacheR
 	}
 	
 	/**
-	 * test getSelectableValues
+	 * test getSelectableValues.
 	 */
 	@Test
 	public void testGetSelectableValues(){
@@ -119,7 +110,7 @@ public class TestPalleteCachedEntriesBoPropertyDescriptor extends AbstractCacheR
 	}
 	
 	/**
-	 * test format()
+	 * test format().
 	 */
 	@SuppressWarnings("nls")
 	@Test

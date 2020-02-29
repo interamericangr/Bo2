@@ -25,7 +25,7 @@ import org.junit.Test;
 public class TestInstanceOf {
 	
 	/**
-	 * Tests check()
+	 * Tests check().
 	 */
 	@Test
 	public void testCheck() {

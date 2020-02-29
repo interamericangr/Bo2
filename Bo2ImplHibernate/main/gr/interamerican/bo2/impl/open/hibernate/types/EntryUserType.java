@@ -31,38 +31,29 @@ import org.hibernate.HibernateException;
  * Custom type used to persist cached codified entries.
  *
  * Example declaration of type in a hibernate mapping file:
- *
- * <typedef
- * 	class="gr.interamerican.bo2.impl.open.hibernate.types.EntryUserTypeForLong" name="DamageCause">
- *	<param name="entryClassName">gr.interamerican.bo.def.pc.common.setup.po.DamageCause</param>
- *	<param name="entryTypeId">100006</param>
- *	<param name="cacheName">OnE_cache</param>
- * </typedef>
- *
+ * <pre>
+ * &lt;typedef class="gr.interamerican.bo2.impl.open.hibernate.types.EntryUserTypeForLong" name="DamageCause"&gt;
+ *	&lt;param name="entryClassName"&gt;gr.interamerican.bo.def.pc.common.setup.po.DamageCause&lt;/param&gt;
+ *	&lt;param name="entryTypeId"&gt;100006&lt;/param&gt;
+ *	&lt;param name="cacheName"&gt;OnE_cache&lt;/param&gt;
+ * &lt;/typedef&gt;
+ * </pre>
  * @param <C>
  *        Type of code.
  */
 public abstract class EntryUserType<C extends Comparable<? super C>>
 extends AbstractUserType {
 
-	/**
-	 * Error message for uninitialized cache
-	 */
+	/** Error message for uninitialized cache. */
 	private static final String CACHE_NOT_INITIALIZED = "EntryUserType.CACHE_NOT_INITIALIZED"; //$NON-NLS-1$
 
-	/**
-	 * Error message for uninitialized cache
-	 */
+	/** Error message for uninitialized cache. */
 	private static final String NOT_EXISTING_CACHED_OBJECT = "EntryUserType.NOT_EXISTING_CACHED_OBJECT"; //$NON-NLS-1$
 
-	/**
-	 * FQCN of the {@link TypedSelectable}
-	 */
+	/** FQCN of the {@link TypedSelectable}. */
 	private Class<? extends TypedSelectable<Long>> entryClass;
 
-	/**
-	 * type id
-	 */
+	/** type id. */
 	protected Long typeId;
 
 	/**
@@ -70,6 +61,7 @@ extends AbstractUserType {
 	 */
 	private String cacheName;
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public void setParameterValues(Properties parameters) {
 		String entryClassName = parameters.getProperty("entryClassName"); //$NON-NLS-1$
@@ -87,6 +79,8 @@ extends AbstractUserType {
 		}
 	}
 
+	@Deprecated
+	@Override
 	@SuppressWarnings({ "nls" })
 	public Object nullSafeGet(ResultSet rs, String[] names, Object owner) throws HibernateException, SQLException {
 		C code = getCode(rs, names[0]);
@@ -98,10 +92,12 @@ extends AbstractUserType {
 		return result;
 	}
 
+	@Override
 	public Class<?> returnedClass() {
 		return entryClass;
 	}
 
+	@Override
 	public int[] sqlTypes() {
 		return new int[] { Types.BIGINT };
 	}
@@ -110,16 +106,16 @@ extends AbstractUserType {
 	 * Gets the code value of the {@link TypedSelectable} object from the
 	 * {@link ResultSet}.
 	 *
-	 * @param rs
-	 *            the resultset
-	 * @param name
-	 *            the name of the column
+	 * @param rs            the resultset
+	 * @param name            the name of the column
 	 * @return the code value
-	 * @throws SQLException
+	 * @throws SQLException the SQL exception
 	 */
 	protected abstract C getCode(ResultSet rs, String name) throws SQLException;
 
 	/**
+	 * Cache.
+	 *
 	 * @return Returns the named cache
 	 */
 	@SuppressWarnings("unchecked")
@@ -130,5 +126,4 @@ extends AbstractUserType {
 		}
 		return cache;
 	}
-
 }

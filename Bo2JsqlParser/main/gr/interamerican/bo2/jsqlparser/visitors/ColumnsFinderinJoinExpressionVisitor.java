@@ -71,9 +71,7 @@ import net.sf.jsqlparser.statement.select.Union;
  */
 public class ColumnsFinderinJoinExpressionVisitor implements ExpressionVisitor, ItemsListVisitor, SelectVisitor {
 
-	/**
-	 * table name that will get the columns
-	 */
+	/** table name that will get the columns. */
 	private Set<String> tableNames = null;
 
 	/**
@@ -83,8 +81,8 @@ public class ColumnsFinderinJoinExpressionVisitor implements ExpressionVisitor, 
 	
 	/**
 	 * setter for table name.
-	 * 
-	 * @param tableNames
+	 *
+	 * @param tableNames the new table names
 	 */
 	public void setTableNames(Set<String> tableNames) {
 		if (this.tableNames == null) {
@@ -98,11 +96,14 @@ public class ColumnsFinderinJoinExpressionVisitor implements ExpressionVisitor, 
 	}
 
 	/**
+	 * Gets the columns.
+	 *
 	 * @return columns
 	 */
 	public Set<Column> getColumns() {
 		return columns;
 	}
+	
 	@Override
 	public void visit(NullValue nullValue) {
 		// do nothing
@@ -110,8 +111,8 @@ public class ColumnsFinderinJoinExpressionVisitor implements ExpressionVisitor, 
 
 	/**
 	 * method to handle binary expressions.
-	 * 
-	 * @param b
+	 *
+	 * @param b the b
 	 */
 	private void handleBinaryExpression(BinaryExpression b) {
 		b.getLeftExpression().accept(this);

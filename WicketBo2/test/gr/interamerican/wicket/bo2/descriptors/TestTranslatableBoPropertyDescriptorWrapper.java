@@ -28,70 +28,48 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Unit test for TranslatableBoPropertyDescriptorWrapper
+ * Unit test for TranslatableBoPropertyDescriptorWrapper.
  */
 public class TestTranslatableBoPropertyDescriptorWrapper extends Bo2WicketTest{
 
 	
-	/**
-	 * BoPropertyDescriptor
-	 */
+	/** BoPropertyDescriptor. */
 	private IntegerBoPropertyDescriptor descriptor = new IntegerBoPropertyDescriptor();
 	
-	/**
-	 * translator
-	 */
+	/** translator. */
 	private TranslatorImpl<String,Long> translator = new TranslatorImpl<String,Long>();
 	
-	/**
-	 * resourceId
-	 */
+	/** resourceId. */
 	private String resourceId = "resourceId"; //$NON-NLS-1$
 	
-	/**
-	 * session
-	 */
+	/** session. */
 	@SuppressWarnings("unchecked")
 	private Bo2WicketSession<?,Long> session = Bo2WicketSession.get();
 	
-	/**
-	 * INDEX
-	 */
+	/** INDEX. */
 	private static final int INDEX = 1;
 	
-	/**
-	 * NAME
-	 */
+	/** NAME. */
 	private static final String NAME = "descriptorName"; //$NON-NLS-1$
 	
-	/**
-	 * PACKAGE_NAME
-	 */
+	/** PACKAGE_NAME. */
 	private static final String PACKAGE_NAME = "descPackageName"; //$NON-NLS-1$
 	
 	
-	/**
-	 * CLASS_NAME
-	 */
+	/** CLASS_NAME. */
 	private static final String CLASS_NAME = "descClassName"; //$NON-NLS-1$
 	
-	/**
-	 * TRANSLATION
-	 */
+	/** TRANSLATION. */
 	private static final String TRANSLATION = "translatedValue"; //$NON-NLS-1$
 	
-	/**
-	 * DEFAULT_VALUE
-	 */
+	/** DEFAULT_VALUE. */
 	private static final int DEFAULT_VALUE = 10;
 	
-	/**
-	 * TranslatableBoPropertyDescriptorWrapper to test
-	 */
+	/** TranslatableBoPropertyDescriptorWrapper to test. */
 	private TranslatableBoPropertyDescriptorWrapper<Integer, String, ?> wrapper; 
 	
 	/**
-	 * Init
+	 * Init.
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Before
@@ -117,7 +95,7 @@ public class TestTranslatableBoPropertyDescriptorWrapper extends Bo2WicketTest{
 	
 	
 	/**
-	 * Test getLabel
+	 * Test getLabel.
 	 */
 	@Test
 	public void testGetLabel(){
@@ -126,7 +104,7 @@ public class TestTranslatableBoPropertyDescriptorWrapper extends Bo2WicketTest{
 	}
 	
 	/**
-	 * Test SetLabel
+	 * Test SetLabel.
 	 */
 	@Test(expected = RuntimeException.class)
 	public void testSetLabel(){
@@ -135,7 +113,7 @@ public class TestTranslatableBoPropertyDescriptorWrapper extends Bo2WicketTest{
 	
 	
 	/**
-	 * Test GetIndex
+	 * Test GetIndex.
 	 */
 	@Test
 	public void testGetIndex(){
@@ -144,7 +122,7 @@ public class TestTranslatableBoPropertyDescriptorWrapper extends Bo2WicketTest{
 
 	
 	/**
-	 * Test GetIndex
+	 * Test GetIndex.
 	 */
 	@Test(expected = RuntimeException.class)
 	public void testSetIndex(){
@@ -153,7 +131,7 @@ public class TestTranslatableBoPropertyDescriptorWrapper extends Bo2WicketTest{
 	
 	
 	/**
-	 * Test getName
+	 * Test getName.
 	 */
 	@Test
 	public void testGetName(){
@@ -162,7 +140,7 @@ public class TestTranslatableBoPropertyDescriptorWrapper extends Bo2WicketTest{
 	
 	
 	/**
-	 * Test setName
+	 * Test setName.
 	 */
 	@Test(expected = RuntimeException.class)
 	public void testSetName(){
@@ -170,7 +148,7 @@ public class TestTranslatableBoPropertyDescriptorWrapper extends Bo2WicketTest{
 	}
 	
 	/**
-	 * Test getPackageName
+	 * Test getPackageName.
 	 */
 	@Test
 	public void testGetPackageName(){
@@ -178,7 +156,7 @@ public class TestTranslatableBoPropertyDescriptorWrapper extends Bo2WicketTest{
 	}
 	
 	/**
-	 * Test setPackageName
+	 * Test setPackageName.
 	 */
 	@Test(expected = RuntimeException.class)
 	public void testSetPackageName(){
@@ -187,7 +165,7 @@ public class TestTranslatableBoPropertyDescriptorWrapper extends Bo2WicketTest{
 	
 	
 	/**
-	 * Test getClassName
+	 * Test getClassName.
 	 */
 	@Test
 	public void testGetClassName(){
@@ -195,7 +173,7 @@ public class TestTranslatableBoPropertyDescriptorWrapper extends Bo2WicketTest{
 	}
 	
 	/**
-	 * Test getFullyQualifiedName
+	 * Test getFullyQualifiedName.
 	 */
 	@Test
 	public void testGetFullyQualifiedName(){
@@ -203,7 +181,7 @@ public class TestTranslatableBoPropertyDescriptorWrapper extends Bo2WicketTest{
 	}
 	
 	/**
-	 * Test getFullyQualifiedClassName
+	 * Test getFullyQualifiedClassName.
 	 */
 	@Test
 	public void testGetFullyQualifiedClassName(){
@@ -212,7 +190,7 @@ public class TestTranslatableBoPropertyDescriptorWrapper extends Bo2WicketTest{
 	
 	
 	/**
-	 * Test setClassName
+	 * Test setClassName.
 	 */
 	@Test(expected = RuntimeException.class)
 	public void testSetClassName(){
@@ -220,7 +198,7 @@ public class TestTranslatableBoPropertyDescriptorWrapper extends Bo2WicketTest{
 	}
 	
 	/**
-	 * Test isReadOnly
+	 * Test isReadOnly.
 	 */
 	@Test
 	public void testIsReadOnly(){
@@ -229,7 +207,7 @@ public class TestTranslatableBoPropertyDescriptorWrapper extends Bo2WicketTest{
 	
 	
 	/**
-	 * Test setReadOnly
+	 * Test setReadOnly.
 	 */	
 	@Test(expected = RuntimeException.class)
 	public void testSetReadOnly(){
@@ -237,7 +215,7 @@ public class TestTranslatableBoPropertyDescriptorWrapper extends Bo2WicketTest{
 	}
 	
 	/**
-	 * Test isNullAllowed
+	 * Test isNullAllowed.
 	 */
 	@Test
 	public void testIsNullAllowed(){
@@ -245,7 +223,7 @@ public class TestTranslatableBoPropertyDescriptorWrapper extends Bo2WicketTest{
 	}
 	
 	/**
-	 * Test setReadOnly
+	 * Test setReadOnly.
 	 */
 	@Test(expected = RuntimeException.class)
 	public void testSetNullAllowed(){
@@ -253,7 +231,7 @@ public class TestTranslatableBoPropertyDescriptorWrapper extends Bo2WicketTest{
 	}
 	
 	/**
-	 * Test isHasDefault
+	 * Test isHasDefault.
 	 */
 	@Test
 	public void testIsHasDefault(){
@@ -261,7 +239,7 @@ public class TestTranslatableBoPropertyDescriptorWrapper extends Bo2WicketTest{
 	}
 	
 	/**
-	 * Test setHasDefault
+	 * Test setHasDefault.
 	 */
 	@Test(expected = RuntimeException.class)
 	public void testSetHasDefault(){
@@ -270,8 +248,9 @@ public class TestTranslatableBoPropertyDescriptorWrapper extends Bo2WicketTest{
 	
 	
 	/**
-	 * Test Parse
-	 * @throws ParseException
+	 * Test Parse.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@Test
 	public void testParse() throws ParseException{
@@ -279,7 +258,7 @@ public class TestTranslatableBoPropertyDescriptorWrapper extends Bo2WicketTest{
 	}
 	
 	/**
-	 * Test format
+	 * Test format.
 	 */
 	@Test
 	public void testFormat(){
@@ -287,7 +266,7 @@ public class TestTranslatableBoPropertyDescriptorWrapper extends Bo2WicketTest{
 	}
 	
 	/**
-	 * Test getDefaultValue
+	 * Test getDefaultValue.
 	 */
 	@Test
 	public void testGetDefaultValue(){
@@ -295,7 +274,7 @@ public class TestTranslatableBoPropertyDescriptorWrapper extends Bo2WicketTest{
 	}
 	
 	/**
-	 * Test setDefaultValue
+	 * Test setDefaultValue.
 	 */
 	@Test(expected = RuntimeException.class)
 	public void testSetDefaultValue(){
@@ -304,9 +283,10 @@ public class TestTranslatableBoPropertyDescriptorWrapper extends Bo2WicketTest{
 	
 	
 	/**
-	 * Test parseAndValidate
-	 * @throws ParseException
-	 * @throws ValidationException 
+	 * Test parseAndValidate.
+	 *
+	 * @throws ParseException the parse exception
+	 * @throws ValidationException the validation exception
 	 */
 	@Test
 	public void testParseAndValidate() throws ParseException, ValidationException{
@@ -315,8 +295,9 @@ public class TestTranslatableBoPropertyDescriptorWrapper extends Bo2WicketTest{
 	
 	
 	/**
-	 * Test parseAndValidate
-	 * @throws ValidationException 
+	 * Test parseAndValidate.
+	 *
+	 * @throws ValidationException the validation exception
 	 */
 	@Test(expected = ValidationException.class)
 	public void testValidate_Exception() throws ValidationException{
@@ -325,8 +306,9 @@ public class TestTranslatableBoPropertyDescriptorWrapper extends Bo2WicketTest{
 	}
 	
 	/**
-	 * Test parseAndValidate
-	 * @throws ValidationException 
+	 * Test parseAndValidate.
+	 *
+	 * @throws ValidationException the validation exception
 	 */
 	@Test
 	public void testValidate() throws ValidationException{
@@ -335,7 +317,7 @@ public class TestTranslatableBoPropertyDescriptorWrapper extends Bo2WicketTest{
 	}
 	
 	/**
-	 * Test getDescriptor
+	 * Test getDescriptor.
 	 */
 	@Test
 	public void testGetDescriptor(){

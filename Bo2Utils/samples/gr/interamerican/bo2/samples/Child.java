@@ -15,13 +15,11 @@ package gr.interamerican.bo2.samples;
 import gr.interamerican.bo2.samples.anno.MethodAnno;
 
 /**
- * sample class
+ * sample class.
  */
 public class Child extends Father {
 
-	/**
-	 * sample class field marked protected to allow reflective access
-	 */
+	/** sample class field marked protected to allow reflective access. */
 	protected Object field6;
 
 	/**

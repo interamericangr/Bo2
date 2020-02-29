@@ -29,7 +29,7 @@ import java.util.Comparator;
  * other instances of {@link AbstractKey} using an {@link ArrayComparator}.
  * The <code>compareTo(Key key)</code> method will return -1 if the input to
  * the comparison is not an instance of AbstractKeyImpl. Namely, AbstractKeyImpl
- * is less than any other instance of Key. <br/>
+ * is less than any other instance of Key. <br>
  * Even though this class has no abstract methods, it is abstract. The attribute
  * <code>fields</code> is protected, hence their is  no way to assign any value 
  * to it, but only from within a sub-class.
@@ -38,9 +38,7 @@ import java.util.Comparator;
 public abstract class AbstractKey 
 implements Key {
 	
-	/**
-	 * Serialization version UID
-	 */
+	/** Serialization version UID. */
 	private static final long serialVersionUID = 2L;
 	
 	/**
@@ -93,7 +91,8 @@ implements Key {
 	public int getElementsCount() {
 		return getElements().length;
 	}
-	
+
+	@Override
 	public int compareTo(Key key) {
 		if (key == null) {
 			return 1;
@@ -104,7 +103,7 @@ implements Key {
 		}
 		return -1;
 	}
-		
+
 	@Override
 	public boolean equals(Object obj) {		
 		if (obj==null) {
@@ -122,16 +121,15 @@ implements Key {
 		}
 		return false;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return Utils.generateHashCode(getElements());
 	}
-	
+
 	@Override
 	public String toString() {
 		Object[] elements = getElements();
 		return Arrays.toString(elements);
 	}
-	
 }

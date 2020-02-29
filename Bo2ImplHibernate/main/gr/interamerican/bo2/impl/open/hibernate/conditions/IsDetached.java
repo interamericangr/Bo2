@@ -15,13 +15,13 @@ package gr.interamerican.bo2.impl.open.hibernate.conditions;
 import gr.interamerican.bo2.utils.conditions.Condition;
 
 /**
- * 
+ * The Class IsDetached.
  */
 public class IsDetached 
 implements Condition<Object>{
-	
+
+	@Override
 	public boolean check(Object t) {		
 		return false;
 	}
-
 }

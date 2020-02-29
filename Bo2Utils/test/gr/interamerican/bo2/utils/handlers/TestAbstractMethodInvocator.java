@@ -28,10 +28,9 @@ public class TestAbstractMethodInvocator {
 	/**
 	 * Creates a sample MethodInvocator that invokes methods
 	 * on this object.
-	 * 
-	 * @param methodName
-	 * 
-	 * @return Returns the method invocator. 
+	 *
+	 * @param methodName the method name
+	 * @return Returns the method invocator.
 	 */
 	MI sample(String methodName) {
 		return new MI (ThrowingExceptionHandler.INSTANCE, methodName, this);
@@ -52,9 +51,8 @@ public class TestAbstractMethodInvocator {
 	
 	/**
 	 * Method to be executed by MethodInvocator. 
-	 * 
-	 * @param i
-	 *         
+	 *
+	 * @param i the i
 	 */
 	void onEventWithParams(Integer i) {
 		integer = i;
@@ -68,15 +66,16 @@ public class TestAbstractMethodInvocator {
 
 	/**
 	 * Overloaded method.
-	 * 
-	 * @param argument 
+	 *
+	 * @param argument the argument
 	 */
-	void ambiguous(Integer argument) {/* empty */}
+	void ambiguous(@SuppressWarnings("unused") Integer argument) {/* empty */}
 	
 	/**
 	 * Method to be executed and throw an Exception.
-	 * 
-	 * @throws InstantiationException
+	 *
+	 * @param t the t
+	 * @throws Exception the exception
 	 */
 	void doThrow(Exception t) throws Exception {
 		throw t;
@@ -173,6 +172,13 @@ public class TestAbstractMethodInvocator {
 		 */
 		Object[] arguments;
 		
+		/**
+		 * Instantiates a new mi.
+		 *
+		 * @param handler the handler
+		 * @param methodName the method name
+		 * @param owner the owner
+		 */
 		public MI (ExceptionHandler handler, String methodName, Object owner) {
 			super(handler, methodName, owner);
 		}
@@ -184,8 +190,8 @@ public class TestAbstractMethodInvocator {
 		
 		/**
 		 * Sets the arguments.
-		 * 
-		 * @param arguments
+		 *
+		 * @param arguments the new arguments
 		 */
 		public void setArguments(Object[] arguments) {
 			this.arguments = arguments;

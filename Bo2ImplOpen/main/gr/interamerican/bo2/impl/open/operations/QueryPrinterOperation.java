@@ -111,10 +111,9 @@ extends AbstractQueryCrawlerOperation<Q>{
 	
 	/**
 	 * Gets the current record.
-	 * 
+	 *
 	 * @return Gets the current record.
-	 * 
-	 * @throws DataAccessException 
+	 * @throws DataAccessException the data access exception
 	 */
 	protected abstract R getCurrentRow() throws DataAccessException;
 	

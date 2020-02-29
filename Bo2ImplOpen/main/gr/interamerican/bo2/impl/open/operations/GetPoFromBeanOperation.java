@@ -25,14 +25,14 @@ import gr.interamerican.bo2.utils.annotations.Child;
 
 /**
  * This operation will get a {@link PersistentObject} from a java bean
- * that contains the elements of its key. <br/>
+ * that contains the elements of its key. <br>
  * 
- * For this operation to work, the following prerequisites are required:
+ * For this operation to work, the following prerequisites are required:<ul>
  * <li> The default Bo2 factory can create instances of the PersistentObject
  *      as wall as its PersistenceWorker. </li>
  * <li> The class or interface of the PersistentObject has the names of the
  *      key properties marked using the {@link KeyProperties} annotation.
- * <li> The input bean has all properties of the key. </li> 
+ * <li> The input bean has all properties of the key. </li> </ul>
  * 
  * @param <P>
  *        Type of PersistentObject. 
@@ -90,7 +90,7 @@ extends AbstractOperation {
 	/**
 	 * Creates a new GetPoFromBeanOperation object. 
 	 *
-	 * @param poClass
+	 * @param poClass the po class
 	 */
 	public GetPoFromBeanOperation(Class<P> poClass) {
 		super();
@@ -109,9 +109,9 @@ extends AbstractOperation {
 	/**
 	 * Finds the Key class of a po implementation and then
 	 * finds its properties.
-	 * 
+	 *
 	 * @return the properties of the Po Key.
-	 * @throws LogicException 
+	 * @throws LogicException the logic exception
 	 */	
 	String[] getKeyProperties() throws LogicException {
 		String[] keyProperties = PoUtils.getKeyProperties(poClass);

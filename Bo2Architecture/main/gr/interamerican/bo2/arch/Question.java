@@ -21,28 +21,28 @@ import gr.interamerican.bo2.arch.exceptions.LogicException;
  * 
  * The question can have multiple input parameters. All these can be specified
  * with the appropriate setter methods. The answer to the question is retrieved
- * with the <code>getAnswer()</code> method. <b/>
+ * with the <code>getAnswer()</code> method. <br>
  * Question is a sub-interface of worker based on the command pattern.
  * The command method of a question is <code>ask()</code>. 
  * 
  * It makes the question with <code>ask()</code> and returns the answer as an object
- * with <code>getAnswer()</code>. <br/>
+ * with <code>getAnswer()</code>. <br>
  * 
- * Typical use of a question q is like this: <br/>
+ * Typical use of a question q is like this: <br>
  * <code>
- * q.init(provider); <br/>
- * q.open(); <br/>
- * //set parameters, something like: <br/>
- * q.setParam1(inParam1); <br/>
- * q.setParam1(inParam2); <br/>
- * q.ask(); <br/>
- * answer1=q.getAnswer(); <br/>
- * //the question can be asked again with different parameters <br/> 
- * q.setParam1(inParam3); <br/>
- * q.setParam1(inParam4); <br/>
- * q.ask(); <br/>
- * answer2=q.getAnswer(); <br/>
- * w.close(); <br/>
+ * q.init(provider); <br>
+ * q.open(); <br>
+ * //set parameters, something like: <br>
+ * q.setParam1(inParam1); <br>
+ * q.setParam1(inParam2); <br>
+ * q.ask(); <br>
+ * answer1=q.getAnswer(); <br>
+ * //the question can be asked again with different parameters <br> 
+ * q.setParam1(inParam3); <br>
+ * q.setParam1(inParam4); <br>
+ * q.ask(); <br>
+ * answer2=q.getAnswer(); <br>
+ * w.close(); <br>
  * </code>
  *  
  * @param <A> Class of answer.
@@ -51,7 +51,8 @@ import gr.interamerican.bo2.arch.exceptions.LogicException;
 public interface Question<A> extends Worker {
     
     /**
-     * Asks the question and creates the answer
+     * Asks the question and creates the answer.
+     *
      * @throws DataException Caused by exceptions on data storage layer operations.
      * @throws LogicException Caused by logical conditions.
      */

@@ -38,7 +38,8 @@ public class TestHibernateSessionProviderImpl {
 	
 	/**
 	 * tests setup.
-	 * @throws InitializationException 
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Before
 	public void setup() throws InitializationException {
@@ -59,8 +60,8 @@ public class TestHibernateSessionProviderImpl {
 	
 	/**
 	 * Unit test for constructor.
-	 * @throws DataException 
-	 * 
+	 *
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testOpenAndClose() throws DataException {

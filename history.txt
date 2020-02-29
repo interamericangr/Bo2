@@ -584,3 +584,540 @@ Fixed dynamic sql parsing in the case of a subselect on a predicate
 
 bug fix on GenericSqlParser
 
+
+
+2.3.12
+--------
+
+Utilities for testing creation of Objects
+
+Improvements on ServicePanelDefinitionFactory
+
+Removed Bo2ImplInter and Bo2BoAdapters from Bo2. Released indendently now.
+
+AbstractStreamBasedQuery may now open a shared stream to the underlying file.
+
+
+2.3.13
+--------
+
+
+
+2.4.0
+--------
+
+Added support for container managed resources (for now transaction manager, jdbc connections
+from connection pools) when Quartz jobs run in a WebSphere environment
+ 
+See gr.interamerican.bo2.quartz.was.WorkManagerThreadExecutor
+
+Quartz uses a thread pool to instantiate Jobs and executes them in another Thread
+When the application runs inside a JEE container, these threads do not have access
+to the JEE context (unless the server allows it, which is not the case for WebSphere) 
+The only workaround that is available is to use the org.quartz.spi.ThreadExecutor SPI
+This includes the specification of two properties in the quartz configuration
+
+org.quartz.threadExecutor.class=gr.interamerican.bo2.quartz.was.WorkManagerThreadExecutor
+org.quartz.threadExecutor.workManagerName=wm/default
+
+This ensures that the instantiation of the Job instance is performed in a Thread that is
+actually managed by the container. For this reason, we create a {@link Provider} instance
+here that is to be used for the actual execution of the Job, which eagerly initializes all
+resources that are normally obtained by the container (JTA transaction manager and JDBC
+connections from data sources)
+
+In stand alone programs, the Provider will be initialized in the thread that instantiates 
+the Job and will be passed along to the RuntimeCommand that runs on the thread that executes 
+the job. This should be safe
+
+In order to use this feature, it is suggested to maintain a 2nd quartz.properties file
+in a specific (non-default) package and use the JVM argument -Dorg.quartz.properties
+in the WebSphere JVM definition in order to reference it
+
+
+2.4.1
+--------
+
+Fixed Quartz in JEE container behavior. Now only DataSource objects are obtained in GenericQuartzJob construction time and not Connection objects
+
+
+
+2.4.2
+--------
+
+Bo2DeploymentInfoUtility#getConfigurationSummary() Prints default Bo2 deployment configuration
+
+Added a servlet that prints the default Bo2 deployment configuration: Bo2ConfigurationSummaryServlet
+
+Removed Bo2DeploymentParams#pathToSecondaryBatchDeployment from the API
+
+Removed MethodBasedActionListener from the public API. Use SwingMethodBasedActionListener instead. See RuntimeCommandContext
+
+
+
+2.4.3
+--------
+
+Added ServicePanelDefinitionFactory#crudPickerPanelDef(Class<PO> poClass, Set<PO> set, String indexPropertyName, PK parentKey) in order to create a CrudPickerPanelDef that works on the argument set on memory
+Added Bo2WicketUtils#addActionAfterSaveUpdateDelete(CrudPickerPanelDef<?>,CallbackAction)
+
+
+2.4.4
+--------
+
+XlsQuery now supports xlsx (with apache-poi, change contributed by kalogirouv)
+
+
+2.4.5
+--------
+
+CopyRecordUtils use it to copy Csv Records
+CsvRecordQuery now returns copies for each record
+
+
+2.4.6
+--------
+
+JVM user argument pathToManagerAliases, if present, will override the managerAliasesPath indicated in deployment.properties
+{Xlsquery#next} will throw DataAccessException on null returned {org.apache.poi.ss.usermodel.Row}
+
+
+2.4.7
+--------
+
+null excel rows are ignored by XlsQuery
+null save MoneyFormatter#format
+
+
+2.4.8
+--------
+
+changed exit listener for BatchProcessFrame
+
+
+2.4.9
+--------
+
+Bug fix on gr.interamerican.bo2.utils.runnables.Monitor<T>
+Also, it is now illegal to initialize a gr.interamerican.bo2.utils.adapters.cmd.PeriodicCommand with 0 period
+
+
+2.4.10
+--------
+
+fixed currentRow in XlsQuery
+
+
+2.4.11
+--------
+
+Null safe BatchProcessUtility#getMonitoringOperationClasses
+
+
+2.4.12
+--------
+
+gr.interamerican.bo2.impl.open.runtime.monitor.LongProcessExitValueMonitor
+
+
+2.4.13
+--------
+
+unified process for batchprocess shutdown (exit value calculation)
+
+
+2.4.14
+--------
+
+Created AutomatedLaunchedProcess
+Created BatchProcessNoInitialPanelFrame
+
+
+2.4.15
+--------
+
+
+
+2.4.16
+--------
+
+Properties launcher accepts both Operation and runtimecommands as arguments
+Added OpPropertiesLauncher
+
+
+2.4.17
+--------
+
+fixed propertieslauncher to Factory.create Operation rather than calling new instance
+
+
+2.4.18
+--------
+
+added FtpSession#append
+
+
+2.4.19
+--------
+
+added 'applicationName' to Bo2 depl parameters
+fixed QuartzBo2 dependencies
+
+2.4.20
+--------
+
+added execution path to Processlauncher
+Created ProcessLauncherParamerters to acompany all the paramters of a Processlauncher#launch
+
+
+2.4.21
+--------
+
+
+
+2.4.22
+--------
+
+Processlauncher checks the existance of the directory to run the new jvm
+
+BOTWO-54: default access fields annotated with @Property should be accessed by reflection when not in the same package as the 'to be implemented' class
+
+
+2.4.23
+--------
+
+
+
+2.5.0
+--------
+
+BatchProcessInput extends a new Interface OperationInput
+
+
+2.5.1
+--------
+
+
+
+2.5.2
+--------
+
+CsvWithHeaderQuery can determine at its execution the number of columns (if not provided). Set 0 column count for detection.
+
+2.5.3
+--------
+
+added support to add system variables to spawn processes (spawn by the gr.interamerican.bo2.quartz.runtime.ProcessLauncher
+
+2.5.4
+--------
+
+Release Notes - Bo2 - Version 2.5.4
+
+** Bug
+    * [BOTWO-73] - XlsQuery does not parse the value of a formula in a cell but the formula itself
+    * [BOTWO-74] - CLONE - Deia Report Greek Encoding 
+
+** Improvement
+    * [BOTWO-72] - DynamicJdbc parser removes not ( )  clauses 
+
+
+2.5.5
+--------
+
+JsqlParser: elementary expressions inside parentheses were not processed properly, e.g.: '... AND (A<50) ...' would remove (A<50) from the resulting where clause
+
+RuntimeCommand now closes provider on the finally block
+
+
+2.5.6
+--------
+
+minor code improvement on ReflectionUtils
+minor fix on Bo2ArchStringUtils
+moved EntitiesQuery2CsvOperation main functionality to AbstractEntitiesQuery2CsvOperation
+created EntitiesQuery2CsvPrintStreamOperation
+created ListTablePanelWithExport : this displays a collection of entities on a datatable and also adds a link that will download the content of the datatable as a csv
+added ServicePanelDefinitionFactory#crudPickerPanelDefWithActions(Class<PO> poClass)
+improvements of api on CodifiedDropDownChoice
+improved List2CsvAction : declaration is no longer needed on bo2 for printstream
+added Bo2WicketUtils#createDownloadFileFromList(DownloadFileFromListInput input)
+added BasicCancelButton
+added extra functionalities on WicketUtils
+
+2.5.7
+--------
+
+2.5.6 broke the API of List2CsvAction. This is now restored
+
+2.5.8
+--------
+
+added a drop down that backs null-able Boolean objects: gr.interamerican.wicket.components.BooleanDdc
+
+improved WicketTest#commonAssertions_noError
+
+added BatchProcessStatsPanel panel on MultiThreadedLongProcessPanel.
+
+2.5.9
+--------
+
+LongProcessStatus.throughput->LongProcessStatus.processTime
+
+2.5.10
+--------
+
+added
+MultiThreadedLongProcess.throughput
+MultiThreadedLongProcess.eta
+
+2.5.11
+--------
+
+HibernateConfigurations#key now includes hiberantemappingspath
+
+2.5.12
+--------
+
+added SelfDrawnDataTableCreator. This is a DataTableCreator based on a BoPropertyDescriptor to facilitate meta-data based data table generation
+
+2.5.13
+--------
+
+BOTWO-79 A SearchFlowPanel with no CRUD actions and viewEnabled=true will not render view button
+BOTWO-80 A BooleanBoPropertyDescriptor with nullAllowed=true renders a checkbox on a self drawn panel. Render a true/false/null drop down instead
+
+2.5.14
+--------
+
+added classpathfiles on processlauncherparameters
+
+2.5.15
+--------
+
+added Triplet object based on Pair logic - A triplet of three objects, the left, the middle and the right object.
+added Bo2BoAio and Bo2WebAio. The first contains only bo dependencies and the second web dependencies. Bo2Aio now depends on Bo2BoAio, Bo2WebAio and Bo2Gui.
+
+
+2.6.0
+--------
+
+updated to support the new settings.xml
+
+
+2.6.1
+--------
+
+Added an EmptyServicePanel
+Bo2RequestCycleListener uses org.apache.wicket.Session instead of Bo2WicketSession
+
+
+2.6.2
+--------
+
+Bo2RequestCycleListener#clearErrorPanel : we will no longer try to get the last page from the page handler before making sure that the page handler is for an AjaxRequestTarget
+
+2.6.3
+--------
+
+BOTWO-84
+
+
+2.6.4
+--------
+
+BOTWO-89 Improvement Of Translation Related Bo2 Meta Api
+
+
+
+2.6.5
+--------
+
+automated tests run without derby db and openoffice server (papaioannoual)
+
+
+2.6.6
+--------
+
+BOTWO-97 : PoUtils#deepCopy and relevant methods will now call the 'onCopyPo' modification registered on PoCopier for non child PO's within the copied entity (for hibernate this is unproxy)
+
+2.6.7
+--------
+
+ BOTWO-98 - NullPointerException raised when resetting persistence worker fixtures
+
+2.6.8
+--------
+
+BOTWO-101 : Added ProxyUtility#getProxy
+BOTWO-102 : Added DomUtils#getNode
+
+2.6.9
+--------
+
+implemented #equals on ConstantType
+PoUtils#deepEquals now ignores transient fields
+ReflectionUtils#getAccessibleMethods will no longer throw an exception when the class passed as input declares a method with the same name with another method in a superclass but with different in size method arguments. This bug also caused TypeAnalysis to throw an exception in this case
+One Bo2 Provider inside BatchOperation was kept never closed - which resulted in batch operations never ending
+BOTWO-105 : Gui for BatchOperation
+BOTWO-107 gr.interamerican.bo2.utils.adapters.trans.ToString should be null safe
+
+
+2.6.10
+--------
+
+added method WicketTest#commonAssertions_noError(Class<? extends Page>)
+
+2.6.11
+--------
+
+added custom monitor operation creation for AbstractAutomatedLongProcessLauncher
+
+2.6.12
+--------
+
+changed generic from PersistentObject to Serializable @ ServicePanelDefinitionFactory (utility class) where it was possible in order to increase usability
+
+2.6.13
+--------
+
+added pit-mutation
+added CacheRegistry#flushAllCacheContents
+added Bo2BaseTest
+add CustomersFromInvoiceCustomerQuery and CustomersFromInvoiceLineQuery on samples
+CopyPoBean , CopyPosOperation , PrepareForCopyToOtherSystem marked as deprecated
+BOTWO-108 : Move generic copy entities functionality from OnE to Bo2
+added null check on tidy
+
+
+2.6.14
+--------
+
+BOTWO-109 : When a job scheduled from Quartz fails to create it's provider, Quartz registers it as miss-fired instead of failed
+null safe ConversionUtils#mandatoryConvert
+changes to support esolutions 4.3.15 (AbstractAutomatedLongProcessLauncher)
+
+2.6.15
+--------
+
+BOTWO-111 : DateUtils' formatDateIso method is not thread safe
+BOTWO-112 : Printout of image is incorrect on merged cells of a table
+
+2.6.16
+--------
+
+added new Target environment options
+
+
+2.6.17
+--------
+
+added MultithreadLongProcessExecutionStatus
+added BatchProcessExecutionStatusPanel
+BOTWO-132 : Added generated folder for generated resources
+BOTWO-131 : Geronimo error when a GenericStoredDynamicEntitiesQuery is being created more than once during a web service call
+BOTWO-134 : Be able to modify DateUtils.today()
+
+
+2.6.18
+--------
+
+BOTWO-136 Add String selections self drawn palette and associated descriptor
+
+
+2.6.19
+--------
+
+BOTWO-140 - Fixed ConcurrentModificationException on batchProcess during tidy
+
+2.6.19.1
+--------
+
+BOTWO-141 - Support dot notation on parameters in jdbc queries
+
+
+3.0.1
+--------
+
+BOTWO-143 : When you set Multipart True on a Form, setting the multipart/form-data to it is redundant
+BOTWO-144 : Added a EmbeddedImage for contacts
+BOTWO-145 : Added varargs on AjaxLinkWithImagePanel Constructors to delegate behaviors on the contained Link
+
+3.1.0
+--------
+
+BOTWO-146 : Add export as csv as default functionality on Bo2 Provided Wicket Panels
+BOTWO-148 : Moved MessageBean and Enabled from Bo2Gui to Bo2Utils (package changed as well)
+BOTWO-149 : SearchFlowPanelDef#setAutoPickSingleResult marked as deprecated
+BOTWO-150 : Added RangeModel, NotNullValidator, DateRangePanel (moved from e-solutions)
+BOTWO-151 : JdbcCustomAnswerSingleStatementQuestion does not reset answer on multiple invocations
+BOTWO-152 : PoMerger and PoProperty interface changes in order to support easier functionality
+
+3.1.1
+--------
+
+BOTWO-141 : Support dot notation on parameters in jdbc queries
+BOTWO-153 : Remove perm size setting and configuration (setting was removed on java 8)
+BOTWO-154 : ProcessLauncher fails on windows when it tries to override the user.dir property
+BOTWO-155 : FunctionalDataTableCreator can accept a modification on the resulting datatable
+BOTWO-156 : Dynamic Queries respect dot notation on parameters
+BOTWO-157 : Add method Set<String> getAuthorizationValues(A authorizationId) to User interface
+
+3.1.2
+--------
+
+Reverted BOTWO-156 : Dynamic Queries respect dot notation on parameters
+BOTWO-158 : Dependency on test-jar exists out of test scope within bo2 projects
+
+3.2.0
+--------
+
+BOTWO-156 : Dynamic Queries respect dot notation on parameters
+BOTWO-160 : Added RunnableButton ( A Button that onSubmit() executes the given SerializableRunnable )
+BOTWO-161 : AbstractCsvAction no longer implements the LegacyCallbackAction interface
+BOTWO-162 : ExportButtonOptions will now create a button instead of a link
+BOTWO-165 : Api improvement (and restrictions) on DynamicJdbcQuery in order to avoid bad implementations
+BOTWO-166 : Code (maintainability and performance ) improvements and duplication removal on 'dot notation' queries code
+BOTWO-167 : Simplify and remove duplicate code regarding parameter lookup in jdbc based workers
+
+3.2.1
+--------
+
+BOTWO-167 : Simplify and remove duplicate code regarding parameter lookup in jdbc based workers
+BOTWO-168 : added LinkPanel and AjaxLinkPanel
+BOTWO-169 : Added AjaxLinkPickColumn, GenericLabelColumn, LinkPickColumn
+BOTWO-170 : ReflectionUtils no longer has a customization to work around an old IBM jdk specific bug on Class#getMethods
+BOTWO-171 : Fixed corner case bug where ReflectionUtils#getPublicMethods does not return a method when compiling with javac
+
+3.2.2
+--------
+
+BOTWO-172 : GenericLabelColumn now implements the ExportableColumn interface
+BOTWO-173 : apache.coomons.net to 3.6
+BOTWO-174 : SerializableComparableFunction#nullSafeSynthesize arguments change to avoid bug
+BOTWO-176 : Move OnChangeSelfUpdatingBehavior from WicketBo2 to WicketUtils
+BOTWO-177 : Move DropDownChoicesListViewPanel from OnE to Bo2 (split to TextFieldChoicesPanel and DropDownChoicesPanel)
+BOTWO-181 : Added FunctionBasedDropDownChoice
+BOTWO-182 : CrudPickerPanel did not update the contents of the Datatable correctly after edit when copyBean function is enabled and returns a different instance from the one provided
+BOTWO-183 : Move CacheUpdatingPersistenceWorker from OnE to Bo2
+
+3.2.3
+--------
+
+BOTWO-184 : Some Fields on SearchFlowPanel are not correctly delegated to the results Panel
+BOTWO-185: Provide means for batch process logging to indicate the  application version
+
+3.3.0
+--------
+
+BOTWO-192 : Mark ICallbackAction as deprecated
+BOTWO-193 : FunctionalDataTableCreator#addSelfDrawnColumn(s) does not work with synthetic properties
+
+3.4.0
+--------
+
+BOTWO-187 SoapLoggingFilter to be able to work with different logger per service
+BOTWO-194 : AbstractChoicesPanel should update the value of the input Set before an outer form submit occurs
+BOTWO-196 : SearchFlowPanel#refreshResults does not work
+BOTWO-197 : JavascriptEventConfirmation is not working properly
+BOTWO-195 : O FunctionalDataTableCreator πρέπει να σέβεται το LOCALE για τους formatters των labels

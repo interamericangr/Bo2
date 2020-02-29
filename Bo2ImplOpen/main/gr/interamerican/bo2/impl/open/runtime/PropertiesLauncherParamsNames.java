@@ -6,9 +6,7 @@ package gr.interamerican.bo2.impl.open.runtime;
  */
 public class PropertiesLauncherParamsNames {
 
-	/**
-	 * name of the class to launch
-	 */
+	/** name of the class to launch. */
 	public static final String CLASSNAME = "className"; //$NON-NLS-1$
 	/**
 	 * Property key for the pre-processing operation class.

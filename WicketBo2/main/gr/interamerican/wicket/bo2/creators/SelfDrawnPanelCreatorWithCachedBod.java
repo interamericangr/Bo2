@@ -28,11 +28,10 @@ import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.CompoundPropertyModel;
 
 /**
- * {@link PanelCreator} implementation based on {@link SelfDrawnPanel}
- * 
+ * {@link PanelCreator} implementation based on {@link SelfDrawnPanel}.
+ *
  * @param <B> type of Bean
  * @param <C> type of Cache code
- * 
  * @see CacheRegistry
  * @see Cache
  * @see BusinessObjectDescriptor
@@ -42,24 +41,16 @@ public class SelfDrawnPanelCreatorWithCachedBod
  C extends Comparable<? super C>> 
 implements PanelCreator<B> {
 
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Name of cache that holds the BusinessObjectDescriptor
-	 */
+	/** Name of cache that holds the BusinessObjectDescriptor. */
 	String cacheName;
 	
-	/**
-	 * BusinessObjectDescriptor entries typeId
-	 */
+	/** BusinessObjectDescriptor entries typeId. */
 	Long descriptorTypeId;
 	
-	/**
-	 * BusinessObjectDescriptor code
-	 */
+	/** BusinessObjectDescriptor code. */
 	C descriptorCode;
 	
 	/**
@@ -76,10 +67,10 @@ implements PanelCreator<B> {
 
 	/**
 	 * Creates a new SelfDrawnPanelCreator object.
-	 * 
-	 * @param cacheName 
-	 * @param descriptorTypeId 
-	 * @param descriptorCode 
+	 *
+	 * @param cacheName the cache name
+	 * @param descriptorTypeId the descriptor type id
+	 * @param descriptorCode the descriptor code
 	 */
 	public SelfDrawnPanelCreatorWithCachedBod(String cacheName, Long descriptorTypeId, C descriptorCode) {
 		this(cacheName, descriptorTypeId, descriptorCode, 1, null);
@@ -87,11 +78,11 @@ implements PanelCreator<B> {
 
 	/**
 	 * Creates a new SelfDrawnPanelCreator object.
-	 * 
-	 * @param cacheName 
-	 * @param descriptorTypeId 
-	 * @param descriptorCode 
-	 * @param columns 
+	 *
+	 * @param cacheName the cache name
+	 * @param descriptorTypeId the descriptor type id
+	 * @param descriptorCode the descriptor code
+	 * @param columns the columns
 	 */
 	public SelfDrawnPanelCreatorWithCachedBod(String cacheName, Long descriptorTypeId, C descriptorCode, int columns) {
 		this(cacheName, descriptorTypeId, descriptorCode, columns, null);
@@ -99,12 +90,12 @@ implements PanelCreator<B> {
 	
 	/**
 	 * Creates a new SelfDrawnPanelCreator object.
-	 * @param cacheName 
-	 * @param descriptorTypeId 
-	 * @param descriptorCode 
-	 * 
-	 * @param columns 
-	 * @param dropDownFix 
+	 *
+	 * @param cacheName the cache name
+	 * @param descriptorTypeId the descriptor type id
+	 * @param descriptorCode the descriptor code
+	 * @param columns the columns
+	 * @param dropDownFix the drop down fix
 	 */
 	public SelfDrawnPanelCreatorWithCachedBod(String cacheName, Long descriptorTypeId, C descriptorCode, int columns, Map<String, Long> dropDownFix) {
 		super();
@@ -115,6 +106,7 @@ implements PanelCreator<B> {
 		this.dropDownFix = dropDownFix;
 	}
 
+	@Override
 	public Panel createPanel(ModeAwareBeanPanelDef<B> definition) {
 		if (!(definition.getBeanModel() instanceof CompoundPropertyModel)) {
 			throw new RuntimeException("The bean model of ModeAwareBeanPanelDef is not a CompoundPropertyModel."); //$NON-NLS-1$
@@ -125,6 +117,8 @@ implements PanelCreator<B> {
 	}
 	
 	/**
+	 * Bean descriptor.
+	 *
 	 * @return Gets a cached BusinessObjectDescriptor
 	 */
 	@SuppressWarnings("unchecked")

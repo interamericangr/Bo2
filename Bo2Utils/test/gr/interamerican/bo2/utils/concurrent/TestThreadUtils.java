@@ -23,7 +23,7 @@ import org.junit.Test;
 public class TestThreadUtils {
 	
 	/**
-	 * Unit test for sleep(int)
+	 * Unit test for sleep(int).
 	 */
 	@Test
 	public void testSleep() {
@@ -36,7 +36,7 @@ public class TestThreadUtils {
 	}
 	
 	/**
-	 * Unit test for sleep(int)
+	 * Unit test for sleep(int).
 	 */
 	@Test
 	public void testSleepMillis() {
@@ -45,7 +45,7 @@ public class TestThreadUtils {
 		Date end = new Date();
 		long interval = end.getTime()-start.getTime()-100;
 		long abs = Math.abs(interval);
-		boolean ok = abs<10;
+		boolean ok = abs<50;
 		Assert.assertTrue(ok);		
 	}
 

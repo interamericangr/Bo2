@@ -20,7 +20,7 @@ import gr.interamerican.bo2.test.def.posamples.InvoiceSubLine;
 import gr.interamerican.bo2.test.def.posamples.InvoiceSubLineKey;
 
 /**
- * 
+ * The Class InvoiceSubLineImpl.
  */
 @DelegateKeyProperties("")
 public abstract class InvoiceSubLineImpl 
@@ -32,9 +32,7 @@ implements InvoiceSubLine {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * �����
-	 */
+	/** �����. */
 	@Property String name;
 	
 	/**
@@ -47,10 +45,12 @@ implements InvoiceSubLine {
 	 */
 	@Property Long ruleCd;
 	
+	@Override
 	public InvoiceRule getRule() {
 		return rule;
 	}
 
+	@Override
 	public void setRule(InvoiceRule rule) {
 		this.rule = rule;
 		if(rule!=null) {

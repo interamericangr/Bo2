@@ -47,7 +47,4 @@ public class TestChangeAwareSelfDrawnPanelCreator {
 		assertEquals(action, creator.onChangeAction);
 		assertEquals(components, creator.onChangeUpdatingComponents);
 	}
-	
-	
-
 }

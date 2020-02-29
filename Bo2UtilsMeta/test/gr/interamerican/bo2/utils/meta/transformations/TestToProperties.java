@@ -28,7 +28,7 @@ import org.junit.Test;
 public class TestToProperties {
 	
 	/**
-	 * test
+	 * test.
 	 */
 	@SuppressWarnings("nls")
 	@Test

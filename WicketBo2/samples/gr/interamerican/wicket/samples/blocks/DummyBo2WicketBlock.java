@@ -20,6 +20,7 @@ import gr.interamerican.wicket.bo2.callbacks.Bo2WicketBlock;
 /**
  * Dummy block.
  */
+@Deprecated
 public class DummyBo2WicketBlock 
 extends Bo2WicketBlock {
 	/**
@@ -36,5 +37,4 @@ extends Bo2WicketBlock {
 	throws InitializationException, DataException, LogicException {
 		executed = true;
 	}
-
 }

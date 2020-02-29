@@ -21,9 +21,7 @@ import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
  */
 public class IntegerParser extends AbstractParser<Integer>{
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	@Override

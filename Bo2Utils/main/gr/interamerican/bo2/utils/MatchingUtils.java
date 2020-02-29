@@ -30,9 +30,7 @@ import java.util.Set;
  */
 public class MatchingUtils {
 	
-	/**
-	 * runtime exception message for attempting to unite two sets with different keys
-	 */
+	/** runtime exception message for attempting to unite two sets with different keys. */
 	public static final String LEFT_AND_RIGHT_TYPES_MISMATCH = 
 		"The types of the left elements don't match with the types of the right"; //$NON-NLS-1$
 
@@ -44,19 +42,16 @@ public class MatchingUtils {
 	 * of the key sets of the left and right maps. If the same key k, exists in 
 	 * both maps, then the output map will contain an entry that has k as key 
 	 * and as value a pair of the values associated with k in both maps.
-	 * 
-	 * @param left 
-	 *        Map that provides the left element of the pairs that
-	 *        are put in the output map.
-	 * @param right 
-	 *        Map that provides the right element of the pairs that
-	 *        are put in the output map.
-	 *        
+	 *
 	 * @param <K> Type of key.
 	 * @param <L> Type of values of left map.
 	 * @param <R> Type of values of right map.
-	 * 
-	 * @return Returns a map that contains the pairs of values that have 
+	 * @param left        Map that provides the left element of the pairs that
+	 *        are put in the output map.
+	 * @param right        Map that provides the right element of the pairs that
+	 *        are put in the output map.
+	 *        
+	 * @return Returns a map that contains the pairs of values that have
 	 *         the same key in both maps.
 	 */
 	public static <K,L,R> Map<K, Pair<L,R>> intersection(Map<K,L> left, Map<K,R> right) {
@@ -81,11 +76,11 @@ public class MatchingUtils {
 	 * @param <R> the type of the elements of the right set
 	 *  
 	 * @param leftSet input set
-	 * @param rightSet input set
 	 * @param leftClass type of elements of leftSet
-	 * @param rightClass type of elements of rightSet
 	 * @param leftProperty property of leftClass that will provide the keys
 	 * 					   for the left map
+	 * @param rightSet input set
+	 * @param rightClass type of elements of rightSet
 	 * @param rightProperty property of rightClass that will provide the keys
 	 * 					    for the right map
 	 *  
@@ -155,19 +150,16 @@ public class MatchingUtils {
 	 * then the right element of the pair will be null. In case a key is
 	 * contained in the intersection of both keys, then the pair will not
 	 * have any null element.
-	 * 
-	 * @param left 
-	 *        Map that provides the left element of the pairs that
-	 *        are put in the output map.
-	 * @param right 
-	 *        Map that provides the right element of the pairs that
-	 *        are put in the output map.
-	 *        
+	 *
 	 * @param <K> Type of key.
 	 * @param <L> Type of values of left map.
 	 * @param <R> Type of values of right map.
-	 * 
-	 * @return Returns a map that contains the pairs of values that have 
+	 * @param left        Map that provides the left element of the pairs that
+	 *        are put in the output map.
+	 * @param right        Map that provides the right element of the pairs that
+	 *        are put in the output map.
+	 *        
+	 * @return Returns a map that contains the pairs of values that have
 	 *         the same key in both maps.
 	 */
 	public static <K,L,R> Map<K, Pair<L,R>> union(Map<K,L> left, Map<K,R> right) {
@@ -186,13 +178,12 @@ public class MatchingUtils {
 	 * {[1,"x"], [1,"y"], [1,"z"], [3,"x"], [4,"y"], [6,"z"]} 
 	 * should give the following list of pairs:
 	 * {[1,"x"], [1,"y"], [1,"z"], [3,"x"], [4,"y"], [null,"z"], [2, null], [5,null]} 
-	 * 
-	 * @param <L>
-	 * @param <R>
-	 * @param keys
-	 * @param pairs
-	 * 
-	 * @return Returns a list of pairs with all matching and non matching 
+	 *
+	 * @param <L> the generic type
+	 * @param <R> the generic type
+	 * @param keys the keys
+	 * @param pairs the pairs
+	 * @return Returns a list of pairs with all matching and non matching
 	 *         elements of a set of values and a collection of pairs.
 	 */
 	public static <L,R> List<Pair<L, R>> match(Set<L> keys, List<Pair<L, R>> pairs) {
@@ -223,7 +214,7 @@ public class MatchingUtils {
 	 * Creates a list of pairs with all matching and non matching 
 	 * elements of two sets based on a matching rule that matches
 	 * an element of one set to one or more elements of the other set.
-	 * <br/>
+	 * <br>
 	 * The process leaves the input sets intact. 
 	 * 
 	 * @param <L> type of left set elements
@@ -278,20 +269,15 @@ public class MatchingUtils {
 	 * There is no check of the contents of the pairs put in the output
 	 * map. Each pair could have one or even both values (left and right)
 	 * null if there is no match of a key in one or both specified maps.
-	 * 
-	 * @param keys 
-	 *        Set containing the keys of the output map. 
-	 * @param left 
-	 *        Map that provides the left element of the pairs that
-	 *        are put in the output map.
-	 * @param right 
-	 *        Map that provides the right element of the pairs that
-	 *        are put in the output map.
-	 * 
+	 *
 	 * @param <K> Type of key.
 	 * @param <L> Type of values of left map.
 	 * @param <R> Type of values of right map.
-	 * 
+	 * @param keys        Set containing the keys of the output map. 
+	 * @param left        Map that provides the left element of the pairs that
+	 *        are put in the output map.
+	 * @param right        Map that provides the right element of the pairs that
+	 *        are put in the output map.
 	 * @return Returns a map containing all keys of the specified set of keys
 	 *         and values with the pairs of the values associated with each key
 	 *         in the left and right maps.
@@ -327,11 +313,11 @@ public class MatchingUtils {
 	 * @param <R> the type of the elements of the right set
 	 *  
 	 * @param leftSet input set
-	 * @param rightSet input set 
 	 * @param leftClass type of elements of leftSet
-	 * @param rightClass type of elements of rightSet
 	 * @param leftProperty property of leftClass that will provide the keys
 	 * 					   for the left map
+	 * @param rightSet input set
+	 * @param rightClass type of elements of rightSet
 	 * @param rightProperty property of rightClass that will provide the keys
 	 * 					    for the right map
 	 *  
@@ -357,20 +343,15 @@ public class MatchingUtils {
 	/**
 	 * Creates a list with the elements of a collection that match 
 	 * with a sample according to a {@link MatchingRule}.
-	 * 
-	 * @param elements
-	 *        Collection with the objects that is scanned to find matches with 
-	 *        the specified sample. 
-	 * @param sample
-	 *        Sample object that is used to check if the elements of the 
-	 *        collection  
-	 * 
-	 * @param rule
-	 *        Matching rule.
-	 *        
+	 *
 	 * @param <S> Type of sample object.
 	 * @param <T> Type of elements in the collection.
-	 * 
+	 * @param elements        Collection with the objects that is scanned to find matches with 
+	 *        the specified sample. 
+	 * @param sample        Sample object that is used to check if the elements of the 
+	 *        collection  
+	 * @param rule        Matching rule.
+	 *        
 	 * @return Returns a list with the elements of the collection that
 	 *         match with the sample according to the specified 
 	 *         matching rule.
@@ -389,14 +370,11 @@ public class MatchingUtils {
 	/**
 	 * Creates a list of pairs that contains all possible combinations
 	 * of the elements of the left and right collections.
-	 * 
-	 * @param lefts
-	 * @param rights
-	 * @param <L>
-	 *        Type of elements in the left collection.
-	 * @param <R>
-	 *        Type of elements in the right collection.
-	 * 
+	 *
+	 * @param <L>        Type of elements in the left collection.
+	 * @param <R>        Type of elements in the right collection.
+	 * @param lefts the lefts
+	 * @param rights the rights
 	 * @return Returns a list of pairs that contains all possible combinations
 	 *         between the elements of the left and right collection.
 	 */

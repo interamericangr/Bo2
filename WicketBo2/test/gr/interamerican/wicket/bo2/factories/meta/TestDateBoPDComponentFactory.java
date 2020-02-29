@@ -23,24 +23,20 @@ import org.apache.wicket.model.PropertyModel;
 import org.junit.Test;
 
 /**
- * 
+ * A factory for creating TestDateBoPDComponent objects.
  */
 public class TestDateBoPDComponentFactory  extends BaseClassForTestingComponentFactory{	
 	
-	/**
-	 * 
-	 */
+	/** The date bo PD component factory. */
 	private DateBoPDComponentFactory dateBoPDComponentFactory =
 		new DateBoPDComponentFactory();
 	
-	/**
-	 * 
-	 */
+	/** The date bo property descriptor. */
 	private DateBoPropertyDescriptor dateBoPropertyDescriptor = 
 		bean1descriptor.issueDateDesccription();
 	
 	/**
-	 * 
+	 * Test draw main first.
 	 */
 	@Test
 	public void testDrawMain_First(){
@@ -50,7 +46,7 @@ public class TestDateBoPDComponentFactory  extends BaseClassForTestingComponentF
 	}
 	
 	/**
-	 * 
+	 * Test draw main second.
 	 */
 	@Test
 	public void testDrawMain_Second(){

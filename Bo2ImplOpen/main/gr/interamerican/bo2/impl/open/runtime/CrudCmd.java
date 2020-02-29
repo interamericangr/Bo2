@@ -25,128 +25,137 @@ import gr.interamerican.bo2.impl.open.po.PoUtils;
 /**
  * CRUD operations by an {@link AbstractBo2RuntimeCmd}.
  * 
- * @param <P> 
- *        Type of object being operated.
+ * @param <P>
+ *            Type of object being operated.
  */
 public class CrudCmd<P> {
-	
+
 	/**
-	 * Indicates a PoNotFoundException on delete is thrown
-	 * or ignored.
+	 * Indicates a PoNotFoundException on delete is thrown or ignored.
 	 */
 	boolean ignorePnfeOnDelete = false;
-	
+
 	/**
 	 * Persistence utility.
 	 */
 	PersistenceUtility<P> pw;
-	
-	
-	
+
 	/**
-	 * Creates a new CrudCmd object. 
+	 * Creates a new CrudCmd object.
 	 *
 	 * @param pw
-	 *        Persistence worker.
-	 * @param ignorePnfeOnDelete 
-	 *        Specifies if {@link PoNotFoundException}s thrown by delete
-	 *        are ignored. If this is set to <code>true</code>, then if
-	 *        a delete operation throws a {@link PoNotFoundException}, it
-	 *        will be ignored.
+	 *            Persistence worker.
+	 * @param ignorePnfeOnDelete
+	 *            Specifies if {@link PoNotFoundException}s thrown by delete are
+	 *            ignored. If this is set to <code>true</code>, then if a delete
+	 *            operation throws a {@link PoNotFoundException}, it will be
+	 *            ignored.
 	 */
 	public CrudCmd(PersistenceUtility<P> pw, boolean ignorePnfeOnDelete) {
 		super();
 		this.pw = pw;
 		this.ignorePnfeOnDelete = ignorePnfeOnDelete;
 	}
-	
+
 	/**
-	 * Creates a new CrudCmd object. 
+	 * Creates a new CrudCmd object.
 	 *
 	 * @param pw
+	 *            the pw
 	 */
 	public CrudCmd(PersistenceUtility<P> pw) {
 		this(pw, false);
 	}
-	
-	 
+
 	/**
 	 * Performs an operation on P.
-	 * 
+	 *
 	 * @param p
+	 *            the p
 	 * @param cmd
+	 *            the cmd
 	 * @return Returns the result of the operation.
 	 * @throws UnexpectedException
+	 *             the unexpected exception
 	 * @throws DataException
+	 *             the data exception
 	 * @throws LogicException
+	 *             the logic exception
 	 */
-	P perform(P p, PoCmd cmd) 
-	throws UnexpectedException, DataException, LogicException {
+	P perform(P p, PoCmd cmd) throws UnexpectedException, DataException, LogicException {
 		cmd.setPo(p);
 		cmd.execute();
 		return cmd.getPo();
 	}
-	
-	
+
 	/**
 	 * Reads the specified object from the database.
-	 * 
+	 *
 	 * @param p
+	 *            the p
 	 * @return Returns the object.
 	 * @throws UnexpectedException
+	 *             the unexpected exception
 	 * @throws DataException
+	 *             the data exception
 	 * @throws LogicException
+	 *             the logic exception
 	 */
-	public synchronized P read(P p) 
-	throws UnexpectedException, DataException, LogicException {		
+	public synchronized P read(P p) throws UnexpectedException, DataException, LogicException {
 		Read read = new Read();
 		return perform(p, read);
 	}
-	
+
 	/**
 	 * Deletes the specified object from the database.
-	 * 
+	 *
 	 * @param p
+	 *            the p
 	 * @return Returns the object.
 	 * @throws UnexpectedException
+	 *             the unexpected exception
 	 * @throws DataException
+	 *             the data exception
 	 * @throws LogicException
+	 *             the logic exception
 	 */
-	public synchronized P delete(P p) 
-	throws UnexpectedException, DataException, LogicException {	
-		Delete delete = 
-			ignorePnfeOnDelete ? new DeleteIgnoring() : new Delete();
+	public synchronized P delete(P p) throws UnexpectedException, DataException, LogicException {
+		Delete delete = ignorePnfeOnDelete ? new DeleteIgnoring() : new Delete();
 		return perform(p, delete);
 	}
-	
+
 	/**
 	 * Updates the specified object in the database.
-	 * 
+	 *
 	 * @param p
+	 *            the p
 	 * @return Returns the object.
-	 * 
 	 * @throws UnexpectedException
+	 *             the unexpected exception
 	 * @throws DataException
+	 *             the data exception
 	 * @throws LogicException
+	 *             the logic exception
 	 */
-	public synchronized P update(P p) 
-	throws UnexpectedException, DataException, LogicException {		
+	public synchronized P update(P p) throws UnexpectedException, DataException, LogicException {
 		Update update = new Update();
 		return perform(p, update);
 	}
-	
+
 	/**
 	 * Stores the specified object in the database.
-	 * 
+	 *
 	 * @param p
+	 *            the p
 	 * @return Returns the object.
-	 * 
 	 * @throws UnexpectedException
+	 *             the unexpected exception
 	 * @throws DataException
+	 *             the data exception
 	 * @throws LogicException
+	 *             the logic exception
 	 */
-	public synchronized P store(P p) 
-	throws UnexpectedException, DataException, LogicException {
+	public synchronized P store(P p) throws UnexpectedException, DataException, LogicException {
 		Store store = new Store();
 		return perform(p, store);
 	}
@@ -155,17 +164,18 @@ public class CrudCmd<P> {
 	 * Read command.
 	 */
 	class Update extends PoCmd {
+
 		@Override
 		void task() throws DataException {
 			po = pw.update(po);
 		}
 	}
-	
 
 	/**
 	 * Read command.
 	 */
 	class Store extends PoCmd {
+
 		@Override
 		void task() throws DataException {
 			po = pw.store(po);
@@ -176,6 +186,7 @@ public class CrudCmd<P> {
 	 * Read command.
 	 */
 	class Read extends PoCmd {
+
 		@Override
 		void task() throws DataException {
 			po = pw.read(po);
@@ -186,40 +197,42 @@ public class CrudCmd<P> {
 	 * Delete command.
 	 */
 	class Delete extends PoCmd {
+
 		@Override
 		void task() throws DataException {
 			po = pw.delete(po);
 		}
 	}
-	
+
 	/**
 	 * Delete command.
 	 */
 	class DeleteIgnoring extends Delete {
+
 		@Override
 		void task() throws DataException {
 			try {
 				po = pw.read(po);
 				po = pw.delete(po);
 			} catch (PoNotFoundException e) {
-				/* ignore this */
+				// System.out.println("id to be deleted not found: " +
+				// ReflectionUtils.getProperty("id", po));
 			}
 		}
 	}
-	
+
 	/**
-	 * Operation on an {@link PersistentObject}
+	 * Operation on an {@link PersistentObject}.
 	 */
 	abstract class PoCmd extends AbstractBo2RuntimeCmd {
-		
+
 		/**
 		 * Persistent object to operate on.
 		 */
 		P po;
-		
+
 		@Override
-		public void work() throws LogicException, DataException, 
-		InitializationException, UnexpectedException {
+		public void work() throws LogicException, DataException, InitializationException, UnexpectedException {
 			if (pw instanceof Worker) {
 				Worker w = (Worker) pw;
 				w.init(getProvider());
@@ -232,7 +245,7 @@ public class CrudCmd<P> {
 				w.close();
 			}
 		}
-		
+
 		/**
 		 * Gets the po.
 		 * 
@@ -241,38 +254,23 @@ public class CrudCmd<P> {
 		public P getPo() {
 			return po;
 		}
-		
+
 		/**
 		 * Sets the po.
-		 * 
-		 * @param po 
+		 *
+		 * @param po
+		 *            the new po
 		 */
 		public void setPo(P po) {
 			this.po = po;
 		}
-		
+
 		/**
 		 * Task.
+		 *
 		 * @throws DataException
+		 *             the data exception
 		 */
 		abstract void task() throws DataException;
-		
-		
-		
 	}
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 }

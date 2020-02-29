@@ -36,9 +36,7 @@ implements Serializable, Called<C>, ExceptionHandler {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	/**
-	 * Components that are passed as parameters in an object's event handler
-	 */
+	/** Components that are passed as parameters in an object's event handler. */
 	transient Map<Class<?>, Object> handlerParameters;
 	
 	/**
@@ -64,12 +62,10 @@ implements Serializable, Called<C>, ExceptionHandler {
 
 	/**
 	 * Gets a parameter of an event handler.
-	 * 
-	 * @param paramType
-	 *        Type of parameter.
-	 * @param <T> 
-	 *        Type of parameter.
+	 *
+	 * @param <T>        Type of parameter.
 	 *  
+	 * @param paramType        Type of parameter.
 	 * @return Gets the parameter with the specified type.
 	 */
 	public <T> T getHandlerParameter(Class<T> paramType) {
@@ -85,18 +81,15 @@ implements Serializable, Called<C>, ExceptionHandler {
 	 * handler of the component so that the event handler runs the
 	 * event handler should set the event handler parameter with
 	 * this method.
-	 * 
-	 * @param paramType 
-	 *        Type of parameter. 
-	 * @param param 
-	 *        Parameter.
-	 * @param <T>
-	 *        Type of parameter.
+	 *
+	 * @param <T>        Type of parameter.
+	 * @param paramType        Type of parameter. 
+	 * @param param        Parameter.
 	 */
 	public <T> void setHandlerParameter(Class<T> paramType, T param) {
 		getHandlerParameters().put(paramType, param);
 	}
-	
+
 	/**
 	 * Null safe getter.
 	 * 
@@ -108,7 +101,7 @@ implements Serializable, Called<C>, ExceptionHandler {
 		}
 		return handlerParameters;
 	}
-	
+
 	@Override
 	public C getCaller() {
 		return caller;
@@ -118,11 +111,9 @@ implements Serializable, Called<C>, ExceptionHandler {
 	public void setCaller(C caller) {
 		this.caller = caller;
 	}
-	
+
 	@Override
 	public void handle(Throwable t) {
 		exceptionHandler.handle(t);
 	}
-
-		
 }

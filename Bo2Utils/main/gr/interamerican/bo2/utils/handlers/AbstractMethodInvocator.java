@@ -41,14 +41,10 @@ public abstract class AbstractMethodInvocator implements SimpleCommand {
 	 */
 	protected String methodName;
 	
-	/**
-	 * method owner
-	 */
+	/** method owner. */
 	protected Object owner;	
 
-	/**
-	 * method owner
-	 */
+	/** method owner. */
 	protected Class<?> ownerClass;
 	
 	/**
@@ -57,7 +53,7 @@ public abstract class AbstractMethodInvocator implements SimpleCommand {
 	protected ExceptionHandler handler;
 	
 	/**
-	 * Method of object to be invoked by this Bo2WicketBlock.
+	 * Method of object to be invoked by this SimpleCommand.
 	 */
 	transient protected Method method;
 	
@@ -69,9 +65,9 @@ public abstract class AbstractMethodInvocator implements SimpleCommand {
 	/**
 	 * Creates a new MethodInvocator object. 
 	 *
-	 * @param handler
-	 * @param methodName
-	 * @param owner
+	 * @param handler the handler
+	 * @param methodName the method name
+	 * @param owner the owner
 	 */
 	public AbstractMethodInvocator(ExceptionHandler handler, String methodName,	Object owner) {
 		super();
@@ -87,10 +83,10 @@ public abstract class AbstractMethodInvocator implements SimpleCommand {
 	/**
 	 * Creates a new MethodInvocator object. 
 	 *
-	 * @param handler
-	 * @param methodName
-	 * @param owner
-	 * @param argumentTypes 
+	 * @param handler the handler
+	 * @param methodName the method name
+	 * @param owner the owner
+	 * @param argumentTypes the argument types
 	 */
 	public AbstractMethodInvocator
 	(ExceptionHandler handler, String methodName, Object owner, Class<?>... argumentTypes) {
@@ -106,9 +102,9 @@ public abstract class AbstractMethodInvocator implements SimpleCommand {
 	/**
 	 * Creates a new MethodInvocator object for a static method of a class. 
 	 *
-	 * @param handler
-	 * @param methodName
-	 * @param clazz
+	 * @param handler the handler
+	 * @param methodName the method name
+	 * @param clazz the clazz
 	 */
 	public AbstractMethodInvocator(ExceptionHandler handler, String methodName,	Class<?> clazz) {
 		super();
@@ -124,10 +120,10 @@ public abstract class AbstractMethodInvocator implements SimpleCommand {
 	/**
 	 * Creates a new MethodInvocator object. 
 	 *
-	 * @param handler
-	 * @param methodName
-	 * @param clazz
-	 * @param argumentTypes 
+	 * @param handler the handler
+	 * @param methodName the method name
+	 * @param clazz the clazz
+	 * @param argumentTypes the argument types
 	 */
 	public AbstractMethodInvocator
 	(ExceptionHandler handler, String methodName, Class<?> clazz, Class<?>... argumentTypes) {

@@ -17,42 +17,37 @@ import gr.interamerican.bo2.impl.open.po.ValuesBasedKey;
 
 
 /**
- * 
+ * The Class Phone.
  */
 public class Phone implements PersistentObject<ValuesBasedKey> {
 
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * the phone number
-	 */
+	/** the phone number. */
 	private String phoneNumber;
 
-	/**
-	 * encapsulates the userid, which is the foreign key to the users table
-	 */
+	/** encapsulates the userid, which is the foreign key to the users table. */
 	private ValuesBasedKey key = new ValuesBasedKey(0);
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see gr.interamerican.bo2.arch.PersistentObject#getKey()
-	 */
+	@Override
 	public ValuesBasedKey getKey() {
 		return this.key;
 	}
 
 	/**
-	 * @param key
+	 * Sets the key.
+	 *
+	 * @param key the new key
 	 */
+	@Override
 	public void setKey(ValuesBasedKey key) {
 		this.key = key;
 	}
 
 	/**
+	 * Gets the user id.
+	 *
 	 * @return returns the user id
 	 */
 	public int getUserId() {
@@ -60,14 +55,17 @@ public class Phone implements PersistentObject<ValuesBasedKey> {
 	}
 
 	/**
-	 * @param userId
-	 *            sets the user id
+	 * Sets the user id.
+	 *
+	 * @param userId            sets the user id
 	 */
 	public void setUserId(int userId) {
 		this.key = new ValuesBasedKey(userId);
 	}
 
 	/**
+	 * Gets the phone number.
+	 *
 	 * @return returns the phone number
 	 */
 	public String getPhoneNumber() {
@@ -75,15 +73,18 @@ public class Phone implements PersistentObject<ValuesBasedKey> {
 	}
 
 	/**
-	 * @param phoneNumber
-	 *            sets the phone number
+	 * Sets the phone number.
+	 *
+	 * @param phoneNumber            sets the phone number
 	 */
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
 	/**
-	 * @param userId
+	 * Gets the dummy.
+	 *
+	 * @param userId the user id
 	 * @return a mock user object for testing
 	 */
 	public static Phone getDummy(int userId) {
@@ -93,9 +94,7 @@ public class Phone implements PersistentObject<ValuesBasedKey> {
 		return phone;
 	}
 	
-	/* (non-Javadoc)
-	 * @see gr.interamerican.bo2.arch.PersistentObject#tidy()
-	 */
+	@Override
 	public void tidy() {
 		/* empty */
 	}

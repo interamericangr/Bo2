@@ -12,15 +12,12 @@ import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.impl.StdSchedulerFactory;
 
-
 /**
  * scheduler registry.
  */
 public class QuartzSchedulerRegistry {
 
-	/**
-	 * Scheduler
-	 */
+	/** Scheduler. */
 	private static Scheduler oneScheduler;
 
 	/**
@@ -29,6 +26,8 @@ public class QuartzSchedulerRegistry {
 	private static List<QuartzjobDescription> scheduledJobDescriptions = new ArrayList<QuartzjobDescription>();
 
 	/**
+	 * Gets the scheduler.
+	 *
 	 * @return the one scheduler.
 	 */
 	public static Scheduler getScheduler() {
@@ -53,19 +52,21 @@ public class QuartzSchedulerRegistry {
 
 	/**
 	 * shutdowns the scheduler.
-	 * 
+	 *
 	 * @throws SchedulerException
+	 *             the scheduler exception
 	 */
 	public static void shutdown() throws SchedulerException {
-		if((oneScheduler!=null) && oneScheduler.isStarted()) {
+		if ((oneScheduler != null) && oneScheduler.isStarted()) {
 			oneScheduler.shutdown();
 		}
 	}
 
 	/**
 	 * appends a collection of {@link JobDescription}s to the list.
-	 * 
+	 *
 	 * @param descriptions
+	 *            the descriptions
 	 */
 	public static synchronized void appendJobDescription(Collection<QuartzjobDescription> descriptions) {
 		scheduledJobDescriptions.addAll(descriptions);
@@ -73,23 +74,28 @@ public class QuartzSchedulerRegistry {
 
 	/**
 	 * appends a collection of {@link JobDescription}s to the list.
-	 * 
+	 *
 	 * @param descriptions
+	 *            the descriptions
 	 */
 	public static synchronized void appendJobDescription(QuartzjobDescription descriptions) {
 		scheduledJobDescriptions.add(descriptions);
 	}
 
 	/**
+	 * Gets the job description based on status.
+	 *
 	 * @param status
-	 * @return the list of job descriptions that much the given status. If status == null returns all descriptions
+	 *            the status
+	 * @return the list of job descriptions that much the given status. If
+	 *         status == null returns all descriptions
 	 */
 	public static synchronized List<QuartzjobDescription> getJobDescriptionBasedOnStatus(JobStatus status) {
-		if (status==null){
+		if (status == null) {
 			return scheduledJobDescriptions;
 		}
-		List<QuartzjobDescription> descriptions = SelectionUtils.selectByProperty("executionStatus", status, //$NON-NLS-1$
-				scheduledJobDescriptions, QuartzjobDescription.class);
+		List<QuartzjobDescription> descriptions = SelectionUtils
+				.selectByProperty(QuartzjobDescription::getExecutionStatus, status, scheduledJobDescriptions);
 		return descriptions;
 	}
 

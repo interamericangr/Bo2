@@ -45,12 +45,11 @@ public class XmlUtils {
 	
 	/**
 	 * Convert a {@link NodeList} to List.
-	 * 
-	 * @param <T>
-	 * @param nodeList
-	 *        NodeList to convert.
+	 *
+	 * @param <T> the generic type
+	 * @param nodeList        NodeList to convert.
 	 *        
-	 * @return Returns a list with all nodes. 
+	 * @return Returns a list with all nodes.
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T extends Node> List<T> asList(NodeList nodeList) {
@@ -65,14 +64,11 @@ public class XmlUtils {
 	/**
 	 * Gets all nodes under a specified element, that are instances of a specified
 	 * class.
-	 * 
-	 * @param <T>
-	 * @param element
-	 *        Element under which the nodes are checked.
-	 * @param clazz
-	 *        All elements are checked to be instances of this class.
-	 * @param nodes
-	 *        Nodes matching the criteria are added to this list.
+	 *
+	 * @param <T> the generic type
+	 * @param element        Element under which the nodes are checked.
+	 * @param clazz        All elements are checked to be instances of this class.
+	 * @param nodes        Nodes matching the criteria are added to this list.
 	 *        The list is not cleared in the beginning of the method.
 	 */
 	static <T> void getAllNodesOfType(Node element, Class<T> clazz, List<T> nodes) {

@@ -17,13 +17,13 @@ import gr.interamerican.bo2.utils.adapters.Modification;
 
 /**
  * Modifies an object by setting its properties equal to the values
- * of the respective properties of a number of supplied beans.<br/>
+ * of the respective properties of a number of supplied beans.<br>
  * 
  * The beans are specified in the constructor. Their order is
- * important.<br/>
+ * important.<br>
  * 
  * The modification of the object is performed by
- * {@link JavaBeanUtils#copyProperties(Object, Object)}. <br/> 
+ * {@link JavaBeanUtils#copyProperties(Object, Object)}. <br> 
  *  
  * @param <T> 
  *        Type of object being modified.
@@ -39,7 +39,7 @@ implements Modification<T> {
 	/**
 	 * Creates a new CopyFromBeans object. 
 	 *
-	 * @param beans
+	 * @param beans the beans
 	 */
 	public CopyFromBeans(Object... beans) {
 		super();

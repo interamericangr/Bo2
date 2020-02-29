@@ -12,26 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.wicket.markup.html.panel.searchFlow;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import gr.interamerican.bo2.samples.bean.BeanWithOrderedFields;
-import gr.interamerican.bo2.samples.collections.BeanCollections;
-import gr.interamerican.wicket.ajax.markup.html.form.CallbackAjaxButton;
-import gr.interamerican.wicket.callback.AbstractCallbackAction;
-import gr.interamerican.wicket.creators.DataTableCreator;
-import gr.interamerican.wicket.markup.html.TestPage;
-import gr.interamerican.wicket.markup.html.panel.bean.SingleBeanPanel;
-import gr.interamerican.wicket.markup.html.panel.crud.picker.CrudPickerPanel;
-import gr.interamerican.wicket.markup.html.panel.listTable.ListTablePanel;
-import gr.interamerican.wicket.markup.html.panel.picker.MultipleSelectionsPanel;
-import gr.interamerican.wicket.markup.html.panel.picker.PickerPanel;
-import gr.interamerican.wicket.samples.actions.DummyCallback;
-import gr.interamerican.wicket.samples.creators.DataTableCreatorForBeanWithOrderedFields;
-import gr.interamerican.wicket.samples.creators.DataTableCreatorForBeanWithOrderedFieldsWithCheckBoxes;
-import gr.interamerican.wicket.samples.creators.DataTableCreatorForBeanWithOrderedFieldsWithRadios;
-import gr.interamerican.wicket.samples.creators.FieldsPanelCreatorForBeanWithOrderedFields;
-import gr.interamerican.wicket.test.WicketTest;
+import static org.junit.Assert.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -51,6 +32,21 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.util.tester.FormTester;
 import org.junit.Assert;
 import org.junit.Test;
+
+import gr.interamerican.bo2.samples.bean.BeanWithOrderedFields;
+import gr.interamerican.bo2.samples.collections.BeanCollections;
+import gr.interamerican.wicket.ajax.markup.html.form.CallbackAjaxButton;
+import gr.interamerican.wicket.callback.MockedCallback;
+import gr.interamerican.wicket.creators.PanelCreator;
+import gr.interamerican.wicket.markup.html.TestPage;
+import gr.interamerican.wicket.markup.html.panel.bean.SingleBeanPanel;
+import gr.interamerican.wicket.markup.html.panel.crud.picker.CrudPickerPanel;
+import gr.interamerican.wicket.markup.html.panel.listTable.ListTablePanel;
+import gr.interamerican.wicket.markup.html.panel.picker.MultipleSelectionsPanel;
+import gr.interamerican.wicket.markup.html.panel.picker.PickerPanel;
+import gr.interamerican.wicket.samples.creators.SampleDataTableCreators;
+import gr.interamerican.wicket.samples.panels.BeanWithOrderedFieldsFormPanel;
+import gr.interamerican.wicket.test.WicketTest;
 
 /**
  * Unit test for {@link SearchFlowPanelDef}.
@@ -189,7 +185,7 @@ public class TestSearchFlowPanel extends WicketTest {
     	List<Serializable> errors = tester.getMessages(FeedbackMessage.ERROR);
 		Assert.assertFalse(errors.isEmpty());
 		
-		Assert.assertTrue(errors.get(0).toString().contains("noDoubleHere"));
+		Assert.assertTrue(errors.get(0).toString().contains("fifth"));
 		System.out.println(errors.get(0));
     	
 		tester.assertNoInfoMessage();
@@ -197,6 +193,64 @@ public class TestSearchFlowPanel extends WicketTest {
 		tester.assertInvisible(path("resultsPanel"));
 	}
 	
+	/**
+	 * Tests submitting the criteria panel form.
+	 * 
+	 * Results panel is shown as a {@link CrudPickerPanel}. Only View button available
+	 */
+	@Test
+	public void testShowResults_View() {
+		SearchFlowPanelDef<BeanWithOrderedFields, BeanWithOrderedFields> sfpDef = createDef_View();
+		panel = new SearchFlowPanel<BeanWithOrderedFields, BeanWithOrderedFields>(sfpDef);
+		tester.startPage(getTestPage(panel));
+		tester.assertVisible(path("criteriaPanel"));
+		SingleBeanPanel<BeanWithOrderedFields> SingleBeanPanel = (SingleBeanPanel<BeanWithOrderedFields>)  
+			tester.getComponentFromLastRenderedPage(path("criteriaPanel"));
+		assertNotNull(SingleBeanPanel);
+		
+		tester.assertInvisible(path("resultsPanel"));
+		
+		tester.assertComponent(path("criteriaPanel:beanForm"), Form.class);
+		tester.assertVisible(path("criteriaPanel:beanForm"));
+		Form<BeanWithOrderedFields> form = (Form<BeanWithOrderedFields>)
+			tester.getComponentFromLastRenderedPage(path("criteriaPanel:beanForm"));
+		assertNotNull(form);
+		
+		tester.assertComponent(path("criteriaPanel:beanForm:executeButton"), CallbackAjaxButton.class);
+		tester.assertVisible(path("criteriaPanel:beanForm:executeButton"));
+		CallbackAjaxButton executeButton = (CallbackAjaxButton) 
+			tester.getComponentFromLastRenderedPage(path("criteriaPanel:beanForm:executeButton"));
+		assertNotNull(executeButton);
+		
+		FormTester formTester = tester.newFormTester(path("criteriaPanel:beanForm"));
+    	formTester.submit();
+    	tester.executeAjaxEvent(executeButton, "onclick");
+    	
+    	tester.assertNoErrorMessage();
+		tester.assertNoInfoMessage();
+		
+		/* the new results panel is rendered */
+		tester.assertComponent(path("resultsPanel"), CrudPickerPanel.class);
+		
+		DataTable<BeanWithOrderedFields,String> datatable = (DataTable<BeanWithOrderedFields,String>) 
+				tester.getComponentFromLastRenderedPage(path("resultsPanel:tableForm:radioGroup:listTable"));
+		assertEquals(list.size(), datatable.getDataProvider().size());
+		
+		tester.assertComponent(path("resultsPanel:tableForm"), Form.class);
+		tester.assertComponent(path("resultsPanel:tableForm:viewButton"), AjaxButton.class);
+		tester.assertComponent(path("resultsPanel:tableForm:radioGroup"), RadioGroup.class);
+		
+		RadioGroup<BeanWithOrderedFields> radioGroup = (RadioGroup<BeanWithOrderedFields>) tester.getComponentFromLastRenderedPage(path("resultsPanel:tableForm:radioGroup"));
+    	radioGroup.setModelObject(list.get(0));
+    	Map<String, String[]> map= tester.getRequest().getParameterMap();	
+		map.put(path("resultsPanel:tableForm:radioGroup"), new String[]{"radio0"});
+    	
+		AjaxButton viewButton = (AjaxButton) tester.getComponentFromLastRenderedPage(path("resultsPanel:tableForm:viewButton"));
+		tester.executeAjaxEvent(viewButton, "onclick");
+		
+		tester.assertComponent(path("resultsPanel:beanPanel"), SingleBeanPanel.class);
+		tester.assertComponent(path("resultsPanel:beanPanel:beanForm:beanFormFieldsPanel"), BeanWithOrderedFieldsFormPanel.class);
+	}
 	/**
 	 * Tests submitting the criteria panel form.
 	 * 
@@ -252,7 +306,7 @@ public class TestSearchFlowPanel extends WicketTest {
 		RadioGroup<BeanWithOrderedFields> radioGroup = (RadioGroup<BeanWithOrderedFields>) 
 			tester.getComponentFromLastRenderedPage(path("resultsPanel:tableForm:radioGroup"));
 		
-		DataTable<BeanWithOrderedFields> datatable = (DataTable<BeanWithOrderedFields>) 
+		DataTable<BeanWithOrderedFields,String> datatable = (DataTable<BeanWithOrderedFields,String>) 
 			tester.getComponentFromLastRenderedPage(path("resultsPanel:tableForm:radioGroup:listTable"));
 		assertEquals(list.size(), datatable.getDataProvider().size());
 		
@@ -326,7 +380,7 @@ public class TestSearchFlowPanel extends WicketTest {
 		CheckGroup<BeanWithOrderedFields> checkGroup = (CheckGroup<BeanWithOrderedFields>) 
 			tester.getComponentFromLastRenderedPage(path("resultsPanel:tableForm:checkGroup"));
 		
-		DataTable<BeanWithOrderedFields> datatable = (DataTable<BeanWithOrderedFields>) 
+		DataTable<BeanWithOrderedFields,String> datatable = (DataTable<BeanWithOrderedFields,String>) 
 			tester.getComponentFromLastRenderedPage(path("resultsPanel:tableForm:checkGroup:listTable"));
 		assertEquals(list.size(), datatable.getDataProvider().size());
 		
@@ -443,7 +497,7 @@ public class TestSearchFlowPanel extends WicketTest {
 		
 		tester.assertComponent(path("resultsPanel:tableForm"), Form.class);		
 		
-		DataTable<BeanWithOrderedFields> datatable = (DataTable<BeanWithOrderedFields>) 
+		DataTable<BeanWithOrderedFields,String> datatable = (DataTable<BeanWithOrderedFields,String>) 
 			tester.getComponentFromLastRenderedPage(path("resultsPanel:tableForm:listTable"));
 		assertEquals(list.size(), datatable.getDataProvider().size());
 		
@@ -499,7 +553,7 @@ public class TestSearchFlowPanel extends WicketTest {
 		
 		tester.assertComponent(path("resultsPanel:tableForm"), Form.class);		
 		
-		DataTable<BeanWithOrderedFields> datatable = (DataTable<BeanWithOrderedFields>) 
+		DataTable<BeanWithOrderedFields,String> datatable = (DataTable<BeanWithOrderedFields,String>) 
 			tester.getComponentFromLastRenderedPage(path("resultsPanel:tableForm:radioGroup:listTable"));
 		assertEquals(list.size(), datatable.getDataProvider().size());
 		
@@ -567,7 +621,7 @@ public class TestSearchFlowPanel extends WicketTest {
 		
 		tester.assertComponent(path("resultsPanel:tableForm"), Form.class);		
 		
-		DataTable<BeanWithOrderedFields> datatable = (DataTable<BeanWithOrderedFields>) 
+		DataTable<BeanWithOrderedFields,String> datatable = (DataTable<BeanWithOrderedFields,String>) 
 			tester.getComponentFromLastRenderedPage(path("resultsPanel:tableForm:radioGroup:listTable"));
 		assertEquals(list.size(), datatable.getDataProvider().size());
 		
@@ -597,10 +651,14 @@ public class TestSearchFlowPanel extends WicketTest {
 		formTester.submit();
 		
 		assertEquals(list.size(), 7);
+		assertEquals(7, ((CrudPickerPanel<?>)tester.getComponentFromLastRenderedPage(path("resultsPanel"))).getDefinition().getList().size());
+		assertEquals(7, definition_CrudPick.getResults().size());
 		
 		tester.executeAjaxEvent(saveButton, "onclick");
 		
 		assertEquals(list.size(), 8);
+		assertEquals(8, ((CrudPickerPanel<?>)tester.getComponentFromLastRenderedPage(path("resultsPanel"))).getDefinition().getList().size());
+		assertEquals(8, definition_CrudPick.getResults().size());
 		tester.assertInvisible(path("resultsPanel:beanPanel"));
 		
 		/* press new and then back */
@@ -639,24 +697,9 @@ public class TestSearchFlowPanel extends WicketTest {
 	BeanWithOrderedFields userInput = new BeanWithOrderedFields("44","44",44,44L,44.4);
 	
 	/**
-	 * table creator.
-	 */
-	DataTableCreatorForBeanWithOrderedFieldsWithRadios tableCreator_Pick = createCreator_Pick();
-	
-	/**
-	 * table creator.
-	 */
-	DataTableCreatorForBeanWithOrderedFieldsWithCheckBoxes tableCreator_MultiplePick = createCreator_MultiplePick();
-	
-	/**
-	 * table creator.
-	 */
-	DataTableCreatorForBeanWithOrderedFields tableCreator_List = createCreator_List();
-	
-	/**
 	 * Dummy callback for item selection.
 	 */
-	DummyCallback pickAction = new DummyCallback();
+	MockedCallback pickAction = new MockedCallback();
 	
 	/**
 	 * Panel definition.
@@ -682,72 +725,50 @@ public class TestSearchFlowPanel extends WicketTest {
 	 * list with results.
 	 */
 	List<BeanWithOrderedFields> list = BeanCollections.listOfBeanWithOrderedFields();
-	
-	/**
-	 * Creates the {@link DataTableCreator}.
-	 * 
-	 * @return Returns a DataTableCreatorForBeanWithOrderedFields.
-	 */
-	DataTableCreatorForBeanWithOrderedFieldsWithRadios createCreator_Pick() {
-		DataTableCreatorForBeanWithOrderedFieldsWithRadios cr = 
-			new DataTableCreatorForBeanWithOrderedFieldsWithRadios();		
-		cr.setRowsPerPage(5);
-		return cr;
-	}
-	
-	/**
-	 * Creates the {@link DataTableCreator}.
-	 * 
-	 * @return Returns a DataTableCreatorForBeanWithOrderedFields.
-	 */
-	DataTableCreatorForBeanWithOrderedFieldsWithCheckBoxes createCreator_MultiplePick() {
-		DataTableCreatorForBeanWithOrderedFieldsWithCheckBoxes cr = 
-			new DataTableCreatorForBeanWithOrderedFieldsWithCheckBoxes();		
-		cr.setRowsPerPage(5);
-		return cr;
-	}
-	
-	/**
-	 * Creates the {@link DataTableCreator}.
-	 * 
-	 * @return Returns a DataTableCreatorForBeanWithOrderedFields.
-	 */
-	DataTableCreatorForBeanWithOrderedFields createCreator_List() {
-		DataTableCreatorForBeanWithOrderedFields cr = 
-			new DataTableCreatorForBeanWithOrderedFields();		
-		cr.setRowsPerPage(5);
-		return cr;
-	}
-	
+
 	/**
 	 * Creates the {@link SearchFlowPanelDef}.
 	 * 
 	 * @return a SearchFlowPanel definition.
 	 */
 	SearchFlowPanelDef<BeanWithOrderedFields, BeanWithOrderedFields> createDef_CrudPick() {
-		
-		FieldsPanelCreatorForBeanWithOrderedFields panelCreator = 
-			new FieldsPanelCreatorForBeanWithOrderedFields();
-		
 		SearchFlowPanelDef<BeanWithOrderedFields, BeanWithOrderedFields> def =
 			new SearchFlowPanelDefImpl<BeanWithOrderedFields, BeanWithOrderedFields>();
 		
-		def.setDeleteAction(new DeleteAction());
-		def.setUpdateAction(new UpdateAction());
-		def.setSaveAction(new SaveAction());
-		def.setBeanFieldsPanelCreator(panelCreator);
+		def.setDeleteAction(this::delete);
+		def.setUpdateAction(this::update);
+		def.setSaveAction(this::save);
+		def.setBeanFieldsPanelCreator(PanelCreator.getCompoundCreator(BeanWithOrderedFieldsFormPanel::new));
 		def.setBeanModel(new CompoundPropertyModel<BeanWithOrderedFields>(criterion));
 				
-		def.setQueryAction(new QueryAction());
+		def.setQueryAction(this::query);
 		def.setCriteriaModel(new CompoundPropertyModel<BeanWithOrderedFields>(criterion));
-		FieldsPanelCreatorForBeanWithOrderedFields criteriaPanelCreator = 
-			new FieldsPanelCreatorForBeanWithOrderedFields();
-		def.setCriteriaFieldsPanelCreator(criteriaPanelCreator);
-		
-		def.setAutoPickSingleResult(false);
+		def.setCriteriaFieldsPanelCreator(PanelCreator.getCompoundCreator(BeanWithOrderedFieldsFormPanel::new));
 		def.setBackAction(null);
-		def.setDataTableCreator(tableCreator_Pick);
+		def.setDataTableCreator(SampleDataTableCreators.radio(5));
 		def.setPickAction(pickAction);
+		def.setResultsHidesCriteria(true);
+		def.setWicketId(TestPage.TEST_ID);
+		return def;
+	}
+	
+	/**
+	 * Creates the {@link SearchFlowPanelDef} with no CRUD actions and viewEnabled=true.
+	 * 
+	 * @return a SearchFlowPanel definition.
+	 */
+	SearchFlowPanelDef<BeanWithOrderedFields, BeanWithOrderedFields> createDef_View() {
+		SearchFlowPanelDef<BeanWithOrderedFields, BeanWithOrderedFields> def =
+			new SearchFlowPanelDefImpl<BeanWithOrderedFields, BeanWithOrderedFields>();
+		def.setViewEnabled(true);
+		def.setBeanFieldsPanelCreator(PanelCreator.getCompoundCreator(BeanWithOrderedFieldsFormPanel::new));
+		def.setBeanModel(new CompoundPropertyModel<BeanWithOrderedFields>(criterion));
+				
+		def.setQueryAction(this::query);
+		def.setCriteriaModel(new CompoundPropertyModel<BeanWithOrderedFields>(criterion));
+		def.setCriteriaFieldsPanelCreator(PanelCreator.getCompoundCreator(BeanWithOrderedFieldsFormPanel::new));
+		def.setBackAction(null);
+		def.setDataTableCreator(SampleDataTableCreators.radio(5));
 		def.setResultsHidesCriteria(true);
 		def.setWicketId(TestPage.TEST_ID);
 		return def;
@@ -759,22 +780,15 @@ public class TestSearchFlowPanel extends WicketTest {
 	 * @return a SearchFlowPanel definition.
 	 */
 	SearchFlowPanelDef<BeanWithOrderedFields, BeanWithOrderedFields> createDef_MultiplePick() {
-		
 		SearchFlowPanelDef<BeanWithOrderedFields, BeanWithOrderedFields> def =
 			new SearchFlowPanelDefImpl<BeanWithOrderedFields, BeanWithOrderedFields>();
-		
-		def.setQueryAction(new QueryAction());
+		def.setQueryAction(this::query);
 		def.setCriteriaModel(new CompoundPropertyModel<BeanWithOrderedFields>(criterion));
-		FieldsPanelCreatorForBeanWithOrderedFields criteriaPanelCreator = 
-			new FieldsPanelCreatorForBeanWithOrderedFields();
-		def.setCriteriaFieldsPanelCreator(criteriaPanelCreator);
-		
+		def.setCriteriaFieldsPanelCreator(PanelCreator.getCompoundCreator(BeanWithOrderedFieldsFormPanel::new));
 		def.setResultsHidesCriteria(false);
-		def.setAllowMultipleSelections(true);
-		def.setAutoPickSingleResult(false);
 		def.setBackAction(null);
-		def.setDataTableCreator(tableCreator_MultiplePick);
-		def.setPickAction(new MultipleSelectionsAction());
+		def.setDataTableCreator(SampleDataTableCreators.checkBoxes(5));
+		def.setMultiplePickAction(this::pick);
 		def.setResultsHidesCriteria(false);
 		def.setSelectionsModel(new Model<ArrayList<BeanWithOrderedFields>>());
 		def.setWicketId(TestPage.TEST_ID);
@@ -787,20 +801,14 @@ public class TestSearchFlowPanel extends WicketTest {
 	 * @return a SearchFlowPanel definition.
 	 */
 	SearchFlowPanelDef<BeanWithOrderedFields, BeanWithOrderedFields> createDef_Pick() {
-		
 		SearchFlowPanelDef<BeanWithOrderedFields, BeanWithOrderedFields> def =
 			new SearchFlowPanelDefImpl<BeanWithOrderedFields, BeanWithOrderedFields>();
-		
-		def.setQueryAction(new QueryAction());
+		def.setQueryAction(this::query);
 		def.setCriteriaModel(new CompoundPropertyModel<BeanWithOrderedFields>(criterion));
-		FieldsPanelCreatorForBeanWithOrderedFields criteriaPanelCreator = 
-			new FieldsPanelCreatorForBeanWithOrderedFields();
-		def.setCriteriaFieldsPanelCreator(criteriaPanelCreator);
-		
-		def.setAutoPickSingleResult(false);
+		def.setCriteriaFieldsPanelCreator(PanelCreator.getCompoundCreator(BeanWithOrderedFieldsFormPanel::new));
 		def.setBackAction(null);
 		def.setBeanModel(new CompoundPropertyModel<BeanWithOrderedFields>(new BeanWithOrderedFields()));
-		def.setDataTableCreator(tableCreator_Pick);
+		def.setDataTableCreator(SampleDataTableCreators.radio(5));
 		def.setPickAction(pickAction);
 		def.setResultsHidesCriteria(false);
 		def.setWicketId(TestPage.TEST_ID);
@@ -813,19 +821,14 @@ public class TestSearchFlowPanel extends WicketTest {
 	 * @return a SearchFlowPanel definition.
 	 */
 	SearchFlowPanelDef<BeanWithOrderedFields, BeanWithOrderedFields> createDef_List() {
-		
 		SearchFlowPanelDef<BeanWithOrderedFields, BeanWithOrderedFields> def =
 			new SearchFlowPanelDefImpl<BeanWithOrderedFields, BeanWithOrderedFields>();
-		
-		def.setQueryAction(new QueryAction());
+		def.setQueryAction(this::query);
 		def.setCriteriaModel(new CompoundPropertyModel<BeanWithOrderedFields>(criterion));
-		FieldsPanelCreatorForBeanWithOrderedFields criteriaPanelCreator = 
-			new FieldsPanelCreatorForBeanWithOrderedFields();
-		def.setCriteriaFieldsPanelCreator(criteriaPanelCreator);
+		def.setCriteriaFieldsPanelCreator(PanelCreator.getCompoundCreator(BeanWithOrderedFieldsFormPanel::new));
 		def.setBeanModel(new CompoundPropertyModel<BeanWithOrderedFields>(new BeanWithOrderedFields()));
-		
 		def.setBackAction(null);
-		def.setDataTableCreator(tableCreator_List);
+		def.setDataTableCreator(SampleDataTableCreators.empty(5));
 		def.setPickAction(null);
 		def.setResultsHidesCriteria(false);
 		def.setWicketId(TestPage.TEST_ID);
@@ -833,124 +836,56 @@ public class TestSearchFlowPanel extends WicketTest {
 	}
 	
 	/**
-	 * Query action.
+	 * query action
+	 * 
+	 * @param bean
+	 * @return result
 	 */
-	class QueryAction extends AbstractCallbackAction {
-		
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L;
-
-		public void callBack(AjaxRequestTarget target) {
-			target.add(panel);
-			query();
-		}
-		
-		public void callBack(AjaxRequestTarget target, Form<?> form) {
-			target.add(panel);
-			query();
-		}
-		
-		/**
-		 * query method.
-		 */
-		void query() {
-			panel.getDefinition().setResults(list);
-		}
+	List<BeanWithOrderedFields> query(@SuppressWarnings("unused") BeanWithOrderedFields bean) {
+		return list;
 	}
-	
+
 	/**
-	 * Query action.
+	 * save action
+	 * @param bwof
+	 * @return saved bean
 	 */
-	abstract class CrudAction extends AbstractCallbackAction {
-		
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L;
-
-		public void callBack(AjaxRequestTarget target) {
-			target.add(panel.resultsPanel);
-			work();
-		}
-		
-		public void callBack(AjaxRequestTarget target, Form<?> form) {
-			target.add(panel.resultsPanel);
-			work();
-		}
-		
-		/**
-		 * main method method.
-		 */
-		protected abstract void work();
+	BeanWithOrderedFields save(BeanWithOrderedFields bwof) {
+		assertNotNull(bwof);
+		assertEquals(bwof, userInput);
+		/* store the bean to the database here */
+		return bwof;
 	}
-	
-	
+
 	/**
-	 * Update action.
+	 * update action
+	 * @param bwof
+	 * @return updated bean
 	 */
-	class SaveAction extends CrudAction {		
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		protected void work() {
-			BeanWithOrderedFields bwof = panel.getDefinition().getBeanModel().getObject();
-			assertNotNull(bwof);
-			assertEquals(bwof, userInput);
-			/* store the bean to the database here */
-		}
+	BeanWithOrderedFields update(BeanWithOrderedFields bwof) {
+		assertNotNull(bwof);
+		assertEquals(bwof, userInput);
+		/* update the bean to the database here */
+		return bwof;
 	}
-	
+
 	/**
-	 * Update action.
+	 * delete action
+	 * @param bwof
 	 */
-	class UpdateAction extends CrudAction {		
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		protected void work() {
-			BeanWithOrderedFields bwof = panel.getDefinition().getBeanModel().getObject();
-			assertNotNull(bwof);
-			assertEquals(bwof, userInput);
-			/* update the bean to the database here */
-		}
+	void delete(BeanWithOrderedFields bwof) {
+		assertNotNull(bwof);
+		/* code that performs a delete SQL operation */
 	}
-	
+
 	/**
-	 * Delete action.
+	 * pick action
+	 * 
+	 * @param target
+	 * @param beans
 	 */
-	class DeleteAction extends CrudAction {		
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		protected void work() {
-			/* code that performs a delete SQL operation */
-		}
+	void pick(AjaxRequestTarget target, List<BeanWithOrderedFields> beans) {
+		assertNotNull(target);
+		assertNotNull(beans);
 	}
-	
-	/**
-	 * Multiple selections action.
-	 */
-	class MultipleSelectionsAction extends CrudAction {		
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L;
-
-		@Override
-		protected void work() {
-			/* code that gets the selections from the definition and does something */
-		}
-	}
-
 }

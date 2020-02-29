@@ -36,6 +36,7 @@ public class EqualsIgnoreCaseCondition implements Condition<String> {
 	String value;
 
 	
+	@Override
 	public boolean check(String t) {
 		if (t==null) {
 			return (value==null);

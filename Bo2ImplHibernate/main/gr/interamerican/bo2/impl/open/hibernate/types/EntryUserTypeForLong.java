@@ -22,17 +22,19 @@ import java.sql.SQLException;
 import org.hibernate.HibernateException;
 
 /**
- * Concrete implementation for Codified<Long> entries.
+ * Concrete implementation for Codified&lt;Long&gt; entries.
  */
 public class EntryUserTypeForLong
 extends EntryUserType<Long> {
-  
+
 	@Override
     protected Long getCode(ResultSet rs, String name) 
     throws SQLException {		
     	return rs.getLong(name);
     }
-    
+
+	@Deprecated
+	@Override
 	public void nullSafeSet(PreparedStatement st, Object value, int index) throws HibernateException, SQLException {
         if (value==null) {
             st.setLong(index, 0L);
@@ -42,22 +44,24 @@ extends EntryUserType<Long> {
             st.setLong( index, val.getCode());
         }
     }
-    
+
+	@Override
     public String objectToSQLString(Object value) {
     	@SuppressWarnings("unchecked")
 		TypedSelectable<Long> ts = (TypedSelectable<Long>) value; 
         return ts.getCode().toString();
     }
- 
+
+	@Override
     public String toXMLString(Object value) {
     	@SuppressWarnings("unchecked")
 		TypedSelectable<Long> ts = (TypedSelectable<Long>) value; 
         return ts.getCode().toString();
     }
-    
+
+	@Override
     public Object fromXMLString(String xmlValue) {
 		Long code = NumberUtils.string2Long(xmlValue);
 		return this.cache().get(typeId, code);
 	}
- 
 }

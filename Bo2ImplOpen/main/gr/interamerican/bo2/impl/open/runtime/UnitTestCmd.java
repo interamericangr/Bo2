@@ -52,9 +52,6 @@ extends AbstractBo2RuntimeCmd {
 	}
 
 
-	/* (non-Javadoc)
-	 * @see gr.interamerican.bo2.impl.open.runtime.AbstractBo2RuntimeCmd#work()
-	 */
 	@Override
 	public void work() 
 	throws LogicException, DataException, InitializationException, UnexpectedException {
@@ -73,11 +70,11 @@ extends AbstractBo2RuntimeCmd {
 	
 	/**
 	 * Unit test code goes here.
-	 * 
-	 * @throws LogicException
-	 * @throws DataException
-	 * @throws InitializationException
-	 * @throws UnexpectedException
+	 *
+	 * @throws LogicException the logic exception
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	public abstract void test() 
 	throws LogicException, DataException, InitializationException, UnexpectedException;

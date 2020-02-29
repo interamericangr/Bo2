@@ -15,27 +15,18 @@ package gr.interamerican.bo2.samples.implopen.operations;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
 import gr.interamerican.bo2.impl.open.annotations.ManagerName;
-import gr.interamerican.bo2.samples.implopen.pw.JdbcPersistenceWorkerImpl;
+import gr.interamerican.bo2.impl.open.workers.AbstractOperation;
 
 /**
- * Simple implementation of AbstractTransactionalOperation used in 
- * this unit test. 
- * 
- * This operation should succeed.
- * 
- * This implementation depends on 
- * {@link JdbcPersistenceWorkerImpl}.
- *
+ * Simple implementation of {@link AbstractOperation} that will always fail.
  */
 @ManagerName("LOCALDB")
 public class FailingOperation 
 extends UpdateUserOperation {
-			
-	/**
-	 * Exception message
-	 */
+
+	/** Exception message. */
 	public static final String MESSAGE="foo"; //$NON-NLS-1$
-		
+	
 	@Override
 	public void execute() throws LogicException, DataException {
 		super.execute();

@@ -25,9 +25,7 @@ import java.util.Date;
 public class DateBoPropertyDescriptor 
 extends AbstractBoPropertyDescriptor<Date> {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -48,7 +46,7 @@ extends AbstractBoPropertyDescriptor<Date> {
 	/**
 	 * Creates a new DateBoPropertyDescriptor object. 
 	 *
-	 * @param parser
+	 * @param parser the parser
 	 */
 	public DateBoPropertyDescriptor(Parser<Date> parser) {
 		super(parser);

@@ -24,16 +24,14 @@ import gr.interamerican.bo2.utils.annotations.Child;
 import java.util.Set;
 
 /**
- * 
+ * The Class CityImpl.
  */
 @DelegateKeyProperties({})
 public abstract class CityImpl 
 extends AbstractModificationRecordPo<CityKey>
 implements City {
 	
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -46,6 +44,7 @@ implements City {
 	 */
 	@Child @Property Set<Suburb> suburbs;
 	
+	@Override
 	public int getPopulation() {
 		int population = 0;
 		for (Populated child : suburbs) {

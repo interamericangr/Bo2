@@ -32,24 +32,18 @@ import org.junit.Test;
 public class TestStringIndexedCsvRecord {
 	
  
-	/**
-	 * number of Columns
-	 */
+	/** number of Columns. */
 	private static final int COLUMNS = 14;
 	
 	
-	/**
-	 * cvsRecord to test
-	 */
+	/** cvsRecord to test. */
 	private CsvRecord rec = new CsvRecord(COLUMNS);
 	
-	/**
-	 * StringIndexedCsvRecord to test
-	 */
+	/** StringIndexedCsvRecord to test. */
 	private StringIndexedCsvRecord indexedRecord = new StringIndexedCsvRecord(rec);
 	
 	/**
-	 * tests successful creation
+	 * tests successful creation.
 	 */	
 	@Test
 	public void testCreation() {
@@ -62,14 +56,15 @@ public class TestStringIndexedCsvRecord {
 	
 	
 	/**
-	 * Test ColumnName
+	 * Test ColumnName.
 	 */
 	@Test
 	public void testColumnName(){
 		assertEquals("Column1", StringIndexedCsvRecord.columnName(1)); //$NON-NLS-1$
 	}
+	
 	/**
-	 * Test ColumnName
+	 * Test ColumnName.
 	 */
 	@Test
 	public void testGetFields(){
@@ -78,7 +73,7 @@ public class TestStringIndexedCsvRecord {
 	
 	
 	/**
-	 * tests getString
+	 * tests getString.
 	 */
 	@Test
 	public void testGetString() {
@@ -89,7 +84,7 @@ public class TestStringIndexedCsvRecord {
 	}
 	
 	/**
-	 * tests getInt
+	 * tests getInt.
 	 */
 	@Test
 	public void testGetInt() {
@@ -105,7 +100,7 @@ public class TestStringIndexedCsvRecord {
 	}
 	
 	/**
-	 * tests getDouble
+	 * tests getDouble.
 	 */
 	@Test
 	public void testGetDouble() {
@@ -126,7 +121,7 @@ public class TestStringIndexedCsvRecord {
 	}
 	
 	/**
-	 * tests getDate
+	 * tests getDate.
 	 */
 	@Test
 	public void testGetDate() {
@@ -146,7 +141,7 @@ public class TestStringIndexedCsvRecord {
 	}
 	
 	/**
-	 * tests getCalendar
+	 * tests getCalendar.
 	 */
 	@Test
 	public void testGetCalendar() {
@@ -163,7 +158,7 @@ public class TestStringIndexedCsvRecord {
 	}
 	
 	/**
-	 * tests getLong
+	 * tests getLong.
 	 */
 	@Test
 	public void testGetLong() {
@@ -180,7 +175,7 @@ public class TestStringIndexedCsvRecord {
 	}
 	
 	/**
-	 * tests getFloat
+	 * tests getFloat.
 	 */
 	@Test
 	public void testGetFloat() {
@@ -197,7 +192,7 @@ public class TestStringIndexedCsvRecord {
 	}
 	
 	/**
-	 * tests getFloat
+	 * tests getFloat.
 	 */
 	@Test
 	public void testGetShort() {
@@ -214,7 +209,7 @@ public class TestStringIndexedCsvRecord {
 	}
 	
 	/**
-	 * tests getBigDecimal
+	 * tests getBigDecimal.
 	 */
 	@Test
 	public void testGetBigDecimal() {
@@ -231,7 +226,7 @@ public class TestStringIndexedCsvRecord {
 	}
 	
 	/**
-	 * tests getBoolean
+	 * tests getBoolean.
 	 */
 	@Test
 	public void testGetBoolean() {
@@ -248,7 +243,7 @@ public class TestStringIndexedCsvRecord {
 	}
 	
 	/**
-	 * tests getObject
+	 * tests getObject.
 	 */
 	@Test
 	public void testGetObject() {		
@@ -259,7 +254,7 @@ public class TestStringIndexedCsvRecord {
 	}
 	
 	/**
-	 * tests getByte
+	 * tests getByte.
 	 */
 	@Test
 	public void testGetByte() {		
@@ -271,7 +266,7 @@ public class TestStringIndexedCsvRecord {
 	
 	
 	/**
-	 * tests getBytes
+	 * tests getBytes.
 	 */
 	@Test
 	public void testGetBytes() {		
@@ -282,7 +277,7 @@ public class TestStringIndexedCsvRecord {
 	}
 	
 	/**
-	 * tests getRec
+	 * tests getRec.
 	 */
 	@Test
 	public void testGetRec() {		

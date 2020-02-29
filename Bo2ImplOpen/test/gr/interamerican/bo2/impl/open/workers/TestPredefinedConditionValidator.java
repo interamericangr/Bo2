@@ -58,9 +58,9 @@ public class TestPredefinedConditionValidator {
 	
 	/**
 	 * Tests the apply().
-	 * 
-	 * @throws DataException 
-	 * @throws RuleException 
+	 *
+	 * @throws RuleException the rule exception
+	 * @throws DataException the data exception
 	 */
 	@SuppressWarnings("unchecked")
 	@Test(expected=RuleException.class)
@@ -68,7 +68,7 @@ public class TestPredefinedConditionValidator {
 		MessagesBean bean = mock(MessagesBean.class);
 		String key = "X"; //$NON-NLS-1$		
 		Condition<Object> condition= Mockito.mock(Condition.class);
-		Mockito.when(condition.check(Mockito.anyObject())).thenReturn(true);		
+		Mockito.when(condition.check(Mockito.any())).thenReturn(true);		
 		PredefinedConditionValidator<Object> validator = 
 			new ConcreteConditionValidator(condition, true, bean, key);
 		validator.setValidatedObject(new Object());
@@ -77,9 +77,9 @@ public class TestPredefinedConditionValidator {
 	
 	/**
 	 * Tests the apply().
-	 * 
-	 * @throws DataException 
-	 * @throws RuleException 
+	 *
+	 * @throws RuleException the rule exception
+	 * @throws DataException the data exception
 	 */
 	@SuppressWarnings("unchecked")
 	@Test
@@ -87,7 +87,7 @@ public class TestPredefinedConditionValidator {
 		MessagesBean bean = mock(MessagesBean.class);
 		String key = "X"; //$NON-NLS-1$		
 		Condition<Object> condition= Mockito.mock(Condition.class);
-		Mockito.when(condition.check(Mockito.anyObject())).thenReturn(false);		
+		Mockito.when(condition.check(Mockito.any())).thenReturn(false);		
 		PredefinedConditionValidator<Object> validator = 
 			new ConcreteConditionValidator(condition, true, bean, key);
 		validator.setValidatedObject(new Object());
@@ -97,9 +97,9 @@ public class TestPredefinedConditionValidator {
 	
 	/**
 	 * Tests apply().
-	 * 
-	 * @throws DataException 
-	 * @throws RuleException 
+	 *
+	 * @throws RuleException the rule exception
+	 * @throws DataException the data exception
 	 */
 	@SuppressWarnings("unchecked")
 	@Test
@@ -107,7 +107,7 @@ public class TestPredefinedConditionValidator {
 		MessagesBean bean = mock(MessagesBean.class);
 		String key = "X"; //$NON-NLS-1$		
 		Condition<Object> condition= Mockito.mock(Condition.class);
-		Mockito.when(condition.check(Mockito.anyObject())).thenReturn(true);		
+		Mockito.when(condition.check(Mockito.any())).thenReturn(true);		
 		PredefinedConditionValidator<Object> validator = 
 			new ConcreteConditionValidator(condition, false, bean, key);
 		validator.setValidatedObject(new Object());
@@ -117,9 +117,9 @@ public class TestPredefinedConditionValidator {
 	
 	/**
 	 * Tests apply().
-	 * 
-	 * @throws DataException 
-	 * @throws RuleException 
+	 *
+	 * @throws RuleException the rule exception
+	 * @throws DataException the data exception
 	 */
 	@SuppressWarnings("unchecked")
 	@Test(expected=RuleException.class)
@@ -127,7 +127,7 @@ public class TestPredefinedConditionValidator {
 		MessagesBean bean = mock(MessagesBean.class);
 		String key = "X"; //$NON-NLS-1$		
 		Condition<Object> condition= Mockito.mock(Condition.class);
-		Mockito.when(condition.check(Mockito.anyObject())).thenReturn(false);		
+		Mockito.when(condition.check(Mockito.any())).thenReturn(false);		
 		PredefinedConditionValidator<Object> validator = 
 			new ConcreteConditionValidator(condition, false, bean, key);
 		validator.setValidatedObject(new Object());
@@ -153,6 +153,14 @@ public class TestPredefinedConditionValidator {
 		 */
 		Object vo;
 
+		/**
+		 * Instantiates a new concrete condition validator.
+		 *
+		 * @param condition the condition
+		 * @param failOn the fail on
+		 * @param messages the messages
+		 * @param messageKey the message key
+		 */
 		@SuppressWarnings("nls")
 		public ConcreteConditionValidator(Condition<Object> condition, boolean failOn, MessagesBean messages, String messageKey) {
 			super(condition, failOn, messages, messageKey, "vo");

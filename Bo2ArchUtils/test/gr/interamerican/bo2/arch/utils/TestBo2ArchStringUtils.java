@@ -20,27 +20,21 @@ import gr.interamerican.bo2.utils.StringUtils;
 import org.junit.Test;
 
 /**
- * 
+ * Unit test of {@link Bo2ArchStringUtils}.
  */
 public class TestBo2ArchStringUtils {
 
-	/**
-	 * CODE
-	 */
+	/** CODE. */
 	private static final Integer CODE = 1;
 	
-	/**
-	 * TYPE_ID
-	 */
+	/** TYPE_ID. */
 	private static final String NAME = "name1"; //$NON-NLS-1$
 	
-	/**
-	 * codifiedNamedImpl
-	 */
+	/** codifiedNamedImpl. */
 	CodifiedNamedImpl<Integer> impl = new CodifiedNamedImpl<Integer>();
 	
 	/**
-	 * tests FormatCodifiedNamed
+	 * tests FormatCodifiedNamed.
 	 */
 	@Test
 	public void testFormatCodifiedNamed(){
@@ -53,7 +47,7 @@ public class TestBo2ArchStringUtils {
 	
 	
 	/**
-	 * tests FormatCodifiedNamed with null value
+	 * tests FormatCodifiedNamed with null value.
 	 */
 	@Test
 	public void testFormatCodifiedNamed_NullValue(){

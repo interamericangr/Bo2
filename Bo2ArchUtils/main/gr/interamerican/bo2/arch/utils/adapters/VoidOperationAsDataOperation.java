@@ -31,8 +31,8 @@ implements LogicOperation {
 	
 	/**
 	 * Creates a new VoidOperationAsDataOperation object.
-	 * 
-	 * @param operation
+	 *
+	 * @param operation the operation
 	 */
 	public VoidOperationAsDataOperation(VoidOperation<T> operation) {
 		super();

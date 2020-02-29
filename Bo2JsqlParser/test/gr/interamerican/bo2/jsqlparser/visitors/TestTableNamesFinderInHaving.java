@@ -25,14 +25,14 @@ import org.junit.Test;
 
 
 /**
- * test suite {@link TableNamesFinderInHaving}
+ * test suite {@link TableNamesFinderInHaving}.
  */
 public class TestTableNamesFinderInHaving {
 
 	/**
-	 * test method for {@link TableNamesFinderInHaving#getHavingTables()}
-	 * 
-	 * @throws JSQLParserException
+	 * test method for {@link TableNamesFinderInHaving#getHavingTables()}.
+	 *
+	 * @throws JSQLParserException the JSQL parser exception
 	 */
 	@Test
 	public void testGetHavingTables() throws JSQLParserException {

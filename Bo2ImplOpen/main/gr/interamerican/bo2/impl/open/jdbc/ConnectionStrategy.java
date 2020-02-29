@@ -17,7 +17,9 @@ import gr.interamerican.bo2.arch.TransactionManager;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.arch.utils.ProviderUtils;
 import gr.interamerican.bo2.arch.utils.ext.Bo2Session;
+import gr.interamerican.bo2.impl.open.utils.Bo2Utils;
 import gr.interamerican.bo2.utils.ArrayUtils;
+import gr.interamerican.bo2.utils.StringUtils;
 
 import java.sql.Connection;
 
@@ -33,17 +35,16 @@ public abstract class ConnectionStrategy {
 	
 	/**
 	 * Implements doConnect on component.
-	 * 
+	 *
 	 * @return Returns the connection.
-	 * 
-	 * @throws InitializationException
+	 * @throws InitializationException the initialization exception
 	 */
 	public abstract Connection doConnect() throws InitializationException;
 	
 	/**
 	 * Implements parseProperties on component.
-	 * 
-	 * @throws InitializationException
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	public abstract void parseProperties() throws InitializationException;
 
@@ -106,11 +107,17 @@ public abstract class ConnectionStrategy {
 				return;
 			}
 		}
-		String msg = "Incompatible transaction manager and connection strategy in the current configuration.";
+		String msg = StringUtils.concat(
+				"Incompatible transaction manager and connection ",
+				"strategy in the current configuration (",
+				tmClass.getName() + " - " + this.getClass().getName() + ") on manager ",
+				component.getProperties().getProperty(Bo2Utils.RW_MANAGER_NAME_KEY));
 		throw new InitializationException(msg);
 	}
 	
 	/**
+	 * Compatible transaction manager implementations.
+	 *
 	 * @return Returns the {@link TransactionManager} implementations that are known
 	 *         to work with this {@link ConnectionStrategy}.
 	 */

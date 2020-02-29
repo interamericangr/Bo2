@@ -54,14 +54,10 @@ extends AbstractResourceConsumer {
 	 */
 	private static Logger LOGGER = LoggerFactory.getLogger(AbstractHibernateWorker.class);
 	
-	/**
-	 * Hibernate session
-	 */
+	/** Hibernate session. */
 	protected Session session;
 	
-	/**
-	 * Hibernate provider
-	 */
+	/** Hibernate provider. */
 	private HibernateSessionProvider hiberProv;
 	
 	@Override
@@ -87,9 +83,8 @@ extends AbstractResourceConsumer {
 	 * the {@link HibernateSessionProvider}'s flushing policy.
 	 * An optimistic HibernateSessionProvider implementation would flush any
 	 * changes. 
-	 * 
-	 * @param object
-	 * 
+	 *
+	 * @param object the object
 	 * @see HibernateSessionProvider#flush(Object)
 	 */
 	void flush(Object object) {			
@@ -98,8 +93,8 @@ extends AbstractResourceConsumer {
 	
 	/**
 	 * Registers an object.
-	 * 
-	 * @param object
+	 *
+	 * @param object the object
 	 */
 	void register(Object object) {
 		hiberProv.register(object);
@@ -107,9 +102,9 @@ extends AbstractResourceConsumer {
 	
 	/**
 	 * Wrapper around session.get(clazz, id).
-	 * 
-	 * @param clazz
-	 * @param id
+	 *
+	 * @param clazz the clazz
+	 * @param id the id
 	 * @return Returns the object returned by session.get.
 	 */
 	Object getEntity(Class<?> clazz, Serializable id) {		
@@ -132,8 +127,8 @@ extends AbstractResourceConsumer {
 	
 	/**
 	 * Wrapper around session.save(object).
-	 * 
-	 * @param object
+	 *
+	 * @param object the object
 	 * @return Returns the object returned by session.save.
 	 */
 	Serializable saveEntity(Object object) {		
@@ -155,8 +150,8 @@ extends AbstractResourceConsumer {
 	
 	/**
 	 * Wrapper around session.delete(object).
-	 * 
-	 * @param object
+	 *
+	 * @param object the object
 	 */
 	void deleteEntity(Object object) {		
 		try {
@@ -177,8 +172,8 @@ extends AbstractResourceConsumer {
 	
 	/**
 	 * Wrapper around session.merge(object).
-	 * 
-	 * @param object
+	 *
+	 * @param object the object
 	 * @return Returns the object returned by session.merge.
 	 */
 	Object mergeEntity(Object object) {		
@@ -207,8 +202,8 @@ extends AbstractResourceConsumer {
 	
 	/**
 	 * Logs an exception.
-	 * 
-	 * @param he
+	 *
+	 * @param he the he
 	 */
 	protected void logHibernateException(HibernateException he) {
 		@SuppressWarnings("nls")
@@ -220,7 +215,8 @@ extends AbstractResourceConsumer {
 	
 	/**
 	 * Is it ok to perform a session.update on the given object?
-	 * @param object
+	 *
+	 * @param object the object
 	 * @return True, if it is ok to perform a session.update on the given object
 	 */
 	boolean shouldUpdateFirst(Object object) {

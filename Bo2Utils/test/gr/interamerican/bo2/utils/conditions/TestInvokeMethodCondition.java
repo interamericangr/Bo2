@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 /**
- * Tests for {@link InvokeMethod}.
+ * Tests for {@link InvokeMethodCondition}.
  */
 @SuppressWarnings("nls")
 public class TestInvokeMethodCondition {
@@ -36,7 +36,6 @@ public class TestInvokeMethodCondition {
 		@SuppressWarnings("unchecked")
 		Condition<Object> target = Mockito.mock(Condition.class);
 		String methodName = "check";
-		Class<?> clazz = Condition.class;
 		Class<?> argType = Object.class;
 		InvokeMethodCondition<Object> invoke = 
 			new InvokeMethodCondition<Object>(target, methodName, argType);
@@ -52,7 +51,5 @@ public class TestInvokeMethodCondition {
 			new InvokeMethodCondition<String>(StringUtils.class, "isNullOrBlank", String.class);
 		Assert.assertTrue(invoke.check(null));
 		Assert.assertFalse(invoke.check("X"));
-		
 	}
-
 }

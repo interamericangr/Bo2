@@ -1,5 +1,8 @@
 package gr.interamerican.bo2.impl.open.po;
 
+import java.util.Collection;
+import java.util.Set;
+
 import gr.interamerican.bo2.arch.Key;
 import gr.interamerican.bo2.arch.PersistentObject;
 import gr.interamerican.bo2.utils.GenericsUtils;
@@ -10,11 +13,6 @@ import gr.interamerican.bo2.utils.annotations.Child;
 import gr.interamerican.bo2.utils.enums.IndexPropertyType;
 import gr.interamerican.bo2.utils.reflect.analyze.TypeAnalysis;
 import gr.interamerican.bo2.utils.reflect.beans.BeanPropertyDefinition;
-
-import java.util.Collection;
-import java.util.Set;
-
-import com.sun.star.uno.RuntimeException;
 
 /**
  * This utility makes it easier to add an element to a {@link Child} collection
@@ -58,9 +56,9 @@ public class ChildAdder {
 	
 	/**
 	 * Creates a new AddChild object. 
-	 * 
-	 * @param poClass
-	 * @param childCollectionName
+	 *
+	 * @param poClass the po class
+	 * @param childCollectionName the child collection name
 	 */
 	public ChildAdder(Class<? extends PersistentObject<?>> poClass, String childCollectionName) {
 		this.poClass = Utils.cast(poClass);
@@ -130,7 +128,4 @@ public class ChildAdder {
 		}
 		
 	}
-	
-	
-
 }

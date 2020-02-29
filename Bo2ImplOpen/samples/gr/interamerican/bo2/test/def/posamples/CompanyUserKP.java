@@ -13,12 +13,22 @@
 package gr.interamerican.bo2.test.def.posamples;
 
 /**
- * 
+ * The Interface CompanyUserKP.
  */
 public interface CompanyUserKP {
 	
+	/**
+	 * Gets the id.
+	 *
+	 * @return the id
+	 */
 	public Long getId();
 	
+	/**
+	 * Sets the id.
+	 *
+	 * @param id the new id
+	 */
 	public void setId(Long id);
 
 }

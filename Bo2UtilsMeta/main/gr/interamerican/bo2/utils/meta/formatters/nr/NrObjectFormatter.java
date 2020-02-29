@@ -20,9 +20,7 @@ import gr.interamerican.bo2.utils.meta.formatters.ObjectFormatter;
  */
 public class NrObjectFormatter extends NullReturningFormatter<Object> {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Singleton.

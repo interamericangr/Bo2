@@ -12,13 +12,13 @@
  ******************************************************************************/
 package gr.interamerican.wicket.markup.html.panel.back;
 
-import gr.interamerican.wicket.callback.CallbackAction;
-import gr.interamerican.wicket.markup.html.panel.service.ServicePanelDefImpl;
-
 import org.apache.wicket.model.IModel;
 
+import gr.interamerican.wicket.callback.LegacyCallbackAction;
+import gr.interamerican.wicket.markup.html.panel.service.ServicePanelDefImpl;
+
 /**
- * Implementation of {@link ServicePanelWithBackDef}
+ * Implementation of {@link ServicePanelWithBackDef}.
  */
 public class ServicePanelWithBackDefImpl 
 extends ServicePanelDefImpl
@@ -29,31 +29,31 @@ implements ServicePanelWithBackDef {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Back {@link CallbackAction}
-	 */
-	private CallbackAction backAction;
+	/** Back {@link LegacyCallbackAction}. */
+	private LegacyCallbackAction backAction;
 	
 	/**
 	 * Back button label resource model.
 	 */
 	private IModel<String> backLabel;
-	
-			
-	public CallbackAction getBackAction() {
+
+	@Override
+	public LegacyCallbackAction getBackAction() {
 		return backAction;
 	}
-	
-	public void setBackAction(CallbackAction backAction) {
+
+	@Override
+	public void setBackAction(LegacyCallbackAction backAction) {
 		this.backAction = backAction;
 	}
 
+	@Override
 	public IModel<String> getBackLabelModel() {
 		return backLabel;
 	}
 
+	@Override
 	public void setBackLabelModel(IModel<String> label) {
 		this.backLabel = label;
 	}
-
 }

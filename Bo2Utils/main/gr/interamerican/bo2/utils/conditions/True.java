@@ -20,6 +20,7 @@ package gr.interamerican.bo2.utils.conditions;
  */
 public class True<T> implements Condition<T>{
 		
+	@Override
 	public boolean check(T t) {		
 		return true;
 	}

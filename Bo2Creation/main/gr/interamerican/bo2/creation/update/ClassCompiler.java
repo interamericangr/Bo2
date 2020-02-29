@@ -14,6 +14,7 @@ package gr.interamerican.bo2.creation.update;
 
 import gr.interamerican.bo2.creation.Bo2Creation;
 import gr.interamerican.bo2.creation.exception.ClassCreationException;
+import gr.interamerican.bo2.utils.ReflectionUtils;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -46,7 +47,7 @@ public class ClassCompiler {
 	/**
 	 * Creates a new ClassCreator object. 
 	 *
-	 * @param updaters
+	 * @param updaters the updaters
 	 */
 	public ClassCompiler(AbstractClassUpdater... updaters) {
 		this(Arrays.asList(updaters));
@@ -55,7 +56,7 @@ public class ClassCompiler {
 	/**
 	 * Creates a new ClassCreator object. 
 	 *
-	 * @param updaters
+	 * @param updaters the updaters
 	 */
 	public ClassCompiler(Collection<AbstractClassUpdater> updaters) {
 		super();
@@ -64,15 +65,12 @@ public class ClassCompiler {
 	
 	/**
 	 * Creates a new class.
-	 * 
-	 * @param className
-	 *        Name of the new class.
-	 * @param classLoader 
-	 *        Classloader that we want to load the new class. Null for not specifying it.
+	 *
+	 * @param className        Name of the new class.
+	 * @param classLoader        Classloader that we want to load the new class. Null for not specifying it.
 	 *        
 	 * @return Returns the new class.
-	 * 
-	 * @throws ClassCreationException
+	 * @throws ClassCreationException the class creation exception
 	 */
 	public Class<?> createType(String className, ClassLoader classLoader) 
 	throws ClassCreationException {
@@ -107,17 +105,16 @@ public class ClassCompiler {
 	 * In this case, an attempt is made to get it from the current
 	 * ClassLoader. If this fails, it should be safe to compile the 
 	 * Class again.
-	 * 
-	 * @param className
-	 * 
+	 *
+	 * @param className the class name
 	 * @return Returns the Class with name equal to className.
-	 * @throws ClassCreationException
+	 * @throws ClassCreationException the class creation exception
 	 */
 	private Class<?> possiblyExistingInClassPool(String className) throws ClassCreationException {
 		try {
 			CtClass ctClass = Bo2Creation.get(className);
 			if(ctClass!=null) {
-				Class<?> fromClassLoader = getFromClassLoader(className);
+				Class<?> fromClassLoader = ReflectionUtils.forName(className);
 				if(fromClassLoader!=null) {
 					return fromClassLoader;
 				}
@@ -127,25 +124,11 @@ public class ClassCompiler {
 			}
 		} catch (NotFoundException e) {
 			return null;
+		} catch (ClassNotFoundException e) {
+			return null;
 		} catch (CannotCompileException e) {
 			throw new ClassCreationException(e);
 		}
 		return null;
 	}
-	
-	/**
-	 * Searches the current ClassLoader for the Class with className.
-	 * 
-	 * @param className
-	 * 
-	 * @return Returns the Class with name equal to className. 
-	 */
-	private Class<?> getFromClassLoader(String className) {
-		try {
-			return Class.forName(className);
-		} catch (ClassNotFoundException cnfe) {
-			return null;
-		}
-	}
-
 }

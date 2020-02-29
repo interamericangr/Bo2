@@ -12,17 +12,14 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.runtime;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import gr.interamerican.bo2.arch.ResourceWrapper;
 import gr.interamerican.bo2.arch.TransactionManager;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.creation.ObjectFactory;
 import gr.interamerican.bo2.creation.proxies.Mocks;
 import gr.interamerican.bo2.impl.open.utils.Bo2;
+import gr.interamerican.bo2.impl.open.utils.Bo2Utils;
 import gr.interamerican.bo2.samples.factories.MockObjectFactoryForResourceWrappers;
 import gr.interamerican.bo2.samples.providers.IMockRw1;
 import gr.interamerican.bo2.samples.providers.IMockRw2;
@@ -58,7 +55,8 @@ public class TestProviderImpl {
 	
 	/**
 	 * Tests the constructor.
-	 * @throws InitializationException 
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test	
 	public void testConstructor_withMap() throws InitializationException {		
@@ -70,11 +68,11 @@ public class TestProviderImpl {
 	
 
     /**
-	 * Creates a mock provider.
-	 * 
+     * Creates a mock provider.
+     *
      * @return Returns a new mock ProviderImpl.
-     * @throws InitializationException 
-	 */
+     * @throws InitializationException the initialization exception
+     */
 	private ProviderImpl mock() throws InitializationException {
 	    Map<String, ObjectFactory> map = new HashMap<String, ObjectFactory>();
 		map.put(OK, new MockObjectFactoryForResourceWrappers());		
@@ -87,7 +85,8 @@ public class TestProviderImpl {
 	
 	/**
 	 * Tests getResource succeed.
-	 * @throws InitializationException 
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test	
 	public void testGetResource_ok() throws InitializationException {
@@ -98,7 +97,8 @@ public class TestProviderImpl {
 	
 	/**
 	 * Tests getResource succeed.
-	 * @throws InitializationException 
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test	
 	public void testGetResource_withAlias() throws InitializationException {
@@ -117,8 +117,8 @@ public class TestProviderImpl {
 	
 	/**
 	 * Tests setManagerAlias.
-	 * 
-	 * @throws InitializationException 
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test	
 	public void testSetManagerAlias() throws InitializationException {
@@ -130,7 +130,8 @@ public class TestProviderImpl {
 	
 	/**
 	 * Tests getResource when there is no manager with the specified name.
-	 * @throws InitializationException 
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=InitializationException.class)	
 	public void testGetResource_managerNotFound() throws InitializationException {
@@ -140,7 +141,8 @@ public class TestProviderImpl {
 	
 	/**
 	 * Tests getResource when the manager throws.
-	 * @throws InitializationException 
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=InitializationException.class)	
 	public void testGetResource_managerThrows() throws InitializationException {
@@ -150,8 +152,8 @@ public class TestProviderImpl {
 	
 	/**
 	 * Tests getTransactionManager.
-	 * 
-	 * @throws InitializationException 
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test()	
 	public void testGetTransactionManager_withTm() throws InitializationException {
@@ -167,8 +169,8 @@ public class TestProviderImpl {
 	
 	/**
 	 * Tests getTransactionManager.
-	 * 
-	 * @throws InitializationException 
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test()	
 	public void testGetTransactionManager_withoutTm() throws InitializationException {
@@ -183,14 +185,14 @@ public class TestProviderImpl {
 	/**
 	 * Tests getResource when two different provider classes must be
 	 * implemented by the same class.
-	 * 
-	 * @throws InitializationException 
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test	
 	public void testGetResource_whenTwoProvidersAreTheSameClass() 
 	throws InitializationException {	
 		 Map<String, ObjectFactory> factories = 
-			 ProviderImpl.getFactoriesMapFromProperties(MOCKPATHS);
+				 Bo2Utils.getFactoriesMapFromProperties(MOCKPATHS);
 		ProviderImpl prov = new ProviderImpl(factories, new HashMap<String, String>(), null);
 		String managerName = "MOCK1"; //$NON-NLS-1$
 		IMockRw1 mock1 = prov.getResource(managerName, IMockRw1.class);
@@ -202,8 +204,8 @@ public class TestProviderImpl {
 	
 	/**
 	 * Tests for double aliases resolution.
-	 * 
-	 * @throws InitializationException 
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test	
 	public void testConcreteResourceName_double() throws InitializationException {
@@ -214,8 +216,8 @@ public class TestProviderImpl {
 	
 	/**
 	 * Tests for circular aliases detection.
-	 * 
-	 * @throws InitializationException 
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=InitializationException.class)
 	public void testConcreteResourceName_circular() throws InitializationException {

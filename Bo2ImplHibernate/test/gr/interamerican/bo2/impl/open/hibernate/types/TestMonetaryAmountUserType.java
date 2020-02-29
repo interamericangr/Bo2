@@ -23,18 +23,16 @@ import java.math.BigDecimal;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestMonetaryAmountUserType.
  */
 public class TestMonetaryAmountUserType {
 
-	/**
-	 * MonetaryAmountUserType to test
-	 */
+	/** MonetaryAmountUserType to test. */
 	MonetaryAmountUserType userType = new MonetaryAmountUserType();
 	
 	
 	/**
-	 * test returned class 
+	 * test returned class.
 	 */
 	@Test
 	public void testSqlTypes(){
@@ -42,7 +40,7 @@ public class TestMonetaryAmountUserType {
 	}
 	
 	/**
-	 * test returned class 
+	 * test returned class.
 	 */
 	@Test
 	public void testReturnedClass(){
@@ -50,7 +48,7 @@ public class TestMonetaryAmountUserType {
 	}
 	
 	/**
-	 * tests IsMutable
+	 * tests IsMutable.
 	 */
 	@Test
 	public void testIsMutable(){
@@ -58,7 +56,7 @@ public class TestMonetaryAmountUserType {
 	}
 	
 	/**
-	 * tests DeepCopy
+	 * tests DeepCopy.
 	 */
 	@Test
 	public void testDeepCopy(){
@@ -68,7 +66,7 @@ public class TestMonetaryAmountUserType {
 	
 	
 	/**
-	 * tests Disassemble
+	 * tests Disassemble.
 	 */
 	@Test
 	public void testDisassemble(){
@@ -77,7 +75,7 @@ public class TestMonetaryAmountUserType {
 	}
 	
 	/**
-	 * tests Assemble
+	 * tests Assemble.
 	 */
 	@Test
 	public void testAssemble(){
@@ -87,7 +85,7 @@ public class TestMonetaryAmountUserType {
 	}
 	
 	/**
-	 * tests Replace
+	 * tests Replace.
 	 */
 	@Test
 	public void testReplace(){
@@ -98,7 +96,7 @@ public class TestMonetaryAmountUserType {
 	}
 	
 	/**
-	 * tests Replace
+	 * tests Replace.
 	 */
 	@Test
 	public void testEquals(){
@@ -112,7 +110,7 @@ public class TestMonetaryAmountUserType {
 	
 	
 	/**
-	 * tests has code
+	 * tests has code.
 	 */
 	@Test
 	public void testHashCode(){
@@ -121,7 +119,7 @@ public class TestMonetaryAmountUserType {
 	}
 	
 	/**
-	 * cache to test
+	 * cache to test.
 	 */
 	public class Cache implements Serializable{
 

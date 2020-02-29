@@ -12,6 +12,8 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.adapters;
 
+import java.util.function.UnaryOperator;
+
 /**
  * Modification on an object.
  * 
@@ -20,6 +22,7 @@ package gr.interamerican.bo2.utils.adapters;
  * @param <T> 
  *        Type of object being modified.
  */
-public interface Modification<T> extends Transformation<T, T> {
+@FunctionalInterface
+public interface Modification<T> extends Transformation<T, T>, UnaryOperator<T> {
 	/* empty */
 }

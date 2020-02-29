@@ -11,10 +11,9 @@ public interface JobScheduler {
 
 	/**
 	 * Submits the job.
-	 * 
-	 * @param jobDescriptions
-	 * 
-	 * @throws DataException
+	 *
+	 * @param jobDescriptions the job descriptions
+	 * @throws DataException the data exception
 	 */
 	public void submitJobs(List<JobDescription> jobDescriptions) throws DataException;
 }

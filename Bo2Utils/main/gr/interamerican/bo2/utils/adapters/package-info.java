@@ -12,7 +12,7 @@
  ******************************************************************************/
 /**
  * This package contains implementations of the Adapter 
- * design pattern. <br/>
+ * design pattern. <br>
  * 
  */
  package gr.interamerican.bo2.utils.adapters;

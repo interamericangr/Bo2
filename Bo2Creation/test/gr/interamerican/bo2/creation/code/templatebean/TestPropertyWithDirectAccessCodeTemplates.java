@@ -19,7 +19,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestPropertyWithDirectAccessCodeTemplates.
  */
 public class TestPropertyWithDirectAccessCodeTemplates 
 extends BaseTestPropertyCodeTemplates {
@@ -35,7 +35,7 @@ extends BaseTestPropertyCodeTemplates {
 	}
 	
 	/**
-	 * Unit test for getField
+	 * Unit test for getField.
 	 */
 	@Test	
 	public void testGetFieldDeclarationCode() {

@@ -88,14 +88,16 @@ public class TestSelfDrawnPanel extends WicketTest {
 		tester.executeAjaxEvent(getAjaxButton(), "onclick");
 		commonAssertions_error("field2");
 	}
-	
+
 	@Override
-	protected Component initializeComponent() {
+	protected Component initializeComponent(String wicketId) {
 		model = new CompoundPropertyModel<BeanWith1Field>(new BeanWith1Field(0L));
-		return new SelfDrawnPanel<BeanWith1Field>(TestPage.TEST_ID, model, createBod());
+		return new SelfDrawnPanel<BeanWith1Field>(wicketId, model, createBod());
 	}
 	
 	/**
+	 * Creates the bod.
+	 *
 	 * @return Returns the BusinessObjectDescriptor for BeanWith1Field.
 	 */
 	private BusinessObjectDescriptor<BeanWith1Field> createBod() {
@@ -107,6 +109,8 @@ public class TestSelfDrawnPanel extends WicketTest {
 	}
 	
 	/**
+	 * Gets the long decriptor.
+	 *
 	 * @return Returns the LongBoPropertyDescriptor for field2 of BeanWith1Field.
 	 */
 	private LongBoPropertyDescriptor getLongDecriptor(){

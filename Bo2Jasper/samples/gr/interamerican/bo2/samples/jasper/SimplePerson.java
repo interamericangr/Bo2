@@ -20,13 +20,11 @@ public class SimplePerson {
 	 * Name.
 	 */
 	String name;
-	/**
-	 * Surname
-	 */
+	
+	/** Surname. */
 	String surName;
-	/**
-	 * Gender;
-	 */
+	
+	/** Gender;. */
 	String gender;
 	
 	/**
@@ -39,9 +37,9 @@ public class SimplePerson {
 	/**
 	 * Creates a new SimplePerson object. 
 	 *
-	 * @param name
-	 * @param surName
-	 * @param gender
+	 * @param name the name
+	 * @param surName the sur name
+	 * @param gender the gender
 	 */
 	public SimplePerson(String name, String surName, String gender) {
 		this();

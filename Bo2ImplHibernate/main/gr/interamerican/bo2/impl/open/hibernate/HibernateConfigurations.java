@@ -4,7 +4,7 @@
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/copyleft/lesser.html
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
@@ -19,6 +19,7 @@ import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.StreamUtils;
 import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.StringUtils;
+import gr.interamerican.bo2.utils.Utils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -56,11 +57,11 @@ public class HibernateConfigurations {
 	 * of their configuration files.
 	 */
 	static Map<String, SessionFactory> sessionFactories = new HashMap<String, SessionFactory>();
-	
+
 	/**
 	 * Gets the session factory that corresponds to the specified configuration
 	 * file.
-	 * 
+	 *
 	 * @param pathToCfg
 	 *        Path to the configuration resource file.
 	 * @param dbSchema
@@ -70,19 +71,19 @@ public class HibernateConfigurations {
 	 * @param hibernateMappingsPath
 	 *        Path to file that lists files indexing hbm files this session factory
 	 *        should be configured with.
-	 * 
+	 *
 	 * @return Returns the session factory.
-	 * 
+	 *
 	 * @throws InitializationException
 	 *         If the creation of the session factory fails.
 	 */
 	public static synchronized SessionFactory getSessionFactory(
 			String pathToCfg, String dbSchema, String sessionInterceptor, String hibernateMappingsPath)
 					throws InitializationException {
-		SessionFactory sessionFactory = sessionFactories.get(key(pathToCfg, dbSchema));
+		SessionFactory sessionFactory = sessionFactories.get(key(pathToCfg, dbSchema, hibernateMappingsPath));
 		if (sessionFactory==null) {
 			sessionFactory = createSessionFactory(pathToCfg, dbSchema, sessionInterceptor, hibernateMappingsPath);
-			sessionFactories.put(key(pathToCfg, dbSchema), sessionFactory);
+			sessionFactories.put(key(pathToCfg, dbSchema, hibernateMappingsPath), sessionFactory);
 		}
 		return sessionFactory;
 	}
@@ -100,7 +101,7 @@ public class HibernateConfigurations {
 
 	/**
 	 * Creates a SessionFactory.
-	 * 
+	 *
 	 * @param pathToCfg
 	 *        Path to the hibernate configuration file.
 	 * @param dbSchema
@@ -110,9 +111,9 @@ public class HibernateConfigurations {
 	 * @param hibernateMappingsPath
 	 *        Path to file that lists files indexing hbm files this session factory
 	 *        should be configured with
-	 * 
+	 *
 	 * @return Returns the session factory.
-	 * 
+	 *
 	 * @throws InitializationException
 	 *         If the creation of the SessionFactory fails.
 	 */
@@ -149,7 +150,8 @@ public class HibernateConfigurations {
 
 	/**
 	 * Get the interceptor instance if it is configured.
-	 * @param sessionInterceptor
+	 *
+	 * @param sessionInterceptor the session interceptor
 	 * @return Interceptor instance.
 	 */
 	private static Interceptor getInterceptor(String sessionInterceptor) {
@@ -160,12 +162,16 @@ public class HibernateConfigurations {
 	}
 
 	/**
-	 * @param pathToCfg
-	 * @param dbSchema
+	 * Key.
+	 *
+	 * @param pathToCfg the path to cfg
+	 * @param dbSchema the db schema
+	 * @param hibernateMappingsPath the hibernate mappings path
 	 * @return Returns a key for local caching.
 	 */
-	private static String key(String pathToCfg, String dbSchema) {
-		return pathToCfg + StringConstants.UNDERSCORE + dbSchema;
+	private static String key(String pathToCfg, String dbSchema, String hibernateMappingsPath) {
+		return pathToCfg + StringConstants.UNDERSCORE + Utils.notNull(hibernateMappingsPath, StringConstants.EMPTY)
+				+ StringConstants.UNDERSCORE + dbSchema;
 	}
 
 	/**
@@ -180,11 +186,11 @@ public class HibernateConfigurations {
 	 * If the indexed file does not have the hbm.xml extension, the system
 	 * attempts to read it and treats it as an hbm.xml files index.
 	 *
-	 * @see BOTWO-48
-	 * 
+	 * see BOTWO-48
+	 *
 	 * @param managerHbmIndex
-	 *        Resource path. Null tolerant.
-	 * 
+	 *            Resource path. Null tolerant.
+	 *
 	 * @return Indexed hbm files resource paths.
 	 */
 	@SuppressWarnings("nls")
@@ -228,7 +234,7 @@ public class HibernateConfigurations {
 				LOGGER.warn(msg);
 				continue;
 			}
-			
+
 			if(hbmPath.trim().endsWith("hbm.xml")) {
 				hbms.add(hbmPath);
 			} else {

@@ -23,7 +23,7 @@ import org.mockito.Mockito;
 
 
 /**
- * test case for {@link LongProcessControlPanel}
+ * test case for {@link LongProcessControlPanel}.
  */
 public class TestLongProcessCommandPanel {
 

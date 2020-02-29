@@ -16,7 +16,7 @@ import gr.interamerican.bo2.arch.Key;
 import gr.interamerican.bo2.impl.open.annotations.KeyProperties;
 
 /**
- * 
+ * The Interface CityKey.
  */
 @KeyProperties("planetId,continentId,countryId,regionId,prefectureId,cityId")
 public interface CityKey extends CityKP, Key {

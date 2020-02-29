@@ -28,21 +28,18 @@ import org.junit.Test;
 /**
  * Unit tests for {@link GenericStoredDynamicEntitiesQuery}.
  */
+@Deprecated
 public class TestGenericStoredDynamicEntitiesQuery {
 	
-	/**
-	 * sql path
-	 */
+	/** sql path. */
 	@SuppressWarnings("nls")
 	static final String PATH = "/gr/interamerican/rsrc/sql/SelectIdAndNameFromUsers.sql";
 	
-	/**
-	 * test subject
-	 */
+	/** test subject. */
 	GenericStoredDynamicEntitiesQueryImpl impl;
 	
 	/**
-	 * Test getCriteria
+	 * Test getCriteria.
 	 */
 	@Test
 	public void testGetCriteria() {
@@ -56,10 +53,11 @@ public class TestGenericStoredDynamicEntitiesQuery {
 	}
 	
 	/**
-	 * Test getCriteria
-	 * @throws UnexpectedException 
-	 * @throws LogicException 
-	 * @throws DataException 
+	 * Test getCriteria.
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test
 	public void testLifeCycle() throws DataException, LogicException, UnexpectedException {
@@ -93,7 +91,7 @@ public class TestGenericStoredDynamicEntitiesQuery {
 	}
 	
 	/**
-	 * Implementation for test
+	 * Implementation for test.
 	 */
 	@ManagerName("LOCALDB")
 	public static class GenericStoredDynamicEntitiesQueryImpl extends GenericStoredDynamicEntitiesQuery<TypedSelectableImpl<Long>> {

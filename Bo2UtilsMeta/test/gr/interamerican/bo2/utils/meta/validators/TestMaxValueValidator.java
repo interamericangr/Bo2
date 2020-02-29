@@ -16,20 +16,19 @@ import static org.junit.Assert.assertEquals;
 import gr.interamerican.bo2.utils.meta.exceptions.ValidationException;
 
 import org.junit.Test;
+
 /**
- * MaxValueValidatorTest
+ * MaxValueValidatorTest.
  */
 public class TestMaxValueValidator {
 	
 	
 	
-	/**
-	 * MaxValueValidator
-	 */
+	/** MaxValueValidator. */
 	MaxValueValidator<Long> maxValid = new MaxValueValidator<Long>(1000L);
 	
 	/**
-	 * Test getMaximum
+	 * Test getMaximum.
 	 */
 	@Test
 	public void testGetMaximum(){
@@ -38,7 +37,7 @@ public class TestMaxValueValidator {
 	}
 	
 	/**
-	 * Test setMaxLength
+	 * Test setMaxLength.
 	 */
 	@Test
 	public void testSetMaxLength(){
@@ -48,8 +47,9 @@ public class TestMaxValueValidator {
 
 	
 	/**
-	 * Test validate
-	 * @throws ValidationException 
+	 * Test validate.
+	 *
+	 * @throws ValidationException the validation exception
 	 */
 	@Test
 	public void testValidateLowerValue() throws ValidationException{
@@ -58,8 +58,9 @@ public class TestMaxValueValidator {
 	}
 	
 	/**
-	 * Test validate
-	 * @throws ValidationException 
+	 * Test validate.
+	 *
+	 * @throws ValidationException the validation exception
 	 */
 	@Test(expected=ValidationException.class)
 	public void testValidateHigherValue() throws ValidationException{

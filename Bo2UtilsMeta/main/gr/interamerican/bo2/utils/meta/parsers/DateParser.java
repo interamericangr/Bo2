@@ -22,9 +22,7 @@ import java.util.Date;
  */
 public class DateParser extends AbstractParser<Date>{
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	@Override

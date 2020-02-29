@@ -5,7 +5,7 @@ import gr.interamerican.bo2.utils.beans.Range;
 /**
  * Interface for an object that owns a {@link Range}.
  *
- * @param <T>
+ * @param <T> the generic type
  */
 public interface RangeOwner<T extends Comparable<? super T>> {
 	

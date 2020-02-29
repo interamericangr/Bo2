@@ -29,8 +29,8 @@ public class TestObjectCreation extends ObjectCreationTest {
 	/**
 	 * Creates a new TestCreation object. 
 	 *
-	 * @param className
-	 * @throws ClassNotFoundException
+	 * @param className the class name
+	 * @throws ClassNotFoundException the class not found exception
 	 */
 	public TestObjectCreation(String className) throws ClassNotFoundException {
 		super(className);
@@ -38,15 +38,13 @@ public class TestObjectCreation extends ObjectCreationTest {
 
 	/**
 	 * Test parameters.
+	 *
 	 * @return Returns the test parameters.
-	 * @throws IOException 
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	@Parameters
 	public static Collection<?> getParameters() throws IOException {
 		String path = "/gr/interamerican/rsrc/TestObjectCreation.txt"; //$NON-NLS-1$
-		return parameters(path);
-	 }	
-	
-	
-
+		return parameters(path, null);
+	 }
 }

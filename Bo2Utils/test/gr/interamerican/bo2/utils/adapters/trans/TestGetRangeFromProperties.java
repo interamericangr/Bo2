@@ -12,16 +12,16 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.adapters.trans;
 
-import gr.interamerican.bo2.samples.bean.BeanWithNestedBean;
-import gr.interamerican.bo2.utils.adapters.trans.GetRangeFromProperties;
-import gr.interamerican.bo2.utils.beans.Range;
-
 import org.junit.Assert;
 import org.junit.Test;
+
+import gr.interamerican.bo2.samples.bean.BeanWithNestedBean;
+import gr.interamerican.bo2.utils.beans.Range;
 
 /**
  * Unit tests for {@link GetRangeFromProperties}.
  */
+@Deprecated
 public class TestGetRangeFromProperties {
 	
 	/**

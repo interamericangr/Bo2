@@ -25,12 +25,12 @@ import java.math.BigDecimal;
 import org.junit.Test;
 
 /**
- * Unit tests for {@link UserTypeUtil}
+ * Unit tests for {@link UserTypeUtil}.
  */
 public class TestUserTypeUtil {
 
 	/**
-	 * tests isUserType()
+	 * tests isUserType().
 	 */
 	@Test
 	public void testIsUserType() {

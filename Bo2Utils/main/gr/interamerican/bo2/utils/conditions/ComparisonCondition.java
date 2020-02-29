@@ -31,9 +31,7 @@ implements Condition<T> {
 	 */
 	protected Comparator<T> comparator;
 	
-	/**
-	 * Value being compared with the object specified on <code>check(t)</code>
-	 */
+	/** Value being compared with the object specified on <code>check(t)</code>. */
 	protected T comparedValue;
 	
 	

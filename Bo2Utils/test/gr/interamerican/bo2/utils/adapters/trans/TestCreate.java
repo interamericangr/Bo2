@@ -12,9 +12,6 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.adapters.trans;
 
-import gr.interamerican.bo2.utils.adapters.trans.Create;
-import gr.interamerican.bo2.utils.adapters.trans.GetProperty;
-
 import java.math.BigDecimal;
 
 import org.junit.Assert;
@@ -53,7 +50,7 @@ public class TestCreate {
 	/**
 	 * Unit test for the adapter.
 	 */
-	@SuppressWarnings({ "rawtypes", "unused" })
+	@SuppressWarnings("rawtypes")
 	@Test(expected=RuntimeException.class)
 	public void testConstructor_fail() {		
 		new Create<String, Class>(String.class, Class.class);

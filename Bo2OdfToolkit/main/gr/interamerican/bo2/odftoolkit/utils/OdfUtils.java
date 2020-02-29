@@ -12,8 +12,6 @@
  ******************************************************************************/
 package gr.interamerican.bo2.odftoolkit.utils;
 
-import gr.interamerican.bo2.utils.doc.DocumentEngineException;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -37,6 +35,8 @@ import org.odftoolkit.simple.text.Section;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import gr.interamerican.bo2.utils.doc.DocumentEngineException;
+
 /**
  * Utilities for ODF files.
  */
@@ -48,12 +48,15 @@ public class OdfUtils {
 	private OdfUtils() {/*empty*/}
 	
 	/**
-	 * Gets the path where a document is saved.
+	 * Gets the path where a document is saved.<br>
+	 * Do note that this method returns the path on windows environment with the
+	 * wrong path separator ( '/' instead of '\' ).
 	 * 
 	 * @param document
-	 *        Document.
-	 *        
-	 * @return Returns the path. If the document is not saved, then returns null.
+	 *            Document.
+	 * 
+	 * @return Returns the path. If the document is not saved, then returns
+	 *         null.
 	 */	
 	public static String getDocumentPath(Document document) {
 		String uri = document.getBaseURI();		
@@ -69,20 +72,20 @@ public class OdfUtils {
 	}
 	
 	/**
-	 * Saves the content of an ODF documents content in four unzipped XML files. <br/>
+	 * Saves the content of an ODF documents content in four unzipped XML files. <br>
 	 * 
 	 * The files are saved in the same folder as the ODF document.
 	 * The main part of the filename (without the extension) is the same as the
 	 * ODF document's. The extension of each of the four XML files is:
+	 * <ul>
 	 * <li>.content.xml</li>
 	 * <li>.styles.xml</li>
 	 * <li>.meta.xml</li>
 	 * <li>.settings.xml</li> 
-	 * 
-	 * @param document
-	 *        Document to save.
+	 * </ul>
+	 * @param document        Document to save.
 	 *        
-	 * @throws Exception
+	 * @throws Exception the exception
 	 */
 	public static void saveContentAsXml(Document document) throws Exception {
 		String path = getDocumentPath(document);
@@ -97,20 +100,18 @@ public class OdfUtils {
 	
 	/**
 	 * Saves the contents of an OdfFile as XML.
-	 * 
-	 * @param dom
-	 * @param path
-	 * @throws FileNotFoundException
+	 *
+	 * @param dom the dom
+	 * @param path the path
+	 * @throws FileNotFoundException the file not found exception
 	 */
 	static void save(OdfFileDom dom, String path) throws FileNotFoundException {
 		String xml = dom.toString();
-		PrintWriter writer = new PrintWriter(new File(path));
-		writer.print(xml);
-		writer.close();		
+		try (PrintWriter writer = new PrintWriter(new File(path))) {
+			writer.print(xml);
+		}		
 	}
-	
-	
-	
+
 	/**
 	 * Replaces an {@link OdfElement} with another.
 	 * 
@@ -174,12 +175,11 @@ public class OdfUtils {
 	 * A top level section, has the root text element as its parent.
 	 * A lower level section will have another section or an element 
 	 * of other type as its parent, but not the root text element.
-	 * 
-	 * @param section
-	 *        Section to check.
+	 *
+	 * @param section        Section to check.
 	 *        
-	 * @return Returns true if the specified section is on the top level. 
-	 * @throws Exception 
+	 * @return Returns true if the specified section is on the top level.
+	 * @throws Exception the exception
 	 */
 	public static boolean isTopLevel(Section section) throws Exception {
 		TextDocument doc = (TextDocument) section.getOwnerDocument();
@@ -190,13 +190,11 @@ public class OdfUtils {
 	
 	/**
 	 * Gets the document's contents as a list of ODF nodes.
-	 * 
-	 * @param document
-	 *        Document.
+	 *
+	 * @param document        Document.
 	 *        
 	 * @return Returns a list of sections.
-	 * 
-	 * @throws Exception 
+	 * @throws Exception the exception
 	 */
 	public static List<OdfElement> getOdfElements(TextDocument document) 
 	throws Exception {
@@ -217,13 +215,11 @@ public class OdfUtils {
 	 * 
 	 * This method will return all elements of the document, except from the
 	 * documents that belong to the following types.
-	 * 
-	 * @param document
-	 *        Document.
+	 *
+	 * @param document        Document.
 	 *        
 	 * @return Returns a list of sections.
-	 * 
-	 * @throws Exception 
+	 * @throws Exception the exception
 	 */
 	public static List<OdfElement> getOdfElementsForCopy(TextDocument document) 
 	throws Exception {		
@@ -246,12 +242,10 @@ public class OdfUtils {
 	
 	/**
 	 * Gets the first element of a document.
-	 * 
-	 * @param document
-	 * 
+	 *
+	 * @param document the document
 	 * @return Returns the first element of a document.
-	 * 
-	 * @throws Exception 
+	 * @throws Exception the exception
 	 */
 	public static OdfElement getFirstElement(TextDocument document) throws Exception {
 		OfficeTextElement root = document.getContentRoot();
@@ -260,12 +254,10 @@ public class OdfUtils {
 	
 	/**
 	 * Gets the last element of a document.
-	 * 
-	 * @param document
-	 * 
+	 *
+	 * @param document the document
 	 * @return Returns the last element of a document.
-	 * 
-	 * @throws Exception 
+	 * @throws Exception the exception
 	 */
 	public static OdfElement getLastElement(TextDocument document) throws Exception {
 		OfficeTextElement root = document.getContentRoot();
@@ -274,13 +266,11 @@ public class OdfUtils {
 	
 	/**
 	 * Copies the specified element after the reference element.
-	 * 
-	 * @param refElement
-	 *        Element used as a reference position.
-	 * @param elementsToCopy
-	 *        Elements being copied.
+	 *
+	 * @param refElement        Element used as a reference position.
+	 * @param elementsToCopy        Elements being copied.
 	 *        
-	 * @throws Exception 
+	 * @throws Exception the exception
 	 */
 	public static void copyAfter(OdfElement refElement, OdfElement... elementsToCopy) 
 	throws Exception {
@@ -295,13 +285,11 @@ public class OdfUtils {
 	
 	/**
 	 * Copies the specified element after the reference element.
-	 * 
-	 * @param refElement
-	 *        Element used as a reference position.
-	 * @param elementsToCopy
-	 *        Elements being copied.
+	 *
+	 * @param refElement        Element used as a reference position.
+	 * @param elementsToCopy        Elements being copied.
 	 *                
-	 * @throws Exception 
+	 * @throws Exception the exception
 	 */
 	public static void copyBefore(OdfElement refElement, OdfElement... elementsToCopy) 
 	throws Exception {
@@ -317,16 +305,13 @@ public class OdfUtils {
 	 * 
 	 * The copy is done with intention to copy this element
 	 * to the target document. 
-	 * 
-	 * @param target
-	 *        Target document.
-	 * @param elementToCopy
-	 *        Element that is being copied. The element can belong
+	 *
+	 * @param target        Target document.
+	 * @param elementToCopy        Element that is being copied. The element can belong
 	 *        either to the target document or to another.
 	 *        
 	 * @return Returns the OdfElement ready to copy.
-	 * 
-	 * @throws Exception
+	 * @throws Exception the exception
 	 */
 	static OdfElement copyOdfElement(Document target, OdfElement elementToCopy) throws Exception {
 		OdfElement newElement = (OdfElement) NotPublic.cloneForeignElement(target, elementToCopy, target.getContentDom(), true);
@@ -355,16 +340,13 @@ public class OdfUtils {
 	 * Replaces the specified OdfElement that belongs to the target
 	 * TextDocument with the contents of the specified source 
 	 * TextDocument.
-	 * 
-	 * @param toBeReplaced
-	 *        OdfElement of the target TextDocument that will be replaced.
-	 * @param target
-	 *        Document being modified. Owner of the specified toBeReplaced
+	 *
+	 * @param toBeReplaced        OdfElement of the target TextDocument that will be replaced.
+	 * @param target        Document being modified. Owner of the specified toBeReplaced
 	 *        OdfElement.
-	 * @param source
-	 *        Source document who's content will be inserted in the specified
+	 * @param source        Source document who's content will be inserted in the specified
 	 *        target document replacing the specified toBeReplaced OdfElement. 
-	 * @throws DocumentEngineException 
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	public static void replaceElementWithContent
 	(OdfElement toBeReplaced, TextDocument target, TextDocument source) 
@@ -384,12 +366,11 @@ public class OdfUtils {
 	 * Evaluates an Xpath expression and fetches its results
 	 * as a list of {@link OdfElement}s.
 	 *  
-	 * @param dom
-	 * @param expression
-	 * 
+	 *
+	 * @param dom the dom
+	 * @param expression the expression
 	 * @return Returns the list.
-	 * 
-	 * @throws Exception
+	 * @throws Exception the exception
 	 */
 	public static List<OdfElement> getXpath(OdfFileDom dom, String expression) 
 	throws Exception {		
@@ -397,6 +378,23 @@ public class OdfUtils {
 		NodeList nodeList = (NodeList) 
 			xpath.evaluate(expression, dom, XPathConstants.NODESET);
 		return XmlUtils.asList(nodeList);	
+	}
+	
+	/**
+	 * Gets all elements nodes of the specified dom that belong
+	 * to the specified type.
+	 *
+	 * @param <T> the generic type
+	 * @param dom        OdfFileDom to search for elements.
+	 * @param clazz        Class that defines the type of OdfElements
+	 *        
+	 * @return Returns a list with all TextUserFieldGetElement of the dom.
+	 */
+	public static <T> List<T> getElements(OdfFileDom dom, Class<T> clazz) {
+		List<T> list = new ArrayList<T>();
+		Node root = dom.getRootElement();
+		XmlUtils.getAllNodesOfType(root, clazz, list);
+		return list;
 	}
 	
 

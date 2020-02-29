@@ -13,7 +13,7 @@
 package gr.interamerican.bo2.samples.ibean;
 
 /**
- * 
+ * The Interface IdentifiedByIandS.
  */
 public interface IdentifiedByIandS extends MultiplyIdentified<Integer> {
 	/* empty */

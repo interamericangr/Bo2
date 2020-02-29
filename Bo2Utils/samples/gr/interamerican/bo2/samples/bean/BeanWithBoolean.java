@@ -23,24 +23,16 @@ public class BeanWithBoolean implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * 
-	 */
+	/** The bool. */
 	private boolean bool;
 
-	/**
-	 * 
-	 */
+	/** The wrapped bool. */
 	private Boolean wrappedBool;
 
-	/**
-	 * 
-	 */
+	/** The hacky. */
 	boolean hacky;
 
-	/**
-	 * 
-	 */
+	/** The is lala. */
 	boolean isLala;
 
 	/**
@@ -52,7 +44,8 @@ public class BeanWithBoolean implements Serializable {
 
 	/**
 	 * Creates a new BeanWithBoolean object.
-	 * @param bool
+	 *
+	 * @param bool the bool
 	 */
 	public BeanWithBoolean(boolean bool) {
 		super();

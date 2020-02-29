@@ -1,15 +1,14 @@
 package gr.interamerican.bo2.impl.open.namedstreams.resourcetypes;
 
-import gr.interamerican.bo2.impl.open.namedstreams.NamedStream;
-import gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition;
-import gr.interamerican.bo2.impl.open.namedstreams.types.StreamType;
-
-import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 
 import org.junit.Assert;
 import org.junit.Test;
+
+import gr.interamerican.bo2.impl.open.namedstreams.NamedStream;
+import gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition;
+import gr.interamerican.bo2.impl.open.namedstreams.types.StreamType;
 
 /**
  * Unit tests for {@link ClasspathNsFactory}.
@@ -18,11 +17,10 @@ public class TestClasspathNsFactory {
 	
 	/**
 	 * Tests <code>openInputStream(def)</code> for a uri.
-	 * 
-	 * @param uri
-	 *        URI to test.
+	 *
+	 * @param uri        URI to test.
 	 *        
-	 * @throws CouldNotCreateNamedStreamException
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */
 	void testOpenIS(String uri) throws CouldNotCreateNamedStreamException {		
 		ClasspathNsFactory nsf = new ClasspathNsFactory();
@@ -44,8 +42,8 @@ public class TestClasspathNsFactory {
 	
 	/**
 	 * Tests the <code>openInputStream(def)</code>.
-	 * 
-	 * @throws CouldNotCreateNamedStreamException 
+	 *
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */
 	@Test
 	public void testOpenInputStream_valid() throws CouldNotCreateNamedStreamException {
@@ -55,8 +53,8 @@ public class TestClasspathNsFactory {
 	
 	/**
 	 * Tests the <code>openInputStream(def)</code>.
-	 * 
-	 * @throws CouldNotCreateNamedStreamException 
+	 *
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */
 	@Test(expected=CouldNotCreateNamedStreamException.class)
 	public void testOpenInputStream_exception() throws CouldNotCreateNamedStreamException {		
@@ -77,9 +75,11 @@ public class TestClasspathNsFactory {
 	
 	/**
 	 * Creates a sample NamedStreamDefinition.
-	 * 
+	 *
+	 * @param type the type
 	 * @return Returns the NamedStreamDefinition.
 	 */
+	@SuppressWarnings("nls")
 	NamedStreamDefinition sampleDefinition(StreamType type) {
 		NamedStreamDefinition def = new NamedStreamDefinition();
 		def.setEncoding(Charset.defaultCharset());
@@ -95,9 +95,9 @@ public class TestClasspathNsFactory {
 	
 	/**
 	 * Unit test for create().
-	 * 
-	 * @param type 
-	 * @throws CouldNotCreateNamedStreamException 
+	 *
+	 * @param type the type
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */	
 	public void testCreateWithType(StreamType type) throws CouldNotCreateNamedStreamException {
 		ClasspathNsFactory factory = new ClasspathNsFactory();
@@ -120,8 +120,8 @@ public class TestClasspathNsFactory {
 	
 	/**
 	 * Unit test for create().
-	 * 
-	 * @throws CouldNotCreateNamedStreamException 
+	 *
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */
 	@Test()
 	public void testCreate_input() throws CouldNotCreateNamedStreamException {
@@ -130,8 +130,8 @@ public class TestClasspathNsFactory {
 	
 	/**
 	 * Unit test for create().
-	 * 
-	 * @throws CouldNotCreateNamedStreamException 
+	 *
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */
 	@Test()
 	public void testCreate_reader() throws CouldNotCreateNamedStreamException {
@@ -140,8 +140,8 @@ public class TestClasspathNsFactory {
 	
 	/**
 	 * Unit test for create().
-	 * 
-	 * @throws CouldNotCreateNamedStreamException 
+	 *
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */
 	@Test(expected=CouldNotCreateNamedStreamException.class)
 	public void testCreate_output() throws CouldNotCreateNamedStreamException {
@@ -150,8 +150,8 @@ public class TestClasspathNsFactory {
 	
 	/**
 	 * Unit test for create().
-	 * 
-	 * @throws CouldNotCreateNamedStreamException 
+	 *
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */
 	@Test(expected=CouldNotCreateNamedStreamException.class)
 	public void testCreate_print() throws CouldNotCreateNamedStreamException {
@@ -161,12 +161,11 @@ public class TestClasspathNsFactory {
 	
 	/**
 	 * Unit test for create().
-	 * 
-	 * @param from
-	 * @param to
-	 *  
-	 * @throws CouldNotCreateNamedStreamException 
-	 * @throws CouldNotConvertNamedStreamException 
+	 *
+	 * @param from the from
+	 * @param to the to
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
+	 * @throws CouldNotConvertNamedStreamException the could not convert named stream exception
 	 */	
 	public void testConvertWithTypes(StreamType from, StreamType to) 
 	throws CouldNotCreateNamedStreamException, CouldNotConvertNamedStreamException {
@@ -193,9 +192,9 @@ public class TestClasspathNsFactory {
 	
 	/**
 	 * Unit test for convert().
-	 * 
-	 * @throws CouldNotCreateNamedStreamException 
-	 * @throws CouldNotConvertNamedStreamException 
+	 *
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
+	 * @throws CouldNotConvertNamedStreamException the could not convert named stream exception
 	 */
 	@Test(expected=CouldNotConvertNamedStreamException.class)
 	public void testConvert_InOut() 
@@ -205,9 +204,9 @@ public class TestClasspathNsFactory {
 	
 	/**
 	 * Unit test for convert().
-	 * 
-	 * @throws CouldNotCreateNamedStreamException 
-	 * @throws CouldNotConvertNamedStreamException 
+	 *
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
+	 * @throws CouldNotConvertNamedStreamException the could not convert named stream exception
 	 */
 	@Test(expected=CouldNotConvertNamedStreamException.class)
 	public void testConvert_InPrint() 
@@ -217,9 +216,9 @@ public class TestClasspathNsFactory {
 	
 	/**
 	 * Unit test for convert().
-	 * 
-	 * @throws CouldNotCreateNamedStreamException 
-	 * @throws CouldNotConvertNamedStreamException 
+	 *
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
+	 * @throws CouldNotConvertNamedStreamException the could not convert named stream exception
 	 */
 	@Test()
 	public void testConvert_InIn() 
@@ -229,9 +228,9 @@ public class TestClasspathNsFactory {
 	
 	/**
 	 * Unit test for convert().
-	 * 
-	 * @throws CouldNotCreateNamedStreamException 
-	 * @throws CouldNotConvertNamedStreamException 
+	 *
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
+	 * @throws CouldNotConvertNamedStreamException the could not convert named stream exception
 	 */
 	@Test()
 	public void testConvert_InReader() 
@@ -246,9 +245,9 @@ public class TestClasspathNsFactory {
 	
 	/**
 	 * Unit test for convert().
-	 * 
-	 * @throws CouldNotCreateNamedStreamException 
-	 * @throws CouldNotConvertNamedStreamException 
+	 *
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
+	 * @throws CouldNotConvertNamedStreamException the could not convert named stream exception
 	 */
 	@Test(expected=CouldNotConvertNamedStreamException.class)
 	public void testConvert_ReaderOut() 
@@ -258,9 +257,9 @@ public class TestClasspathNsFactory {
 	
 	/**
 	 * Unit test for convert().
-	 * 
-	 * @throws CouldNotCreateNamedStreamException 
-	 * @throws CouldNotConvertNamedStreamException 
+	 *
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
+	 * @throws CouldNotConvertNamedStreamException the could not convert named stream exception
 	 */
 	@Test(expected=CouldNotConvertNamedStreamException.class)
 	public void testConvert_ReaderPrint() 
@@ -270,9 +269,9 @@ public class TestClasspathNsFactory {
 	
 	/**
 	 * Unit test for convert().
-	 * 
-	 * @throws CouldNotCreateNamedStreamException 
-	 * @throws CouldNotConvertNamedStreamException 
+	 *
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
+	 * @throws CouldNotConvertNamedStreamException the could not convert named stream exception
 	 */
 	@Test()
 	public void testConvert_ReaderIn() 
@@ -282,9 +281,9 @@ public class TestClasspathNsFactory {
 	
 	/**
 	 * Unit test for convert().
-	 * 
-	 * @throws CouldNotCreateNamedStreamException 
-	 * @throws CouldNotConvertNamedStreamException 
+	 *
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
+	 * @throws CouldNotConvertNamedStreamException the could not convert named stream exception
 	 */
 	@Test()
 	public void testConvert_ReaderReader() 

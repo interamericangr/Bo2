@@ -17,13 +17,11 @@ import gr.interamerican.bo2.arch.exceptions.LogicException;
 import gr.interamerican.bo2.samples.archutil.po.User;
 
 /**
- * 
+ * The Class ReadUserFromBothDb.
  */
 public class ReadUserFromBothDb extends AbstractBothDbUserOperation {
 	
-	/**
-	 * Local DB
-	 */
+	/** Local DB. */
 	User localUser;
 	
 	/**
@@ -36,7 +34,7 @@ public class ReadUserFromBothDb extends AbstractBothDbUserOperation {
 	/**
 	 * Creates a new DeleteUserFromBothDb object. 
 	 *
-	 * @param hib
+	 * @param hib the hib
 	 */
 	public ReadUserFromBothDb(boolean hib) {
 		super(hib);

@@ -22,28 +22,32 @@ import gr.interamerican.bo2.arch.TransactionManager;
  */
 public abstract class TransactionManagerException extends Exception {
 
-    /**
-	 * 
-	 */
+    /** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
 	/**
-     * Creates a new DataException with a message.
-     * 
-     * @param message 
-     */
+	 * Creates a new DataException with a message.
+	 *
+	 * @param message the message
+	 */
     protected TransactionManagerException(String message) {
         super(message);        
     }
+    
     /**
-     * @param message
-     * @param cause
+     * Instantiates a new transaction manager exception.
+     *
+     * @param message the message
+     * @param cause the cause
      */
     protected TransactionManagerException(String message, Throwable cause) {
         super(message, cause);
     }
+    
     /**
-     * @param cause
+     * Instantiates a new transaction manager exception.
+     *
+     * @param cause the cause
      */
     protected TransactionManagerException(Throwable cause) {
         super(cause);

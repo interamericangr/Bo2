@@ -11,7 +11,7 @@
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
 /**
- * This package contains various utility beans. <br/>
+ * This package contains various utility beans. <br>
  * 
  * The classes of this package are not specific
  * to the Bo2 project, but can be used independently

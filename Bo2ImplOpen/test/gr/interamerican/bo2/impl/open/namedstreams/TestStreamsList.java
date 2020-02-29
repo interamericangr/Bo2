@@ -25,17 +25,13 @@ import org.junit.Test;
  */
 public class TestStreamsList {
 	
-	/**
-	 * path with properties
-	 */
+	/** path with properties. */
 	String path = "/gr/interamerican/bo2/impl/open/namedstreams/StreamsList.properties"; //$NON-NLS-1$
-	/**
-	 * properties
-	 */
+	
+	/** properties. */
 	Properties properties = CollectionUtils.readProperties(path);
-	/**
-	 * list
-	 */
+	
+	/** list. */
 	StreamsList list = new StreamsList(properties);
 	
 	/**
@@ -57,7 +53,7 @@ public class TestStreamsList {
 	}
 
 	/**
-	 * tests GetBufferedReaders
+	 * tests GetBufferedReaders.
 	 */
 	@Test
 	public void testGetBufferedReaders(){
@@ -66,7 +62,7 @@ public class TestStreamsList {
 	}
 	
 	/**
-	 * tests GetPrintStreams
+	 * tests GetPrintStreams.
 	 */
 	@Test
 	public void testGetPrintStreams(){
@@ -75,7 +71,7 @@ public class TestStreamsList {
 	}
 	
 	/**
-	 * tests GetInputStreams
+	 * tests GetInputStreams.
 	 */
 	@Test
 	public void testGetInputStreams(){
@@ -84,7 +80,7 @@ public class TestStreamsList {
 	}
 	
 	/**
-	 * tests GetOutputStreams
+	 * tests GetOutputStreams.
 	 */
 	@Test
 	public void testGetOutputStreams(){
@@ -93,7 +89,7 @@ public class TestStreamsList {
 	}
 	
 	/**
-	 * tests GetOutputStreams
+	 * tests GetOutputStreams.
 	 */
 	@Test
 	public void testGetPrintStreamsArray_NullValue(){

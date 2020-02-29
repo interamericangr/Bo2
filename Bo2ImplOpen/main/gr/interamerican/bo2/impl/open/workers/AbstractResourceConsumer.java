@@ -24,13 +24,12 @@ import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.Utils;
 
 /**
- * Resource consumer that knows the name of its resource wrapper
- * manager.
+ * Resource consumer that knows the name of its resource wrapper manager.
  */
 public class AbstractResourceConsumer extends AbstractBaseWorker {
+
 	/**
-	 * Creates a new AbstractResourceConsumer object. 
-	 *
+	 * Public Constructor.
 	 */
 	public AbstractResourceConsumer() {
 		super();
@@ -41,95 +40,91 @@ public class AbstractResourceConsumer extends AbstractBaseWorker {
 	 * Name of resource manager.
 	 */
 	protected String managerName;
-	
+
 	/**
-	 * Gets the name of the ResourceWrapper manager that will
-	 * provide this worker with the appropriate resources.
+	 * Gets the name of the ResourceWrapper manager that will provide this
+	 * worker with the appropriate resources.
 	 * 
 	 * @return Returns the name of the resource manager.
 	 */
 	public String getManagerName() {
 		return managerName;
 	}
-	
+
 	/**
-	 * Sets the name of the ResourceWrapper manager that will
-	 * provide this worker with the appropriate resources.
+	 * Sets the name of the ResourceWrapper manager that will provide this
+	 * worker with the appropriate resources.
 	 * 
-	 * This method is provided, in order to support a case, where
-	 * an {@link AbstractResourceConsumer} needs to set the resource
-	 * manager name to some of its children.  
+	 * This method is provided, in order to support a case, where an
+	 * {@link AbstractResourceConsumer} needs to set the resource manager name
+	 * to some of its children.
 	 * 
-	 * @param managerName 
-	 *        The managerName to set.
+	 * @param managerName
+	 *            The managerName to set.
 	 */
-	public void setManagerName(String managerName) {		
+	public void setManagerName(String managerName) {
 		this.managerName = managerName;
 	}
-	
+
 	/**
 	 * Gets the specified resource.
-	 * 
+	 *
 	 * @param <R>
+	 *            the generic type
 	 * @param clazz
+	 *            the clazz
 	 * @return Returns the resource.
-	 * 
-	 * @throws InitializationException 
+	 * @throws InitializationException
+	 *             the initialization exception
 	 */
-	@SuppressWarnings("nls")
-	protected <R extends ResourceWrapper>
-	R getResource(Class<R> clazz) throws InitializationException {
+	protected <R extends ResourceWrapper> R getResource(Class<R> clazz) throws InitializationException {
 		String resourceName = getManagerName();
-		if (resourceName==null) {
+		if (resourceName == null) {
 			throw new InitializationException(managerNameNotSet());
 		}
 		try {
 			R r = this.getProvider().getResource(resourceName, clazz);
 			return r;
 		} catch (InitializationException e) {
-			String msg = StringUtils.concat(
-					"Failed to create resource " + clazz.getName(),
-					" for worker " + this.getClass().getName(),
-					" on manager " + resourceName);
+			@SuppressWarnings("nls")
+			String msg = StringUtils.concat("Failed to create resource " + clazz.getName(),
+					" for worker " + this.getClass().getName(), " on manager " + resourceName);
 			throw new InitializationException(msg, e);
 		}
 	}
-	
+
 	/**
-	 * Creates a message that indicates that the manager name has not
-	 * been defined .
+	 * Creates a message that indicates that the manager name has not been
+	 * defined .
 	 * 
 	 * @return Returns the message.
 	 */
 	protected String managerNameNotSet() {
 		return managerNameNotSetToClass(this.getClass());
 	}
-	
+
 	/**
-	 * Creates a message that indicates that the manager name has not
-	 * been defined for a class.
-	 * 
+	 * Creates a message that indicates that the manager name has not been
+	 * defined for a class.
+	 *
 	 * @param clazz
-	 * 
+	 *            the clazz
 	 * @return Returns the message.
 	 */
 	protected String managerNameNotSetToClass(Class<?> clazz) {
 		@SuppressWarnings("nls")
-		String msg = StringUtils.concat(
-			"ManagerName annotation not set to class ",
-			clazz.getName(),
-			" or package ",
-			clazz.getPackage().getName());
+		String msg = StringUtils.concat("ManagerName annotation not set to class ", clazz.getName(), " or package ",
+				clazz.getPackage().getName());
 		return msg;
 	}
-	
+
 	@Override
 	public void init(Provider parent) throws InitializationException {
 		for (Worker child : getChildren()) {
 			if (child instanceof AbstractResourceConsumer) {
 				AbstractResourceConsumer consumer = (AbstractResourceConsumer) child;
 				String managerNm = getManagerName();
-				if (consumer.getManagerName()==null && managerNm!=null) {
+				if (consumer.getManagerName() == null && managerNm != null) {
 					consumer.setManagerName(managerNm);
 				}
 			}
@@ -138,30 +133,29 @@ public class AbstractResourceConsumer extends AbstractBaseWorker {
 		provider = parent;
 		initialized = true;
 	}
-	
+
 	/**
-	 * Sub-classes that handle transactional resources may check
-	 * the transaction health (e.g. if it has been marked rollback
-	 * only) and throw an exception to force the unit of work to end
-	 * as soon as possible.
-	 * 
-	 * @param details May be null if the worker cannot supply any useful info.
-	 * 
-	 * @throws StaleTransactionException 
+	 * Sub-classes that handle transactional resources may check the transaction
+	 * health (e.g. if it has been marked rollback only) and throw an exception
+	 * to force the unit of work to end as soon as possible.
+	 *
+	 * @param details
+	 *            May be null if the worker cannot supply any useful info.
+	 * @throws StaleTransactionException
+	 *             the stale transaction exception
 	 */
 	protected void checkTransactionHealth(WorkerExecutionDetails details) throws StaleTransactionException {
-		if(getProvider()==null) { //facilitate testing
+		if (getProvider() == null) { // facilitate testing
 			return;
 		}
 		TransactionManager tm = getProvider().getTransactionManager();
-		if(tm == null) {
+		if (tm == null) {
 			return;
 		}
-		if(tm.hasBeenMarkedRollbackOnly()) {
+		if (tm.hasBeenMarkedRollbackOnly()) {
 			WorkerExecutionDetails _details = Utils.notNull(details, new WorkerExecutionDetails());
 			_details.setWorkerClass(this.getClass());
 			throw new StaleTransactionException(_details.toString());
 		}
 	}
-
 }

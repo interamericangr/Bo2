@@ -25,7 +25,7 @@ import org.junit.Test;
 public class TestTimeUtils {
 	
 	/**
-	 * Tests hours2millis
+	 * Tests hours2millis.
 	 */
 	@Test
 	public void testHours2Millis() {
@@ -33,7 +33,7 @@ public class TestTimeUtils {
 	}
 	
 	/**
-	 * Tests minutes2millis
+	 * Tests minutes2millis.
 	 */
 	@Test
 	public void testMinutes2Millis() {
@@ -41,7 +41,7 @@ public class TestTimeUtils {
 	}
 	
 	/**
-	 * Tests minutes2millis
+	 * Tests minutes2millis.
 	 */
 	@Test
 	public void testSeconds2Millis() {

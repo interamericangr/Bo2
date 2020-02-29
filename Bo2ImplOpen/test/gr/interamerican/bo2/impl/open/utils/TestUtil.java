@@ -29,7 +29,8 @@ public class TestUtil {
 	
 	/**
 	 * Test readProperties() success.
-	 * @throws IOException 
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	@Test
 	public void testReadFile_Succeed() throws IOException {
@@ -41,7 +42,8 @@ public class TestUtil {
 	
 	/**
 	 * Test readProperties() failing.
-	 * @throws IOException 
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	@Test(expected=RuntimeException.class)
 	public void readFile_Fail() throws IOException {

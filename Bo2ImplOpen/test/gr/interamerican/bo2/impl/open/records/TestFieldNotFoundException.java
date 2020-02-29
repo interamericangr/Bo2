@@ -22,19 +22,15 @@ import org.junit.Test;
 public class TestFieldNotFoundException {
 	
 	
-	/**
-	 * fieldname to test
-	 */
+	/** fieldname to test. */
 	private static final String fieldName = "fieldname"; //$NON-NLS-1$
 	
-	/**
-	 * exception to test
-	 */
+	/** exception to test. */
 	private FieldNotFoundException exception = new FieldNotFoundException(fieldName);
 	
 	
 	/**
-	 * Tests toString
+	 * Tests toString.
 	 */
 	@Test
 	public void testToString(){

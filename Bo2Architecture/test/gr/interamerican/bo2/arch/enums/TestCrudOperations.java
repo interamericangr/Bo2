@@ -14,8 +14,9 @@ public class TestCrudOperations {
 
 	/**
 	 * Unit test for perform.
-	 * 
-	 * @throws DataException
+	 *
+	 * @param <P> the generic type
+	 * @throws DataException the data exception
 	 */
 	@Test
 	@SuppressWarnings("unchecked")

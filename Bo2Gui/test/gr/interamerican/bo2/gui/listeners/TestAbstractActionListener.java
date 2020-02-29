@@ -22,6 +22,7 @@ import org.mockito.Mockito;
 
 /**
  * Unit tests for {@link AbstractActionListener}.
+ *
  */
 public class TestAbstractActionListener {
 	
@@ -50,6 +51,9 @@ public class TestAbstractActionListener {
 			super(Mockito.mock(ExceptionHandler.class));
 		}
 
+		/**
+		 * Work.
+		 */
 		@Override
 		void work() {
 			/* empty */			

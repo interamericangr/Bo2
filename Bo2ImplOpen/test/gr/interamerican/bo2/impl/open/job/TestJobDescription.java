@@ -6,12 +6,12 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestJobDescription.
  */
 public class TestJobDescription {
 	
 	/**
-	 * 
+	 * Test synchronous.
 	 */
 	@Test
 	public void testSynchronous() {

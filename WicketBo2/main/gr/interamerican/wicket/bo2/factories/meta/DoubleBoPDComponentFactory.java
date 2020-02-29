@@ -24,10 +24,12 @@ import org.apache.wicket.model.IModel;
 public class DoubleBoPDComponentFactory 
 extends AbstractBoPDComponentFactory<DoubleBoPropertyDescriptor> {	
 	
+	@Override
 	public Component drawMain(DoubleBoPropertyDescriptor descriptor,String wicketId) {
 		return new SelfDrawnDoubleTextField(wicketId, descriptor);
 	}
 	
+	@Override
 	@SuppressWarnings("unchecked")
 	public Component drawMain(String wicketId, IModel<?> model, DoubleBoPropertyDescriptor descriptor) {
 		return new SelfDrawnDoubleTextField(wicketId, (IModel<Double>) model,descriptor);

@@ -37,7 +37,7 @@ public class TestAnyRange {
 	Range<Integer> other = new Range<Integer>(2,5);
 	
 	/**
-	 * test for overlapsWith()
+	 * test for overlapsWith().
 	 */
 	@Test
 	public void testOverlapsWith() {
@@ -45,7 +45,7 @@ public class TestAnyRange {
 	}
 	
 	/**
-	 * test for overlapsWith()
+	 * test for overlapsWith().
 	 */
 	@Test
 	public void testContains() {		
@@ -55,7 +55,7 @@ public class TestAnyRange {
 	}
 
 	/**
-	 * test for testCompareTo()
+	 * test for testCompareTo().
 	 */
 	@Test
 	public void testCompareTo() {
@@ -64,7 +64,7 @@ public class TestAnyRange {
 	}
 	
 	/**
-	 * test for testCompareTo()
+	 * test for testCompareTo().
 	 */
 	@Test
 	public void testEquals() {
@@ -75,7 +75,7 @@ public class TestAnyRange {
 	}
 	
 	/**
-	 * test for setLeft()
+	 * test for setLeft().
 	 */
 	@Test
 	public void testSetLeft() {
@@ -84,7 +84,7 @@ public class TestAnyRange {
 	}	
 	
 	/**
-	 * test for setRight()
+	 * test for setRight().
 	 */
 	@Test
 	public void testSetRight() {
@@ -93,7 +93,7 @@ public class TestAnyRange {
 	}
 	
 	/**
-	 * test for toString()
+	 * test for toString().
 	 */
 	@Test
 	public void testToString() {		
@@ -101,7 +101,7 @@ public class TestAnyRange {
 	}
 	
 	/**
-	 * test for hashcode()
+	 * test for hashcode().
 	 */
 	@Test
 	public void testHashcode() {		
@@ -109,7 +109,7 @@ public class TestAnyRange {
 	}
 	
 	/**
-	 * test for contains(range)
+	 * test for contains(range).
 	 */
 	@Test
 	public void testContains_Range() {		
@@ -117,7 +117,7 @@ public class TestAnyRange {
 	}
 	
 	/**
-	 * test for intersection(range)
+	 * test for intersection(range).
 	 */
 	@Test
 	public void testIntersection() {		
@@ -125,7 +125,7 @@ public class TestAnyRange {
 	}
 	
 	/**
-	 * test for overlapsWith(collection)
+	 * test for overlapsWith(collection).
 	 */
 	@Test
 	public void testOverlapsWith_collection() {
@@ -135,7 +135,7 @@ public class TestAnyRange {
 	}
 	
 	/**
-	 * test for isPoint()
+	 * test for isPoint().
 	 */
 	@Test
 	public void testIsPoint() {	
@@ -143,7 +143,7 @@ public class TestAnyRange {
 	}
 	
 	/**
-	 * test for isPoint()
+	 * test for isPoint().
 	 */
 	@Test
 	public void testRemainder() {	

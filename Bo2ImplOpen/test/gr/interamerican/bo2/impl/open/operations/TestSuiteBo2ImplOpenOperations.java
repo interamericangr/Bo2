@@ -21,6 +21,7 @@ import org.junit.runners.Suite.SuiteClasses;
  *
  *
  */
+@SuppressWarnings("deprecation")
 @RunWith(Suite.class)
 @SuiteClasses(
 	{
@@ -38,6 +39,7 @@ import org.junit.runners.Suite.SuiteClasses;
 		TestBatchCopyToOtherSystemOperation.class,
 		TestSaveStreamOperation.class,
 		TestAbstractNamedStreamOperation.class,
+		TestCopyComplexEntityOperation.class
 	}
 )
 public class TestSuiteBo2ImplOpenOperations {

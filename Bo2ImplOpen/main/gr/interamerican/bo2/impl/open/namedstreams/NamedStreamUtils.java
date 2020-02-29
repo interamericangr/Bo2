@@ -42,15 +42,12 @@ public class NamedStreamUtils {
 	 * This operation can be used to make a NamedStreamsProvider aware of
 	 * a stream that was created during runtime, or that was opened by
 	 * another NamedStreamsProvider.
-	 * 
-	 * @param stream
-	 *        Stream to register.
-	 * @param provider
-	 *        Provider.
-	 * @param managerName
-	 *        Manager name.
+	 *
+	 * @param stream        Stream to register.
+	 * @param provider        Provider.
+	 * @param managerName        Manager name.
 	 *        
-	 * @throws InitializationException
+	 * @throws InitializationException the initialization exception
 	 */
 	public static void registerStream
 	(NamedStream<?> stream, Provider provider, String managerName) 
@@ -61,13 +58,13 @@ public class NamedStreamUtils {
 	
 	/**
 	 * Gets a named stream from the default stream manager.
-	 * 
-	 * @see #getNamedStream(Provider, String, String)
-	 * 
-	 * @param provider
-	 * @param streamName
+	 *
+	 * @param <T> the generic type
+	 * @param provider the provider
+	 * @param streamName the stream name
 	 * @return Named stream
-	 * @throws InitializationException
+	 * @throws InitializationException the initialization exception
+	 * @see #getNamedStream(Provider, String, String)
 	 */
 	public static <T> NamedStream<T> getDefaultNamedStream(Provider provider, String streamName) throws InitializationException {
 		String streamsManagerName = Bo2.getDefaultDeployment().getDeploymentBean().getStreamsManagerName();
@@ -76,12 +73,13 @@ public class NamedStreamUtils {
 	
 	/**
 	 * Gets a named stream from the specified stream manager.
-	 * 
-	 * @param provider
-	 * @param managerName 
-	 * @param streamName
+	 *
+	 * @param <T> the generic type
+	 * @param provider the provider
+	 * @param managerName the manager name
+	 * @param streamName the stream name
 	 * @return Named stream
-	 * @throws InitializationException
+	 * @throws InitializationException the initialization exception
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> NamedStream<T> getNamedStream(Provider provider, String managerName, String streamName) throws InitializationException {

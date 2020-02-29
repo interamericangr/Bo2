@@ -51,8 +51,8 @@ public class NewJavabeanClassCreator {
 	/**
 	 * Creates a new NewJavabeanClassCreator object. 
 	 *
-	 * @param className
-	 * @param properties
+	 * @param className the class name
+	 * @param properties the properties
 	 */
 	public NewJavabeanClassCreator
 	(String className, VariableDefinition<?>[] properties) {
@@ -63,10 +63,9 @@ public class NewJavabeanClassCreator {
 	
 	/**
 	 * Creates a new type.
-	 * 
+	 *
 	 * @return Returns the new type.
-	 * 
-	 * @throws ClassCreationException
+	 * @throws ClassCreationException the class creation exception
 	 */
 	public Class<?> create() throws ClassCreationException {
 		List<String> fields = new ArrayList<String>();

@@ -4,13 +4,13 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Unit tests for {@link SimpleCsvRecordComparator}
+ * Unit tests for {@link SimpleCsvRecordComparator}.
  */
 @SuppressWarnings("nls")
 public class TestSimpleCsvRecordComparator {
 	
 	/**
-	 * Test compare
+	 * Test compare.
 	 */
 	@Test
 	public void testCompare() {
@@ -60,7 +60,7 @@ public class TestSimpleCsvRecordComparator {
 	}
 	
 	/**
-	 * Test compare fails
+	 * Test compare fails.
 	 */
 	@Test(expected=IllegalStateException.class)
 	public void testCompare_failsSizeMismatch() {
@@ -73,7 +73,7 @@ public class TestSimpleCsvRecordComparator {
 	}
 	
 	/**
-	 * Test compare fails
+	 * Test compare fails.
 	 */
 	@Test(expected=IllegalStateException.class)
 	public void testCompare_failsNonExistantIndex() {

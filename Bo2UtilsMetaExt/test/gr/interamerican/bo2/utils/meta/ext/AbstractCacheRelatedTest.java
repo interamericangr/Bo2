@@ -29,6 +29,8 @@ public abstract class AbstractCacheRelatedTest {
 	}
 	
 	/**
+	 * Cache.
+	 *
 	 * @return Returns the test cache
 	 */
 	protected Cache<Long> cache() {

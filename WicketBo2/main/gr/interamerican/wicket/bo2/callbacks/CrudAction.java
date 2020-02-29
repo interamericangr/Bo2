@@ -39,8 +39,9 @@ import org.apache.wicket.model.IModel;
  *        Type of object. 
  * @param <Q> 
  *        Type of next key {@link Question}.
- * 
+ * @deprecated Use {@link SaveAction}, {@link SaveWithQuestionAction}, {@link UpdateAction} or {@link DeleteAction}
  */
+@Deprecated
 public class CrudAction
 <K extends Serializable & Comparable<? super K>, 
  P extends PersistentObject<K>,
@@ -89,24 +90,19 @@ extends Bo2WicketBlock {
 			Class<P> poClass, 
 			Class<Q> questionClass, 
 			CrudPerformer performer) {
-		super();
 		this.poClass = poClass;
 		this.performer = performer;
 		this.definition = definition;
 		this.questionClass = questionClass;
 	}
-	
-	
-	
+
 	@Override
 	public void work() 
 	throws InitializationException, DataException, LogicException {
 		AjaxRequestTarget target = getHandlerParameter(AjaxRequestTarget.class);
-		IModel<P> model = null;
+		IModel<P> model = definition.getBeanModel();
 		
 		target.add(definition.getServicePanel());
-		model =definition.getBeanModel();
-	
 		P p = model.getObject();
 		if(performer == CrudOperations.STORE) {
 			Q keyQuestion = Bo2WicketRequestCycle.open(questionClass);
@@ -119,8 +115,4 @@ extends Bo2WicketBlock {
 		P newP = performer.perform(p, pw);
 		model.setObject(newP);
 	}
-
-	
-	
-	 
 }

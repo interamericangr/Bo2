@@ -23,14 +23,12 @@ import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
 public class DoubleBoPDFactory {
 
 	/**
-	 * Creates the {@link DoubleBoPropertyDescriptor}
-	 * 
-	 * @param pd
-	 *        PropertyDescriptorDefinition
+	 * Creates the {@link DoubleBoPropertyDescriptor}.
+	 *
+	 * @param pd        PropertyDescriptorDefinition
 	 *        
 	 * @return DoubleBoPropertyDescriptor
-	 * 
-	 * @throws ParseException 
+	 * @throws ParseException the parse exception
 	 */
 	@SuppressWarnings("nls")
 	public static DoubleBoPropertyDescriptor create(PropertyDefinition pd) throws ParseException {
@@ -62,7 +60,7 @@ public class DoubleBoPDFactory {
 	}
 	
 	/**
-	 * Hidden constructor 
+	 * Hidden constructor.
 	 */
 	private DoubleBoPDFactory(){ /* empty */ }
 

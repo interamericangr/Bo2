@@ -12,26 +12,17 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.namedstreams;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import gr.interamerican.bo2.arch.exceptions.DataException;
+import static org.mockito.Mockito.*;
+
+import java.util.Properties;
+
+import org.junit.Assert;
+import org.junit.Test;
+
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.CouldNotCreateNamedStreamException;
 import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.NamedStreamFactory;
 import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResource;
-import gr.interamerican.bo2.impl.open.namedstreams.types.NamedPrintStream;
-import gr.interamerican.bo2.impl.open.namedstreams.types.StreamType;
-import gr.interamerican.bo2.test.utils.UtilityForBo2Test;
-import gr.interamerican.bo2.utils.StringConstants;
-import gr.interamerican.bo2.utils.StringUtils;
-
-import java.io.File;
-import java.nio.charset.Charset;
-import java.util.Properties;
-
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
 
 /**
  * Unit tests for {@link NamedStreamsManagerImpl}.
@@ -56,7 +47,8 @@ public class TestNamedStreamsManagerImpl {
 	
 	/**
 	 * Test for getDefinition(name).
-	 * @throws InitializationException 
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test
 	public void testGetDefinition_succeed() throws InitializationException {
@@ -73,8 +65,8 @@ public class TestNamedStreamsManagerImpl {
 	
 	/**
 	 * Test for getDefinition(name).
-	 * 
-	 * @throws InitializationException 
+	 *
+	 * @throws InitializationException the initialization exception
 	 */	
 	@Test(expected=InitializationException.class)
 	public void testGetDefinition_fail() throws InitializationException {
@@ -89,10 +81,9 @@ public class TestNamedStreamsManagerImpl {
 	
 	/**
 	 * Tests open(namedStreamDefinition).
-	 * 
-	 * @throws CouldNotCreateNamedStreamException 
-	 * @throws InitializationException 
-	 * 
+	 *
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
+	 * @throws InitializationException the initialization exception
 	 */	
 	@Test
 	public void testOpen_succeed() throws CouldNotCreateNamedStreamException, InitializationException {
@@ -112,10 +103,9 @@ public class TestNamedStreamsManagerImpl {
 	
 	/**
 	 * Tests open(namedStreamDefinition).
-	 * 
-	 * @throws CouldNotCreateNamedStreamException 
-	 * @throws InitializationException 
-	 * 
+	 *
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=InitializationException.class)
 	public void testOpen_fail() throws CouldNotCreateNamedStreamException, InitializationException {
@@ -132,7 +122,8 @@ public class TestNamedStreamsManagerImpl {
 	
 	/**
 	 * Tests getStream(name).
-	 * @throws InitializationException 
+	 *
+	 * @throws InitializationException the initialization exception
 	 */	
 	@Test
 	public void testGetStream_withOpenStream() throws InitializationException {
@@ -147,8 +138,9 @@ public class TestNamedStreamsManagerImpl {
 	
 	/**
 	 * Tests getStream(name).
-	 * @throws InitializationException 
-	 * @throws CouldNotCreateNamedStreamException 
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */	
 	@Test
 	public void testGetStream_withNewStream() throws InitializationException, CouldNotCreateNamedStreamException {
@@ -171,35 +163,4 @@ public class TestNamedStreamsManagerImpl {
 		NamedStream<?> registered = impl.streams.get(name);
 		Assert.assertEquals(ns, registered);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
-	
-
-	
-
-	
-
 }

@@ -16,20 +16,19 @@ import gr.interamerican.bo2.utils.meta.parsers.Parser;
 
 /**
  * {@link BoPropertyDescriptor} for types without decimal digits.
- * 
- * @param <T> 
+ *
+ * @param <T> the generic type
  */
 public abstract class AbstractIntTypesBoPropertyDescriptor<T extends Number> 
 extends AbstractNumberBoPropertyDescriptor<T> {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Creates a new IntegerBoPropertyDescriptor object.
-	 * @param parser 
+	 *
+	 * @param parser the parser
 	 */
 	public AbstractIntTypesBoPropertyDescriptor(Parser<T> parser) {
 		super(parser);

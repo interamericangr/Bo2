@@ -18,8 +18,9 @@ import gr.interamerican.bo2.utils.handlers.EventHandlerMethodInvocator;
 
 /**
  * Method based action listener.
+ * 
  */
-public class MethodBasedActionListener 
+class MethodBasedActionListener 
 extends AbstractActionListener {
 	/**
 	 * serialVersionUID.
@@ -42,18 +43,18 @@ extends AbstractActionListener {
 	/**
 	 * Creates a new MethodBasedActionListener object. 
 	 *
-	 * @param methodName
-	 * @param owner
+	 * @param methodName the method name
+	 * @param owner the owner
 	 */
 	public MethodBasedActionListener(String methodName, Object owner) {
-		super(PopUpExceptionHandler.INSTANCE);
+		super(PopUpExceptionHandler.POPUP_EH_INSTANCE);
 		this.methodName = methodName;
 		setCaller(owner);
 		if(caller instanceof OutputMedium) {
 			medium = (OutputMedium) caller;
 		}
 	}
-	
+
 	@Override
 	public void setCaller(Object caller) {
 		super.setCaller(caller);

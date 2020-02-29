@@ -24,19 +24,16 @@ import gr.interamerican.bo2.utils.meta.formatters.nr.NullReturningFormatter;
 public class PoKeyFormatter
 implements Formatter<PersistentObject<?>> {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Formatter.
 	 */
 	Formatter<Object> kf = new NullReturningFormatter<Object>(ObjectFormatter.<Object>getInstance());
 
-
+	@Override
 	public String format(PersistentObject<?> t) {
 		Object key = t.getKey();		
 		return kf.format(key);
 	}
-
 }

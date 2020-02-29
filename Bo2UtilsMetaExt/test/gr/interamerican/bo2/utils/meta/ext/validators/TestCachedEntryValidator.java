@@ -26,7 +26,8 @@ public class TestCachedEntryValidator extends AbstractCacheRelatedTest {
 
 	
 	/**
-	 * Creates a CachedEntryValidator
+	 * Creates a CachedEntryValidator.
+	 *
 	 * @return CachedEntryValidator
 	 */
 	private CachedEntryValidator<TypedSelectable<Long>, Long> createCachedObjectValidator(){
@@ -42,8 +43,9 @@ public class TestCachedEntryValidator extends AbstractCacheRelatedTest {
 	
 	
 	/**
-	 * Test Validate
-	 * @throws ValidationException 
+	 * Test Validate.
+	 *
+	 * @throws ValidationException the validation exception
 	 */
 	@Test(expected=ValidationException.class)
 	public void testValidateNoInCacheValue() throws ValidationException{
@@ -58,8 +60,9 @@ public class TestCachedEntryValidator extends AbstractCacheRelatedTest {
 	}
 	
 	/**
-	 * Test Validate
-	 * @throws ValidationException 
+	 * Test Validate.
+	 *
+	 * @throws ValidationException the validation exception
 	 */
 	@Test
 	public void testValidate() throws ValidationException{

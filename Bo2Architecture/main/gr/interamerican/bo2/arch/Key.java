@@ -15,7 +15,7 @@ package gr.interamerican.bo2.arch;
 import java.io.Serializable;
 
 /**
- * Key of a persistent object. <br/>
+ * Key of a persistent object. <br>
  * 
  * The key of a persistent object uniquely identifies the object.
  * Usually it is the primary key of the main database table where 

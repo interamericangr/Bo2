@@ -24,16 +24,14 @@ import gr.interamerican.bo2.utils.annotations.Child;
 import java.util.Set;
 
 /**
- * 
+ * The Class PrefectureImpl.
  */
 @DelegateKeyProperties({})
 public abstract class PrefectureImpl 
 extends AbstractModificationRecordPo<PrefectureKey>
 implements Prefecture {
 	
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -46,6 +44,7 @@ implements Prefecture {
 	 */
 	@Child @Property Set<City> cities;
 	
+	@Override
 	public int getPopulation() {
 		int population = 0;
 		for (Populated child : cities) {

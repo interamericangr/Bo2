@@ -34,9 +34,7 @@ import org.apache.wicket.model.CompoundPropertyModel;
  */
 public class SelfDrawnPanelCreator<B extends Serializable> implements PanelCreator<B> {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -58,8 +56,8 @@ public class SelfDrawnPanelCreator<B extends Serializable> implements PanelCreat
 
 	/**
 	 * Creates a new SelfDrawnPanelCreator object.
-	 * 
-	 * @param beanDescriptor
+	 *
+	 * @param beanDescriptor the bean descriptor
 	 */
 	public SelfDrawnPanelCreator(BusinessObjectDescriptor<B> beanDescriptor) {
 		super();
@@ -69,9 +67,9 @@ public class SelfDrawnPanelCreator<B extends Serializable> implements PanelCreat
 
 	/**
 	 * Creates a new SelfDrawnPanelCreator object.
-	 * 
-	 * @param beanDescriptor
-	 * @param columns 
+	 *
+	 * @param beanDescriptor the bean descriptor
+	 * @param columns the columns
 	 */
 	public SelfDrawnPanelCreator(BusinessObjectDescriptor<B> beanDescriptor, int columns) {
 		super();
@@ -82,10 +80,10 @@ public class SelfDrawnPanelCreator<B extends Serializable> implements PanelCreat
 	
 	/**
 	 * Creates a new SelfDrawnPanelCreator object.
-	 * 
-	 * @param beanDescriptor
-	 * @param columns 
-	 * @param dropDownFix 
+	 *
+	 * @param beanDescriptor the bean descriptor
+	 * @param columns the columns
+	 * @param dropDownFix the drop down fix
 	 */
 	public SelfDrawnPanelCreator(BusinessObjectDescriptor<B> beanDescriptor, int columns, Map<String, Long> dropDownFix) {
 		super();
@@ -94,6 +92,7 @@ public class SelfDrawnPanelCreator<B extends Serializable> implements PanelCreat
 		this.dropDownFix = dropDownFix;
 	}
 
+	@Override
 	public Panel createPanel(ModeAwareBeanPanelDef<B> definition) {
 		if (!(definition.getBeanModel() instanceof CompoundPropertyModel)) {
 			throw new RuntimeException("The bean model of ModeAwareBeanPanelDef is not a CompoundPropertyModel."); //$NON-NLS-1$

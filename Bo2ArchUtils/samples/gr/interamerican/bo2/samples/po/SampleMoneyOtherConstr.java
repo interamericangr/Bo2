@@ -32,8 +32,8 @@ public class SampleMoneyOtherConstr extends MoneyImpl {
 	/**
 	 * Creates a new MoneyImpl object. 
 	 *
-	 * @param amount
-	 * @param currency
+	 * @param amount the amount
+	 * @param currency the currency
 	 */
 	public SampleMoneyOtherConstr(BigDecimal amount, Currency currency) {
 		super();		

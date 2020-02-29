@@ -20,11 +20,15 @@ import java.io.Serializable;
 public interface UserIdBean extends Serializable {
 	
 	/**
-	 * @param userId
+	 * Sets the user id.
+	 *
+	 * @param userId the new user id
 	 */
 	public void setUserId(Integer userId);
 	
 	/**
+	 * Gets the user id.
+	 *
 	 * @return user id.
 	 */
 	public Integer getUserId();

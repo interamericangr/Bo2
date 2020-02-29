@@ -23,21 +23,20 @@ import org.apache.wicket.model.Model;
 
 
 /**
- * @param <T> 
- * 
+ * The Class TranslatablePropertyColumn.
+ *
+ * @param <T> the generic type
  */
-public class TranslatablePropertyColumn<T> extends PropertyColumn<T> {
+public class TranslatablePropertyColumn<T> extends PropertyColumn<T,String> {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Creates a new TranslatablePropertyColumn object. 
 	 *
-	 * @param displayModel
-	 * @param propertyExpression
+	 * @param displayModel the display model
+	 * @param propertyExpression the property expression
 	 */
 	public TranslatablePropertyColumn(IModel<String> displayModel, String propertyExpression) {
 		super(displayModel, propertyExpression);
@@ -46,9 +45,9 @@ public class TranslatablePropertyColumn<T> extends PropertyColumn<T> {
 	/**
 	 * Creates a new TranslatablePropertyColumn object. 
 	 *
-	 * @param displayModel
-	 * @param sortProperty
-	 * @param propertyExpression
+	 * @param displayModel the display model
+	 * @param sortProperty the sort property
+	 * @param propertyExpression the property expression
 	 */
 	public TranslatablePropertyColumn(IModel<String> displayModel, String sortProperty, String propertyExpression) {
 		super(displayModel, sortProperty, propertyExpression);
@@ -56,7 +55,7 @@ public class TranslatablePropertyColumn<T> extends PropertyColumn<T> {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	protected IModel<?> createLabelModel(IModel<T> rowModel) {
+	public IModel<?> getDataModel(IModel<T> rowModel) {
 		T object = rowModel.getObject();
 		if(object instanceof TranslatableEntryOwner){	
 			String label = StringConstants.EMPTY;
@@ -75,7 +74,7 @@ public class TranslatablePropertyColumn<T> extends PropertyColumn<T> {
 			String label = entry.getTranslation(languageId);
 			return new Model<String>(label);
 		}else{
-			return super.createLabelModel(rowModel);	
+			return super.getDataModel(rowModel);	
 		}	
 	}
 }

@@ -13,13 +13,11 @@
 package gr.interamerican.bo2.utils.ftp;
 
 /**
- * 
+ * The Class FtpException.
  */
 public class FtpException extends Exception {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -33,8 +31,8 @@ public class FtpException extends Exception {
 	/**
 	 * Creates a new FtpException object. 
 	 *
-	 * @param message
-	 * @param cause
+	 * @param message the message
+	 * @param cause the cause
 	 */
 	public FtpException(String message, Throwable cause) {
 		super(message, cause);
@@ -43,7 +41,7 @@ public class FtpException extends Exception {
 	/**
 	 * Creates a new FtpException object. 
 	 *
-	 * @param message
+	 * @param message the message
 	 */
 	public FtpException(String message) {
 		super(message);
@@ -52,7 +50,7 @@ public class FtpException extends Exception {
 	/**
 	 * Creates a new FtpException object. 
 	 *
-	 * @param cause
+	 * @param cause the cause
 	 */
 	public FtpException(Throwable cause) {
 		super(cause);

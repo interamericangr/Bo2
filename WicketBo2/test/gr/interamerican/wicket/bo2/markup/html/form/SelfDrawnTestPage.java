@@ -59,9 +59,7 @@ import org.apache.wicket.model.Model;
  */
 public class SelfDrawnTestPage extends WebPage {
 
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -78,9 +76,7 @@ public class SelfDrawnTestPage extends WebPage {
 	 */
 	private FeedbackPanel feedbackPanel = new FeedbackPanel("feedBackPanel"); //$NON-NLS-1$
 
-	/**
-	 * 
-	 */
+	/** The ajax button. */
 	private AjaxButton ajaxButton = new AjaxButton("submit") { //$NON-NLS-1$
 
 		/**
@@ -210,7 +206,7 @@ public class SelfDrawnTestPage extends WebPage {
 	}
 
 	/**
-	 * 
+	 * Initialize descriptors.
 	 */
 	private static void initializeDescriptors() {
 		Bean1descriptor descriptor = new Bean1descriptor();
@@ -237,10 +233,9 @@ public class SelfDrawnTestPage extends WebPage {
 	}
 
 	/**
-	 * Create CachedEntryBoPropertyDescriptor
-	 * 
+	 * Create CachedEntryBoPropertyDescriptor.
+	 *
 	 * @return CachedEntryBoPropertyDescriptor
-	 * 
 	 */
 	private CachedEntryBoPropertyDescriptor<?, ?> createDescriptor() {
 		Cache<Long> CACHE = new CacheImpl<Long>();
@@ -270,10 +265,12 @@ public class SelfDrawnTestPage extends WebPage {
 		 */
 		private static final long serialVersionUID = 1L;
 
+		@Override
 		public String getTranslation(Long languageId) {
 			return getName();
 		}
 
+		@Override
 		public Long getTranslationResourceId() {
 			return getCode();
 		}

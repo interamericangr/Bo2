@@ -31,124 +31,124 @@ public interface OrderedFieldsContainer {
    
     /**
      * Gets the string value of the specified field.
-     * 
+     *
      * @param field Order of accessed field.
      * @return returns the value of the field with the specified name.
-     * @throws DataAccessException
+     * @throws DataAccessException the data access exception
      */
     public String getString(int field) throws DataAccessException;
     
     /**
      * Gets the BigDecimal value of the specified field.
-     * 
+     *
      * @param field Order of accessed field.
      * @return returns the value of the field with the specified name.
-     * @throws DataAccessException
+     * @throws DataAccessException the data access exception
      */
     public BigDecimal getBigDecimal(int field) throws DataAccessException;
     
     
     /**
      * Gets the double value of the specified field.
-     * 
+     *
      * @param field Order of accessed field.
      * @return returns the value of the field with the specified name.
-     * @throws DataAccessException
+     * @throws DataAccessException the data access exception
      */
     public double getDouble(int field) throws DataAccessException;
  
     
     /**
      * Gets the float value of the specified field.
-     * 
+     *
      * @param field Order of accessed field.
      * @return returns the value of the field with the specified name.
-     * @throws DataAccessException
+     * @throws DataAccessException the data access exception
      */
 	public float getFloat(int field) throws DataAccessException;
 
 
     /**
      * Gets the integer value of the specified field.
-     * 
+     *
      * @param field Order of accessed field.
      * @return returns the value of the field with the specified name.
-     * @throws DataAccessException
+     * @throws DataAccessException the data access exception
      */
 	public int getInt(int field) throws DataAccessException; 
 
 
     /**
      * Gets the long value of the specified field.
-     * 
+     *
      * @param field Order of accessed field.
      * @return returns the value of the field with the specified name.
-     * @throws DataAccessException
+     * @throws DataAccessException the data access exception
      */
 	public long getLong(int field) throws DataAccessException; 
 
     /**
      * Gets the short value of the specified field.
-     * 
+     *
      * @param field Order of accessed field.
      * @return returns the value of the field with the specified name.
-     * @throws DataAccessException
+     * @throws DataAccessException the data access exception
      */
 	public short getShort(int field) throws DataAccessException; 
 
     /**
      * Gets the boolean value of the specified field.
-     * 
+     *
      * @param field Order of accessed field.
      * @return returns the value of the field with the specified name.
-     * @throws DataAccessException
+     * @throws DataAccessException the data access exception
      */	
 	public boolean getBoolean(int field) throws DataAccessException;
 
 
     /**
      * Gets the byte value of the specified field.
-     * 
+     *
      * @param field Order of accessed field.
      * @return returns the value of the field with the specified name.
-     * @throws DataAccessException
+     * @throws DataAccessException the data access exception
      */	
 	public byte getByte(int field) throws DataAccessException;
 
 
     /**
      * Gets the value of the specified field as an array of bytes.
-     * 
+     *
      * @param field Order of accessed field.
      * @return returns the value of the field with the specified name.
-     * @throws DataAccessException
+     * @throws DataAccessException the data access exception
      */
 	public byte[] getBytes(int field) throws DataAccessException;
 	
     /**
      * Gets the date value of the specified field.
-     * 
+     *
      * @param field Order of accessed field.
      * @return returns the value of the field with the specified name.
-     * @throws DataAccessException
+     * @throws DataAccessException the data access exception
      */
     public Date getDate(int field) throws DataAccessException;
     
     /**
      * Gets the calendar value of the specified field.
-     * 
+     *
      * @param field Order of accessed field.
      * @return returns the value of the field with the specified name.
-     * @throws DataAccessException
+     * @throws DataAccessException the data access exception
      */
     public Calendar getCalendar(int field) throws DataAccessException;
     
     /**
      * Gets an object value of the specified field.
-     * 
+     *
      * @param field Order of accessed field.
      * @return returns the value of the field with the specified name.
-     * @throws DataAccessException
+     * @throws DataAccessException the data access exception
      */
 	public Object getObject(int field) throws DataAccessException;
     

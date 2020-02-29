@@ -31,7 +31,7 @@ import java.util.Properties;
 
 /**
  * StreamsProvider that polls a predefined folder until it finds
- * the stream it looks for. <br/>
+ * the stream it looks for. <br>
  * 
  * {@link PollingStreamsProviderImpl} provides only InputStreams. 
  * It's <code>getInputStream(filename)</code> method expects to find
@@ -110,9 +110,8 @@ public class PollingStreamsProviderImpl implements StreamsProvider {
 	
 	/**
 	 * Opens the specified file if it exists.
-	 * 
-	 * @param fileDescriptor
-	 * 
+	 *
+	 * @param fileDescriptor the file descriptor
 	 * @return If the file exists, returns the FileInputStream,
 	 *         otherwise returns null.
 	 */
@@ -137,7 +136,8 @@ public class PollingStreamsProviderImpl implements StreamsProvider {
 			throw new RuntimeException(e);
 		}
 	}
-		
+
+	@Override
 	public InputStream getInputStream(String fileDescriptor) throws DataException {
 		int tries=0;
 		while (tries<maxTries) {
@@ -152,7 +152,6 @@ public class PollingStreamsProviderImpl implements StreamsProvider {
 		throw new DataException(msg);
 	}
 	
-	
 	@Override
 	public InputStream getManagedInputStream(String fileDescriptor) throws DataException {
 		InputStream is = getInputStream(fileDescriptor);
@@ -160,6 +159,7 @@ public class PollingStreamsProviderImpl implements StreamsProvider {
 		return is;
 	}
 
+	@Override
 	public OutputStream getOutputStream(String fileDescriptor) throws DataException {
 		throw new DataOperationNotSupportedException();
 	}
@@ -171,8 +171,8 @@ public class PollingStreamsProviderImpl implements StreamsProvider {
 	
 	/**
 	 * Real path for the fileDescriptor.
-	 * 
-	 * @param fileDescriptor
+	 *
+	 * @param fileDescriptor the file descriptor
 	 * @return Returns the path.
 	 */
 	String getPath(String fileDescriptor) {
@@ -182,6 +182,8 @@ public class PollingStreamsProviderImpl implements StreamsProvider {
 		return workDir + File.separator + fileDescriptor;
 	}
 
+	@Override
+	@SuppressWarnings("resource")
 	public void close() throws DataException {
 		/* 
 		 * Unmanaged streams should be explicitly closed by the program
@@ -195,5 +197,4 @@ public class PollingStreamsProviderImpl implements StreamsProvider {
 			}
 		}	
 	}
-
 }

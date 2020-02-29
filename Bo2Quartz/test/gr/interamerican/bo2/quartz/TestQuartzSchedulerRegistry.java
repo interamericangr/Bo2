@@ -16,14 +16,14 @@ import org.quartz.SchedulerException;
 
 
 /**
- * 
+ * The Class TestQuartzSchedulerRegistry.
  */
 public class TestQuartzSchedulerRegistry {
 
 	/**
 	 * Test method for {@link QuartzSchedulerRegistry#getScheduler()}.
-	 * 
-	 * @throws SchedulerException
+	 *
+	 * @throws SchedulerException the scheduler exception
 	 */
 	@Test
 	public void testGetScheduler() throws SchedulerException {
@@ -36,22 +36,43 @@ public class TestQuartzSchedulerRegistry {
 	/**
 	 * test method for
 	 * {@link QuartzSchedulerRegistry#getJobDescriptionBasedOnStatus(gr.interamerican.bo2.impl.open.job.JobStatus)}
-	 * 
-	 * @throws DataException
+	 *
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testGetJobDescriptionBasedOnStatus() throws DataException {
 		QuartzSchedulerRegistry.clearScheduledJobDescriptions();
 		JobScheduler jobScheduler = new QuartzJobSchedulerImpl();
+		assertJobsWithStatusCount(JobStatus.OK, 0);
+		assertJobsWithStatusCount(JobStatus.SCHEDULED, 0);
+		assertJobsWithStatusCount(JobStatus.RUNNING, 0);
+		
 		jobScheduler.submitJobs(TestQuartzUtils.singleBeanList);
-		Assert.assertTrue((QuartzSchedulerRegistry.getJobDescriptionBasedOnStatus(JobStatus.SCHEDULED).size() + QuartzSchedulerRegistry
-				.getJobDescriptionBasedOnStatus(JobStatus.RUNNING).size()) == 1);
+		int sched = QuartzSchedulerRegistry.getJobDescriptionBasedOnStatus(JobStatus.SCHEDULED).size();
+		int runn = QuartzSchedulerRegistry.getJobDescriptionBasedOnStatus(JobStatus.RUNNING).size();
+		Assert.assertTrue(sched==1 || runn==1);
 		QuartzUtils.waitGroupToComplete(null);
-		Assert.assertTrue(QuartzSchedulerRegistry.getJobDescriptionBasedOnStatus(JobStatus.OK).size() == 1);
+		
+		assertJobsWithStatusCount(JobStatus.OK, 1);
+		assertJobsWithStatusCount(JobStatus.SCHEDULED, 0);
+		assertJobsWithStatusCount(JobStatus.RUNNING, 0);
+		
 		jobScheduler.submitJobs(TestQuartzUtils.dualBeanList);
-		Assert.assertTrue((QuartzSchedulerRegistry.getJobDescriptionBasedOnStatus(JobStatus.SCHEDULED).size() + QuartzSchedulerRegistry
-				.getJobDescriptionBasedOnStatus(JobStatus.RUNNING).size()) == 2);
 		QuartzUtils.waitGroupToComplete(null);
-		Assert.assertTrue(QuartzSchedulerRegistry.getJobDescriptionBasedOnStatus(JobStatus.OK).size() == 3);
+		
+		assertJobsWithStatusCount(JobStatus.OK, 3);
+		assertJobsWithStatusCount(JobStatus.SCHEDULED, 0);
+		assertJobsWithStatusCount(JobStatus.RUNNING, 0);
 	}
+	
+	/**
+	 * Assert jobs with status count.
+	 *
+	 * @param status the status
+	 * @param expectedCount the expected count
+	 */
+	void assertJobsWithStatusCount(JobStatus status, int expectedCount) {
+		Assert.assertEquals(expectedCount, QuartzSchedulerRegistry.getJobDescriptionBasedOnStatus(status).size());
+	}
+	
 }

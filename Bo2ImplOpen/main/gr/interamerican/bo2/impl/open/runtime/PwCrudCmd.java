@@ -30,7 +30,7 @@ extends CrudCmd<P> {
 	/**
 	 * Creates a new PwCrudCmd object. 
 	 *
-	 * @param poClass
+	 * @param poClass the po class
 	 */
 	@SuppressWarnings("cast")
 	public PwCrudCmd(Class<P> poClass) {

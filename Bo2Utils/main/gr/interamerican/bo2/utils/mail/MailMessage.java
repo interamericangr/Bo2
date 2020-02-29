@@ -17,6 +17,7 @@ import static gr.interamerican.bo2.utils.StringConstants.SEMICOLON;
 import static gr.interamerican.bo2.utils.StringConstants.SPACE;
 import gr.interamerican.bo2.utils.StringUtils;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,18 +35,27 @@ import javax.mail.internet.MimeMultipart;
  * Email message.
  */
 public class MailMessage {
+	
 	/**
 	 * Sender name.
 	 */
 	String from;
+	
+	/**
+	 * Desired display name.
+	 */
+	String displayName;
+	
 	/**
 	 * To list.
 	 */
 	List<String> toList = new ArrayList<String>();
+	
 	/**
 	 * CC list.
 	 */
 	List<String> ccList = new ArrayList<String>();
+	
 	/**
 	 * BCC list.
 	 */
@@ -55,6 +65,7 @@ public class MailMessage {
 	 * Message body.
 	 */
 	String message = EMPTY;
+	
 	/**
 	 * Subject.
 	 */
@@ -79,16 +90,6 @@ public class MailMessage {
 	 * Attachements.
 	 */
 	List<Attachment> attachments = new ArrayList<Attachment>();
-	
-	
-	/**
-	 * Validates the message before trying to send.
-	 */
-	void validate() {
-		if (toList == null) {
-			throw new RuntimeException("No recipient"); //$NON-NLS-1$
-		}
-	}
 
 	/**
 	 * Sends the message.
@@ -99,11 +100,11 @@ public class MailMessage {
 	 */
 	void send(MailServer smtp) {
 		try {
-			validate();		
 			MimeMessage msg = new MimeMessage(smtp.getSession());
 			
 			if (from != null) {
-				msg.setFrom(new InternetAddress(from));
+				InternetAddress fromAddress = StringUtils.isNullOrBlank(displayName) ? new InternetAddress(from) : new InternetAddress(from, displayName);
+				msg.setFrom(fromAddress);
 			}		
 			for (String string : toList) {
 				InternetAddress adress = new InternetAddress(string);
@@ -142,10 +143,11 @@ public class MailMessage {
 			throw new RuntimeException(e);
 		} catch (MessagingException e) {
 			throw new RuntimeException(e);
+		} catch (UnsupportedEncodingException e) {
+			throw new RuntimeException(e);
 		}
 	}
 	
-
 	/**
 	 * Sends the message.
 	 */
@@ -153,9 +155,6 @@ public class MailMessage {
 		send(MailServer.INSTANCE);		
 	}
 		
-	
-	
-
 	/**
 	 * Adds an attachment.
 	 * 
@@ -183,9 +182,9 @@ public class MailMessage {
 	}
 
 	/**
-	 * Sets the message subject
-	 * 
-	 * @param string
+	 * Sets the message subject.
+	 *
+	 * @param string the new subject
 	 */
 	public void setSubject(String string) {
 		subject = string;
@@ -193,8 +192,8 @@ public class MailMessage {
 	
 	/**
 	 * Adds a recipient.
-	 * 
-	 * @param string
+	 *
+	 * @param string the string
 	 */
 	public void addTo(String string) {
 		toList.add(string);
@@ -202,8 +201,8 @@ public class MailMessage {
 	
 	/**
 	 * Adds a recipient.
-	 * 
-	 * @param string
+	 *
+	 * @param string the string
 	 */
 	public void addCc(String string) {
 		ccList.add(string);
@@ -211,26 +210,26 @@ public class MailMessage {
 
 	/**
 	 * Adds a recipient.
-	 * 
-	 * @param string
+	 *
+	 * @param string the string
 	 */
 	public void addBcc(String string) {
 		bccList.add(string);
 	}
 
 	/**
-	 * Sets the sender
-	 * 
-	 * @param string
+	 * Sets the sender.
+	 *
+	 * @param string the new from
 	 */
 	public void setFrom(String string) {
 		from = string;
 	}
 
 	/**
-	 * Sets the message
-	 * 
-	 * @param string
+	 * Sets the message.
+	 *
+	 * @param string the new message
 	 */
 	public void setMessage(String string) {
 		message = string;
@@ -279,6 +278,25 @@ public class MailMessage {
 	 */
 	public String getFrom() {
 		return from;
+	}
+	
+	/**
+	 * Gets the displayName.
+	 * Sets the displayName
+	 * 
+	 * @param displayName 
+	 */
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
+	}
+	
+	/**
+	 * Gets the displayName.
+	 *
+	 * @return Returns the displayName
+	 */
+	public String getDisplayName() {
+		return displayName;
 	}
 
 	/**
@@ -362,7 +380,5 @@ public class MailMessage {
 	public void setMessageType(String messageType) {
 		this.messageType = messageType;
 	}
-
-	
 	
 }

@@ -12,67 +12,97 @@
  ******************************************************************************/
 package gr.interamerican.wicket.markup.html.panel;
 
-import static gr.interamerican.bo2.utils.StringUtils.doubleQuotes;
-import gr.interamerican.bo2.utils.StringUtils;
-import gr.interamerican.wicket.util.resource.StringAsResourceStream;
-import gr.interamerican.wicket.utils.ImageType;
-
-import org.apache.wicket.MarkupContainer;
-import org.apache.wicket.markup.IMarkupCacheKeyProvider;
-import org.apache.wicket.markup.IMarkupResourceStreamProvider;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.request.resource.ContextRelativeResource;
-import org.apache.wicket.util.resource.IResourceStream;
+import org.apache.wicket.request.resource.ResourceReference;
+
+import gr.interamerican.wicket.utils.images.EmbeddedImage;
 
 /**
- * Panel containing a textField.
- * 
+ * Panel containing an {@link Image}
  */
-public class DataTableImagePanel extends Panel 
-implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
-	
+public class DataTableImagePanel extends Panel {
 	/**
 	 * serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
-	 * wicket id.
+	 * Wicket Id for the Image
 	 */
-	private static final String IMAGE_ID = "image"; //$NON-NLS-1$
-	
+	private static final String IMAGE = "image"; //$NON-NLS-1$
+
 	/**
-	 * ImageType.
-	 */
-	protected ImageType imageType = null;
-	
-	/**
-	 * Creates a new {@link DataTableImagePanel} object. 
+	 * Creates a new {@link DataTableImagePanel} object.
 	 *
 	 * @param id
+	 *            the id
 	 * @param model
-	 * @param imageType 
+	 *            the model
+	 * @param imageType
+	 *            the image type
+	 * @deprecated Use Alternative Constructors.
 	 */
-	public DataTableImagePanel(String id, IModel<?> model, ImageType imageType) {
+	@Deprecated
+	public DataTableImagePanel(String id, IModel<?> model, gr.interamerican.wicket.utils.ImageType imageType) {
 		super(id, model);
-		this.imageType = imageType; 
-		Image field = new Image(IMAGE_ID,  new ContextRelativeResource(imageType.getImage()));
-		add(field);
-	}
-	
-	public IResourceStream getMarkupResourceStream(MarkupContainer container, Class<?> clazz) {
-		@SuppressWarnings("nls")
-		String html = StringUtils.concat(
-			"<html><body><wicket:panel>", 
-			"<img wicket:id=",doubleQuotes(IMAGE_ID),"></img>",
-			"</wicket:panel></body></html>"); 
-		return new StringAsResourceStream(html);
-	}
-	
-	public String getCacheKey(MarkupContainer arg0, Class<?> arg1) {
-		return null;
+		add(new Image(IMAGE, new ContextRelativeResource(imageType.getImage())));
 	}
 
+	/**
+	 * Public Constructor.
+	 *
+	 *
+	 * @param id
+	 *            the id
+	 * @param image
+	 *            {@link EmbeddedImage} to use
+	 */
+	public DataTableImagePanel(String id, EmbeddedImage image) {
+		this(id, null, image.getReference());
+	}
+
+	/**
+	 * Public Constructor.
+	 *
+	 *
+	 * @param id
+	 *            the id
+	 * @param model
+	 *            Model Object
+	 * @param image
+	 *            {@link EmbeddedImage} to use
+	 */
+	public DataTableImagePanel(String id, IModel<?> model, EmbeddedImage image) {
+		this(id, model, image.getReference());
+	}
+
+	/**
+	 * Public Constructor.
+	 *
+	 * @param id
+	 *            Wicket Id
+	 * @param reference
+	 *            {@link ResourceReference} for the Image
+	 */
+	public DataTableImagePanel(String id, ResourceReference reference) {
+		this(id, null, reference);
+	}
+
+	/**
+	 * Public Constructor.
+	 *
+	 * @param id
+	 *            Wicket Id
+	 * @param model
+	 *            Model Object
+	 * @param reference
+	 *            {@link ResourceReference} for the Image
+	 */
+	public DataTableImagePanel(String id, IModel<?> model, ResourceReference reference) {
+		super(id, model);
+		add(new Image(IMAGE, reference));
+	}
 }

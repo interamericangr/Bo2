@@ -20,37 +20,30 @@ import gr.interamerican.bo2.test.def.posamples.InvoiceCustomer;
 import gr.interamerican.bo2.test.def.posamples.InvoiceKey;
 
 /**
- * 
+ * The Class InvoiceCustomerImpl.
  */
 @DelegateKeyProperties("")
 public abstract class InvoiceCustomerImpl 
 extends AbstractModificationRecordPo<InvoiceKey> 
 implements InvoiceCustomer {
 	
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
 	/**
 	 * role id.
 	 */
 	@Property
-	@SuppressWarnings("unused")
 	private Integer roleId;
 
 	/**
 	 * address no to send invoice.
 	 */
 	@Property
-	@SuppressWarnings("unused")
 	private Integer addressNoForInvoice;
 	
-	/**
-	 * customer info
-	 */
+	/** customer info. */
 	@Property
-	@SuppressWarnings("unused")
 	private Customer customer;
 
 }

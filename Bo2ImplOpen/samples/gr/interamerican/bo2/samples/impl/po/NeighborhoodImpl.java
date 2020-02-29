@@ -19,16 +19,14 @@ import gr.interamerican.bo2.samples.def.po.Neighborhood;
 import gr.interamerican.bo2.samples.def.po.NeighborhoodKey;
 
 /**
- * 
+ * The Class NeighborhoodImpl.
  */
 @DelegateKeyProperties({})
 public abstract class NeighborhoodImpl 
 extends AbstractModificationRecordPo<NeighborhoodKey>
 implements Neighborhood {
 	
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**

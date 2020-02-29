@@ -22,17 +22,19 @@ import java.sql.SQLException;
 import org.hibernate.HibernateException;
 
 /**
- * Concrete implementation for Codified<Integer> entries.
+ * Concrete implementation for Codified&lt;Integer&gt; entries.
  */
 public class EntryUserTypeForInteger
 extends EntryUserType<Integer> {
-	
+
 	@Override
     protected Integer getCode(ResultSet rs, String name) 
     throws SQLException {		
     	return rs.getInt(name);
     }
-    
+
+	@Deprecated
+	@Override
 	public void nullSafeSet(PreparedStatement st, Object value, int index) throws HibernateException, SQLException {
         if (value==null) {
             st.setLong(index, 0);
@@ -42,22 +44,24 @@ extends EntryUserType<Integer> {
             st.setInt(index, val.getCode());
         }
     }
-    
+
+	@Override
     public String objectToSQLString(Object value) {
     	@SuppressWarnings("unchecked")
 		TypedSelectable<Integer> ts = (TypedSelectable<Integer>) value; 
         return ts.getCode().toString();
     }
- 
+
+	@Override
     public String toXMLString(Object value) {
     	@SuppressWarnings("unchecked")
 		TypedSelectable<Integer> ts = (TypedSelectable<Integer>) value; 
         return ts.getCode().toString();
     }
-    
+
+	@Override
     public Object fromXMLString(String xmlValue) {
 		Integer code = NumberUtils.string2Int(xmlValue);
 		return this.cache().get(typeId, code);
 	}
- 
 }

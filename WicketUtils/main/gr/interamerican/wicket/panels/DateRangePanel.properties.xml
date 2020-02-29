@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="from.NotNullValidator">The ${label0} date must be filled because ${label1} was filled.</entry>
+	<entry key="to.NotNullValidator">The ${label1} date must be filled because ${label0} was filled.</entry>
+</properties>

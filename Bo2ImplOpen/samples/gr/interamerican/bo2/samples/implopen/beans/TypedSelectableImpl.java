@@ -16,21 +16,22 @@ import gr.interamerican.bo2.arch.ext.TypedSelectable;
 import gr.interamerican.bo2.impl.open.annotations.TypedSelectableProperties;
 
 /**
- * 
+ * The Class TypedSelectableImpl.
  */
 @TypedSelectableProperties(code="codebar", name = "descr", subtype = "null", type = "type")
 //@TypedSelectableProperties(code="codebar", name = "descr", subtype = "null", type = "X")
-public abstract class TypedSelectableImpl implements TypedSelectable, TypedSelectable2{
+public abstract class TypedSelectableImpl implements TypedSelectable<Long>, TypedSelectable2{
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	/** The codebar. */
 	private Long codebar;
 	
+	/** The type. */
 	private Long type;
 	
+	/** The descr. */
 	private String descr;
 
 	/**
@@ -38,6 +39,7 @@ public abstract class TypedSelectableImpl implements TypedSelectable, TypedSelec
 	 *
 	 * @return Returns the codebar
 	 */
+	@Override
 	public Long getCodebar() {
 		return codebar;
 	}
@@ -47,6 +49,7 @@ public abstract class TypedSelectableImpl implements TypedSelectable, TypedSelec
 	 *
 	 * @param codebar the codebar to set
 	 */
+	@Override
 	public void setCodebar(Long codebar) {
 		this.codebar = codebar;
 	}
@@ -56,6 +59,7 @@ public abstract class TypedSelectableImpl implements TypedSelectable, TypedSelec
 	 *
 	 * @return Returns the type
 	 */
+	@Override
 	public Long getType() {
 		return type;
 	}
@@ -65,6 +69,7 @@ public abstract class TypedSelectableImpl implements TypedSelectable, TypedSelec
 	 *
 	 * @param type the type to set
 	 */
+	@Override
 	public void setType(Long type) {
 		this.type = type;
 	}
@@ -74,6 +79,7 @@ public abstract class TypedSelectableImpl implements TypedSelectable, TypedSelec
 	 *
 	 * @param descr the descr to set
 	 */
+	@Override
 	public void setDescr(String descr) {
 		this.descr = descr;
 	}
@@ -83,6 +89,7 @@ public abstract class TypedSelectableImpl implements TypedSelectable, TypedSelec
 	 *
 	 * @return Returns the descr
 	 */
+	@Override
 	public String getDescr() {
 		return descr;
 	}

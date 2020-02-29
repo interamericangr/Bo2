@@ -24,7 +24,7 @@ import org.junit.Test;
 public class TestBufferSpec {
 	
 	/**
-	 * Test for calcPositions()
+	 * Test for calcPositions().
 	 */
 	@Test
 	public void testCalcPositions() {

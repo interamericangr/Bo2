@@ -19,35 +19,23 @@ import gr.interamerican.bo2.utils.annotations.Child;
 import java.util.Set;
 
 /**
- * 
+ * The Class SampleBean0.
  */
 public class SampleBean0 {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
-	/**
-	 * field1
-	 */
+	/** field1. */
 	@Property
 	public String field1;
 	
-	/**
-	 * field2
-	 */
+	/** field2. */
 	@Property
 	public Long field2;
 	
-	/**
-	 * sample child po
-	 */
+	/** sample child po. */
 	@Child
 	public AbstractBasePo<?> sampleChildPo;
 	
-	/**
-	 * sample child set
-	 */
+	/** sample child set. */
 	@Child
 	@Property
 	public Set<?> sampleChildSet;
@@ -90,10 +78,10 @@ public class SampleBean0 {
 	}
 
 	/**
-	 * Sample logic method
-	 * 
-	 * @param a
-	 * @param b
+	 * Sample logic method.
+	 *
+	 * @param a the a
+	 * @param b the b
 	 * @return a+b
 	 */
 	public Integer add(Integer a, Integer b) {
@@ -102,7 +90,7 @@ public class SampleBean0 {
 	
 	/**
 	 * void method with no arguments
-	 * that does nothing
+	 * that does nothing.
 	 */
 	public void doNothing(){
 		/*empty*/

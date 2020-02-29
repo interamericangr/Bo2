@@ -19,13 +19,14 @@ import java.util.Map;
 
 /**
  * Modifies an object by setting its properties equal to the values
- * specified in a {@link Map} object. <br/>
+ * specified in a {@link Map} object. <br>
  * 
  * The Map object is specified in the constructor.
  * The modification of the object is performed by
  * {@link JavaBeanUtils#copyFromMap(Map, Object)}. 
  *  
- * @param <T> 
+ *
+ * @param <T> the generic type
  */
 public class CopyFromMap<T>
 implements Modification<T> {
@@ -38,7 +39,7 @@ implements Modification<T> {
 	/**
 	 * Creates a new CopyFromProperties object. 
 	 *
-	 * @param map
+	 * @param map the map
 	 */
 	public CopyFromMap(Map<String, ?> map) {
 		super();

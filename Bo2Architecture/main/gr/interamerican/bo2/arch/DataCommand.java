@@ -27,7 +27,7 @@ package gr.interamerican.bo2.arch;
  * A common use case of DataCommand is an update statement
  * that is ment to update multiple rows of a table at once.
  * A DataCommand can execute more than one statement in its
- * execute method. <p>
+ * execute method. </p>
  *
  */
 public interface DataCommand extends DataOperation, Worker {

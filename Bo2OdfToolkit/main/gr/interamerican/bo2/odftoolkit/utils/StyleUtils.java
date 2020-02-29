@@ -12,17 +12,6 @@
  ******************************************************************************/
 package gr.interamerican.bo2.odftoolkit.utils;
 
-import gr.interamerican.bo2.odftoolkit.OdfToolkitEngine;
-import gr.interamerican.bo2.odftoolkit.OdfToolkitTable;
-import gr.interamerican.bo2.odftoolkit.OdfToolkitTextDocument;
-import gr.interamerican.bo2.utils.AdapterUtils;
-import gr.interamerican.bo2.utils.StringConstants;
-import gr.interamerican.bo2.utils.StringUtils;
-import gr.interamerican.bo2.utils.adapters.Transformation;
-import gr.interamerican.bo2.utils.adapters.trans.GetProperty;
-import gr.interamerican.bo2.utils.doc.BusinessDocument;
-import gr.interamerican.bo2.utils.doc.DocumentEngineException;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -32,6 +21,15 @@ import org.odftoolkit.odfdom.dom.element.OdfStylableElement;
 import org.odftoolkit.odfdom.incubator.doc.style.OdfStyle;
 import org.odftoolkit.odfdom.pkg.OdfElement;
 import org.odftoolkit.simple.Document;
+
+import gr.interamerican.bo2.odftoolkit.OdfToolkitEngine;
+import gr.interamerican.bo2.odftoolkit.OdfToolkitTable;
+import gr.interamerican.bo2.odftoolkit.OdfToolkitTextDocument;
+import gr.interamerican.bo2.utils.AdapterUtils;
+import gr.interamerican.bo2.utils.StringConstants;
+import gr.interamerican.bo2.utils.StringUtils;
+import gr.interamerican.bo2.utils.doc.BusinessDocument;
+import gr.interamerican.bo2.utils.doc.DocumentEngineException;
 
 /**
  * Utilities about styles.
@@ -47,15 +45,12 @@ public class StyleUtils {
 	 * This method opens the specified document and then finds the table with
 	 * the specified name. Then the method copies the style of the first cell
 	 * to all other cells of the row.
-	 * 
-	 * @param path
-	 *        Path to the document.
-	 * @param tableName
-	 *        Name of table in the document.
-	 * @param row
-	 *        Row index.
+	 *
+	 * @param path        Path to the document.
+	 * @param tableName        Name of table in the document.
+	 * @param row        Row index.
 	 *        
-	 * @throws DocumentEngineException 
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	public static void setStyleAsFirstColumn(String path, String tableName, int row) throws DocumentEngineException {
 		OdfToolkitEngine engine = new OdfToolkitEngine();		
@@ -68,11 +63,10 @@ public class StyleUtils {
 	
 	/**
 	 * Gets all style nodes.
-	 * 
-	 * @param doc
+	 *
+	 * @param doc the doc
 	 * @return Returns a list with {@link OdfElement}s.
-	 * 
-	 * @throws Exception
+	 * @throws Exception the exception
 	 */
 	static List<OdfStyle> getStyles(Document doc) throws Exception {
 		String xpathExpr =styleNames();
@@ -88,12 +82,11 @@ public class StyleUtils {
 	
 	/**
 	 * Gets all style nodes.
-	 * 
-	 * @param doc
-	 * @param styleName 
+	 *
+	 * @param doc the doc
+	 * @param styleName the style name
 	 * @return Returns a list with {@link OdfElement}s.
-	 * 
-	 * @throws Exception
+	 * @throws Exception the exception
 	 */
 	public static boolean styleExists(Document doc, String styleName) 
 	throws Exception {	
@@ -110,11 +103,10 @@ public class StyleUtils {
 	
 	/**
 	 * Gets all style nodes.
-	 * 
-	 * @param doc
+	 *
+	 * @param doc the doc
 	 * @return Returns a list with {@link OdfElement}s.
-	 * 
-	 * @throws Exception
+	 * @throws Exception the exception
 	 */
 	static Set<String> getStyleNames(Document doc) throws Exception {
 		Set<String> names = new HashSet<String>();
@@ -127,17 +119,15 @@ public class StyleUtils {
 	
 	/**
 	 * Fixes the styles of the specified document.
-	 * 
-	 * @param doc
-	 * @throws Exception
+	 *
+	 * @param doc the doc
+	 * @throws Exception the exception
 	 */
 	@SuppressWarnings("nls")
 	public static void fixStyles(Document doc) 
 	throws Exception {
 		List<OdfStyle> styles = getStyles(doc);
-		Transformation<OdfStyle, String> getName = 
-			new GetProperty<OdfStyle, String>("styleNameAttribute", OdfStyle.class); 
-		List<String> styleNames = AdapterUtils.apply(styles, getName);
+		List<String> styleNames = AdapterUtils.apply(styles, OdfStyle::getStyleNameAttribute);
 		
 		for (OdfStyle style : styles) {
 			String name = style.getStyleNameAttribute(); 
@@ -162,9 +152,9 @@ public class StyleUtils {
 	
 	/**
 	 * Sets the specified style name to all nodes.
-	 * 
-	 * @param nodesToFix
-	 * @param name
+	 *
+	 * @param nodesToFix the nodes to fix
+	 * @param name the name
 	 */
 	static void setStyle(List<OdfElement> nodesToFix, String name) {
 		for (OdfElement node : nodesToFix) {
@@ -230,18 +220,14 @@ public class StyleUtils {
 	/**
 	 * Gets all nodes of the specified document that have 
 	 * the specified style name.
-	 * 
-	 * @param doc
-	 *        Document
-	 * @param styleName
-	 *        Name of style
-	 * @param type 
-	 *        Type of style (text, table)
-	 * 
-	 * @return Returns a list with the nodes that have the specified 
+	 *
+	 * @param doc        Document
+	 * @param styleName        Name of style
+	 * @param type        Type of style (text, table)
+	 * @return Returns a list with the nodes that have the specified
 	 *         style name.
 	 *         
-	 * @throws Exception 
+	 * @throws Exception the exception
 	 */
 	static List<OdfElement> getNodesWithStyleName(Document doc, String styleName, String type) 
 	throws Exception {				
@@ -253,9 +239,8 @@ public class StyleUtils {
 	
 	/**
 	 * Gets the clean name of the specified name.
-	 * 
-	 * @param name
-	 * 
+	 *
+	 * @param name the name
 	 * @return Returns the initial name.
 	 */
 	static String cleanName(String name) {

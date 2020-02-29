@@ -46,50 +46,40 @@ public class Variables {
 	 * type.
 	 */
 	private static final String TYPE = "Type";
-	/**
-	 * FieldType
-	 */
+	
+	/** FieldType. */
 	private static final String FIELD_TYPE = "FieldType";
-	/**
-	 * DelegateField
-	 */
+	
+	/** DelegateField. */
 	private static final String DELEGATE_FIELD = "DelegateField";	
-	/**
-	 * ReturnType
-	 */
+	
+	/** ReturnType. */
 	private static final String RETURN_TYPE = "ReturnType";
-	/**
-	 * ReturnType
-	 */
+	
+	/** ReturnType. */
 	private static final String METHOD_NAME = "MethodName";
-	/**
-	 * DeclarationParameters
-	 */
+	
+	/** DeclarationParameters. */
 	private static final String DECLARATION_PARAMETERS = "DeclarationParameters";
-	/**
-	 * InvocationParameters
-	 */
+	
+	/** InvocationParameters. */
 	private static final String INVOCATION_PARAMETERS = "InvocationParameters";
 	
-	/**
-	 * Value
-	 */
+	/** Value. */
 	private static final String VALUE = "Value";
-	/**
-	 * Fragment
-	 */
+	
+	/** Fragment. */
 	private static final String FRAGMENT = "Fragment";
 	
 	
 	/**
 	 * Variables map for property, delegate property, mock property and
 	 * delegate to other property.
-	 * 
-	 * @param name
-	 * @param type
-	 * @param delegateField 
-	 * @param fieldType 
-	 * 
+	 *
+	 * @param name the name
+	 * @param type the type
+	 * @param delegateField the delegate field
+	 * @param fieldType the field type
 	 * @return Returns the map.
 	 */
 	public static Map<String, String> variablesForProperty
@@ -111,9 +101,8 @@ public class Variables {
 	
 	/**
 	 * Variables map for property.
-	 * 
-	 * @param def
-	 * 
+	 *
+	 * @param def the def
 	 * @return Returns the map.
 	 */
 	public static Map<String, String> variablesForProperty (BeanPropertyDefinition<?> def) {
@@ -123,11 +112,10 @@ public class Variables {
 	
 	/**
 	 * Variables map for method implementation.
-	 * 
-	 * @param methodName 
-	 * @param returnType 
-	 * @param declarationParams 
-	 * 
+	 *
+	 * @param methodName the method name
+	 * @param returnType the return type
+	 * @param declarationParams the declaration params
 	 * @return Returns the map.
 	 */
 	public static Map<String, String> variablesForEmptyMethod
@@ -144,14 +132,13 @@ public class Variables {
 	
 	/**
 	 * Variables map for method implementation.
-	 * 
-	 * @param methodName 
-	 * @param returnType 
-	 * @param declarationParams 
-	 * @param fieldType 
-	 * @param delegateField 
-	 * @param invocationParams 
-	 * 
+	 *
+	 * @param methodName the method name
+	 * @param returnType the return type
+	 * @param declarationParams the declaration params
+	 * @param fieldType the field type
+	 * @param delegateField the delegate field
+	 * @param invocationParams the invocation params
 	 * @return Returns the map.
 	 */
 	public static Map<String, String> variablesForDelegateMethod (
@@ -168,11 +155,10 @@ public class Variables {
 	
 	/**
 	 * Variables map for initialization.
-	 * 
-	 * @param type
-	 * @param name
-	 * @param value
-	 * 
+	 *
+	 * @param type the type
+	 * @param name the name
+	 * @param value the value
 	 * @return Returns the map.
 	 */
 	public static Map<String, String> variablesForInitialization
@@ -190,9 +176,9 @@ public class Variables {
 
 	/**
 	 * Sets a fragment.
-	 * 
-	 * @param variables
-	 * @param fragment
+	 *
+	 * @param variables the variables
+	 * @param fragment the fragment
 	 */
 	public static void setFragment(Map<String, String> variables, String fragment) {
 		variables.put(FRAGMENT, fragment);	
@@ -200,9 +186,9 @@ public class Variables {
 	
 	/**
 	 * Sets a fragment.
-	 * 
-	 * @param variables
-	 * @param type
+	 *
+	 * @param variables the variables
+	 * @param type the type
 	 */
 	public static void setType(Map<String, String> variables, Class<?> type) {
 		variables.put(TYPE, type.getCanonicalName());	

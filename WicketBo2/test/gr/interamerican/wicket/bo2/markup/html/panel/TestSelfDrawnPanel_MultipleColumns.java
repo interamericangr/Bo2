@@ -107,7 +107,7 @@ public class TestSelfDrawnPanel_MultipleColumns extends WicketTest {
 	}
 	
 	/**
-	 * Unit test for submitting the form of a se
+	 * Unit test for submitting the form of a se.
 	 */
 	@Test
 	public void testSelfDrawnPanel_componentValidators() {
@@ -124,14 +124,16 @@ public class TestSelfDrawnPanel_MultipleColumns extends WicketTest {
 		tester.executeAjaxEvent(getAjaxButton(), "onclick");
 		commonAssertions_error("field2");
 	}
-	
+
 	@Override
-	protected Component initializeComponent() {
+	protected Component initializeComponent(String wicketId) {
 		model = new CompoundPropertyModel<BeanWith3Fields>(new BeanWith3Fields("1", 1, 1d));
-		return new SelfDrawnPanel<BeanWith3Fields>(TestPage.TEST_ID, model, createBod(), 2, null);
+		return new SelfDrawnPanel<BeanWith3Fields>(wicketId, model, createBod(), 2, null);
 	}
 	
 	/**
+	 * Creates the bod.
+	 *
 	 * @return Returns the BusinessObjectDescriptor for BeanWith3Fields.
 	 */
 	private BusinessObjectDescriptor<BeanWith3Fields> createBod() {
@@ -145,6 +147,8 @@ public class TestSelfDrawnPanel_MultipleColumns extends WicketTest {
 	}
 	
 	/**
+	 * Gets the string decriptor.
+	 *
 	 * @return Returns the StringBoPropertyDescriptor for field1 of BeanWith3Fields.
 	 */
 	private StringBoPropertyDescriptor getStringDecriptor(){
@@ -159,6 +163,8 @@ public class TestSelfDrawnPanel_MultipleColumns extends WicketTest {
     }
 	
 	/**
+	 * Gets the integer decriptor.
+	 *
 	 * @return Returns the IntegerBoPropertyDescriptor for field2 of BeanWith3Fields.
 	 */
 	private IntegerBoPropertyDescriptor getIntegerDecriptor(){
@@ -174,6 +180,8 @@ public class TestSelfDrawnPanel_MultipleColumns extends WicketTest {
     }
 	
 	/**
+	 * Gets the double decriptor.
+	 *
 	 * @return Returns the DoubleBoPropertyDescriptor for field2 of BeanWith3Fields.
 	 */
 	private DoubleBoPropertyDescriptor getDoubleDecriptor(){

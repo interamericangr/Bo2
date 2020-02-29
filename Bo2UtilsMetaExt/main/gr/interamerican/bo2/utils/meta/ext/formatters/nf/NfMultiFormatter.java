@@ -16,14 +16,12 @@ import gr.interamerican.bo2.utils.meta.ext.formatters.MultiFormatter;
 import gr.interamerican.bo2.utils.meta.formatters.nf.NullFilteringFormatter;
 
 /**
- * 
+ * The Class NfMultiFormatter.
  */
 public class NfMultiFormatter 
 extends NullFilteringFormatter<Object> {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**

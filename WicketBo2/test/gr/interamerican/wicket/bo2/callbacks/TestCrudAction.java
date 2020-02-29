@@ -12,46 +12,39 @@
  ******************************************************************************/
 package gr.interamerican.wicket.bo2.callbacks;
 
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
+import org.apache.wicket.request.cycle.RequestCycle;
+import org.junit.Assert;
+import org.junit.Test;
+import org.mockito.Mockito;
+
 import gr.interamerican.bo2.arch.PersistenceWorker;
 import gr.interamerican.bo2.arch.PoDependent;
 import gr.interamerican.bo2.arch.Question;
-import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.ext.CrudPerformer;
 import gr.interamerican.bo2.impl.open.creation.Factory;
 import gr.interamerican.bo2.samples.archutil.po.User;
 import gr.interamerican.bo2.samples.archutil.po.UserKey;
 import gr.interamerican.wicket.bo2.protocol.http.Bo2WicketRequestCycle;
-import gr.interamerican.wicket.bo2.test.MockApplicationForWicketBo2;
+import gr.interamerican.wicket.bo2.test.Bo2WicketTest;
 import gr.interamerican.wicket.markup.html.panel.service.BeanPanelDef;
 import gr.interamerican.wicket.markup.html.panel.service.ServicePanel;
-
-import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.Model;
-import org.apache.wicket.request.cycle.RequestCycle;
-import org.apache.wicket.util.tester.WicketTester;
-import org.junit.Assert;
-import org.junit.Test;
-import org.mockito.Mockito;
 
 /**
  * Unit test for {@link CrudAction}.
  */
-public class TestCrudAction {
-	
-	/**
-	 * the WicketTester
-	 */
-	public WicketTester wicketTester =
-		new WicketTester(new MockApplicationForWicketBo2());
+@Deprecated
+public class TestCrudAction extends Bo2WicketTest {
 	
 	/**
 	 * Unit test for create(clazz).
-	 * @throws DataException 
+	 * @throws Exception 
 	 */
 	@SuppressWarnings({ "unchecked", "nls" })
 	@Test
-	public void testAction() throws DataException{
+	public void testAction() throws Exception{
 		RequestCycle cycle = RequestCycle.get();
 		Bo2WicketRequestCycle.beginRequest(cycle);
 		

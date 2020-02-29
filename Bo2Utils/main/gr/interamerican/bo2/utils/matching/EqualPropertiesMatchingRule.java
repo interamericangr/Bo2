@@ -33,11 +33,9 @@ public class EqualPropertiesMatchingRule<F,S> implements MatchingRule<F, S> {
 	/**
 	 * Creates a new EqualPropertiesMatchingRule object. 
 	 *
-	 * @param firstClass
-	 *        
-	 * @param secondClass
-	 * 
-	 * @param properties
+	 * @param firstClass the first class
+	 * @param secondClass the second class
+	 * @param properties the properties
 	 */
 	public EqualPropertiesMatchingRule
 	(Class<F> firstClass, Class<S> secondClass, String[] properties) {
@@ -54,6 +52,7 @@ public class EqualPropertiesMatchingRule<F,S> implements MatchingRule<F, S> {
 		match = new AndMatchingRule<F, S>(rules);
 	}
 
+	@Override
 	public boolean isMatch(F first, S second) {		
 		return match.isMatch(first, second);
 	}

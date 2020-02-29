@@ -29,14 +29,10 @@ public interface BoPDComponentFactory<D extends BoPropertyDescriptor<?>> {
     /**
      * Draws the components necessary for a property.
      *
-     * @param descriptor
-     *        Property descriptor.
-     * @param model
-     *        Model bound to the CompoundPropertyModel of the container.
-     * @param cmpWicketId
-     *        WicketId for the component.
-     * @param labelWicketId
-     *           WicketId for the label
+     * @param model        Model bound to the CompoundPropertyModel of the container.
+     * @param descriptor        Property descriptor.
+     * @param cmpWicketId        WicketId for the component.
+     * @param labelWicketId           WicketId for the label
      * @return Returns a pair containing the label and the property component.
      */
     Pair<Component, Component> draw(IModel<?> model, D descriptor, String cmpWicketId, String labelWicketId);
@@ -67,15 +63,12 @@ public interface BoPDComponentFactory<D extends BoPropertyDescriptor<?>> {
     Component drawMain(D descriptor, String wicketId);
    
     /**
-     * Draws the main component for the property
+     * Draws the main component for the property.
      *
-     * @param descriptor
-     *        Property descriptor.
-     * @param wicketId
-     *        WicketId for the component.
-     * @param model
-     *        Model for the component (possibly bound to a CompoundPropertyModel of a container).
+     * @param wicketId        WicketId for the component.
+     * @param model        Model for the component (possibly bound to a CompoundPropertyModel of a container).
      *       
+     * @param descriptor        Property descriptor.
      * @return Returns the main component for the property.
      */
     Component drawMain(String wicketId, IModel<?> model, D descriptor);

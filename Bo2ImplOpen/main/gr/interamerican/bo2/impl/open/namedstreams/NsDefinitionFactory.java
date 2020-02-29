@@ -23,18 +23,20 @@ public class NsDefinitionFactory {
 
 	/**
 	 * Gets the definition of the stream with the specified logical name.
-	 * 
-	 * @param name
-	 *        Stream name.
-	 * @param properties 
-	 *        Properties containing NamedStream definition descriptions.
+	 *
+	 * @param name        Stream name.
+	 * @param properties        Properties containing NamedStream definition descriptions.
 	 *        
 	 * @return Returns the definition.
-	 * 
-	 * @throws InitializationException
+	 * @throws InitializationException the initialization exception
 	 */
 	public NamedStreamDefinition create(String name, Properties properties) 
 	throws InitializationException {
+		if (name==null) {
+			String problem = "Stream name is null"; //$NON-NLS-1$
+			throw invalid(problem, "null"); //$NON-NLS-1$
+		}
+		
 		String definition = properties.getProperty(name);
 		if (definition==null) {
 			String problem = "No description"; //$NON-NLS-1$ 
@@ -82,14 +84,12 @@ public class NsDefinitionFactory {
 	 * The first three definition attributes are mandatory. There are two more
 	 * optional attributes, recordLength and encoding. RecordLength is an integer
 	 * encoding is a Charset name starting with the prefix {@value #ENCODING_PREFIX}
-	 * <br/>
+	 * <br>
 	 * For example enc:UTF-8 signifies the UTF-8 encoding.
-	 * 
-	 *  @see Charset
-	 * 
-	 * @param nsd
-	 * @param attribute
-	 * 
+	 *
+	 * @param nsd the nsd
+	 * @param attribute the attribute
+	 * @see Charset
 	 */
 	void handleOptionalDefinitionElement(NamedStreamDefinition nsd, String attribute) {
 		if(attribute!=null) {		

@@ -20,10 +20,9 @@ package gr.interamerican.bo2.utils.meta.formatters;
  */
 public class Replace<T> implements Formatter<T> {	
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Constant value being returned by this formatter.
 	 */
@@ -32,15 +31,15 @@ public class Replace<T> implements Formatter<T> {
 	/**
 	 * Creates a new Replace object. 
 	 *
-	 * @param value
+	 * @param value the value
 	 */
 	public Replace(String value) {
 		super();
 		this.value = value;
 	}
-	
+
+	@Override
 	public String format(T t) {
 		return value;
 	}
-
 }

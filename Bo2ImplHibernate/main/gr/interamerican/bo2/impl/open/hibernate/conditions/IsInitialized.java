@@ -20,9 +20,9 @@ import org.hibernate.Hibernate;
  * Condition that checks if an object is a HibernateProxy.
  */
 public class IsInitialized implements Condition<Object> {
-	
+
+	@Override
 	public boolean check(Object t) {	
 		return Hibernate.isInitialized(t);
 	}
-
 }

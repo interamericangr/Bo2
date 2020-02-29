@@ -24,9 +24,8 @@ import java.util.Set;
  * sample bean for bean descriptor test.
  */
 public class Bean1 implements Serializable {
-	/**
-	 * serial
-	 */
+	
+	/** serial. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * id.

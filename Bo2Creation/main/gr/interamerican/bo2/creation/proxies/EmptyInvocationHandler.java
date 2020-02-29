@@ -33,7 +33,7 @@ extends AbstractFakeInvocationHandler {
 	/**
 	 * Creates a new CustomValueHandler object. 
 	 *
-	 * @param returnValue
+	 * @param returnValue the return value
 	 */
 	public EmptyInvocationHandler(Object returnValue) {
 		super();

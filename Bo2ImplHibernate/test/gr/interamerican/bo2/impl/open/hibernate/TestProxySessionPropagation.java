@@ -47,9 +47,7 @@ import org.junit.Test;
  */
 public class TestProxySessionPropagation {
 	
-	/**
-	 * samples factory
-	 */
+	/** samples factory. */
 	private SamplesFactory factory=SamplesFactory.getBo2Factory();
 	
 	/**
@@ -79,10 +77,10 @@ public class TestProxySessionPropagation {
 	
 	/**
 	 * Clear data and setup a sample Invoice. 
-	 * 
-	 * @throws UnexpectedException
-	 * @throws DataException
-	 * @throws LogicException
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Before
 	public void before() throws UnexpectedException, DataException, LogicException {
@@ -107,10 +105,10 @@ public class TestProxySessionPropagation {
 	 * Demonstrates that an uninitialized Customer proxy will get
 	 * a Session instance when the Invoice is reattached and it will
 	 * be possible to initialize the CustomerAddress set. 
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testUninitializedProxiesReattachOK() 
@@ -159,10 +157,10 @@ public class TestProxySessionPropagation {
 	 * Demonstrates that an initialized Customer proxy will not get
 	 * a Session instance when the Invoice is reattached and it will
 	 * be impossible to initialize the CustomerAddress set. 
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testInitializedProxiesReattachOK() 
@@ -214,10 +212,10 @@ public class TestProxySessionPropagation {
 	 * session.buildLockRequest(LockOptions.NONE).lock(customer) will not
 	 * have its modification record altered on the next session.flush, i.e.
 	 * no SQL associated with this entity will be sent to the database. 
-	 * 
-	 * @throws UnexpectedException
-	 * @throws DataException
-	 * @throws LogicException
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testManyToOneNoCascadeReattachedAreNotFlushed() 
@@ -290,10 +288,10 @@ public class TestProxySessionPropagation {
 	 * Demonstrates that a many-to-one customer instance reattached with 
 	 * session.buildLockRequest(LockOptions.NONE).lock(customer) will have
 	 * SQL sent on the next session.flush if it has been modified. 
-	 * 
-	 * @throws UnexpectedException
-	 * @throws DataException
-	 * @throws LogicException
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testDirtyManyToOneNoCascadeReattachedFlush() 

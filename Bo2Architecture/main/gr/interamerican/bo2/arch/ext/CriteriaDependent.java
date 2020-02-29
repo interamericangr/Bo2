@@ -21,8 +21,8 @@ public interface CriteriaDependent<T> {
 	
 	/**
 	 * Sets the criteria.
-	 * 
-	 * @param criteria
+	 *
+	 * @param criteria the new criteria
 	 */
 	public void setCriteria(T criteria);
 	

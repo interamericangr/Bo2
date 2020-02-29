@@ -49,10 +49,11 @@ extends MultipleChoiceForEntry<L, T> {
 	
 	/**
 	 * Creates a new SelfDrawnMultipleChoiceForEntry object. 
-	 * @param id 
-	 * @param descriptor 
-	 * @param choices 
-	 * @param session 
+	 *
+	 * @param id the id
+	 * @param descriptor the descriptor
+	 * @param choices the choices
+	 * @param session the session
 	 */
 	public SelfDrawnMultipleChoiceForEntry(
 	String id, MultipleCachedEntriesBoPropertyDescriptor<T, ?> descriptor, 
@@ -63,12 +64,12 @@ extends MultipleChoiceForEntry<L, T> {
 	
 	/**
 	 * Creates a new SelfDrawnMultipleChoiceForEntry object. 
-	 * 
-	 * @param model 
-	 * @param id 
-	 * @param descriptor 
-	 * @param choices 
-	 * @param session 
+	 *
+	 * @param id the id
+	 * @param model the model
+	 * @param descriptor the descriptor
+	 * @param choices the choices
+	 * @param session the session
 	 */
 	public SelfDrawnMultipleChoiceForEntry(
 	String id, IModel<List<T>> model, MultipleCachedEntriesBoPropertyDescriptor<T, ?> descriptor,

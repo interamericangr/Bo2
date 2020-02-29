@@ -12,19 +12,13 @@
  ******************************************************************************/
 package gr.interamerican.wicket.bo2.markup.html.form;
 
-import gr.interamerican.bo2.arch.ext.Codified;
-import gr.interamerican.bo2.arch.ext.Selectable;
-import gr.interamerican.bo2.utils.CollectionUtils;
-import gr.interamerican.bo2.utils.attributes.Named;
-
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import org.apache.wicket.markup.html.form.DropDownChoice;
-import org.apache.wicket.markup.html.form.IChoiceRenderer;
+
+import gr.interamerican.bo2.arch.ext.Codified;
+import gr.interamerican.bo2.arch.ext.Selectable;
+import gr.interamerican.bo2.utils.attributes.Named;
 
 /**
  * A {@link DropDownChoice} based on many {@link Selectable} objects (that are
@@ -40,17 +34,49 @@ import org.apache.wicket.markup.html.form.IChoiceRenderer;
  * @param <P>
  *            The model object type
  */
-public class CodifiedDropDownChoice<C extends Comparable<? super C>, P extends Selectable<C>> extends DropDownChoice<C> {
+public class CodifiedDropDownChoice<C extends Comparable<? super C>, P extends Selectable<C>>
+extends FunctionBasedDropDownChoice<C, P> {
 
 	/**
 	 * serialVersionUID.
 	 */
 	private static final long serialVersionUID = 2136L;
+
 	/**
-	 * Map used by the {@link InnerChoiceRenderer} that has the display name for
-	 * each element of this {@link DropDownChoice}
+	 * Public Constructor.
+	 * 
+	 * @param id
+	 *            Wicket Id of the DDC
 	 */
-	private Map<C, String> valuesMapping;
+	public CodifiedDropDownChoice(String id) {
+		super(id, Selectable::getCode, Selectable::getName);
+	}
+
+	/**
+	 * Creates a new CodifiedDropDownChoice object.
+	 * 
+	 * @param id
+	 *            Wicket Id of the DDC
+	 * @param clz
+	 *            Class of {@link Selectable} objects
+	 * @deprecated Use {@link #CodifiedDropDownChoice(String)}
+	 */
+	@Deprecated
+	public CodifiedDropDownChoice(String id, @SuppressWarnings("unused") Class<P> clz) {
+		super(id, Selectable::getCode, Selectable::getName);
+	}
+
+	/**
+	 * Creates a new CodifiedDropDownChoice object.
+	 * 
+	 * @param id
+	 *            Wicket Id of the DDC
+	 * @param values
+	 *            The Values of the {@link Selectable}'s this DDC will contain
+	 */
+	public CodifiedDropDownChoice(String id, Collection<P> values) {
+		super(id, Selectable::getCode, Selectable::getName, values);
+	}
 
 	/**
 	 * Creates a new CodifiedDropDownChoice object.
@@ -61,40 +87,10 @@ public class CodifiedDropDownChoice<C extends Comparable<? super C>, P extends S
 	 *            The Values of the {@link Selectable}'s this DDC will contain
 	 * @param clz
 	 *            Class of {@link Selectable} objects
+	 * @deprecated Use {@link #CodifiedDropDownChoice(String, Collection)}
 	 */
-	public CodifiedDropDownChoice(String id, Collection<P> values, Class<P> clz) {
-		super(id);
-		@SuppressWarnings("nls")
-		List<P> sortedValues = CollectionUtils.sort(values, clz, "name");
-		valuesMapping = new HashMap<C, String>();
-		List<C> list = new ArrayList<C>();
-		for (P singleValue : sortedValues) {
-			valuesMapping.put(singleValue.getCode(), singleValue.getName());
-			list.add(singleValue.getCode());
-		}
-		setChoices(list);
-		setChoiceRenderer(new InnerChoiceRenderer());
-	}
-
-	/**
-	 * A choice rendered that shows the Display value according to the
-	 * {@link CodifiedDropDownChoice#valuesMapping}.
-	 */
-	class InnerChoiceRenderer implements IChoiceRenderer<C> {
-
-		/**
-		 * serialVersionUID.
-		 */
-		private static final long serialVersionUID = 4687L;
-
-		@Override
-		public Object getDisplayValue(C object) {
-			return valuesMapping.get(object);
-		}
-
-		@Override
-		public String getIdValue(C object, int index) {
-			return Integer.toString(index);
-		}
+	@Deprecated
+	public CodifiedDropDownChoice(String id, Collection<P> values, @SuppressWarnings("unused")  Class<P> clz) {
+		super(id, Selectable::getCode, Selectable::getName, values);
 	}
 }

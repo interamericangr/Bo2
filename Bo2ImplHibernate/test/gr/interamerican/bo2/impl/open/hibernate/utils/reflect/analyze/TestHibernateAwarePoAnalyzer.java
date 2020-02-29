@@ -27,15 +27,37 @@ import org.junit.Test;
 @SuppressWarnings("all")
 public class TestHibernateAwarePoAnalyzer {
 	
+	/** The factory. */
 	private static SamplesFactory factory=SamplesFactory.getBo2Factory();
+	
+	/** The clear. */
 	DeleteInvoiceData clear = new DeleteInvoiceData();
+	
+	/** The invoice no. */
 	private String invoiceNo="AAA";
+	
+	/** The customer no 1. */
 	private String customerNo1 = "No1";
+	
+	/** The customer no 2. */
 	private String customerNo2 = "No2";
+	
+	/** The hfa. */
 	HibernateAwarePoAnalyzer HFA = new HibernateAwarePoAnalyzer();
+	
+	/** The work. */
 	Invoice work;
+	
+	/** The manager name. */
 	String managerName = Bo2AnnoUtils.getManagerName(Invoice.class);
 	
+	/**
+	 * Before.
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 */
 	@Before
 	public void before() throws UnexpectedException, DataException, LogicException {
 		new AbstractBo2RuntimeCmd() {
@@ -63,6 +85,13 @@ public class TestHibernateAwarePoAnalyzer {
 		}.execute();
 	}
 	
+	/**
+	 * Test 1.
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
+	 */
 	@Test
 	public void test1() throws DataException, LogicException, UnexpectedException {
 		new AbstractBo2RuntimeCmd() {
@@ -173,11 +202,24 @@ public class TestHibernateAwarePoAnalyzer {
 		
 	}
 	
+	/**
+	 * Flush.
+	 *
+	 * @param prov the prov
+	 * @param managerName the manager name
+	 */
 	void flush(Provider prov, String managerName) {
 		comment("Manual flush: ");
 		getSession(prov, managerName).flush();
 	}
 	
+	/**
+	 * Gets the session.
+	 *
+	 * @param prov the prov
+	 * @param managerName the manager name
+	 * @return the session
+	 */
 	Session getSession(Provider prov, String managerName) {
 		try {
 			return prov.getResource(managerName, HibernateSessionProvider.class).getHibernateSession();
@@ -186,6 +228,11 @@ public class TestHibernateAwarePoAnalyzer {
 		}
 	}
 	
+	/**
+	 * Comment.
+	 *
+	 * @param comment the comment
+	 */
 	void comment(String comment) {
 		System.out.println("\n" + comment + "\n" + "----------------------------------------------------------------\n");
 	}

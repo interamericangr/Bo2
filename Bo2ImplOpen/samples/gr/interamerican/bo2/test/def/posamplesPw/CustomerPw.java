@@ -16,7 +16,7 @@ import gr.interamerican.bo2.arch.PersistenceWorker;
 import gr.interamerican.bo2.test.def.posamples.Customer;
 
 /**
- * 
+ * The Interface CustomerPw.
  */
 public interface CustomerPw 
 extends PersistenceWorker<Customer> {

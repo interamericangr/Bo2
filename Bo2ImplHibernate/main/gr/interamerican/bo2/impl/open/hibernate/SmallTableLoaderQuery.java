@@ -16,7 +16,7 @@ import org.hibernate.criterion.Criterion;
 
 /**
  * {@link SmallTableLoaderQuery} is designed to query small tables and
- * return all their data. <br/> 
+ * return all their data. <br> 
  * 
  * @param <P>
  *        Type of objects fetched by the query. 

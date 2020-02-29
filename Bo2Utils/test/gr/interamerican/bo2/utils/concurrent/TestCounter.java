@@ -42,7 +42,7 @@ public class TestCounter {
 	}
 	
 	/**
-	 * Tests set(int)
+	 * Tests set(int).
 	 */
 	@Test
 	public void testSet() {

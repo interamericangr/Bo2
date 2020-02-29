@@ -35,13 +35,13 @@ public interface Cache<C extends Comparable<? super C>> {
 	 * The code:
 	 * <p>
 	 * <code>
-	 * Set<T> set = cache.getTypeEntries(typeId);
+	 * Set&lt;T&gt; set = cache.getTypeEntries(typeId);
 	 * </code>
 	 * </p>
 	 * Has the same result as the code:
 	 * <p>
 	 * <code>
-	 * Set<T> set = cache.getSubCache(typeId, SUBTYPEID_FOR_ALL_TYPE_ENTRIES);
+	 * Set&lt;T&gt; set = cache.getSubCache(typeId, SUBTYPEID_FOR_ALL_TYPE_ENTRIES);
 	 * </code>
 	 * </p>
 	 */
@@ -58,27 +58,12 @@ public interface Cache<C extends Comparable<? super C>> {
 	public TypedSelectable<C> get(Long typeId, C code);
 
 	/**
-	 * Gets an object from the cache.
-	 *
-	 * @param typeId Id of the selected type.
-	 * @param subTypeId Id of the selected sub type.
-	 * @param code Code of the required value.
-	 *
-	 * @return Returns the object from the cache.
-	 *
-	 * @deprecated Use get(Long typeId, C code) instead.
-	 */
-	@Deprecated
-	public TypedSelectable<C> get(Long typeId, Long subTypeId, C code);
-
-	/**
 	 * Gets the set of entries that holds objects categorized
 	 * to a type and sub-type.
 	 *
+	 * @param <T> Type of elements in the set.
 	 * @param typeId type Id.
 	 * @param subTypeId sub-type Id.
-	 * @param <T> Type of elements in the set.
-	 *
 	 * @return Returns the set that holds object of the specified type
 	 *         and sub-type.
 	 */
@@ -87,10 +72,9 @@ public interface Cache<C extends Comparable<? super C>> {
 	/**
 	 * Gets the contents of a sub-cache in a list.
 	 *
-	 * @param typeId
-	 * @param subTypeId
 	 * @param <T> Type of elements in the list.
-	 *
+	 * @param typeId the type id
+	 * @param subTypeId the sub type id
 	 * @return Returns a list with the contents of the sub-cache.
 	 */
 	public <T extends TypedSelectable<C>> List<T> getSubCacheAsList(Long typeId, Long subTypeId);
@@ -99,14 +83,14 @@ public interface Cache<C extends Comparable<? super C>> {
 	 * Puts an object in the cache. Existing entries will be
 	 * replaced.
 	 *
-	 * @param value
+	 * @param value the value
 	 */
 	public void put(TypedSelectable<C> value);
 
 	/**
 	 * Removes an object from the cache.
 	 *
-	 * @param value
+	 * @param value the value
 	 */
 	public void remove(TypedSelectable<C> value);
 
@@ -131,9 +115,8 @@ public interface Cache<C extends Comparable<? super C>> {
 	 * Gets the set of entries that holds objects categorized
 	 * to a type.
 	 *
-	 * @param typeId type Id.
 	 * @param <T> Type of elements in the set.
-	 *
+	 * @param typeId type Id.
 	 * @return Returns a set containing all object categorized to the specified type.
 	 */
 	public <T extends TypedSelectable<C>> Set<T> getTypeEntries(Long typeId);

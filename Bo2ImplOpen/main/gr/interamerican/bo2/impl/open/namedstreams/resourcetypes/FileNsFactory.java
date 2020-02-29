@@ -47,7 +47,6 @@ extends AbstractNsFactory {
 		/* All conversions are allowed  */
 	}
 
-
 	@Override
 	protected NamedStream<?> convertNs(NamedStream<?> ns, StreamType type, String name)
 			throws CouldNotConvertNamedStreamException {
@@ -63,16 +62,6 @@ extends AbstractNsFactory {
 		}
 	}
 
-
-	/**
-	 * Creates a new NamedStream.
-	 *
-	 * @param def
-	 *
-	 * @return Returns the {@link NamedStream}.
-	 * @throws IOException
-	 * @throws CouldNotConvertNamedStreamException
-	 */
 	@Override
 	protected NamedStream<?> createNs(NamedStreamDefinition def)
 			throws CouldNotCreateNamedStreamException {
@@ -88,18 +77,18 @@ extends AbstractNsFactory {
 		return createNs(file, def);
 	}
 
-
 	/**
 	 * Creates a new NamedStream.
 	 *
 	 * @param file
+	 *            the file
 	 * @param def
-	 *
+	 *            the def
 	 * @return Returns the {@link NamedStream}.
 	 * @throws CouldNotCreateNamedStreamException
+	 *             the could not create named stream exception
 	 */
-	NamedStream<?> createNs(File file, NamedStreamDefinition def)
-			throws CouldNotCreateNamedStreamException {
+	NamedStream<?> createNs(File file, NamedStreamDefinition def) throws CouldNotCreateNamedStreamException {
 		StreamType type = def.getType();
 		String uri = fileUriModification(def.getUri());
 
@@ -125,26 +114,25 @@ extends AbstractNsFactory {
 
 	/**
 	 * Creates a new NamedBufferedReader that wraps a file.
-	 *
+	 * 
 	 * The specified file provides the underlying resource of the NamedStream.
-	 *
-	 * The file is read using the user-defined encoding in the Bo2 configuration.
+	 * 
+	 * The file is read using the user-defined encoding in the Bo2
+	 * configuration.
 	 *
 	 * @param file
-	 *        File.
+	 *            File.
 	 * @param name
-	 *        Stream name.
+	 *            Stream name.
 	 * @param encoding
-	 *        Encoding (if applicable).
+	 *            Encoding (if applicable).
 	 * @param uri
-	 *        File path
-	 *
+	 *            File path
 	 * @return Returns the NamedBufferedReader.
-	 *
 	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
-	NamedBufferedReader reader(File file, String name, Charset encoding, String uri)
-			throws IOException {
+	NamedBufferedReader reader(File file, String name, Charset encoding, String uri) throws IOException {
 		FileInputStream fis = new FileInputStream(file);
 		InputStreamReader insr = new InputStreamReader(fis, encoding);
 		BufferedReader br = new BufferedReader(insr);
@@ -153,22 +141,22 @@ extends AbstractNsFactory {
 
 	/**
 	 * Creates a new NamedInputStream that wraps a file.
-	 *
+	 * 
 	 * The specified file provides the underlying resource of the NamedStream.
 	 *
 	 * @param file
-	 *        File.
+	 *            File.
 	 * @param name
-	 *        Stream name.
+	 *            Stream name.
 	 * @param recordLength
-	 *        Record length.
+	 *            Record length.
 	 * @param encoding
-	 *        Encoding (if applicable).
+	 *            Encoding (if applicable).
 	 * @param uri
-	 *        File path
-	 *
+	 *            File path
 	 * @return Returns the NamedInputStream.
 	 * @throws FileNotFoundException
+	 *             the file not found exception
 	 */
 	NamedInputStream input(File file, String name, int recordLength, Charset encoding, String uri)
 			throws FileNotFoundException {
@@ -178,23 +166,22 @@ extends AbstractNsFactory {
 
 	/**
 	 * Creates a new NamedOutputStream that wraps a file.
-	 *
+	 * 
 	 * The specified file provides the underlying resource of the NamedStream.
 	 *
 	 * @param file
-	 *        File.
+	 *            File.
 	 * @param name
-	 *        Stream name.
+	 *            Stream name.
 	 * @param recordLength
-	 *        Record length.
+	 *            Record length.
 	 * @param encoding
-	 *        Encoding (if applicable).
+	 *            Encoding (if applicable).
 	 * @param uri
-	 *        File path
-	 *
+	 *            File path
 	 * @return Returns the NamedOutputStream.
-	 *
 	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	NamedOutputStream output(File file, String name, int recordLength, Charset encoding, String uri)
 			throws IOException {
@@ -204,29 +191,26 @@ extends AbstractNsFactory {
 
 	/**
 	 * Creates a new NamedPrintStream that wraps a file.
-	 *
+	 * 
 	 * The specified file provides the underlying resource of the NamedStream.
 	 *
 	 * @param file
-	 *        File.
+	 *            File.
 	 * @param name
-	 *        Stream name.
+	 *            Stream name.
 	 * @param encoding
-	 *        Encoding (if applicable).
+	 *            Encoding (if applicable).
 	 * @param uri
-	 *        File path
-	 *
+	 *            File path
 	 * @return Returns the NamedOutputStream.
-	 *
 	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
-	NamedPrintStream print(File file, String name, Charset encoding, String uri)
-			throws IOException {
+	NamedPrintStream print(File file, String name, Charset encoding, String uri) throws IOException {
 		OutputStream os = FileUtils.openOutputStream(file);
 		PrintStream out = new PrintStream(os, false, encoding.name());
 		return new NamedPrintStream(FILE, out, name, file, encoding, uri);
 	}
-
 
 	/**
 	 * Gets a string based on the current timestamp.
@@ -236,8 +220,7 @@ extends AbstractNsFactory {
 	 * @return Returns a string based on the current timestamp.
 	 */
 	String currentTimestamp() {
-		String tmstmp = new SimpleDateFormat("yyyyMMddhhmmss").format(Calendar.getInstance().getTime()); //$NON-NLS-1$
-		return tmstmp;
+		return new SimpleDateFormat("yyyyMMddhhmmss").format(Calendar.getInstance().getTime()); //$NON-NLS-1$
 	}
 
 	/**
@@ -248,14 +231,14 @@ extends AbstractNsFactory {
 	 * @return Returns a string based on the current timestamp.
 	 */
 	String currentDate() {
-		String date = new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime()); //$NON-NLS-1$
-		return date;
+		return new SimpleDateFormat("yyyyMMdd").format(Calendar.getInstance().getTime()); //$NON-NLS-1$
 	}
 
 	/**
 	 * Prepends C: if the running OS is not unix...
 	 *
 	 * @param fileUri
+	 *            the file uri
 	 * @return modified URI.
 	 */
 	String fileUriModification(String fileUri) {
@@ -263,12 +246,11 @@ extends AbstractNsFactory {
 		uri = uri.replaceAll(DATE, currentDate());
 		uri = uri.replaceAll(TIMESTAMP, currentTimestamp());
 
-		if(SystemUtils.isWindows()) {
+		if (SystemUtils.isWindows()) {
 			if (uri.startsWith("/")) { //$NON-NLS-1$
 				uri = "C:" + uri.trim(); //$NON-NLS-1$
 			}
 		}
 		return uri;
 	}
-
 }

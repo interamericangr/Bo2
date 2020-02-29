@@ -30,13 +30,12 @@ public class Bo2Creation {
 	 */
 	static ClassPool BO2_CLASSPOOL;
 	
-	/**
-	 * Classpaths appended to {@link #BO2_CLASSPOOL}
-	 */
+	/** Classpaths appended to {@link #BO2_CLASSPOOL}. */
 	static final Map<Class<?>, ClassClassPath> APPENDED_CLASSPATHS = new HashMap<Class<?>, ClassClassPath>();
 	
 	/**
-	 * Lazy initializer
+	 * Lazy initializer.
+	 *
 	 * @return Bo2 Classpool.
 	 */
 	static ClassPool bo2ClassPool() {
@@ -54,10 +53,11 @@ public class Bo2Creation {
 	}
 	
 	/**
-	 * Gets a CtClass by name
-	 * @param className
+	 * Gets a CtClass by name.
+	 *
+	 * @param className the class name
 	 * @return a CtClass by name
-	 * @throws NotFoundException
+	 * @throws NotFoundException the not found exception
 	 */
 	public static CtClass get(String className) throws NotFoundException {
 		return bo2ClassPool().get(className);
@@ -65,7 +65,8 @@ public class Bo2Creation {
 	
 	/**
 	 * Creates a CtClass with the specified name and returns it.
-	 * @param classname
+	 *
+	 * @param classname the classname
 	 * @return created CtClass
 	 */
 	public static CtClass makeClass(String classname) {
@@ -73,8 +74,9 @@ public class Bo2Creation {
 	}
 	
 	/**
-	 * Appends a ClassClassPath to the bo2 ClassPool
-	 * @param clazz
+	 * Appends a ClassClassPath to the bo2 ClassPool.
+	 *
+	 * @param clazz the clazz
 	 */
 	public static void appendClassPath(Class<?> clazz) {
 		if(!APPENDED_CLASSPATHS.containsKey(clazz)) {

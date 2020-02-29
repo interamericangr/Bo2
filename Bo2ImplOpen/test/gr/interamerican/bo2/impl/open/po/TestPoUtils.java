@@ -87,7 +87,7 @@ public class TestPoUtils {
 	private Integer userId = 555;
 
 	/**
-	 * tests deepCopy with concrete objects
+	 * tests deepCopy with concrete objects.
 	 */
 	@Test
 	public void testDeepCopy_WithConcrete() {
@@ -95,7 +95,7 @@ public class TestPoUtils {
 	}
 	
 	/**
-	 * tests deepCopy with factored objects
+	 * tests deepCopy with factored objects.
 	 */
 	@Test
 	public void testDeepCopy_WithFactored() {		
@@ -103,7 +103,7 @@ public class TestPoUtils {
 	}
 	
 	/**
-	 * tests deepCopy with concrete objects
+	 * tests deepCopy with concrete objects.
 	 */
 	@Test
 	public void testDeepCopyPreservingModificationRecord_WithConcrete() {
@@ -111,7 +111,7 @@ public class TestPoUtils {
 	}
 	
 	/**
-	 * tests deepCopy with factored objects
+	 * tests deepCopy with factored objects.
 	 */
 	@Test
 	public void testDeepCopyPreservingModificationRecord_WithFactored() {		
@@ -120,9 +120,9 @@ public class TestPoUtils {
 	
 	/**
 	 * Tests deepCopy(p) and deepCopyPreservingModificationRecord(p).
-	 * 
-	 * @param factory
-	 * @param resetMdfRec 
+	 *
+	 * @param factory the factory
+	 * @param resetMdfRec the reset mdf rec
 	 */
 	@SuppressWarnings("nls")
 	public void testDeepCopy(SamplesFactory factory, boolean resetMdfRec) {
@@ -173,7 +173,7 @@ public class TestPoUtils {
 	}
 	
 	/**
-	 * tests deepEquals for a equal Pos
+	 * tests deepEquals for a equal Pos.
 	 */
 	@Test
 	public void testDeepEquals_ForEqualPos() {
@@ -187,7 +187,7 @@ public class TestPoUtils {
 	}
 	
 	/**
-	 * tests deepEquals for a equal Pos
+	 * tests deepEquals for a equal Pos.
 	 */
 	@Test
 	public void testDeepEquals_ForSameObject() {
@@ -196,7 +196,7 @@ public class TestPoUtils {
 	}
 	
 	/**
-	 * tests deepEquals for a equal Pos
+	 * tests deepEquals for a equal Pos.
 	 */
 	@Test
 	public void testDeepEquals_ForDifferentClassObjects() {
@@ -212,7 +212,7 @@ public class TestPoUtils {
 	}
 	
 	/**
-	 * tests deepEquals when one argument is null
+	 * tests deepEquals when one argument is null.
 	 */
 	@Test
 	public void testDeepEquals_WithOneNull() {
@@ -224,7 +224,7 @@ public class TestPoUtils {
 	}
 	
 	/**
-	 * tests deepEquals when both arguments are null
+	 * tests deepEquals when both arguments are null.
 	 */
 	@Test
 	public void testDeepEquals_WithNulls() {		
@@ -232,7 +232,7 @@ public class TestPoUtils {
 	}
 	
 	/**
-	 * tests equals for a simple Po
+	 * tests equals for a simple Po.
 	 */
 	@Test
 	public void testDeepEquals_ForNotEqualPos() {
@@ -247,7 +247,7 @@ public class TestPoUtils {
 	}
 	
 	/**
-	 * tests equals for a simple Po
+	 * tests equals for a simple Po.
 	 */
 	@Test
 	public void testCopy_forNull() {		
@@ -258,7 +258,7 @@ public class TestPoUtils {
 	
 	
 	/**
-	 * Tests copy where object is instance of Timestamp 
+	 * Tests copy where object is instance of Timestamp.
 	 */
 	@Test
 	public void testCopy_Timestamp(){
@@ -271,7 +271,7 @@ public class TestPoUtils {
 	
 	
 	/**
-	 * Tests copy where object is instance of Set without child annotation
+	 * Tests copy where object is instance of Set without child annotation.
 	 */
 	@Test
 	public void testCopy_SetWithoutAnnotation(){
@@ -285,7 +285,7 @@ public class TestPoUtils {
 	}
 	
 	/**
-	 * Tests copy where object is List and there is a child annotation
+	 * Tests copy where object is List and there is a child annotation.
 	 */
 	@Test
 	public void testCopy_ListWithAnnotation(){
@@ -299,7 +299,7 @@ public class TestPoUtils {
 	}
 	
 	/**
-	 * Tests copy where object is array and there is a child annotation
+	 * Tests copy where object is array and there is a child annotation.
 	 */
 	@Test
 	public void testCopy_ArrayWithAnnotation(){
@@ -313,7 +313,7 @@ public class TestPoUtils {
 	
 	
 	/**
-	 * Tests copy where object is array and there is not a child annotation
+	 * Tests copy where object is array and there is not a child annotation.
 	 */
 	@Test
 	public void testCopy_ArrayWithoutAnnotation(){
@@ -327,7 +327,7 @@ public class TestPoUtils {
 
 
 	/**
-	 * Tests copy where object is instance of Money 
+	 * Tests copy where object is instance of Money.
 	 */
 	@Test
 	public void testCopy_Money(){
@@ -376,10 +376,10 @@ public class TestPoUtils {
 	
 	/**
 	 * Unit test for reattach.
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testReattach() throws UnexpectedException, DataException, LogicException {
@@ -406,9 +406,10 @@ public class TestPoUtils {
 	
 	/**
 	 * Unit test for serialize and deserialize.
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws IllegalArgumentException 
+	 *
+	 * @throws IllegalArgumentException the illegal argument exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws InvocationTargetException the invocation target exception
 	 */
 	@Test
 	public void testSerialize_Deserialize() 

@@ -21,15 +21,13 @@ import java.text.DecimalFormat;
  */
 public class NfDecimalFormatter extends NullFilteringFormatter<Number> {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Creates a new NfDecimalFormatter object. 
 	 *
-	 * @param df
+	 * @param df the df
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public NfDecimalFormatter(DecimalFormat df) {
@@ -39,7 +37,7 @@ public class NfDecimalFormatter extends NullFilteringFormatter<Number> {
 	/**
 	 * Creates a new NfDecimalFormatter object. 
 	 *
-	 * @param decimalDigits
+	 * @param decimalDigits the decimal digits
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public NfDecimalFormatter(int decimalDigits) {

@@ -31,7 +31,8 @@ public class TestTypeSelectableLongParser {
 	
 	/**
 	 * Test for  {@link TypeSelectableLongParser#parse(String)}.
-	 * @throws ParseException 
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@Test
 	public void testParser() throws ParseException{

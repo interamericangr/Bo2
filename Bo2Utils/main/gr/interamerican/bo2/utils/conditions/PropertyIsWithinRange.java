@@ -15,30 +15,28 @@ package gr.interamerican.bo2.utils.conditions;
 import gr.interamerican.bo2.utils.beans.Range;
 
 /**
- * Condition that checks if a property of an object is within
- * a range.
+ * Condition that checks if a property of an object is within a range.
  * 
  * @param <T>
- *        Type of objects being checked by the condition. 
+ *            Type of objects being checked by the condition.
  * @param <P>
- *        Type of the property. Must be comparable.  
- * 
+ *            Type of the property. Must be comparable.
+ * @deprecated Use {@link gr.interamerican.bo2.utils.conditions.functional.PropertyIsWithinRange}
  */
-public class PropertyIsWithinRange<T, P extends Comparable<? super P >> 
-extends ConditionOnProperty<T> {
+@Deprecated
+public class PropertyIsWithinRange<T, P extends Comparable<? super P>> extends ConditionOnProperty<T> {
 
 	/**
-	 * Creates a new PropertyExistsInSetCondition object. 
+	 * Creates a new PropertyExistsInSetCondition object.
 	 *
 	 * @param property
-	 *        Name of property.
+	 *            Name of property.
 	 * @param clazz
-	 *        Class of objects being checked by the condition.
+	 *            Class of objects being checked by the condition.
 	 * @param range
-	 *        range.
+	 *            range.
 	 */
 	public PropertyIsWithinRange(String property, Class<T> clazz, Range<P> range) {
-		super(property, clazz, new IsWithinRange<P>(range));		
+		super(property, clazz, new IsWithinRange<P>(range));
 	}
-
 }

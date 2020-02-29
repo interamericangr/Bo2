@@ -49,13 +49,14 @@ public interface Record {
 	public byte[] getBytes();
 	
 	/**
-	 * Sets the charset used for the transformation String <--> byte[]
-	 * <br/>
+	 * Sets the charset used for the transformation String &lt;--&gt; byte[]
+	 * <br>
 	 * If this is not set the default Bo2 deployment text files charset should be used.
 	 * Note that the transformation is not necessarily symmetrical and the correct
 	 * encoding should be used. 
 	 *  
-	 * @param charset
+	 *
+	 * @param charset the new charset
 	 */
 	public void setCharset(Charset charset);
 

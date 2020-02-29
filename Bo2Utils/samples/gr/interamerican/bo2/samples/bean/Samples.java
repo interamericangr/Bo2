@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 
+ * The Class Samples.
  */
 public class Samples {
 	
@@ -68,6 +68,67 @@ public class Samples {
 			family.setMother(mother);
 			family.setChildren(children);
 			family.setMariageDate(DateUtils.getDate("11/03/1941"));
+			return family;
+		} catch (ParseException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	
+	/**
+	 * Sample family.
+	 * 
+	 * @return Returns a family with three children.
+	 */
+	@SuppressWarnings("nls")
+	public static Family theNewAstaireFamily() {
+		try {
+			Person father = new Person();
+			father.setFirstName("Fred");
+			father.setLastName("Astaire");
+			father.setSex(Sex.MALE);
+			father.setBirthDay(DateUtils.getDate("15/06/1910"));
+			String [] phones = {"bla","foo"};
+			father.setPhones(phones);
+			Person mother = new Person();
+			mother.setFirstName("Ginger");
+			mother.setLastName("Rodgers");
+			mother.setBirthDay(DateUtils.getDate("11/03/1916"));
+			mother.setSex(Sex.FEMALE);
+			Person son1 = new Person();
+			son1.setFirstName("Buck");
+			son1.setLastName("Rodgers");		 
+			son1.setBirthDay(DateUtils.getDate("11/03/1944"));
+			son1.setSex(Sex.MALE);
+			Person daughter1 = new Person();
+			daughter1.setFirstName("Jane");
+			daughter1.setLastName("Doe");
+			daughter1.setBirthDay(DateUtils.getDate("11/03/1948"));
+			daughter1.setSex(Sex.MALE);
+			Person daughter2 = new Person();
+			daughter2.setFirstName("Jane");
+			daughter2.setLastName("Star");
+			daughter2.setBirthDay(DateUtils.getDate("11/03/1951"));
+			daughter2.setSex(Sex.FEMALE);
+			List<Person> children = new ArrayList<Person>();
+			children.add(son1);
+			children.add(daughter1);
+			children.add(daughter2);		 
+			Family family = new Family();
+			family.setFather(father);
+			family.setMother(mother);
+			family.setChildren(children);
+			family.setMariageDate(DateUtils.getDate("11/03/1941"));
+			
+			Address address = new Address();
+			address.setCity("Holywood");
+			address.setCountry("USA");
+			address.setNumber("32-B");
+			address.setStreet("Elm Street");
+			address.setZipCode("17680");
+			
+			family.setAddress(address);
+			
 			return family;
 		} catch (ParseException e) {
 			throw new RuntimeException(e);

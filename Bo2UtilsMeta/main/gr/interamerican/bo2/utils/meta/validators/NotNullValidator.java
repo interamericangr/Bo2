@@ -21,9 +21,7 @@ public class NotNullValidator
 extends AbstractValidator
 implements Validator<Object> {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Singleton.
@@ -48,6 +46,7 @@ implements Validator<Object> {
 	 */
 	private NotNullValidator() { /* hidden, empty */ }
 	
+	@Override
 	public void validate(Object value) throws ValidationException {
 		if (value==null) {
 			throw invalid();

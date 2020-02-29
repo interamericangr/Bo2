@@ -4,15 +4,19 @@ import gr.interamerican.bo2.impl.open.po.AbstractKey;
 import gr.interamerican.bo2.test.def.posamples.InvoiceRuleKey;
 
 /**
- * 
+ * The Class InvoiceRuleKeyImpl.
  */
 public class InvoiceRuleKeyImpl extends AbstractKey implements InvoiceRuleKey {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * Κωδικός Invoice
+	 */
 	String invoiceNo;
+	/**
+	 * Κωδικός Κανόνα
+	 */
 	Long ruleCd;
 	
 
@@ -21,6 +25,7 @@ public class InvoiceRuleKeyImpl extends AbstractKey implements InvoiceRuleKey {
 	 *
 	 * @return Returns the ruleCd
 	 */
+	@Override
 	public Long getRuleCd() {
 		return ruleCd;
 	}
@@ -30,6 +35,7 @@ public class InvoiceRuleKeyImpl extends AbstractKey implements InvoiceRuleKey {
 	 *
 	 * @param ruleCd the ruleCd to set
 	 */
+	@Override
 	public void setRuleCd(Long ruleCd) {
 		this.ruleCd = ruleCd;
 	}
@@ -39,6 +45,7 @@ public class InvoiceRuleKeyImpl extends AbstractKey implements InvoiceRuleKey {
 	 *
 	 * @return Returns the invoiceNo
 	 */
+	@Override
 	public String getInvoiceNo() {
 		return invoiceNo;
 	}
@@ -48,6 +55,7 @@ public class InvoiceRuleKeyImpl extends AbstractKey implements InvoiceRuleKey {
 	 *
 	 * @param invoiceNo the invoiceNo to set
 	 */
+	@Override
 	public void setInvoiceNo(String invoiceNo) {
 		this.invoiceNo = invoiceNo;
 	}

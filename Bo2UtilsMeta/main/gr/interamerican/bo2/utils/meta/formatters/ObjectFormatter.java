@@ -22,9 +22,7 @@ import gr.interamerican.bo2.utils.StringUtils;
 public class ObjectFormatter 
 implements Formatter<Object> {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Singleton.
@@ -43,9 +41,9 @@ implements Formatter<Object> {
 	public static <T> Formatter<T> getInstance() {
 		return (Formatter<T>) INSTANCE;
 	}
-		
+
+	@Override
 	public String format(Object t) {
 		return StringUtils.toString(t);
 	}
-
 }

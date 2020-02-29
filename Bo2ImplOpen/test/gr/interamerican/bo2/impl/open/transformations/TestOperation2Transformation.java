@@ -39,12 +39,10 @@ public class TestOperation2Transformation {
 	
 	/**
 	 * Tests executeOperation() when the operation throws an exception.
-	 * 
-	 * @param clazz 
-	 *        Class of thrown exception.
-	 * 
-	 * @throws DataException 
-	 * @throws LogicException 
+	 *
+	 * @param clazz        Class of thrown exception.
+	 * @throws LogicException the logic exception
+	 * @throws DataException the data exception
 	 */		
 	void testExecuteOperation_throwing(Class<? extends Exception> clazz) throws LogicException, DataException {		
 		String output = "out"; //$NON-NLS-1$
@@ -67,9 +65,9 @@ public class TestOperation2Transformation {
 	
 	/**
 	 * Tests executeOperation().
-	 * 
-	 * @throws DataException 
-	 * @throws LogicException 
+	 *
+	 * @throws LogicException the logic exception
+	 * @throws DataException the data exception
 	 */		
 	@Test
 	public void testExecuteOperation_throwLogic() throws LogicException, DataException {		
@@ -78,9 +76,9 @@ public class TestOperation2Transformation {
 	
 	/**
 	 * Tests executeOperation().
-	 * 
-	 * @throws DataException 
-	 * @throws LogicException 
+	 *
+	 * @throws LogicException the logic exception
+	 * @throws DataException the data exception
 	 */		
 	@Test
 	public void testExecuteOperation_throwData() throws LogicException, DataException {		
@@ -89,9 +87,9 @@ public class TestOperation2Transformation {
 	
 	/**
 	 * Tests executeOperation().
-	 * 
-	 * @throws DataException 
-	 * @throws LogicException 
+	 *
+	 * @throws LogicException the logic exception
+	 * @throws DataException the data exception
 	 */		
 	@Test(expected=RuntimeException.class)
 	public void testExecuteOperation_throwingRuntime() throws LogicException, DataException {		
@@ -105,9 +103,9 @@ public class TestOperation2Transformation {
 	
 	/**
 	 * Tests executeOperation().
-	 * 
-	 * @throws DataException 
-	 * @throws LogicException 
+	 *
+	 * @throws LogicException the logic exception
+	 * @throws DataException the data exception
 	 */		
 	void testExecuteOperation_notThrowing() throws LogicException, DataException {		
 		String output = "out"; //$NON-NLS-1$
@@ -120,9 +118,9 @@ public class TestOperation2Transformation {
 	
 	/**
 	 * Tests execute(o).
-	 * 
-	 * @throws DataException 
-	 * @throws LogicException 
+	 *
+	 * @throws LogicException the logic exception
+	 * @throws DataException the data exception
 	 */		
 	@Test
 	public void testExecute_withMock() throws LogicException, DataException {
@@ -136,9 +134,9 @@ public class TestOperation2Transformation {
 	
 	/**
 	 * Tests execute(o).
-	 * 
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */		
 	@SuppressWarnings("nls")
 	@Test

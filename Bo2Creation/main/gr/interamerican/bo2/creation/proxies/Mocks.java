@@ -16,7 +16,7 @@ package gr.interamerican.bo2.creation.proxies;
 import java.lang.reflect.Proxy;
 
 /**
- * Factory for fake objects. <br/>
+ * Factory for fake objects. <br>
  * 
  * Fakes are dynamic proxies that fake the behavior of the interfaces
  * they implement, with some predefined behavior.
@@ -27,11 +27,10 @@ public class Mocks {
 	 * Creates a new Proxy instance for the specified interface,
 	 * using the specified InvocationHandler and the ClassLoader
 	 * of this class.
-	 * 
-	 * @param <C>
-	 * @param type
-	 * @param handler
-	 * 
+	 *
+	 * @param <C> the generic type
+	 * @param type the type
+	 * @param handler the handler
 	 * @return Returns a proxy instance.
 	 */
 	@SuppressWarnings("unchecked")
@@ -44,12 +43,9 @@ public class Mocks {
 	/**
 	 * Creates an implementation of the specified interface
 	 * that has all of its methods returning null.
-	 * 
-	 * @param type
-	 *        Interface to implement.
-	 * @param <C>
-	 *        Type of object.         
-	 * 
+	 *
+	 * @param <C>        Type of object.         
+	 * @param type        Interface to implement.
 	 * @return Returns a fake implementation of the interface.
 	 */
 	public static <C> C empty(Class<C> type) {
@@ -61,15 +57,11 @@ public class Mocks {
 	 * Creates an implementation of the specified interface
 	 * that has all of its methods throw Throwable of the 
 	 * specified type.
-	 * 
-	 * @param type
-	 *        Interface to implement.
-	 * @param <C>
-	 *        Type of object.         
-	 * @param throwable 
-	 *        Type of Throwable being thrown by the methods
+	 *
+	 * @param <C>        Type of object.         
+	 * @param type        Interface to implement.
+	 * @param throwable        Type of Throwable being thrown by the methods
 	 *        of the object.
-	 * 
 	 * @return Returns a fake implementation of the interface.
 	 */
 	public static <C> C throwing(Class<C> type, Class<? extends Throwable> throwable) {
@@ -81,12 +73,9 @@ public class Mocks {
 	 * Creates an implementation of the specified interface
 	 * that has all of its methods returning the specified
 	 * return value.
-	 * 
-	 * @param type
-	 *        Interface to implement.
-	 * @param <C>
-	 *        Type of object.         
-	 * 
+	 *
+	 * @param <C>        Type of object.         
+	 * @param type        Interface to implement.
 	 * @return Returns a fake implementation of the interface.
 	 */
 	public static <C> C fake(Class<C> type) {
@@ -97,16 +86,11 @@ public class Mocks {
 	/**
 	 * Creates an implementation of the specified interface
 	 * that has all of its methods returning a default value.
-	 * 
-	 * @param type
-	 *        Interface to implement.
-	 * @param returnValue 
-	 *        Value returned by the object's methods.       
+	 *
+	 * @param <C>        Type of object.         
+	 * @param type        Interface to implement.
+	 * @param returnValue        Value returned by the object's methods.       
 	 *        
-	 * @param <C>
-	 *        Type of object.         
-	 * 
-	 * 
 	 * @return Returns a fake implementation of the interface.
 	 */
 	public static <C> C empty(Class<C> type, Object returnValue) {

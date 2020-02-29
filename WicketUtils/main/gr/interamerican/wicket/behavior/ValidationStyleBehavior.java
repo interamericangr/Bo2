@@ -51,10 +51,9 @@ public class ValidationStyleBehavior extends Behavior {
 			tag.getAttributes().put(MarkupConstants.CSS_CLASS, value);
 		}
 	}
-	
+
 	/**
 	 * Use the Singleton.
 	 */
 	private ValidationStyleBehavior() { /* private, empty */ }
-	
 }

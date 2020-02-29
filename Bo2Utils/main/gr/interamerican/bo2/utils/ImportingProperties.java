@@ -19,13 +19,13 @@ import java.util.Properties;
 /**
  * {@link Properties} extension that may load properties from
  * multiple files that import eachother.
- * <br/>
+ * <br>
  * To trigger the loading of properties file B, when loading
  * properties file A, declare the fully qualified resource path
  * of B as the value of the reserved property key '_import_' in A.
- * <br/>
+ * <br>
  * e.g. _import_=/gr/interamerican/bo2/toBeImported.properties
- * <br/>
+ * <br>
  * The _import_ property is removed after loading is complete.
  */
 public class ImportingProperties extends Properties {

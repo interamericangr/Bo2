@@ -24,7 +24,7 @@ import javax.xml.namespace.QName;
 import javax.xml.ws.Service;
 
 /**
- * Implementation of {@link DocumentEngineUtility} based on a WebService
+ * Implementation of {@link DocumentEngineUtility} based on a WebService.
  */
 public class WsDocumentEngineUtility extends AbstractDocumentEngineUtility {
 	
@@ -36,7 +36,7 @@ public class WsDocumentEngineUtility extends AbstractDocumentEngineUtility {
 	/**
 	 * Creates a new ServiceClientPdfEngine object. 
 	 *
-	 * @param properties
+	 * @param properties the properties
 	 */
 	public WsDocumentEngineUtility(Properties properties) {
 		super(properties);
@@ -49,7 +49,8 @@ public class WsDocumentEngineUtility extends AbstractDocumentEngineUtility {
 	
 	/**
 	 * Initializes {@link Service} instance.
-	 * @throws MalformedURLException
+	 *
+	 * @throws MalformedURLException the malformed URL exception
 	 */
 	void initService() throws MalformedURLException {
 		if(WS==null) {
@@ -59,12 +60,14 @@ public class WsDocumentEngineUtility extends AbstractDocumentEngineUtility {
 		}
 	}
 
+	@Deprecated
+	@Override
 	public String toHtml(byte[] odf) throws DocumentEngineException {
 		throw new UnsupportedOperationException("not implemented"); //$NON-NLS-1$
 	}
 
+	@Override
 	public byte[] toPdf(byte[] odf) throws DocumentEngineException {
 		throw new UnsupportedOperationException("not implemented"); //$NON-NLS-1$
 	}
-
 }

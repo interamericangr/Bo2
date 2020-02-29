@@ -25,28 +25,25 @@ import gr.interamerican.bo2.utils.adapters.Transformation;
  * @param <R>
  *        Type of result. Must be the same as the result type
  *        of the sequence's last adapter operation. 
-
- *  
  */
 public class Sequence<A,R> implements Transformation<A, R>{
-	
+
 	/**
 	 * Sequence of operations to execute.
 	 */
 	Transformation<?, ?>[] operations;
 
-	
 	/**
 	 * Creates a new Sequence object. 
 	 *
-	 * @param operations
+	 * @param operations the operations
 	 */
 	public Sequence(Transformation<?, ?>... operations) {
 		super();
 		this.operations = operations;
 	}
 
-
+	@Override
 	@SuppressWarnings("unchecked")
 	public R execute(Object a) {
 		Object arg = a;
@@ -57,5 +54,4 @@ public class Sequence<A,R> implements Transformation<A, R>{
 		}
 		return (R)arg;
 	}
-
 }

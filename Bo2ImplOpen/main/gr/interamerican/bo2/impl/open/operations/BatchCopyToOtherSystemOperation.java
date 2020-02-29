@@ -33,7 +33,9 @@ import java.util.Set;
  *        Type of PersistentObject
  * @param <K> 
  *        Type of Key
+ * @deprecated use {@link CopyComplexEntityOperation} instead
  */
+@Deprecated
 public class BatchCopyToOtherSystemOperation
 <P extends PersistentObject<K>, 
 K extends Serializable & Comparable<? super K>> 
@@ -47,9 +49,9 @@ extends CopyToOtherSystemOperation<P, K> {
 	/**
 	 * Creates a new BatchCopyToOtherSystemOperation object. 
 	 *
-	 * @param poClass
-	 * @param fromManager
-	 * @param toManager
+	 * @param poClass the po class
+	 * @param fromManager the from manager
+	 * @param toManager the to manager
 	 */
 	public BatchCopyToOtherSystemOperation(Class<P> poClass, String fromManager, String toManager) {
 		super(poClass, fromManager, toManager);
@@ -58,10 +60,10 @@ extends CopyToOtherSystemOperation<P, K> {
 	/**
 	 * Creates a new BatchCopyToOtherSystemOperation object. 
 	 *
-	 * @param poClass
-	 * @param fromManager
-	 * @param toManager
-	 * @param prepareForCopy 
+	 * @param poClass the po class
+	 * @param fromManager the from manager
+	 * @param toManager the to manager
+	 * @param prepareForCopy the prepare for copy
 	 */
 	public BatchCopyToOtherSystemOperation(Class<P> poClass, String fromManager, String toManager, AbstractPoOperation<P> prepareForCopy) {
 		super(poClass, fromManager, toManager, prepareForCopy);

@@ -13,17 +13,12 @@
 package gr.interamerican.wicket.utils;
 
 
-import gr.interamerican.bo2.utils.beans.Pair;
-import gr.interamerican.wicket.markup.html.panel.CheckBoxPanel;
-import gr.interamerican.wicket.markup.html.panel.DataTableAjaxLinkPanel;
-import gr.interamerican.wicket.markup.html.panel.DataTableRadioButtonPanel;
-import gr.interamerican.wicket.markup.html.tabs.StatefulAjaxTabbedPanel;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.wicket.Page;
+import org.apache.wicket.ajax.AjaxRequestHandler;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.markup.html.tabs.AbstractTab;
 import org.apache.wicket.extensions.markup.html.tabs.ITab;
@@ -33,89 +28,93 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.RadioGroup;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.markup.html.panel.EmptyPanel;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+
+import gr.interamerican.bo2.utils.beans.Pair;
+import gr.interamerican.wicket.markup.html.panel.DataTableAjaxLinkPanel;
+import gr.interamerican.wicket.markup.html.panel.DataTableRadioButtonPanel;
+import gr.interamerican.wicket.markup.html.tabs.StatefulAjaxTabbedPanel;
 
 
 /**
  * Wicket page is a webpage used for the tests of all 
  * the components in the module. We add the components 
- * here and we test them through the wicket tester.
+ * here and we test them through the wicket tester.<br>
+ * 
+ * @deprecated to be removed
  */
 @SuppressWarnings({ "rawtypes", "unchecked" })
+@Deprecated
 public class WicketPage extends WebPage{
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * button for sumbission of a form
-	 */
+	/** button for sumbission of a form. */
 	@SuppressWarnings("unused")
 	private Button button = new Button("submit"); //$NON-NLS-1$
 
-	/**
-	 * 
-	 */
+	/** The Constant REFRESH_PANEL_WICKET_ID. */
 	@SuppressWarnings("unused")
 	private static final String REFRESH_PANEL_WICKET_ID = "emptyPanel"; //$NON-NLS-1$
+	
 	/**
-	 * 
+	 * Instantiates a new wicket page.
 	 */
+	@SuppressWarnings("nls")
 	public WicketPage(){			
 
 		//FeedBackPanel
 		add(WicketUtils.createFeedbackPanel());
 
 		//Test CreateLink
-		Link<String> link = LinkUtils.createLink("link", this.getClass()); //$NON-NLS-1$
+		Link<String> link = LinkUtils.createLink("link", this.getClass());
 		add(link);	
 		Link<String> link1 = LinkUtils.createLink(this.getClass());
 		add(link1);
-		Link<String> link2 = LinkUtils.createLink(new Pair<String, Class<? extends Page>>("link2", this.getClass())); //$NON-NLS-1$
+		Link<String> link2 = LinkUtils.createLink(new Pair<String, Class<? extends Page>>("link2", this.getClass()));
 		add(link2);
-
-		//Test CheckBoxPanel
-		CheckBoxPanelImpl<Boolean> testCheckBoxPanel = new 
- CheckBoxPanelImpl<Boolean>(
-				"checkBoxPanel", new Model<Boolean>(), true); //$NON-NLS-1$
-		add(testCheckBoxPanel);
 
 
 		//Test DataTableLinkPanel
 		DataTableLinkPanelImpl testDataTableLinkPanel = new
  DataTableLinkPanelImpl(
-				"dateTableLinkPanel", new Model(), ImageType.COPY); //$NON-NLS-1$
+				"dateTableLinkPanel", new Model(), ImageType.COPY);
 		add(testDataTableLinkPanel);				
 		DataTableLinkPanelImpl testDataTableLinkPanel1 = new
  DataTableLinkPanelImpl(
-				"dateTableLinkPanel1", new Model(), "This is a test"); //$NON-NLS-1$ //$NON-NLS-2$
+				"dateTableLinkPanel1", new Model(), "This is a test");
 		add(testDataTableLinkPanel1);
-
-		//Test StatefulAjaxTabbedPanel
+		
+		Form form1=new Form("form");
+		
+	
+		
 		StatefulAjaxTabbedPanel tabs = new 
- StatefulAjaxTabbedPanel("tabs", getITabs(), new Form("form"), null); //$NON-NLS-1$ //$NON-NLS-2$
-		add(tabs);
+				 StatefulAjaxTabbedPanel("tabs",getITabs(),form1,null);
+	
+		form1.add(tabs);
+		add(form1);
 
 		//Test DataTableRadioButtonPanel		
-		RadioGroup radioGroup = new RadioGroup("radioGroup"); //$NON-NLS-1$
+		RadioGroup radioGroup = new RadioGroup("radioGroup");
 		DataTableRadioButtonPanel<Serializable> dataTableRadioButtionPanel = 
  new DataTableRadioButtonPanel<Serializable>(
-				"dataTableRadioButtonPanel", new Model()); //$NON-NLS-1$
+				"dataTableRadioButtonPanel", new Model());
 		radioGroup.add(dataTableRadioButtionPanel);		
 		add(radioGroup);
 		
 		
 		//Test WicketUtils methods
-		Form form2 = new Form("form2"); //$NON-NLS-1$
-		TextField<String> textField = new TextField<String>("field"); //$NON-NLS-1$
+		Form form2 = new Form("form2");
+		TextField<String> textField = new TextField<String>("field");
 		textField.setOutputMarkupId(true);
 		form2.add(textField);
-		WicketUtils.setVisibility(form2, new String[] { "field" }, true); //$NON-NLS-1$
-		WicketUtils.renderFields(new AjaxRequestTarget(this), form2, new String[] { "field" }); //$NON-NLS-1$
+		WicketUtils.setVisibility(form2, new String[] { "field" }, true);
+		WicketUtils.renderFields(new AjaxRequestHandler(this), form2, new String[] { "field" });
 		add(form2);
 
 	}
@@ -133,57 +132,29 @@ public class WicketPage extends WebPage{
 		itabs.add(new AbstractTab(new Model("firsttab")) { //$NON-NLS-1$
 			@Override
 			public Panel getPanel(String panelId) { 
-				return new CheckBoxPanelImpl(panelId, new Model<Boolean>(), true); 
+				return new EmptyPanel(panelId); 
 			}
 		});		
 		return itabs; 		
 	}
 
-
-	/**
-	 * 
-	 * Concrete sub-type of CheckBoxPanel for testing.
-	 * @param <T>
-	 */
-	private class CheckBoxPanelImpl<T> extends CheckBoxPanel<T> {
-
-		/**
-		 * 
-		 */
-		private static final long serialVersionUID = 1L;
-
-		/**
-		 * 
-		 * @param id
-		 * @param model
-		 * @param isSelected
-		 */
-		public CheckBoxPanelImpl(String id, IModel<T> model, boolean isSelected) {
-			super(id, model, isSelected);
-
-		}
-
-	}
-
 	
 	/**
-	 * 
-	 * Test class to test the DataTableLinkPanel
+	 * Test class to test the DataTableLinkPanel.
 	 *
-	 * @param <T>
+	 * @param <T> the generic type
 	 */
 	private class DataTableLinkPanelImpl<T> extends DataTableAjaxLinkPanel<T>{
 
-		/**
-		 * 
-		 */
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 1L;
 
 		/**
-		 * 
-		 * @param id
-		 * @param model
-		 * @param linkText
+		 * Instantiates a new data table link panel impl.
+		 *
+		 * @param id the id
+		 * @param model the model
+		 * @param linkText the link text
 		 */
 		public DataTableLinkPanelImpl(String id, IModel<T> model,
 				String linkText ) {
@@ -192,9 +163,10 @@ public class WicketPage extends WebPage{
 
 		/**
 		 * 		
-		 * @param id
-		 * @param model
-		 * @param imageType
+		 *
+		 * @param id the id
+		 * @param model the model
+		 * @param imageType the image type
 		 */
 		public DataTableLinkPanelImpl(String id, IModel<T> model,
 				ImageType imageType) {

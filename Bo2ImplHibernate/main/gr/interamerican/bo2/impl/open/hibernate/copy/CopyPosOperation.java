@@ -1,3 +1,15 @@
+/*******************************************************************************
+ * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A. 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Lesser Public License v3
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/copyleft/lesser.html
+ * 
+ * This library is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * See the GNU Lesser General Public License for more details.
+ ******************************************************************************/
 package gr.interamerican.bo2.impl.open.hibernate.copy;
 
 import gr.interamerican.bo2.arch.PersistenceWorker;
@@ -8,6 +20,7 @@ import gr.interamerican.bo2.arch.exceptions.LogicException;
 import gr.interamerican.bo2.impl.open.creation.Factory;
 import gr.interamerican.bo2.impl.open.hibernate.HibernateSessionProvider;
 import gr.interamerican.bo2.impl.open.hibernate.adapters.Unproxy;
+import gr.interamerican.bo2.impl.open.operations.CopyComplexEntityOperation;
 import gr.interamerican.bo2.impl.open.po.PoUtils;
 import gr.interamerican.bo2.impl.open.workers.AbstractOperation;
 import gr.interamerican.bo2.impl.open.workers.AbstractPoOperation;
@@ -25,7 +38,10 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Operation to copy a list of {@link CopyPoBean}s from one system to an other.
+ * 
+ * @deprecated use {@link CopyComplexEntityOperation} instead
  */
+@Deprecated
 public abstract class CopyPosOperation extends AbstractOperation {
 
 	/**
@@ -33,42 +49,40 @@ public abstract class CopyPosOperation extends AbstractOperation {
 	 */
 	public static final Logger LOG = LoggerFactory.getLogger(CopyPosOperation.class);
 
-	/**
-	 * from
-	 */
+	/** from. */
 	String from;
-	/**
-	 * to
-	 */
+	
+	/** to. */
 	String to;
 	/**
 	 * beans to copy.
 	 */
 	List<CopyPoBean<?, PersistentObject<?>, AbstractPoOperation<PersistentObject<?>>>> poBeans = new ArrayList<CopyPoBean<?, PersistentObject<?>, AbstractPoOperation<PersistentObject<?>>>>();
-	/**
-	 *
-	 */
+	
+	/** The executed. */
 	private boolean executed = false;
 
 	/**
-	 * from
+	 * from.
 	 *
-	 * @param manager
+	 * @param manager the new from
 	 */
 	public void setFrom(String manager) {
 		from = manager;
 	}
 
 	/**
-	 * to
+	 * to.
 	 *
-	 * @param manager
+	 * @param manager the new to
 	 */
 	public void setTo(String manager) {
 		to = manager;
 	}
 
 	/**
+	 * Gets the po beans.
+	 *
 	 * @return the pobeans
 	 */
 	public List<? super CopyPoBean<?, ?, ?>> getPoBeans() {
@@ -76,16 +90,17 @@ public abstract class CopyPosOperation extends AbstractOperation {
 	}
 
 	/**
-	 * clears the poBeans list
+	 * clears the poBeans list.
 	 */
 	public void clearList() {
 		poBeans.clear();
 	}
+	
 	/**
 	 * read the Po and puts it in the bean back.
 	 *
-	 * @param bean
-	 * @throws DataException
+	 * @param bean the bean
+	 * @throws DataException the data exception
 	 */
 	void readPo(CopyPoBean<?, PersistentObject<?>, AbstractPoOperation<PersistentObject<?>>> bean) throws DataException {
 		LOG.info("Reading a " + bean.getPoInterface() + StringConstants.SPACE + bean.getFromKey()); //$NON-NLS-1$
@@ -108,9 +123,9 @@ public abstract class CopyPosOperation extends AbstractOperation {
 	}
 
 	/**
-	 * copy the Po from->to
+	 * copy the Po from-&gt;to.
 	 *
-	 * @param bean
+	 * @param bean the bean
 	 */
 	void copyPo(CopyPoBean<?, PersistentObject<?>, AbstractPoOperation<PersistentObject<?>>> bean) {
 		if (bean.getToPo() != null) {
@@ -124,11 +139,11 @@ public abstract class CopyPosOperation extends AbstractOperation {
 	}
 
 	/**
-	 * run the post operation
+	 * run the post operation.
 	 *
-	 * @param bean
-	 * @throws LogicException
-	 * @throws DataException
+	 * @param bean the bean
+	 * @throws LogicException the logic exception
+	 * @throws DataException the data exception
 	 */
 	void runPostOperation(CopyPoBean<?, PersistentObject<?>, AbstractPoOperation<PersistentObject<?>>> bean)
 			throws LogicException, DataException {
@@ -153,7 +168,7 @@ public abstract class CopyPosOperation extends AbstractOperation {
 	/**
 	 * write the Pos to the database.
 	 *
-	 * @throws DataException
+	 * @throws DataException the data exception
 	 */
 	void writePos() throws DataException {
 		for (CopyPoBean<?, PersistentObject<?>, AbstractPoOperation<PersistentObject<?>>> bean : poBeans) {
@@ -172,8 +187,10 @@ public abstract class CopyPosOperation extends AbstractOperation {
 	}
 
 	/**
-	 * @param manager
-	 * @throws DataException
+	 * Close hibernate session.
+	 *
+	 * @param manager the manager
+	 * @throws DataException the data exception
 	 */
 	void closeHibernateSession(String manager) throws DataException {
 		HibernateSessionProvider fromHsp;
@@ -186,10 +203,10 @@ public abstract class CopyPosOperation extends AbstractOperation {
 	}
 
 	/**
-	 * validates the bean
+	 * validates the bean.
 	 *
-	 * @param bean
-	 * @throws LogicException
+	 * @param bean the bean
+	 * @throws LogicException the logic exception
 	 */
 	void validateBean(CopyPoBean<?, PersistentObject<?>, AbstractPoOperation<PersistentObject<?>>> bean)
 			throws LogicException {

@@ -26,9 +26,8 @@ import gr.interamerican.bo2.utils.meta.formatters.nf.AbstractNullFilteringFormat
  */
 public class NullReturningFormatter<T> 
 extends AbstractNullReturningFormatter<T> {
-	/**
-	 * 
-	 */
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Formatter.
@@ -38,7 +37,7 @@ extends AbstractNullReturningFormatter<T> {
 	/**
 	 * Creates a new NsFormatter object. 
 	 *
-	 * @param formatter
+	 * @param formatter the formatter
 	 */
 	public NullReturningFormatter(Formatter<T> formatter) {
 		super();

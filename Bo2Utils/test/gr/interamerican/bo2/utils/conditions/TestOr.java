@@ -23,9 +23,8 @@ import org.junit.Test;
 public class TestOr {
 	
 	/**
-	 * Tests check()
+	 * Tests check().
 	 */
-	@SuppressWarnings("unchecked")
 	@Test
 	public void testCheck() {
 		Or<Object> trueOr = new Or<Object>(new False<Object>(), new True<Object>());
@@ -35,5 +34,4 @@ public class TestOr {
 		Or<Object> falseOr2 = new Or<Object>(new ArrayList<Condition<Object>>());		
 		Assert.assertFalse(falseOr2.check(null));
 	}
-
 }

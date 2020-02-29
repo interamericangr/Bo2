@@ -12,31 +12,37 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.conditions;
 
-import gr.interamerican.bo2.samples.bean.BeanWith3Fields;
-
-import org.junit.Assert;
+import static org.junit.Assert.*;
 import org.junit.Test;
+import gr.interamerican.bo2.samples.bean.BeanWith3Fields;
 
 /**
  * Test for {@link PropertiesAreNotNull}.
  */
 public class TestPropertiesAreNotNull {
-	
+
 	/**
 	 * Test for check.
 	 */
 	@Test
 	@SuppressWarnings("nls")
 	public void testCheck() {
-		PropertiesAreNotNull<BeanWith3Fields> condition = 
-			new PropertiesAreNotNull<BeanWith3Fields>(BeanWith3Fields.class,"field1","field2","field3");
+		@SuppressWarnings("deprecation")
+		PropertiesAreNotNull<BeanWith3Fields> condition1 = new PropertiesAreNotNull<BeanWith3Fields>(
+				BeanWith3Fields.class, "field1", "field2", "field3");
+		PropertiesAreNotNull<BeanWith3Fields> condition2 = new PropertiesAreNotNull<>(BeanWith3Fields::getField1,
+				BeanWith3Fields::getField2, BeanWith3Fields::getField3);
 		BeanWith3Fields bean = new BeanWith3Fields();
-		Assert.assertFalse(condition.check(bean));
+		assertFalse(condition1.check(bean));
+		assertFalse(condition2.check(bean));
 		bean.setField1("field1");
-		Assert.assertFalse(condition.check(bean));
+		assertFalse(condition1.check(bean));
+		assertFalse(condition2.check(bean));
 		bean.setField2(10);
-		Assert.assertFalse(condition.check(bean));
+		assertFalse(condition1.check(bean));
+		assertFalse(condition2.check(bean));
 		bean.setField3(5d);
-		Assert.assertTrue(condition.check(bean));
+		assertTrue(condition1.check(bean));
+		assertTrue(condition2.check(bean));
 	}
 }

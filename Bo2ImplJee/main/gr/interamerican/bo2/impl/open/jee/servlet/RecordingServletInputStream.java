@@ -3,11 +3,12 @@ package gr.interamerican.bo2.impl.open.jee.servlet;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
+import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
 
 /**
  * {@link ServletInputStream} decorator.
- * <br/><br/>
+ * <br><br>
  * The following methods are not overridden
  * <ul>
  * 		<li>{@link ServletInputStream}{@link #read(byte[])}
@@ -26,19 +27,18 @@ public class RecordingServletInputStream extends ServletInputStream {
 	 */
 	private ByteArrayOutputStream baos = new ByteArrayOutputStream();
 	
-	/**
-	 * Decorated instance
-	 */
+	/** Decorated instance. */
 	private ServletInputStream sis;
 	
 	/**
-	 * Creates a new WsLoggingServletInputStream object. 
-	 * @param sis 
+	 * Public Constructor. 
+	 *
+	 * @param sis the sis
 	 */
 	public RecordingServletInputStream(ServletInputStream sis) {
 		this.sis = sis;
 	}
-	
+
 	@Override
 	public int read() throws IOException {
 		int ch = sis.read(); //read one byte
@@ -47,37 +47,52 @@ public class RecordingServletInputStream extends ServletInputStream {
         }
         return ch;
 	}
-	
+
 	@Override
 	public int available() throws IOException {
 		return sis.available();
 	}
-	
+
 	@Override
 	public synchronized void mark(int readlimit) {
 		sis.mark(readlimit);
 	}
-	
+
 	@Override
 	public long skip(long n) throws IOException {
 		return sis.skip(n);
 	}
-	
+
 	@Override
 	public void close() throws IOException {
 		sis.close();
 	}
-	
+
 	@Override
 	public synchronized void reset() throws IOException {
 		sis.reset();
 	}
-	
+
 	@Override
 	public boolean markSupported() {
 		return sis.markSupported();
 	}
-	
+
+	@Override
+	public boolean isFinished() {
+		return sis.isFinished();
+	}
+
+	@Override
+	public boolean isReady() {
+		return sis.isReady();
+	}
+
+	@Override
+	public void setReadListener(ReadListener readListener) {
+		sis.setReadListener(readListener);
+	}
+
 	/**
 	 * Gets the recorded contents of the decorated {@link ServletInputStream}.
 	 * 
@@ -86,5 +101,4 @@ public class RecordingServletInputStream extends ServletInputStream {
 	public byte[] getPayload() {
 		return baos.toByteArray();
 	}
-	
 }

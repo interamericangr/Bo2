@@ -41,7 +41,7 @@ public class TestStringBoPropertyDescriptor {
 	}
 	
 	/**
-	 * Test creation
+	 * Test creation.
 	 */
 	@Test
 	public void testConstruct() {
@@ -58,8 +58,9 @@ public class TestStringBoPropertyDescriptor {
 	}
 
 	/**
-	 * Test setMinLength, setMaxLength, validate
-	 * @throws ValidationException
+	 * Test setMinLength, setMaxLength, validate.
+	 *
+	 * @throws ValidationException the validation exception
 	 */
 	@Test 	
 	public void testSetZeroAllowedNegativeAllowedAndValidate() throws ValidationException{
@@ -85,7 +86,7 @@ public class TestStringBoPropertyDescriptor {
 	}
 	
 	/**
-	 * Test setExpression
+	 * Test setExpression.
 	 */
 	@Test
 	public void testSetExpression() {

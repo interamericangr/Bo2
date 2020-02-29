@@ -28,15 +28,15 @@ import org.junit.Test;
 
 
 /**
- * test case for {@link RebuildQueryWithOutUselessJoins}
+ * test case for {@link RebuildQueryWithOutUselessJoins}.
  */
 public class TestRebuildQueryWithOutUselessJoins {
 
 	/**
-	 * test method for {@link RebuildQueryWithOutUselessJoins#getResult()}
-	 * 
-	 * @throws SqlParseException
-	 * @throws JSQLParserException
+	 * test method for {@link RebuildQueryWithOutUselessJoins#getResult()}.
+	 *
+	 * @throws SqlParseException the sql parse exception
+	 * @throws JSQLParserException the JSQL parser exception
 	 */
 	@Test
 	public void testGetResult() throws SqlParseException, JSQLParserException {

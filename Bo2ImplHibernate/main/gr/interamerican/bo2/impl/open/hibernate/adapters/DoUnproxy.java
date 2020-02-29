@@ -29,12 +29,11 @@ public class DoUnproxy implements Modification<PersistentObject<?>>{
 	 */
 	public static final DoUnproxy INSTANCE = new DoUnproxy();
 
+	@Override
 	public PersistentObject<?> execute(PersistentObject<?> a) {
 		HibernateProxy proxy = (HibernateProxy) a;
 		Object unproxied = proxy.getHibernateLazyInitializer().getImplementation();
 		PoUtils.setDetachStrategy(unproxied, new HibernateDetachStrategy());
 		return (PersistentObject<?>) unproxied;						
 	}
-	
-	
 }

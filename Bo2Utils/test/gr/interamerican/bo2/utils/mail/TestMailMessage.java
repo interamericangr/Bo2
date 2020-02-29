@@ -12,16 +12,16 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.mail;
 
-import gr.interamerican.bo2.utils.CollectionUtils;
-import gr.interamerican.bo2.utils.StringConstants;
-import gr.interamerican.bo2.utils.StringUtils;
-
 import java.util.List;
 import java.util.Properties;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import gr.interamerican.bo2.utils.CollectionUtils;
+import gr.interamerican.bo2.utils.StringConstants;
+import gr.interamerican.bo2.utils.StringUtils;
 
 /**
  * Unit test for {@link MailMessage}.
@@ -33,7 +33,9 @@ public class TestMailMessage {
 	 */
 	@BeforeClass
 	public static void setup() {
-		MailServer.INSTANCE.setHost("10.2.3.60");
+		String resourcePath = "/gr/interamerican/bo2/deployparms/deployment.properties"; //$NON-NLS-1$
+		Properties properties = CollectionUtils.readProperties(resourcePath);	
+		MailServer.INSTANCE.setHost(properties.getProperty("mail.smtp.host")); //$NON-NLS-1$
 		MailServer.INSTANCE.setPort(null);
 	}
 	
@@ -48,6 +50,7 @@ public class TestMailMessage {
 		Assert.assertTrue(m.bccList.isEmpty());
 		Assert.assertTrue(m.attachments.isEmpty());
 		Assert.assertNull(m.from);
+		Assert.assertNull(m.displayName);
 		Assert.assertEquals(StringConstants.EMPTY, m.subject);
 		Assert.assertEquals(StringConstants.EMPTY, m.message);
 		Assert.assertEquals(MailDefaults.INSTANCE.getMessageBodyCharset(), m.getMessageCharset());
@@ -59,13 +62,15 @@ public class TestMailMessage {
 	 * Unit test for the constructor.
 	 */
 	@SuppressWarnings("nls")
-	@Test
+//	@Test
 	public void testSend() {
 		MailMessage m = new MailMessage();
-		String from = "TestSuite&Bo2.org";
+		String from = "sigalasp@interamerican.gr";
+		String displayName = "displayName";
 		String subject = "Bo2 test message";
 		m.setFrom(from);
-		String recipient = "nakoss@interamerican.gr";
+		m.setDisplayName(displayName);
+		String recipient = "panos.sig@gmail.com";
 		String ccRecipient = "katerosd@interamerican.gr";
 		m.addTo(recipient);		
 		m.addCc(ccRecipient);
@@ -97,11 +102,14 @@ public class TestMailMessage {
 		Assert.assertTrue(bccList.contains(recipient));
 		
 		Assert.assertEquals(from, m.getFrom());
+		Assert.assertEquals(displayName, m.getDisplayName());
 		Assert.assertEquals(body, m.getMessage());
 		Assert.assertEquals(subject, m.getSubject());
 		Assert.assertEquals(1, m.getAttachments().size());
 		
-		m.send();		
+		
+		m.send();
+		
 	}
 	
 	

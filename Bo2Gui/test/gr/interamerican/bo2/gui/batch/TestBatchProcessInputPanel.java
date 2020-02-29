@@ -22,7 +22,7 @@ import org.junit.Test;
 
 
 /**
- * test case for {@link BatchProcessInputPanel}
+ * test case for {@link BatchProcessInputPanel}.
  */
 public class TestBatchProcessInputPanel {
 

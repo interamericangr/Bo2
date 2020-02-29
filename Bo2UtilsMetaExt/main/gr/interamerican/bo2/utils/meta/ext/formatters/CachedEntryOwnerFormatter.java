@@ -28,9 +28,7 @@ public class CachedEntryOwnerFormatter
 <T extends TranslatableEntryOwner<C,?,?>,C extends Comparable<? super C>>
 implements Formatter<T> {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * C formatter.
@@ -39,17 +37,18 @@ implements Formatter<T> {
 	
 	/**
 	 * Creates a new CachedEntryFormatter object. 
-	 * @param codeFormatter 
+	 *
+	 * @param codeFormatter the code formatter
 	 */
 	public CachedEntryOwnerFormatter(Formatter<C> codeFormatter) {
 		this.codeFormatter = codeFormatter;
 	}
 
+	@Override
 	public String format(T t) {
 		if(t==null) {
 			return StringConstants.NULL;
 		}
 		return codeFormatter.format(t.getEntry().getCode());
 	}
-
 }

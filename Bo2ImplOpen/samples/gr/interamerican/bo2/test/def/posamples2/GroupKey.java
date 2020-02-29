@@ -15,12 +15,23 @@ package gr.interamerican.bo2.test.def.posamples2;
 import gr.interamerican.bo2.arch.Key;
 
 /**
- * 
+ * The Interface GroupKey.
  */
 public interface GroupKey 
 extends Key {
 	
+	/**
+	 * Gets the group id.
+	 *
+	 * @return the group id
+	 */
 	public Integer getGroupId();
+	
+	/**
+	 * Sets the group id.
+	 *
+	 * @param groupId the new group id
+	 */
 	public void setGroupId(Integer groupId);
 
 }

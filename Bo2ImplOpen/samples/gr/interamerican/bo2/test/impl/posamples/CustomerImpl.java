@@ -23,36 +23,31 @@ import gr.interamerican.bo2.utils.annotations.Child;
 import java.util.Set;
 
 /**
- * 
+ * The Class CustomerImpl.
  */
 @DelegateKeyProperties("")
 public abstract class CustomerImpl 
 extends AbstractModificationRecordPo<CustomerKey> 
 implements Customer {
 	
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
 	/**
 	 * name.
 	 */
-	@SuppressWarnings("unused")
 	@Property
 	private String customerName;
 	
 	/**
 	 * afm.
 	 */
-	@SuppressWarnings("unused")
 	@Property
 	private String taxId;
 	
 	/**
 	 * addresses.
 	 */
-	@SuppressWarnings("unused")
 	@Property
 	@Child
 	private Set<CustomerAddress> addresses;

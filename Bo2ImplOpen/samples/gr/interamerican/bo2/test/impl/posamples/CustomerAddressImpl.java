@@ -19,30 +19,20 @@ import gr.interamerican.bo2.test.def.posamples.CustomerAddress;
 import gr.interamerican.bo2.test.def.posamples.CustomerAddressKey;
 
 /**
- * 
+ * The Class CustomerAddressImpl.
  */
 @DelegateKeyProperties("")
 public abstract class CustomerAddressImpl 
 extends AbstractModificationRecordPo<CustomerAddressKey> 
 implements CustomerAddress {
 	
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * street
-	 */
-	@Property
-	@SuppressWarnings("unused")
-	private String street;
+	/** street. */
+	@Property private String street;
 	
-	/**
-	 * number
-	 */
-	@Property
-	@SuppressWarnings("unused")
-	private String streetNo;
+	/** number. */
+	@Property private String streetNo;
 
 }

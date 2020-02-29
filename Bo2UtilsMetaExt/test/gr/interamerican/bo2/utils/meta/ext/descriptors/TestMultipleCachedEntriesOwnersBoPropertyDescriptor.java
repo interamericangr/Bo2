@@ -39,13 +39,10 @@ import org.junit.Test;
  */
 public class TestMultipleCachedEntriesOwnersBoPropertyDescriptor extends AbstractCacheRelatedTest {
 	
-	/**
-	 * TYPE
-	 */
+	/** TYPE. */
 	private static final Long TYPE = 1000L;
-	/**
-	 * SUBTYPE
-	 */
+	
+	/** SUBTYPE. */
 	private static final Long SUBTYPE = 1L;
 	/**
 	 * CODE 1.
@@ -60,24 +57,19 @@ public class TestMultipleCachedEntriesOwnersBoPropertyDescriptor extends Abstrac
 	 */
 	private static final Long CODE_3 = 3L;
 	
-	/**
-	 * codesParser
-	 */
+	/** codesParser. */
 	static final Parser<Long> codesParser = new LongParser();
-	/**
-	 * Formatter
-	 */
+	
+	/** Formatter. */
 	static final Formatter<Long> formatter = ObjectFormatter.<Long>getInstance();
 	
-	/**
-	 * MultipleCachedEntriesBoPropertyDescriptor
-	 */
+	/** MultipleCachedEntriesBoPropertyDescriptor. */
 	MultipleCachedEntriesOwnersBoPropertyDescriptor<ObjectType, Long> descriptor = 
 		new MultipleCachedEntriesOwnersBoPropertyDescriptor<ObjectType, Long>(TYPE,SUBTYPE,TEST_CACHE_NAME,codesParser, formatter);
 
 	
 	/**
-	 * initialize
+	 * initialize.
 	 */
 	@Before
 	public void initialize(){		
@@ -99,7 +91,8 @@ public class TestMultipleCachedEntriesOwnersBoPropertyDescriptor extends Abstrac
 	
 	/**
 	 * test for {@link MultipleCachedEntriesOwnersBoPropertyDescriptor#parse(String)}.
-	 * @throws ParseException 
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@Test
 	public void testParse() throws ParseException{	
@@ -133,8 +126,9 @@ public class TestMultipleCachedEntriesOwnersBoPropertyDescriptor extends Abstrac
 	}
 	
 	/**
-	 * test Validate
-	 * @throws ValidationException 
+	 * test Validate.
+	 *
+	 * @throws ValidationException the validation exception
 	 */
 	@Test
 	public void testValidate() throws ValidationException{
@@ -163,6 +157,8 @@ public class TestMultipleCachedEntriesOwnersBoPropertyDescriptor extends Abstrac
 	}
 
 	/**
+	 * Creates the codes.
+	 *
 	 * @return codes of {@link EnumElement}.
 	 */
 	private String createCodes() {

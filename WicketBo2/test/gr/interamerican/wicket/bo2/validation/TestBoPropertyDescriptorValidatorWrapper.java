@@ -48,18 +48,22 @@ public class TestBoPropertyDescriptorValidatorWrapper {
 	 */
 	private class SampleValidatable implements IValidatable<String> {
 
+		@Override
 		public String getValue() {
 			return "too long"; //$NON-NLS-1$
 		}
 
+		@Override
 		public void error(IValidationError error) {
 			validationFailed = true;
 		}
 
+		@Override
 		public boolean isValid() {
 			return false;
 		}
 
+		@Override
 		public IModel<String> getModel() {
 			return new Model<String>(getValue());
 		}

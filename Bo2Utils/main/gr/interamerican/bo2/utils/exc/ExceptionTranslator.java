@@ -27,11 +27,10 @@ extends Serializable {
 	
 	/**
 	 * Handles the specified thrown exception.
-	 * 
-	 * @param t
-	 *        Exception handler.
+	 *
+	 * @param t        Exception handler.
 	 *        
-	 * @throws E 
+	 * @throws E the e
 	 */
 	void rethrow(Throwable t) throws E;
 

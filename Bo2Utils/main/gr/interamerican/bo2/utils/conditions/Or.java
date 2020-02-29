@@ -29,8 +29,8 @@ public class Or<T> implements Condition<T>{
 	 * Conditions to check.
 	 */
 	List<Condition<T>> conditions;
-
 	
+	@Override
 	public boolean check(T t) {
 		for (Condition<T> condition : conditions) {
 			if (condition.check(t)) {
@@ -44,8 +44,9 @@ public class Or<T> implements Condition<T>{
 	/**
 	 * Creates a new And object. 
 	 *
-	 * @param conditions
+	 * @param conditions the conditions
 	 */
+	@SafeVarargs
 	public Or(Condition<T>... conditions) {
 		this(Arrays.asList(conditions));
 	}
@@ -53,10 +54,9 @@ public class Or<T> implements Condition<T>{
 	/**
 	 * Creates a new And object. 
 	 *
-	 * @param conditions
+	 * @param conditions the conditions
 	 */
 	public Or(List<Condition<T>> conditions) {
-		super();
 		this.conditions = conditions;
 	}
 }

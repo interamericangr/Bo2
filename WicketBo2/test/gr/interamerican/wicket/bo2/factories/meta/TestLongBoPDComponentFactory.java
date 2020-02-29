@@ -23,24 +23,21 @@ import org.apache.wicket.model.PropertyModel;
 import org.junit.Test;
 
 /**
- * 
+ * A factory for creating TestLongBoPDComponent objects.
  */
 public class TestLongBoPDComponentFactory extends BaseClassForTestingComponentFactory{
-	/**
-	 * 
-	 */
+	
+	/** The long bo PD component factory. */
 	private LongBoPDComponentFactory longBoPDComponentFactory = 
 		new LongBoPDComponentFactory();
 	
-	/**
-	 * 
-	 */
+	/** The long bo property descriptor. */
 	private LongBoPropertyDescriptor longBoPropertyDescriptor = 
 		bean1descriptor.idDescriptor();
 	
 	
 	/**
-	 * 
+	 * Test draw main first.
 	 */
 	@Test
 	public void testDrawMain_First(){
@@ -50,7 +47,7 @@ public class TestLongBoPDComponentFactory extends BaseClassForTestingComponentFa
 	}
 	
 	/**
-	 * 
+	 * Test draw main second.
 	 */
 	@Test
 	public void testDrawMain_Second(){

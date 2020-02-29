@@ -32,7 +32,7 @@ import java.io.Serializable;
  * from a user perspective. This is a different perspective than the code,
  * for instance a javabean property could be invisible to the user, 
  * another property could be modifiable by the code, but read-only for the 
- * user. <br/>
+ * user. <br>
  * The name BoPropertyDescriptor stands for Business Object Property
  * Descriptor.
  * 
@@ -144,12 +144,10 @@ extends Named, Labeled, Serializable {
 	
 	/**
 	 * Parses a value without applying any validation.
-	 * 
-	 * @param value
-	 * 
+	 *
+	 * @param value the value
 	 * @return Returns the value.
-	 * 
-	 * @throws ParseException
+	 * @throws ParseException the parse exception
 	 */
 	T parse(String value) throws ParseException;
 	
@@ -159,9 +157,8 @@ extends Named, Labeled, Serializable {
 	 * 
 	 * If a numeric translation can't be performed for the specific data type, then
 	 * returns null.
-	 * 
-	 * @param value
-	 * 
+	 *
+	 * @param value the value
 	 * @return Returns the value.
 	 */
 	T valueOf(Number value);
@@ -178,21 +175,19 @@ extends Named, Labeled, Serializable {
 	
 	/**
 	 * Parses and validates a value.
-	 * 
+	 *
 	 * @param value Value to parse and validation.
-	 * 
 	 * @return Returns the value.
-	 * 
-	 * @throws ParseException 
-	 * @throws ValidationException
+	 * @throws ParseException the parse exception
+	 * @throws ValidationException the validation exception
 	 */
 	T parseAndValidate(String value) throws ParseException, ValidationException;
 	
 	/**
 	 * Validates a value.
-	 * 
-	 * @param value
-	 * @throws ValidationException 
+	 *
+	 * @param value the value
+	 * @throws ValidationException the validation exception
 	 */
 	void validate(T value) throws ValidationException;
 	
@@ -234,16 +229,22 @@ extends Named, Labeled, Serializable {
 	void setAffected(String affected);
 	
 	/**
+	 * Gets the affected.
+	 *
 	 * @return Returns the name of the affected {@link BoPropertyDescriptor}.
 	 */
 	String getAffected();
 	
 	/**
+	 * Gets the parser.
+	 *
 	 * @return Returns the parser of this BoPropertyDescriptor
 	 */
 	Parser<T> getParser();
 	
 	/**
+	 * Gets the validator.
+	 *
 	 * @return Returns the validator of this BoPropertyDescriptor
 	 */
 	Validator<T> getValidator();

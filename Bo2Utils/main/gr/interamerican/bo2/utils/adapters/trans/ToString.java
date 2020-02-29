@@ -16,14 +16,14 @@ import gr.interamerican.bo2.utils.adapters.Transformation;
 
 
 /**
- * 
+ * The Class ToString.
  */
 public class ToString 
 implements Transformation<Object, String> {
 	
 	@Override
 	public String execute(Object a) {
-		return a.toString();
+		return String.valueOf(a);
 	}
 
 }

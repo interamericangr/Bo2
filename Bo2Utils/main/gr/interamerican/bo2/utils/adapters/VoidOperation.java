@@ -12,6 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.adapters;
 
+import java.util.function.Consumer;
 
 /**
  * VoidOperation is a generic adapter interface for any void operation
@@ -25,14 +26,19 @@ package gr.interamerican.bo2.utils.adapters;
  *        Type of operation argument.
  * 
  */
-public interface VoidOperation<A> {
+@FunctionalInterface
+public interface VoidOperation<A> extends Consumer<A> {
+
 	/**
 	 * Operation.
 	 * 
 	 * @param a
-	 *        Operation argument.
+	 *            Operation argument.
 	 */
 	void execute(A a);
+
+	@Override
+	default void accept(A t) {
+		execute(t);
+	}
 }
-
-

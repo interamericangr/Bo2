@@ -7,7 +7,7 @@ import gr.interamerican.bo2.utils.Utils;
 import java.nio.charset.Charset;
 
 /**
- * Base {@link Record} implementation
+ * Base {@link Record} implementation.
  */
 public abstract class AbstractBaseRecord implements Record {
 	
@@ -15,16 +15,18 @@ public abstract class AbstractBaseRecord implements Record {
 	 * Charset.
 	 */
 	private Charset charset;
-	
+
+	@Override
 	public void setCharset(Charset charset) {
 		this.charset = charset;
 	}
 	
 	/**
+	 * Charset.
+	 *
 	 * @return Returns the charset or the default Bo2 deployment text files charset, if it is not set.
 	 */
 	protected Charset charset() {
-		return Utils.notNull(charset, Bo2UtilsEnvironment.getDefaultTextCharset());
+		return Utils.notNull(charset, Bo2UtilsEnvironment.get().getDefaultTextCharset());
 	}
-
 }

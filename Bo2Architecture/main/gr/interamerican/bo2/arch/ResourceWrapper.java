@@ -19,10 +19,11 @@ import gr.interamerican.bo2.arch.exceptions.DataException;
  * provide runtime dependent resources. 
  */
 public interface ResourceWrapper {	
+	
 	/**
 	 * Cleanup of the resources.
-	 * 
-	 * @throws DataException
+	 *
+	 * @throws DataException the data exception
 	 */
 	void close() throws DataException;
 	

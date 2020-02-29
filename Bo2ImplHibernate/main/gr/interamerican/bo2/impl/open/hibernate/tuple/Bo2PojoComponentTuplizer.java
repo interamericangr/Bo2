@@ -35,7 +35,7 @@ public class Bo2PojoComponentTuplizer extends PojoComponentTuplizer {
 	/**
 	 * Creates a new MyPojoComponentTuplizer object. 
 	 *
-	 * @param component
+	 * @param component the component
 	 */
 	public Bo2PojoComponentTuplizer(Component component) {
 		super(component);

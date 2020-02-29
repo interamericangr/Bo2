@@ -19,7 +19,7 @@ import org.hibernate.collection.PersistentCollection;
 import org.hibernate.proxy.HibernateProxy;
 
 /**
- * 
+ * The Class HibernateAwarePoAnalyzer.
  */
 public class HibernateAwarePoAnalyzer extends AbstractObjectStructureAnalyzer {
 	
@@ -72,8 +72,8 @@ public class HibernateAwarePoAnalyzer extends AbstractObjectStructureAnalyzer {
 	/**
 	 * Include all fields up-to ModificationRecord and all Collection/Array fields
 	 * for further inspection. Ignore static fields.
-	 * 
-	 * @param clazz
+	 *
+	 * @param clazz the clazz
 	 * @return fields to include.
 	 */
 	private List<Field> getFieldsToInclude(Class<?> clazz) {

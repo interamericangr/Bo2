@@ -6,7 +6,7 @@ import gr.interamerican.bo2.creation.ObjectFactory;
 /**
  * Mock implementation of {@link FixtureResolver} used internally when no
  * {@link FixtureResolver} is configured.
- * <br/>
+ * <br>
  * This implementation never returns a fixture.
  */
 public class MockFixtureResolver implements FixtureResolver {
@@ -26,8 +26,8 @@ public class MockFixtureResolver implements FixtureResolver {
 		/* empty */
 	}
 
+	@Override
 	public <M> void registerFixture(Class<M> declarationType, ObjectFactory fixtureFactory) {
 		/* empty */
 	}
-
 }

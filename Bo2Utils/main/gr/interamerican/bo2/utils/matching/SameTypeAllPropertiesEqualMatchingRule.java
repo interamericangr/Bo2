@@ -37,9 +37,8 @@ public class SameTypeAllPropertiesEqualMatchingRule<F> implements MatchingRule<F
 	/**
 	 * Creates a new EqualPropertiesMatchingRule object. 
 	 *
-	 * @param clazz
-	 *	  
-	 * @param propertiesToExclude
+	 * @param clazz the clazz
+	 * @param propertiesToExclude the properties to exclude
 	 */
 	public SameTypeAllPropertiesEqualMatchingRule
 	(Class<F> clazz, String[] propertiesToExclude) {
@@ -60,6 +59,7 @@ public class SameTypeAllPropertiesEqualMatchingRule<F> implements MatchingRule<F
 		this.match = new AndMatchingRule<F, F>(rules);		
 	}
 
+	@Override
 	public boolean isMatch(F first, F second) {		
 		return match.isMatch(first, second);
 	}

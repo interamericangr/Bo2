@@ -35,15 +35,13 @@ import java.util.Map;
  * This operation splits a CSV file into one or more CSV files depending
  * on the value of a column. The input is the logical name of the CSV stream
  * and the (0-based) number of the column on which the splitting is based. 
- * The result is a Map<String, File> where String is the discriminator column 
+ * The result is a Map&lt;String, File&gt; where String is the discriminator column 
  * value and File a File pointing to the filesystem location the corresponding 
  * rows have been written to. 
  */
 public class ColumnBasedSplitCsvFileOperation extends AbstractOperation {
 	
-	/**
-	 * columns separator
-	 */
+	/** columns separator. */
 	private char separator = CsvRecord.DEFAULT_SEPARATOR;
 	
 	/**
@@ -90,10 +88,11 @@ public class ColumnBasedSplitCsvFileOperation extends AbstractOperation {
 	
 	/**
 	 * Creates a new ColumnBasedSplitCsvFileOperation object. 
-	 * @param inputStreamName 
-	 * @param index 
-	 * @param separator 
-	 * @param inputHasHeading 
+	 *
+	 * @param inputStreamName the input stream name
+	 * @param index the index
+	 * @param separator the separator
+	 * @param inputHasHeading the input has heading
 	 */
 	public ColumnBasedSplitCsvFileOperation(String inputStreamName, int index, char separator, boolean inputHasHeading) {
 		this.index = index;
@@ -106,8 +105,9 @@ public class ColumnBasedSplitCsvFileOperation extends AbstractOperation {
 	
 	/**
 	 * Creates a new ColumnBasedSplitCsvFileOperation object. 
-	 * @param inputStreamName 
-	 * @param index 
+	 *
+	 * @param inputStreamName the input stream name
+	 * @param index the index
 	 */
 	public ColumnBasedSplitCsvFileOperation(String inputStreamName, int index) {		
 		this(inputStreamName, index, CsvRecord.DEFAULT_SEPARATOR, false);
@@ -115,10 +115,10 @@ public class ColumnBasedSplitCsvFileOperation extends AbstractOperation {
 	
 	/**
 	 * Creates a new ColumnBasedSplitCsvFileOperation object. 
-	 * @param inputStreamName 
-	 * @param index 
-	 * @param inputHasHeading
-	 *        
+	 *
+	 * @param inputStreamName the input stream name
+	 * @param index the index
+	 * @param inputHasHeading the input has heading
 	 */
 	public ColumnBasedSplitCsvFileOperation(String inputStreamName, int index, boolean inputHasHeading) {		
 		this(inputStreamName, index, CsvRecord.DEFAULT_SEPARATOR, inputHasHeading);
@@ -126,9 +126,10 @@ public class ColumnBasedSplitCsvFileOperation extends AbstractOperation {
 	
 	/**
 	 * Creates a new ColumnBasedSplitCsvFileOperation object. 
-	 * @param inputStreamName 
-	 * @param index 
-	 * @param separator 
+	 *
+	 * @param inputStreamName the input stream name
+	 * @param index the index
+	 * @param separator the separator
 	 */
 	public ColumnBasedSplitCsvFileOperation(String inputStreamName, int index, char separator) {
 		this(inputStreamName, index, separator, false);
@@ -160,10 +161,10 @@ public class ColumnBasedSplitCsvFileOperation extends AbstractOperation {
 	/**
 	 * Gets the printStream for the specified column value. When opening
 	 * a new stream, if inputHasHeading is true, it will also add the heading.
-	 * 
-	 * @param columnValue
+	 *
+	 * @param columnValue the column value
 	 * @return Returns the printstream.
-	 * @throws DataException
+	 * @throws DataException the data exception
 	 */
 	private PrintStream getPrintStream(String columnValue) throws DataException {		
 		PrintStream stream = outputs.get(columnValue);

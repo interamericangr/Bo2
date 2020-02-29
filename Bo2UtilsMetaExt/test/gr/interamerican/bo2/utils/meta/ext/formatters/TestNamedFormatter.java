@@ -18,43 +18,31 @@ import gr.interamerican.bo2.arch.utils.beans.TypedSelectableImpl;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestNamedFormatter.
  */
 public class TestNamedFormatter {
 
 	
-	/**
-	 * TypedSelectableFormatter to test
-	 */
+	/** TypedSelectableFormatter to test. */
 	NamedFormatter formatter = new NamedFormatter();
 	
-	/**
-	 * sample
-	 */
+	/** sample. */
 	TypedSelectableImpl<Integer> impl = new TypedSelectableImpl<Integer>();
 	
-	/**
-	 * CODE
-	 */
+	/** CODE. */
 	private static final Integer CODE = 1;
 	
-	/**
-	 * TYPE_ID
-	 */
+	/** TYPE_ID. */
 	private static final Long TYPE_ID = 2L;
 	
-	/**
-	 * TYPE_ID
-	 */
+	/** TYPE_ID. */
 	private static final Long SUBTYPE_ID = 0L;
 
-	/**
-	 * TYPE_ID
-	 */
+	/** TYPE_ID. */
 	private static final String NAME = "Label"; //$NON-NLS-1$
 	
 	/**
-	 * Tests format
+	 * Tests format.
 	 */
 	@Test
 	public void testFormat(){

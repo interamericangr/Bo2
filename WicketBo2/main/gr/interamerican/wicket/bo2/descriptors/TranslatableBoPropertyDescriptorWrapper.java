@@ -36,9 +36,8 @@ import gr.interamerican.wicket.bo2.protocol.http.Bo2WicketSession;
  */
 public class TranslatableBoPropertyDescriptorWrapper<T, R, L>
 implements BoPropertyDescriptor<T>, BoPropertyDescriptorWrapper<T> {
-	/**
-	 * 
-	 */
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Descriptor.
@@ -73,6 +72,7 @@ implements BoPropertyDescriptor<T>, BoPropertyDescriptorWrapper<T> {
 		this.resourceId = resourceId;
 	}
 
+	@Override
 	public String getLabel() {
 		/*
 		 * The unchecked conversion assumes that the Translator 
@@ -85,135 +85,159 @@ implements BoPropertyDescriptor<T>, BoPropertyDescriptorWrapper<T> {
 		return label;
 	}
 
+	@Override
 	public void setLabel(String label) {
 		throw new RuntimeException("Not allowed"); //$NON-NLS-1$
 	}
 
+	@Override
 	public Integer getIndex() {
 		return descriptor.getIndex();
 	}
 
+	@Override
 	public void setIndex(Integer index) {
 		throw new RuntimeException("Not allowed"); //$NON-NLS-1$
 	}
 
+	@Override
 	public String getName() {
 		return descriptor.getName();
 	}
 
+	@Override
 	public void setName(String name) {
 		throw new RuntimeException("Not allowed"); //$NON-NLS-1$
 	}
 
+	@Override
 	public String getPackageName() {
 		return descriptor.getPackageName();
 	}
 
+	@Override
 	public void setPackageName(String packageName) {
 		throw new RuntimeException("Not allowed"); //$NON-NLS-1$
 	}
 
+	@Override
 	public String getClassName() {
 		return descriptor.getClassName();
 	}
 
+	@Override
 	public void setClassName(String ownerName) {
 		throw new RuntimeException("Not allowed"); //$NON-NLS-1$
 	}
 
+	@Override
 	public String getFullyQualifiedName() {
 		return descriptor.getFullyQualifiedName();
 	}
 
+	@Override
 	public String getFullyQualifiedClassName() {
 		return descriptor.getFullyQualifiedClassName();
 	}
 
+	@Override
 	public boolean isReadOnly() {
 		return descriptor.isReadOnly();
 	}
 
+	@Override
 	public void setReadOnly(boolean readOnly) {
 		throw new RuntimeException("Not allowed"); //$NON-NLS-1$
 	}
 
+	@Override
 	public boolean isNullAllowed() {
 		return descriptor.isNullAllowed();
 	}
 
+	@Override
 	public void setNullAllowed(boolean nullAllowed) {
 		throw new RuntimeException("Not allowed"); //$NON-NLS-1$
 	}
 
+	@Override
 	public boolean isHasDefault() {
 		return descriptor.isHasDefault();
 	}
 
+	@Override
 	public void setHasDefault(boolean hasDefault) {
 		throw new RuntimeException("Not allowed"); //$NON-NLS-1$
 	}
 
+	@Override
 	public T parse(String value) throws ParseException {
 		return descriptor.parse(value);
 	}
 
+	@Override
 	public String format(T value) {
 		return descriptor.format(value);
 	}
 
+	@Override
 	public T parseAndValidate(String value) throws ParseException,
 			ValidationException {
 		return descriptor.parseAndValidate(value);
 	}
 
+	@Override
 	public void validate(T value) throws ValidationException {
 		descriptor.validate(value);
 	}
 
+	@Override
 	public T getDefaultValue() {
 		return descriptor.getDefaultValue();
 	}
 
+	@Override
 	public void setDefaultValue(T defaultValue) {
 		throw new RuntimeException("Not allowed"); //$NON-NLS-1$
 	}
-	
-	/**
-	 * Gets the descriptor.
-	 * 
-	 * @return Returns the descriptor.
-	 */
+
+	@Override
 	public BoPropertyDescriptor<T> getDescriptor() {
 		return descriptor;
 	}
 
+	@Override
 	public int getMaxLength() {
 		return descriptor.getMaxLength();
 	}
 
+	@Override
 	public void setMaxLength(int maxLength) {
 		throw new RuntimeException("Not allowed"); //$NON-NLS-1$
 	}
-	
+
 	@Override
 	public T valueOf(Number value) {	
 		return descriptor.valueOf(value);
 	}
 
+	@Override
 	public void setAffected(String affected) {
 		throw new RuntimeException("Not allowed"); //$NON-NLS-1$
 	}
 
+	@Override
 	public String getAffected() {
 		return descriptor.getAffected();
 	}
-	
+
+	@Override
 	public Parser<T> getParser() {
 		return descriptor.getParser();
 	}
-	
+
+	@Override
 	public Validator<T> getValidator() {
 		return descriptor.getValidator();
 	}
-
 }

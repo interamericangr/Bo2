@@ -19,7 +19,7 @@ import gr.interamerican.bo2.utils.attributes.Named;
 import java.util.Set;
 
 /**
- * 
+ * The Interface Planet.
  */
 public interface Planet 
 extends Named, Populated, PersistentObject<PlanetKey>, ModificationRecord, PlanetKP {
@@ -33,8 +33,8 @@ extends Named, Populated, PersistentObject<PlanetKey>, ModificationRecord, Plane
 	
 	/**
 	 * Child Collection setter.
-	 * 
-	 * @param continents
+	 *
+	 * @param continents the new continents
 	 */
 	public void setContinents(Set<Continent> continents);
 	

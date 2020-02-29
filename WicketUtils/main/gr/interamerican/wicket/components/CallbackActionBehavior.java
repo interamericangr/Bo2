@@ -12,15 +12,20 @@
  ******************************************************************************/
 package gr.interamerican.wicket.components;
 
-import gr.interamerican.wicket.callback.CallbackAction;
-
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 
+import gr.interamerican.wicket.callback.CallbackAction;
+
 /**
- * Behavior,that on Component's update action, performs a 
- * specified {@link CallbackAction}.
+ * Behavior,that on Component's update action, performs a specified
+ * {@link CallbackAction}.
+ * 
+ * @deprecated Either use {@link CallbackActionOnChangeBehavior} or
+ *             {@link CallbackChoiceUpdatingBehavior} or manually extend the
+ *             {@link AjaxFormComponentUpdatingBehavior}
  */
+@Deprecated
 public class CallbackActionBehavior 
 extends AjaxFormComponentUpdatingBehavior {
 
@@ -33,11 +38,12 @@ extends AjaxFormComponentUpdatingBehavior {
 	 * The specific action.
 	 */
 	protected CallbackAction callbackAction;
+	
 	/**
 	 * Creates a new CallbackActionBehavior object. 
 	 *
-	 * @param event
-	 * @param callbackAction 
+	 * @param event the event
+	 * @param callbackAction the callback action
 	 */
 	public CallbackActionBehavior(String event,CallbackAction callbackAction) {
 		super(event);
@@ -47,17 +53,14 @@ extends AjaxFormComponentUpdatingBehavior {
 	/**
 	 * Creates a new CallbackActionBehavior object. 
 	 *
-	 * @param event
+	 * @param event the event
 	 */
 	protected CallbackActionBehavior(String event) {
 		super(event);
 	}
 
-	
 	@Override
 	protected void onUpdate(AjaxRequestTarget target) {
 		callbackAction.callBack(target);
 	}
-
-
 }

@@ -29,14 +29,11 @@ implements Comparator<Number> {
 	private Double toDouble(Number n) {
 		return n.doubleValue();
 	}
-	
-	/* (non-Javadoc)
-	 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
-	 */	
+
+	@Override
 	public int compare(Number o1, Number o2) {
 		Double b1 = toDouble(o1);
 		Double b2 = toDouble(o2);
 		return b1.compareTo(b2);
 	}
-
 }

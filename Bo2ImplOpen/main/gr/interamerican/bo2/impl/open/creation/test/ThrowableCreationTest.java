@@ -20,9 +20,9 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 /**
- * Tests the creation of Throwable sub-classes
+ * Tests the creation of Throwable sub-classes.
  */
-public class ThrowableCreationTest extends AbstractTestClass {
+public class ThrowableCreationTest extends AbstractCreationTest {
 	
 	
 	@Override
@@ -51,8 +51,8 @@ public class ThrowableCreationTest extends AbstractTestClass {
 	/**
 	 * Creates a new ThrowableTester object. 
 	 *
-	 * @param className
-	 * @throws ClassNotFoundException
+	 * @param className the class name
+	 * @throws ClassNotFoundException the class not found exception
 	 */
 	public ThrowableCreationTest(String className) throws ClassNotFoundException {
 		super(className);		
@@ -60,12 +60,12 @@ public class ThrowableCreationTest extends AbstractTestClass {
 
 	/**
 	 * Tests the no argument constructor.
-	 * 
-	 * @param <T>
-	 * @param throwableType
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
-	 * @throws InvocationTargetException
+	 *
+	 * @param <T> the generic type
+	 * @param throwableType the throwable type
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws InvocationTargetException the invocation target exception
 	 */
 	private <T extends Throwable> void testNoArgConstructor(Class<T> throwableType) 
 	throws InstantiationException, IllegalAccessException, InvocationTargetException {
@@ -86,12 +86,12 @@ public class ThrowableCreationTest extends AbstractTestClass {
 	
 	/**
 	 * Tests the constructor that takes a Throwable as argument.
-	 * 
-	 * @param <T>
-	 * @param throwableType
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
-	 * @throws InvocationTargetException
+	 *
+	 * @param <T> the generic type
+	 * @param throwableType the throwable type
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws InvocationTargetException the invocation target exception
 	 */
 	private <T extends Throwable> void testThrowableArgConstructor(Class<T> throwableType) 
 	throws InstantiationException, IllegalAccessException, InvocationTargetException {
@@ -114,12 +114,12 @@ public class ThrowableCreationTest extends AbstractTestClass {
 	
 	/**
 	 * Tests the constructor that takes a String and a Throwable as arguments.
-	 * 
-	 * @param <T>
-	 * @param throwableType
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
-	 * @throws InvocationTargetException
+	 *
+	 * @param <T> the generic type
+	 * @param throwableType the throwable type
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws InvocationTargetException the invocation target exception
 	 */
 	private <T extends Throwable> void testStringThrowableArgConstructor(Class<T> throwableType) 
 	throws InstantiationException, IllegalAccessException, InvocationTargetException {
@@ -144,12 +144,12 @@ public class ThrowableCreationTest extends AbstractTestClass {
 	
 	/**
 	 * Tests the constructor that takes a String and a Throwable as arguments.
-	 * 
-	 * @param <T>
-	 * @param throwableType
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
-	 * @throws InvocationTargetException
+	 *
+	 * @param <T> the generic type
+	 * @param throwableType the throwable type
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws InvocationTargetException the invocation target exception
 	 */
 	private <T extends Throwable> void testStringArgConstructor(Class<T> throwableType) 
 	throws InstantiationException, IllegalAccessException, InvocationTargetException {

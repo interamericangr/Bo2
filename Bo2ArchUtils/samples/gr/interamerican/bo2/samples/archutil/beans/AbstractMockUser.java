@@ -16,8 +16,8 @@ import gr.interamerican.bo2.arch.ext.User;
 
 /**
  * Abstract mock user.
- * 
- * @param <A> 
+ *
+ * @param <A> the generic type
  */
 @SuppressWarnings("nls")
 public abstract class AbstractMockUser<A> 
@@ -27,35 +27,35 @@ implements User<A> {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	/**
-	 * User Id
-	 */
+	/** User Id. */
 	String userId;
 	
 	/**
 	 * Creates a new AbstractMockUser object. 
 	 *
-	 * @param userId
+	 * @param userId the user id
 	 */
 	public AbstractMockUser(String userId) {
-		super();
 		this.userId = userId;
 	}
-	
+
+	@Override
 	public String authorizationDescription(A authorizationId) {
 		return "Authorization description";
 	}
 
+	@Override
 	public String getUserId() {		
 		return userId;
 	}
-	
+
+	@Override
 	public String getUserName() {
 		return "Mock";
 	}
-	
+
+	@Override
 	public String getUserPassword() {
 		return "MockPass123!";
 	}
-
 }

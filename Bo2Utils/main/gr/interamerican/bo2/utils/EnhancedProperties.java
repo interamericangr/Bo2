@@ -35,13 +35,13 @@ import java.util.regex.Pattern;
  * For example
  * 
  * If /foo/prop2.properties includes a single line: a=a
- * <br/><br/>
+ * <br><br>
  * _import_=/foo/prop2.properties
- * <br/>
- * b=${a}b --> evaluates to ab.
- * <br/>
- * c=${b}c --> evaluates to abc.
- * <br/><br/>
+ * <br>
+ * b=${a}b --&gt; evaluates to ab.
+ * <br>
+ * c=${b}c --&gt; evaluates to abc.
+ * <br><br>
  * If it is not possible to resolve the values of all properties
  * due to cyclic dependencies between them, a RuntimeException is
  * thrown.
@@ -135,8 +135,8 @@ public class EnhancedProperties extends Properties {
 	
 	/**
 	 * Reference aware property evaluation.
-	 * 
-	 * @param key
+	 *
+	 * @param key the key
 	 */
 	private void evaluateAndAddProperty(String key) {
 		if(evaluated.contains(key)) {
@@ -181,8 +181,8 @@ public class EnhancedProperties extends Properties {
 	
 	/**
 	 * Converts a variable to the property it refers to.
-	 * 
-	 * @param var
+	 *
+	 * @param var the var
 	 * @return The property this variable refers to.
 	 */
 	private String getKeyFromVar(String var) {
@@ -191,8 +191,8 @@ public class EnhancedProperties extends Properties {
 	
 	/**
 	 * Are there any cyclic dependencies that disallow correct evaluation
-	 * of all properties?
-	 * 
+	 * of all properties?.
+	 *
 	 * @return True, if yes.
 	 */
 	private boolean isCyclic() {
@@ -208,10 +208,10 @@ public class EnhancedProperties extends Properties {
 	
 	/**
 	 * Helper method for {@link #isCyclic()}.
-	 * 
-	 * @param node
-	 * @param stack
-	 * @param recursive
+	 *
+	 * @param node the node
+	 * @param stack the stack
+	 * @param recursive the recursive
 	 */
 	private void fillStack(String node, Set<String> stack, boolean recursive) {
 		if(recursive) {

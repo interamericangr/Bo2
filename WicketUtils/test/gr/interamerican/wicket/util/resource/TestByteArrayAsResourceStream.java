@@ -13,7 +13,9 @@
 package gr.interamerican.wicket.util.resource;
 
 import java.io.IOException;
+import java.io.InputStream;
 
+import static org.mockito.Mockito.*;
 import org.apache.wicket.util.resource.ResourceStreamNotFoundException;
 import org.junit.Assert;
 import org.junit.Test;
@@ -25,41 +27,47 @@ public class TestByteArrayAsResourceStream {
 
 	/**
 	 * tests the one arg constructor.
-	 * 
+	 *
 	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	@Test
 	public void testConstructor() throws IOException {
 		byte[] array = new byte[10];
-		ByteArrayAsResourceStream resource = new ByteArrayAsResourceStream(array);
-		Assert.assertEquals(array, resource.fileData);
-		resource.close();
+		try (ByteArrayAsResourceStream resource = new ByteArrayAsResourceStream(array)) {
+			Assert.assertEquals(array, resource.fileData);
+		}
 	}
 
 	/**
 	 * tests the getInputStream.
-	 * 
+	 *
 	 * @throws ResourceStreamNotFoundException
+	 *             the resource stream not found exception
 	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	@Test
-	public void testGetInputStream()
- throws ResourceStreamNotFoundException, IOException {
+	public void testGetInputStream() throws ResourceStreamNotFoundException, IOException {
 		byte[] array = new byte[10];
-		ByteArrayAsResourceStream resource = new ByteArrayAsResourceStream(array);
-		Assert.assertNotNull(resource.getInputStream());
-		resource.close();
+		try (ByteArrayAsResourceStream resource = new ByteArrayAsResourceStream(array)) {
+			Assert.assertNotNull(resource.getInputStream());
+		}
 	}
 
 	/**
 	 * tests close.
+	 *
 	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	@Test
-	public void testClose() throws IOException  {
+	public void testClose() throws IOException {
+		InputStream mock = mock(InputStream.class);
 		byte[] array = new byte[10];
-		ByteArrayAsResourceStream resource = new ByteArrayAsResourceStream(array);
-		resource.close();
+		try (ByteArrayAsResourceStream resource = new ByteArrayAsResourceStream(array)) {
+			resource.inputStream = mock;
+		}
+		verify(mock).close();
 	}
-
 }

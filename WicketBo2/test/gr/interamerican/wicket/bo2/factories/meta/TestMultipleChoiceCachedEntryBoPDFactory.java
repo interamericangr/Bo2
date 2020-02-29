@@ -30,38 +30,31 @@ import org.apache.wicket.model.util.ListModel;
 import org.junit.Test;
 
 /**
- * 
+ * A factory for creating TestMultipleChoiceCachedEntryBoPD objects.
  */
 public class TestMultipleChoiceCachedEntryBoPDFactory extends BaseClassForTestingComponentFactory{	
-	/**
-	 * TYPE
-	 */
+	
+	/** TYPE. */
 	private static final Long TYPE = 1000L;
-	/**
-	 * SUBTYPE
-	 */
+	
+	/** SUBTYPE. */
 	private static final Long SUBTYPE = 1L;
-	/**
-	 * PARSER
-	 */
+	
+	/** PARSER. */
 	private static final Parser<Long> PARSER = new LongParser();
-	/**
-	 * FORMATTER
-	 */
+	
+	/** FORMATTER. */
 	private static final Formatter<Long> FORMATTER = ObjectFormatter.<Long>getInstance();
 	
-	/**
-	 * 
-	 */
+	/** The multiple choice cached entry bo PD factory. */
 	private MultipleCachedEntriesBoPDComponentFactory multipleChoiceCachedEntryBoPDFactory = 
 		new MultipleCachedEntriesBoPDComponentFactory();
 	
-	/**
-	 * 
-	 */
+	/** The multiple choice desc. */
 	private MultipleCachedEntriesBoPropertyDescriptor<?,?> multipleChoiceDesc = createMultipleChoiceDescriptor();
+	
 	/**
-	 * 
+	 * Test draw main first.
 	 */
 	@Test
 	public void testDrawMain_First(){
@@ -71,7 +64,7 @@ public class TestMultipleChoiceCachedEntryBoPDFactory extends BaseClassForTestin
 	}
 	
 	/**
-	 * 
+	 * Test draw main sec.
 	 */
 	@Test
 	public void testDrawMain_Sec(){
@@ -82,9 +75,9 @@ public class TestMultipleChoiceCachedEntryBoPDFactory extends BaseClassForTestin
 	
 	
 	/**
-	 * Create MultipleChoiceCachedEntryBoPropertyDescriptor
+	 * Create MultipleChoiceCachedEntryBoPropertyDescriptor.
+	 *
 	 * @return MultipleChoiceCachedEntryBoPropertyDescriptor
-	 * 
 	 */
 	public MultipleCachedEntriesBoPropertyDescriptor<?,?> createMultipleChoiceDescriptor(){
 
@@ -126,10 +119,12 @@ public class TestMultipleChoiceCachedEntryBoPDFactory extends BaseClassForTestin
 		private static final long serialVersionUID = 1L;
 
 		
+		@Override
 		public String getTranslation(Long languageId) {			
 			return getName();
 		}
 		
+		@Override
 		public Long getTranslationResourceId() {			
 			return getCode();
 		}		

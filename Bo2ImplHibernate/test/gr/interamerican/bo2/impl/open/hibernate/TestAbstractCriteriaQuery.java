@@ -33,9 +33,10 @@ public class TestAbstractCriteriaQuery {
 	
 	/**
 	 * Tests the full lifecycle of an object.
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void AbstractCriteriaQuery() throws UnexpectedException, DataException, LogicException {
@@ -59,7 +60,7 @@ public class TestAbstractCriteriaQuery {
 	
 	
 	/**
-	 * Tests getOrders
+	 * Tests getOrders.
 	 */
 	@Test
 	public void testGetOrders(){

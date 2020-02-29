@@ -46,7 +46,7 @@ public class ParserResolver  {
 	 * @param codeType
 	 *        Class of type of instance created by the parser.
 	 *        
-	 * @return Returns the appropriate Parser<C> implementation.
+	 * @return Returns the appropriate Parser&lt;C&gt; implementation.
 	 */
 	@SuppressWarnings("unchecked")
 	public static <C> Parser<C> getParser(Class<C> codeType) {

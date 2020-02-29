@@ -13,6 +13,7 @@
 package gr.interamerican.bo2.utils.meta;
 
 import gr.interamerican.bo2.utils.SelectionUtils;
+import gr.interamerican.bo2.utils.Utils;
 import gr.interamerican.bo2.utils.meta.descriptors.BoPropertyDescriptor;
 import gr.interamerican.bo2.utils.meta.exceptions.MultipleValidationsException;
 import gr.interamerican.bo2.utils.meta.exceptions.ValidationException;
@@ -34,17 +35,15 @@ import java.util.Set;
  * @param <T> Type of bean being described by this BusinessObjectDescriptor.
  */
 public class BasicBusinessObjectDescriptor<T> implements BusinessObjectDescriptor<T> {
-	/**
-	 * 
-	 */
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * label.
 	 */
 	private String label;
-	/**
-	 * name
-	 */
+	
+	/** name. */
 	private String name;
 	
 	/**
@@ -57,24 +56,29 @@ public class BasicBusinessObjectDescriptor<T> implements BusinessObjectDescripto
 	 */
 	private List<BoPropertyDescriptor<?>> propertyDescriptors = new ArrayList<BoPropertyDescriptor<?>>();
 
+	@Override
 	public List<BoPropertyDescriptor<?>> getPropertyDescriptors() {
 		return propertyDescriptors;
 	}
 
+	@Override
 	public void setPropertyDescriptors(
 			List<BoPropertyDescriptor<?>> propertyDescriptors) {
 		this.propertyDescriptors = propertyDescriptors;
 	}
 
+	@Override
 	public Map<BoPropertyDescriptor<?>, Object> get(T object) {		
 		return Mediator.getInstance().getValues(this, object);
 	}
-	
+
+	@Override
 	public void set(T object, Map<BoPropertyDescriptor<?>, Object> values)
 	throws MultipleValidationsException {
 		Mediator.getInstance().setValues(values, object);		
 	}
-	
+
+	@Override
 	public void validate(T bean) throws MultipleValidationsException {
 		Mediator.getInstance().validate(this, bean);
 		/*
@@ -98,26 +102,32 @@ public class BasicBusinessObjectDescriptor<T> implements BusinessObjectDescripto
 		}
 	}
 
+	@Override
 	public String getLabel() {
-		return(label==null ? getName() : label);
+		return Utils.notNull(label, getName());
 	}
 
+	@Override
 	public void setLabel(String label) {
 		this.label = label;
 	}
 
+	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}
 
+	@Override
 	public void setExpressions(Set<BusinessObjectValidationExpression> expressions) {
 		this.expressions = expressions;
 	}
 
+	@Override
 	public Set<BusinessObjectValidationExpression> getExpressions() {
 		return expressions;
 	}
@@ -139,13 +149,8 @@ public class BasicBusinessObjectDescriptor<T> implements BusinessObjectDescripto
 		}
 		return context;
 	}
-	
-	/**
-	 * @param descriptorName
-	 * 
-	 * @return Returns the BoPropertyDescriptor of this {@link BusinessObjectDescriptor}
-	 *         with the specified name. 
-	 */
+
+	@Override
 	public BoPropertyDescriptor<?> getDescriptorByName(String descriptorName) {
 		for(BoPropertyDescriptor<?> bpd : getPropertyDescriptors()) {
 			if(descriptorName.equals(bpd.getName())) {
@@ -155,12 +160,12 @@ public class BasicBusinessObjectDescriptor<T> implements BusinessObjectDescripto
 		return null;
 	}
 
+	@Override
 	public BoPropertyDescriptor<?> whoAffectsMe(BoPropertyDescriptor<?> affected) {
 		if(!getPropertyDescriptors().contains(affected)) {
 			throw new RuntimeException(affected.getFullyQualifiedName() + " does not belong to " + getName()); //$NON-NLS-1$
 		}
-		BoPropertyDescriptor<?> result = SelectionUtils.selectFirstByProperty("affected", affected.getName(), getPropertyDescriptors(), BoPropertyDescriptor.class); //$NON-NLS-1$
+		BoPropertyDescriptor<?> result = SelectionUtils.selectFirstByProperty(BoPropertyDescriptor::getAffected, affected.getName(), getPropertyDescriptors());
 		return result;
 	}
-
 }

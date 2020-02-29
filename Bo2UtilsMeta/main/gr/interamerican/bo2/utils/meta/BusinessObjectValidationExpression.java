@@ -19,7 +19,7 @@ import java.io.Serializable;
  * that can be evaluated against a business object instance.
  */
 public interface BusinessObjectValidationExpression extends Serializable {
-	
+
 	/**
 	 * Gets the expression.
 	 *
@@ -28,24 +28,9 @@ public interface BusinessObjectValidationExpression extends Serializable {
 	public String getExpression();
 
 	/**
-	 * Assigns a new value to the expression.
-	 *
-	 * @param expression the expression to set
-	 */
-	public void setExpression(String expression);
-
-	/**
 	 * Gets the message.
 	 *
 	 * @return Returns the message
 	 */
 	public String getMessage();
-
-	/**
-	 * Assigns a new value to the message.
-	 *
-	 * @param message the message to set
-	 */
-	public void setMessage(String message);
-
 }

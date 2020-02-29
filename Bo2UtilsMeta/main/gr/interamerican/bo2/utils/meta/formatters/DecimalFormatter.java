@@ -18,7 +18,7 @@ import java.text.DecimalFormat;
 
 /**
  * Formatter for numbers objects.
- * <br/>
+ * <br>
  * This class is thread safe.
  * 
  * @param <T>
@@ -27,9 +27,7 @@ import java.text.DecimalFormat;
 public class DecimalFormatter<T extends Number> 
 implements Formatter<T> {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Decimal format.
@@ -39,7 +37,7 @@ implements Formatter<T> {
 	/**
 	 * Creates a new DateFormatter object. 
 	 *
-	 * @param df
+	 * @param df the df
 	 */
 	public DecimalFormatter(DecimalFormat df) {
 		super();
@@ -48,7 +46,8 @@ implements Formatter<T> {
 	
 	/**
 	 * Creates a new DecimalFormatter object.
-	 * @param decimalDigits 
+	 *
+	 * @param decimalDigits the decimal digits
 	 */
 	public DecimalFormatter(int decimalDigits) {
 		this.df = new DecimalFormat();
@@ -59,6 +58,7 @@ implements Formatter<T> {
 		df.setMinimumFractionDigits(decimalDigits);
 	}
 
+	@Override
 	public synchronized String format(T t) {
 		if(t==null) {
 			return StringConstants.NULL;

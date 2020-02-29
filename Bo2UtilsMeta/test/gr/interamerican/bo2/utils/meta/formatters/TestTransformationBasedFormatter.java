@@ -29,7 +29,7 @@ public class TestTransformationBasedFormatter {
 		new TransformationBasedFormatter<Object>(new ToString());
 
 	/**
-	 * Tests format(t) a date value
+	 * Tests format(t) a date value.
 	 */
 	@Test
 	public void testFormat(){		

@@ -12,6 +12,7 @@ import org.junit.Test;
  */
 public class TestLeft3 {
 	
+	/** The calc. */
 	Left3 calc = new Left3();
 	
 	/**
@@ -21,7 +22,7 @@ public class TestLeft3 {
 	public void testExecute_large() {
 		String input = "xcfg";		  //$NON-NLS-1$
 		String actual = calc.execute(input);		
-		Assert.assertEquals("xcf", actual);
+		Assert.assertEquals("xcf", actual); //$NON-NLS-1$
 	}
 	
 	/**
@@ -31,7 +32,7 @@ public class TestLeft3 {
 	public void testExecute_small() {
 		String input = "xc";		  //$NON-NLS-1$
 		String actual = calc.execute(input);		
-		Assert.assertEquals("xc", actual);
+		Assert.assertEquals("xc", actual); //$NON-NLS-1$
 	}
 	
 	/**

@@ -19,19 +19,17 @@ import gr.interamerican.bo2.samples.bean.BeanWith2Fields;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestNotInitialized.
  */
 public class TestNotInitialized {
 
 	
-	/**
-	 * NotInitialized
-	 */
+	/** NotInitialized. */
 	NotInitialized<BeanWith2Fields> condition = new NotInitialized<BeanWith2Fields>(BeanWith2Fields.class);
 	
 	
 	/**
-	 * test Check
+	 * test Check.
 	 */
 	@Test
 	public void testCheck_nullValues(){
@@ -40,7 +38,7 @@ public class TestNotInitialized {
 	}
 	
 	/**
-	 * test Check
+	 * test Check.
 	 */
 	@SuppressWarnings("nls")
 	@Test

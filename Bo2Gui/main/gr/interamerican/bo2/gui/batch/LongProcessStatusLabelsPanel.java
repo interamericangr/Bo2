@@ -32,9 +32,7 @@ import javax.swing.SpringLayout;
 public class LongProcessStatusLabelsPanel 
 extends BPanel<Void> {
 	
-	/**
-	 * Fields
-	 */
+	/** Fields. */
 	@SuppressWarnings("nls")
 	protected static final String[] FIELDS = { 
 		"name", 
@@ -43,9 +41,7 @@ extends BPanel<Void> {
 		"processedCount", "successesCount", "failuresCount"
 	};
 	
-	/**
-	 * Lengths
-	 */
+	/** Lengths. */
 	protected static final int[] LENGTHS = { 
 		7, 2, 2, 2, 16, 16, 8, 8, 8  
 	};

@@ -25,7 +25,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestRange.
  */
 public class TestRange {
 	/**
@@ -141,7 +141,7 @@ public class TestRange {
 	}
 	
 	/**
-	 * tests the two arguments constructor
+	 * tests the two arguments constructor.
 	 */
 	@Test
 	public void testConstructor() {
@@ -156,7 +156,7 @@ public class TestRange {
 	}
 	
 	/**
-	 * Unit test for compareTo
+	 * Unit test for compareTo.
 	 */
 	@Test
 	public void testCompareTo() {		
@@ -173,7 +173,7 @@ public class TestRange {
 	}
 	
 	/**
-	 * tests the two arguments constructor
+	 * tests the two arguments constructor.
 	 */
 	@Test
 	public void testConstructor_NullValue() {

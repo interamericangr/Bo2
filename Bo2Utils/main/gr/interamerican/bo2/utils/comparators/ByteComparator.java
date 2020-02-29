@@ -30,13 +30,10 @@ implements Comparator<Number> {
 		return n.byteValue();
 	}
 	
-	/* (non-Javadoc)
-	 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
-	 */	
+	@Override
 	public int compare(Number o1, Number o2) {
 		Byte b1 = toByte(o1);
 		Byte b2 = toByte(o2);
 		return b1.compareTo(b2);
 	}
-
 }

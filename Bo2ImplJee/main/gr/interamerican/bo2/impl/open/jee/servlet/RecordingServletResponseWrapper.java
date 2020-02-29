@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponseWrapper;
 
 /**
  * {@link HttpServletResponseWrapper} that facilitates recording of
- * the {@link ServletOutputStream}
+ * the {@link ServletOutputStream}.
  */
 public class RecordingServletResponseWrapper extends HttpServletResponseWrapper {
 
@@ -20,8 +20,8 @@ public class RecordingServletResponseWrapper extends HttpServletResponseWrapper 
 	/**
 	 * Creates a new WsServletRequestWrapper object. 
 	 *
-	 * @param response
-	 * @throws IOException 
+	 * @param response the response
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public RecordingServletResponseWrapper(HttpServletResponse response) throws IOException {
 		super(response);

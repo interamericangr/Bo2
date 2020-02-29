@@ -17,7 +17,7 @@ import gr.interamerican.bo2.samples.implopen.entities.SampleClassKP1;
 import gr.interamerican.bo2.samples.implopen.entities.SampleClassKP2;
 
 /**
- * sample interface
+ * sample interface.
  */
 @KeyProperties("field1, field2")
 public interface SampleClassKey

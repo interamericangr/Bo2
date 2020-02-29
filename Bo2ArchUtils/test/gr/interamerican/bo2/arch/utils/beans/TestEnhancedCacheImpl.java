@@ -20,17 +20,15 @@ import gr.interamerican.bo2.arch.utils.CacheRegistry;
 import org.junit.Test;
 
 /**
- * TestControlPanelImpl
+ * TestControlPanelImpl.
  */
 public class TestEnhancedCacheImpl {
 	
-	/**
-	 * ControlPanelImpl
-	 */
+	/** ControlPanelImpl. */
 	EnhancedCacheImpl<Integer, Long, Long> impl = new EnhancedCacheImpl<Integer, Long, Long>();
 	
 	/**
-	 * Test getCache
+	 * Test getCache.
 	 */
 	@Test
 	public void testGetCache(){
@@ -38,7 +36,7 @@ public class TestEnhancedCacheImpl {
 	}
 
 	/**
-	 * Test getTranslator
+	 * Test getTranslator.
 	 */
 	@Test
 	public void testGetTranslator(){

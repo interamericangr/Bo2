@@ -20,8 +20,8 @@ import gr.interamerican.bo2.utils.adapters.Modification;
  * the value specified in the constructor as <code>replace</code>
  * and if so, it replaces it with the value specified in the
  * constructor as <code>with</code>.
- * 
- * @param <T> 
+ *
+ * @param <T> the generic type
  */
 public class ReplaceWith<T> 
 implements Modification<T> {
@@ -39,20 +39,20 @@ implements Modification<T> {
 	/**
 	 * Creates a new ReplaceWith object. 
 	 *
-	 * @param what
-	 * @param with
+	 * @param what the what
+	 * @param with the with
 	 */
 	public ReplaceWith(T what, T with) {
 		super();
 		this.what = what;
 		this.with = with;
 	}
-	
+
+	@Override
 	public T execute(T a) {
 		if (Utils.equals(what, a)) {
 			return with;
 		}		
 		return a;
 	}
-
 }

@@ -13,11 +13,7 @@
 package gr.interamerican.wicket.extensions.markup.html.repeater.util;
 
 
-import static gr.interamerican.wicket.markup.html.BaseTestPage.TEST_ID;
 import static org.junit.Assert.assertEquals;
-import gr.interamerican.bo2.samples.bean.Family;
-import gr.interamerican.bo2.samples.utils.meta.Bean1;
-import gr.interamerican.wicket.test.WicketTest;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -34,11 +30,15 @@ import org.apache.wicket.model.Model;
 import org.junit.Assert;
 import org.junit.Test;
 
+import gr.interamerican.bo2.samples.bean.Family;
+import gr.interamerican.bo2.samples.utils.meta.Bean1;
+import gr.interamerican.wicket.markup.html.Markup;
+import gr.interamerican.wicket.test.WicketTest;
+
 /**
  * Unit test for the {@link SortableDataProvider}.
- * 
- *
  */
+@Deprecated
 public class TestSortableDataProvider extends WicketTest {
 	
 	/**
@@ -104,25 +104,21 @@ public class TestSortableDataProvider extends WicketTest {
 	 */	
 	@Test
 	public void testSortableDataProvider(){
-		tester.startPage(getTestPage());	
-		tester.assertComponent(subjectPath(), DefaultDataTable.class);
-		
 		@SuppressWarnings("unchecked")
-		DefaultDataTable<Bean1> table = (DefaultDataTable<Bean1>) tester.getComponentFromLastRenderedPage(subjectPath());
+		DefaultDataTable<Bean1,String> table = startAndTestComponent(DefaultDataTable.class, Markup.table);
 		Assert.assertEquals(beans.length, table.getRowCount());
 	}
-	
+
 	@Override
 	@SuppressWarnings("nls")
-	protected Component initializeComponent() {
+	protected Component initializeComponent(String wicketId) {
 		List<Bean1> rows = Arrays.asList(beans);				
 		SortableDataProvider<Bean1> sdp = new SortableDataProvider<Bean1>(rows,Bean1.class);
-		List<IColumn<Bean1>> columns = new ArrayList<IColumn<Bean1>>();
-		columns.add(new PropertyColumn<Bean1>(new Model<String>("Amount"), "amount", "amount"));
-		columns.add(new PropertyColumn<Bean1>(new Model<String>("Description"), "description", "description"));
-		SortParam sort = new SortParam("amount", true);
+		List<IColumn<Bean1,String>> columns = new ArrayList<IColumn<Bean1,String>>();
+		columns.add(new PropertyColumn<Bean1,String>(new Model<String>("Amount"), "amount", "amount"));
+		columns.add(new PropertyColumn<Bean1,String>(new Model<String>("Description"), "description", "description"));
+		SortParam<String> sort = new SortParam<>("amount", true);
 		sdp.setSort(sort);
-		return new DefaultDataTable<Bean1>(TEST_ID, columns, sdp, 10);
+		return new DefaultDataTable<Bean1,String>(wicketId, columns, sdp, 10);
 	}
-	
 }

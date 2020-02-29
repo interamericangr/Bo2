@@ -75,8 +75,9 @@ public class BusinessObjectFormValidator implements IFormValidator {
 
 	/**
 	 * Creates a new BusinessObjectFormValidator object.
-	 * @param formToValidate 
-	 * @param descriptor 
+	 *
+	 * @param formToValidate the form to validate
+	 * @param descriptor the descriptor
 	 */
 	public BusinessObjectFormValidator(Form<?> formToValidate, BusinessObjectDescriptor<?> descriptor) {
 		this.expressions = descriptor.getExpressions();
@@ -96,10 +97,12 @@ public class BusinessObjectFormValidator implements IFormValidator {
 		components = componentsList.toArray(new FormComponent[0]);
 	}
 
+	@Override
 	public FormComponent<?>[] getDependentFormComponents() {
 		return components;
 	}
 
+	@Override
 	public void validate(Form<?> form) {
 		MetaSession.setLocale(Bo2Session.getLocale());
 		Map<String, Object> context = new HashMap<String, Object>();

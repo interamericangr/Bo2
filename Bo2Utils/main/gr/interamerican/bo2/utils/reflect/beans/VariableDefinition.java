@@ -19,30 +19,33 @@ import gr.interamerican.bo2.utils.StringUtils;
  * 
  * A variable is defined by a name and a type.
  * 
- * @param <T> Variable definition. 
+ * @param <T>
+ *            Variable definition.
  */
 public class VariableDefinition<T> {
+
 	/**
 	 * name.
 	 */
 	String name;
-	
+
 	/**
 	 * type.
 	 */
 	Class<T> type;
-	
+
 	/**
 	 * value.
 	 */
 	T value;
-	
-	
+
 	/**
-	 * Creates a new VariableDefinition object with access type READ-WRITE. 
+	 * Creates a new VariableDefinition object with access type READ-WRITE.
 	 *
 	 * @param name
-	 * @param type 
+	 *            the name
+	 * @param type
+	 *            the type
 	 */
 	public VariableDefinition(String name, Class<T> type) {
 		this.name = name;
@@ -66,7 +69,7 @@ public class VariableDefinition<T> {
 	public Class<T> getType() {
 		return type;
 	}
-	
+
 	/**
 	 * Gets the value.
 	 *
@@ -79,20 +82,18 @@ public class VariableDefinition<T> {
 	/**
 	 * Assigns a new value to the value.
 	 *
-	 * @param value the value to set
+	 * @param value
+	 *            the value to set
 	 */
 	public void setValue(T value) {
 		this.value = value;
-	}	
-	
-	
+	}
+
 	@Override
 	public String toString() {
-		String fields = StringUtils.concat(
-			StringUtils.squareBrackets(StringUtils.toString(name)),
-			StringUtils.squareBrackets(StringUtils.toString(type)),
-			StringUtils.squareBrackets(StringUtils.toString(value)));
+		String fields = StringUtils.concat(StringUtils.squareBrackets(StringUtils.toString(name)),
+				StringUtils.squareBrackets(StringUtils.toString(type)),
+				StringUtils.squareBrackets(StringUtils.toString(value)));
 		return StringUtils.squareBrackets(fields);
 	}
-	
 }

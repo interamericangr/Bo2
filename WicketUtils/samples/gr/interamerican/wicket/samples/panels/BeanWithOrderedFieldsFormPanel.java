@@ -12,43 +12,37 @@
  ******************************************************************************/
 package gr.interamerican.wicket.samples.panels;
 
-import gr.interamerican.bo2.samples.bean.BeanWithOrderedFields;
-
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 
+import gr.interamerican.bo2.samples.bean.BeanWithOrderedFields;
+
 /**
- * 
+ * The Class BeanWithOrderedFieldsFormPanel.
  */
 public class BeanWithOrderedFieldsFormPanel extends Panel {
-	
+
 	/**
-	 * serial id. 
+	 * serial id.
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
-	 * Creates a new BeanWithOrderedFieldsFormPanel object. 
+	 * Creates a new BeanWithOrderedFieldsFormPanel object.
 	 *
 	 * @param id
-	 * @param model 
+	 *            the id
+	 * @param model
+	 *            the model
 	 */
 	@SuppressWarnings("nls")
 	public BeanWithOrderedFieldsFormPanel(String id, IModel<BeanWithOrderedFields> model) {
 		super(id, model);
-		
-		TextField<String> firstField = new TextField<String>("first");
-		TextField<String> secondField = new TextField<String>("second");
-		TextField<Integer> thirdField = new TextField<Integer>("third");
-		TextField<Long> fourthField = new TextField<Long>("fourth");
-		TextField<Double> fifthField = new TextField<Double>("fifth");
-		
-		add(firstField);
-		add(secondField);
-		add(thirdField);
-		add(fourthField);
-		add(fifthField);
+		add(new TextField<String>("first"));
+		add(new TextField<String>("second"));
+		add(new TextField<Integer>("third"));
+		add(new TextField<Long>("fourth"));
+		add(new TextField<Double>("fifth"));
 	}
-	
 }

@@ -17,7 +17,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 /**
- * tests {@link SpecificNumberComparator}
+ * tests {@link SpecificNumberComparator}.
  */
 public class TestSpecificNumberComparator {
 

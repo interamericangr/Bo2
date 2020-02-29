@@ -52,8 +52,8 @@ public class TestThrowableCreationTest extends ThrowableCreationTest {
 	/**
 	 * Creates a new TestCreation object. 
 	 *
-	 * @param className
-	 * @throws ClassNotFoundException
+	 * @param className the class name
+	 * @throws ClassNotFoundException the class not found exception
 	 */
 	public TestThrowableCreationTest(String className) throws ClassNotFoundException {
 		super(className);

@@ -21,9 +21,8 @@ public interface BatchProcessParmsFactory {
 
 	/**
 	 * Creates a {@link BatchProcessParm} from a Properties object.
-	 * 
-	 * @param properties
-	 * 
+	 *
+	 * @param properties the properties
 	 * @return Returns the {@link BatchProcessParm}.
 	 */	
 	BatchProcessParm<?> createParameter(Properties properties);

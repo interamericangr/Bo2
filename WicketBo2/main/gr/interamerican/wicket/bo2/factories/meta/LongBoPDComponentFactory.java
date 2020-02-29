@@ -24,10 +24,12 @@ import org.apache.wicket.model.IModel;
 public class LongBoPDComponentFactory 
 extends AbstractBoPDComponentFactory<LongBoPropertyDescriptor> {	
 	
+	@Override
 	public Component drawMain(LongBoPropertyDescriptor descriptor,String wicketId) {
 		return new SelfDrawnLongTextField(wicketId, descriptor);
 	}
 	
+	@Override
 	@SuppressWarnings("unchecked")
 	public Component drawMain(String wicketId, IModel<?> model, LongBoPropertyDescriptor descriptor) {
 		return new SelfDrawnLongTextField(wicketId,(IModel<Long>) model, descriptor);

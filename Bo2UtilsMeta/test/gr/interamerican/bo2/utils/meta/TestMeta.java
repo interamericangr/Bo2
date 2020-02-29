@@ -22,14 +22,15 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * MetaTest
+ * MetaTest.
  */
 public class TestMeta {
 	
 	/**
 	 * Test parse
 	 * Creates a range from two string values.
-	 * @throws ParseException
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@Test
 	public void testParse() throws ParseException{		

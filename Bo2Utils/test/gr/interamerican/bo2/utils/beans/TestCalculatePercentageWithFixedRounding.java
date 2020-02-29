@@ -22,7 +22,9 @@ import org.junit.Test;
 
 /**
  * Unit test for {@link CalculatePercentageWithFixedRounding}.
+ * @deprecated See {@link TestCalculateRoundedPercentage}.
  */
+@Deprecated
 public class TestCalculatePercentageWithFixedRounding {
 	
 	/**

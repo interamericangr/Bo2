@@ -21,7 +21,7 @@ import org.apache.wicket.markup.html.panel.Panel;
  * The constructor of this class takes only one argument, a 
  * {@link ServicePanelDef} object. Any information necessary for the creation
  * of this panel should be passed via this service panel definition object. 
- * <br/>
+ * <br>
  * 
  * Sub-classes of this class should only call <code>super(definition)</code>
  * on their constructor and provide a suitable implementation for methods
@@ -69,9 +69,10 @@ extends Panel {
 
 	/**
 	 * Creates a new ServicePanel object. 
-	 * 
-	 * @param definition 
+	 *
+	 * @param definition the definition
 	 */
+	@SuppressWarnings("deprecation")
 	public ServicePanel(ServicePanelDef definition) {
 		super(definition.getWicketId());
 		this.definition = definition;
@@ -89,7 +90,7 @@ extends Panel {
 	 * sub-classes of {@link ServicePanel}. This method is the place
 	 * to put the code that draws any visual components of this panel.
 	 * Usually, this method should be one of the last things done by
-	 * the class' constructor. <br/>
+	 * the class' constructor. <br>
 	 * 
 	 */
 	protected abstract void paint();

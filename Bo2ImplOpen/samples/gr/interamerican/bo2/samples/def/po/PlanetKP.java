@@ -13,7 +13,7 @@
 package gr.interamerican.bo2.samples.def.po;
 
 /**
- * 
+ * The Interface PlanetKP.
  */
 public interface PlanetKP {
 	/**
@@ -24,7 +24,8 @@ public interface PlanetKP {
 	
 	/**
 	 * Set Planet id.
-	 * @param planetId
+	 *
+	 * @param planetId the new planet id
 	 */
 	void setPlanetId(Long planetId);
 

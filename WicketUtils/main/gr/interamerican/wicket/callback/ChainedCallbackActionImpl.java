@@ -21,11 +21,10 @@ import org.apache.wicket.markup.html.form.Form;
 /**
  * Implementation of {@link ChainedCallbackAction} based on a {@link Deque}.
  */
+@Deprecated
 public class ChainedCallbackActionImpl extends AbstractCallbackAction implements ChainedCallbackAction {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -33,9 +32,7 @@ public class ChainedCallbackActionImpl extends AbstractCallbackAction implements
 	 */
 	ArrayDeque<CallbackAction> actions = new ArrayDeque<CallbackAction>();
 	
-	/**
-	 * Has this {@link CallbackAction} been called?
-	 */
+	/** Has this {@link CallbackAction} been called?. */
 	boolean wasCalled = false;
 	
 	/**
@@ -47,12 +44,14 @@ public class ChainedCallbackActionImpl extends AbstractCallbackAction implements
 	
 	/**
 	 * Creates a new ChainedCallbackActionImpl object. 
-	 * @param original 
+	 *
+	 * @param original the original
 	 */
 	public ChainedCallbackActionImpl(CallbackAction original) {
 		actions.addFirst(original);
 	}
 
+	@Override
 	public void callBack(AjaxRequestTarget target) {
 		wasCalled = true;
 		for(CallbackAction action : actions) {
@@ -60,6 +59,7 @@ public class ChainedCallbackActionImpl extends AbstractCallbackAction implements
 		}
 	}
 
+	@Override
 	public void callBack(AjaxRequestTarget target, Form<?> form) {
 		wasCalled = true;
 		for(CallbackAction action : actions) {
@@ -67,11 +67,13 @@ public class ChainedCallbackActionImpl extends AbstractCallbackAction implements
 		}
 	}
 
+	@Override
 	public void chainBefore(CallbackAction action) {
 		sane();
 		actions.addFirst(action);
 	}
 
+	@Override
 	public void chainAfter(CallbackAction action) {
 		sane();
 		actions.addLast(action);

@@ -13,12 +13,22 @@
 package gr.interamerican.bo2.test.def.posamples;
 
 /**
- * 
+ * The Interface InvoiceRuleKP.
  */
 @SuppressWarnings("all")
 public interface InvoiceRuleKP extends InvoiceKP {
 	
+	/**
+	 * Gets the rule cd.
+	 *
+	 * @return the rule cd
+	 */
 	public Long getRuleCd();
 	
+	/**
+	 * Sets the rule cd.
+	 *
+	 * @param ruleCd the new rule cd
+	 */
 	public void setRuleCd(Long ruleCd);
 }

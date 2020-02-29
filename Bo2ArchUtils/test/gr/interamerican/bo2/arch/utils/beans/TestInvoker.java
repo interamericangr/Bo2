@@ -7,9 +7,6 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
-import org.mockito.Mockito;
-
-
 
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
@@ -19,6 +16,7 @@ import gr.interamerican.bo2.utils.adapters.VoidOperation;
 /**
  * Tests for {@link Invoker}. 
  */
+@Deprecated
 public class TestInvoker {
 	
 	/**
@@ -29,8 +27,8 @@ public class TestInvoker {
 	
 	/**
 	 * Executes <code>vo</code> on an object.
-	 * 
-	 * @param o
+	 *
+	 * @param o the o
 	 */
 	void doSomething(Object o) {
 		vo.execute(o);
@@ -51,9 +49,9 @@ public class TestInvoker {
 	
 	/**
 	 * Tests the invokeOnCollection(string, collection).
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testinvokeOnCollection_withCollection() throws DataException, LogicException {
@@ -62,16 +60,17 @@ public class TestInvoker {
 		list.add(new Object());
 		list.add(new Object());
 		invoker.invokeOnCollection("doSomething", list); //$NON-NLS-1$
+		list.forEach(this::doSomething);
 		for (Object object : list) {
-			verify(vo, times(1)).execute(object);
+			verify(vo, times(2)).execute(object);
 		}
 	}
 	
 	/**
 	 * Tests the invokeOnCollection(string, collection).
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testinvokeOnCollection_withNestedProperty() throws DataException, LogicException {

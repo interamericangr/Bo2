@@ -68,12 +68,12 @@ extends AbstractHibernatePersistenceUtility<P> {
 	public GenericHibernatePersistenceUtility(Class<P> poClass, Class<?> idClass, String property, RefreshMode mode) {
 		this(poClass,idClass,property,null,mode);
 	}
-	
+
 	@Override
 	protected void prepareObject(P po) {
 		/* do nothing */
 	}
-	
+
 	@Override
 	protected Serializable getUniqueId(P po) {
 		Object[] args = {};

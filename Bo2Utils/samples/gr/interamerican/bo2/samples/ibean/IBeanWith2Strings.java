@@ -25,8 +25,8 @@ public interface IBeanWith2Strings {
 	
 	/**
 	 * Sets the string 1.
-	 * 
-	 * @param string1
+	 *
+	 * @param string1 the new string 1
 	 */
 	void setString1(String string1);
 	
@@ -39,8 +39,8 @@ public interface IBeanWith2Strings {
 
 	/**
 	 * Sets the string 2.
-	 * 
-	 * @param string2
+	 *
+	 * @param string2 the new string 2
 	 */
 	void setString2(String string2);
 

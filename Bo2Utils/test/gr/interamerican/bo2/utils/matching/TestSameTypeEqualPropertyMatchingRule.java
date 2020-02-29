@@ -50,15 +50,23 @@ public class TestSameTypeEqualPropertyMatchingRule {
 	/**
 	 * sample class
 	 */
+	@SuppressWarnings("unused")
 	private class ClassA {
 		
+		/**
+		 * 
+		 */
 		private String stringA;
 		
+		/**
+		 * 
+		 */
 		private Integer integerA;
 		
 		/**
 		 * Creates a new TestEqualPropertyMatchingRule.ClassA object. 
-		 *
+		 * @param s 
+		 * @param i
 		 */
 		public ClassA(String s, Integer i) {
 			this.stringA = s;

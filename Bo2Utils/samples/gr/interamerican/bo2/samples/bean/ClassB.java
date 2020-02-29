@@ -13,31 +13,25 @@
 package gr.interamerican.bo2.samples.bean;
 
 /**
- * sample class
+ * sample class.
  */
 public class ClassB {
 
 	
-	/**
-	 * 
-	 */
+	/** The string B. */
 	private String stringB;
 	
-	/**
-	 * 
-	 */
+	/** The integer B. */
 	private Integer integerB;
 	
-	/**
-	 * 
-	 */
+	/** The string A. */
 	private String stringA;
 
 	/**
 	 * Creates a new TestEqualPropertyMatchingRule.ClassA object. 
-	 * @param s 
-	 * @param i 
 	 *
+	 * @param s the s
+	 * @param i the i
 	 */
 	public ClassB(String s, Integer i) {
 		this.stringB = s;
@@ -46,7 +40,8 @@ public class ClassB {
 	
 	/**
 	 * Assigns a new value to the stringA.
-	 * @param stringB 
+	 *
+	 * @param stringB the new string B
 	 */
 	public void setStringB(String stringB) {
 		this.stringB = stringB;
@@ -63,7 +58,8 @@ public class ClassB {
 
 	/**
 	 * Assigns a new value to the integerA.
-	 * @param integerB 
+	 *
+	 * @param integerB the new integer B
 	 */
 	public void setIntegerB(Integer integerB) {
 		this.integerB = integerB;

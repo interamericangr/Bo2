@@ -16,21 +16,23 @@ import gr.interamerican.bo2.arch.Key;
 import gr.interamerican.bo2.impl.open.annotations.KeyProperties;
 
 /**
- * 
+ * The Interface TimestampKey.
  */
 @KeyProperties("timestampNo")
 public interface TimestampKey 
 extends Key {
 	
 	/**
-	 * Gets timestampNo
+	 * Gets timestampNo.
+	 *
 	 * @return timestampNo
 	 */
 	public String getTimestampNo();
 	
 	/**
-	 * Sets timestampNo
-	 * @param timestampNo
+	 * Sets timestampNo.
+	 *
+	 * @param timestampNo the new timestamp no
 	 */
 	public void setTimestampNo(String timestampNo);
 

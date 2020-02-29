@@ -25,16 +25,46 @@ import java.util.Set;
 public interface Customer 
 extends CustomerKP, PersistentObject<CustomerKey>, ModificationRecord {
 	
+	/**
+	 * Gets the customer name.
+	 *
+	 * @return the customer name
+	 */
 	public String getCustomerName();
 	
+	/**
+	 * Sets the customer name.
+	 *
+	 * @param customerName the new customer name
+	 */
 	public void setCustomerName(String customerName);
 	
+	/**
+	 * Gets the tax id.
+	 *
+	 * @return the tax id
+	 */
 	public String getTaxId();
 	
+	/**
+	 * Sets the tax id.
+	 *
+	 * @param taxId the new tax id
+	 */
 	public void setTaxId(String taxId);
 	
+	/**
+	 * Gets the addresses.
+	 *
+	 * @return the addresses
+	 */
 	public Set<CustomerAddress> getAddresses();
 	
+	/**
+	 * Sets the addresses.
+	 *
+	 * @param addresses the new addresses
+	 */
 	public void setAddresses(Set<CustomerAddress> addresses); 
 	
 }

@@ -1,13 +1,13 @@
 /*******************************************************************************
- * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A. 
+ * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/copyleft/lesser.html
- * 
- * This library is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.jdbc.parsed;
@@ -15,6 +15,7 @@ package gr.interamerican.bo2.impl.open.jdbc.parsed;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
@@ -23,66 +24,70 @@ import gr.interamerican.bo2.impl.open.runtime.AbstractBo2RuntimeCmd;
 import gr.interamerican.bo2.impl.open.workers.WorkerUtils;
 import gr.interamerican.bo2.samples.archutil.po.User;
 
+
 import java.util.List;
 
 import org.junit.Test;
 
+
 /**
- * Unit tests for {@link StoredDynamicPoQuery}.
+ * Unit tests for {@link GenericStoredDynamicPoQuery}.
  */
+@Deprecated
 public class TestGenericStoredDynamicPoQuery {
-	
+
 	/**
 	 * name.
 	 */
 	private static final String NAME = "name"; //$NON-NLS-1$
-	
+
 	/**
-	 * @throws DataException 
-	 * @throws UnexpectedException 
-	 * @throws LogicException 
-	 * @throws SecurityException 
+	 * Test life cycle.
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws SecurityException the security exception
 	 */
 	@SuppressWarnings("nls")
 	@Test
 	public void testLifeCycle() throws DataException, LogicException, UnexpectedException {
 		new AbstractBo2RuntimeCmd() {
-			
+
 			@Override
 			public void work() throws LogicException, DataException, InitializationException, UnexpectedException {
 				UserQueryCriteria criteria = new UserQueryCriteria();
 				criteria.setName(NAME);
-				
+
 								String path = "/gr/interamerican/rsrc/sql/SelectIdAndNameFromUsers.sql";
-				GenericStoredDynamicEntitiesQuery<UserQueryCriteria> wrappedQ = 
+				GenericStoredDynamicEntitiesQuery<UserQueryCriteria> wrappedQ =
 					new GenericStoredDynamicEntitiesQuery<UserQueryCriteria>(path, criteria);
-				GenericStoredDynamicPoQuery<User, UserQueryCriteria> q = 
+				GenericStoredDynamicPoQuery<User, UserQueryCriteria> q =
 					new GenericStoredDynamicPoQuery<User, UserQueryCriteria>(wrappedQ, User.class);
-				
+
 				q.setCriteria(criteria);
 				q.setManagerName("LOCALDB");
 				open(q);
 				q.execute();
-				
+
 				List<User> users = WorkerUtils.queryResultsAsList(q);
 				assertTrue(users.size()>0);
-				
+
 				User subject = users.get(0);
 				assertEquals(subject.getName().trim(), NAME);
 				assertNotNull(subject.getId());
-				
+
 			}
 		}.execute();
-		
+
 	}
-	
+
 	/**
 	 * Criteria for searching a user.
 	 */
 	private class UserQueryCriteria {
-		/**
-		 * name
-		 */
+
+		/** name. */
 		private String name;
 
 		/**

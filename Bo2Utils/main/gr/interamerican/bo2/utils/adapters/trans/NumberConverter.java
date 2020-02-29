@@ -30,13 +30,13 @@ implements Transformation<Number, Number> {
 	/**
 	 * Creates a new NumberConverter object. 
 	 *
-	 * @param outputType
+	 * @param outputType the output type
 	 */
 	public NumberConverter(Class<? extends Number> outputType) {
-		super();
 		this.outputType = outputType;
 	}
 
+	@Override
 	@SuppressWarnings("nls")
 	public Number execute(Number a) {
 		if(a==null) {
@@ -60,5 +60,4 @@ implements Transformation<Number, Number> {
 		String msg = "Conversion to " + outputType.getName() + " not supported.";
 		throw new RuntimeException(msg);
 	}
-
 }

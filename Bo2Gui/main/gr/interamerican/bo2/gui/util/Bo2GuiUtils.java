@@ -28,8 +28,8 @@ public class Bo2GuiUtils {
 	/**
 	 * Returns the {@link Container} hierarchy leading to the specifying component.
 	 * The last element is the component itself.
-	 * 
-	 * @param component
+	 *
+	 * @param component the component
 	 * @return Component top-down hierarchy.
 	 */
 	public static List<Component> getContainerTopDownHierarchy(Component component) {
@@ -50,8 +50,8 @@ public class Bo2GuiUtils {
 	/**
 	 * Refreshes the static content of a component and its
 	 * children.
-	 * 
-	 * @param component
+	 *
+	 * @param component the component
 	 */
 	public static void refreshStaticContent(Component component) {
 		if(component instanceof StaticComponent) {

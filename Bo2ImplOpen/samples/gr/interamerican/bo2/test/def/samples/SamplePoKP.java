@@ -13,30 +13,34 @@
 package gr.interamerican.bo2.test.def.samples;
 
 /**
- * 
+ * The Interface SamplePoKP.
  */
 public interface SamplePoKP {
 	
 	/**
-	 * Sets the id
-	 * 
-	 * @param id
+	 * Sets the id.
+	 *
+	 * @param id the new id
 	 */
 	public void setId(Integer id);
 	
 	/**
+	 * Gets the id.
+	 *
 	 * @return the id
 	 */
 	public Integer getId();
 	
 	/**
-	 * Sets the name
-	 * 
-	 * @param name
+	 * Sets the name.
+	 *
+	 * @param name the new name
 	 */
 	public void setName(String name);
 	
 	/**
+	 * Gets the name.
+	 *
 	 * @return the name
 	 */
 	public String getName();

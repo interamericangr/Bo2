@@ -12,21 +12,20 @@
  ******************************************************************************/
 package gr.interamerican.wicket.markup.html.panel;
 
-import gr.interamerican.wicket.util.resource.StringAsResourceStream;
-import gr.interamerican.wicket.utils.ImageType;
-
-import org.apache.wicket.MarkupContainer;
-import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.extensions.markup.html.repeater.data.table.AbstractColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.DataTable;
-import org.apache.wicket.markup.IMarkupCacheKeyProvider;
-import org.apache.wicket.markup.IMarkupResourceStreamProvider;
-import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.AbstractLink;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
-import org.apache.wicket.util.resource.IResourceStream;
+
+import gr.interamerican.wicket.extensions.markup.html.repeater.data.table.LinkImagePickColumn;
+import gr.interamerican.wicket.extensions.markup.html.repeater.data.table.LinkPickColumn;
+import gr.interamerican.wicket.links.RunnableLink;
+import gr.interamerican.wicket.panels.LinkPanel;
+import gr.interamerican.wicket.panels.LinkWithImagePanel;
+import gr.interamerican.wicket.utils.ImageType;
 
 /**
  * Panel containing a link in text or icon form, 
@@ -35,9 +34,10 @@ import org.apache.wicket.util.resource.IResourceStream;
  * implementation suitable for downloading a file.
  * 
  * @param <T> The object type
+ * @deprecated See Constructors for alternatives in each case
  */
-public abstract class DataTableLinkPanel<T> extends Panel 
-implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
+@Deprecated
+public abstract class DataTableLinkPanel<T> extends Panel {
 	
 	/**
 	 * serialVersionUID.
@@ -48,16 +48,6 @@ implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 	 * Wicket id.
 	 */
 	public static final String LINK_ID = "editItemLink"; //$NON-NLS-1$
-
-	/**
-	 * AbstractLink, this may be a {@link Link} or an {@link AjaxLink}.
-	 */
-	protected AbstractLink dataTableLink;
-	
-	/**
-	 * Link text.
-	 */
-	protected String linkText;
 	
 	/**
 	 * Link icon.
@@ -65,57 +55,52 @@ implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 	protected ImageType imageType;
 	
 	/**
-	 * Creates a new {@link DataTableLinkPanel} object. 
+	 * Creates a new {@link DataTableLinkPanel} object.
 	 *
 	 * @param id
+	 *            the id
 	 * @param model
-	 * @param linkText 
+	 *            the model
+	 * @param linkText
+	 *            the link text
+	 * @deprecated Use {@link LinkPanel} or {@link RunnableLink} instead and
+	 *             {@link RunnableLink#setBody(IModel)} for text. If this was
+	 *             used inside a {@link AbstractColumn} then consider
+	 *             {@link LinkPickColumn}
 	 */
 	public DataTableLinkPanel(String id, IModel<T> model, String linkText) {
 		super(id, model);
-		this.linkText = linkText;
 		this.imageType = null;
-		dataTableLink = getLink(LINK_ID, model);
-		if (linkText != null) {
-			dataTableLink.add(new Label("linkText", new Model<String>(linkText))); //$NON-NLS-1$
-		}
+		AbstractLink dataTableLink = getLink(LINK_ID, model);
+		dataTableLink.setBody(Model.of(linkText));
 		add(dataTableLink);
 	}
-	
+
 	/**
-	 * Creates a new {@link DataTableLinkPanel} object. 
+	 * Creates a new {@link DataTableLinkPanel} object.
 	 *
 	 * @param id
+	 *            the id
 	 * @param model
-	 * @param imageType 
+	 *            the model
+	 * @param imageType
+	 *            the image type
+	 * @deprecated Use {@link LinkWithImagePanel} instead. If this was used
+	 *             inside a {@link AbstractColumn} then consider
+	 *             {@link LinkImagePickColumn}
 	 */
+	@SuppressWarnings("nls")
 	public DataTableLinkPanel(String id, IModel<T> model, ImageType imageType) {
 		super(id, model);
 		this.imageType = imageType;
-		this.linkText = null;
-		dataTableLink = getLink("editItemLink", model); //$NON-NLS-1$
+		AbstractLink dataTableLink = getLink(LINK_ID, model);
+		String contextRelativeUrl = getRequestCycle().getUrlRenderer()
+				.renderContextRelativeUrl(imageType.getImage());
+		dataTableLink.setEscapeModelStrings(false);
+		dataTableLink.setBody(Model.of("<img src=\""+contextRelativeUrl+"\"/>"));
 		add(dataTableLink);
 	}
-	
-	public IResourceStream getMarkupResourceStream(MarkupContainer container, Class<?> clazz) {
-		final StringBuilder builder = new StringBuilder();
-		builder.append("<html><body>"); //$NON-NLS-1$
-		builder.append("<wicket:panel>"); //$NON-NLS-1$
-		if (linkText != null) {
-			builder.append("<a wicket:id=\"editItemLink\"><label wicket:id=\"linkText\"></label></a>"); //$NON-NLS-1$
-		} 
-		else {
-			String contextRelativeUrl = getRequestCycle().getUrlRenderer().renderContextRelativeUrl(imageType.getImage()) ;
-			builder.append(imageType.toString(contextRelativeUrl));
-		}
-		builder.append("</wicket:panel></body></html>"); //$NON-NLS-1$
-		return new StringAsResourceStream(builder.toString());
-	}
-	
-	public String getCacheKey(MarkupContainer arg0, Class<?> arg1) {
-		return null;
-	}
-	
+
 	/**
 	 * Creates the link for this panel.
 	 * 
@@ -144,5 +129,4 @@ implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 	 * Event handler for the click event of the link. 
 	 */
 	public abstract void onLinkClicked();
-
 }

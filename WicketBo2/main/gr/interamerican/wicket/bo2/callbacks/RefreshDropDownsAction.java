@@ -12,30 +12,32 @@
  ******************************************************************************/
 package gr.interamerican.wicket.bo2.callbacks;
 
-import gr.interamerican.bo2.arch.EntitiesQuery;
-import gr.interamerican.bo2.arch.exceptions.DataException;
-import gr.interamerican.bo2.arch.exceptions.InitializationException;
-import gr.interamerican.bo2.arch.exceptions.LogicException;
-import gr.interamerican.bo2.arch.ext.Codified;
-import gr.interamerican.bo2.impl.open.operations.MultipleQueriesOperation;
-import gr.interamerican.wicket.bo2.utils.SelfDrawnUtils;
-import gr.interamerican.wicket.def.PanelDependent;
-
 import java.util.List;
 import java.util.Map;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.form.DropDownChoice;
+import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.panel.Panel;
+
+import gr.interamerican.bo2.arch.EntitiesQuery;
+import gr.interamerican.bo2.arch.exceptions.LogicException;
+import gr.interamerican.bo2.arch.ext.Codified;
+import gr.interamerican.bo2.impl.open.operations.MultipleQueriesOperation;
+import gr.interamerican.wicket.bo2.protocol.http.Bo2WicketRequestCycle;
+import gr.interamerican.wicket.bo2.utils.SelfDrawnUtils;
+import gr.interamerican.wicket.callback.ICallbackAction;
+import gr.interamerican.wicket.callback.LegacyCallbackAction;
+import gr.interamerican.wicket.def.PanelDependent;
 
 /**
  * Callback action that refreshes the dropdowns of a panel.
  * 
  * This action takes as input a map that contains a 
  */
+@SuppressWarnings("deprecation")
 public class RefreshDropDownsAction 
-extends Bo2WicketBlock 
-implements PanelDependent {
+implements PanelDependent, ICallbackAction, LegacyCallbackAction {
 	/**
 	 * serialVersionUID.
 	 */
@@ -51,29 +53,28 @@ implements PanelDependent {
 	 */
 	Panel panel;
 
+	@Deprecated
 	@Override
-	public void work() 
-	throws InitializationException, DataException, LogicException {
-		operation.init(this.getProvider());
-		operation.open();
+	public void invoke(AjaxRequestTarget target, Form<?> form) throws Exception {
+		invoke(target);
+	}
+
+	@Override
+	public void invoke(AjaxRequestTarget target) throws Exception {
+		Bo2WicketRequestCycle.initAndOpen(operation);
 		if(panel!=null) {
 			operation.setCriteria(panel.getDefaultModelObject());
 		}
 		operation.execute();
-		operation.close();
 		refreshDropDowns();
-		AjaxRequestTarget target = getHandlerParameter(AjaxRequestTarget.class);
 		target.add(panel);
 	}
 	
 	/**
 	 * Refreshes the drop downs with the lists of the results.
-	 * 
-	 * @param <M>
-	 *        Type of choice. 
-	 * 
-	 * @throws LogicException 
-	 * 
+	 *
+	 * @param <M>        Type of choice. 
+	 * @throws LogicException the logic exception
 	 */
 	private <M extends Codified<?>> void refreshDropDowns() throws LogicException {
 		Map<String, List<? extends Codified<?>>> results = operation.getResults();
@@ -96,18 +97,20 @@ implements PanelDependent {
 	/**
 	 * Assigns a new value to the queries.
 	 *
-	 * @param queries the queries to set
+	 * @param queries
+	 *            the queries to set
 	 */
 	public void setQueries(Map<String, EntitiesQuery<? extends Codified<?>>> queries) {
 		operation.setQueries(queries);
 	}
 
+	@Override
 	public void setPanel(Panel panel) {
 		this.panel = panel;
 	}
 
+	@Override
 	public Panel getPanel() {
 		return panel;
 	}
-	
 }

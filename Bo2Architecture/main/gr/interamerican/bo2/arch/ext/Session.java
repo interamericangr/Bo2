@@ -39,12 +39,14 @@ public interface Session<A, L> {
 	
 	/**
 	 * Sets the language id for the session.
-	 * 
-	 * @param languageId
+	 *
+	 * @param languageId the new language id
 	 */
 	public void setLanguageId(L languageId);
 	
 	/**
+	 * Gets the locale.
+	 *
 	 * @return Returns the Session {@link Locale}.
 	 */
 	public Locale getLocale();

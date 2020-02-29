@@ -22,15 +22,13 @@ import gr.interamerican.bo2.arch.Worker;
  */
 public class StaleTransactionException extends DataException {
 	
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
     /**
      * Creates a new StaleTransactionException object. 
-     * 
-     * @param message
+     *
+     * @param message the message
      */
     public StaleTransactionException(String message) {
         super(message);
@@ -38,9 +36,9 @@ public class StaleTransactionException extends DataException {
     
     /**
      * Creates a new StaleTransactionException object. 
-     * 
-     * @param message
-     * @param cause
+     *
+     * @param message the message
+     * @param cause the cause
      */
     public StaleTransactionException(String message, Throwable cause) {
         super(message, cause);
@@ -48,8 +46,8 @@ public class StaleTransactionException extends DataException {
     
     /**
      * Creates a new StaleTransactionException object. 
-     * 
-     * @param cause
+     *
+     * @param cause the cause
      */
     public StaleTransactionException(Throwable cause) {
         super(cause);

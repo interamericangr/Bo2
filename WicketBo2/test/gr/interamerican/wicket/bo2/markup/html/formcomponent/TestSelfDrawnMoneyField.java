@@ -26,12 +26,13 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestSelfDrawnMoneyField.
  */
 public class TestSelfDrawnMoneyField extends WicketTest {
 	
-	/** 
-	 * Tests the components
+	/**
+	 *  
+	 * Tests the components.
 	 */
 	@Test
 	public void testSelfDrawnMoneyField(){
@@ -66,7 +67,9 @@ public class TestSelfDrawnMoneyField extends WicketTest {
 	
 	
 	/**
-	 * @param readOnly 
+	 * Gets the bo property decriptor.
+	 *
+	 * @param readOnly the read only
 	 * @return Returns the MoneyBoPropertyDescriptor
 	 */
 	private MoneyBoPropertyDescriptor getBoPropertyDecriptor(boolean readOnly){
@@ -79,7 +82,9 @@ public class TestSelfDrawnMoneyField extends WicketTest {
     }
 	
 	/**
-	 * @param textField
+	 * Test form submission.
+	 *
+	 * @param textField the text field
 	 */
 	@SuppressWarnings("nls")
 	private void testFormSubmission(SelfDrawnMoneyField textField) {

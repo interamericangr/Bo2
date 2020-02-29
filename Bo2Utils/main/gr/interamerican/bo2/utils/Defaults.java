@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 
+ * The Class Defaults.
  */
 
 public class Defaults {
@@ -57,10 +57,9 @@ public class Defaults {
 	
 	/**
 	 * Gets the default value for the specified type.
-	 * 
-	 * @param <T>
-	 * @param type
-	 * 
+	 *
+	 * @param <T> the generic type
+	 * @param type the type
 	 * @return Returns the default value.
 	 */
 	@SuppressWarnings("unchecked")
@@ -72,31 +71,25 @@ public class Defaults {
 	/**
 	 * Registers the default value for a type.
 	 *       
-	 * @param type
-	 *        Type for which the default value is registered.
-	 * @param value
-	 *        Default value for the specified type.
-	 * @param <T> 
-	 *        Type of value.
+	 *
+	 * @param <T>        Type of value.
+	 * @param type        Type for which the default value is registered.
+	 * @param value        Default value for the specified type.
 	 */	
 	public static  <T> void registerDefaultValue(Class<T> type, T value) {
 		STANDARD_DEFAULTS.put(type, value);
 	}
 	
 	/**
-	 * Sets default values to the properties of a bean. <br/>
+	 * Sets default values to the properties of a bean. <br>
 	 * 
 	 * The default values are defined in a map, that maps java type of
 	 * property to a default value.
-	 * 
-	 * @param bean
-	 *        Bean to set.
-	 * @param clazz
-	 *        Type of bean.
-	 * @param defaults
-	 *        Map with default values.
-	 * 
-	 * @param <T>
+	 *
+	 * @param <T> the generic type
+	 * @param bean        Bean to set.
+	 * @param clazz        Type of bean.
+	 * @param defaults        Map with default values.
 	 */
 	public static <T> void setDefaults
 	(T bean, Class<T> clazz, Map<Class<?>, Object> defaults) {
@@ -109,15 +102,11 @@ public class Defaults {
 	}
 	
 	/**
-	 * Sets the standard default values to the properties of a bean. <br/>
-	 * 
-	 * @param bean
-	 *        Bean to set.
-	 * @param clazz
-	 *        Type of bean.
-	 * 
-	 * @param <T>
-	 *        Type of object being initialized 
+	 * Sets the standard default values to the properties of a bean. <br>
+	 *
+	 * @param <T>        Type of object being initialized
+	 * @param bean        Bean to set.
+	 * @param clazz        Type of bean.
 	 */
 	public static <T> void setStandardDefaults (T bean, Class<T> clazz) {
 		setDefaults(bean, clazz, STANDARD_DEFAULTS);

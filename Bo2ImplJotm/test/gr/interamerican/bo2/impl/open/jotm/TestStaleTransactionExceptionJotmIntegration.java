@@ -13,18 +13,16 @@ import gr.interamerican.bo2.test.utils.UtilityForBo2Test;
 import org.junit.Test;
 
 /**
- * Integration test for the case of a StaleTransactionManagerException
- * 
- * 
+ * Integration test for the case of a StaleTransactionManagerException.
  */
 public class TestStaleTransactionExceptionJotmIntegration {
 	
 	/**
-	 * testStaleTransactionJotmExceptionIntegration
-	 * 
-	 * @throws DataException
-	 * @throws LogicException
-	 * @throws UnexpectedException
+	 * testStaleTransactionJotmExceptionIntegration.
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test(expected=StaleTransactionException.class)
 	public void testStaleTransactionJotmExceptionIntegration() throws DataException, LogicException, UnexpectedException {
@@ -45,14 +43,16 @@ public class TestStaleTransactionExceptionJotmIntegration {
 	}
 	
 	/**
-	 * Sample worker
+	 * Sample worker.
 	 */
 	@ManagerName("LOCALDB")
 	static class W extends JdbcSimpleCommand {
+		
 		@Override
 		protected String sql() {
 			return "select * from X__X.USERS"; //$NON-NLS-1$
 		}
+		
 		@Override
 		protected Object[] parameters() {
 			return null;

@@ -12,16 +12,13 @@
  ******************************************************************************/
 package gr.interamerican.wicket.components;
 
-import gr.interamerican.wicket.behavior.ValidationStyleBehavior;
-
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.util.convert.IConverter;
-import org.apache.wicket.util.convert.converter.BigDecimalConverter;
+
+import gr.interamerican.wicket.behavior.ValidationStyleBehavior;
 
 /**
  * BigDecimal TextField.
@@ -31,49 +28,57 @@ public class BigDecimalTextField extends TextField<BigDecimal> {
 	 * serial.
 	 */
 	private static final long serialVersionUID = 1L;
+
 	/**
-	 * 
+	 * The Converter used in this.
 	 */
-	private final Integer dec;
+	private FixedDigitsBigDecimalConverter converter;
+
 	/**
-	 * Creates a new BigDecimalTextField object. 
+	 * Creates a new BigDecimalTextField object.
 	 *
 	 * @param id
+	 *            Wicket Id
 	 * @param dec
+	 *            Number of decimal digits to be displayed
 	 */
 	public BigDecimalTextField(String id, Integer dec) {
 		super(id);
-		this.setOutputMarkupPlaceholderTag(true);
-		this.dec = dec;
-		this.add(new NumberFormatBehaviour(dec));
-		this.add(ValidationStyleBehavior.INSTANCE);
-	}	
-	
+		commonSetup(dec);
+	}
+
 	/**
-	 * Creates a new BigDecimalTextField object. 
+	 * Creates a new BigDecimalTextField object.
 	 *
 	 * @param id
-	 * @param model 
+	 *            Wicket Id
+	 * @param model
+	 *            the model
 	 * @param dec
+	 *            Number of decimal digits to be displayed
 	 */
-	public BigDecimalTextField(String id, IModel<BigDecimal> model,  Integer dec) {
+	public BigDecimalTextField(String id, IModel<BigDecimal> model, Integer dec) {
 		super(id, model, BigDecimal.class);
-		this.setOutputMarkupPlaceholderTag(true);
-		this.dec = dec;
-		this.add(new NumberFormatBehaviour(dec));
-		this.add(ValidationStyleBehavior.INSTANCE);
-		
+		commonSetup(dec);
+	}
+
+	/**
+	 * 
+	 * /** Does the setup for this {@link TextField}.
+	 * 
+	 * @param dec
+	 *            Number of decimal digits to be displayed
+	 */
+	private void commonSetup(Integer dec) {
+		this.converter = new FixedDigitsBigDecimalConverter(dec);
+		setOutputMarkupPlaceholderTag(true);
+		add(new NumberFormatBehaviour());
+		add(ValidationStyleBehavior.INSTANCE);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public <C> IConverter<C> getConverter(Class<C> type) {
-		NumberFormat nf = new DecimalFormat();
-		nf.setMaximumFractionDigits(dec);
-		nf.setMinimumFractionDigits(dec);
-		BigDecimalConverter dc = new BigDecimalConverter();
-		dc.setNumberFormat(getLocale(), nf);
-		return (IConverter<C>) dc;
+		return (IConverter<C>) converter;
 	}
-
 }

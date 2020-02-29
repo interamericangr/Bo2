@@ -19,43 +19,45 @@ import java.io.Serializable;
 import org.apache.wicket.model.IModel;
 
 /**
- * Implementation of {@link ServicePanelDef}
- * 
+ * Implementation of {@link ServicePanelDef}.
+ *
  * @param <B>
- *        Type of model object. 
+ *            Type of model object.
  */
-public class ModeAwareBeanPanelDefImpl<B extends Serializable> 
-extends ServicePanelDefImpl implements ModeAwareBeanPanelDef<B>{
-	
+public class ModeAwareBeanPanelDefImpl<B extends Serializable>
+extends ServicePanelDefImpl
+implements ModeAwareBeanPanelDef<B> {
+
 	/**
 	 * serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * The model of the panel.
 	 */
 	private IModel<B> beanModel;
-	
-	/**
-	 * Mode 
-	 */
+
+	/** Mode. */
 	private PanelCreatorMode mode;
 
+	@Override
 	public void setBeanModel(IModel<B> beanModel) {
 		this.beanModel = beanModel;
 	}
 
+	@Override
 	public IModel<B> getBeanModel() {
 		return beanModel;
 	}
 
+	@Override
 	public PanelCreatorMode getBeanFieldsPanelMode() {
 		return mode;
 	}
 
+	@Override
 	public void setBeanFieldsPanelMode(PanelCreatorMode mode) {
 		this.mode = mode;
 	}
-
 }

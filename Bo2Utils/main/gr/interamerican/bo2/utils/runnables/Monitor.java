@@ -13,6 +13,9 @@
 package gr.interamerican.bo2.utils.runnables;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import gr.interamerican.bo2.utils.NumberUtils;
 import gr.interamerican.bo2.utils.adapters.VoidOperation;
 import gr.interamerican.bo2.utils.adapters.cmd.PeriodicCommand;
@@ -20,9 +23,6 @@ import gr.interamerican.bo2.utils.adapters.cmd.SimpleCommandSequence;
 import gr.interamerican.bo2.utils.adapters.cmd.SingleSubjectOperation;
 import gr.interamerican.bo2.utils.concurrent.ThreadUtils;
 import gr.interamerican.bo2.utils.conditions.Condition;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The {@link Monitor} monitors an object.
@@ -55,11 +55,8 @@ implements Runnable {
 	 */
 	long interval = 0;
 
-	/**
-	 * Stop condition;
-	 */
+	/** Stop condition;. */
 	Condition<T> mustStop;
-
 
 	/**
 	 * List of operations.
@@ -70,8 +67,6 @@ implements Runnable {
 	 * Commands sequence that is executed by the monitor.
 	 */
 	SimpleCommandSequence sequence = new SimpleCommandSequence(true);
-
-
 
 	/**
 	 * Start indicator.
@@ -95,21 +90,15 @@ implements Runnable {
 		this.started = false;
 	}
 
-
-
-
 	/**
 	 * Adds a SimpleCommand that will execute a {@link VoidOperation}
 	 * with <code>system</code> as argument.
-	 *
+	 * 
 	 * This method is null safe. If vo is null, then nothing happens.
 	 *
-	 * @param mo
-	 *        MonitoringOperation that will be executed.
-	 * @param monitored
-	 *        Object being monitored by the monitoring operation.
-
-	 *
+	 * @param <L> the generic type
+	 * @param mo        MonitoringOperation that will be executed.
+	 * @param monitored        Object being monitored by the monitoring operation.
 	 */
 	public <L> void addOperation(MonitoringOperation<? extends L> mo, L monitored) {
 		if (started) {
@@ -127,12 +116,11 @@ implements Runnable {
 	/**
 	 * Adds a SimpleCommand that will execute a {@link VoidOperation}
 	 * with <code>system</code> as argument.
-	 *
+	 * 
 	 * This method is null safe. If vo is null, then nothing happens.
 	 *
-	 * @param mo
-	 *        MonitoringOperation that will be executed.
-	 *
+	 * @param <L> the generic type
+	 * @param mo        MonitoringOperation that will be executed.
 	 */
 	public <L> void addOperation(MonitoringOperation<? extends T> mo) {
 		addOperation(mo, system);
@@ -146,7 +134,7 @@ implements Runnable {
 	void initializeSequence() {
 		for (SingleSubjectOperation ssop : operations) {
 			MonitoringOperation mo = (MonitoringOperation) ssop.getVoidOperation();
-			long period = interval / mo.getPeriodInterval();
+			long period = mo.getPeriodInterval() / interval;
 			PeriodicCommand pc = new PeriodicCommand(ssop, period);
 			sequence.addCommand(pc);
 		}
@@ -163,4 +151,5 @@ implements Runnable {
 			sequence.execute();
 		} while (!mustStop.check(system));
 	}
+	
 }

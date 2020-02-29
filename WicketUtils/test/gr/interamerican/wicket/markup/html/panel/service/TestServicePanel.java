@@ -20,68 +20,30 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * 
+ * The Class {@link ServicePanel}
  */
-public class TestServicePanel  extends WicketTest{
-	
+public class TestServicePanel extends WicketTest {
+
+	/** ServicePanelWithBackDefImpl. */
+	private ServicePanelWithBackDefImpl impl = new ServicePanelWithBackDefImpl();
+
+	/** panel. */
+	private ServicePanel panel;
+
 	/**
-	 * ServicePanelWithBackDefImpl
-	*/
-    private ServicePanelWithBackDefImpl impl = new ServicePanelWithBackDefImpl();
-		
-    /**
-     * panel
-     */
-    private  ServicePanelImpl panel;
-	
-	/**
-	 * Init
+	 * Init.
 	 */
 	@Before
-	public void Init(){
+	public void Init() {
 		impl.setWicketId("wicketId"); //$NON-NLS-1$
-		panel = new ServicePanelImpl(impl);
+		panel = new EmptyServicePanel(impl);
 	}
-	
+
 	/**
-	 * Test GetDefinition
+	 * Test GetDefinition.
 	 */
 	@Test
-	public void testGetDefinition(){
+	public void testGetDefinition() {
 		assertNotNull(panel.getDefinition());
 	}
-	
-	/**
-	 * implemenation to test
-	 */
-	private class ServicePanelImpl extends ServicePanel{
-
-		/**
-		 * UID.
-		 */
-		private static final long serialVersionUID = -7526385759755064958L;
-
-
-		/**
-		 * Creates a new ServicePanelImpl object. 
-		 *
-		 * @param definition
-		 */
-		public ServicePanelImpl(ServicePanelDef definition) {
-			super(definition);
-		}
-
-		@Override
-		protected void paint()  {/*empty */}
-
-		@Override
-		protected void init()  {/*empty */}
-
-
-		@Override
-		protected void validateDef() {/*empty */}
-		
-	}
-	
-	
 }

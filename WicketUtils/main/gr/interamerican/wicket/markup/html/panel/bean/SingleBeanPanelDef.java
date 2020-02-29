@@ -12,20 +12,20 @@
  ******************************************************************************/
 package gr.interamerican.wicket.markup.html.panel.bean;
 
-import gr.interamerican.bo2.utils.adapters.Flag;
-import gr.interamerican.bo2.utils.conditions.Condition;
-import gr.interamerican.wicket.callback.CallbackAction;
-import gr.interamerican.wicket.condition.AbstractAjaxEnabledCondition;
-import gr.interamerican.wicket.condition.AjaxEnabledCondition;
-import gr.interamerican.wicket.creators.PanelCreator;
-import gr.interamerican.wicket.markup.html.panel.back.ServicePanelWithBackDef;
-import gr.interamerican.wicket.markup.html.panel.service.ModeAwareBeanPanelDef;
-import gr.interamerican.wicket.markup.html.panel.service.ServicePanelDef;
-
 import java.io.Serializable;
 
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.IModel;
+
+import gr.interamerican.bo2.utils.adapters.Flag;
+import gr.interamerican.bo2.utils.conditions.Condition;
+import gr.interamerican.bo2.utils.functions.SerializableSupplier;
+import gr.interamerican.wicket.callback.PickAction;
+import gr.interamerican.wicket.condition.AjaxCondition;
+import gr.interamerican.wicket.creators.PanelCreator;
+import gr.interamerican.wicket.markup.html.panel.back.ServicePanelWithBackDef;
+import gr.interamerican.wicket.markup.html.panel.service.ModeAwareBeanPanelDef;
+import gr.interamerican.wicket.markup.html.panel.service.ServicePanelDef;
 
 /**
  * {@link ServicePanelDef} of {@link SingleBeanPanel}.
@@ -47,17 +47,16 @@ extends ServicePanelWithBackDef, ModeAwareBeanPanelDef<B> {
 	 *
 	 * @return Returns the action
 	 */
-	CallbackAction getBeanAction();
+	PickAction<B> getBeanAction();
 
 	/**
 	 * [OPTIONAL]
 	 * Assigns a new value to the beanAction.
-	 * 
-	 * @see #getBeanAction()
 	 *
 	 * @param beanAction the queryAction to set
+	 * @see #getBeanAction()
 	 */
-	void setBeanAction(CallbackAction beanAction);
+	void setBeanAction(PickAction<B> beanAction);
 	
 	/**
 	 * Gets the beanActionFlag.
@@ -69,8 +68,8 @@ extends ServicePanelWithBackDef, ModeAwareBeanPanelDef<B> {
 	/**
 	 * [OPTIONAL]
 	 * Sets the beanActionFlag.
-	 * 
-	 * @param beanActionFlag
+	 *
+	 * @param beanActionFlag the new bean action flag
 	 */
 	public void setBeanActionFlag(Flag beanActionFlag);
 	
@@ -87,11 +86,9 @@ extends ServicePanelWithBackDef, ModeAwareBeanPanelDef<B> {
 	/**
 	 * [MANDATORY]
 	 * Sets the panel creator.
-	 * 
+	 *
+	 * @param panelCreator        The panelCreator to set.
 	 * @see #getBeanFieldsPanelCreator()
-	 * 
-	 * @param panelCreator 
-	 *        The panelCreator to set.
 	 */
 	void setBeanFieldsPanelCreator(PanelCreator<B> panelCreator);
 	
@@ -105,11 +102,9 @@ extends ServicePanelWithBackDef, ModeAwareBeanPanelDef<B> {
 	
 	/**
 	 * [OPTIONAL] Sets the execute button label.
-	 * 
+	 *
+	 * @param label        The label to set.
 	 * @see #getExecuteLabelModel()
-	 * 
-	 * @param label
-	 *        The label to set.
 	 */
 	public void setExecuteLabelModel(IModel<String> label);
 	
@@ -123,11 +118,9 @@ extends ServicePanelWithBackDef, ModeAwareBeanPanelDef<B> {
 	
 	/**
 	 * [OPTIONAL] Sets the clear button label.
-	 * 
+	 *
+	 * @param label        The label to set.
 	 * @see #getClearLabelModel()
-	 * 
-	 * @param label
-	 *        The label to set.
 	 */
 	public void setClearLabelModel(IModel<String> label);
 	
@@ -147,18 +140,15 @@ extends ServicePanelWithBackDef, ModeAwareBeanPanelDef<B> {
 	 * @param validator
 	 *        The validator to set.
 	 */
-	public void setFormValidator(AjaxEnabledCondition<B> validator);
+	public void setFormValidator(AjaxCondition<B> validator);
 	
 	/**
 	 * Gets the validator.
-	 * 
-	 * 
-	 * @see #setFormValidator(AjaxEnabledCondition)
-	 * @see AbstractAjaxEnabledCondition
-	 * 
+	 *
 	 * @return Returns the validator of this panel's form.
+	 * @see #setFormValidator(AjaxCondition)
 	 */
-	public AjaxEnabledCondition<B> getFormValidator();
+	public AjaxCondition<B> getFormValidator();
 	
 	/**
 	 * [OPTIONAL]
@@ -170,17 +160,16 @@ extends ServicePanelWithBackDef, ModeAwareBeanPanelDef<B> {
 	 * If this raises a RuntimeException, the user must override method
 	 * <code>newBean()</code> explicitly.
 	 * This property defaults to false.
-	 * 
-	 * @param showClearButton
+	 *
+	 * @param showClearButton the new show clear button
 	 */
 	public void setShowClearButton(Boolean showClearButton);
 	
 	/**
 	 * Gets the showClearButton.
-	 * 
-	 * @see #setShowClearButton(Boolean)
-	 * 
+	 *
 	 * @return showClearButton.
+	 * @see #setShowClearButton(Boolean)
 	 */
 	public Boolean getShowClearButton();
 	
@@ -191,14 +180,14 @@ extends ServicePanelWithBackDef, ModeAwareBeanPanelDef<B> {
 	 * @return whether the single bean panel form includes a file upload item.
 	 */
 	Boolean getSingleBeanFormContainsFileUpload();
-	
+
 	/**
 	 * [OPTIONAL]
 	 * Sets whether the single bean panel form includes a file upload item.
 	 * If this is set to true, the single bean panel form is set as 
 	 * <code>setMultipart(true)</code>. Defaults to false.
-	 * 
-	 * @param singleBeanFormContainsFileUpload
+	 *
+	 * @param singleBeanFormContainsFileUpload the new single bean form contains file upload
 	 */
 	void setSingleBeanFormContainsFileUpload(Boolean singleBeanFormContainsFileUpload);
 	
@@ -212,9 +201,35 @@ extends ServicePanelWithBackDef, ModeAwareBeanPanelDef<B> {
 	/**
 	 * [OPTIONAL]
 	 * Sets the label displayed on top of this panel.
-	 * 
-	 * @param panelLabel
+	 *
+	 * @param panelLabel the new panel label model
 	 */
 	void setPanelLabelModel(IModel<String> panelLabel);
-	
+
+	/**
+	 * [OPTIONAL]
+	 * Gets a {@link SerializableSupplier} that creates new instances of the bean.<br>
+	 * This is called when the clear button is pressed.<br>
+	 * The default implementation if not filled explicitly will make an
+	 * assumption that the runtime class of B will have a default constructor.
+	 * If this is not the case, the default implementation will throw a
+	 * RuntimeException.
+	 * 
+	 * @return A {@link SerializableSupplier} that creates new instances of the bean.
+	 */
+	SerializableSupplier<B> getBeanCreator();
+
+	/**
+	 * [OPTIONAL]
+	 * Sets a {@link SerializableSupplier} that creates new instances of the bean.
+	 * This is called when the clear button is pressed.<br>
+	 * The default implementation if not filled explicitly will make an
+	 * assumption that the runtime class of B will have a default constructor.
+	 * If this is not the case, the default implementation will throw a
+	 * RuntimeException.
+	 * 
+	 * @param beanCreator
+	 *            A {@link SerializableSupplier} that creates new instances of the bean.
+	 */
+	void setBeanCreator(SerializableSupplier<B> beanCreator);
 }

@@ -72,9 +72,8 @@ extends FolderInitializedBean {
 
 	/**
 	 * Gets the propertySetter.
-	 * 
-	 * @param variables 
 	 *
+	 * @param variables the variables
 	 * @return Returns the propertySetter
 	 */
 	public String getPropertySetter(Map<String, String> variables) {		
@@ -83,9 +82,8 @@ extends FolderInitializedBean {
 
 	/**
 	 * Gets the field declaration code.
-	 * 
-	 * @param variables 
 	 *
+	 * @param variables the variables
 	 * @return Returns the field declaration code
 	 */
 	public String getFieldDeclarationCode(Map<String, String> variables) {		

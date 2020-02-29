@@ -35,39 +35,27 @@ public abstract class InvoiceSecondImpl
 extends AbstractModificationRecordPo<InvoiceKey> 
 implements Invoice {
 	
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
-	/**
-	 * invoice date
-	 */
-	@SuppressWarnings("unused")
-	@Property	
-	private Date invoiceDate;
+	/** invoice date. */
+	@Property private Date invoiceDate;
 	
 	/**
 	 * customer.
 	 */
-	@SuppressWarnings("unused")
-	@Property
-	@Child
-	private InvoiceCustomer customer;
+	@Property @Child private InvoiceCustomer customer;
 	
 	/**
 	 * lines.
 	 */
-	@SuppressWarnings("unused")
-	@Property
-	@Child
-	private Set<InvoiceLine> lines;
-	
+	@Property @Child private Set<InvoiceLine> lines;
+
+	@Override
 	public InvoiceLine getLineByNo(Integer lineNo) {
 		if (lines==null) {
 			return null;
 		}
-		return SelectionUtils.selectFirstByProperty("lineNo", lineNo, lines, InvoiceLine.class);		
+		return SelectionUtils.selectFirstByProperty(InvoiceLine::getLineNo, lineNo, lines);
 	}
-	
 }

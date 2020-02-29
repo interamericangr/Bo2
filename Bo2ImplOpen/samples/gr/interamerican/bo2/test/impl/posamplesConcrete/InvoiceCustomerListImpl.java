@@ -22,7 +22,7 @@ import gr.interamerican.bo2.utils.annotations.Child;
 import java.util.List;
 
 /**
- * 
+ * The Class InvoiceCustomerListImpl.
  */
 public class InvoiceCustomerListImpl 
 extends AbstractModificationRecordPo<InvoiceCustomerListKey> 
@@ -34,9 +34,7 @@ implements InvoiceCustomerList {
 	private static final long serialVersionUID = 1L;
 
 
-	/**
-	 * list with invoice customers
-	 */
+	/** list with invoice customers. */
 	@Child
 	private List<InvoiceCustomer> invoiceList;
 	
@@ -46,6 +44,7 @@ implements InvoiceCustomerList {
 	 * @return invoiceList
 	 */
 	
+	@Override
 	public List<InvoiceCustomer> getInvoiceList() {
 		return invoiceList;
 	}
@@ -54,18 +53,21 @@ implements InvoiceCustomerList {
 	/**
 	 * ��������� invoiceList.
 	 *
-	 * @param invoiceList 
+	 * @param invoiceList the new invoice list
 	 */
+	@Override
 	public void setInvoiceList(List<InvoiceCustomer> invoiceList) {
 		this.invoiceList = invoiceList;
 	}
 
 
+	@Override
 	public String getInvoiceCustomerListNo() {		
 		return key.getInvoiceCustomerListNo();
 	}
 	
 
+	@Override
 	public void setInvoiceCustomerListNo(String invoiceNo) {
 		key.setInvoiceCustomerListNo(invoiceNo);
 	}

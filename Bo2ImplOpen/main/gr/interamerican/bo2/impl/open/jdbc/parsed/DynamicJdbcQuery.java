@@ -12,6 +12,10 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.jdbc.parsed;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import gr.interamerican.bo2.arch.Provider;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.arch.ext.Codified;
@@ -19,16 +23,15 @@ import gr.interamerican.bo2.arch.ext.CriteriaDependent;
 import gr.interamerican.bo2.arch.ext.TranslatableEntryOwner;
 import gr.interamerican.bo2.arch.ext.TypedSelectable;
 import gr.interamerican.bo2.impl.open.jdbc.JdbcQuery;
+import gr.interamerican.bo2.impl.open.modifications.CopyAndThen;
 import gr.interamerican.bo2.impl.open.parse.ParserProvider;
 import gr.interamerican.bo2.utils.ReflectionUtils;
+import gr.interamerican.bo2.utils.adapters.Modification;
+import gr.interamerican.bo2.utils.adapters.mod.GetTheSame;
 import gr.interamerican.bo2.utils.sql.SqlUtils;
 import gr.interamerican.bo2.utils.sql.exceptions.SqlParseException;
 import gr.interamerican.bo2.utils.sql.parsers.ParserUtils;
 import gr.interamerican.bo2.utils.sql.parsers.SqlParser;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 /**
  * JdbcQuery that has its SQL query statement generated dynamically
@@ -40,8 +43,8 @@ import java.util.Map;
  * @param <C> 
  *        Type of criteria.
  */
-public abstract class DynamicJdbcQuery<C> 
-extends JdbcQuery 
+public abstract class DynamicJdbcQuery<C>
+extends JdbcQuery
 implements CriteriaDependent<C> {
 	
 	/**
@@ -64,38 +67,71 @@ implements CriteriaDependent<C> {
 	 * 
 	 * @return Returns the base SQL statement.
 	 */
-	public abstract String baseSql();	
-	
+	public abstract String baseSql();
+
+	/**
+	 * Hook in case we want to modify the criteria of this during execution.<br>
+	 * It is advised that you make a copy of the input if you want to avoid
+	 * repeating a modification on sequential runs (use {@link CopyAndThen} )
+	 */
+	final Modification<C> modification;
+
+	/**
+	 * Public Constructor.
+	 */
+	public DynamicJdbcQuery() {
+		this(new GetTheSame<>());
+	}
+
+	/**
+	 * Public Constructor with modification.
+	 * 
+	 * @param modification
+	 *            Hook in case we want to modify the criteria of this during
+	 *            execution.<br>
+	 *            It is advised that you make a copy of the input if you want to
+	 *            avoid repeating a modification on sequential runs (use
+	 *            {@link CopyAndThen} )
+	 */
+	public DynamicJdbcQuery(Modification<C> modification) {
+		this.modification = modification;
+	}
+
 	@Override
 	public void init(Provider parent) throws InitializationException {
 		super.init(parent);
 		ParserProvider parserProvider = getResource(ParserProvider.class);
 		this.parser = parserProvider.getParser();
 	}
-	
-	public C getCriteria() {
+
+	// see constructor with argument in case you had overridden this
+	@Override
+	public final C getCriteria() {
 		return criteria;
 	}
-	
-	public void setCriteria(C criteria) {
-		this.criteria = criteria;
-	} 
-	
+
+	// see constructor with argument in case you had overridden this
 	@Override
-	protected final String sql() {	
+	public final void setCriteria(C criteria) {
+		this.criteria = criteria;
+	}
+
+	@Override
+	protected final String sql() {
+		C modified = modification.apply(criteria);
 		String stmt;
 		try {
-			stmt = ParserUtils.removeNullParameters(parser, criteria, baseSql());
+			stmt = ParserUtils.removeNullParameters(parser, modified, baseSql());
 		} catch (SqlParseException e) {
 			throw new RuntimeException(e);
 		}
 		List<String> parmNames = SqlUtils.getParameterNames(stmt);
 		
 		if (parmNames.size()>0) {
-			Map<String, Object> map = ReflectionUtils.getProperties(criteria);			
+			Map<String, Object> criteriaMap = ReflectionUtils.getProperties(modified);
 			List<Object> parmValues = new ArrayList<Object>();			
 			for (String parmName : parmNames) {
-				Object value = map.get(parmName); 
+				Object value = ParserUtils.findValue(criteriaMap, parmName);
 				/*
 				 * If the object is a Codified, then we will
 				 * want to bind its code to the parameters and not
@@ -127,10 +163,9 @@ implements CriteriaDependent<C> {
 		logStatement(jdbcStmt, parms);
 		return jdbcStmt;
 	}
-	
+
 	@Override
-	protected final Object[] parameters() {		
+	protected final Object[] parameters() {
 		return parms;
 	}
-
 }

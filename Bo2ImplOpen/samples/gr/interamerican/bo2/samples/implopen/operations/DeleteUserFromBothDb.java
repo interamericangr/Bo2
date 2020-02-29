@@ -16,14 +16,14 @@ import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
 
 /**
- * 
+ * The Class DeleteUserFromBothDb.
  */
 public class DeleteUserFromBothDb extends AbstractBothDbUserOperation {
 
 	/**
 	 * Creates a new DeleteUserFromBothDb object. 
 	 *
-	 * @param hib
+	 * @param hib the hib
 	 */
 	public DeleteUserFromBothDb(boolean hib) {
 		super(hib);

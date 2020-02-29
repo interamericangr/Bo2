@@ -24,11 +24,11 @@ public class BeanWithOrderedFields implements Serializable {
 	/**
 	 * Creates a new BeanWithOrderedFields object. 
 	 *
-	 * @param first
-	 * @param second
-	 * @param third
-	 * @param fourth 
-	 * @param fifth 
+	 * @param first the first
+	 * @param second the second
+	 * @param third the third
+	 * @param fourth the fourth
+	 * @param fifth the fifth
 	 */
 	public BeanWithOrderedFields
 	(String first, String second, Integer third, Long fourth, Double fifth) {

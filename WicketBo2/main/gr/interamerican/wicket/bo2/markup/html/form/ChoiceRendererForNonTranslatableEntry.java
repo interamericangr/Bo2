@@ -14,49 +14,45 @@ package gr.interamerican.wicket.bo2.markup.html.form;
 
 import gr.interamerican.bo2.arch.ext.TypedSelectable;
 import gr.interamerican.bo2.utils.StringConstants;
+import gr.interamerican.wicket.utils.WicketUtils;
+
+import java.util.List;
 
 import org.apache.wicket.markup.html.form.IChoiceRenderer;
+import org.apache.wicket.model.IModel;
 
 /**
  * Custom ChoiceRenderer for non translatable Entry.
  * 
- * @param <T> 
- * 		  Type of typeSelectable object.
- * 		  
+ * @param <T>
+ *            Type of typeSelectable object.
+ * 
  */
 public class ChoiceRendererForNonTranslatableEntry<T extends TypedSelectable<Long>>
-implements IChoiceRenderer<T>{
+implements IChoiceRenderer<T> {
 
 	/**
 	 * serial.
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	/**
-	 * Creates a new ChoiceRendererForNonTranslatableEntry object.
-	 */
-	public ChoiceRendererForNonTranslatableEntry() {
-		super();
-	}
-	
-	/**
-	 * Returns the id value of typeSelectable object.
-	 */
+
+	@Override
 	public String getIdValue(T typeSelectable, int index) {
 		if (typeSelectable == null || typeSelectable.getCode() == null) {
 			return null;
 		}
 		return typeSelectable.getCode().toString();
 	}
-	/**
-	 * The value for displaying, is the "code - name" of typeSelectable object.
-	 */
+
+	@Override
 	public Object getDisplayValue(T typeSelectable) {
-		return typeSelectable == null ? null : typeSelectable.getCode() 
-											  + StringConstants.SPACE
-											  + StringConstants.MINUS 
-											  + StringConstants.SPACE
-											  + typeSelectable.getName();
+		return typeSelectable == null ? null
+				: typeSelectable.getCode() + StringConstants.SPACE + StringConstants.MINUS + StringConstants.SPACE
+						+ typeSelectable.getName();
 	}
 
+	@Override
+	public T getObject(String id, IModel<? extends List<? extends T>> choices) {
+		return WicketUtils.getObject(this, id, choices);
+	}
 }

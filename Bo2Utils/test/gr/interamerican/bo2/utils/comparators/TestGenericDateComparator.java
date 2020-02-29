@@ -27,7 +27,7 @@ import org.junit.Test;
 public class TestGenericDateComparator {
 
 	/**
-	 * 
+	 * Test generic date comparator.
 	 */
 	@Test
 	public void testGenericDateComparator() {

@@ -49,10 +49,10 @@ public class ServicePanelUtils {
 	/**
 	 * Disables a button, based on the disableUnauthorizedButtons setting 
 	 * of the panel definition and the flag for this button's action.
-	 * 
-	 * @param def
-	 * @param flag
-	 * @param button 
+	 *
+	 * @param def the def
+	 * @param flag the flag
+	 * @param button the button
 	 */
 	public static void disableButton(ServicePanelDef def, Flag flag, Button button) {
 		if(def.getDisableUnauthorizedButtons() && !authorizedByFlag(flag)) {
@@ -62,9 +62,8 @@ public class ServicePanelUtils {
 	
 	/**
 	 * Indicates if a {@link Flag} grants authorization to the user.
-	 * 
-	 * @param flag
-	 * 
+	 *
+	 * @param flag the flag
 	 * @return True, if the flag.isUp is true.
 	 */
 	public static boolean authorizedByFlag(Flag flag) {
@@ -217,11 +216,9 @@ public class ServicePanelUtils {
 	 * Gets the form fields panel of the SingleBeanPanel of a CrudPickerPanel. You may invoke
 	 * this in cases you know that the SingleBeanPanel is rendered, for example in save or
 	 * update action implementation.
-	 * 
-	 * @param <B>
-	 *        Type of bean.
-	 * @param cpp
-	 * 
+	 *
+	 * @param <B>        Type of bean.
+	 * @param cpp the cpp
 	 * @return The form fields panel (showing a B) of the SingleBeanPanel of the CrudPickerPanel.
 	 */
 	public static <B extends Serializable> Component getFieldsPanel(CrudPickerPanel<B> cpp) {

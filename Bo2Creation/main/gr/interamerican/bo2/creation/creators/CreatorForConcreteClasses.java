@@ -19,7 +19,7 @@ import gr.interamerican.bo2.utils.ReflectionUtils;
 
 /**
  * This class imitates a class creator by returning the arguments 
- * as results of its methods. <br/>
+ * as results of its methods. <br>
  * 
  * This implementation is suitable for use by production object
  * factories in order to deal with concrete classes.
@@ -27,22 +27,21 @@ import gr.interamerican.bo2.utils.ReflectionUtils;
 public class CreatorForConcreteClasses 
 implements ClassCreator {
 
-	
+	@Override
 	public Class<?> create(Class<?> type) throws ClassCreationException {	
 		if (!ReflectionUtils.isConcreteClass(type)) {
 			throw CodeGenerationUtilities.typeNotSupported(type);
 		}
 		return type;
 	}
-	
+
+	@Override
 	public String compileTimeClassName(String runTimeName) {
 		return runTimeName;
 	}
 
+	@Override
 	public String runTimeClassName(String compileTimeName) {
 		return compileTimeName;
 	}
-	
-	
-
 }

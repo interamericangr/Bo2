@@ -16,6 +16,7 @@ import gr.interamerican.bo2.arch.PersistentObject;
 import gr.interamerican.bo2.impl.open.hibernate.adapters.SetReadDetachStrategy;
 import gr.interamerican.bo2.impl.open.hibernate.adapters.Unproxy;
 import gr.interamerican.bo2.impl.open.hibernate.conditions.IsInitialized;
+import gr.interamerican.bo2.impl.open.hibernate.utils.reflect.analyze.HibernateAwarePoAnalyzerResolver;
 import gr.interamerican.bo2.impl.open.po.PoConditionChecker;
 import gr.interamerican.bo2.impl.open.po.PoCopier;
 import gr.interamerican.bo2.impl.open.po.PoFetcher;
@@ -37,7 +38,8 @@ public class Bo2ImplHibernateInitializer {
 		
 		@SuppressWarnings("rawtypes")
 		Modification<PersistentObject> mod = Utils.cast(SetReadDetachStrategy.INSTANCE);		
-		PoFetcher.registerModification(PersistentObject.class, mod);	
+		PoFetcher.registerModification(PersistentObject.class, mod);
+		
+		PoCopier.get().setResolver(new HibernateAwarePoAnalyzerResolver());
 	}
-
 }

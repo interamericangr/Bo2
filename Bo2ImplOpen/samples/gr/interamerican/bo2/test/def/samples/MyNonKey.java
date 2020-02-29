@@ -16,14 +16,20 @@ package gr.interamerican.bo2.test.def.samples;
  * Sample interface.
  */
 public interface MyNonKey {
-	/** 
-	 * field getter 
+	
+	/**
+	 *  
+	 * field getter .
+	 *
 	 * @return string
-	 **/
+	 */
 	String getString();
-	/** 
-	 * field setter
-	 * @param string 
-	 **/
+	
+	/**
+	 *  
+	 * field setter.
+	 *
+	 * @param string the new string
+	 */
 	void setString(String string);
 }

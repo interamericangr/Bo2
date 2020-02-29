@@ -19,7 +19,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 /**
- * 
+ * The Class TestSuiteBo2GuiSql.
  */
 @RunWith(Suite.class)
 @SuiteClasses(

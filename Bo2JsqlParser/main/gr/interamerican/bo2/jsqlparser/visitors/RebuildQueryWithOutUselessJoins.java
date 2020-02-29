@@ -46,8 +46,9 @@ public class RebuildQueryWithOutUselessJoins extends EmptyVisitor {
 	private Set<String> uselessJoins = new HashSet<String>();
 
 	/**
-	 * @param joins
-	 *            the useless joins
+	 * Sets the useless joins.
+	 *
+	 * @param joins            the useless joins
 	 */
 	public void setUselessJoins(Set<Join> joins) {
 		uselessJoins = new HashSet<String>();
@@ -56,10 +57,9 @@ public class RebuildQueryWithOutUselessJoins extends EmptyVisitor {
 		}
 	}
 
-	/**
-	 * string builder
-	 */
+	/** string builder. */
 	StringBuilder sb = new StringBuilder();
+	
 	@Override
 	public void visit(PlainSelect plainSelect) {
 		sb.append(SPACE + SELECT);
@@ -128,7 +128,10 @@ public class RebuildQueryWithOutUselessJoins extends EmptyVisitor {
 		SelectBody selectBody = select.getSelectBody();
 		selectBody.accept(this);
 	}
+	
 	/**
+	 * Gets the result.
+	 *
 	 * @return Returns the re-built query.
 	 */
 	public String getResult() {

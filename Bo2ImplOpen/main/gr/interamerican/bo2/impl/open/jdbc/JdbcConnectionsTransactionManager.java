@@ -44,8 +44,8 @@ implements TransactionManager {
 	
 	/**
 	 * Indicates if a connection is enlisted.
-	 * 
-	 * @param connection
+	 *
+	 * @param connection the connection
 	 * @return Returns true if the connection is included in the transaction.
 	 */
 	public boolean isEnlisted(Connection connection) {
@@ -57,8 +57,9 @@ implements TransactionManager {
 	 */
 	public JdbcConnectionsTransactionManager() {
 		/* empty */
-	}	
+	}
 
+	@Override
 	public void begin() throws CouldNotBeginException {
 		try {
 			for (Connection connection : connections) {
@@ -68,16 +69,15 @@ implements TransactionManager {
 			throw new CouldNotBeginException(e);
 		}
 	}
-	
+
+	@Override
 	public void commit() throws CouldNotCommitException {
 		try {
 			for (Connection connection : connections) {
 				connection.commit();
 				connection.setAutoCommit(true);
 			}
-			
 			submitScheduledJobsOnCommit();
-			
 		} catch (SQLException e) {
 			throw new CouldNotCommitException(e);
 		} catch (DataException e) { //job submission
@@ -85,9 +85,9 @@ implements TransactionManager {
 		} finally {
 			clearScheduledJobs();
 		}
-		
 	}
-	
+
+	@Override
 	public void rollback() throws CouldNotRollbackException {
 		try {
 			for (Connection connection : connections) {
@@ -111,6 +111,7 @@ implements TransactionManager {
 		super.enList(resource);
 		if (resource instanceof JdbcConnectionProvider) {
 			JdbcConnectionProvider jdbc = (JdbcConnectionProvider) resource;
+			@SuppressWarnings("resource")
 			Connection connection = jdbc.getConnection();
 			try {
 				if(!isEnlisted(connection)) {
@@ -138,8 +139,8 @@ implements TransactionManager {
 		}
 	}
 
+	@Override
 	public boolean hasBeenMarkedRollbackOnly() {
 		return false;
 	}
-
 }

@@ -25,19 +25,21 @@ public class TestEventHandlerMethodInvocator {
 	
 	/**
 	 * Method to be executed by MethodInvocator. 
-	 * 
+	 *
 	 * @param i
-	 *         
+	 *            the i
+	 * @param s
+	 *            the s
+	 * @param d
+	 *            the d
 	 */
+	@SuppressWarnings("unused")
 	void someMethod(Integer i, String s, Double d) {
 		/* do nothing */
 	}
-	
-	
-	 
+
 	/**
-	 * Unit test for execute, when the method being executed requires 
-	 * arguments.
+	 * Unit test for execute, when the method being executed requires arguments.
 	 */
 	@Test
 	public void testGetArguments() {
@@ -60,5 +62,4 @@ public class TestEventHandlerMethodInvocator {
 		
 		Assert.assertArrayEquals(expecteds, actuals);
 	}
-
 }

@@ -12,6 +12,8 @@
  ******************************************************************************/
 package gr.interamerican.bo2.gui.properties;
 
+import gr.interamerican.bo2.utils.attributes.Enabled;
+
 /**
  * Properties of a check box.
  */

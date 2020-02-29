@@ -13,7 +13,7 @@
 package gr.interamerican.bo2.utils;
 
 /**
- * 
+ * The Class Exceptions.
  */
 class Exceptions {
 	

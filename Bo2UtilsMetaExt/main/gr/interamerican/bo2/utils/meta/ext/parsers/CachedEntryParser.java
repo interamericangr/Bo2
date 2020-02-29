@@ -6,8 +6,9 @@ import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
 import gr.interamerican.bo2.utils.meta.parsers.Parser;
 
 /**
- * 
- * @param <T> Type of entry 
+ * The Class CachedEntryParser.
+ *
+ * @param <T> Type of entry
  * @param <C> Type of cache code
  */
 public class CachedEntryParser
@@ -16,14 +17,10 @@ public class CachedEntryParser
 extends NamedCacheProvider<C>
 implements Parser<T> {
 
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Entry typeId
-	 */
+	/** Entry typeId. */
 	protected Long typeId;
 	
 	/**
@@ -34,19 +31,20 @@ implements Parser<T> {
 	/**
 	 * Creates a new CachedEntryParser object.
 	 *  
-	 * @param cacheName 
-	 * @param typeId 
-	 * @param codeParser 
+	 *
+	 * @param cacheName the cache name
+	 * @param typeId the type id
+	 * @param codeParser the code parser
 	 */
 	public CachedEntryParser(String cacheName, Long typeId, Parser<C> codeParser) {
 		super(cacheName);
 		this.typeId = typeId;
 		this.codeParser = codeParser;
 	}
-	
+
+	@Override
 	@SuppressWarnings("unchecked")
 	public T parse(String value) throws ParseException {
 		return (T) cache().get(typeId, codeParser.parse(value));
 	}
-
 }

@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * 
+ * The Class PoChildrenAnalyzer.
  */
 public class PoChildrenAnalyzer 
 extends AbstractFieldsAnalyzer {

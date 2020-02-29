@@ -19,9 +19,8 @@ public class TimeUtils {
 	
 	/**
 	 * Converts seconds to milliseconds.
-	 * 
-	 * @param hours
-	 * 
+	 *
+	 * @param hours the hours
 	 * @return Returns the equivalent of the specified hours
 	 *         in milliseconds.
 	 */
@@ -31,9 +30,8 @@ public class TimeUtils {
 	
 	/**
 	 * Converts minutes to milliseconds.
-	 * 
-	 * @param minutes
-	 * 
+	 *
+	 * @param minutes the minutes
 	 * @return Returns the equivalent of the specified minutes
 	 *         in milliseconds.
 	 */
@@ -43,9 +41,8 @@ public class TimeUtils {
 	
 	/**
 	 * Converts seconds to milliseconds.
-	 * 
-	 * @param seconds
-	 * 
+	 *
+	 * @param seconds the seconds
 	 * @return Returns the equivalent of the specified seconds
 	 *         in milliseconds.
 	 */

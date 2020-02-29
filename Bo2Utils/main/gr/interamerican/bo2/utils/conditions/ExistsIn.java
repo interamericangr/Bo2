@@ -33,7 +33,7 @@ implements Condition<T> {
 	/**
 	 * Creates a new ExistsInSetCondition object. 
 	 *
-	 * @param collection
+	 * @param collection the collection
 	 */
 	public ExistsIn(Collection<T> collection) {
 		super();
@@ -43,16 +43,16 @@ implements Condition<T> {
 	/**
 	 * Creates a new ExistsInSetCondition object. 
 	 *
-	 * @param collection
+	 * @param collection the collection
 	 */
+	@SafeVarargs
 	public ExistsIn(T... collection) {
 		super();
 		this.set = new HashSet<T>(Arrays.asList(collection));
 	}
-
 	
+	@Override
 	public boolean check(T t) {		
 		return set.contains(t);
 	}
-
 }

@@ -16,7 +16,7 @@ import org.junit.Test;
 
 
 /**
- * test case for {@link LongProcessStatusLabelsPanel}
+ * test case for {@link LongProcessStatusLabelsPanel}.
  */
 public class TestLongProcessLabelPanel {
 

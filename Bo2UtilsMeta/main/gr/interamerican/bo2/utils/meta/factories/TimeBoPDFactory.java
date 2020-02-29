@@ -1,0 +1,64 @@
+/*******************************************************************************
+ * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A. 
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Lesser Public License v3
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/copyleft/lesser.html
+ * 
+ * This library is distributed in the hope that it will be useful, 
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ * See the GNU Lesser General Public License for more details.
+ ******************************************************************************/
+package gr.interamerican.bo2.utils.meta.factories;
+
+import gr.interamerican.bo2.utils.StringUtils;
+import gr.interamerican.bo2.utils.meta.descriptors.DateBoPropertyDescriptor;
+import gr.interamerican.bo2.utils.meta.descriptors.PropertyDefinition;
+import gr.interamerican.bo2.utils.meta.descriptors.TimeBoPropertyDescriptor;
+import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
+
+import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+/**
+ * Factory for {@link DateBoPropertyDescriptor}s.
+ */
+public class TimeBoPDFactory {
+
+	/**
+	 * Creates a {@link DateBoPropertyDescriptor}.
+	 *
+	 * @param pd        PropertyDescriptorDefinition
+	 * @return returns a DateBoPropertyDescriptor
+	 * @throws ParseException the parse exception
+	 */
+	@SuppressWarnings("nls")
+	public static TimeBoPropertyDescriptor create(PropertyDefinition pd) throws ParseException {
+		TimeBoPropertyDescriptor result = new TimeBoPropertyDescriptor();
+		if (pd.getHasDefault()) {
+			String value = pd.getDefaultValue();
+			try {
+				SimpleDateFormat df = new SimpleDateFormat("HH:mm");
+				Date parsed = df.parse(value); 
+				Time time = new Time(parsed.getTime());
+				result.setDefaultValue(time);
+			} catch (java.text.ParseException pe) {
+				String msg = StringUtils.concat(
+						"Could not create a Time given the value: ",
+						pd.getDefaultValue() + " for property " + pd.getName()); 
+				throw new ParseException(msg, pe);
+			}
+		}
+		result.setMaxLength(5);
+		BoPDFactoryUtils.addCommonStuff(result, pd);
+		return result;
+	}
+
+	/**
+	 * Hidden constructor.
+	 */
+	private TimeBoPDFactory() { /* empty */ }
+
+}

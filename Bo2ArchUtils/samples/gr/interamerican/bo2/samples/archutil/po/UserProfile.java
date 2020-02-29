@@ -24,32 +24,24 @@ import gr.interamerican.bo2.arch.PersistentObject;
 public class UserProfile
 implements PersistentObject<UserProfileKey> {
 
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	static final long serialVersionUID = 1L;
 
-	/**
-	 * id
-	 */
+	/** id. */
 	Integer profileId;
 
-	/**
-	 * id
-	 */
+	/** id. */
 	Integer userId;
 
-	/**
-	 * name
-	 */
+	/** name. */
 	String name;
 
 	/**
 	 * Creates a new User object.
-	 * @param userId
-	 * @param profileId
-	 * @param name
 	 *
+	 * @param userId the user id
+	 * @param profileId the profile id
+	 * @param name the name
 	 */
 	public UserProfile(Integer userId, Integer profileId, String name) {
 		super();
@@ -67,6 +59,8 @@ implements PersistentObject<UserProfileKey> {
 	}
 
 	/**
+	 * Gets the profile id.
+	 *
 	 * @return profile id.
 	 */
 	public Integer getProfileId() {
@@ -74,15 +68,17 @@ implements PersistentObject<UserProfileKey> {
 	}
 
 	/**
-	 * sets the profile id
-	 * 
-	 * @param profileId
+	 * sets the profile id.
+	 *
+	 * @param profileId the new profile id
 	 */
 	public void setProfileId(Integer profileId) {
 		this.profileId = profileId;
 	}
 
 	/**
+	 * Gets the user id.
+	 *
 	 * @return the user id.
 	 */
 	public Integer getUserId() {
@@ -91,14 +87,16 @@ implements PersistentObject<UserProfileKey> {
 
 	/**
 	 * sets the user id.
-	 * 
-	 * @param userId
+	 *
+	 * @param userId the new user id
 	 */
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 
 	/**
+	 * Gets the name.
+	 *
 	 * @return the name
 	 */
 	public String getName() {
@@ -106,8 +104,9 @@ implements PersistentObject<UserProfileKey> {
 	}
 
 	/**
-	 * @param name
-	 *            the name to set
+	 * Sets the name.
+	 *
+	 * @param name            the name to set
 	 */
 	public void setName(String name) {
 		this.name = name;
@@ -115,9 +114,9 @@ implements PersistentObject<UserProfileKey> {
 
 	/**
 	 * Creates and initializes a new user profile.
-	 * @param userId
-	 * @param profileId
-	 * 
+	 *
+	 * @param userId the user id
+	 * @param profileId the profile id
 	 * @return returns a user profile.
 	 */
 	public static UserProfile getDummy(int userId, int profileId) {

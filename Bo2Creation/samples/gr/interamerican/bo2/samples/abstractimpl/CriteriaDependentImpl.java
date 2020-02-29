@@ -15,6 +15,7 @@ public abstract class CriteriaDependentImpl implements ICriteriaDependent<Object
 	 */
 	@Property Object criteria;
 	
+	@Override
 	public Date getCriteria() {
 		return (Date) criteria;
 	}

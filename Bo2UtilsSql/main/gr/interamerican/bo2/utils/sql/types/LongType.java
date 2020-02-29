@@ -35,14 +35,17 @@ extends NonQuotedType<Long> {
 	}
 	
 	
+	@Override
 	public Long get(ResultSet rs, String columnIndex) throws SQLException {		
 		return rs.getLong(columnIndex);
 	}
 	
+	@Override
 	public Long get(ResultSet rs, int columnIndex) throws SQLException {		
 		return rs.getLong(columnIndex);
 	}
 	
+	@Override
 	public Class<Long> getJavaType() {
 		return Long.class;
 	}

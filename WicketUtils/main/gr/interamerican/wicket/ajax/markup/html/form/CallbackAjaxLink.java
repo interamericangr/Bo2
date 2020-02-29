@@ -13,6 +13,8 @@
 package gr.interamerican.wicket.ajax.markup.html.form;
 
 import gr.interamerican.wicket.callback.CallbackAction;
+import gr.interamerican.wicket.links.LegacyCallbackAjaxLink;
+import gr.interamerican.wicket.links.PickActionAjaxLink;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -22,7 +24,9 @@ import org.apache.wicket.ajax.markup.html.AjaxLink;
  * 
  * @param <T> 
  *        Type of model object.
+ * @deprecated Use {@link LegacyCallbackAjaxLink} and {@link PickActionAjaxLink} instead
  */
+@Deprecated
 public class CallbackAjaxLink<T> extends AjaxLink<T> {
 	
 	/**

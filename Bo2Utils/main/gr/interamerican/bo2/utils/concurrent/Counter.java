@@ -12,8 +12,8 @@ public class Counter {
 	
 	/**
 	 * Sets the value of the counter.
-	 * 
-	 * @param value
+	 *
+	 * @param value the value
 	 */
 	public synchronized void set(int value) {
 		this.value = value;

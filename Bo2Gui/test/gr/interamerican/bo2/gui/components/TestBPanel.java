@@ -46,8 +46,8 @@ public class TestBPanel {
 	
 	/**
 	 * Assert that a button has one action listener.
-	 * 
-	 * @param button
+	 *
+	 * @param button the button
 	 */
 	static void assertButtonHasOneListener(BButton button) {
 		ActionListener[] listeners = button.getActionListeners();

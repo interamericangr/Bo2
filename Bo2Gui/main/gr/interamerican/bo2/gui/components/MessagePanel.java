@@ -30,14 +30,10 @@ import javax.swing.SpringLayout;
  */
 public class MessagePanel extends JPanel {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
-	/**
-	 * Message
-	 */
+	/** Message. */
 	String message;
 	
 	

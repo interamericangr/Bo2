@@ -19,7 +19,7 @@ import gr.interamerican.bo2.test.def.posamples.MoneyKey;
 import gr.interamerican.bo2.test.def.posamples.MoneyPo;
 
 /**
- * 
+ * The Class MoneyPoImpl.
  */
 public class MoneyPoImpl 
 extends AbstractModificationRecordPo<MoneyKey> 
@@ -31,9 +31,7 @@ implements MoneyPo {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * money
-	 */
+	/** money. */
 	private Money money;
 	
 	/**
@@ -42,6 +40,7 @@ implements MoneyPo {
 	 * @return money
 	 */
 	
+	@Override
 	public Money getMoney() {
 		return money;
 	}
@@ -49,8 +48,9 @@ implements MoneyPo {
 	/**
 	 * ��������� money.
 	 *
-	 * @param money 
+	 * @param money the new money
 	 */
+	@Override
 	public void setMoney(Money money) {
 		this.money = money;
 	}
@@ -64,11 +64,13 @@ implements MoneyPo {
 		this.key = Factory.create(MoneyKey.class);
 	}
 
+	@Override
 	public String getMoneyNo() {		
 		return key.getMoneyNo();
 	}
 	
 
+	@Override
 	public void setMoneyNo(String moneyNo) {
 		key.setMoneyNo(moneyNo);
 	}

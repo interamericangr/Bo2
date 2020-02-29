@@ -30,8 +30,8 @@ public class TransformationSpecImpl {
 	/**
 	 * Creates a new AnyOperationSpecImpl object. 
 	 *
-	 * @param argumentType
-	 * @param resultType
+	 * @param argumentType argumentType
+	 * @param resultType the result type
 	 */
 	public TransformationSpecImpl(Class<?> argumentType, Class<?> resultType) {
 		super();

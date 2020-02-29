@@ -19,7 +19,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Tests for {@link TypedSelectableComparator}
+ * Tests for {@link TypedSelectableComparator}.
  */
 public class TestTypedSelectableComparator {
 	

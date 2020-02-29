@@ -16,7 +16,7 @@ import gr.interamerican.bo2.utils.adapters.Modification;
 import gr.interamerican.bo2.utils.conditions.Condition;
 
 /**
- * Filters object against a condition. <br/>
+ * Filters object against a condition. <br>
  * 
  * The condition is specified in the Filter's constructor.
  * The filter's execute operation will return any object 

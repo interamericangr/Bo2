@@ -13,7 +13,7 @@
 package gr.interamerican.bo2.samples.def.po;
 
 /**
- * 
+ * The Interface SuburbKP.
  */
 public interface SuburbKP extends CityKP {
 	/**
@@ -24,7 +24,8 @@ public interface SuburbKP extends CityKP {
 	
 	/**
 	 * Set Suburb id.
-	 * @param suburbId
+	 *
+	 * @param suburbId the new suburb id
 	 */
 	void setSuburbId(Long suburbId);
 

@@ -14,27 +14,32 @@ package gr.interamerican.wicket.callback;
 
 /**
  * Chain of responsibility enhancement of {@link CallbackAction}.
- * <br/>
+ * <br>
  * A {@link ChainedCallbackAction} is a {@link CallbackAction} that provides
  * facilities for inversion of control by allowing components to chain, before 
  * or after, other {@link CallbackAction}s.
- * <br/>
+ * <br>
  * These methods should be used before execution of the callback. If they are
- * used after, a {@link RuntimeException} should be thrown. 
+ * used after, a {@link RuntimeException} should be thrown.
+ * 
+ * @deprecated Implement the interface you want - chaining functionality is offered by default methods
  */
+@Deprecated
 public interface ChainedCallbackAction extends CallbackAction {
 	
 	/**
 	 * Chains the specified action before any other actions currently
 	 * chained.
-	 * @param action
+	 *
+	 * @param action the action
 	 */
 	void chainBefore(CallbackAction action);
 	
 	/**
 	 * Chains the specified action after any other actions currently
 	 * chained.
-	 * @param action
+	 *
+	 * @param action the action
 	 */
 	void chainAfter(CallbackAction action);
 

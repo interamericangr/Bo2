@@ -16,9 +16,7 @@ public class JobOperation extends AbstractOperation {
 	 */
 	JobDescription jobDescription;
 
-	/**
-	 * job scheduler provider
-	 */
+	/** job scheduler provider. */
 	private JobSchedulerProvider jsp;
 
 	@Override
@@ -36,8 +34,8 @@ public class JobOperation extends AbstractOperation {
 
 	/**
 	 * setter.
-	 * 
-	 * @param jobDescription
+	 *
+	 * @param jobDescription the new job description
 	 */
 	public void setJobDescription(JobDescription jobDescription) {
 		this.jobDescription = jobDescription;

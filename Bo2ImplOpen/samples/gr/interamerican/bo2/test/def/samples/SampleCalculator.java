@@ -13,24 +13,24 @@
 package gr.interamerican.bo2.test.def.samples;
 
 /**
- * 
+ * The Interface SampleCalculator.
  */
 public interface SampleCalculator {
+	
 	/**
 	 * Adds to integers.
-	 * 
-	 * @param i1
-	 * @param i2
-	 * 
+	 *
+	 * @param i1 the i 1
+	 * @param i2 the i 2
 	 * @return Returns the result.
 	 */
 	public Integer add(Integer i1, Integer i2);
+	
 	/**
 	 * Subtracts two integers.
-	 * 
-	 * @param i1
-	 * @param i2
-	 * 
+	 *
+	 * @param i1 the i 1
+	 * @param i2 the i 2
 	 * @return Returns the result.
 	 */
 	public Integer subtract(Integer i1, Integer i2);

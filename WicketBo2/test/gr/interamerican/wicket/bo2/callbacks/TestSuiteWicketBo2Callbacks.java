@@ -20,10 +20,10 @@ import org.junit.runners.Suite.SuiteClasses;
  * Test suite for package <code>gr.interamerican.bo2.impl.open.po.collections</code>.
  * 
  */
+@SuppressWarnings("deprecation")
 @RunWith(Suite.class)
 @SuiteClasses(
 	{
-		TestBo2WicketBlock.class,
 		TestMethodBasedBo2WicketBlock.class,
 		TestList2CsvAction.class,
 		TestCrudAction.class,

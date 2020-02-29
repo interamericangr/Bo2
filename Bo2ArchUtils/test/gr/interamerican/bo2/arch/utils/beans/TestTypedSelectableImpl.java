@@ -21,45 +21,33 @@ import gr.interamerican.bo2.arch.ext.Codified;
 import org.junit.Test;
 
 /**
- * TestTypedSelectableImpl
+ * TestTypedSelectableImpl.
  */
 public class TestTypedSelectableImpl {
 	
 	
-	/**
-	 * CODE
-	 */
+	/** CODE. */
 	private static final Integer CODE = 1;
 	
-	/**
-	 * TYPE_ID
-	 */
+	/** TYPE_ID. */
 	private static final Long TYPE_ID = 1L;
 	
-	/**
-	 * SUB_TYPE_ID
-	 */
+	/** SUB_TYPE_ID. */
 	private static final Long SUB_TYPE_ID = 1L;
 	
-	/**
-	 * NAME
-	 */
+	/** NAME. */
 	private static final String NAME = "name"; //$NON-NLS-1$
 	
 	
-	/**
-	 * selectable
-	 */
+	/** selectable. */
 	TypedSelectableImpl<Integer> selectable = new TypedSelectableImpl<Integer>(TYPE_ID,SUB_TYPE_ID,CODE,NAME);
 	
-	/**
-	 * emptySelectable
-	 */
+	/** emptySelectable. */
 	TypedSelectableImpl<Integer> emptySelectable = new TypedSelectableImpl<Integer>();
 	
 	
 	/**
-	 * Test getCode
+	 * Test getCode.
 	 */
 	@Test
 	public void testGetCode(){
@@ -67,7 +55,7 @@ public class TestTypedSelectableImpl {
 	}
 	
 	/**
-	 * Test setCode
+	 * Test setCode.
 	 */
 	@Test
 	public void testSetCode(){
@@ -76,7 +64,7 @@ public class TestTypedSelectableImpl {
 	}
 	
 	/**
-	 * Test getTypeId
+	 * Test getTypeId.
 	 */
 	@Test
 	public void testGetTypeId(){
@@ -84,7 +72,7 @@ public class TestTypedSelectableImpl {
 	}
 	
 	/**
-	 * Test setTypeId
+	 * Test setTypeId.
 	 */
 	@Test
 	public void testSetTypeId(){
@@ -93,7 +81,7 @@ public class TestTypedSelectableImpl {
 	}
 	
 	/**
-	 * Test getSubTypeId
+	 * Test getSubTypeId.
 	 */
 	@Test
 	public void testGetSubTypeId(){
@@ -101,7 +89,7 @@ public class TestTypedSelectableImpl {
 	}
 	
 	/**
-	 * Test setSubTypeId
+	 * Test setSubTypeId.
 	 */
 	@Test
 	public void testSetSubTypeId(){
@@ -110,7 +98,7 @@ public class TestTypedSelectableImpl {
 	}
 	
 	/**
-	 * Test getName
+	 * Test getName.
 	 */
 	@Test
 	public void testGetName(){
@@ -118,7 +106,7 @@ public class TestTypedSelectableImpl {
 	}
 	
 	/**
-	 * Test setName
+	 * Test setName.
 	 */
 	@Test
 	public void testSetName(){
@@ -127,7 +115,7 @@ public class TestTypedSelectableImpl {
 	}
 
 	/**
-	 * Test Equals
+	 * Test Equals.
 	 */
 	@Test
 	public void testEquals(){
@@ -136,7 +124,7 @@ public class TestTypedSelectableImpl {
 	}
 	
 	/**
-	 * Test Equals
+	 * Test Equals.
 	 */
 	@Test
 	public void testEqualsWithFalseValue(){
@@ -145,7 +133,7 @@ public class TestTypedSelectableImpl {
 	
 	
 	/**
-	 * Test hashCode
+	 * Test hashCode.
 	 */
 	@Test
 	public void testHashCode(){
@@ -153,7 +141,7 @@ public class TestTypedSelectableImpl {
 	}
 	
 	/**
-	 * Test CompareTo
+	 * Test CompareTo.
 	 */
 	@Test
 	public void testCompareTo(){
@@ -166,7 +154,7 @@ public class TestTypedSelectableImpl {
 	}
 	
 	/**
-	 * Test toString()
+	 * Test toString().
 	 */
 	@Test
 	public void testToString(){

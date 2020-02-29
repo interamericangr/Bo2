@@ -15,12 +15,22 @@ package gr.interamerican.bo2.test.def.samples;
 import java.io.Serializable;
 
 /**
- * 
+ * The Interface SampleJavaBeanSuperType.
  */
 public interface SampleJavaBeanSuperType extends Serializable {
 	
+	/**
+	 * Sets the id.
+	 *
+	 * @param id the new id
+	 */
 	public void setId(Long id);
 	
+	/**
+	 * Gets the id.
+	 *
+	 * @return the id
+	 */
 	public Long getId();
 
 }

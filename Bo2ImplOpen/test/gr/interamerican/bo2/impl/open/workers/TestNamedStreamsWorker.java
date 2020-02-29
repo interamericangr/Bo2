@@ -11,22 +11,18 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * test {@link NamedStreamsWorker}
+ * test {@link NamedStreamsWorker}.
  */
 public class TestNamedStreamsWorker {
 	
-	/**
-	 * 
-	 */
+	/** The impl. */
 	NamedStreamsWorker impl;
 	
-	/**
-	 * 
-	 */
+	/** The mock. */
 	NamedStreamsProvider mock;
 	
 	/**
-	 * setup
+	 * setup.
 	 */
 	@Before
 	public void before() {
@@ -36,7 +32,9 @@ public class TestNamedStreamsWorker {
 	}
 	
 	/**
-	 * @throws InitializationException
+	 * Test get shared stream.
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test
 	public void testGetSharedStream() throws InitializationException {
@@ -46,7 +44,9 @@ public class TestNamedStreamsWorker {
 	}
 	
 	/**
-	 * @throws InitializationException
+	 * Test get stream.
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test
 	public void testGetStream() throws InitializationException {

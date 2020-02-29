@@ -25,12 +25,12 @@ import java.sql.Types;
 import org.hibernate.HibernateException;
 
 /**
- * Concrete implementation for Codified<Long> entries that
+ * Concrete implementation for Codified&lt;Long&gt; entries that
  * are stored in the database as strings.
  */
 public class EntryUserTypeForString2Long
 extends EntryUserType<Long> {
-  
+
 	@Override
     protected Long getCode(ResultSet rs, String name) 
     throws SQLException {		
@@ -50,7 +50,9 @@ extends EntryUserType<Long> {
 		}
     	return code;
     }
-    
+
+    @Deprecated
+	@Override
 	public void nullSafeSet(PreparedStatement st, Object value, int index) throws HibernateException, SQLException {
         if (value==null) {
             st.setString(index, StringConstants.EMPTY);
@@ -60,27 +62,30 @@ extends EntryUserType<Long> {
             st.setString( index, String.valueOf(val.getCode()));
         }
     }
-    
+
+    @Deprecated
+	@Override
     public String objectToSQLString(Object value) {
     	@SuppressWarnings("unchecked")
 		TypedSelectable<Long> ts = (TypedSelectable<Long>) value; 
         return ts.getCode().toString();
     }
- 
+
+	@Override
     public String toXMLString(Object value) {
     	@SuppressWarnings("unchecked")
 		TypedSelectable<Long> ts = (TypedSelectable<Long>) value; 
         return ts.getCode().toString();
     }
-    
+
+	@Override
     public Object fromXMLString(String xmlValue) {
 		Long code = NumberUtils.string2Long(xmlValue);
 		return this.cache().get(typeId, code);
 	}
-    
+
     @Override
     public int[] sqlTypes() {
 		return new int[] { Types.CHAR };
-	}
- 
+    }
 }

@@ -13,6 +13,22 @@
 package gr.interamerican.bo2.creation.creators;
 
 import static gr.interamerican.bo2.creation.util.CodeGenerationUtilities.generateMethodDeclarationParameters;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import gr.interamerican.bo2.creation.ClassCreator;
 import gr.interamerican.bo2.creation.annotations.ComparableThrough;
 import gr.interamerican.bo2.creation.code.templatebean.CompareToCodeTemplates;
@@ -32,28 +48,12 @@ import gr.interamerican.bo2.creation.util.CodeGenerationUtilities;
 import gr.interamerican.bo2.creation.util.MethodsUtilities;
 import gr.interamerican.bo2.utils.AdapterUtils;
 import gr.interamerican.bo2.utils.ArrayUtils;
-import gr.interamerican.bo2.utils.CollectionUtils;
 import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.TokenUtils;
 import gr.interamerican.bo2.utils.reflect.analyze.TypeAnalysis;
 import gr.interamerican.bo2.utils.reflect.beans.BeanPropertyDefinition;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Basic class composer.
@@ -166,21 +166,20 @@ implements ClassCreator {
 	@SuppressWarnings("nls")
 	ClassCreationException cantImplementAllMethods(Collection<Method> methods) {	
 		String methodNames = AdapterUtils.concat
-			(methods, "name", Method.class, ", ");
+			(methods, Method::getName, ", ");
 		String msg = StringUtils.concat(
 			this.getClass().getName(), 	
 			" can't implement the methods: ", methodNames,
 			" of type ", analysis.getClazz().getName());
 		return new ClassCreationException(msg);
 	}	
-	
-	
-	
-	
+
+	@Override
 	public String compileTimeClassName(String runTimeName) {
 		return runTimeName.replace(getSuffix(), StringConstants.EMPTY);
 	}
 
+	@Override
 	public String runTimeClassName(String compileTimeName) {		
 		return compileTimeName + getSuffix();
 	}
@@ -190,7 +189,7 @@ implements ClassCreator {
 	 * 
 	 * The default implementation of this method, returns true only 
 	 * if the class being created and analyzed by the <code>analysis</code>
-	 * field is serializable. <br/>
+	 * field is serializable. <br>
 	 * Sub-classes can override this behavior.
 	 * 
 	 * @return Returns true if the implementation class
@@ -209,8 +208,8 @@ implements ClassCreator {
 	 * 3. Support methods.
 	 * 4. Support the compareTo() method.
 	 * 5. Support any remaining method if possible.
-	 * 
-	 * @throws ClassCreationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
 	 */
 	protected void supportType() throws ClassCreationException	{
 		addSerialVersionUid();		
@@ -220,7 +219,8 @@ implements ClassCreator {
 		supportRemainingMethods();
 		addBasicUpdaters();		
 	}
-	
+
+	@Override
 	public synchronized Class<?> create(Class<?> type) throws ClassCreationException {		
 		initialize(type);
 		validatePossibleImplementation();
@@ -231,8 +231,8 @@ implements ClassCreator {
 	
 	/**
 	 * Supports a method by adding an empty stub.
-	 * 
-	 * @param method
+	 *
+	 * @param method the method
 	 */
 	protected void doSupportMethodWithMock(Method method) {
 		MethodCodeTemplates templates = emptyMethodTemplates;						
@@ -246,12 +246,10 @@ implements ClassCreator {
 		
 	
 	/**
-	 * Initialization
-	 * 
-	 * @param clazz
-	 * 
-	 * @throws ClassCreationException 
-	 *         If the analysis of the specified type, identifies a problem.
+	 * Initialization.
+	 *
+	 * @param clazz the clazz
+	 * @throws ClassCreationException         If the analysis of the specified type, identifies a problem.
 	 */
 	@SuppressWarnings("unused")
 	protected void initialize(Class<?> clazz) throws ClassCreationException  {
@@ -275,10 +273,9 @@ implements ClassCreator {
 	
 	/**
 	 * Finds the matching method.
-	 * 
-	 * @param m
-	 * @param methods
-	 * 
+	 *
+	 * @param m the m
+	 * @param methods the methods
 	 * @return the matching method.
 	 */
 	private Method getMatchingMethodFromSet(Method m, Set<Method> methods) {
@@ -297,8 +294,8 @@ implements ClassCreator {
 	
 	/**
 	 * Marks the concrete methods of the supertype as implemented.
-	 * 
-	 * @throws ClassCreationException
+	 *
+	 * @throws ClassCreationException the class creation exception
 	 */
 	void markSupertypeMethodsAsImplemented() throws ClassCreationException {
 		TypeAnalysis superAnalysis = analysisOfSuper();
@@ -316,16 +313,11 @@ implements ClassCreator {
 			}			
 		}
 	}
-	
-	
-	
-	
-	
-	
+
 	/**
 	 * Adds code for a field.
-	 * 
-	 * @param code
+	 *
+	 * @param code the code
 	 */
 	protected void addFieldCode(String code) {
 		if (code!=null) {
@@ -335,8 +327,8 @@ implements ClassCreator {
 	
 	/**
 	 * Adds code for a method.
-	 * 
-	 * @param code
+	 *
+	 * @param code the code
 	 */
 	void addMethodCode(String code) {
 		if (code!=null) {
@@ -346,8 +338,8 @@ implements ClassCreator {
 	
 	/**
 	 * Gets an updated that adds the fields that have been added to 
-	 * with <code>addFieldCode(string)</code>
-	 * 
+	 * with <code>addFieldCode(string)</code>.
+	 *
 	 * @return Returns an {@link AddingFieldsClassUpdater} that will
 	 *         add the fields that have been added with addFieldCode.
 	 *         If no field is to be added, then returns null.
@@ -361,8 +353,8 @@ implements ClassCreator {
 	
 	/**
 	 * Gets an updated that adds the methods that have been added to 
-	 * with <code>addMethodCode(string)</code>
-	 * 
+	 * with <code>addMethodCode(string)</code>.
+	 *
 	 * @return Returns an {@link AddingMethodsClassUpdater} that will
 	 *         add the methods that have been added with addMethodCode.
 	 *         If no method is to be added, then returns null.
@@ -376,9 +368,8 @@ implements ClassCreator {
 	
 	/**
 	 * Checks if a method is needs to be implemented.
-	 * 
-	 * @param method
-	 * 
+	 *
+	 * @param method the method
 	 * @return Returns true if the specified method is not abstract,
 	 *         or it has been marked as implemented by 
 	 *         <code>markMethodAsImplemented(Method)</code>.
@@ -395,8 +386,8 @@ implements ClassCreator {
 	
 	/**
 	 * Adds an updater.
-	 * 
-	 * @param updater
+	 *
+	 * @param updater the updater
 	 */
 	protected void addUpdater(AbstractClassUpdater updater) {
 		if (updater!=null) {
@@ -405,9 +396,10 @@ implements ClassCreator {
 	}
 	
 	/**
-	 * Adds the basic updaters. <br/>
+	 * Adds the basic updaters. <br>
 	 * 
 	 * The default basic updaters are:
+	 * <ul>
 	 * <li> One that sets the super type to according to the return value
 	 *      of the method <code>supertype()</code></li>
 	 * <li> One that adds the fields that have been added with  
@@ -416,6 +408,7 @@ implements ClassCreator {
 	 *      <code>implementMethod(method, string)</code></li>
 	 * <li> One that adds interfaces returned by the 
 	 *      <code>interfaces()</code> method.</li>
+	 *      </ul>
 	 * 
 	 */
 	protected void addBasicUpdaters() {
@@ -447,15 +440,16 @@ implements ClassCreator {
 	 * Validates that an attempt to create a concrete class for the the class 
 	 * that has been analyzed with <code>initialize(clazz)</code> is meaningful.
 	 *  
-	 * @throws ClassCreationException
+	 *
+	 * @throws ClassCreationException the class creation exception
 	 */
 	protected abstract void validatePossibleImplementation() 
 	throws ClassCreationException;
 	
 	/**
 	 * Validates the successful implementation of all methods.
-	 * 
-	 * @throws ClassCreationException
+	 *
+	 * @throws ClassCreationException the class creation exception
 	 */
 	protected void validateImplementation() throws ClassCreationException {
 		ClassCreationException ex = couldntImplementAllMethods();
@@ -472,10 +466,10 @@ implements ClassCreator {
 	 * 
 	 * @return Returns a ClassCreationException with the appropriate message.
 	 */
-	@SuppressWarnings({ "nls", "rawtypes" })
+	@SuppressWarnings("nls")
 	protected ClassCreationException cantSupportOddProperties() {
-		Set<BeanPropertyDefinition> odds = CollectionUtils.convert(analysis.getOddProperties());		
-		String odd = AdapterUtils.concat (odds, "name", BeanPropertyDefinition.class, ", ");
+		Set<BeanPropertyDefinition<?>> odds = analysis.getOddProperties();		
+		String odd = AdapterUtils.concat (odds, BeanPropertyDefinition::getName, ", ");
 		String msg = StringUtils.concat(
 			"Class ", analysis.getClazz().getName(),
 			" has the following odd properties: ", odd);
@@ -483,11 +477,10 @@ implements ClassCreator {
 	}
 	
 	/**
-	 * Maybe odd properties can be supported after all
-	 * 
-	 * @see #covariant(BeanPropertyDefinition, BeanPropertyDefinition)
-	 * 
+	 * Maybe odd properties can be supported after all.
+	 *
 	 * @return True, if we can support all the odd properties
+	 * @see #covariant(BeanPropertyDefinition, BeanPropertyDefinition)
 	 */
 	protected boolean canSupportOddProperties() {
 		for(BeanPropertyDefinition<?> bpd : analysis.getOddProperties()) {
@@ -507,13 +500,10 @@ implements ClassCreator {
 	 * <li>have the same name
 	 * <li>one is readOnly and the other writeOnly
 	 * <li>the getter retrun type is a sub-type of the setter argument type
-	 * are covariant
-	 * 
-	 * @param one
-	 * @param two
-	 * 
-	 * TODO: add this to BeanPropertyDefinition api?
-	 * 
+	 * are covariant.
+	 *
+	 * @param one the one
+	 * @param two TODO: add this to BeanPropertyDefinition api?
 	 * @return True, if they are covariant.
 	 */
 	private boolean covariant(BeanPropertyDefinition<?> one, BeanPropertyDefinition<?> two) {
@@ -579,7 +569,7 @@ implements ClassCreator {
 		unnecessary.removeAll(allMethodsToImplement);
 		if (!unnecessary.isEmpty()) {
 			sb.append("The following unnecessary methods have been implemented: ");
-			sb.append(AdapterUtils.concat(unnecessary, "name", Method.class, ","));
+			sb.append(AdapterUtils.concat(unnecessary, Method::getName, ","));
 			sb.append("\n");
 		}		
 		logger.debug(sb.toString());
@@ -588,10 +578,9 @@ implements ClassCreator {
 	/**
 	 * Validates the implementation and compiles the class using 
 	 * a compiler that contains the added class updaters.
-	 * 
+	 *
 	 * @return Returns the compiled class.
-	 * 
-	 * @throws ClassCreationException 
+	 * @throws ClassCreationException the class creation exception
 	 */
 	protected Class<?> compile() throws ClassCreationException {
 		validateImplementation();
@@ -648,8 +637,8 @@ implements ClassCreator {
 	
 	/**
 	 * Handles the properties of the class.
-	 * 
-	 * @throws ClassCreationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
 	 */
 	protected abstract void supportProperties() throws ClassCreationException;
 	
@@ -746,9 +735,9 @@ implements ClassCreator {
 	/**
 	 * If this updater sets a supertype, returns the type analysis
 	 * of the supertype, otherwise returns null.
-	 * 
+	 *
 	 * @return Returns the analysis of the supertype.
-	 * @throws ClassCreationException 
+	 * @throws ClassCreationException the class creation exception
 	 */
 	TypeAnalysis analysisOfSuper() throws ClassCreationException {
 		String superName = supertype();
@@ -768,9 +757,8 @@ implements ClassCreator {
 	
 	/**
 	 * Gets the type of a field.
-	 * 
-	 * @param field
-	 * 
+	 *
+	 * @param field the field
 	 * @return Returns the type of the field.
 	 */
 	protected Class<?> findFieldType(Field field) {
@@ -779,9 +767,9 @@ implements ClassCreator {
 	
 	/**
 	 * Support comparable by delegating the comparison to properties.
-	 * 
-	 * @param type 
-	 * @param properties 
+	 *
+	 * @param type the type
+	 * @param properties the properties
 	 */	
 	protected void implementCompareTo(Class<?> type, BeanPropertyDefinition<?>[] properties) {		
 		StringBuilder sb = new StringBuilder();
@@ -809,9 +797,9 @@ implements ClassCreator {
 	
 	/**
 	 * Support for comparable.
-	 * 
+	 *
 	 * @return Returns true if the method was implemented.
-	 * @throws ClassCreationException 
+	 * @throws ClassCreationException the class creation exception
 	 */
 	protected boolean doSupportComparable() throws ClassCreationException {
 		Class<?> clazz = analysis.getClazz();
@@ -834,9 +822,9 @@ implements ClassCreator {
 	
 	/**
 	 * Support for comparable.
-	 * 
+	 *
 	 * @return Returns true if the method was implemented.
-	 * @throws ClassCreationException 
+	 * @throws ClassCreationException the class creation exception
 	 */
 	protected boolean supportComparable() throws ClassCreationException {
 		if (isNotImplementedMethod(compareTo)) {

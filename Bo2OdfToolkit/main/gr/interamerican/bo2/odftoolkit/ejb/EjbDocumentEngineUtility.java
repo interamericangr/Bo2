@@ -12,32 +12,36 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 /**
- * Implementation of {@link DocumentEngineUtility} based on EJB
+ * Implementation of {@link DocumentEngineUtility} based on EJB.
  */
-public class EjbDocumentEngineUtility extends AbstractDocumentEngineUtility {
+public class EjbDocumentEngineUtility
+extends AbstractDocumentEngineUtility {
 
 	/**
 	 * Creates a new EjbDocumentEngineUtility object. 
 	 *
-	 * @param properties
+	 * @param properties the properties
 	 */
 	public EjbDocumentEngineUtility(Properties properties) {
 		super(properties);
 	}
-
+	
+	@Deprecated
+	@Override
 	public String toHtml(byte[] odf) throws DocumentEngineException {
 		return getProxy().toHtml(odf);
 	}
 
+	@Override
 	public byte[] toPdf(byte[] odf) throws DocumentEngineException {
 		return getProxy().toPdf(odf);
 	}
 	
 	/**
 	 * Gets an EJB DocumentEngineUtility proxy.
-	 * 
+	 *
 	 * @return Returns an EJB DocumentEngineUtility proxy.
-	 * @throws DocumentEngineException 
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	private DocumentEngineUtility getProxy() throws DocumentEngineException {
 		try {
@@ -56,5 +60,4 @@ public class EjbDocumentEngineUtility extends AbstractDocumentEngineUtility {
 			throw new DocumentEngineException(ne);
 		}
 	}
-
 }

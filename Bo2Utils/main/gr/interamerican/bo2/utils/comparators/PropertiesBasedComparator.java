@@ -12,7 +12,11 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.comparators;
 
+import java.util.Collection;
 import java.util.Comparator;
+import java.util.function.Function;
+
+import gr.interamerican.bo2.utils.CollectionUtils;
 
 /**
  * Comparator based on the values of properties of two objects.
@@ -23,10 +27,13 @@ import java.util.Comparator;
  * values of the same property on both objects are equal. 
  * 
  * The types of the properties used for comparison must be sub-types
- * of Comparable. <br/> 
+ * of Comparable. <br> 
  *  
  * @param <T> Type of objects being compared by this class.
+ * 
+ * @deprecated Use {@link CollectionUtils#sort(Collection, Function, Function)} or the java api offered by {@link Comparator}
  */
+@Deprecated
 public class PropertiesBasedComparator<T> 
 implements Comparator<T> {
 	
@@ -34,14 +41,12 @@ implements Comparator<T> {
 	 * Property expression. This may describe a composite property.
 	 */
 	private Comparator<T>[] comparators;
-	
-	
 
 	/**
 	 * Creates a new PropertyBasedComparator object. 
 	 *
-	 * @param type
-	 * @param properties 
+	 * @param type the type
+	 * @param properties the properties
 	 */
 	@SuppressWarnings("unchecked")
 	public PropertiesBasedComparator(Class<T> type, String[] properties) {
@@ -51,7 +56,7 @@ implements Comparator<T> {
 			comparators[i] = new PropertyBasedComparator<T>(type, properties[i]);
 		}
 	}
-	
+
 	@Override	
 	public int compare(T o1, T o2) {
 		for (int i = 0; i < comparators.length; i++) {
@@ -62,5 +67,4 @@ implements Comparator<T> {
 		}
 		return 0;
 	}
-	
 }

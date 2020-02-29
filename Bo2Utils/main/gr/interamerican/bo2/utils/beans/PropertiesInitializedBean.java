@@ -40,7 +40,7 @@ public class PropertiesInitializedBean {
 	/**
 	 * Creates a new PropertiesInitializedBean object. 
 	 *
-	 * @param properties
+	 * @param properties the properties
 	 */
 	public PropertiesInitializedBean(Properties properties) {
 		super();
@@ -125,8 +125,8 @@ public class PropertiesInitializedBean {
 	
 	/**
 	 * Gets a date from value.
-	 * 
-	 * @param value
+	 *
+	 * @param value the value
 	 * @return Returns the date represented by the value.
 	 */
 	private Date getDate(String value) {
@@ -139,8 +139,8 @@ public class PropertiesInitializedBean {
 	
 	/**
 	 * Gets a boolean from value.
-	 * 
-	 * @param value
+	 *
+	 * @param value the value
 	 * @return Returns true if the value is true, yes or 1
 	 *         otherwise returns false.
 	 */
@@ -154,9 +154,9 @@ public class PropertiesInitializedBean {
 	/**
 	 * Gets an enum from a value. The value should be equal to the
 	 * {@link Enum#toString()} ignoring case.
-	 * 
-	 * @param value
-	 * @param enumType
+	 *
+	 * @param value the value
+	 * @param enumType the enum type
 	 * @return The enum value.
 	 */
 	private Enum<?> getEnum(String value, Class<? extends Enum<?>> enumType) {

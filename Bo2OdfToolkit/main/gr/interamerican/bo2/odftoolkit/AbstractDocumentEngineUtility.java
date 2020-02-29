@@ -60,7 +60,7 @@ public abstract class AbstractDocumentEngineUtility implements DocumentEngineUti
 	/**
 	 * Creates a new AbstractPdfEngine object. 
 	 *
-	 * @param properties
+	 * @param properties the properties
 	 */
 	public AbstractDocumentEngineUtility(Properties properties) {
 		host = CollectionUtils.getOptionalProperty(properties, "host"); //$NON-NLS-1$

@@ -29,11 +29,13 @@ import org.apache.wicket.model.IModel;
 public class CachedEntryBoPDComponentFactory
 extends AbstractBoPDComponentFactory<CachedEntryBoPropertyDescriptor<?,?>> {
 
+	@Override
 	public Component drawMain(CachedEntryBoPropertyDescriptor<?,?> descriptor, String wicketId) {
 		List<?> choices = new ArrayList(descriptor.getValues());
 		return new SelfDrawnDropDownChoiceForEntry(wicketId, descriptor, choices, Bo2WicketSession.get());
 	}
 
+	@Override
 	public Component drawMain(String wicketId, IModel<?> model, CachedEntryBoPropertyDescriptor<?,?> descriptor) {
 		List<?> choices = new ArrayList(descriptor.getValues());
 		return new SelfDrawnDropDownChoiceForEntry(wicketId, model, descriptor, choices, Bo2WicketSession.get());

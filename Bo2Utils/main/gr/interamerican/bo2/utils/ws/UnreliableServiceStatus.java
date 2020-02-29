@@ -9,20 +9,21 @@ import org.slf4j.LoggerFactory;
  * Services can be unreliable. This utility is meant to protect applications
  * that consume services that are known not to work 24/7 and are not mandatory
  * i.e. the application has a built-in workaround.
- * <br/>
+ * <br>
  * Indicates the status of an unreliable service. If a service call fails for
  * <code>maxConsecutiveFailures</code> consecutive calls, the service status is 
  * marked as down for the next <code>downTimeOut</code> ms.
- * <br/>
+ * <br>
  * 
  * Usage:
- * <br/>
+ * <br>
  * Create a singleton instance of this class for each unreliable service client.
  * On this instance:
- * 
+ * <ul>
  * <li>Whenever a successful call is made, {@link #resetFailCount()} must be called.
  * <li>Service call failures call {@link #setDown()}.
  * <li>Before calling the service consult {@link #isDown()} result.
+ * </ul>
  */
 public class UnreliableServiceStatus {
 	
@@ -31,9 +32,7 @@ public class UnreliableServiceStatus {
 	 */
 	static final Logger LOGGER = LoggerFactory.getLogger(UnreliableServiceStatus.class);
 	
-	/**
-	 * name
-	 */
+	/** name. */
 	String name;
 	
 	/**
@@ -56,9 +55,7 @@ public class UnreliableServiceStatus {
 	 */
 	boolean down = false;
 	
-	/**
-	 * When was the last down period started?
-	 */
+	/** When was the last down period started?. */
 	long lastDownOn = 0;
 	
 	/**
@@ -124,9 +121,10 @@ public class UnreliableServiceStatus {
 	
 	/**
 	 * Factory method.
-	 * @param name
-	 * @param downTimeOut
-	 * @param maxConsecutiveFailures
+	 *
+	 * @param name the name
+	 * @param downTimeOut the down time out
+	 * @param maxConsecutiveFailures the max consecutive failures
 	 * @return Instance of this class.
 	 */
 	public static UnreliableServiceStatus get(String name, long downTimeOut, long maxConsecutiveFailures) {

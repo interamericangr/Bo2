@@ -12,9 +12,11 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.workers;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+
+import org.junit.Assert;
+import org.junit.Test;
+
 import gr.interamerican.bo2.arch.PersistenceWorker;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.impl.open.creation.Factory;
@@ -22,22 +24,16 @@ import gr.interamerican.bo2.samples.archutil.po.User;
 import gr.interamerican.bo2.samples.archutil.po.UserKey;
 import gr.interamerican.bo2.samples.ibean.Identified;
 
-import org.junit.Assert;
-import org.junit.Test;
-
 /**
  * Unit test for {@link FactorySupportedPoHandler}.
  */
 @SuppressWarnings("unchecked")
 public class TestFactorySupportedPoReader {
-	
-	
-	
-	
+
 	/**
 	 * Tests get(k).
-	 * 
-	 * @throws DataException
+	 *
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testGet() throws DataException {
@@ -56,8 +52,8 @@ public class TestFactorySupportedPoReader {
 	
 	/**
 	 * Tests getByProperties(k).
-	 * 
-	 * @throws DataException
+	 *
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testGetByProperties() throws DataException {
@@ -71,6 +67,4 @@ public class TestFactorySupportedPoReader {
 		User actual = reader.getByProperties(identifier);
 		Assert.assertEquals(expected, actual);
 	}
-	
-	
 }

@@ -24,9 +24,7 @@ import gr.interamerican.bo2.utils.meta.parsers.DoubleParser;
 public class DoubleBoPropertyDescriptor 
 extends AbstractNumberBoPropertyDescriptor<Double> {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**

@@ -18,6 +18,7 @@ import gr.interamerican.bo2.utils.meta.formatters.nr.NrBooleanFormatter;
 import gr.interamerican.bo2.utils.meta.formatters.nr.NrDateFormatter;
 import gr.interamerican.bo2.utils.meta.formatters.nr.NrObjectFormatter;
 
+import java.sql.Time;
 import java.util.Date;
 
 /**
@@ -27,6 +28,11 @@ import java.util.Date;
  * TODO: Register more appropriate formatters for number types.
  */
 public class FormatterResolver  {
+	
+	/**
+	 * Time format.
+	 */
+	private static final String TIME_FORMAT = "HH:mm"; //$NON-NLS-1$
 	
 	/**
 	 * Type based selection for default formatters that return "NULL" for null input.
@@ -39,7 +45,8 @@ public class FormatterResolver  {
 		formatters.registerSelection(Long.class, ObjectFormatter.<Long>getInstance());
 		formatters.registerSelection(Short.class, ObjectFormatter.<Short>getInstance());
 		formatters.registerSelection(String.class, ObjectFormatter.<String>getInstance());
-		formatters.registerSelection(Date.class, new DateFormatter(Bo2UtilsEnvironment.getShortDateFormatPattern()));
+		formatters.registerSelection(Date.class, new DateFormatter(Bo2UtilsEnvironment.get().getShortDateFormatPattern()));
+		formatters.registerSelection(Time.class, new DateFormatter(TIME_FORMAT));
 	}
 	
 	/**
@@ -53,18 +60,17 @@ public class FormatterResolver  {
 		nrFormatters.registerSelection(Long.class, NrObjectFormatter.<Long>getInstance());
 		nrFormatters.registerSelection(Short.class, NrObjectFormatter.<Short>getInstance());
 		nrFormatters.registerSelection(String.class, NrObjectFormatter.<String>getInstance());
-		nrFormatters.registerSelection(Date.class, new NrDateFormatter(Bo2UtilsEnvironment.getShortDateFormatPattern()));
+		nrFormatters.registerSelection(Date.class, new NrDateFormatter(Bo2UtilsEnvironment.get().getShortDateFormatPattern()));
+		nrFormatters.registerSelection(Time.class, new NrDateFormatter(TIME_FORMAT));
 	}
 
 	/**
 	 * Gets the formatter that can format an object to a String
 	 * based on the specified object type.
-	 * 
-	 * @param type
-	 *        Class of C
+	 *
+	 * @param <C>        Type of object to be formatted
 	 *        
-	 * @param <C>
-	 *        Type of object to be formatted
+	 * @param type        Class of C
 	 *        
 	 * @return Returns the appropriate Formatter implementation.
 	 */
@@ -76,12 +82,10 @@ public class FormatterResolver  {
 	/**
 	 * Gets the null returning formatter that can format an object to a String
 	 * based on the specified object type.
-	 * 
-	 * @param type
-	 *        Class of C
+	 *
+	 * @param <C>        Type of object to be formatted
 	 *        
-	 * @param <C>
-	 *        Type of object to be formatted
+	 * @param type        Class of C
 	 *        
 	 * @return Returns the appropriate Formatter implementation.
 	 */

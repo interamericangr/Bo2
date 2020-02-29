@@ -24,25 +24,22 @@ import java.util.GregorianCalendar;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestTimestampType.
  */
 public class TestTimestampType {
 
 	
-	/**
-	 * CalendarType
-	 */
+	/** CalendarType. */
 	TimestampType timestampType = TimestampType.INSTANCE;
 	
-	/**
-	 * MockResultSet
-	 */
+	/** MockResultSet. */
 	MockResultSet rs = new MockResultSet();
 	
 	
 	/**
-	 * Tests get when column index is string
-	 * @throws SQLException
+	 * Tests get when column index is string.
+	 *
+	 * @throws SQLException the SQL exception
 	 */
 	@Test
 	public void testGet_string() throws SQLException{
@@ -52,8 +49,9 @@ public class TestTimestampType {
 	}
 	
 	/**
-	 * Tests get when column index is string
-	 * @throws SQLException
+	 * Tests get when column index is string.
+	 *
+	 * @throws SQLException the SQL exception
 	 */
 	@Test
 	public void testGet_integer() throws SQLException{
@@ -63,7 +61,7 @@ public class TestTimestampType {
 	}
 	
 	/**
-	 * Tests sqlString when value is null
+	 * Tests sqlString when value is null.
 	 */
 	@Test
 	public void testSqlString_nullValue(){
@@ -73,7 +71,7 @@ public class TestTimestampType {
 	}
 	
 	/**
-	 * Tests sqlString when value is null
+	 * Tests sqlString when value is null.
 	 */
 	@Test
 	public void testSqlString(){

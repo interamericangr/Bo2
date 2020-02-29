@@ -47,16 +47,19 @@ implements Type<Calendar> {
 	 */
 	private static DateFormat df = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss.SSS"); //$NON-NLS-1$
 	
+	@Override
 	public Calendar get(ResultSet rs, String columnIndex) throws SQLException {		
 		Timestamp dt = rs.getTimestamp(columnIndex);		
 		return DateUtils.getCalendar(dt);
 	}
 	
+	@Override
 	public Calendar get(ResultSet rs, int columnIndex) throws SQLException {		
 		Timestamp dt = rs.getTimestamp(columnIndex);		
 		return DateUtils.getCalendar(dt);
 	}	
 	
+	@Override
 	public synchronized String sqlString(Calendar t) {
 		if (t==null) {
 			return StringConstants.NULL;
@@ -65,6 +68,7 @@ implements Type<Calendar> {
 		return StringUtils.quotes(s);
 	}
 	
+	@Override
 	public Object statementParameter(Calendar t) {
 		if (t!=null) {			
 			return new java.sql.Date(t.getTimeInMillis());
@@ -72,14 +76,17 @@ implements Type<Calendar> {
 		return null;
 	}
 	
+	@Override
 	public Class<Calendar> getJavaType() {		
 		return Calendar.class;
 	}
 
+	@Override
 	public Calendar get(ResultSet rs, String columnIndex, boolean returnNullValues) throws SQLException {
 		return get(rs, columnIndex);
 	}
 
+	@Override
 	public Calendar get(ResultSet rs, int columnIndex, boolean returnNullValues) throws SQLException {
 		return get(rs, columnIndex);
 	}

@@ -16,21 +16,23 @@ import gr.interamerican.bo2.arch.Key;
 import gr.interamerican.bo2.impl.open.annotations.KeyProperties;
 
 /**
- * 
+ * The Interface InvoiceCustomerListKey.
  */
 @KeyProperties("invoiceCustomerListNo")
 public interface InvoiceCustomerListKey 
 extends Key {
 	
 	/**
-	 * Gets invoiceCustomerListNo
+	 * Gets invoiceCustomerListNo.
+	 *
 	 * @return invoiceCustomerListNo
 	 */
 	public String getInvoiceCustomerListNo();
 	
 	/**
-	 * Sets invoiceCustomerListNo
-	 * @param invoiceCustomerListNo
+	 * Sets invoiceCustomerListNo.
+	 *
+	 * @param invoiceCustomerListNo the new invoice customer list no
 	 */
 	public void setInvoiceCustomerListNo(String invoiceCustomerListNo);
 

@@ -7,15 +7,14 @@ import gr.interamerican.wicket.factories.ServicePanelFixtureResolver;
 import gr.interamerican.wicket.markup.html.panel.service.ServicePanel;
 
 /**
- * ServicePanelFixtureResolver implementation
+ * ServicePanelFixtureResolver implementation.
  */
 public class DefaultServicePanelFixtureResolver implements ServicePanelFixtureResolver {
 	
-	/**
-	 * tlCache
-	 */
+	/** tlCache. */
 	final ThreadLocal<Map<String, ServicePanel>> tlCache = new ThreadLocal<Map<String, ServicePanel>>();
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public <M extends ServicePanel> M resolveFixture(String panelId) {
 		if(tlCache.get()==null) { //no fixture has been configured
@@ -24,6 +23,7 @@ public class DefaultServicePanelFixtureResolver implements ServicePanelFixtureRe
 		return (M) tlCache.get().get(panelId);
 	}
 
+	@Override
 	public <M extends ServicePanel> void registerFixture(String panelId, M fixture) {
 		if(tlCache.get()==null) {
 			tlCache.set(new HashMap<String, ServicePanel>());
@@ -31,6 +31,7 @@ public class DefaultServicePanelFixtureResolver implements ServicePanelFixtureRe
 		tlCache.get().put(panelId, fixture);
 	}
 
+	@Override
 	public void clearFixturesCache() {
 		if(tlCache.get()==null) {
 			return;

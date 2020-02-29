@@ -12,6 +12,8 @@
  ******************************************************************************/
 package gr.interamerican.bo2.gui.properties;
 
+import gr.interamerican.bo2.utils.attributes.Enabled;
+
 /**
  * Properties of a text field.
  * 
@@ -28,8 +30,8 @@ extends LabelOption, Enabled {
 	
 	/**
 	 * Sets the textLength.
-	 * 
-	 * @param columns
+	 *
+	 * @param columns the new columns
 	 */
 	void setColumns(int columns);
 	
@@ -48,7 +50,4 @@ extends LabelOption, Enabled {
 	 * @return Returns the editable
 	 */
 	boolean isEditable();
-
-
-
 }

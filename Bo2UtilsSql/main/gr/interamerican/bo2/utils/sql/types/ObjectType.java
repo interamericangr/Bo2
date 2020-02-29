@@ -34,14 +34,17 @@ extends QuotedType<Object> {
 		super();
 	}
 	
+	@Override
 	public Object get(ResultSet rs, String columnIndex) throws SQLException {		
 		return rs.getObject(columnIndex);
 	}
 	
+	@Override
 	public Object get(ResultSet rs, int columnIndex) throws SQLException {		
 		return rs.getObject(columnIndex);
 	}
 	
+	@Override
 	public Class<Object> getJavaType() {		
 		return Object.class;
 	}	

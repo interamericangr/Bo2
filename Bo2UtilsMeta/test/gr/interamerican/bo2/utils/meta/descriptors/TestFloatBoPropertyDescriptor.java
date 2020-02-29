@@ -23,14 +23,13 @@ import org.junit.Test;
  */
 public class TestFloatBoPropertyDescriptor {
 	
-	/**
-	 * FloatBoPropertyDescriptor
-	 */
+	/** FloatBoPropertyDescriptor. */
 	private FloatBoPropertyDescriptor floatDesc = new FloatBoPropertyDescriptor();
 	
 	/**
-	 * Test Parse
-	 * @throws ParseException
+	 * Test Parse.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@Test		
 	public void testParse() throws ParseException{
@@ -41,8 +40,9 @@ public class TestFloatBoPropertyDescriptor {
 	}
 	
 	/**
-	 * Test Parse
-	 * @throws ParseException
+	 * Test Parse.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@Test		
 	public void testParseNullValue() throws ParseException{
@@ -51,7 +51,7 @@ public class TestFloatBoPropertyDescriptor {
 	}
 	
 	/**
-	 * Test format
+	 * Test format.
 	 */
 	@Test
 	public void testFormat(){

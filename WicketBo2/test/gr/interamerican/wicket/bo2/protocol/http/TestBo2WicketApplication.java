@@ -27,21 +27,18 @@ import org.junit.Test;
 public class TestBo2WicketApplication {
 	
 	/**
-	 * Tests the Page
+	 * Tests the Page.
 	 */
 	@Test
 	public void testConstructor(){
 		MockBo2WicketApplicaton app = new MockBo2WicketApplicaton();
 		WicketTester wicketTester = new WicketTester(app);
 		wicketTester.startPage(app.getHomePage());		
-		wicketTester.assertRenderedPage(app.getHomePage());		
+		wicketTester.assertRenderedPage(EmptyPage.class);		
 	}
 
-	
 	/**
-	 * 
-	 * Test mock class to test the Bo2WicketApplication
-	 *
+	 * Test mock class to test the Bo2WicketApplication.
 	 */
 	private class MockBo2WicketApplicaton extends Bo2WicketApplication<String,String>{
 
@@ -59,9 +56,5 @@ public class TestBo2WicketApplication {
 		public Class<? extends Page> getHomePage() {
 			return EmptyPage.class;
 		}
-		
-	}
-	
-	
-	
+	}	
 }

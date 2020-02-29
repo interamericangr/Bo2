@@ -21,9 +21,9 @@ import org.junit.Test;
 public class TestAccessType {
 	
 	/**
-	 * Tests accessType(boolean,boolean)
-	 * 
-	 * @param type
+	 * Tests accessType(boolean,boolean).
+	 *
+	 * @param type the type
 	 */
 	void test(AccessType type) {
 		AccessType actual = AccessType.accessType(type.isReadable(), type.isModifiable());
@@ -31,8 +31,7 @@ public class TestAccessType {
 	}
 	
 	/**
-	 * Unit test for accessType(boolean,boolean)
-	 * 
+	 * Unit test for accessType(boolean,boolean).
 	 */
 	@Test
 	public void testAccessType() {

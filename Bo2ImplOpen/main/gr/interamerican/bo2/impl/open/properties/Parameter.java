@@ -37,10 +37,9 @@ public interface Parameter<T> extends Worker {
     
     /**
      * Gets the value of the parameter.
-     * 
+     *
      * @return the parameter value.
-     * 
-     * @throws DataException 
+     * @throws DataException the data exception
      */
     public T getValue() throws DataException;
     

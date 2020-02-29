@@ -24,7 +24,7 @@ public abstract class JdbcCommand
 extends AbstractJdbcWorker 
 implements DataCommand {
 
-	
+	@Override
 	public void execute() throws DataException {
 		try {
 			Debug.setActiveModule(this);
@@ -37,8 +37,8 @@ implements DataCommand {
 	
 	/**
 	 * Main body of DataCommand.
-	 * 
-	 * @throws DataException
+	 *
+	 * @throws DataException the data exception
 	 */
 	protected abstract void work() throws DataException;
 

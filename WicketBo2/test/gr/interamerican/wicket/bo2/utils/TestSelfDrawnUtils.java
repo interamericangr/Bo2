@@ -32,7 +32,7 @@ import org.junit.Test;
 public class TestSelfDrawnUtils extends BaseClassForTestingComponentFactory{
 	
 	/**
-	 * Test getComponentFromSelfDrawnPanel
+	 * Test getComponentFromSelfDrawnPanel.
 	 */
 	@Test
 	public void testGetComponentFromSelfDrawnPanel(){

@@ -31,6 +31,7 @@ import org.junit.Test;
 /**
  * Unit tests for {@link SimpleFilesPanel}.
  */
+@Deprecated
 public class TestSimpleFilesPanel extends WicketTest {
 	
 	/**
@@ -39,7 +40,7 @@ public class TestSimpleFilesPanel extends WicketTest {
 	SimpleFilesPanelDef def;
 	
 	/**
-	 * Test construct
+	 * Test construct.
 	 */
 	@Test
 	public void testConstruct() {
@@ -51,7 +52,7 @@ public class TestSimpleFilesPanel extends WicketTest {
 	}
 	
 	/**
-	 * testSubmit
+	 * testSubmit.
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -84,7 +85,7 @@ public class TestSimpleFilesPanel extends WicketTest {
 	}
 	
 	@Override
-	protected Component initializeComponent() {
+	protected Component initializeComponent(String wicketId) {
 		List<NamedDescribed> defs = new ArrayList<NamedDescribed>();
 		NamedDescribed def1 = new NamedDescribedImpl();
 		def1.setName("file1"); //$NON-NLS-1$
@@ -97,38 +98,10 @@ public class TestSimpleFilesPanel extends WicketTest {
 		
 		def = new SimpleFilesPanelDefImpl();
 		def.setSubmitAction(new ChainedCallbackActionImpl());
-		def.setWicketId(TestPage.TEST_ID);
+		def.setWicketId(wicketId);
 		def.setFileDefinitions(defs);
 		
 		return new SimpleFilesPanel(def);
-		
-	}
-	
-	@SuppressWarnings("javadoc")
-	class NamedDescribedImpl implements NamedDescribed {
-
-		String name;
-		String description;
-		
-		@Override
-		public String getName() {
-			return name;
-		}
-
-		@Override
-		public void setName(String name) {
-			this.name = name;
-		}
-
-		@Override
-		public String getDescription() {
-			return description;
-		}
-
-		@Override
-		public void setDescription(String description) {
-			this.description = description;
-		}
 		
 	}
 

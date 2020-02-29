@@ -32,6 +32,7 @@ public class PoComparator
  P extends PersistentObject<K>> 
 implements Comparator<P> {
 
+	@Override
 	public int compare(P left, P right) {
 		if (left==null && right==null) {
 			return 0;
@@ -45,5 +46,4 @@ implements Comparator<P> {
 		
 		return Utils.nullSafeCompare(left.getKey(), right.getKey());
 	}
-
 }

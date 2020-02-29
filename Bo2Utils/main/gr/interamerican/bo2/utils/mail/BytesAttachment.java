@@ -34,8 +34,8 @@ implements Attachment {
 	/**
 	 * Creates a new MailAttachment object. 
 	 *
-	 * @param content
-	 * @param filename
+	 * @param content the content
+	 * @param filename the filename
 	 */
 	public BytesAttachment(byte[] content, String filename) {
 		super(filename);
@@ -51,6 +51,7 @@ implements Attachment {
 		return content;
 	}
 	
+	@Override
 	public MimeBodyPart getMimeBodyPart() throws MessagingException {		
 		FileTypeMap map = FileTypeMap.getDefaultFileTypeMap();
 		String mimetype = map.getContentType(filename);		

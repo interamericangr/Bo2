@@ -15,8 +15,8 @@ public class TestSegmentedArea {
 	 * Fixes an area separating it to 3 rows and 2 columns, 
 	 * associating each cell with a string that contains its
 	 * dimensions.
-	 * 
-	 * @param area
+	 *
+	 * @param area the area
 	 */
 	@SuppressWarnings("nls")
 	void fixArea(SegmentedArea<Integer, Long, String> area) {

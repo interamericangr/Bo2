@@ -31,11 +31,9 @@ extends Worker {
 	
 	/**
 	 * Deletes the persistent object with the specified key.
-	 * 
-	 * @param key
-	 *        Key of the persistent object.       
-	 * 
-	 * @throws DataException 
+	 *
+	 * @param key        Key of the persistent object.       
+	 * @throws DataException the data exception
 	 */
 	public void delete(K key) throws DataException;
 	
@@ -47,12 +45,11 @@ extends Worker {
 	 * This method is optional for classes implementing this interface.
 	 * If a class does not support this method, then a {@link DataOperationNotSupportedException}
 	 * should be thrown. 
-	 * 
-	 * @param key
-	 *        Object with its properties equal with the properties
+	 *
+	 * @param key        Object with its properties equal with the properties
 	 *        of the persistent object's key.
 	 *        
-	 * @throws DataException 
+	 * @throws DataException the data exception
 	 */
 	public void deleteByProperties(Object key) throws DataException;
 	

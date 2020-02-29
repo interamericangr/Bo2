@@ -24,23 +24,19 @@ import org.junit.Test;
 
 
 /**
- * 
+ * The Class TestMultipleValidationsException.
  */
 public class TestMultipleValidationsException {
 
 	
-	/**
-	 * map fro test
-	 */
+	/** map fro test. */
 	Map<Object, String> m = new HashMap<Object, String>();
 	
-	/**
-	 * MultipleValidationsException
-	 */
+	/** MultipleValidationsException. */
 	MultipleValidationsException mve = new MultipleValidationsException("ValidationsException",m); //$NON-NLS-1$
 	
 	/**
-	 * tests GetValidationFailures
+	 * tests GetValidationFailures.
 	 */
 	@Test
 	public void testGetValidationFailures(){
@@ -50,8 +46,9 @@ public class TestMultipleValidationsException {
 		String actual = mve.getValidationFailures().get(bean);
 		assertEquals(expected,actual);
 	}
+	
 	/**
-	 * test getAllMessages
+	 * test getAllMessages.
 	 */
 	@Test
 	public void testGetAllMessages() {

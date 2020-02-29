@@ -49,7 +49,7 @@ public enum StreamType {
 	/**
 	 * Creates a new StreamType object. 
 	 *
-	 * @param streamType
+	 * @param streamType the stream type
 	 */
 	private StreamType(Class<?> streamType) {
 		this.streamType = streamType;
@@ -72,6 +72,8 @@ public enum StreamType {
 	}
 	
 	/**
+	 * Checks if is output stream.
+	 *
 	 * @return Returns true, if this stream is an output stream.
 	 */
 	public boolean isOutputStream() {

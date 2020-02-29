@@ -50,9 +50,7 @@ public class TestAbstractFieldsAnalyzer {
 
 		@Override
 		protected List<Field> fieldsToInclude(Class<?> clazz) {
-			// TODO Auto-generated method stub
 			return null;
 		}
-		
 	}
 }

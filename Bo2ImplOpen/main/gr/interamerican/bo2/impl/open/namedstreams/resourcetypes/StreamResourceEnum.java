@@ -38,10 +38,7 @@ public enum StreamResourceEnum implements StreamResource {
 	 */
 	SYSTEM(),
 
-	/**
-	 * The stream is a resource accessible over HTTP
-	 * This stream supports only input {@link StreamType}s
-	 */
+	/** The stream is a resource accessible over HTTP This stream supports only input {@link StreamType}s. */
 	HTTP(),
 	/**
 	 * The stream is based on a File that is dynamically created on runtime.
@@ -71,8 +68,6 @@ public enum StreamResourceEnum implements StreamResource {
 
 	/**
 	 * Creates a new StreamResource.
-	 *
-	 * @param factory
 	 */
 	private StreamResourceEnum() {
 		/* empty */
@@ -93,10 +88,4 @@ public enum StreamResourceEnum implements StreamResource {
 	private void setFactory(NamedStreamFactory factory) {
 		this.factory = factory;
 	}
-
-
-
-
-
-
 }

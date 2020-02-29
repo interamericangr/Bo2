@@ -27,10 +27,10 @@ public class TestMakingConcreteClassUpdater {
 	
 	/**
 	 * Unit test for update.
-	 * 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws ClassCreationException 
+	 *
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws ClassCreationException the class creation exception
 	 */	
 	@Test
 	public void testUpdate() 

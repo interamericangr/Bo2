@@ -8,17 +8,15 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 /**
- * Test {@link DefaultServicePanelFixtureResolver}
+ * Test {@link DefaultServicePanelFixtureResolver}.
  */
 public class TestDefaultServicePanelFixtureResolver {
 	
-	/**
-	 * subject
-	 */
+	/** subject. */
 	DefaultServicePanelFixtureResolver impl = new DefaultServicePanelFixtureResolver();
 	
 	/**
-	 * test
+	 * test.
 	 */
 	@Test
 	public void testLifeCycle() {

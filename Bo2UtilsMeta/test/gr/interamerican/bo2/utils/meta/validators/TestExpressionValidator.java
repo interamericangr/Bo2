@@ -34,7 +34,8 @@ public class TestExpressionValidator {
 
 	/**
 	 * Test method for validate(java.lang.String).
-	 * @throws ValidationException 
+	 *
+	 * @throws ValidationException the validation exception
 	 */
 	@Test
 	public void testValidate() throws ValidationException {
