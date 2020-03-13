@@ -20,7 +20,7 @@ import gr.interamerican.bo2.test.def.samples.enums.Sex;
 import java.util.List;
 
 /**
- * 
+ * The Interface CompanyUser.
  */
 public interface CompanyUser 
 extends CompanyUserKP, PersistentObject<CompanyUserKey>, ModificationRecord {
@@ -40,8 +40,8 @@ extends CompanyUserKP, PersistentObject<CompanyUserKey>, ModificationRecord {
 	public void setCompanyRole(CompanyRole companyRole);
 	
 	/**
-	 * Gets the additionalRoles
-	 * 
+	 * Gets the additionalRoles.
+	 *
 	 * @return Returns the additionalRoles.
 	 */
 	public List<CompanyRole> getAdditionalRoles();

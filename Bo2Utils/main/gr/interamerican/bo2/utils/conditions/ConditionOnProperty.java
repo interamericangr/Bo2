@@ -13,34 +13,38 @@
 package gr.interamerican.bo2.utils.conditions;
 
 import gr.interamerican.bo2.utils.adapters.trans.GetProperty;
+import gr.interamerican.bo2.utils.conditions.functional.ConditionOnNestedProperty;
 
 /**
  * Checks a condition on a property of the specified object.
  * 
- * This condition delegates the check to a condition that check the
- * value of a property of the specified object.
+ * This condition delegates the check to a condition that check the value of a
+ * property of the specified object.<br>
  * 
- * @param <T> 
- *        Type of object being checked by the condition.
- * 
+ * @param <T>
+ *            Type of object being checked by the condition.
+ * @deprecated Use {@link ConditionOnTransformation} directly with a method
+ *             reference of the getter of the property ( Foo::getId ). If the
+ *             property in question is synthetic then use
+ *             {@link ConditionOnNestedProperty}
  */
-public class ConditionOnProperty<T> 
-extends ConditionOnTransformation<T, Object>  {
+@Deprecated
+public class ConditionOnProperty<T>
+extends ConditionOnTransformation<T, Object> {
 
 	/**
-	 * Creates a new ConditionOnProperty object. 
+	 * Creates a new ConditionOnProperty object.
 	 * 
-	 * @param property 
-	 *        Property name.
+	 * @param property
+	 *            Property name.
 	 * @param clazz
-	 *        Type of argument.
+	 *            Type of argument.
 	 * @param condition
-	 *        Condition to check on the property. This condition must be
-	 *        applicable to the type of the specified property.
+	 *            Condition to check on the property. This condition must be
+	 *            applicable to the type of the specified property.
 	 */
 	@SuppressWarnings("unchecked")
-	public ConditionOnProperty(String property, Class<T> clazz, Condition<?> condition) {		
-		super(new GetProperty<T, Object>(property,clazz), (Condition<Object>) condition);
+	public ConditionOnProperty(String property, Class<T> clazz, Condition<?> condition) {
+		super(new GetProperty<T, Object>(property, clazz), (Condition<Object>) condition);
 	}
-
 }

@@ -41,9 +41,9 @@ extends AbstractNonTransactionalProviderTest {
 	
 	/**
 	 * Tests the life cycle.
-	 * 
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test
 	public void testLifecycle() 

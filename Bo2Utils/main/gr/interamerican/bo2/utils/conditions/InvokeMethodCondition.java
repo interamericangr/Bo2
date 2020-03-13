@@ -19,13 +19,10 @@ implements Condition<T> {
 	 * 
 	 * This constructor will create a condition that invokes a boolean
 	 * method on the specified <code>target</code> object. 
-	 * 
-	 * @param methodName
-	 *        name of public method.
-	 * @param argumentType
-	 *        Argument type of the method. The method must have only one argument.
-	 * @param target
-	 *        Target object on which the method will be invoked.
+	 *
+	 * @param target        Target object on which the method will be invoked.
+	 * @param methodName        name of public method.
+	 * @param argumentType        Argument type of the method. The method must have only one argument.
 	 */
 	public InvokeMethodCondition(Object target, String methodName, Class<?> argumentType) {
 		super(target, methodName, argumentType);

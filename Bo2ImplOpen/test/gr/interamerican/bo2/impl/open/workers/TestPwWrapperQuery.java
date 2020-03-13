@@ -28,21 +28,20 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 /**
- * 
+ * The Class TestPwWrapperQuery.
  */
 public class TestPwWrapperQuery {
 	
-	/**
-	 * query to test
-	 */
+	/** query to test. */
 	PwWrapperQuery<User, UserKey> query = new PwWrapperQuery<User, UserKey>(User.class);
 	
 	
 	/**
-	 * Tests execute
-	 * @throws UnexpectedException
-	 * @throws DataException
-	 * @throws LogicException
+	 * Tests execute.
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testPwWrapperQuery() throws UnexpectedException, DataException, LogicException {
@@ -71,10 +70,11 @@ public class TestPwWrapperQuery {
 	
 
 	/**
-	 * Tests PwWrapperQuery when Po doesn't exist
-	 * @throws UnexpectedException
-	 * @throws DataException
-	 * @throws LogicException
+	 * Tests PwWrapperQuery when Po doesn't exist.
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testPwWrapperQuery_PoNotFounException() throws UnexpectedException, DataException, LogicException {
@@ -94,10 +94,11 @@ public class TestPwWrapperQuery {
 	
 	
 	/**
-	 * Tests PwWrapperQuery without giving criteria 
-	 * @throws UnexpectedException
-	 * @throws DataException
-	 * @throws LogicException
+	 * Tests PwWrapperQuery without giving criteria .
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test(expected = DataException.class)
 	public void testPwWrapperQuery_dataException() throws UnexpectedException, DataException, LogicException {
@@ -113,10 +114,11 @@ public class TestPwWrapperQuery {
 	
 	
 	/**
-	 * Tests PwWrapperQuery without giving criteria 
-	 * @throws UnexpectedException
-	 * @throws DataException
-	 * @throws LogicException
+	 * Tests PwWrapperQuery without giving criteria .
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test(expected = DataException.class)
 	public void testGetEntity() throws UnexpectedException, DataException, LogicException {
@@ -131,7 +133,7 @@ public class TestPwWrapperQuery {
 	}
 	
 	/**
-	 * Tests getCriteria
+	 * Tests getCriteria.
 	 */
 	@Test
 	public void testGetCriteria(){
@@ -143,7 +145,7 @@ public class TestPwWrapperQuery {
 	
 	
 	/**
-	 *Tests isAvoidLock 
+	 * Tests isAvoidLock.
 	 */
 	@Test
 	public void testIsAvoidLock(){
@@ -152,7 +154,7 @@ public class TestPwWrapperQuery {
 	
 	
 	/**
-	 *Tests isAvoidLock 
+	 * Tests isAvoidLock.
 	 */
 	@Test
 	public void testSetAvoidLock(){

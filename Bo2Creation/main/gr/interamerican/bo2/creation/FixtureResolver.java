@@ -12,25 +12,28 @@ public interface FixtureResolver {
 	/**
 	 * Resolves a fixture for a given class. If no fixture is found, null
 	 * is returned.
-	 * 
-	 * @param type
+	 *
+	 * @param <M> the generic type
+	 * @param type the type
 	 * @return Fixture instance.
 	 */
 	<M> M resolveFixture(Class<M> type);
 	
 	/**
 	 * Registers a fixture.
-	 * 
-	 * @param declarationType
-	 * @param fixture
+	 *
+	 * @param <M> the generic type
+	 * @param declarationType the declaration type
+	 * @param fixture the fixture
 	 */
 	<M> void registerFixture(Class<M> declarationType, M fixture);
 	
 	/**
 	 * Registers a fixture.
-	 * 
-	 * @param declarationType
-	 * @param fixtureFactory
+	 *
+	 * @param <M> the generic type
+	 * @param declarationType the declaration type
+	 * @param fixtureFactory the fixture factory
 	 */
 	<M> void registerFixture(Class<M> declarationType, ObjectFactory fixtureFactory);
 	

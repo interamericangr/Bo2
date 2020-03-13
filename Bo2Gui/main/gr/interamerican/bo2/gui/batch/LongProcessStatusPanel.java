@@ -33,33 +33,25 @@ extends BPanel<LongProcessStatus> {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	/**
-	 * Names of non-boolean fields
-	 */
+	/** Names of non-boolean fields. */
 	@SuppressWarnings("nls")
 	protected static final String[] NAME_FIELDS = { 
 		"name" 
 	};
 	
-	/**
-	 * Names of boolean fields
-	 */
+	/** Names of boolean fields. */
 	@SuppressWarnings("nls")
 	protected static final String[] FLAGS = { 
 		"finished", "finishedAbnormally", "paused" 
 	};
 	
-	/**
-	 * Names of non-boolean fields
-	 */
+	/** Names of non-boolean fields. */
 	@SuppressWarnings("nls")
 	protected static final String[] TIME_FIELDS = { 
 		"startTime", "endTime", 
 	};
 	
-	/**
-	 * Names of non-boolean fields
-	 */
+	/** Names of non-boolean fields. */
 	@SuppressWarnings("nls")
 	protected static final String[] COUNT_FIELDS = { 
 		"processedCount", "successesCount", "failuresCount" 
@@ -69,7 +61,7 @@ extends BPanel<LongProcessStatus> {
 	/**
 	 * Creates a new LongProcessStatusPanel object. 
 	 *
-	 * @param model
+	 * @param model the model
 	 */
 	public LongProcessStatusPanel(LongProcessStatus model) {
 		super(model);

@@ -25,16 +25,13 @@ import java.util.ResourceBundle;
  *
  */
 public class Util {
-	/**
-	 * parameters bundle name
-	 */
+	
+	/** parameters bundle name. */
 	private static final String PARAMETERS_BUNDLE_NAME = 
 		"gr.interamerican.bo2.impl.open.utils.parameters"; //$NON-NLS-1$
 	
 
-	/**
-	 * parameters resource bundle
-	 */
+	/** parameters resource bundle. */
 	private static final ResourceBundle PARAMETERS_BUNDLE = 
 		ResourceBundle.getBundle(PARAMETERS_BUNDLE_NAME);
 
@@ -48,8 +45,8 @@ public class Util {
 
 	/**
 	 * Gets the Bo2 parameter associated with a key.
-	 * 
-	 * @param key
+	 *
+	 * @param key the key
 	 * @return Returns the literal associated with the specified key.
 	 */
 	public static String getParameter(String key) {
@@ -67,11 +64,10 @@ public class Util {
 	 * 
 	 * Empty lines are excluded. Also, everuthing following a '#' on
 	 * a line is excluded.
-	 * 
-	 * @param path Path to the file. 
-	 * 
+	 *
+	 * @param path Path to the file.
 	 * @return Returns an array with names of mappings files.
-	 * @throws IOException 
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public static String[] readFile(String path) 
 	throws IOException {

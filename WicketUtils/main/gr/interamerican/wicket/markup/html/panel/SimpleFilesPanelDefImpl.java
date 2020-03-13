@@ -12,17 +12,20 @@
  ******************************************************************************/
 package gr.interamerican.wicket.markup.html.panel;
 
-import gr.interamerican.bo2.utils.attributes.NamedDescribed;
-import gr.interamerican.wicket.callback.ChainedCallbackAction;
-import gr.interamerican.wicket.markup.html.panel.back.ServicePanelWithBackDefImpl;
-
 import java.util.List;
 
 import org.apache.wicket.markup.html.form.upload.FileUpload;
 
+import gr.interamerican.bo2.utils.attributes.NamedDescribed;
+import gr.interamerican.wicket.callback.ChainedCallbackAction;
+import gr.interamerican.wicket.markup.html.panel.back.ServicePanelWithBackDefImpl;
+import gr.interamerican.wicket.markup.html.panel.files.MultipleFilesPanelDefImpl;
+
 /**
- * Implementation of {@link SimpleFilesPanelDef}
+ * Implementation of {@link SimpleFilesPanelDef}.
+ * @deprecated Switch to {@link MultipleFilesPanelDefImpl}
  */
+@Deprecated
 public class SimpleFilesPanelDefImpl extends ServicePanelWithBackDefImpl implements SimpleFilesPanelDef {
 
 	/**
@@ -30,31 +33,15 @@ public class SimpleFilesPanelDefImpl extends ServicePanelWithBackDefImpl impleme
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	/**
-	 * fileDefinitions
-	 */
+	/** fileDefinitions. */
 	private List<NamedDescribed> fileDefinitions;
 	
-	/**
-	 * uploadedFiles
-	 */
+	/** uploadedFiles. */
 	private List<FileUpload> uploadedFiles;
 	
-	/**
-	 * uploadedFiles
-	 */
+	/** uploadedFiles. */
 	private ChainedCallbackAction submitAction;
-	
-	/**
-	 * fileEncoding
-	 */
-	private String fileEncoding;
-	
-	/**
-	 * showEncodingsMenu
-	 */
-	private boolean showEncodingsMenu;
-	
+
 	@Override
 	public List<NamedDescribed> getFileDefinitions() {
 		return fileDefinitions;
@@ -84,25 +71,4 @@ public class SimpleFilesPanelDefImpl extends ServicePanelWithBackDefImpl impleme
 	public void setSubmitAction(ChainedCallbackAction submitAction) {
 		this.submitAction = submitAction;
 	}
-
-	@Override
-	public String getFileEncoding() {
-		return fileEncoding;
-	}
-
-	@Override
-	public void setFileEncoding(String fileEncoding) {
-		this.fileEncoding = fileEncoding;
-	}
-
-	@Override
-	public boolean getShowEncodingsMenu() {
-		return showEncodingsMenu;
-	}
-
-	@Override
-	public void setShowEncodingsMenu(boolean showEncodingsMenu) {
-		this.showEncodingsMenu = showEncodingsMenu;
-	}
-
 }

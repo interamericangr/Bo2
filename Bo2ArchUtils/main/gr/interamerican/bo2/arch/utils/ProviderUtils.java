@@ -60,16 +60,11 @@ public class ProviderUtils {
 	 * This method will return null, if an {@link InitializationException}
 	 * occurs, therefore it should be used preferably when it is certain that 
 	 * the resource wrapper managers of the provider have been initialized. 
-	 * 
-	 * @param resourceName
-	 *        Name of resource wrapper manager.
-	 * @param wrapperClass
-	 *        Class of resource wrapper.
-	 * @param provider
-	 *        Provider.
-	 * @param <C>
-	 *        Type of resource wrapper.
-	 * 
+	 *
+	 * @param <C>        Type of resource wrapper.
+	 * @param resourceName        Name of resource wrapper manager.
+	 * @param wrapperClass        Class of resource wrapper.
+	 * @param provider        Provider.
 	 * @return Returns the resource wrapper if it exists. If not, returns null.
 	 */
 	public static <C extends ResourceWrapper> C getResourceWrapper

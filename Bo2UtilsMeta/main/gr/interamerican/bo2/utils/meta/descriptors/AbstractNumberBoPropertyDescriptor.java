@@ -28,9 +28,7 @@ public abstract class AbstractNumberBoPropertyDescriptor<T extends Number>
 extends AbstractBoPropertyDescriptor<T> 
 implements NumberBoPropertyDescriptor<T> {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * zero allowed flag.
@@ -52,7 +50,7 @@ implements NumberBoPropertyDescriptor<T> {
 	/**
 	 * Creates a new AbstractNumberBoPropertyDescriptor object. 
 	 *
-	 * @param parser
+	 * @param parser the parser
 	 */
 	public AbstractNumberBoPropertyDescriptor(Parser<T> parser) {
 		super(parser);
@@ -65,11 +63,13 @@ implements NumberBoPropertyDescriptor<T> {
 		validators.put(NumberIntegerLengthValidator.class, new NumberIntegerLengthValidator<T>(lengthOfIntegerPart));
 		validators.put(NumberDecimalLengthValidator.class, new NumberDecimalLengthValidator<T>(lengthOfDecimalPart));
 	}
-	
+
+	@Override
 	public boolean isZeroAllowed() {
 		return zeroAllowed;
 	}
-	
+
+	@Override
 	public void setZeroAllowed(boolean zeroAllowed) {
 		this.zeroAllowed = zeroAllowed;
 		if (!zeroAllowed) {
@@ -78,11 +78,13 @@ implements NumberBoPropertyDescriptor<T> {
 			validators.remove(NotZeroValidator.class);
 		}
 	}
-	
+
+	@Override
 	public boolean isNegativeAllowed() {
 		return negativeAllowed;
 	}
-	
+
+	@Override
 	public void setNegativeAllowed(boolean negativeAllowed) {
 		this.negativeAllowed = negativeAllowed;
 		if (!negativeAllowed) {
@@ -91,11 +93,13 @@ implements NumberBoPropertyDescriptor<T> {
 			validators.remove(NotNegativeValidator.class);
 		}
 	}
-	
+
+	@Override
 	public int getLengthOfIntegerPart() {
 		return lengthOfIntegerPart;
 	}
-	
+
+	@Override
 	@SuppressWarnings("unchecked")
 	public void setLengthOfIntegerPart(int lengthOfIntegerPart) {
 		this.lengthOfIntegerPart = lengthOfIntegerPart;
@@ -106,11 +110,13 @@ implements NumberBoPropertyDescriptor<T> {
 			validators.put(NumberIntegerLengthValidator.class, new NumberIntegerLengthValidator<T>(lengthOfIntegerPart));
 		}
 	}
-	
+
+	@Override
 	public int getLengthOfDecimalPart() {
 		return lengthOfDecimalPart;
 	}
-	
+
+	@Override
 	@SuppressWarnings("unchecked")
 	public void setLengthOfDecimalPart(int lengthOfDecimalPart) {
 		this.lengthOfDecimalPart = lengthOfDecimalPart;
@@ -121,5 +127,4 @@ implements NumberBoPropertyDescriptor<T> {
 			validators.put(NumberDecimalLengthValidator.class, new NumberDecimalLengthValidator<T>(lengthOfDecimalPart));
 		}
 	}
-
 }

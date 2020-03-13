@@ -38,118 +38,149 @@ import org.hibernate.stat.Statistics;
 @SuppressWarnings({ "serial", "rawtypes" })
 public class MockSessionFactory implements SessionFactory {
 
+	@Override
 	public Reference getReference() throws NamingException {
 		return null;
 	}
 
+	@Override
 	public Session openSession() throws HibernateException {
 		return null;
 	}
-	
+
+	@Override
 	public Session openSession(Interceptor interceptor)
 			throws HibernateException {
 		return null;
 	}
 
+	@Override
 	public Session openSession(Connection connection) {
 		return null;
 	}
-	
+
+	@Override
 	public Session openSession(Connection connection, Interceptor interceptor) {
 		return null;
 	}
 
+	@Override
 	public Session getCurrentSession() throws HibernateException {
 		return null;
 	}
 
+	@Override
 	public StatelessSession openStatelessSession() {
 		return null;
 	}
 
+	@Override
 	public StatelessSession openStatelessSession(Connection connection) {
 		return null;
 	}
-	
+
+	@Override
 	public ClassMetadata getClassMetadata(Class entityClass) {
 		return null;
 	}
 
-	
+	@Override
 	public ClassMetadata getClassMetadata(String entityName) {
 		return null;
 	}
 
+	@Override
 	public CollectionMetadata getCollectionMetadata(String roleName) {
 		return null;
 	}
-	
+
+	@Override
 	@SuppressWarnings("unchecked")
 	public Map getAllClassMetadata() {
 		return null;
 	}
-	
+
+	@Override
 	public Map getAllCollectionMetadata() {
 		return null;
 	}
 
+	@Override
 	public Statistics getStatistics() {
 		return null;
 	}
 
+	@Override
 	public void close() throws HibernateException {/* empty */}
 
+	@Override
 	public boolean isClosed() {
 		return false;
 	}
 
+	@Override
 	public Cache getCache() {
 		return null;
 	}
 
+	@Deprecated
+	@Override
 	public void evict(Class persistentClass) throws HibernateException {/* empty */}
-	
+
+	@Deprecated
+	@Override
 	public void evict(Class persistentClass, Serializable id)
 			throws HibernateException {
-		// TODO Auto-generated method stub
-		
+		// empty
 	}
 
+	@Deprecated
+	@Override
 	public void evictEntity(String entityName) throws HibernateException {/* empty */}
-	
+
+	@Deprecated
+	@Override
 	public void evictEntity(String entityName, Serializable id) 
 	throws HibernateException {/* empty */}
-	
+
+	@Deprecated
+	@Override
 	public void evictCollection(String roleName) 
 	throws HibernateException {/* empty */}
-		
+
+	@Deprecated
+	@Override
 	public void evictCollection(String roleName, Serializable id)
 	throws HibernateException {/* empty */}
 
+	@Deprecated
+	@Override
 	public void evictQueries(String cacheRegion) 
 	throws HibernateException {/* empty */}
 
+	@Deprecated
+	@Override
 	public void evictQueries() throws HibernateException {/* empty */}
 
+
+	@Override
 	public Set getDefinedFilterNames() {
 		return null;
 	}
 
+	@Override
 	public FilterDefinition getFilterDefinition(String filterName)
 			throws HibernateException {
 		return null;
 	}
 
+	@Override
 	public boolean containsFetchProfileDefinition(String name) {
 		return false;
 	}
 
-	/* (non-Javadoc)
-	 * @see org.hibernate.SessionFactory#getTypeHelper()
-	 */
+	@Override
 	public TypeHelper getTypeHelper() {
-		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

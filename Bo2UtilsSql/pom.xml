@@ -4,18 +4,35 @@
 	<parent>
 		<groupId>gr.interamerican.bo2</groupId>
 		<artifactId>Bo2</artifactId>
-		<version>2.3.12-SNAPSHOT</version>
+		<version>3.4.1</version>
 	</parent>
-	
+
 	<artifactId>Bo2UtilsSql</artifactId>
 
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.btmatthews.maven.plugins.inmemdb</groupId>
+				<artifactId>inmemdb-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+						<execution>
+							<id>wait5</id>
+							<phase>compile</phase>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
 	<dependencies>
-	
 		<dependency>
 			<groupId>org.apache.derby</groupId>
 			<artifactId>derbyclient</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>gr.interamerican.bo2</groupId>
 			<artifactId>Bo2Utils</artifactId>
@@ -29,23 +46,13 @@
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>gr.interamerican.bo2</groupId>
 			<artifactId>Bo2TestsDeploymentBase</artifactId>
 			<version>${project.version}</version>
-			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
-		
-		<dependency>
-			<groupId>gr.interamerican.bo2</groupId>
-			<artifactId>Bo2TestsDeploymentJdbc</artifactId>
-			<version>${project.version}</version>
-			<type>test-jar</type>
-			<scope>test</scope>
-		</dependency>
-		
-	</dependencies>
 
+	</dependencies>
 </project>

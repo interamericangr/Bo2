@@ -22,8 +22,9 @@ import gr.interamerican.bo2.utils.beans.Range;
  *        Type of object being transformed to {@link Range}.
  * @param <P> 
  *        Type of Range limits.
- * 
+ * @deprecated Use {@link GetRange}
  */
+@Deprecated
 public class GetRangeFromProperties<T, P extends Comparable<? super P>>
 implements Transformation<T, Range<P>> {
 	
@@ -39,25 +40,20 @@ implements Transformation<T, Range<P>> {
 	
 	/**
 	 * Creates a new GetRangeFromProperties object. 
-	 * 
-	 * @param leftProperty
-	 *        Expression of property that defines the left limit of the range. 
-	 * @param rightProperty
-	 *        Expression of property that defines the right limit of the range. 
-	 * @param clazz 
 	 *
+	 * @param leftProperty        Expression of property that defines the left limit of the range. 
+	 * @param rightProperty        Expression of property that defines the right limit of the range. 
+	 * @param clazz the clazz
 	 */
 	public GetRangeFromProperties(String leftProperty, String rightProperty, Class<T> clazz) {
-		super();
 		getLeft = new GetProperty<T, P>(leftProperty, clazz);
 		getRight = new GetProperty<T, P>(rightProperty, clazz);
 	}
 
-
+	@Override
 	public Range<P> execute(T a) {
 		P left = getLeft.execute(a);
 		P right = getRight.execute(a);
 		return new Range<P>(left, right);
 	}
-
 }

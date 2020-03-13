@@ -22,10 +22,11 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Unit tests for {@link DependencyGraphs}
+ * Unit tests for {@link DependencyGraphs}.
  */
 public class TestDependencyGraphs {
 	
+	/** The unsolvable 1. */
 	Integer[][] unsolvable1 = new Integer[][]
 			{{1},
 			 {2},
@@ -33,6 +34,7 @@ public class TestDependencyGraphs {
 			 {4},
 			 {0}};
 	
+	/** The unsolvable 2. */
 	Integer[][] unsolvable2 = new Integer[][]
 			{{},
 			 {4, 2},
@@ -40,6 +42,7 @@ public class TestDependencyGraphs {
 			 {4, 2},
 			 {0}};
 	
+	/** The solvable 1. */
 	Integer[][] solvable1 = new Integer[][]
 			{{1},
 			 {2},
@@ -47,6 +50,7 @@ public class TestDependencyGraphs {
 			 {4},
 			 {}};
 	
+	/** The solvable 2. */
 	Integer[][] solvable2 = new Integer[][]
 			{{},
 			 {0},
@@ -54,6 +58,7 @@ public class TestDependencyGraphs {
 			 {2},
 			 {3}};
 	
+	/** The solvable 3. */
 	Integer[][] solvable3 = new Integer[][]
 			{{1,2,3,4},
 			 {5},
@@ -62,6 +67,9 @@ public class TestDependencyGraphs {
 			 {},
 			 {}};
 	
+	/**
+	 * Test is solvable.
+	 */
 	@Test
 	public void testIsSolvable() {
 		Assert.assertFalse(DependencyGraphs.get().isSolvable(getInput(unsolvable1)));
@@ -71,6 +79,9 @@ public class TestDependencyGraphs {
 		Assert.assertTrue(DependencyGraphs.get().isSolvable(getInput(solvable3)));
 	}
 	
+	/**
+	 * Test odered considering dependencies.
+	 */
 	@Test
 	public void testOderedConsideringDependencies() {
 		List<Integer> list = DependencyGraphs.get().getNodesOrderWithDependencies(getInput(solvable1));
@@ -81,11 +92,20 @@ public class TestDependencyGraphs {
 		Assert.assertEquals(list.get(0), new Integer(0));
 	}
 	
+	/**
+	 * Test odered considering dependencies ex.
+	 */
 	@Test(expected=IllegalStateException.class)
 	public void testOderedConsideringDependencies_ex() {
 		DependencyGraphs.get().getNodesOrderWithDependencies(getInput(unsolvable1));
 	}
 	
+	/**
+	 * Gets the input.
+	 *
+	 * @param input the input
+	 * @return the input
+	 */
 	static Map<Integer, Set<Integer>> getInput(Integer[][] input) {
 		Map<Integer, Set<Integer>> result = new HashMap<Integer, Set<Integer>>();
 		for(int row=0; row<input.length; row++) {

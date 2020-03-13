@@ -21,9 +21,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Unit test for {@link JdbcConnectionProviderImpl}
- * 
- *
+ * Unit test for {@link JdbcConnectionProviderImpl}.
  */
 public class TestJdbcConnectionProviderImpl {
 	
@@ -34,7 +32,8 @@ public class TestJdbcConnectionProviderImpl {
 	
 	/**
 	 * tests setup.
-	 * @throws InitializationException 
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Before
 	public void setup() throws InitializationException {
@@ -44,7 +43,8 @@ public class TestJdbcConnectionProviderImpl {
 	/**
 	 * Tests close.
 	 *   
-	 * @throws DataException 
+	 *
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testClose() throws DataException {	

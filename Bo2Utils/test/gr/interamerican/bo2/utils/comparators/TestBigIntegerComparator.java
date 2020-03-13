@@ -19,18 +19,16 @@ import java.math.BigDecimal;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestBigIntegerComparator.
  */
 public class TestBigIntegerComparator {
 
 	
-	/**
-	 * BigIntegerComparator
-	 */
+	/** BigIntegerComparator. */
 	BigIntegerComparator bc =  new BigIntegerComparator();
 	
 	/**
-	 * test compare when numbers are BigDecimal
+	 * test compare when numbers are BigDecimal.
 	 */
 	@Test
 	public void testCompare(){

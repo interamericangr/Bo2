@@ -25,33 +25,39 @@ import org.hibernate.usertype.ParameterizedType;
  */
 public abstract class AbstractUserType 
 implements EnhancedUserType, ParameterizedType{
-	
+
+	@Override
 	public boolean equals(Object x, Object y) throws HibernateException {
 		return Utils.equals(x, y);
 	}
 
+	@Override
 	public int hashCode(Object x) throws HibernateException {
 		return x.hashCode();
 	}
-	
+
+	@Override
 	public Object deepCopy(Object value) throws HibernateException {
 		return value;
 	}
 
+	@Override
 	public boolean isMutable() {
 		return false;
 	}
 
+	@Override
 	public Serializable disassemble(Object value) throws HibernateException {
 		return (Serializable) value;
 	}
 
+	@Override
 	public Object assemble(Serializable cached, Object owner) throws HibernateException {
 		return cached;
 	}
 
+	@Override
 	public Object replace(Object original, Object target, Object owner) throws HibernateException {
 		return original;
 	}
-
 }

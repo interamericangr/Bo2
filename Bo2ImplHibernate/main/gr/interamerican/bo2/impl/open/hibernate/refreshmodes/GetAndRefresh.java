@@ -26,7 +26,8 @@ public class GetAndRefresh implements GetFromSession {
 	 * Instance.
 	 */
 	public static final GetAndRefresh INSTANCE = new GetAndRefresh(); 
-	
+
+	@Override
 	public Object get(Session session, Serializable id, Class<?> persistentClass) {
 		Object o = session.get(persistentClass, id);
 		if (o!=null) {
@@ -34,5 +35,4 @@ public class GetAndRefresh implements GetFromSession {
 		}
 		return o;
 	}
-
 }

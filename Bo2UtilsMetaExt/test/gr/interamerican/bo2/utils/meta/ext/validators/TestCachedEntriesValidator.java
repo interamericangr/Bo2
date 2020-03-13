@@ -25,8 +25,10 @@ import org.junit.Test;
  * Unit test for {@link CachedEntriesValidator}.
  */
 public class TestCachedEntriesValidator extends AbstractCacheRelatedTest {
+	
 	/**
-	 * Creates a CachedObjectValidator
+	 * Creates a CachedObjectValidator.
+	 *
 	 * @return CachedObjectValidator
 	 */
 	private CachedEntriesValidator<TypedSelectable<Long>, Long> createCachedEntriesObjectValidator(){
@@ -42,10 +44,10 @@ public class TestCachedEntriesValidator extends AbstractCacheRelatedTest {
 	
 	
 	/**
-	 * Test Validate
-	 * @throws ValidationException 
+	 * Test Validate.
+	 *
+	 * @throws ValidationException the validation exception
 	 */
-	@SuppressWarnings("unchecked")
 	@Test(expected=ValidationException.class)
 	public void testValidateNoInCacheValue() throws ValidationException{
 		
@@ -59,10 +61,10 @@ public class TestCachedEntriesValidator extends AbstractCacheRelatedTest {
 	}
 	
 	/**
-	 * Test Validate
-	 * @throws ValidationException 
+	 * Test Validate.
+	 *
+	 * @throws ValidationException the validation exception
 	 */
-	@SuppressWarnings("unchecked")
 	@Test
 	public void testValidate() throws ValidationException{
 		

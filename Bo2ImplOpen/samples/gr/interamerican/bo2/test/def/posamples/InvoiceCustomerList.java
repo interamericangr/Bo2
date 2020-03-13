@@ -18,32 +18,36 @@ import gr.interamerican.bo2.arch.PersistentObject;
 import java.util.List;
 
 /**
- * 
+ * The Interface InvoiceCustomerList.
  */
 public interface InvoiceCustomerList 
 extends PersistentObject<InvoiceCustomerListKey>, ModificationRecord {
 	
 	/**
-	 * Gets InvoiceCustomerListNo
+	 * Gets InvoiceCustomerListNo.
+	 *
 	 * @return InvoiceCustomerListNo
 	 */
 	public String getInvoiceCustomerListNo();
 	
 	/**
-	 * Sets InvoiceCustomerListNo
-	 * @param invoiceCustomerListNo
+	 * Sets InvoiceCustomerListNo.
+	 *
+	 * @param invoiceCustomerListNo the new invoice customer list no
 	 */
 	public void setInvoiceCustomerListNo(String invoiceCustomerListNo);
 	
 	/**
-	 * Gets invoiceList
+	 * Gets invoiceList.
+	 *
 	 * @return invoiceList
 	 */
 	public List<InvoiceCustomer> getInvoiceList();
 	
 	/**
-	 * Sets invoiceList
-	 * @param invoiceList
+	 * Sets invoiceList.
+	 *
+	 * @param invoiceList the new invoice list
 	 */
 	public void setInvoiceList(List<InvoiceCustomer> invoiceList);
 

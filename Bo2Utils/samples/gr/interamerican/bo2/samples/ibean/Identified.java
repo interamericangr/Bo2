@@ -14,8 +14,8 @@ package gr.interamerican.bo2.samples.ibean;
 
 /**
  * Identified.
- * 
- * @param <T>
+ *
+ * @param <T> the generic type
  */
 public interface Identified<T> {
 	/**
@@ -27,8 +27,8 @@ public interface Identified<T> {
 	
 	/**
 	 * Sets the id.
-	 * 
-	 * @param id
+	 *
+	 * @param id the new id
 	 */
 	public void setId(T id);
 

@@ -20,13 +20,12 @@ import java.util.Date;
 
 /**
  * Formatter for date objects.
- * <br/>
+ * <br>
  * This class is thread safe.
  */
 public class DateFormatter implements Formatter<Date> {
-	/**
-	 * 
-	 */
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Date format.
@@ -54,11 +53,11 @@ public class DateFormatter implements Formatter<Date> {
 		this(new SimpleDateFormat(dateFormat));
 	}
 
+	@Override
 	public synchronized String format(Date t) {
 		if(t==null) {
 			return StringConstants.NULL;
 		}
 		return df.format(t);
 	}
-
 }

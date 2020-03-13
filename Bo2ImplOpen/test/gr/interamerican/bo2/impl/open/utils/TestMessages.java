@@ -17,13 +17,13 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestMessages.
  */
 public class TestMessages {
 
 	
 	/**
-	 * tests GetString when object is null
+	 * tests GetString when object is null.
 	 */
 	@Test
 	public void testGetString(){

@@ -19,11 +19,10 @@ import org.apache.wicket.markup.html.form.Form;
 /**
  * {@link CallbackWrapper} wraps another {@link CallbackAction}.
  */
+@Deprecated
 public class CallbackWrapper implements CallbackAction {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Callback action wrapped by this wrapper.
@@ -33,7 +32,7 @@ public class CallbackWrapper implements CallbackAction {
 	/**
 	 * Creates a new CallbackWrapper object. 
 	 *
-	 * @param action
+	 * @param action the action
 	 */
 	public CallbackWrapper(CallbackAction action) {
 		super();
@@ -47,6 +46,7 @@ public class CallbackWrapper implements CallbackAction {
 		this(null);
 	}
 
+	@Override
 	public void callBack(AjaxRequestTarget target) {
 		before();
 		before(target);
@@ -57,6 +57,7 @@ public class CallbackWrapper implements CallbackAction {
 		after(target);
 	}
 
+	@Override
 	public void callBack(AjaxRequestTarget target, Form<?> form) {
 		before();
 		before(target);
@@ -74,7 +75,8 @@ public class CallbackWrapper implements CallbackAction {
 	
 	/**
 	 * Things to do before executing the wrapped action.
-	 * @param target 
+	 *
+	 * @param target the target
 	 */
 	public void before(@SuppressWarnings("unused") AjaxRequestTarget target) { /* empty */
 	}
@@ -86,7 +88,8 @@ public class CallbackWrapper implements CallbackAction {
 	
 	/**
 	 * Things to do after executing the wrapped action.
-	 * @param target 
+	 *
+	 * @param target the target
 	 */	
 	public void after(@SuppressWarnings("unused") AjaxRequestTarget target) { /* empty */
 	}
@@ -109,17 +112,18 @@ public class CallbackWrapper implements CallbackAction {
 		this.action = action;
 	}
 
+	@Override
 	public void setCaller(Component caller) {
 		if(action!=null) {
 			action.setCaller(caller);
 		}
 	}
 
+	@Override
 	public Component getCaller() {
 		if(action!=null) {
 			return action.getCaller();
 		}
 		return null;
 	}
-
 }

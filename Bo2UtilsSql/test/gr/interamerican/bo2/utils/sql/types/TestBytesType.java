@@ -21,25 +21,22 @@ import java.sql.SQLException;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestBytesType.
  */
 public class TestBytesType {
 
 	
-	/**
-	 * BytesType
-	 */
+	/** BytesType. */
 	BytesType bytesType = BytesType.INSTANCE;
 	
-	/**
-	 * MockResultSet
-	 */
+	/** MockResultSet. */
 	MockResultSet rs = new MockResultSet();
 	
 	
 	/**
-	 * Tests get when column index is string
-	 * @throws SQLException
+	 * Tests get when column index is string.
+	 *
+	 * @throws SQLException the SQL exception
 	 */
 	@Test
 	public void testGet_string() throws SQLException{
@@ -49,8 +46,9 @@ public class TestBytesType {
 	}
 	
 	/**
-	 * Tests get when column index is integer
-	 * @throws SQLException
+	 * Tests get when column index is integer.
+	 *
+	 * @throws SQLException the SQL exception
 	 */
 	@Test
 	public void testGet_integer() throws SQLException{
@@ -60,7 +58,7 @@ public class TestBytesType {
 	}
 	
 	/**
-	 * Tests testSqlString when value is null
+	 * Tests testSqlString when value is null.
 	 */
 	@Test
 	public void testSqlString_nullValue(){
@@ -70,7 +68,7 @@ public class TestBytesType {
 	}
 	
 	/**
-	 * Tests testSqlString when value is null
+	 * Tests testSqlString when value is null.
 	 */
 	@Test
 	public void testSqlString(){

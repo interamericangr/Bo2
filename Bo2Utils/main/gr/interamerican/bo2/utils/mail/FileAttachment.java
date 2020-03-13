@@ -28,13 +28,14 @@ implements Attachment {
 
 	/**
 	 * Creates a new MailAttachment object. 
-	 * 
-	 * @param filename
+	 *
+	 * @param filename the filename
 	 */
 	public FileAttachment(String filename) {
 		super(filename);	
 	}
 	
+	@Override
 	public MimeBodyPart getMimeBodyPart() throws MessagingException {		
 		MimeBodyPart mimeBodyPart = new MimeBodyPart();
 		DataSource datasource = new FileDataSource(filename);		

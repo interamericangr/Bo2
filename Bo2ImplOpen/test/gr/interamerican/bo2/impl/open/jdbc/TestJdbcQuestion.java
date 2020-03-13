@@ -32,10 +32,11 @@ public class TestJdbcQuestion extends AbstractNonTransactionalProviderTest  {
 	
 	
 	/**
-	 * tests a question
-	 * @throws DataException 
-	 * @throws InitializationException 
-	 * @throws LogicException 
+	 * tests a question.
+	 *
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testExecuteQuestion() 	
@@ -50,31 +51,24 @@ public class TestJdbcQuestion extends AbstractNonTransactionalProviderTest  {
 	
 	
 	/**
-	 * Simple Implementation of JdbcQuestion
-	 * 
-	 *
+	 * Simple Implementation of JdbcQuestion.
 	 */
 	@ManagerName("LOCALDB")
 	private static class JdbcQuestionImpl extends JdbcQuestion<Object> {
 		
-		/**
-		 * sgl
-		 */
-		private String stmt = "select * from TEST.users where ID = ?"; //$NON-NLS-1$
+		/** sgl. */
+		private String stmt = "select * from X__X.users where ID = ?"; //$NON-NLS-1$
 
-		/**
-		 * Results
-		 */
+		/** Results. */
 		ResultSet rs;
 		
-		/**
-		 * id
-		 */
+		/** id. */
 		private Integer code = 0;
 		
 		/**
-		 * Sets the id
-		 * @param c
+		 * Sets the id.
+		 *
+		 * @param c the new code
 		 */
 		public void setCode(Integer c){
 			code=c;

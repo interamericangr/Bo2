@@ -34,7 +34,9 @@ public class TranslatorRegistry {
 	
 	/**
 	 * Gets a translator that has been registered with a specified name.
-	 * 
+	 *
+	 * @param <R> the generic type
+	 * @param <L> the generic type
 	 * @param name Name of translator searched in registry.
 	 * @return Gets the translator with the specified name.
 	 */
@@ -48,7 +50,9 @@ public class TranslatorRegistry {
 	 * 
 	 * If another cache with the same name exists, then a 
 	 * RuntimeException will be thrown.
-	 * 
+	 *
+	 * @param <R> the generic type
+	 * @param <L> the generic type
 	 * @param name Translator name.
 	 * @param translator Translator to register.
 	 */

@@ -24,7 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 
+ * The Class TypeUtils.
  */
 public class TypeUtils {
 	
@@ -107,9 +107,8 @@ public class TypeUtils {
 	
 	/**
 	 * Gets the type that matches to the specified class.
-	 * 
-	 * @param clazz
-	 *        
+	 *
+	 * @param clazz the clazz
 	 * @return Returns the type that matches to the specified class.
 	 */
 	public static Type<?> getTypeForClass(Class<?> clazz) {
@@ -119,9 +118,8 @@ public class TypeUtils {
 	
 	/**
 	 * Gets the type that matches to the class of specified object.
-	 * 
-	 * @param object
-	 *        
+	 *
+	 * @param object the object
 	 * @return Returns the type that matches to the specified object.
 	 */
 	public static Type<?> getType(Object object) {
@@ -130,9 +128,8 @@ public class TypeUtils {
 	
 	/**
 	 * Gets the type that matches to the specified java.jql.Types constant.
-	 * 
-	 * @param sqlType
-	 *        
+	 *
+	 * @param sqlType the sql type
 	 * @return Returns the type that matches to the specified SQL Types value..
 	 */
 	public static Type<?> getTypeOfSqlType(int sqlType) {
@@ -141,10 +138,9 @@ public class TypeUtils {
 	
 	/**
 	 * Gets the java type that matches to the specified java.jql.Types constant.
-	 * 
-	 * @param sqlType
-	 *        
-	 * @return Returns the Class<?> that the JDBC specification specifies that
+	 *
+	 * @param sqlType the sql type
+	 * @return Returns the Class&lt;?&gt; that the JDBC specification specifies that
 	 *         will be used to store the contents of a column of the specified
 	 *         sqlType.
 	 */

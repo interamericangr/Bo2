@@ -213,7 +213,7 @@ public class TestMatchingUtils {
 	
 	
 	/**
-	 * Unit test for match
+	 * Unit test for match.
 	 */	
 	@SuppressWarnings("nls")
 	@Test
@@ -315,12 +315,12 @@ public class TestMatchingUtils {
 /////////////////////////////////////////////////////////////SAMPLES/////////////////////////////////////////////////////////////
 	
 	/**
-	 * Matches a method to a set of test methods with the assumption that
-	 * method foo is tested by testFoo and testFoo_*
-	 * 
-	 */
+ * Matches a method to a set of test methods with the assumption that
+ * method foo is tested by testFoo and testFoo_*.
+ */
 	private class TestMethodMatchingRule implements MatchingRule<String, String> {
 		
+		@Override
 		public boolean isMatch(String sample, String element) {
 			String prefix1 = "test" + StringUtils.firstCapital(sample);  //$NON-NLS-1$
 			String prefix2 = prefix1+StringConstants.UNDERSCORE;
@@ -332,25 +332,21 @@ public class TestMatchingUtils {
 	
 	
 	/**
-	 * test sample
+	 * test sample.
 	 */
 	private class Bean1 {
 		
-		/**
-		 * field1
-		 */
+		/** field1. */
 		String field1;
 		
-		/**
-		 * field2
-		 */
+		/** field2. */
 		String field2;
 		
 		/**
 		 * Creates a new CollectionUtilsTest.Bean1 object. 
-		 * @param f1 
-		 * @param f2 
 		 *
+		 * @param f1 the f 1
+		 * @param f2 the f 2
 		 */
 		public Bean1(String f1, String f2) {
 			this.field1 = f1;
@@ -397,26 +393,23 @@ public class TestMatchingUtils {
 
 
 	}
+	
 	/**
-	 * test sample
+	 * test sample.
 	 */
 	private class Bean2 {
 
-		/**
-		 * field1
-		 */
+		/** field1. */
 		String field1;
 		
-		/**
-		 * field2
-		 */
+		/** field2. */
 		Integer field2;
 		
 		/**
 		 * Creates a new CollectionUtilsTest.Bean1 object. 
-		 * @param f1 
-		 * @param f2 
 		 *
+		 * @param f1 the f 1
+		 * @param f2 the f 2
 		 */
 		public Bean2(String f1, Integer f2) {
 			this.field1 = f1;

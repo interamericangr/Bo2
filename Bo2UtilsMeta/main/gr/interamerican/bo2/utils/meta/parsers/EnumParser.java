@@ -4,13 +4,12 @@ import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
 
 /**
  * Parser for enums.
- * @param <E> 
+ *
+ * @param <E> the element type
  */
 public class EnumParser<E extends Enum<E>> extends AbstractParser<E>{
 	
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
 	/**
@@ -20,7 +19,8 @@ public class EnumParser<E extends Enum<E>> extends AbstractParser<E>{
 	
 	/**
 	 * Creates a new EnumParser object. 
-	 * @param enumType 
+	 *
+	 * @param enumType the enum type
 	 */
 	public EnumParser(Class<E> enumType) {
 		this.enumType = enumType;

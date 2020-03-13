@@ -19,7 +19,7 @@ import gr.interamerican.bo2.utils.attributes.Named;
 import java.util.Set;
 
 /**
- * 
+ * The Interface Continent.
  */
 public interface Continent 
 extends Named, Populated, PersistentObject<ContinentKey>, ModificationRecord, ContinentKP {
@@ -34,8 +34,8 @@ extends Named, Populated, PersistentObject<ContinentKey>, ModificationRecord, Co
 	
 	/**
 	 * Child Collection setter.
-	 * 
-	 * @param countries
+	 *
+	 * @param countries the new countries
 	 */
 	public void setCountries(Set<Country> countries);
 	

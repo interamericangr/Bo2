@@ -21,7 +21,7 @@ import org.junit.Test;
 public class TestPairWithComparableLeft {
 	
 	/**
-	 * Test compareTo
+	 * Test compareTo.
 	 */
 	@Test
 	@SuppressWarnings("nls")

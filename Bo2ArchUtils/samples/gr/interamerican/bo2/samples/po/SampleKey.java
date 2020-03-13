@@ -15,13 +15,11 @@ package gr.interamerican.bo2.samples.po;
 import gr.interamerican.bo2.arch.Key;
 
 /**
- * 
+ * The Class SampleKey.
  */
 public  class SampleKey implements Key{
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 3688328162860348174L;
 
 
@@ -32,8 +30,8 @@ public  class SampleKey implements Key{
 		//empty
 	}
 	
+	@Override
 	public int compareTo(Key o) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

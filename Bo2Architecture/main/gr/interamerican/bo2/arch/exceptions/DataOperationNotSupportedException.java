@@ -37,9 +37,11 @@ public class DataOperationNotSupportedException extends RuntimeException {
     public DataOperationNotSupportedException() {
         super();
     }
+    
     /**
-     * constructor with message
-     * @param message
+     * constructor with message.
+     *
+     * @param message the message
      */
     public DataOperationNotSupportedException(String message) {
         super(message);

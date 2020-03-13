@@ -55,7 +55,6 @@ import gr.interamerican.bo2.test.def.samples.enums.Sex;
  * - type=X must be ignored (no getTypeId() or setTypeId() generated)
  *  
  */
-@SuppressWarnings("unused")
 @DelegateKeyProperties("id, name")
 @TypedSelectableProperties(type="", subtype="null", code="serialNo", name="beanName")
 public abstract class SamplePoImpl
@@ -63,31 +62,21 @@ extends AbstractBasePo<SamplePoKey>
 implements SamplePo
 {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
-	/**
-	 * delegate properties, methods here
-	 */
+	/** delegate properties, methods here. */
 	@DelegateProperties("picture")
 	@DelegateMethods("getMeasurements, setMeasurements")
 	SampleJavaBean3 sjb3 = Factory.create(SampleJavaBean3.class);
 	
-	/**
-	 * serialNo
-	 */
+	/** serialNo. */
 	@Property private Long serialNo;
 	
-	/**
-	 * serialNo
-	 */
+	/** serialNo. */
 	@Property private Long typeId;
 	
-	/**
-	 * implements {@link PoDependent}
-	 */
+	/** implements {@link PoDependent}. */
 	
 	@Property private SamplePoForTest po;
 	
@@ -106,20 +95,14 @@ implements SamplePo
 	 */	
 	@Property int i;
 	
-	/**
-	 * Sex
-	 */
+	/** Sex. */
 	@Property private Sex sex;
 	
-	/**
-	 * bean
-	 */
+	/** bean. */
 	@DelegateProperties("")
 	private IBeanWithIdAndName bean = new IBeanWithIdAndNameImpl();
 	
-	/**
-	 * calc
-	 */
+	/** calc. */
 	@DelegateMethods("")
 	private SampleCalculator calc = new SampleCalculatorImpl();
 	
@@ -139,6 +122,7 @@ implements SamplePo
 	}
 	
 	
+	@Override
 	public void init() {
 		System.out.println("initialized"); //$NON-NLS-1$
 	}

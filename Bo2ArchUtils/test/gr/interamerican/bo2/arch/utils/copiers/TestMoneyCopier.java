@@ -25,14 +25,12 @@ import java.util.Currency;
 import org.junit.Test;
 
 /**
- * Test for MoneyCopier
+ * Test for MoneyCopier.
  */
 public class TestMoneyCopier {
 
 	
-	/**
-	 * MoneyCopier
-	 */
+	/** MoneyCopier. */
 	MoneyCopier copier = new MoneyCopier();
 	
 	
@@ -48,7 +46,7 @@ public class TestMoneyCopier {
 	private Currency currency=Currency.getInstance("EUR"); //$NON-NLS-1$
 	
 	/**
-	 * Test copy
+	 * Test copy.
 	 */
 	@Test
 	public void testCopy(){
@@ -69,7 +67,7 @@ public class TestMoneyCopier {
 	}
 	
 	/**
-	 * Test copy
+	 * Test copy.
 	 */
 	@Test(expected = RuntimeException.class)
 	public void testCopy_fail(){

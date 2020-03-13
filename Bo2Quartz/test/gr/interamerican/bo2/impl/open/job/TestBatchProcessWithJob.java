@@ -19,15 +19,17 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Integration test
+ * Integration test.
  */
 public class TestBatchProcessWithJob {
 
 	/**
-	 * @throws InitializationException
-	 * @throws DataException
-	 * @throws LogicException
-	 * @throws UnexpectedException
+	 * Integration test.
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test
 	public void integrationTest() throws InitializationException, DataException, LogicException, UnexpectedException {

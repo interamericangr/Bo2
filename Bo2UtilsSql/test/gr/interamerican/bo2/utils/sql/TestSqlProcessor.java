@@ -23,7 +23,7 @@ import org.junit.Test;
 public class TestSqlProcessor {
 
 	/**
-	 * Test removeDoubleHyphenSqlComments()
+	 * Test removeDoubleHyphenSqlComments().
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -46,9 +46,10 @@ public class TestSqlProcessor {
 	}
 	
 	/**
-	 * Checks
-	 * @param sql
-	 * @param expected
+	 * Checks.
+	 *
+	 * @param sql the sql
+	 * @param expected the expected
 	 */
 	private void check(String sql, String expected) {
 		String actual = SqlProcessor.removeDoubleHyphenSqlComments(sql);

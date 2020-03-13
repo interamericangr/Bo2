@@ -18,21 +18,16 @@ import gr.interamerican.bo2.impl.open.workers.AbstractOperation;
 import gr.interamerican.bo2.utils.annotations.Child;
 
 /**
- * 
+ * The Class DeleteCompanyUser.
  */
 public class DeleteCompanyUser 
 extends AbstractOperation {
 	
+	/** The cmd. */
 	@Child private DeleteCompanyUserCmd cmd = new DeleteCompanyUserCmd();
-	
-	/* (non-Javadoc)
-	 * @see gr.interamerican.bo2.impl.open.workers.AbstractOperation#execute()
-	 */
+
 	@Override
 	public void execute() throws LogicException, DataException {
 		cmd.execute();
 	}
-	
-	
-
 }

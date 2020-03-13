@@ -70,6 +70,8 @@ public class SystemUtils {
 	}
 	
 	/**
+	 * Gc events.
+	 *
 	 * @return Number of garbage collection events performed since VM start.
 	 */
 	public static long gcEvents() {
@@ -84,6 +86,8 @@ public class SystemUtils {
 	}
 	
 	/**
+	 * Gc time.
+	 *
 	 * @return Total cpu time allocated for garbage collection.
 	 */
 	public static long gcTime() {
@@ -98,6 +102,8 @@ public class SystemUtils {
 	}
 	
 	/**
+	 * Permgen size.
+	 *
 	 * @return Total non heap (permanent) memory usage in MB.
 	 */
 	public static double permgenSize() {

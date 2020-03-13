@@ -40,7 +40,7 @@ extends AbstractOperation {
 	/**
 	 * Creates a new HibSaveJdbcDeleteJdbcStoreHibRead object. 
 	 *
-	 * @param id
+	 * @param id the id
 	 */
 	public HibSaveJdbcDeleteJdbcStoreHibRead(int id) {
 		super();
@@ -62,9 +62,6 @@ extends AbstractOperation {
 		new UserPwImpl();
 	
 	
-	/* (non-Javadoc)
-	 * @see gr.interamerican.bo2.impl.open.workers.AbstractOperation#execute()
-	 */
 	@Override
 	public void execute() throws DataException {
 		

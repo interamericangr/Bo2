@@ -21,18 +21,16 @@ import java.math.BigDecimal;
 import org.junit.Test;
 
 /**
- * Test for ImmutableObjectCopier
+ * Test for ImmutableObjectCopier.
  */
 public class TestImmutableObjectCopier {
 
 
-	/**
-	 * ImmutableObjectCopier
-	 */
+	/** ImmutableObjectCopier. */
 	ImmutableObjectCopier<Money> copier = new ImmutableObjectCopier<Money>();
 	
 	/**
-	 * test copy
+	 * test copy.
 	 */
 	@Test
 	public void testCopy(){

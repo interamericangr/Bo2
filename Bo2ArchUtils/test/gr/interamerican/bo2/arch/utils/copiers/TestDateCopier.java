@@ -23,19 +23,17 @@ import java.util.Date;
 import org.junit.Test;
 
 /**
- * Test for MoneyCopier
+ * Test for MoneyCopier.
  */
 public class TestDateCopier {
 
 	
-	/**
-	 * DateCopier
-	 */
+	/** DateCopier. */
 	DateCopier copier = new DateCopier();
 	
 	
 	/**
-	 * Test copy
+	 * Test copy.
 	 */
 	@Test
 	public void testCopy(){
@@ -56,7 +54,7 @@ public class TestDateCopier {
 	}
 	
 	/**
-	 * Test copy
+	 * Test copy.
 	 */
 	@Test(expected = RuntimeException.class)
 	public void testCopy_fail(){

@@ -42,13 +42,17 @@ public class TableNamesFinderInJoin extends AbstractTableNamesFinder {
 	private Set<String> selectTables = new HashSet<String>();
 
 	/**
-	 * @param tables
+	 * Sets the select tables.
+	 *
+	 * @param tables the new select tables
 	 */
 	public void setSelectTables(Set<String> tables) {
 		selectTables = tables;
 	}
 
 	/**
+	 * Gets the join tables.
+	 *
 	 * @return the map of join tables.
 	 */
 	public Map<Join, Set<String>> getJoinTables() {

@@ -53,10 +53,10 @@ public class SharedNamedStreamsRegistry {
 	 * Registers a stream with its name. The {@link NamedStreamsProvider} performing the
 	 * registration is added to the providers accessing it. If the stream name is already
 	 * registered this invocation should be effectively a no-op.
-	 * 
-	 * @param name
-	 * @param stream
-	 * @param nsp 
+	 *
+	 * @param name the name
+	 * @param stream the stream
+	 * @param nsp the nsp
 	 */
 	@SuppressWarnings("nls")
 	public static synchronized void register(String name, NamedStream<?> stream, NamedStreamsProvider nsp) {
@@ -87,10 +87,9 @@ public class SharedNamedStreamsRegistry {
 	 * stream is added to the providers accessing it. If the stream does not exist,
 	 * null is returned. This should notify the provider, that he must create and
 	 * register the stream himself.
-	 * 
-	 * @param name
-	 * @param nsp 
-	 * 
+	 *
+	 * @param name the name
+	 * @param nsp the nsp
 	 * @return Returns the stream registered with the specified name.
 	 */
 	public static synchronized NamedStream<?> getStream(String name, NamedStreamsProvider nsp) {
@@ -106,8 +105,9 @@ public class SharedNamedStreamsRegistry {
 	 * If this was the last provider accessing the stream, the stream is unregistered and
 	 * closed.
 	 *  
-	 * @param nsp
-	 * @throws DataException
+	 *
+	 * @param nsp the nsp
+	 * @throws DataException the data exception
 	 */
 	@SuppressWarnings("nls")
 	public static synchronized void releaseSharedStreams(NamedStreamsProvider nsp) throws DataException {

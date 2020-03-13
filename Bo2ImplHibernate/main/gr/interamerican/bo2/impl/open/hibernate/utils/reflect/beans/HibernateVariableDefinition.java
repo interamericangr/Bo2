@@ -21,32 +21,48 @@ import org.hibernate.proxy.HibernateProxy;
 @SuppressWarnings("all")
 public class HibernateVariableDefinition extends VariableDefinition {
 	
+	/** The attached. */
 	String attached;
 	
+	/** The last modified. */
 	Date lastModified;
 	
+	/** The initialized. */
 	String initialized;
 	
+	/** The status. */
 	String status;
 	
+	/** The actual type. */
 	Class<?> actualType;
 	
+	/** The id. */
 	String id;
 	
+	/** The role. */
 	String role;
 	
+	/** The hash code. */
 	String hashCode;
 	
 	/**
 	 * Creates a new HibernateVariableDefinition object. 
 	 *
-	 * @param name
-	 * @param type
+	 * @param name the name
+	 * @param type the type
 	 */
 	private HibernateVariableDefinition(String name, Class type) {
 		super(name, type);
 	}
 	
+	/**
+	 * Creates the hibernate vd.
+	 *
+	 * @param object the object
+	 * @param fieldName the field name
+	 * @param fieldType the field type
+	 * @return the variable definition
+	 */
 	public static VariableDefinition createHibernateVd(Object object, String fieldName, Class<?> fieldType) {
 		if(object instanceof HibernateProxy) {
 			return createForProxy((HibernateProxy) object, fieldName, fieldType);
@@ -60,6 +76,14 @@ public class HibernateVariableDefinition extends VariableDefinition {
 		return vd;
 	}
 	
+	/**
+	 * Creates the for proxy.
+	 *
+	 * @param proxy the proxy
+	 * @param name the name
+	 * @param fieldType the field type
+	 * @return the hibernate variable definition
+	 */
 	static HibernateVariableDefinition createForProxy(HibernateProxy proxy, String name, Class<?> fieldType) {
 		HibernateVariableDefinition result = new HibernateVariableDefinition(name, fieldType);
 		result.status = "HibernateProxy";
@@ -92,6 +116,14 @@ public class HibernateVariableDefinition extends VariableDefinition {
 		return result;
 	}
 	
+	/**
+	 * Creates the for initialized proxy.
+	 *
+	 * @param proxy the proxy
+	 * @param name the name
+	 * @param fieldType the field type
+	 * @return the hibernate variable definition
+	 */
 	static HibernateVariableDefinition createForInitializedProxy(HibernateProxy proxy, String name, Class<?> fieldType) {
 		HibernateVariableDefinition result = new HibernateVariableDefinition(name, fieldType);
 		result.status = "Initialized HibernateProxy";
@@ -122,6 +154,14 @@ public class HibernateVariableDefinition extends VariableDefinition {
 		return result;
 	}
 	
+	/**
+	 * Creates the for persistent collection.
+	 *
+	 * @param collection the collection
+	 * @param name the name
+	 * @param fieldType the field type
+	 * @return the hibernate variable definition
+	 */
 	static HibernateVariableDefinition createForPersistentCollection(PersistentCollection collection, String name, Class<?> fieldType) {
 		boolean isAbstractPersistentCollection = collection instanceof AbstractPersistentCollection;
 		if(!isAbstractPersistentCollection) {
@@ -146,6 +186,14 @@ public class HibernateVariableDefinition extends VariableDefinition {
 		return result;
 	} 
 	
+	/**
+	 * Creates the for persistent object.
+	 *
+	 * @param po the po
+	 * @param name the name
+	 * @param fieldType the field type
+	 * @return the hibernate variable definition
+	 */
 	static HibernateVariableDefinition createForPersistentObject(PersistentObject<?> po, String name, Class<?> fieldType) {
 		HibernateVariableDefinition result = new HibernateVariableDefinition(name, fieldType);
 		result.status = "PersistentObject";

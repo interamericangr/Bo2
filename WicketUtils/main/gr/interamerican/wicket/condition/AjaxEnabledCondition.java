@@ -12,8 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.wicket.condition;
 
-import java.io.Serializable;
-
+import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 
 /**
@@ -21,9 +20,12 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
  * cause an AJAX update if necessary.
  * 
  * @param <T>
- *        Type of object being checked. 
+ *        Type of object being checked.
+ * @deprecated Switch To {@link AjaxCondition} or {@link SimpleAjaxCondition} 
  */
-public interface AjaxEnabledCondition<T> extends Serializable {
+@Deprecated
+@FunctionalInterface
+public interface AjaxEnabledCondition<T> extends AjaxCondition<T> {
 	
 	/**
 	 * Checks if the condition is met for the specified object.
@@ -37,7 +39,9 @@ public interface AjaxEnabledCondition<T> extends Serializable {
 	 *         specified object.
 	 */
 	public boolean check(T t, AjaxRequestTarget target);
-	
-	
 
+	@Override
+	default boolean check(T t, AjaxRequestTarget target, Component caller) {
+		return check(t, target);
+	}
 }

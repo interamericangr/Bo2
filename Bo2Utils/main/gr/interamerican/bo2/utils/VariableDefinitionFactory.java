@@ -21,10 +21,11 @@ import java.lang.reflect.Field;
  * Factory for {@link VariableDefinition} objects.
  */
 public class VariableDefinitionFactory {
+	
 	/**
 	 * Creates a VariableDefinition from a Field.
-	 * 
-	 * @param field
+	 *
+	 * @param field the field
 	 * @return Returns the VariableDefinition.
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })

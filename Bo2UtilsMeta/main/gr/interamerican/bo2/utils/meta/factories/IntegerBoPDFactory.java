@@ -24,13 +24,11 @@ public class IntegerBoPDFactory {
 
 	/**
 	 * Creates a {@link IntegerBoPropertyDescriptor}.
-	 * 
-	 * @param pd
-	 *        PropertyDefinition
+	 *
+	 * @param pd        PropertyDefinition
 	 *        
 	 * @return IntegerBoPropertyDescriptor
-	 * 
-	 * @throws ParseException 
+	 * @throws ParseException the parse exception
 	 */
 	@SuppressWarnings("nls")
 	public static IntegerBoPropertyDescriptor create(PropertyDefinition pd) throws ParseException {

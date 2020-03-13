@@ -12,31 +12,29 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.conditions;
 
-import gr.interamerican.bo2.samples.bean.BeanWithNestedBean;
+import static org.junit.Assert.*;
 
-
-import org.junit.Assert;
 import org.junit.Test;
+
+import gr.interamerican.bo2.samples.bean.BeanWithNestedBean;
 
 /**
  * Tests for {@link ConditionOnNestedProperty}.
  */
+@Deprecated
 public class TestConditionOnNestedProperty {
-	
+
 	/**
 	 * Is zero condition.
 	 */
-	Condition<?> isZero = new EqualTo<Integer>(0);
-	
+	Condition<Integer> isZero = new EqualTo<Integer>(0);
+
 	/**
 	 * Condition for the tests.
 	 */
-	ConditionOnNestedProperty<BeanWithNestedBean> nestedField2IsZero = 
-		new ConditionOnNestedProperty<BeanWithNestedBean>
-		("nested.field2", BeanWithNestedBean.class, isZero);
-	
-	
-	
+	ConditionOnNestedProperty<BeanWithNestedBean> nestedField2IsZero = new ConditionOnNestedProperty<>(
+			"nested.field2", BeanWithNestedBean.class, isZero); //$NON-NLS-1$
+
 	/**
 	 * Tests check().
 	 */
@@ -44,10 +42,9 @@ public class TestConditionOnNestedProperty {
 	@Test
 	public void testCheck_true() {
 		BeanWithNestedBean bean = new BeanWithNestedBean("foo", 0);
-		boolean result = nestedField2IsZero.check(bean);
-		Assert.assertTrue(result);
+		assertTrue(nestedField2IsZero.check(bean));
 	}
-	
+
 	/**
 	 * Tests check().
 	 */
@@ -55,31 +52,27 @@ public class TestConditionOnNestedProperty {
 	public void testCheck_false() {
 		BeanWithNestedBean bean = new BeanWithNestedBean(null, null);
 		bean.setNested(null);
-		boolean result = nestedField2IsZero.check(bean);
-		Assert.assertFalse(result);
-	}
-	
-	/**
-	 * Tests check().
-	 */	
-	@Test
-	public void testCheck_nestedNullEx() {		
-		BeanWithNestedBean bean = new BeanWithNestedBean(null, null);
-		boolean result = nestedField2IsZero.check(bean);
-		Assert.assertFalse(result);
-	}
-	
-	/**
-	 * Tests if the constructor throws a runtime exception 
-	 * for an invalid property.
-	 */
-	@SuppressWarnings({ "nls", "unused" })
-	@Test(expected=RuntimeException.class)
-	public void testConstructor_withInvalidProperty() {
-		EqualsIgnoreCaseCondition equals = new EqualsIgnoreCaseCondition("vava");
-		ConditionOnProperty<BeanWithNestedBean> condition = 
-			new ConditionOnProperty<BeanWithNestedBean>
-			("nested.nosuchfield", BeanWithNestedBean.class, equals);
+		assertFalse(nestedField2IsZero.check(bean));
 	}
 
+	/**
+	 * Tests check().
+	 */
+	@Test
+	public void testCheck_nestedNullEx() {
+		BeanWithNestedBean bean = new BeanWithNestedBean(null, null);
+		assertFalse(nestedField2IsZero.check(bean));
+	}
+
+	/**
+	 * Tests if the constructor throws a runtime exception for an invalid
+	 * property.
+	 */
+	@SuppressWarnings({ "nls", "unused" })
+	@Test(expected = RuntimeException.class)
+	public void testConstructor_withInvalidProperty() {
+		EqualsIgnoreCaseCondition equals = new EqualsIgnoreCaseCondition("vava");
+		ConditionOnProperty<BeanWithNestedBean> condition = new ConditionOnProperty<>("nested.nosuchfield",
+				BeanWithNestedBean.class, equals);
+	}
 }

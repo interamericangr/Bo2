@@ -16,9 +16,7 @@ import org.slf4j.Logger;
 @SuppressWarnings("nls")
 public class StreamsRegistry {
 	
-	/**
-	 * Logger
-	 */
+	/** Logger. */
 	Logger logger;
 	
 	/**
@@ -44,9 +42,9 @@ public class StreamsRegistry {
 	/**
 	 * Registers that the specified stream is accessed by the specified
 	 * provider.
-	 * 
-	 * @param ns
-	 * @param nsp
+	 *
+	 * @param ns the ns
+	 * @param nsp the nsp
 	 */
 	public void register(NamedStream<?> ns, NamedStreamsProvider nsp) {
 		registerStream(ns);
@@ -82,9 +80,9 @@ public class StreamsRegistry {
 	/**
 	 * Registers that the specified stream is accessed by the specified
 	 * provider.
-	 * 
-	 * @param ns
-	 * @param nsp
+	 *
+	 * @param ns the ns
+	 * @param nsp the nsp
 	 */
 	void registerProvider(NamedStream<?> ns, NamedStreamsProvider nsp) {
 		providersOfStream.put(ns, nsp);
@@ -108,10 +106,9 @@ public class StreamsRegistry {
 	 * stream is added to the providers accessing it. If the stream does not exist,
 	 * null is returned. This should notify the provider, that he must create and
 	 * register the stream himself.
-	 * 
-	 * @param name
-	 * @param nsp 
-	 * 
+	 *
+	 * @param name the name
+	 * @param nsp the nsp
 	 * @return Returns the stream registered with the specified name.
 	 */
 	public NamedStream<?> getStream(String name, NamedStreamsProvider nsp) {
@@ -134,8 +131,9 @@ public class StreamsRegistry {
 	 * If this was the last provider accessing the stream, the stream is unregistered 
 	 * and closed.
 	 *  
-	 * @param nsp
-	 * @throws DataException
+	 *
+	 * @param nsp the nsp
+	 * @throws DataException the data exception
 	 */
 	public void releaseStreams(NamedStreamsProvider nsp) throws DataException {		
 		Set<NamedStream<?>> nsSet = streamsOfProvider.get(nsp);
@@ -152,10 +150,10 @@ public class StreamsRegistry {
 
 	/**
 	 * Closes the specified {@link NamedStream}.
-	 * 
-	 * @param ns
-	 * @throws DataOperationNotSupportedException
-	 * @throws DataException
+	 *
+	 * @param ns the ns
+	 * @throws DataException the data exception
+	 * @throws DataOperationNotSupportedException the data operation not supported exception
 	 */
 	void close(NamedStream<?> ns) throws DataException {
 		ns.close();

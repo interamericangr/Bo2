@@ -34,8 +34,8 @@ extends BaseTestForAbstractClassesImplementors {
 	/**
 	 * Unit test for create on abstract class that has fields to support
 	 * the properties, but they are not annotated as Property.
-	 * 
-	 * @throws ClassCreationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
 	 */
 	@Override
 	@Test()
@@ -50,15 +50,11 @@ extends BaseTestForAbstractClassesImplementors {
 			bean.setBeanId(5);
 			bean.getBeanId();
 			bean.getBeanName();
-			bean.setBeanName("foo");			
+			bean.setBeanName("foo");			 //$NON-NLS-1$
 		} catch (InstantiationException e) {
 			Assert.fail(e.toString());
 		} catch (IllegalAccessException e) {
 			Assert.fail(e.toString());
 		}
-		
 	}
-	
-	
-
 }

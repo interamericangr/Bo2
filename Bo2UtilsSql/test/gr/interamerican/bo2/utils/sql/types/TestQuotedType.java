@@ -20,17 +20,15 @@ import java.sql.SQLException;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestQuotedType.
  */
 public class TestQuotedType {
 
-	/**
-	 * NonQuotedTypeImpl
-	 */
+	/** NonQuotedTypeImpl. */
 	QuotedTypeImpl impl = new QuotedTypeImpl();
 	
 	/**
-	 * Tests QuotedTypeImpl
+	 * Tests QuotedTypeImpl.
 	 */
 	@Test
 	public void testQuotedType(){
@@ -42,7 +40,7 @@ public class TestQuotedType {
 	
 	
 	/**
-	 * implementation to test
+	 * implementation to test.
 	 */
 	private class QuotedTypeImpl extends QuotedType<Integer>{
 

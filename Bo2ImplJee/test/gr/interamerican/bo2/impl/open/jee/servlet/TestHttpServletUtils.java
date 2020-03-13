@@ -7,12 +7,12 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 /**
- * 
+ * The Class TestHttpServletUtils.
  */
 public class TestHttpServletUtils {
 	
 	/**
-	 * 
+	 * Test get get parameter.
 	 */
 	@SuppressWarnings("nls")
 	@Test

@@ -37,7 +37,8 @@ public class BeanWith1Field implements Serializable {
 	
 	/**
 	 * Creates a new BeanWith1Field object. 
-	 * @param field2 
+	 *
+	 * @param field2 the field 2
 	 */
 	public BeanWith1Field(Long field2) {
 		super();

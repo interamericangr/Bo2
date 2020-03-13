@@ -17,10 +17,10 @@
  * mainframe computing. According to this idea, files are 
  * declared in programs using logical names. The real filename 
  * that is associated with a logical name is given as input to
- * the program. <br/>
+ * the program. <br>
  * This implementation of named streams also supports some other
  * characteristics of mainframe programming, as fixed length 
- * records. <br/>
+ * records. <br>
  */
  package gr.interamerican.bo2.impl.open.namedstreams;
 

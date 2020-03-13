@@ -16,17 +16,17 @@ public class UserProfilePwImpl extends JdbcPersistenceWorker<UserProfile>{
 	/**
 	 * sql query that inserts a new user to the TEST.USERPROFILE table
 	 */
-	private String sqlInsert = "insert into TEST.USERPROFILE (ID, PROFILE_ID, PROF_NM) values (?,?,?)"; //$NON-NLS-1$
+	private String sqlInsert = "insert into X__X.USERPROFILE (ID, PROFILE_ID, PROF_NM) values (?,?,?)"; //$NON-NLS-1$
 
 	/**
 	 * sql query that selects a user from the TEST.USERPROFILE table
 	 */	
-	private String sqlSelect = "SELECT * FROM TEST.USERPROFILE WHERE ID = ? AND PROFILE_ID = ?"; //$NON-NLS-1$
+	private String sqlSelect = "SELECT * FROM X__X.USERPROFILE WHERE ID = ? AND PROFILE_ID = ?"; //$NON-NLS-1$
 
 	/**
 	 * sql query that deletes a user from the TEST.USERPROFILE table
 	 */	
-	private String sqlDelete = "delete from TEST.USERPROFILE where ID = ? AND PROFILE_ID = ?"; //$NON-NLS-1$
+	private String sqlDelete = "delete from X__X.USERPROFILE where ID = ? AND PROFILE_ID = ?"; //$NON-NLS-1$
 
 	@Override
 	public boolean ignoresSomething() {
@@ -36,14 +36,12 @@ public class UserProfilePwImpl extends JdbcPersistenceWorker<UserProfile>{
 	@Override
 	protected void doRead(UserProfile o) throws DataException, PoNotFoundException {
 		Object[] selectParams = { o.getUserId(), o.getProfileId() };
-		try {
-			ResultSet rs = executePreparedQuery(sqlSelect, selectParams);
+		try (ResultSet rs = executePreparedQuery(sqlSelect, selectParams)) {
 			boolean found = false;
 			if (rs.next()) {
 				o.setName(rs.getString("PROF_NM")); //$NON-NLS-1$
 				found = true;
 			} 
-			rs.close();
 			if (!found) {
 				throw new PoNotFoundException("Not found user with id" + o.getKey()); //$NON-NLS-1$
 			}
@@ -85,8 +83,5 @@ public class UserProfilePwImpl extends JdbcPersistenceWorker<UserProfile>{
 			throw new 
 			PoNotFoundException("Could not delete user with id" + o.getKey()); //$NON-NLS-1$
 		}
-		
 	}
-
-	
 }

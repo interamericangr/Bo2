@@ -42,10 +42,17 @@ public class TestValidationStyleBehavior extends WicketTest {
 		RequiredSelfDrawnTextField field = new RequiredSelfDrawnTextField(TestPage.TEST_ID);
 		field.add(new AttributeModifier(MarkupConstants.CSS_CLASS, new Model<String>(MarkupConstants.TITLE)));
 		field.add(ValidationStyleBehavior.INSTANCE);
+		
 		tester.startPage(getTestPage(field));
 		FormTester formTester = getFormTester();
+	
 		formTester.setValue(TestPage.TEST_ID, StringConstants.EMPTY);
-		formTester.submit(TestPage.SUBMIT_BUTTON_ID);
+	
+		
+		
+		
+		formTester.submit();
+		
 		TagTester tagTester = tester.getTagByWicketId(TestPage.TEST_ID);
 		String expected = MarkupConstants.INVALID + StringConstants.SPACE + MarkupConstants.TITLE;
 		String actual = tagTester.getAttribute(MarkupConstants.CSS_CLASS);
@@ -59,7 +66,8 @@ public class TestValidationStyleBehavior extends WicketTest {
 		tester.startPage(getTestPage(field));
 		formTester = getFormTester();
 		formTester.setValue(TestPage.TEST_ID, StringConstants.EMPTY);
-		formTester.submit(TestPage.SUBMIT_BUTTON_ID);
+		
+		formTester.submit();
 		tagTester = tester.getTagByWicketId(TestPage.TEST_ID);
 		expected = MarkupConstants.INVALID;
 		actual = tagTester.getAttribute(MarkupConstants.CSS_CLASS);
@@ -80,7 +88,7 @@ public class TestValidationStyleBehavior extends WicketTest {
 		/**
 		 * Creates a new SelfDrawnTextField object. 
 		 *
-		 * @param id
+		 * @param id the id
 		 */
 		public RequiredSelfDrawnTextField(String id) {
 			super(id, new Model<String>());

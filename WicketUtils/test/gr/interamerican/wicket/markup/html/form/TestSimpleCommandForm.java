@@ -13,18 +13,18 @@
 package gr.interamerican.wicket.markup.html.form;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import gr.interamerican.bo2.utils.attributes.SimpleCommand;
+import static org.mockito.Mockito.*;
 
 import org.apache.wicket.model.IModel;
 import org.junit.Test;
 
+import gr.interamerican.bo2.utils.attributes.SimpleCommand;
+import gr.interamerican.wicket.test.WicketTest;
+
 /**
  * Tests for {@link SimpleCommandForm}.
  */
-public class TestSimpleCommandForm {
+public class TestSimpleCommandForm extends WicketTest {
 	
 	/**
 	 * Test for the constructor.
@@ -61,8 +61,6 @@ public class TestSimpleCommandForm {
 		String id = "ID"; //$NON-NLS-1$
 		SimpleCommandForm<Object> form = new SimpleCommandForm<Object>(id, cmd);
 		form.onSubmit();
-		verify(cmd, times(1)).execute();
+		verify(cmd).execute();
 	}
-
-
 }

@@ -27,16 +27,16 @@ import gr.interamerican.bo2.samples.operations.EmptyOperation;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestAbstractBo2RuntimeCmd.
  */
 public class TestAbstractBo2RuntimeCmd {
 	
 	/**
 	 * Unit test for the constructor.
-	 * 
-	 * @throws LogicException
-	 * @throws DataException
-	 * @throws UnexpectedException 
+	 *
+	 * @throws LogicException the logic exception
+	 * @throws DataException the data exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test
 	public void testConstructor() throws LogicException, DataException, UnexpectedException {
@@ -56,10 +56,10 @@ public class TestAbstractBo2RuntimeCmd {
 	 * 
 	 * This unit test expects to find a logical file definition
 	 * with the name SAMPLE_PATH5 in the deployment properties file.
-	 * 
-	 * @throws LogicException
-	 * @throws DataException
-	 * @throws UnexpectedException 
+	 *
+	 * @throws LogicException the logic exception
+	 * @throws DataException the data exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test
 	public void testCreate() throws LogicException, DataException, UnexpectedException {
@@ -78,10 +78,10 @@ public class TestAbstractBo2RuntimeCmd {
 	 * 
 	 * This unit test expects to find a logical file definition
 	 * with the name SAMPLE_PATH5 in the deployment properties file.
-	 * 
-	 * @throws LogicException
-	 * @throws DataException
-	 * @throws UnexpectedException 
+	 *
+	 * @throws LogicException the logic exception
+	 * @throws DataException the data exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test
 	public void testOpen() throws LogicException, DataException, UnexpectedException {
@@ -100,10 +100,10 @@ public class TestAbstractBo2RuntimeCmd {
 	 * 
 	 * This unit test expects to find a logical file definition
 	 * with the name SAMPLE_PATH5 in the deployment properties file.
-	 * 
-	 * @throws LogicException
-	 * @throws DataException
-	 * @throws UnexpectedException 
+	 *
+	 * @throws LogicException the logic exception
+	 * @throws DataException the data exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test
 	public void testOpenPw() throws LogicException, DataException, UnexpectedException {

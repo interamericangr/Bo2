@@ -21,6 +21,7 @@ import gr.interamerican.bo2.arch.exceptions.DataException;
 public class MockResourceWrapper 
 implements IMockRw1, IMockRw2 {
 	
+	@Override
 	public void close() throws DataException {
 		/*empty*/
 	}

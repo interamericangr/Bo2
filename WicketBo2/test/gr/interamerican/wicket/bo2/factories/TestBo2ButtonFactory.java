@@ -26,8 +26,9 @@ import org.apache.wicket.model.Model;
 import org.junit.Test;
 
 /**
- * 
+ * A factory for creating TestBo2Button objects.
  */
+@Deprecated
 public class TestBo2ButtonFactory extends Bo2WicketTest{
 
 
@@ -94,6 +95,7 @@ public class TestBo2ButtonFactory extends Bo2WicketTest{
 		 */
 		private static final long serialVersionUID = 1L;
 
+		@Override
 		public FeedbackPanel getFeedBackPanel() {
 			FeedbackPanel panel = new FeedbackPanel("testPanel"); //$NON-NLS-1$
 			return panel;

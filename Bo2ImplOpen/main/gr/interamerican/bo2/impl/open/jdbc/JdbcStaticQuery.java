@@ -13,7 +13,7 @@
 package gr.interamerican.bo2.impl.open.jdbc;
 
 /**
- * {@link JdbcStaticQuery} is a concrete sub-class of {@link JdbcQuery}. <br/>
+ * {@link JdbcStaticQuery} is a concrete sub-class of {@link JdbcQuery}. <br>
  * 
  * The SQL statement is defined in the constructor.
  */
@@ -28,7 +28,7 @@ extends JdbcQuery {
 	/**
 	 * Creates a new JdbcStaticQuery object. 
 	 *
-	 * @param statement
+	 * @param statement the statement
 	 */
 	public JdbcStaticQuery(String statement) {
 		super();

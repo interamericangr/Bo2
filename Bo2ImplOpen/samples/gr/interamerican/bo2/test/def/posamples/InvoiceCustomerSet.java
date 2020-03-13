@@ -18,32 +18,36 @@ import gr.interamerican.bo2.arch.PersistentObject;
 import java.util.Set;
 
 /**
- * 
+ * The Interface InvoiceCustomerSet.
  */
 public interface InvoiceCustomerSet 
 extends PersistentObject<InvoiceCustomerSetKey>, ModificationRecord {
 	
     /**
-     * Gets invoiceCustomerSetNo
+     * Gets invoiceCustomerSetNo.
+     *
      * @return invoiceCustomerSetNo
      */
     public String getInvoiceCustomerSetNo();
 	
 	/**
-	 * Sets invoiceCustomerSetNo
-	 * @param invoiceCustomerSetNo
+	 * Sets invoiceCustomerSetNo.
+	 *
+	 * @param invoiceCustomerSetNo the new invoice customer set no
 	 */
 	public void setInvoiceCustomerSetNo(String invoiceCustomerSetNo);
 	
 	/**
-	 * Gets customers
+	 * Gets customers.
+	 *
 	 * @return customers
 	 */
 	public Set<InvoiceCustomer> getCustomers();
 	
 	/**
-	 * Sets customers
-	 * @param customers
+	 * Sets customers.
+	 *
+	 * @param customers the new customers
 	 */
 	public void setCustomers(Set<InvoiceCustomer> customers);
 		

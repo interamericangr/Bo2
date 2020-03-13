@@ -27,12 +27,12 @@ public class TemplateEngine {
 	/**
 	 * Parse the given template string with the given model in the Freemarker
 	 * format. For example: ${exampleObject.name} by ${exampleObject.lastName}
-	 * 
-	 * @param template
-	 * @param model
+	 *
+	 * @param template the template
+	 * @param model the model
 	 * @return the parsed template.
-	 * @throws IOException
-	 * @throws TemplateException
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws TemplateException the template exception
 	 */
 	public static String fill(String template, Object model) throws IOException, TemplateException {
 		Template t = new Template(TEMPLATE_NAME, new StringReader(template), cfg);

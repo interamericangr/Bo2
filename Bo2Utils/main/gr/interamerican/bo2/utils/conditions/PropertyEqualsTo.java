@@ -13,21 +13,26 @@
 package gr.interamerican.bo2.utils.conditions;
 
 /**
- * @param <T> 
- * 
+ * The Class PropertyEqualsTo.
+ *
+ * @param <T>
+ *            the generic type
+ * @deprecated Use {@link gr.interamerican.bo2.utils.conditions.functional.PropertyEqualsTo}
  */
-public class PropertyEqualsTo<T> 
-extends ConditionOnProperty<T> {
+@Deprecated
+public class PropertyEqualsTo<T> extends ConditionOnProperty<T> {
 
 	/**
-	 * Creates a new PropertyEqualsCondition object. 
+	 * Creates a new PropertyEqualsCondition object.
 	 *
 	 * @param property
+	 *            the property
 	 * @param clazz
+	 *            the clazz
 	 * @param value
+	 *            the value
 	 */
 	public PropertyEqualsTo(String property, Class<T> clazz, Object value) {
 		super(property, clazz, new EqualityCondition<Object>(value));
 	}
-
 }

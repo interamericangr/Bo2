@@ -22,16 +22,16 @@ public interface WicketOutputMedium {
 	
 	/**
 	 * Presents a {@link Throwable}.
-	 * 
+	 *
 	 * @param t Instance of {@link Throwable}
-	 * @param target 
+	 * @param target the target
 	 */
 	public void showError (Throwable t, AjaxRequestTarget target);
 	
 	/**
 	 * Clears the screen from any errors.
-	 * 
-	 * @param target 
+	 *
+	 * @param target the target
 	 */
 	public void clearMessages(AjaxRequestTarget target);
 

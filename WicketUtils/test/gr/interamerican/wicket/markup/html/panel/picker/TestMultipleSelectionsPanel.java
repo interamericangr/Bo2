@@ -12,15 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.wicket.markup.html.panel.picker;
 
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import gr.interamerican.bo2.samples.bean.BeanWithOrderedFields;
-import gr.interamerican.bo2.samples.collections.BeanCollections;
-import gr.interamerican.wicket.creators.DataTableCreator;
-import gr.interamerican.wicket.markup.html.TestPage;
-import gr.interamerican.wicket.samples.actions.DummyCallback;
-import gr.interamerican.wicket.samples.creators.DataTableCreatorForBeanWithOrderedFieldsWithCheckBoxes;
-import gr.interamerican.wicket.test.WicketTest;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,8 +25,15 @@ import org.apache.wicket.markup.html.form.CheckGroup;
 import org.apache.wicket.model.Model;
 import org.junit.Test;
 
+import gr.interamerican.bo2.samples.bean.BeanWithOrderedFields;
+import gr.interamerican.bo2.samples.collections.BeanCollections;
+import gr.interamerican.wicket.callback.MockedCallback;
+import gr.interamerican.wicket.markup.html.TestPage;
+import gr.interamerican.wicket.samples.creators.SampleDataTableCreators;
+import gr.interamerican.wicket.test.WicketTest;
+
 /**
- * Unit tests for {@link MultipleSelectionsPanel}
+ * Unit tests for {@link MultipleSelectionsPanel}.
  */
 @SuppressWarnings("nls")
 public class TestMultipleSelectionsPanel extends WicketTest {
@@ -42,35 +41,19 @@ public class TestMultipleSelectionsPanel extends WicketTest {
 	/**
 	 * Dummy callback for item selection.
 	 */
-	private DummyCallback callback = new DummyCallback();
-	
-	/**
-	 * table creator.
-	 */
-	private DataTableCreatorForBeanWithOrderedFieldsWithCheckBoxes creator = createCreator();
-	
-	/**
-	 * Creates the {@link DataTableCreator}.
-	 * 
-	 * @return Returns a DataTableCreatorForBeanWithOrderedFields.
-	 */
-	DataTableCreatorForBeanWithOrderedFieldsWithCheckBoxes createCreator() {
-		DataTableCreatorForBeanWithOrderedFieldsWithCheckBoxes cr = 
-			new DataTableCreatorForBeanWithOrderedFieldsWithCheckBoxes();		
-		cr.setRowsPerPage(2);
-		return cr;
-	}
+	private MockedCallback callback = new MockedCallback();
 	
 	/**
 	 * Creates a sample definition.
 	 * 
 	 * @return returns a definition.
 	 */
+	@SuppressWarnings("unchecked")
 	MultipleSelectionsPanelDef<BeanWithOrderedFields> createDef() {		
 		MultipleSelectionsPanelDef<BeanWithOrderedFields> def = 
 			new MultipleSelectionsPanelDefImpl<BeanWithOrderedFields>();
 		def.setBackAction(null);
-		def.setDataTableCreator(creator);
+		def.setDataTableCreator(SampleDataTableCreators.checkBoxes(2));
 		def.setItemsSelectedAction(callback);
 		def.setSelectionsModel(new Model<ArrayList<BeanWithOrderedFields>>());
 		def.setList(BeanCollections.listOfBeanWithOrderedFields());

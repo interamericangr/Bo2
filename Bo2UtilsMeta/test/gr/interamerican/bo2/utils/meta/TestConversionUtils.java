@@ -25,82 +25,56 @@ import java.util.Map;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestConversionUtils.
  */
 public class TestConversionUtils {
-	
+
 	/**
-	 * generic writer
+	 * Tests convert a string to boolean.
 	 */
-	ObjectFormatter writer = ObjectFormatter.INSTANCE;
-	
-	/**
-	 * BooleanParser
-	 */
-	Parser<Boolean> booleanParser = new BooleanParser();
-	
-	/**
-	 * map with values
-	 */
-	Map<String, String> map = new HashMap<String, String>();
-	
-	
-	/**
-	 * mapper to test
-	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	Mapper mapper = new Mapper(writer, booleanParser, map);
-	
-	/**
-	 * ConversionUtils
-	 */
-	ConversionUtils utils = new ConversionUtils();
-	
-	/**
-	 * Tests convert a string to boolean
-	 */
-	@SuppressWarnings("unchecked")
 	@Test
-	public void testConvert(){
+	public void testConvert() {
+		Map<String, String> map = new HashMap<String, String>();
+		Mapper<Object, Boolean> mapper = new Mapper<>(ObjectFormatter.INSTANCE, new BooleanParser(), map);
 		map.put("0", "true"); //$NON-NLS-1$ //$NON-NLS-2$
 		Boolean expected = true;
-		Boolean actual = (Boolean) ConversionUtils.convert(mapper, 0);
-		assertEquals(expected,actual);
+		Boolean actual = ConversionUtils.convert(mapper, 0);
+		assertEquals(expected, actual);
 	}
-	
+
 	/**
-	 * Tests convert a no integer value to integer 
+	 * Tests convert a no integer value to integer.
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Test(expected = RuntimeException.class)
-	public void testConvert_ConversionException(){
+	public void testConvert_ConversionException() {
+		Map<String, String> map = new HashMap<String, String>();
 		Parser<Integer> intParser = new IntegerParser();
-		Mapper mapper = new Mapper(writer, intParser, map);
+		Mapper<Object, Integer> mapper = new Mapper<>(ObjectFormatter.INSTANCE, intParser, map);
 		map.put("0", "noIntegerValue"); //$NON-NLS-1$ //$NON-NLS-2$
-        ConversionUtils.convert(mapper, 0);
+		ConversionUtils.convert(mapper, 0);
 	}
-	
-	
+
 	/**
-	 * tests MandatoryConvert
+	 * tests MandatoryConvert.
 	 */
-	@SuppressWarnings("unchecked")
 	@Test
-	public void testMandatoryConvert(){
+	public void testMandatoryConvert() {
+		Map<String, String> map = new HashMap<String, String>();
+		Mapper<Object, Boolean> mapper = new Mapper<>(ObjectFormatter.INSTANCE, new BooleanParser(), map);
 		map.put("0", "true"); //$NON-NLS-1$ //$NON-NLS-2$
 		Boolean expected = true;
-		Boolean actual = (Boolean) ConversionUtils.mandatoryConvert(mapper, 0);
-		assertEquals(expected,actual);
+		Boolean actual = ConversionUtils.mandatoryConvert(mapper, 0);
+		assertEquals(expected, actual);
 	}
-	
+
 	/**
-	 * tests MandatoryConvert
+	 * tests MandatoryConvert.
 	 */
-	@SuppressWarnings("unchecked")
-	@Test(expected=RuntimeException.class)
-	public void testMandatoryConvert_nullValue(){
+	@Test(expected = RuntimeException.class)
+	public void testMandatoryConvert_nullValue() {
+		Map<String, String> map = new HashMap<String, String>();
+		Mapper<Object, Boolean> mapper = new Mapper<>(ObjectFormatter.INSTANCE, new BooleanParser(), map);
 		map.put("0", "true"); //$NON-NLS-1$ //$NON-NLS-2$
 		ConversionUtils.mandatoryConvert(mapper, 1);
-		
 	}
 }

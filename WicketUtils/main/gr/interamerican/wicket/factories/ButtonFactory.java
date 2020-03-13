@@ -20,77 +20,74 @@ import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.IModel;
 
 /**
- * Factory of Bo2 enabled wicket components. 
+ * Factory of Bo2 enabled wicket components.
+ * 
+ * @deprecated Call {@link CallbackAjaxButton} directly
  */
+@Deprecated
 public class ButtonFactory {
 
 	/**
 	 * Private empty constructor of a utility class.
 	 */
 	private ButtonFactory() {/* empty */}
-	
-	
+
 	/**
 	 * creates a new AjaxButton that executes a {@link CallbackAction}.
 	 * 
-	 * @param id 
-	 *        Button id.
+	 * @param id
+	 *            Button id.
 	 * @param model
-	 *        Button model.
+	 *            Button model.
 	 * @param action
-	 *        CallbackAction that will be executed on button press.
+	 *            CallbackAction that will be executed on button press.
 	 * @param feedbackPanel
-	 * 		  the feedbackPanel that will be rendered. 
-	 *        
+	 *            the feedbackPanel that will be rendered.
+	 * 
 	 * @return Returns a new AjaxButton that will execute the specified
 	 *         Bo2WicketBlock.
 	 */
-	public static AjaxButton createButton 
-	(final String id, final IModel<String> model, final CallbackAction action, final FeedbackPanel feedbackPanel) {		
-		return new CallbackAjaxButton(id, model,action,feedbackPanel);		
+	public static AjaxButton createButton(final String id, final IModel<String> model, final CallbackAction action,
+			final FeedbackPanel feedbackPanel) {
+		return new CallbackAjaxButton(id, model, action, feedbackPanel);
 	}
-	
-	/**
-	 * Creates a new AjaxButton that executes a {@link CallbackAction}.
-	 * 
-	 * The button will be created with a ResourceModel for the expression
-	 * button.id , where id is the id specified. 
-	 * 
-	 * @param id 
-	 *        Button id.
-	 * @param action
-	 *        CallbackAction that will be executed on button press.
-	 *        
-	 * @return Returns a new AjaxButton that will execute the specified
-	 *         Bo2WicketBlock.
-	 */
-	public static AjaxButton createButton 
-	(final String id, final CallbackAction action) {
-		return new CallbackAjaxButton(id,action,null);
-	}
-	
-	/**
-	 * Creates a new AjaxButton that executes a {@link CallbackAction}.
-	 * 
-	 * The button will be created with a ResourceModel for the expression
-	 * button.id , where id is the id specified. 
-	 * 
-	 * @param id 
-	 *        Button id.
-	 * @param action
-	 *        Callback action that will be executed on button press.
-	 * @param feedbackPanel the panel that will be rendered, onError.
-	 *        
-	 * @return Returns a new AjaxButton that will execute the specified
-	 *         Bo2WicketBlock.
-	 */
-	public static AjaxButton createButton 
-	(final String id, final CallbackAction action , final FeedbackPanel feedbackPanel) {
-		return new CallbackAjaxButton(id, action,feedbackPanel);
-	}
-	
 
-		
-	
-	
+	/**
+	 * Creates a new AjaxButton that executes a {@link CallbackAction}.
+	 * 
+	 * The button will be created with a ResourceModel for the expression
+	 * button.id , where id is the id specified.
+	 * 
+	 * @param id
+	 *            Button id.
+	 * @param action
+	 *            CallbackAction that will be executed on button press.
+	 * 
+	 * @return Returns a new AjaxButton that will execute the specified
+	 *         Bo2WicketBlock.
+	 */
+	public static AjaxButton createButton(final String id, final CallbackAction action) {
+		return new CallbackAjaxButton(id, action, null);
+	}
+
+	/**
+	 * Creates a new AjaxButton that executes a {@link CallbackAction}.
+	 * 
+	 * The button will be created with a ResourceModel for the expression
+	 * button.id , where id is the id specified.
+	 * 
+	 * @param id
+	 *            Button id.
+	 * @param action
+	 *            Callback action that will be executed on button press.
+	 * @param feedbackPanel
+	 *            the panel that will be rendered, onError.
+	 * 
+	 * @return Returns a new AjaxButton that will execute the specified
+	 *         Bo2WicketBlock.
+	 */
+	public static AjaxButton createButton(final String id, final CallbackAction action,
+			final FeedbackPanel feedbackPanel) {
+		return new CallbackAjaxButton(id, action, feedbackPanel);
+	}
 }

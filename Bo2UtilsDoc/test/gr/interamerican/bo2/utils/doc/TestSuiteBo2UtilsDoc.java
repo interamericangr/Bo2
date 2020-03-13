@@ -18,7 +18,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 
 /**
- * 
+ * The Class TestSuiteBo2UtilsDoc.
  */
 /**
  * Test suite for package <code>gr.interamerican.bo2.impl.open.po.collections</code>.

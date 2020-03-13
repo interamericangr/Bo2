@@ -18,7 +18,7 @@ import gr.interamerican.bo2.test.def.posamples.CustomerAddress;
 import gr.interamerican.bo2.test.def.posamples.CustomerAddressKey;
 
 /**
- * 
+ * The Class CustomerAddressImpl.
  */
 public class CustomerAddressImpl 
 extends AbstractModificationRecordPo<CustomerAddressKey> 
@@ -50,36 +50,44 @@ implements CustomerAddress {
 	 */
 	private String streetNo;
 	
+	@Override
 	public String getCustomerNo() {
 		return key.getCustomerNo();
 	}
 	
+	@Override
 	public void setCustomerNo(String customerNo) {
 		key.setCustomerNo(customerNo);
 		fixKeysOfChildren();
 	}
 	
+	@Override
 	public Integer getAddressNo() {
 		return key.getAddressNo();
 	}
 	
+	@Override
 	public void setAddressNo(Integer addressNo) {
 		key.setAddressNo(addressNo);
 		fixKeysOfChildren();
 	}
 	
+	@Override
 	public String getStreet() {
 		return street;
 	}
 	
+	@Override
 	public void setStreet(String street) {
 		this.street = street;
 	}
 	
+	@Override
 	public String getStreetNo() {
 		return streetNo;
 	}
 	
+	@Override
 	public void setStreetNo(String streetNo) {
 		this.streetNo = streetNo;
 	}

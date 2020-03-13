@@ -16,16 +16,15 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeBodyPart;
 
 /**
- * Abstrac
+ * Abstrac.
  */
 public interface Attachment {
 	
 	/**
 	 * Gets a MimeBodyPart for this attachment.
-	 * 
+	 *
 	 * @return Gets a MimeBodyPart for this attachment.
-	 * 
-	 * @throws MessagingException 
+	 * @throws MessagingException the messaging exception
 	 */
 	public MimeBodyPart getMimeBodyPart() throws MessagingException;
 

@@ -9,6 +9,7 @@ import java.util.Date;
  */
 public interface ICriteriaDependent2 extends ICriteriaDependent<Object> {
 	
+	@Override
 	public Date getCriteria();
 
 }

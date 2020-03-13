@@ -24,9 +24,7 @@ public class MaxValueValidator<T extends Comparable<T>>
 extends AbstractValidator
 implements Validator<T> {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * maximum value.
@@ -36,7 +34,7 @@ implements Validator<T> {
 	/**
 	 * Creates a new StringMinLengthValidator object. 
 	 *
-	 * @param maximum
+	 * @param maximum the maximum
 	 */
 	public MaxValueValidator(T maximum) {
 		super();
@@ -61,6 +59,7 @@ implements Validator<T> {
 		this.maximum = maximum;
 	}
 
+	@Override
 	public void validate(T value) throws ValidationException {
 		if(value==null) {
 			return;

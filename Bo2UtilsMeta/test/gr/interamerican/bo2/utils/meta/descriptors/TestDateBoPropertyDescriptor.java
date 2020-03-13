@@ -21,7 +21,7 @@ import org.junit.Test;
 public class TestDateBoPropertyDescriptor {
 	
 	/**
-	 * Test Format
+	 * Test Format.
 	 */
 	@Test
 	public void testCreate(){

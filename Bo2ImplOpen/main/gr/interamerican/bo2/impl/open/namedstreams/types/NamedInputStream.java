@@ -29,14 +29,14 @@ public class NamedInputStream extends AbstractNamedStream<InputStream> {
 	
 	/**
 	 * Creates a new NamedInputStream object.
-	 * 
-	 * @param resourceType
-	 * @param stream
-	 * @param name
-	 * @param recordLength
-	 * @param resource 
-	 * @param encoding 
-	 * @param uri 
+	 *
+	 * @param resourceType the resource type
+	 * @param stream the stream
+	 * @param name the name
+	 * @param recordLength the record length
+	 * @param resource the resource
+	 * @param encoding the encoding
+	 * @param uri the uri
 	 */
 	public NamedInputStream(
 			StreamResource resourceType, InputStream stream, 
@@ -59,9 +59,8 @@ public class NamedInputStream extends AbstractNamedStream<InputStream> {
 			int byteCount=stream.read(record);
 			if (byteCount<=0) {
 			    return null;
-			} else {
-			    return record;
 			}
+			    return record;
 		} catch (IOException e) {
 			throw new DataException(e);
 		}        

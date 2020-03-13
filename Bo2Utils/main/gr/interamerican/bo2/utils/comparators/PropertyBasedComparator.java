@@ -12,12 +12,15 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.comparators;
 
+import gr.interamerican.bo2.utils.CollectionUtils;
 import gr.interamerican.bo2.utils.JavaBeanUtils;
 import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.Utils;
 
 import java.beans.PropertyDescriptor;
+import java.util.Collection;
 import java.util.Comparator;
+import java.util.function.Function;
 
 /**
  * Comparator based on the value of a property of two objects.
@@ -25,10 +28,13 @@ import java.util.Comparator;
  * This comparator compares two objects that belong to the same type 
  * by comparing the values of a specified property on both objects.
  * The type of the property used for comparison must be a sub-type
- * of Comparable. <br/> 
+ * of Comparable. <br> 
  *  
  * @param <T> Type of objects being compared by this class.
+ * 
+ * @deprecated Use {@link CollectionUtils#sort(Collection, Function)} or the java api offered by {@link Comparator}
  */
+@Deprecated
 public class PropertyBasedComparator<T> 
 implements Comparator<T> {
 	
@@ -44,15 +50,15 @@ implements Comparator<T> {
 	private PropertyDescriptor pd;
 	
 	/**
-	 * ������� �� ��������� ��� nested property.
+	 * If the property is nested
 	 */
 	private boolean isNestedProperty;
 
 	/**
 	 * Creates a new PropertyBasedComparator object. 
 	 *
-	 * @param type
-	 * @param property 
+	 * @param type the type
+	 * @param property the property
 	 */
 	public PropertyBasedComparator(Class<T> type, String property) {
 		super();
@@ -68,7 +74,7 @@ implements Comparator<T> {
 			throw new RuntimeException(msg);
 		}
 	}
-	
+
 	@Override
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public int compare(T o1, T o2) {
@@ -84,6 +90,5 @@ implements Comparator<T> {
 		Comparable c1 = (Comparable) prop1;
 		Comparable c2 = (Comparable) prop2;
 		return Utils.nullSafeCompare(c1, c2);
-	}
-	
+	}	
 }

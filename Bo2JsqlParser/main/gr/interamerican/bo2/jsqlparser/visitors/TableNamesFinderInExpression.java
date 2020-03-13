@@ -80,6 +80,8 @@ public class TableNamesFinderInExpression implements ExpressionVisitor, ItemsLis
 	private boolean staticValue = false;
 
 	/**
+	 * Gets the table names.
+	 *
 	 * @return table names
 	 */
 	public Set<String> getTableNames() {
@@ -87,6 +89,8 @@ public class TableNamesFinderInExpression implements ExpressionVisitor, ItemsLis
 	}
 
 	/**
+	 * Gets the static value.
+	 *
 	 * @return static value flag.
 	 */
 	public boolean getStaticValue() {
@@ -94,9 +98,9 @@ public class TableNamesFinderInExpression implements ExpressionVisitor, ItemsLis
 	}
 
 	/**
-	 * generic handler for binary expressions
-	 * 
-	 * @param b
+	 * generic handler for binary expressions.
+	 *
+	 * @param b the b
 	 */
 	private void handleBinaryExpression(BinaryExpression b) {
 		b.getLeftExpression().accept(this);

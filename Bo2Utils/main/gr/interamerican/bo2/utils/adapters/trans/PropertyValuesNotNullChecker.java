@@ -25,8 +25,8 @@ extends PropertyValuesChecker<T>{
 	/**
 	 * Creates a new PropertyValuesNotNullChecker object. 
 	 *
-	 * @param properties
-	 * @param messages
+	 * @param properties the properties
+	 * @param messages the messages
 	 */
 	public PropertyValuesNotNullChecker(String[] properties, String[] messages) {
 		super(properties, new Object[properties.length], messages);		

@@ -21,8 +21,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 
 /**
- * Panel for displaying the status of a {@link BatchProcess}
- * 
+ * Panel for displaying the status of a {@link BatchProcess}.
  */
 public class LongProcessPanel extends BPanel<LongProcess> {
 
@@ -44,7 +43,7 @@ public class LongProcessPanel extends BPanel<LongProcess> {
 	/**
 	 * Creates a new BatchProcessInputPanel object. 
 	 *
-	 * @param model
+	 * @param model the model
 	 */
 	public LongProcessPanel(LongProcess model) {
 		super(model);

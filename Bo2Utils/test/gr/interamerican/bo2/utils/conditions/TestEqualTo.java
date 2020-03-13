@@ -25,7 +25,7 @@ import org.junit.Test;
 public class TestEqualTo {
 	
 	/**
-	 * Tests check()
+	 * Tests check().
 	 */
 	@Test
 	public void testCheck() {
@@ -40,7 +40,7 @@ public class TestEqualTo {
 	}
 	
 	/**
-	 * Tests check()
+	 * Tests check().
 	 */
 	@Test
 	public void testCheck_2() {		

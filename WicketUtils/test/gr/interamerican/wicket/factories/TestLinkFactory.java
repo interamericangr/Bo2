@@ -26,15 +26,14 @@ import org.junit.Test;
 /**
  *  Test {@link LinkFactory}.
  */
+@Deprecated
 public class TestLinkFactory extends WicketTest{
 	
-	/**
-	 * the WicketTester
-	 */
+	/** the WicketTester. */
 	public WicketTester wicketTester = null;
 
 	/**
-	 * 
+	 * Sets the up.
 	 */
 	@Before
 	public void setUp(){	
@@ -80,7 +79,4 @@ public class TestLinkFactory extends WicketTest{
 		wicketTester.clickLink("tf:testIdLink", true); //$NON-NLS-1$
 		wicketTester.isVisible("tf:testId"); //$NON-NLS-1$
 	}
-	
-	
-
 }

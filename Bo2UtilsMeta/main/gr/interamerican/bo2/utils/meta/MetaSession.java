@@ -25,6 +25,8 @@ public class MetaSession {
 	static ThreadLocal<Locale> tlLocale = new ThreadLocal<Locale>();
 	
 	/**
+	 * Gets the locale.
+	 *
 	 * @return Returns the locale for the current thread.
 	 */
 	public static Locale getLocale() {
@@ -32,8 +34,9 @@ public class MetaSession {
 	}
 	
 	/**
-	 * @param locale
-	 *        Sets the locale for the current thread.
+	 * Sets the locale.
+	 *
+	 * @param locale        Sets the locale for the current thread.
 	 */
 	public static void setLocale(Locale locale) {
 		tlLocale.set(locale);

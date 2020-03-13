@@ -15,20 +15,16 @@ package gr.interamerican.bo2.test.impl.samples;
 import gr.interamerican.bo2.test.def.samples.SampleCalculator;
 
 /**
- * 
+ * The Class SampleCalculatorImpl.
  */
 public class SampleCalculatorImpl implements SampleCalculator{
 
-	/* (non-Javadoc)
-	 * @see gr.interamerican.bo2.test.samples.SampleCalculator#add(java.lang.Integer, java.lang.Integer)
-	 */
+	@Override
 	public Integer add(Integer i1, Integer i2) {
 		return new Integer(i1+i2);
 	}
 
-	/* (non-Javadoc)
-	 * @see gr.interamerican.bo2.test.samples.SampleCalculator#subtract(java.lang.Integer, java.lang.Integer)
-	 */
+	@Override
 	public Integer subtract(Integer i1, Integer i2) {
 		return new Integer(i1-i2);
 	}

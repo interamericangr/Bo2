@@ -31,9 +31,8 @@ import java.util.Set;
  * id of the current {@link Bo2Session} as last modification 
  * user to any child AbstractModificationRecordPo where it 
  * is empty. 
- * 
- * @param <K> 
- * 
+ *
+ * @param <K> the key type
  */
 public abstract class AbstractModificationRecordPo<K extends Key> 
 extends AbstractBasePo<K> 
@@ -55,52 +54,53 @@ implements ModificationRecord {
 		prePersistStates.add(CrudStates.PRE_UPDATE);
 	}
 
-
 	/**
 	 * Creates a new AbstractModificationRecordPo object.
 	 */
 	public AbstractModificationRecordPo() {
 		super();
 	}
-	
+
 	/**
 	 * Modification record.
 	 */
 	private ModificationRecord mdf = new ModificationRecordImpl();
 
+	@Override
 	public Date getLastModified() {
 		return mdf.getLastModified();
 	}
 
+	@Override
 	public void setLastModified(Date lastModified) {
 		mdf.setLastModified(lastModified);
 	}
 
+	@Override
 	public String getLastModifiedBy() {
 		return mdf.getLastModifiedBy();
 	}
 
+	@Override
 	public void setLastModifiedBy(String lastModifiedBy) {
 		mdf.setLastModifiedBy(lastModifiedBy);
 	}
-	
-	
+
 	/**
 	 * Sets the lastModifiedBy property.
 	 */
 	void setModifiedBy() {
-		if (prePersistStates.contains(Bo2Session.getState())) {			
-			if (mdf.getLastModifiedBy()==null) {
+		if (prePersistStates.contains(Bo2Session.getState())) {
+			if (mdf.getLastModifiedBy() == null) {
 				String userId = Bo2Session.getUserId();
-				mdf.setLastModifiedBy(userId);					
-			}				
-		}	
+				mdf.setLastModifiedBy(userId);
+			}
+		}
 	}
-	
+
 	@Override
 	protected void doTidy() {
 		setModifiedBy();
 		super.doTidy();
 	}
-
 }

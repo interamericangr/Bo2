@@ -21,6 +21,7 @@ import org.mockito.Mockito;
 /**
  * Test for {@link AbstractAjaxEnabledCondition}.
  */
+@Deprecated
 public class TestAbstractAjaxEnabledCondition {
 	
 	/**

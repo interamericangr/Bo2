@@ -20,12 +20,14 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 /**
- * Unit tests of {@link SoapLoggingFilter}
+ * Unit tests of {@link SoapLoggingFilter}.
  */
 public class TestSoapLoggingFilter {
 	
 	/**
-	 * @throws ServletException
+	 * Test init.
+	 *
+	 * @throws ServletException the servlet exception
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -42,8 +44,9 @@ public class TestSoapLoggingFilter {
 	}
 	
 	/**
-	 * test logSoap
-	 * @throws IOException
+	 * test logSoap.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -73,8 +76,9 @@ public class TestSoapLoggingFilter {
 	}
 	
 	/**
-	 * test logSoap of MIME http request
-	 * @throws IOException
+	 * test logSoap of MIME http request.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -104,8 +108,9 @@ public class TestSoapLoggingFilter {
 	}
 	
 	/**
-	 * test logSoap of MIME http request
-	 * @throws IOException
+	 * test logSoap of MIME http request.
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -128,10 +133,10 @@ public class TestSoapLoggingFilter {
 	}
 	
 	/**
-	 * Test doFilter()
-	 * 
-	 * @throws IOException
-	 * @throws ServletException
+	 * Test doFilter().
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ServletException the servlet exception
 	 */
 	@Test
 	public void testDoFilter() throws IOException, ServletException {

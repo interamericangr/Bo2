@@ -35,14 +35,13 @@ public class NamedBufferedReader extends AbstractNamedStream<BufferedReader> {
 	
 	/**
 	 * Creates a new NamedBufferedReader object.
-	 * 
-	 * @param resourceType
-	 * @param stream
-	 *        BufferedReader using the user defined encoding.
-	 * @param name
-	 * @param resource 
-	 * @param encoding 
-	 * @param uri 
+	 *
+	 * @param resourceType the resource type
+	 * @param stream        BufferedReader using the user defined encoding.
+	 * @param name the name
+	 * @param resource the resource
+	 * @param encoding the encoding
+	 * @param uri the uri
 	 */
 	public NamedBufferedReader(
 			StreamResource resourceType, BufferedReader stream, 

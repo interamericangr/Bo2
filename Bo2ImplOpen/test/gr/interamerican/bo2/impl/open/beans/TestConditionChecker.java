@@ -17,24 +17,20 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestConditionChecker.
  */
 public class TestConditionChecker {
 	
 	
-	/**
-	 * contditionChecker to test
-	 */
+	/** contditionChecker to test. */
 	private ConditionChecker<String> checker = new ConditionChecker<String>();
 	
-	/**
-	 * message to test
-	 */
+	/** message to test. */
 	private static final String message = "message"; //$NON-NLS-1$
 	
 	
 	/**
-	 * Test addControl
+	 * Test addControl.
 	 */
 	@Test
 	public void testAddControl(){
@@ -42,7 +38,7 @@ public class TestConditionChecker {
 	}
 
 	/**
-	 * Test check
+	 * Test check.
 	 */
 	@Test
 	public void testCheck(){

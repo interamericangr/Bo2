@@ -18,12 +18,12 @@ import gr.interamerican.bo2.arch.TransactionManager;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestJotmUtils.
  */
 public class TestJotmUtils {
 	
 	/**
-	 * Test validateTm(tm)
+	 * Test validateTm(tm).
 	 */
 	@Test
 	public void testValidateTm_valid() {

@@ -22,6 +22,7 @@ import gr.interamerican.bo2.utils.adapters.Transformation;
  */
 public class CsvRecord2RowTags 
 implements Transformation<CsvRecord, String> {
+
 	/**
 	 * Count of CSV record columns.
 	 */
@@ -46,8 +47,6 @@ implements Transformation<CsvRecord, String> {
 	 * Tag for cell end.
 	 */
 	String endCellTag;
-	
-	
 
 	/**
 	 * Creates a new CsvRecord2RowTags object. 
@@ -71,13 +70,14 @@ implements Transformation<CsvRecord, String> {
 	/**
 	 * Creates a new CsvRecord2RowTags object for the HTML dialect. 
 	 *
-	 * @param columnCount
+	 * @param columnCount the column count
 	 */
 	@SuppressWarnings("nls")
 	public CsvRecord2RowTags(int columnCount) {
 		this(columnCount,"tr","td");
 	}
 
+	@Override
 	public String execute(CsvRecord a) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(startRowTag);
@@ -89,7 +89,4 @@ implements Transformation<CsvRecord, String> {
 		sb.append(endRowTag);
 		return sb.toString();
 	}
-	
-	
-
 }

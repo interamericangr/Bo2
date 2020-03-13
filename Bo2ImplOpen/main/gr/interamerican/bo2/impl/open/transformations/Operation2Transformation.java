@@ -14,12 +14,12 @@ import gr.interamerican.bo2.utils.adapters.Transformation;
  * invokes the {@link Operation#execute()} method of the Operation.
  * The input arguments of the operation are transfered by copying
  * the <code>inputProperties</code> from the input object to the 
- * operation. <br/>
+ * operation. <br>
  * The return object of the <code>execute(object)</code> method
- * is determined by the <code>outputProperty</code> property. <br/>
+ * is determined by the <code>outputProperty</code> property. <br>
  * The operation must be ready for execution. The operation methods
  * declared by the {@link Worker} interface are not invoked by the
- * {@link Operation2Transformation}. <br/>
+ * {@link Operation2Transformation}. <br>
  * Possible {@link LogicException} or {@link DataException} thrown by
  * the operation's <code>execute()</code> method are wrapped in a 
  * {@link RuntimeException} that has the thrown exception as cause. 
@@ -35,9 +35,9 @@ implements Transformation<A, R> {
 	/**
 	 * Creates a new Operation2Transformation object. 
 	 *
-	 * @param operation
-	 * @param inputProperties
-	 * @param outputProperty
+	 * @param operation the operation
+	 * @param outputProperty the output property
+	 * @param inputProperties the input properties
 	 */
 	public Operation2Transformation(Operation operation, String outputProperty, String... inputProperties) {
 		super();

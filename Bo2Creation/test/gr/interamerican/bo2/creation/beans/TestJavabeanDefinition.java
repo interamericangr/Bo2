@@ -22,19 +22,15 @@ import java.util.List;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestJavabeanDefinition.
  */
 public class TestJavabeanDefinition {
 
 	
-	/**
-	 * list with definitions
-	 */
+	/** list with definitions. */
 	List<VariableDefinition<?>> fields = new ArrayList<VariableDefinition<?>>();
 		
-	/**
-	 * JavabeanDefinition
-	 */
+	/** JavabeanDefinition. */
 	JavabeanDefinition definition;
 	
 	/**

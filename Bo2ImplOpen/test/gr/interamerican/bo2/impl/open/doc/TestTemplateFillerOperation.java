@@ -28,7 +28,7 @@ public class TestTemplateFillerOperation {
 	
 	
 	/**
-	 * Test for the operation
+	 * Test for the operation.
 	 */
 	@Test
 	public void testLifecycle() {

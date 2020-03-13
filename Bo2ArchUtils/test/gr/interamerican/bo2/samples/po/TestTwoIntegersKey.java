@@ -23,9 +23,7 @@ import org.junit.Test;
  */
 public class TestTwoIntegersKey {
 	
-	/**
-	 * sample key
-	 */	
+	/** sample key. */	
 	TwoIntegersKey sample = new TwoIntegersKey(5,9);	
 	/**
 	 * little key.

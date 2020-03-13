@@ -10,7 +10,7 @@ fi
 
 svn update
 
-mvn -q clean install 
+mvn -q -U clean install javadoc:javadoc 
 
 e="$?"
 if [ $e -ne 0 ]
@@ -19,12 +19,12 @@ then
         exit -1
 fi
 
-snapshot=`mvn org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | grep -v '\['`
-release=${snapshot/"-SNAPSHOT"/}
+snapshot=`mvn -U org.apache.maven.plugins:maven-help-plugin:2.1.1:evaluate -Dexpression=project.version | grep -v '\['|grep -v 'Down'`
+release=${snapshot%"-SNAPSHOT"}
 
 echo "preparing release version $release"
 
-mvn -q --batch-mode release:prepare -Darguments="-DskipTests"
+mvn -q -U --batch-mode release:prepare -Darguments="-DskipTests"
  
 e="$?"
 if [ $e -ne 0 ]
@@ -33,7 +33,7 @@ then
 	exit -1
 fi
 
-mvn -q release:perform -Darguments="-DskipTests"
+mvn -q -U release:perform -Darguments="-DskipTests"
 
 e="$?"
 if [ $e -ne 0 ]

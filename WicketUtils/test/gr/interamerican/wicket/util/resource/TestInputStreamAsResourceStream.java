@@ -12,6 +12,8 @@
  ******************************************************************************/
 package gr.interamerican.wicket.util.resource;
 
+import static org.mockito.Mockito.*;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,39 +28,44 @@ public class TestInputStreamAsResourceStream {
 
 	/**
 	 * tests the one arg constructor.
-	 * 
+	 *
 	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	@Test
 	public void testConstructor() throws IOException {
 		InputStream stream = new ByteArrayInputStream(new byte[1]);
-		InputStreamAsResourceStream resource = new InputStreamAsResourceStream(stream);
-		Assert.assertEquals(stream, resource.stream);
-		resource.close();
+		try (InputStreamAsResourceStream resource = new InputStreamAsResourceStream(stream)) {
+			Assert.assertEquals(stream, resource.stream);
+		}
 	}
 
 	/**
 	 * tests the getInputStream.
-	 * 
+	 *
 	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	@Test
 	public void testGetInputStream() throws IOException {
 		InputStream stream = new ByteArrayInputStream(new byte[1]);
-		InputStreamAsResourceStream resource = new InputStreamAsResourceStream(stream);
-		Assert.assertEquals(resource.stream, resource.getInputStream());
-		resource.close();
+		try (InputStreamAsResourceStream resource = new InputStreamAsResourceStream(stream)) {
+			Assert.assertEquals(resource.stream, resource.getInputStream());
+		}
 	}
 
 	/**
 	 * tests close.
+	 *
 	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	@Test
-	public void testClose() throws IOException  {
-		InputStream stream = new ByteArrayInputStream(new byte[1]);
-		InputStreamAsResourceStream resource = new InputStreamAsResourceStream(stream);
-		resource.close();
+	public void testClose() throws IOException {
+		InputStream mock = mock(InputStream.class);
+		try (InputStreamAsResourceStream resource = new InputStreamAsResourceStream(mock)) {
+			// nothing
+		}
+		verify(mock).close();
 	}
-
 }

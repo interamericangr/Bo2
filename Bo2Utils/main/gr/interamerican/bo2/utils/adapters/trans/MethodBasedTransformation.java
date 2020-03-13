@@ -5,10 +5,10 @@ import gr.interamerican.bo2.utils.exc.ExceptionHandler;
 import gr.interamerican.bo2.utils.handlers.ConcreteMethodInvocator;
 
 /**
- * {@link MethodBasedTransformation}
+ * {@link MethodBasedTransformation}.
  *
- * @param <A>
- * @param <R> 
+ * @param <A> the generic type
+ * @param <R> the generic type
  */
 public class MethodBasedTransformation<A, R> 
 implements Transformation<A, R> {
@@ -20,10 +20,10 @@ implements Transformation<A, R> {
 	
 	/**
 	 * Creates a new ConcreteMethodInvocator.
-	 * 
-	 * @param handler
-	 * @param methodName
-	 * @param owner
+	 *
+	 * @param handler the handler
+	 * @param methodName the method name
+	 * @param owner the owner
 	 */
 	public MethodBasedTransformation (ExceptionHandler handler, String methodName, Object owner) {
 		cmi = new ConcreteMethodInvocator(handler, methodName, owner);		
@@ -31,9 +31,9 @@ implements Transformation<A, R> {
 	
 	/**
 	 * Creates a new ConcreteMethodInvocator with a default exception handler.
-	 * 
-	 * @param methodName
-	 * @param owner
+	 *
+	 * @param methodName the method name
+	 * @param owner the owner
 	 */
 	public MethodBasedTransformation (String methodName, Object owner) {
 		cmi = new ConcreteMethodInvocator(methodName, owner);

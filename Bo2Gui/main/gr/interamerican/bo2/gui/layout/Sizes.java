@@ -15,7 +15,7 @@ package gr.interamerican.bo2.gui.layout;
 import java.awt.Dimension;
 
 /**
- * 
+ * The Class Sizes.
  */
 public class Sizes {
 	/**
@@ -58,10 +58,9 @@ public class Sizes {
 		
 	/**
 	 * width expressed relatively to default form component height.
-	 *  
-	 * @param length
-	 *  
-	 * @return Returns the width. 
+	 * 
+	 * @param length the length
+	 * @return Returns the width.
 	 */
 	public static int width(int length) {
 		return length * FORM_COMPONENT_CHAR_WIDTH;
@@ -69,18 +68,18 @@ public class Sizes {
 	
 	/**
 	 * width expressed relatively to default form component height.
-	 *  
-	 * @param length
-	 *  
-	 * @return Returns the width. 
+	 *
+	 * @param length the length
+	 * @return Returns the width.
 	 */
 	public static int height(int length) {
 		return length * FORM_COMPONENT_HEIGHT;
 	}
 	
 	/**
-	 * dimension for text fields
-	 * @param length 
+	 * dimension for text fields.
+	 *
+	 * @param length the length
 	 * @return Returns the dimension.
 	 */
 	public static Dimension fieldSize(int length) {
@@ -123,10 +122,9 @@ public class Sizes {
 	
 	/**
 	 * Factory method.
-	 * 
-	 * @param w
-	 * @param h
-	 * 
+	 *
+	 * @param w the w
+	 * @param h the h
 	 * @return Returns a new Dimension object.
 	 */
 	public static Dimension dimension(double w, double h) {
@@ -137,7 +135,7 @@ public class Sizes {
 	
 	/**
 	 * Creates a new Dimension that is equivalent to the specified
-	 * dimensions stacked one on the other. <br/>
+	 * dimensions stacked one on the other. <br>
 	 * 
 	 * The resulting dimension has width equal to the maximum width
 	 * found in the specified dimensions and height equal to the sum
@@ -164,7 +162,7 @@ public class Sizes {
 	/**
 	 * Creates a new Dimension sized relevant to the specified 
 	 * dimension and increased according to the specified
-	 * width and height. <br/>
+	 * width and height. <br>
 	 *  
 	 * @param size
 	 *        Reference dimension.

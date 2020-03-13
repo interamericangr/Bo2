@@ -5,7 +5,7 @@ import gr.interamerican.bo2.utils.attributes.Input;
 /**
  * {@link Input} java bean.
  *
- * @param <T>
+ * @param <T> the generic type
  */
 public class InputBean<T> implements Input<T> {
 	/**

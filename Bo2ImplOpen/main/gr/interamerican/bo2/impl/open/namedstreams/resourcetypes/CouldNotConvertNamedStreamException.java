@@ -22,9 +22,9 @@ public class CouldNotConvertNamedStreamException extends Exception {
 
 	/**
 	 * Creates a new CouldNotCreateNamedStreamException.
-	 * 
-	 * @param message
-	 * @param cause
+	 *
+	 * @param message the message
+	 * @param cause the cause
 	 */
 	public CouldNotConvertNamedStreamException(String message, Throwable cause) {
 		super(message, cause);	
@@ -32,8 +32,8 @@ public class CouldNotConvertNamedStreamException extends Exception {
 
 	/**
 	 * Creates a new CouldNotCreateNamedStreamException.
-	 * 
-	 * @param message
+	 *
+	 * @param message the message
 	 */
 	public CouldNotConvertNamedStreamException(String message) {
 		super(message);
@@ -41,8 +41,8 @@ public class CouldNotConvertNamedStreamException extends Exception {
 
 	/**
 	 * Creates a new CouldNotCreateNamedStreamException..
-	 * 
-	 * @param cause
+	 *
+	 * @param cause the cause
 	 */
 	public CouldNotConvertNamedStreamException(Throwable cause) {
 		super(cause);

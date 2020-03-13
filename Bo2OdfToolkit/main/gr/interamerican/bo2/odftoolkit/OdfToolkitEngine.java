@@ -29,7 +29,7 @@ import java.util.Properties;
 import org.odftoolkit.simple.TextDocument;
 
 /**
- * 
+ * The Class OdfToolkitEngine.
  */
 public class OdfToolkitEngine implements DocumentEngine {
 	/**
@@ -44,7 +44,6 @@ public class OdfToolkitEngine implements DocumentEngine {
 	 *        Provider properties 
 	 */
 	public OdfToolkitEngine(Properties properties) {
-		super();
 		String utilityClass = CollectionUtils.getMandatoryProperty(properties, "docEngineUtilityClass"); //$NON-NLS-1$
 		try {
 			Class<?> utilityClazz = Class.forName(utilityClass);
@@ -59,14 +58,15 @@ public class OdfToolkitEngine implements DocumentEngine {
 	 *
 	 */
 	public OdfToolkitEngine() {
-		super();
 		utility = new JodDocumentEngineUtility(new Properties());
 	}
 
+	@Override
 	public String getEngineName() {		
 		return "OdfToolkit"; //$NON-NLS-1$
 	}
-	
+
+	@Override
 	public BusinessDocument newDocument() throws DocumentEngineException {		
 		try {
 			return new OdfToolkitTextDocument(TextDocument.newTextDocument(), this);
@@ -74,7 +74,8 @@ public class OdfToolkitEngine implements DocumentEngine {
 			throw new DocumentEngineException(e);
 		}
 	}
-	
+
+	@Override
 	public BusinessDocument openDocument(String path)
 	throws DocumentEngineException {
 		try {
@@ -83,7 +84,8 @@ public class OdfToolkitEngine implements DocumentEngine {
 			throw new DocumentEngineException(e);
 		}
 	}
-	
+
+	@Override
 	public BusinessDocument openDocument(File file) throws DocumentEngineException {
 		try {
 			return new OdfToolkitTextDocument(TextDocument.loadDocument(file), this);
@@ -92,6 +94,7 @@ public class OdfToolkitEngine implements DocumentEngine {
 		}
 	}
 
+	@Override
 	public BusinessDocument openDocument(InputStream stream) throws DocumentEngineException {
 		try {
 			return new OdfToolkitTextDocument(TextDocument.loadDocument(stream), this);
@@ -100,6 +103,7 @@ public class OdfToolkitEngine implements DocumentEngine {
 		}
 	}
 
+	@Override
 	public void saveDocument(BusinessDocument doc, String path) throws DocumentEngineException {
 		OdfToolkitTextDocument odfText = safeCast(doc);
 		try {
@@ -108,7 +112,8 @@ public class OdfToolkitEngine implements DocumentEngine {
 			throw new DocumentEngineException(e);
 		}
 	}
-	
+
+	@Override
 	public void saveDocument(BusinessDocument doc, File file) throws DocumentEngineException {
 		OdfToolkitTextDocument odfText = safeCast(doc);
 		try {
@@ -117,7 +122,8 @@ public class OdfToolkitEngine implements DocumentEngine {
 			throw new DocumentEngineException(e);
 		}		
 	}
-	
+
+	@Override
 	public void saveDocument(BusinessDocument doc, OutputStream stream)	throws DocumentEngineException {
 		OdfToolkitTextDocument odfText = safeCast(doc);
 		try {
@@ -126,7 +132,8 @@ public class OdfToolkitEngine implements DocumentEngine {
 			throw new DocumentEngineException(e);
 		}
 	}
-	
+
+	@Override
 	public void saveDocument(BusinessDocument doc) throws DocumentEngineException {
 		OdfToolkitTextDocument odfText = safeCast(doc);
 		String path = OdfUtils.getDocumentPath(odfText.document);		
@@ -143,10 +150,10 @@ public class OdfToolkitEngine implements DocumentEngine {
 	
 	/**
 	 * Safe cast.
-	 * 
-	 * @param doc
+	 *
+	 * @param doc the doc
 	 * @return Returns the same document.
-	 * @throws DocumentEngineException 
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	public static OdfToolkitTextDocument safeCast(BusinessDocument doc) 
 	throws DocumentEngineException {
@@ -156,7 +163,8 @@ public class OdfToolkitEngine implements DocumentEngine {
 		}
 		return (OdfToolkitTextDocument) doc;
 	}
-	
+
+	@Override
 	public byte[] toPdf(BusinessDocument doc) throws DocumentEngineException {
 		if(doc==null) {
 			throw new DocumentEngineException("Input document was null."); //$NON-NLS-1$
@@ -166,6 +174,8 @@ public class OdfToolkitEngine implements DocumentEngine {
 		return utility.toPdf(odfAsBytes);
 	}
 
+	@Deprecated
+	@Override
 	public String toHtml(BusinessDocument doc) throws DocumentEngineException {
 		if(doc==null) {
 			throw new DocumentEngineException("Input document was null."); //$NON-NLS-1$
@@ -174,5 +184,4 @@ public class OdfToolkitEngine implements DocumentEngine {
 		byte[] odfAsBytes = odf.asByteArray();
 		return utility.toHtml(odfAsBytes);
 	}
-
 }

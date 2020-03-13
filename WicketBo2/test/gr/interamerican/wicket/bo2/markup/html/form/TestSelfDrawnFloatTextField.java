@@ -101,7 +101,9 @@ public class TestSelfDrawnFloatTextField extends WicketTest {
 	}
 	
 	/**
-	 * @param textField
+	 * Test form submission.
+	 *
+	 * @param textField the text field
 	 */
 	private void testFormSubmission(TextField<Float> textField) {
 		FormTester formTester = tester.newFormTester(formPath());

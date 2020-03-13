@@ -34,15 +34,13 @@ public interface StreamsProvider extends ResourceWrapper {
 	/**
 	 * Creates an InputStream. This stream must be explicitly closed
 	 * by the program that opened it.
-	 * 
-	 * @param fileDescriptor
-	 *        string giving information to the provider
+	 *
+	 * @param fileDescriptor        string giving information to the provider
 	 *        in order to create the stream. Can be the
 	 *        filename or any other information.
 	 *        
 	 * @return returns an inputStream.
-	 * 
-	 * @throws DataException
+	 * @throws DataException the data exception
 	 */
 	public InputStream getInputStream(String fileDescriptor)
 	throws DataException;
@@ -50,15 +48,13 @@ public interface StreamsProvider extends ResourceWrapper {
 	/**
 	 * Creates an InputStream. This stream is managed, and will be closed
 	 * by this Provider automatically.
-	 * 
-	 * @param fileDescriptor
-	 *        string giving information to the provider
+	 *
+	 * @param fileDescriptor        string giving information to the provider
 	 *        in order to create the stream. Can be the
 	 *        filename or any other information.
 	 *        
 	 * @return returns an inputStream.
-	 * 
-	 * @throws DataException
+	 * @throws DataException the data exception
 	 */
 	public InputStream getManagedInputStream(String fileDescriptor)
 	throws DataException;
@@ -66,15 +62,13 @@ public interface StreamsProvider extends ResourceWrapper {
 	/**
 	 * Creates an OutputStream. This stream must be explicitly closed
 	 * by the program that opened it.
-	 * 
-	 * @param fileDescriptor
-	 *        string giving information to the provider
+	 *
+	 * @param fileDescriptor        string giving information to the provider
 	 *        in order to create the stream. Can be the
 	 *        filename or any other information.
 	 *        
 	 * @return returns an OutputStream.
-	 * 
-	 * @throws DataException
+	 * @throws DataException the data exception
 	 */
 	public OutputStream getOutputStream(String fileDescriptor)
 	throws DataException;
@@ -82,15 +76,13 @@ public interface StreamsProvider extends ResourceWrapper {
 	/**
 	 * Creates an OutputStream. This stream is managed, and will be closed
 	 * by this Provider automatically.
-	 * 
-	 * @param fileDescriptor
-	 *        string giving information to the provider
+	 *
+	 * @param fileDescriptor        string giving information to the provider
 	 *        in order to create the stream. Can be the
 	 *        filename or any other information.
 	 *        
 	 * @return returns an OutputStream.
-	 * 
-	 * @throws DataException
+	 * @throws DataException the data exception
 	 */
 	public OutputStream getManagedOutputStream(String fileDescriptor)
 	throws DataException;

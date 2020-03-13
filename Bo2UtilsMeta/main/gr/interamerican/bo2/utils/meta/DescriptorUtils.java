@@ -25,20 +25,20 @@ import java.util.Properties;
  * Utility class.
  */
 public class DescriptorUtils {
+	
 	/**
 	 * Parses a Properties Object and creates a Map that maps 
 	 * property names to the values parsed by {@link BoPropertyDescriptor}s.
 	 * of the specified {@link BusinessObjectDescriptor}.
 	 *  
-	 * @param p
-	 *        Object to parse.
-	 * @param boDesc
-	 *        BusinessObject descriptor.
+	 *
+	 * @param p        Object to parse.
+	 * @param boDesc        BusinessObject descriptor.
 	 *        
 	 * @return Returns a map that maps BoPropertyDescriptors with
 	 *         the values parsed by them.
 	 *         
-	 * @throws ParseException 
+	 * @throws ParseException the parse exception
 	 */
 	public static Map<BoPropertyDescriptor<?>, Object> parse
 	(Properties p, BusinessObjectDescriptor<?> boDesc) throws ParseException {
@@ -60,9 +60,8 @@ public class DescriptorUtils {
 	/**
 	 * Returns a List with all the names of the {@link BoPropertyDescriptor}s
 	 * of a {@link BusinessObjectDescriptor}.
-	 * 
-	 * @param descriptor
-	 * 
+	 *
+	 * @param descriptor the descriptor
 	 * @return List of property names
 	 */
 	public static List<String> getPropertyNames(BusinessObjectDescriptor<?> descriptor) {

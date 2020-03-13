@@ -12,9 +12,10 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.adapters;
 
+import java.util.function.Function;
+
 /**
- * {@link Transformation} is a generic adapter interface.
- * 
+ * {@link Transformation} is a generic adapter interface.<br>
  * It can model any operation that receives an input and returns an output.
  * The use of a generic adapter interface is to have it used by utilities
  * that perform it on predefined data structures.
@@ -25,7 +26,9 @@ package gr.interamerican.bo2.utils.adapters;
  *        Type of operation result.
  * 
  */
-public interface Transformation<A,R> {
+@FunctionalInterface
+public interface Transformation<A,R> extends Function<A, R> {
+
 	/**
 	 * Operation.
 	 * 
@@ -35,4 +38,9 @@ public interface Transformation<A,R> {
 	 * @return Returns the result of the operation. 
 	 */
 	R execute(A a);
+
+	@Override
+	public default R apply(A t) {
+		return execute(t);
+	}
 }

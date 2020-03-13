@@ -23,9 +23,7 @@ public class StringMaxLengthValidator
 extends AbstractValidator
 implements Validator<String> {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * minimum length.
@@ -35,7 +33,7 @@ implements Validator<String> {
 	/**
 	 * Creates a new StringMinLengthValidator object. 
 	 *
-	 * @param maxLength
+	 * @param maxLength the max length
 	 */
 	public StringMaxLengthValidator(int maxLength) {
 		super();
@@ -69,6 +67,7 @@ implements Validator<String> {
 	}
 
 
+	@Override
 	public void validate(String value) throws ValidationException {
 		if(value==null) {
 			return;

@@ -40,7 +40,8 @@ public class TestFileAttachment {
 	
 	/**
 	 * Test for the constructor.
-	 * @throws MessagingException 
+	 *
+	 * @throws MessagingException the messaging exception
 	 */
 	@SuppressWarnings("nls")
 	@Test

@@ -12,23 +12,8 @@
  ******************************************************************************/
 package gr.interamerican.wicket.bo2.factories;
 
-import static gr.interamerican.wicket.bo2.factories.ActionFactory.addNextIAction;
-import static gr.interamerican.wicket.bo2.factories.ActionFactory.addNextLAction;
-import static gr.interamerican.wicket.bo2.factories.ActionFactory.queryAction;
-import static gr.interamerican.wicket.bo2.factories.ActionFactory.removeAction;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import gr.interamerican.bo2.samples.bean.BeanWith1Field;
-import gr.interamerican.bo2.samples.bean.BeanWithOrderedFields;
-import gr.interamerican.bo2.samples.owners.CollectionOwner;
-import gr.interamerican.wicket.callback.CallbackAction;
-import gr.interamerican.wicket.markup.html.panel.crud.picker.CrudPickerPanelDef;
-import gr.interamerican.wicket.markup.html.panel.crud.picker.CrudPickerPanelDefImpl;
-import gr.interamerican.wicket.markup.html.panel.searchFlow.SearchFlowPanelDef;
-import gr.interamerican.wicket.markup.html.panel.searchFlow.SearchFlowPanelDefImpl;
-import gr.interamerican.wicket.samples.queries.BeanWithOneFieldQuery;
+import static gr.interamerican.wicket.bo2.factories.ActionFactory.*;
+import static org.junit.Assert.*;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -39,9 +24,22 @@ import org.apache.wicket.model.IModel;
 import org.junit.Test;
 import org.mockito.Mockito;
 
+import gr.interamerican.bo2.samples.bean.BeanWith1Field;
+import gr.interamerican.bo2.samples.bean.BeanWithOrderedFields;
+import gr.interamerican.bo2.samples.owners.CollectionOwner;
+import gr.interamerican.wicket.callback.AddElementToCollectionI;
+import gr.interamerican.wicket.callback.AddElementToCollectionL;
+import gr.interamerican.wicket.callback.RemoveElementFromCollection;
+import gr.interamerican.wicket.markup.html.panel.crud.picker.CrudPickerPanelDef;
+import gr.interamerican.wicket.markup.html.panel.crud.picker.CrudPickerPanelDefImpl;
+import gr.interamerican.wicket.markup.html.panel.searchFlow.SearchFlowPanelDef;
+import gr.interamerican.wicket.markup.html.panel.searchFlow.SearchFlowPanelDefImpl;
+import gr.interamerican.wicket.samples.queries.BeanWithOneFieldQuery;
+
 /**
  * Tests for {@link ActionFactory}.
  */
+@Deprecated
 public class TestActionFactory {
 	
 	/**
@@ -61,7 +59,7 @@ public class TestActionFactory {
 		Collection<BeanWithOrderedFields> collection = new HashSet<BeanWithOrderedFields>();
 		owner.setCollection(collection);
 		
-		CallbackAction action = addNextIAction(def, owner, collectionProperty, indexProperty);		
+		AddElementToCollectionI<BeanWithOrderedFields> action = addNextIAction(def, owner, collectionProperty, indexProperty);		
 		assertNotNull(action);
 		
 		AjaxRequestTarget target = Mockito.mock(AjaxRequestTarget.class);		
@@ -87,10 +85,11 @@ public class TestActionFactory {
 		CollectionOwner<BeanWithOrderedFields> owner = new CollectionOwner<BeanWithOrderedFields>();
 		Collection<BeanWithOrderedFields> collection = new HashSet<BeanWithOrderedFields>();
 		owner.setCollection(collection);
-		
-		CallbackAction action = addNextLAction(def, owner, collectionProperty, indexProperty);		
+
+		AddElementToCollectionL<BeanWithOrderedFields> action = addNextLAction(def, owner, collectionProperty,
+				indexProperty);
 		assertNotNull(action);
-		
+
 		AjaxRequestTarget target = Mockito.mock(AjaxRequestTarget.class);		
 		action.callBack(target);
 		
@@ -115,7 +114,7 @@ public class TestActionFactory {
 		owner.setCollection(collection);
 		owner.getCollection().add(bean);
 		
-		CallbackAction action = removeAction(def, owner, collectionProperty);		
+		RemoveElementFromCollection<BeanWithOrderedFields> action = removeAction(def, owner, collectionProperty);		
 		assertNotNull(action);
 		
 		AjaxRequestTarget target = Mockito.mock(AjaxRequestTarget.class);		
@@ -131,8 +130,6 @@ public class TestActionFactory {
 	public void testQueryAction() {		
 		SearchFlowPanelDef<BeanWith1Field, BeanWith1Field> def = 
 			new SearchFlowPanelDefImpl<BeanWith1Field, BeanWith1Field>();
-		CallbackAction action = queryAction(def, BeanWithOneFieldQuery.class);				
-		assertNotNull(action);		
+		assertNotNull(queryAction(def, BeanWithOneFieldQuery.class));		
 	}
-
 }

@@ -23,11 +23,9 @@ import gr.interamerican.bo2.arch.ext.Session;
 import gr.interamerican.bo2.arch.utils.ext.Bo2Session;
 import gr.interamerican.bo2.impl.open.namedstreams.types.NamedPrintStream;
 import gr.interamerican.bo2.samples.implopen.runtime.concurrent.PrintStringOperation;
-import gr.interamerican.bo2.utils.Utils;
 import gr.interamerican.bo2.utils.adapters.Modification;
 import gr.interamerican.bo2.utils.concurrent.ThreadUtils;
 import gr.interamerican.bo2.utils.meta.formatters.Formatter;
-import gr.interamerican.bo2.utils.meta.formatters.ObjectFormatter;
 
 import java.util.Date;
 import java.util.LinkedList;
@@ -51,22 +49,6 @@ public class TestQueueProcessor {
 		NamedPrintStream nps = Mockito.mock(NamedPrintStream.class);
 		Mockito.when(nps.getStream()).thenReturn(System.out);
 		return nps;
-	}
-	
-	
-	/**
-	 * Sample for the tests.
-	 * 
-	 * @return Returns a sample.
-	 */
-	@SuppressWarnings({"nls" })
-	QueueProcessor<String> sample() {
-		String name = "TQ";
-		Operation op = new PrintStringOperation();
-		String inputPropertyName = "string"; //invalid property name.
-		Formatter<String> formatter = Utils.cast(ObjectFormatter.INSTANCE);
-		return new QueueProcessor<String> 
-			(new LinkedList<String>(), name, name, op, inputPropertyName, formatter, null, true);
 	}
 	
 	/**
@@ -119,7 +101,7 @@ public class TestQueueProcessor {
 	 */
 	@Test
 	public void testDoContinue_noEodOrQuit() {
-		QueueProcessor<String> qp = sample();
+		QueueProcessor<String> qp = SampleQueueProcessor.sample();
 		qp.eod = false;
 		qp.quit = false;
 		Assert.assertTrue(qp.doContinue());
@@ -131,7 +113,7 @@ public class TestQueueProcessor {
 	 */
 	@Test
 	public void testDoContinue_endOfProcessing() {
-		QueueProcessor<String> qp = sample();
+		QueueProcessor<String> qp = SampleQueueProcessor.sample();
 		qp.eod = true;
 		qp.inputQueue.clear();
 		qp.quit = false;
@@ -144,7 +126,7 @@ public class TestQueueProcessor {
 	 */
 	@Test
 	public void testDoContinue_eodStillProcessing() {
-		QueueProcessor<String> qp = sample();
+		QueueProcessor<String> qp = SampleQueueProcessor.sample();
 		qp.eod = true;
 		qp.inputQueue.offer("S"); //$NON-NLS-1$
 		qp.quit = false;
@@ -157,7 +139,7 @@ public class TestQueueProcessor {
 	 */
 	@Test
 	public void testDoContinue_quit() {
-		QueueProcessor<String> qp = sample();
+		QueueProcessor<String> qp = SampleQueueProcessor.sample();
 		qp.eod = false;		
 		qp.quit = true;
 		Assert.assertFalse(qp.doContinue());
@@ -186,21 +168,21 @@ public class TestQueueProcessor {
 	@SuppressWarnings({ "nls" })
 	@Test
 	public void testSafeToString_withSucceedingFormatter() {		
-		QueueProcessor<String> qp = sample();					
+		QueueProcessor<String> qp = SampleQueueProcessor.sample();					
 		String s = qp.safeToString("S");
 		Assert.assertEquals("S", s);
 	}
 	
 	/**
 	 * test Process.
-	 * 
-	 * @throws TransactionManagerException 
+	 *
+	 * @throws TransactionManagerException the transaction manager exception
 	 */
 	@SuppressWarnings({ "nls" })
 	@Test
 	public void testProcess_succeeding() throws TransactionManagerException {		
 		TransactionManager mockTm = Mockito.mock(TransactionManager.class);
-		QueueProcessor<String> qp = sample();
+		QueueProcessor<String> qp = SampleQueueProcessor.sample();
 		qp.successesLog = mockStream();
 		qp.failuresLog = mockStream();
 		qp.tm=mockTm;
@@ -217,17 +199,16 @@ public class TestQueueProcessor {
 	
 	/**
 	 * test Process.
-	 * @param exceptionClass 
-	 *        Class of exception being thrown by the operation.
-	 * 
-	 * @throws TransactionManagerException 
-	 * @throws DataException 
-	 * @throws LogicException 
+	 *
+	 * @param exceptionClass        Class of exception being thrown by the operation.
+	 * @throws TransactionManagerException the transaction manager exception
+	 * @throws LogicException the logic exception
+	 * @throws DataException the data exception
 	 */	
 	@SuppressWarnings({ "nls" })
 	void testProcess_WithException(Class<? extends Exception> exceptionClass) 
 	throws TransactionManagerException, LogicException, DataException {		
-		QueueProcessor<String> qp = sample();
+		QueueProcessor<String> qp = SampleQueueProcessor.sample();
 		PrintStringOperation mockPrint = Mockito.mock(PrintStringOperation.class);
 		Mockito.doThrow(exceptionClass).when(mockPrint).execute();
 		qp.operation = mockPrint;
@@ -248,10 +229,10 @@ public class TestQueueProcessor {
 	
 	/**
 	 * test Process when an Exception is thrown by the operation.
-	 * 
-	 * @throws TransactionManagerException 
-	 * @throws DataException 
-	 * @throws LogicException 
+	 *
+	 * @throws TransactionManagerException the transaction manager exception
+	 * @throws LogicException the logic exception
+	 * @throws DataException the data exception
 	 */	
 	@Test
 	public void testProcess_LogicException() 
@@ -261,10 +242,10 @@ public class TestQueueProcessor {
 		
 	/**
 	 * test Process when an Exception is thrown by the operation.
-	 * 
-	 * @throws TransactionManagerException 
-	 * @throws DataException 
-	 * @throws LogicException 
+	 *
+	 * @throws TransactionManagerException the transaction manager exception
+	 * @throws LogicException the logic exception
+	 * @throws DataException the data exception
 	 */	
 	@Test
 	public void testProcess_DataException() 
@@ -274,10 +255,10 @@ public class TestQueueProcessor {
 	
 	/**
 	 * test Process when an Exception is thrown by the operation.
-	 * 
-	 * @throws TransactionManagerException 
-	 * @throws DataException 
-	 * @throws LogicException 
+	 *
+	 * @throws TransactionManagerException the transaction manager exception
+	 * @throws LogicException the logic exception
+	 * @throws DataException the data exception
 	 */	
 	@Test
 	public void testProcess_RuntimeException() 
@@ -287,8 +268,8 @@ public class TestQueueProcessor {
 	
 	/**
 	 * test the main loop().
-	 * 
-	 * @throws TransactionManagerException 
+	 *
+	 * @throws TransactionManagerException the transaction manager exception
 	 */
 	@SuppressWarnings({ "nls" })
 	@Test
@@ -296,7 +277,7 @@ public class TestQueueProcessor {
 	throws TransactionManagerException {
 		TransactionManager mockTm = Mockito.mock(TransactionManager.class);
 		Mockito.doThrow(CouldNotCommitException.class).doNothing().when(mockTm).commit();
-		QueueProcessor<String> qp = sample();
+		QueueProcessor<String> qp = SampleQueueProcessor.sample();
 		String input = "input";
 		qp.inputQueue.offer(input);
 		qp.initialize();
@@ -314,7 +295,7 @@ public class TestQueueProcessor {
 	@SuppressWarnings({ "nls" })
 	@Test
 	public void testRun() {		
-		final QueueProcessor<String> qp = sample();
+		final QueueProcessor<String> qp = SampleQueueProcessor.sample();
 		qp.successesLog = mockStream();
 		qp.failuresLog = mockStream();
 		String input = "input";
@@ -334,7 +315,7 @@ public class TestQueueProcessor {
 	@Test
 	public void testRun_paused() {
 		TransactionManager mockTm = Mockito.mock(TransactionManager.class);
-		final QueueProcessor<String> qp = sample();
+		final QueueProcessor<String> qp = SampleQueueProcessor.sample();
 		qp.successesLog = mockStream();
 		qp.failuresLog = mockStream();
 		qp.tm=mockTm;		
@@ -367,12 +348,12 @@ public class TestQueueProcessor {
 	@Test
 	public void testRun_withPauseAndNewOperation() {
 		TransactionManager mockTm = Mockito.mock(TransactionManager.class);
-		final QueueProcessor<String> qp = sample();
+		final QueueProcessor<String> qp = SampleQueueProcessor.sample();
 		qp.successesLog = mockStream();
 		qp.failuresLog = mockStream();
 		qp.tm=mockTm;		
-		qp.inputQueue.offer("1");
-		qp.inputQueue.offer("2");
+		qp.inputQueue.add("1");
+		qp.inputQueue.add("2");
 		
 		Thread t = new Thread(qp);
 		t.start();
@@ -381,8 +362,9 @@ public class TestQueueProcessor {
 		Operation op1 = new PrintStringOperation();
 		qp.setNewOperation(op1);
 		ThreadUtils.sleep(1);
-		qp.inputQueue.offer("3");
-		qp.inputQueue.offer("4");
+		qp.inputQueue.add("3");
+		qp.inputQueue.add("4");
+		ThreadUtils.sleep(1);
 		qp.signalEndOfData();
 		ThreadUtils.sleep(1);
 		
@@ -401,9 +383,9 @@ public class TestQueueProcessor {
 	@Test
 	@SuppressWarnings({ "nls" })
 	public void testLogSuccess() {		
-		QueueProcessor<String> qp = sample();
+		QueueProcessor<String> qp = SampleQueueProcessor.sample();
 		qp.successesLog = mockStream();
-		qp.logSuccess("Success");
+		qp.logSuccess("Success", 10);
 		/*
 		 * no assertion.
 		 */
@@ -415,9 +397,9 @@ public class TestQueueProcessor {
 	@Test
 	@SuppressWarnings({ "nls" })
 	public void testLogFailures() {		
-		QueueProcessor<String> qp = sample();		
+		QueueProcessor<String> qp = SampleQueueProcessor.sample();		
 		qp.failuresLog = mockStream();
-		qp.logFailure("Failure", new DataException("For test"));
+		qp.logFailure("Failure", new DataException("For test"), 10);
 		/*
 		 * no assertion.
 		 */
@@ -428,7 +410,7 @@ public class TestQueueProcessor {
 	 */
 	@Test
 	public void testSignalEndOfData() {		
-		QueueProcessor<String> qp = sample();
+		QueueProcessor<String> qp = SampleQueueProcessor.sample();
 		qp.signalEndOfData();
 		Assert.assertTrue(qp.eod);
 	}
@@ -438,7 +420,7 @@ public class TestQueueProcessor {
 	 */
 	@Test
 	public void testForceQuit() {		
-		QueueProcessor<String> qp = sample();
+		QueueProcessor<String> qp = SampleQueueProcessor.sample();
 		qp.forceQuit();
 		Assert.assertTrue(qp.quit);
 	}
@@ -448,7 +430,7 @@ public class TestQueueProcessor {
 	 */
 	@Test
 	public void testGetProcessedCount() {		
-		QueueProcessor<String> qp = sample();
+		QueueProcessor<String> qp = SampleQueueProcessor.sample();
 		long expected = 12;
 		qp.processedCount = expected;
 		Assert.assertEquals(expected, qp.getProcessedCount());
@@ -459,7 +441,7 @@ public class TestQueueProcessor {
 	 */
 	@Test
 	public void testGetSuccessesCount() {		
-		QueueProcessor<String> qp = sample();
+		QueueProcessor<String> qp = SampleQueueProcessor.sample();
 		long expected = 4;
 		qp.successesCount = expected;
 		Assert.assertEquals(expected, qp.getSuccessesCount());
@@ -470,7 +452,7 @@ public class TestQueueProcessor {
 	 */
 	@Test
 	public void testGetFailuresCount() {		
-		QueueProcessor<String> qp = sample();
+		QueueProcessor<String> qp = SampleQueueProcessor.sample();
 		long expected = 77;
 		qp.failuresCount = expected;
 		Assert.assertEquals(expected, qp.getFailuresCount());
@@ -481,7 +463,7 @@ public class TestQueueProcessor {
 	 */
 	@Test
 	public void testPause() {		
-		QueueProcessor<String> qp = sample();
+		QueueProcessor<String> qp = SampleQueueProcessor.sample();
 		qp.paused = false;
 		qp.pause();
 		Assert.assertTrue(qp.paused);
@@ -492,7 +474,7 @@ public class TestQueueProcessor {
 	 */
 	@Test
 	public void testResume() {		
-		QueueProcessor<String> qp = sample();
+		QueueProcessor<String> qp = SampleQueueProcessor.sample();
 		qp.paused = true;
 		qp.resume();
 		Assert.assertFalse(qp.paused);		
@@ -503,7 +485,7 @@ public class TestQueueProcessor {
 	 */
 	@Test
 	public void testIsPaused() {		
-		QueueProcessor<String> qp = sample();
+		QueueProcessor<String> qp = SampleQueueProcessor.sample();
 		qp.paused = true;
 		Assert.assertTrue(qp.isPaused());
 		qp.paused = false;
@@ -515,7 +497,7 @@ public class TestQueueProcessor {
 	 */
 	@Test
 	public void testHandle() {		
-		QueueProcessor<String> qp = sample();
+		QueueProcessor<String> qp = SampleQueueProcessor.sample();
 		Exception e = new Exception();
 		qp.handle(e);
 		Assert.assertNotNull(qp.exceptionMessage);
@@ -526,7 +508,7 @@ public class TestQueueProcessor {
 	 */
 	@Test
 	public void testIsFinishedAbnormally_true() {		
-		QueueProcessor<String> qp = sample();
+		QueueProcessor<String> qp = SampleQueueProcessor.sample();
 		qp.exceptionMessage = "Exception"; //$NON-NLS-1$
 		Assert.assertTrue(qp.isFinishedAbnormally());
 	}	
@@ -536,7 +518,7 @@ public class TestQueueProcessor {
 	 */
 	@Test
 	public void testIsFinishedAbnormally_false() {		
-		QueueProcessor<String> qp = sample();
+		QueueProcessor<String> qp = SampleQueueProcessor.sample();
 		qp.exceptionMessage = null;
 		Assert.assertFalse(qp.isFinishedAbnormally());
 	}	
@@ -546,7 +528,7 @@ public class TestQueueProcessor {
 	 */
 	@Test
 	public void testIsFinished() {		
-		QueueProcessor<String> qp = sample();
+		QueueProcessor<String> qp = SampleQueueProcessor.sample();
 		qp.finished = true;		
 		Assert.assertTrue(qp.isFinished());
 	}
@@ -556,7 +538,7 @@ public class TestQueueProcessor {
 	 */
 	@Test
 	public void testGetStartTime() {		
-		QueueProcessor<String> qp = sample();
+		QueueProcessor<String> qp = SampleQueueProcessor.sample();
 		qp.startTime = new Date();
 		Assert.assertEquals(qp.startTime, qp.getStartTime());
 	}	
@@ -566,7 +548,7 @@ public class TestQueueProcessor {
 	 */
 	@Test
 	public void testGetEndTime() {		
-		QueueProcessor<String> qp = sample();
+		QueueProcessor<String> qp = SampleQueueProcessor.sample();
 		qp.endTime = new Date();
 		Assert.assertEquals(qp.endTime, qp.getEndTime());
 	}	
@@ -576,7 +558,7 @@ public class TestQueueProcessor {
 	 */
 	@Test
 	public void testGetExceptionMessage() {		
-		QueueProcessor<String> qp = sample();		
+		QueueProcessor<String> qp = SampleQueueProcessor.sample();		
 		qp.exceptionMessage = "message"; //$NON-NLS-1$
 		Assert.assertEquals(qp.exceptionMessage, qp.getExceptionMessage());
 	}	
@@ -586,7 +568,7 @@ public class TestQueueProcessor {
 	 */
 	@Test
 	public void testGetName() {		
-		QueueProcessor<String> qp = sample();
+		QueueProcessor<String> qp = SampleQueueProcessor.sample();
 		Assert.assertEquals(qp.name, qp.getName());
 	}
 	
@@ -595,7 +577,7 @@ public class TestQueueProcessor {
 	 */
 	@Test
 	public void testSetNewOperation() {
-		QueueProcessor<String> qp = sample();
+		QueueProcessor<String> qp = SampleQueueProcessor.sample();
 		Operation op1 = new PrintStringOperation();
 		qp.setNewOperation(op1);
 		Assert.assertEquals(qp.newOperation, op1);
@@ -606,7 +588,7 @@ public class TestQueueProcessor {
 	 */
 	@Test
 	public void testTidy() {
-		QueueProcessor<String> qp = sample();
+		QueueProcessor<String> qp = SampleQueueProcessor.sample();
 		Assert.assertNull(qp.newOperation);
 		qp.tidy();		
 		Assert.assertNotNull(qp.newOperation);
@@ -615,8 +597,8 @@ public class TestQueueProcessor {
 	
 	/**
 	 * test Process.
-	 * 
-	 * @throws TransactionManagerException 
+	 *
+	 * @throws TransactionManagerException the transaction manager exception
 	 */
 	@SuppressWarnings({ "nls" })
 	@Test
@@ -627,7 +609,7 @@ public class TestQueueProcessor {
 		Mockito.when(nps.getStream()).thenReturn(System.out);
 		
 		String input = "input";
-		QueueProcessor<String> qp = sample();
+		QueueProcessor<String> qp = SampleQueueProcessor.sample();
 		qp = Mockito.spy(qp);
 		
 		qp.failuresLog = nps;
@@ -647,8 +629,9 @@ public class TestQueueProcessor {
 	
 	/**
 	 * test Process.
-	 * @throws DataException 
-	 * @throws LogicException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@SuppressWarnings({ "nls" })
 	@Test
@@ -657,7 +640,7 @@ public class TestQueueProcessor {
 		Mockito.when(nps.getStream()).thenReturn(System.out);
 		
 		String input = "input";
-		QueueProcessor<String> qp = sample();
+		QueueProcessor<String> qp = SampleQueueProcessor.sample();
 		Operation operation = Mockito.spy(qp.operation);
 		Mockito.doThrow(StaleTransactionException.class).when(operation).execute();
 		qp.operation = operation;

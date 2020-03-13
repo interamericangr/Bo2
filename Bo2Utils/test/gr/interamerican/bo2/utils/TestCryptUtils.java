@@ -4,12 +4,12 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Tests for {@link CryptUtils}
+ * Tests for {@link CryptUtils}.
  */
 public class TestCryptUtils {
 	
 	/**
-	 * Test getMd5
+	 * Test getMd5.
 	 */
 	@Test
 	@SuppressWarnings("nls")

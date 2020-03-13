@@ -26,7 +26,7 @@ import org.junit.Test;
 public class TestCopyProperties {
 	
 	/**
-	 * test
+	 * test.
 	 */
 	@SuppressWarnings("nls")
 	@Test

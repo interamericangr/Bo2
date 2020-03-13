@@ -15,39 +15,49 @@ package gr.interamerican.bo2.samples.implopen.po;
 import gr.interamerican.bo2.arch.PersistentObject;
 
 /**
- * address interface
+ * address interface.
  */
 public interface IAddress extends PersistentObject<AddressKey> {
 
 	/**
-	 * @param address
-	 *            sets the address
+	 * Sets the address.
+	 *
+	 * @param address            sets the address
 	 */
 	public void setAddress(String address);
 
 	/**
+	 * Gets the address.
+	 *
 	 * @return the address
 	 */
 	public String getAddress();
 
 	/**
-	 * @param person
-	 *            sets the person
+	 * Sets the person.
+	 *
+	 * @param person            sets the person
 	 */
 	public void setPerson(IPerson person);
 
 	/**
+	 * Gets the person.
+	 *
 	 * @return the person
 	 */
 	public IPerson getPerson();
 	
 	/**
+	 * Gets the id.
+	 *
 	 * @return the id
 	 */
 	public Integer getId();
 	
 	/**
-	 * @param id
+	 * Sets the id.
+	 *
+	 * @param id the new id
 	 */
 	public void setId(Integer id);
 

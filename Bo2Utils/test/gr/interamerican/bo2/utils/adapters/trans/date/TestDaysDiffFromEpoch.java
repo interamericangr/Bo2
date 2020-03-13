@@ -10,7 +10,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Tests for {@link CalculateDaysDiffFromEpoch}.
+ * Tests for {@link DaysDiffFromEpoch}.
  */
 public class TestDaysDiffFromEpoch {
 	

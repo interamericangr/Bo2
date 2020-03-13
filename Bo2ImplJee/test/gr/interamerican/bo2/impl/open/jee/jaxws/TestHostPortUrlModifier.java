@@ -8,13 +8,14 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Test {@link HostPortUrlModifier}
+ * Test {@link HostPortUrlModifier}.
  */
 public class TestHostPortUrlModifier {
 	
 	/**
-	 * test execute
-	 * @throws MalformedURLException 
+	 * test execute.
+	 *
+	 * @throws MalformedURLException the malformed URL exception
 	 */
 	@SuppressWarnings("nls")
 	@Test

@@ -20,22 +20,30 @@ package gr.interamerican.bo2.samples.hibernate.def.entities;
 public interface BarTPSCH extends FooBarTPCH {
 	
 	/**
+	 * Gets the bar.
+	 *
 	 * @return bar
 	 */
 	String getBar();
 	
 	/**
-	 * @param bar
+	 * Sets the bar.
+	 *
+	 * @param bar the new bar
 	 */
 	void setBar(String bar);
 	
 	/**
+	 * Gets the bar id.
+	 *
 	 * @return barId
 	 */
 	Integer getBarId();
 	
 	/**
-	 * @param barId
+	 * Sets the bar id.
+	 *
+	 * @param barId the new bar id
 	 */
 	void setBarId(Integer barId);
 

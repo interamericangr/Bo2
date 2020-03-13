@@ -43,8 +43,9 @@ extends AbstractOperation {
 	/**
 	 * Creates a new HibSaveJdbcRead object.
 	 *  
-	 * @param id1 
-	 * @param id2 
+	 *
+	 * @param id1 the id 1
+	 * @param id2 the id 2
 	 */
 	public JdbcSave1HibSave2(int id1, int id2) {
 		super();
@@ -67,9 +68,6 @@ extends AbstractOperation {
 		new UserPwImpl();
 	
 	
-	/* (non-Javadoc)
-	 * @see gr.interamerican.bo2.impl.open.workers.AbstractOperation#execute()
-	 */
 	@Override
 	public void execute() throws DataException {
 		

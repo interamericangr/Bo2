@@ -33,14 +33,12 @@ import java.util.Set;
 
 
 /**
- * 
+ * The Class Bean1descriptor.
  */
 public class Bean1descriptor 
 extends BasicBusinessObjectDescriptor<Bean1> {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Creates a new Bean1descriptor object. 

@@ -35,17 +35,13 @@ public class PalleteCachedEntriesBoPDFactory {
 	/**
 	 * Creates a {@link PalleteCachedEntriesBoPropertyDescriptor} given
 	 * a {@link PropertyDefinition}.
-	 * 
-	 * @param <T> 
-	 *        Type of entry.
-	 * @param <C> 
-	 *        Type of cache code.
-	 * @param pd
-	 *        PropertyDescriptorDefinition
+	 *
+	 * @param <T>        Type of entry.
+	 * @param <C>        Type of cache code.
+	 * @param pd        PropertyDescriptorDefinition
 	 *        
 	 * @return Returns a PalleteCachedEntriesBoPropertyDescriptor
-	 * 
-	 * @throws ParseException
+	 * @throws ParseException the parse exception
 	 */
 	@SuppressWarnings("nls")
 	public static <T extends TypedSelectable<C>, C extends Comparable<? super C>> 

@@ -35,9 +35,7 @@ implements NamedStream<T> {
 	 */
 	T stream;	
 	
-	/**
-	 * stream logical name
-	 */
+	/** stream logical name. */
     String name;
     
     /**
@@ -72,17 +70,17 @@ implements NamedStream<T> {
 
 
     /**
- 	 * Creates a new AbstractNamedStream object. 
- 	 *
- 	 * @param streamType
- 	 * @param resourceType
-     * @param stream 
-     * @param name 
-     * @param recordLength 
-     * @param resource 
-     * @param encoding 
-     * @param uri 
- 	 */
+     * Creates a new AbstractNamedStream object. 
+     *
+     * @param streamType the stream type
+     * @param resourceType the resource type
+     * @param stream the stream
+     * @param name the name
+     * @param recordLength the record length
+     * @param resource the resource
+     * @param encoding the encoding
+     * @param uri the uri
+     */
  	public AbstractNamedStream (
  			StreamType streamType, StreamResource resourceType, 
  			T stream, String name, int recordLength, Object resource, 
@@ -94,7 +92,7 @@ implements NamedStream<T> {
  		this.resourceType = resourceType; 		
  		this.stream = stream;
  		this.resource = resource;
- 		this.encoding = Utils.notNull(encoding, Bo2UtilsEnvironment.getDefaultTextCharset());
+ 		this.encoding = Utils.notNull(encoding, Bo2UtilsEnvironment.get().getDefaultTextCharset());
  		this.uri = uri;
  		validate();
  	}
@@ -109,12 +107,12 @@ implements NamedStream<T> {
  		}
  	}
    
-    @Override
+      @Override
 	public String getName() {
         return name;
     }
        
-    @Override
+      @Override
 	public int getRecordLength() {
         return recordLength;
     }

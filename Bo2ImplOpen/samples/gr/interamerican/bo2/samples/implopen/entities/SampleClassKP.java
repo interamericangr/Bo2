@@ -13,7 +13,7 @@
 package gr.interamerican.bo2.samples.implopen.entities;
 
 /**
- * 
+ * The Interface SampleClassKP.
  */
 public interface SampleClassKP {
 	

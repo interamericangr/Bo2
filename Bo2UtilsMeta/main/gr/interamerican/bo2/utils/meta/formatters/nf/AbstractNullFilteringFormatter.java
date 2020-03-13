@@ -17,7 +17,7 @@ import gr.interamerican.bo2.utils.meta.formatters.Formatter;
 
 /**
  * Generic {@link Formatter} that returns an empty string if the
- * input object is null. <br/>
+ * input object is null. <br>
  * * 
  * @param <T> 
  *        Type of objects being formatted by this formatter.
@@ -26,11 +26,10 @@ import gr.interamerican.bo2.utils.meta.formatters.Formatter;
 public abstract  class AbstractNullFilteringFormatter<T> 
 implements Formatter<T> {
 	
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
-		
+
+	@Override
 	public String format(T t) {
 		if (t==null) {
 			return StringConstants.EMPTY;

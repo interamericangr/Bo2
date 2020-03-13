@@ -80,33 +80,23 @@ public class Messages {
 	public static final String STREAM_NOT_FOUND = 
 		"Messages.STREAM_NOT_FOUND"; //$NON-NLS-1$	
 	
-	/**
-	 * message key for no transaction manager 
-	 */
+	/** message key for no transaction manager. */
 	public static final String NO_TRANSACTION_MANAGER =
 		"Messages.NO_TRANSACTIONMANAGER"; //$NON-NLS-1$
 	
 		
-	/**
-	 * bundle name
-	 */
+	/** bundle name. */
 	private static final String BUNDLE_NAME = 
 		"gr.interamerican.bo2.impl.open.utils.messages"; //$NON-NLS-1$
 	
 
-	/**
-	 * constant for space
-	 */
+	/** constant for space. */
 	private static final String SPACE=" "; //$NON-NLS-1$	
 	
-	/**
-	 * constant for null
-	 */
+	/** constant for null. */
 	private static final String NULL="null"; //$NON-NLS-1$
 
-	/**
-	 * resource bundle
-	 */
+	/** resource bundle. */
 	private static MessageGetter messages = new MessageGetter(BUNDLE_NAME);
 
 	/**
@@ -121,8 +111,8 @@ public class Messages {
 
 	/**
 	 * Gets the literal associated with a key.
-	 * 
-	 * @param key
+	 *
+	 * @param key the key
 	 * @return returns the literal associated with the specified key.
 	 */
 	public static String getString(String key) {

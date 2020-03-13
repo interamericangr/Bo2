@@ -17,6 +17,7 @@ import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
 import gr.interamerican.bo2.impl.open.hibernate.HibernateSessionProvider;
+import gr.interamerican.bo2.impl.open.operations.CopyComplexEntityOperation;
 import gr.interamerican.bo2.impl.open.workers.AbstractPoOperation;
 
 import org.hibernate.Session;
@@ -28,7 +29,9 @@ import org.hibernate.Session;
  * 
  * @param <P>
  *        Type of po 
+ * @deprecated use {@link CopyComplexEntityOperation} instead
  */
+@Deprecated
 public class PrepareForCopyToOtherSystem<P extends PersistentObject<?>> 
 extends AbstractPoOperation<P> {
 	
@@ -45,8 +48,8 @@ extends AbstractPoOperation<P> {
 	/**
 	 * Creates a new PrepareForCopyToOtherSystem object. 
 	 *
-	 * @param fromManager
-	 * @param toManager
+	 * @param fromManager the from manager
+	 * @param toManager the to manager
 	 */
 	public PrepareForCopyToOtherSystem(String fromManager, String toManager) {
 		super();

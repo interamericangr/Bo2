@@ -14,19 +14,13 @@ public final class LoggingConstants {
 	 */
 	private LoggingConstants() {/*empty*/}
 	
-	/**
-	 * userId MDC key
-	 */
+	/** userId MDC key. */
 	public static final String MDC_USER_ID = "userid"; //$NON-NLS-1$
 	
-	/**
-	 * callback method MDC key
-	 */
+	/** callback method MDC key. */
 	public static final String MDC_CALLBACKMETHOD = "callback"; //$NON-NLS-1$
 	
-	/**
-	 * uuid MDC key
-	 */
+	/** uuid MDC key. */
 	public static final String MDC_UUID = "uuid"; //$NON-NLS-1$
 
 }

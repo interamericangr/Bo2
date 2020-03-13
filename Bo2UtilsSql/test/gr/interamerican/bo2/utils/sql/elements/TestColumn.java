@@ -18,68 +18,46 @@ import gr.interamerican.bo2.utils.sql.types.IntegerType;
 import org.junit.Test;
 
 /**
- * Unit test for Column
+ * Unit test for Column.
  */
 public class TestColumn {
 
-	/**
-	 * column to test
-	 */
+	/** column to test. */
 	Column column = new Column();
 	
-	/**
-	 * ALIAS
-	 */
+	/** ALIAS. */
 	private static final String ALIAS = "alias"; //$NON-NLS-1$
 	
-	/**
-	 * NAME
-	 */
+	/** NAME. */
 	private static final String NAME = "name"; //$NON-NLS-1$
 	
-	/**
-	 * TBNAME
-	 */
+	/** TBNAME. */
 	private static final String TBNAME = "tbName"; //$NON-NLS-1$
 	
-	/**
-	 * TBCREATOR
-	 */
+	/** TBCREATOR. */
 	private static final String TBCREATOR = "tbCreator"; //$NON-NLS-1$
 	
-	/**
-	 * COLUMN_NUMBER
-	 */
+	/** COLUMN_NUMBER. */
 	private static final int COLUMN_NUMBER = 1;
 	
-	/**
-	 * COLUMN_TYPE
-	 */
+	/** COLUMN_TYPE. */
 	private static final IntegerType COLUMN_TYPE = IntegerType.INSTANCE;
 	
-	/**
-	 * LENGTH
-	 */
+	/** LENGTH. */
 	private static final int LENGTH = 10;
 	
-	/**
-	 * SCALE
-	 */
+	/** SCALE. */
 	private static final int SCALE = 10;
 	
-	/**
-	 * LABEL
-	 */
+	/** LABEL. */
 	private static final String LABEL = "label"; //$NON-NLS-1$
 	
-	/**
-	 * REAMARKS
-	 */
+	/** REAMARKS. */
 	private static final String REAMARKS = "remarks"; //$NON-NLS-1$
 	
 	
 	/**
-	 * Test setAlias
+	 * Test setAlias.
 	 */
 	@Test
 	public void testSetAlias(){
@@ -89,7 +67,7 @@ public class TestColumn {
 	
 	
 	/**
-	 * Test getAlias
+	 * Test getAlias.
 	 */
 	@Test
 	public void testGetAlias(){
@@ -99,7 +77,7 @@ public class TestColumn {
 	
 	
 	/**
-	 * Test setName
+	 * Test setName.
 	 */
 	@Test
 	public void testSetName(){
@@ -108,7 +86,7 @@ public class TestColumn {
 	}
 	
 	/**
-	 * Test getName
+	 * Test getName.
 	 */
 	@Test
 	public void testGetName(){
@@ -117,7 +95,7 @@ public class TestColumn {
 	}
 	
 	/**
-	 * Test setTbName
+	 * Test setTbName.
 	 */
 	@Test
 	public void testSetTbName(){
@@ -126,7 +104,7 @@ public class TestColumn {
 	}
 	
 	/**
-	 * Test getTbName
+	 * Test getTbName.
 	 */
 	@Test
 	public void testGetTbName(){
@@ -135,7 +113,7 @@ public class TestColumn {
 	}
 	
 	/**
-	 * Test getTbCreator
+	 * Test getTbCreator.
 	 */
 	@Test
 	public void testSetTbCreator(){
@@ -144,7 +122,7 @@ public class TestColumn {
 	}
 	
 	/**
-	 * Test getTbCreator
+	 * Test getTbCreator.
 	 */
 	@Test
 	public void testGetTbCreator(){
@@ -153,7 +131,7 @@ public class TestColumn {
 	}
 	
 	/**
-	 * Test setColumnNo
+	 * Test setColumnNo.
 	 */
 	@Test
 	public void testSetColumnNo(){
@@ -162,7 +140,7 @@ public class TestColumn {
 	}
 	
 	/**
-	 * Test getColumnNo
+	 * Test getColumnNo.
 	 */
 	@Test
 	public void testGetColumnNo(){
@@ -172,7 +150,7 @@ public class TestColumn {
 	
 	
 	/**
-	 * Test setColumnType
+	 * Test setColumnType.
 	 */
 	@Test
 	public void testSetColumnType(){
@@ -181,7 +159,7 @@ public class TestColumn {
 	}
 	
 	/**
-	 * Test getColumnType
+	 * Test getColumnType.
 	 */
 	@Test
 	public void testGetColumnType(){
@@ -190,7 +168,7 @@ public class TestColumn {
 	}
 	
 	/**
-	 * Test setLength
+	 * Test setLength.
 	 */
 	@Test
 	public void testSetLength(){
@@ -199,7 +177,7 @@ public class TestColumn {
 	}
 	
 	/**
-	 * Test getLength
+	 * Test getLength.
 	 */
 	@Test
 	public void testGetLength(){
@@ -208,7 +186,7 @@ public class TestColumn {
 	}
 	
 	/**
-	 * Test getScale
+	 * Test getScale.
 	 */
 	@Test
 	public void testSetScale(){
@@ -217,7 +195,7 @@ public class TestColumn {
 	}
 	
 	/**
-	 * Test getScale
+	 * Test getScale.
 	 */
 	@Test
 	public void testGetScale(){
@@ -226,7 +204,7 @@ public class TestColumn {
 	}
 	
 	/**
-	 * Test setLabel
+	 * Test setLabel.
 	 */
 	@Test
 	public void testSetLabel(){
@@ -235,7 +213,7 @@ public class TestColumn {
 	}
 	
 	/**
-	 * Test getLabel
+	 * Test getLabel.
 	 */
 	@Test
 	public void testGetLabel(){
@@ -245,7 +223,7 @@ public class TestColumn {
 	
 	
 	/**
-	 * Test setRemarks
+	 * Test setRemarks.
 	 */
 	@Test
 	public void testSetRemarks(){
@@ -254,7 +232,7 @@ public class TestColumn {
 	} 
 	
 	/**
-	 * Test getRemarks
+	 * Test getRemarks.
 	 */
 	@Test
 	public void testGetRemarks(){

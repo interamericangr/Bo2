@@ -18,7 +18,7 @@ import gr.interamerican.bo2.impl.open.records.SimpleRecord;
 import java.nio.charset.Charset;
 
 /**
- * 
+ * The Class NamedStreamSimpleQuery.
  */
 public class NamedStreamSimpleQuery 
 extends NamedStreamBasicQuery {

@@ -38,12 +38,12 @@ public class TestGetPoFromBeanOperation {
 	
 	/**
 	 * Unit test for the whole lifecycle.
-	 * 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws InitializationException 
-	 * @throws DataException 
-	 * @throws LogicException 
+	 *
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws InitializationException the initialization exception
+	 * @throws LogicException the logic exception
+	 * @throws DataException the data exception
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -76,8 +76,9 @@ public class TestGetPoFromBeanOperation {
 	}
 	
 	/**
-	 * Tests getKeyProperties()
-	 * @throws LogicException 
+	 * Tests getKeyProperties().
+	 *
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testGetKeyProperties() throws LogicException {

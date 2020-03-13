@@ -28,9 +28,10 @@ public class TestSaveStreamOperation {
 	
 	/**
 	 * test.
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testLifecycle() throws UnexpectedException, DataException, LogicException {

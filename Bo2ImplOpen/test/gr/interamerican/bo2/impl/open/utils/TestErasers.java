@@ -67,7 +67,7 @@ public class TestErasers {
 	}
 	
 	/**
-	 * Unit test for erase
+	 * Unit test for erase.
 	 */
 	@Test
 	public void testErase_withNotNull() {
@@ -78,7 +78,7 @@ public class TestErasers {
 	}
 	
 	/**
-	 * Unit test for erase
+	 * Unit test for erase.
 	 */
 	@Test
 	public void testErase_withNull() {

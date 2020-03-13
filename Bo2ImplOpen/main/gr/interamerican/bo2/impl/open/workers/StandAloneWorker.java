@@ -21,9 +21,7 @@ import gr.interamerican.bo2.arch.Worker;
  */
 public class StandAloneWorker implements Worker {
 	
-	/**
-	 * Provider;
-	 */
+	/** Provider;. */
 	private Provider provider;
 	
 	@Override

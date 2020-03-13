@@ -24,10 +24,12 @@ import org.apache.wicket.model.IModel;
 public class IntegerBoPDComponentFactory 
 extends AbstractBoPDComponentFactory<IntegerBoPropertyDescriptor> {	
 	
+	@Override
 	public Component drawMain(IntegerBoPropertyDescriptor descriptor,String wicketId) {
 		return new SelfDrawnIntegerTextField(wicketId, descriptor);
 	}
 	
+	@Override
 	@SuppressWarnings("unchecked")
 	public Component drawMain(String wicketId, IModel<?> model, IntegerBoPropertyDescriptor descriptor) {
 		return new SelfDrawnIntegerTextField(wicketId, (IModel<Integer>) model, descriptor);

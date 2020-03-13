@@ -24,10 +24,12 @@ public class BeanWithOneFieldQuery
 extends ArrayIteratorQuery<BeanWith1Field> 
 implements EntitiesQuery<BeanWith1Field>, CriteriaDependent<BeanWith1Field> {
 	
+	@Override
 	public void setCriteria(BeanWith1Field criteria) {
 		/* empty */
 	}
 	
+	@Override
 	public BeanWith1Field getCriteria() {		
 		return null;
 	}

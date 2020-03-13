@@ -11,7 +11,7 @@
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
 /**
- * Deployment and other resources. <br/>  
+ * Deployment and other resources. <br>  
  * 
  * The following resources can be found  in this package:
  * <table>
@@ -44,8 +44,9 @@
  *          implementation class. This file supports this functionality </td></tr> 
  * <tr><td> FileForTestResourcesManager.txt </td>
  *     <td> Contains the names of two classes that are loaded during a test of
- *          the class {@link gr.interamerican.bo2.impl.open.runtime.ResourcesManagerFactory}. </td></tr>           
- * <br/>
+ *          the class {@link gr.interamerican.bo2.impl.open.runtime.ResourcesManagerFactory}. </td></tr> 
+ *          </table>          
+ * <br>
  * The default object factories to which creation is delegated by the 
  * {@link gr.interamerican.bo2.impl.open.creation.Factory} class, are initialized by the 
  * files types.txt and pwTypes.txt that can be found at the package 

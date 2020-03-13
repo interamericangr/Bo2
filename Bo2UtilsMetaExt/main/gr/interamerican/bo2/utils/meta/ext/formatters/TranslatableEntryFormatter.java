@@ -6,7 +6,7 @@ import gr.interamerican.bo2.utils.meta.formatters.Formatter;
 
 /**
  * {@link Formatter} implementation for {@link TranslatableEntry}.
- * <br/>
+ * <br>
  * This formatter depends on a languageId being retrievable from the Bo2Session
  * thread local singletons.
  * 
@@ -14,9 +14,7 @@ import gr.interamerican.bo2.utils.meta.formatters.Formatter;
  */
 public class TranslatableEntryFormatter<L> implements Formatter<TranslatableEntry<?, ?, L>> {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	@Override

@@ -23,34 +23,23 @@ import gr.interamerican.bo2.test.def.samples.enums.Sex;
 import java.util.List;
 
 /**
- * 
+ * The Class CompanyUserImpl.
  */
 @DelegateKeyProperties("")
 public abstract class CompanyUserImpl
 extends AbstractModificationRecordPo<CompanyUserKey>
 implements CompanyUser {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * companyRole
-	 */
-	@SuppressWarnings("unused")
+	/** companyRole. */
 	@Property private CompanyRole companyRole;
 	
-	/**
-	 * additionalRoles
-	 */
-	@SuppressWarnings("unused")
+	/** additionalRoles. */
 	@Property private List<CompanyRole> additionalRoles;
 	
-	/**
-	 * sex
-	 */
-	@SuppressWarnings("unused")
+	/** sex. */
 	@Property private Sex sex;
 	
 }

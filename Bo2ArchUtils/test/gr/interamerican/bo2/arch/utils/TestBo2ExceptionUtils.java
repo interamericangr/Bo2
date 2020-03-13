@@ -21,8 +21,8 @@ public class TestBo2ExceptionUtils {
 	
 	/**
 	 * Tests throwIfIsInitializationException().
-	 * 
-	 * @throws InitializationException
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=InitializationException.class)
 	public void testThrowIfIsInitializationException_throwing() throws InitializationException {
@@ -31,8 +31,8 @@ public class TestBo2ExceptionUtils {
 	
 	/**
 	 * Tests throwIfIsInitializationException().
-	 * 
-	 * @throws InitializationException
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test()
 	public void testThrowIfIsInitializationException_doingNothing() throws InitializationException {
@@ -43,8 +43,8 @@ public class TestBo2ExceptionUtils {
 	
 	/**
 	 * Tests throwIfIsInitializationException().
-	 * 
-	 * @throws LogicException
+	 *
+	 * @throws LogicException the logic exception
 	 */
 	@Test(expected=LogicException.class)
 	public void testThrowIfIsLogicException_throwing() throws LogicException {
@@ -53,8 +53,8 @@ public class TestBo2ExceptionUtils {
 	
 	/**
 	 * Tests throwIfIsInitializationException().
-	 * 
-	 * @throws LogicException
+	 *
+	 * @throws LogicException the logic exception
 	 */
 	@Test()
 	public void testThrowIfIsLogicException_doingNothing() throws LogicException {
@@ -64,8 +64,8 @@ public class TestBo2ExceptionUtils {
 	
 	/**
 	 * Tests throwIfIsInitializationException().
-	 * 
-	 * @throws DataException
+	 *
+	 * @throws DataException the data exception
 	 */
 	@Test(expected=DataException.class)
 	public void testThrowIfIsDataException_throwing() throws DataException {
@@ -74,7 +74,8 @@ public class TestBo2ExceptionUtils {
 	
 	/**
 	 * Tests throwIfIsDataException().
-	 * @throws DataException 
+	 *
+	 * @throws DataException the data exception
 	 */
 	@Test()
 	public void testThrowIfIsDataException_doingNothing() throws DataException {		
@@ -110,10 +111,10 @@ public class TestBo2ExceptionUtils {
 	
 	/**
 	 * Tests throwDataLogicOrUnexpectedException().
-	 * 
-	 * @throws UnexpectedException 
-	 * @throws LogicException 
-	 * @throws DataException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test(expected=Error.class)
 	public void testThrowDataLogicOrUnexpectedException_withError() 
@@ -123,10 +124,10 @@ public class TestBo2ExceptionUtils {
 	
 	/**
 	 * Tests throwDataLogicOrUnexpectedException().
-	 * 
-	 * @throws UnexpectedException 
-	 * @throws LogicException 
-	 * @throws DataException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test(expected=UnexpectedException.class)
 	public void testThrowDataLogicOrUnexpectedException_withInitialization() 
@@ -136,10 +137,10 @@ public class TestBo2ExceptionUtils {
 	
 	/**
 	 * Tests throwDataLogicOrUnexpectedException().
-	 * 
-	 * @throws UnexpectedException 
-	 * @throws LogicException 
-	 * @throws DataException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test(expected=UnexpectedException.class)
 	public void testThrowDataLogicOrUnexpectedException_withRuntime() 
@@ -149,10 +150,10 @@ public class TestBo2ExceptionUtils {
 	
 	/**
 	 * Tests throwDataLogicOrUnexpectedException().
-	 * 
-	 * @throws UnexpectedException 
-	 * @throws LogicException 
-	 * @throws DataException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test(expected=LogicException.class)
 	public void testThrowDataLogicOrUnexpectedException_withLogic() 
@@ -162,9 +163,9 @@ public class TestBo2ExceptionUtils {
 	
 	/**
 	 * Tests throwDataLogicOrUnexpectedException().
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test(expected=LogicException.class)
 	public void testThrowDataOrLogic_withLogic() 
@@ -174,9 +175,9 @@ public class TestBo2ExceptionUtils {
 	
 	/**
 	 * Tests throwDataLogicOrUnexpectedException().
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test(expected=DataException.class)
 	public void testThrowDataOrLogic_withData() 
@@ -186,9 +187,9 @@ public class TestBo2ExceptionUtils {
 	
 	/**
 	 * Tests throwDataLogicOrUnexpectedException().
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test(expected=RuntimeException.class)
 	public void testThrowDataOrLogic_withException() 
@@ -198,10 +199,10 @@ public class TestBo2ExceptionUtils {
 	
 	/**
 	 * Tests throwDataLogicOrUnexpectedException().
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=RuntimeException.class)
 	public void testThrowInitDataOrLogic_withException() 
@@ -211,10 +212,10 @@ public class TestBo2ExceptionUtils {
 	
 	/**
 	 * Tests throwDataLogicOrUnexpectedException().
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=InitializationException.class)
 	public void testThrowInitDataOrLogic_withInitalization() 

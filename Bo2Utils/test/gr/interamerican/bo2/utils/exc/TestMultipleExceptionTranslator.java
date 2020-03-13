@@ -10,7 +10,6 @@ import org.junit.Test;
 /**
  * Tests for {@link MultipleExceptionTranslator}.
  */
-@SuppressWarnings("unchecked")
 public class TestMultipleExceptionTranslator {
 	
 	
@@ -30,7 +29,8 @@ public class TestMultipleExceptionTranslator {
 	
 	/**
 	 * Tests rethrow(t).
-	 * @throws Exception 
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test(expected=FooException.class)
 	public void testRethrow_foo() throws Exception {
@@ -41,7 +41,8 @@ public class TestMultipleExceptionTranslator {
 	
 	/**
 	 * Tests rethrow(t).
-	 * @throws Exception 
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test(expected=BarException.class)
 	public void testRethrow_bar() throws Exception {
@@ -52,8 +53,8 @@ public class TestMultipleExceptionTranslator {
 	
 	/**
 	 * Tests rethrow(t).
-	 * 
-	 * @throws Exception 
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test(expected=RuntimeException.class)
 	public void testRethrow_rte() throws Exception {		
@@ -61,10 +62,4 @@ public class TestMultipleExceptionTranslator {
 			new MultipleExceptionTranslator(FooException.class, BarException.class);
 		foobar.rethrow(new Exception());
 	}
-	
-	
-	
-	
-	
-
 }

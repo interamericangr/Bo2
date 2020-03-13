@@ -259,10 +259,16 @@ public class TestNumberComparator {
 
 	/**
 	 * Local implementation of NumberComparator to extract private logic of
-	 * NumberComparator for the tests
+	 * NumberComparator for the tests.
 	 */
 	private class NumberComparatorImpl extends NumberComparator {
 
+		/**
+		 * Type.
+		 *
+		 * @param n the n
+		 * @return the int
+		 */
 		@Override
 		int type(Number n) {
 			return super.type(n);

@@ -21,7 +21,7 @@ import org.junit.Test;
 public class TestArray {
 	
 	/**
-	 * Test
+	 * Test.
 	 */
 	@Test
 	public void testConstructor() {
@@ -32,7 +32,7 @@ public class TestArray {
 	}
 	
 	/**
-	 * Test
+	 * Test.
 	 */
 	@Test
 	public void testHashcodeAndEquals() {

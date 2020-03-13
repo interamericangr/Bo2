@@ -16,13 +16,11 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Unit tests of {@link VmMemoryPercentageReachedCondition}
+ * Unit tests of {@link VmMemoryPercentageReachedCondition}.
  */
 public class TestVmMemoryPercentageReachedCondition {
 	
-	/**
-	 * subject
-	 */
+	/** subject. */
 	VmMemoryPercentageReachedCondition subject = new VmMemoryPercentageReachedCondition();
 	
 	/**

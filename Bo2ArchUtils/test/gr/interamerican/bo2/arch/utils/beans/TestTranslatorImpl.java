@@ -18,13 +18,11 @@ import static org.junit.Assert.assertNull;
 import org.junit.Test;
 
 /**
- * Tests TranslatorImpl
+ * Tests TranslatorImpl.
  */
 public class TestTranslatorImpl {
 	
-	/**
-	 * translator instance for this test
-	 */
+	/** translator instance for this test. */
 	private TranslatorImpl<Long, Long> translator = 
 		new TranslatorImpl<Long,Long>();
 	
@@ -49,7 +47,7 @@ public class TestTranslatorImpl {
 	}
 	
 	/**
-	 * test learn when languageId is null
+	 * test learn when languageId is null.
 	 */
 	@Test
 	public void testLearn_nullValue(){
@@ -58,7 +56,7 @@ public class TestTranslatorImpl {
 	
 	
 	/**
-	 * test learn when languageId is null
+	 * test learn when languageId is null.
 	 */
 	@Test
 	public void testTranslate_nullValue(){

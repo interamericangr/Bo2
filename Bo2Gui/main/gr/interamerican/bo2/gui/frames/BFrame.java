@@ -1,42 +1,44 @@
 /*******************************************************************************
- * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A. 
+ * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/copyleft/lesser.html
- * 
- * This library is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
 package gr.interamerican.bo2.gui.frames;
 
 import gr.interamerican.bo2.gui.components.BButton;
 import gr.interamerican.bo2.gui.components.BPanel;
-import gr.interamerican.bo2.gui.listeners.MethodBasedActionListener;
+import gr.interamerican.bo2.gui.listeners.SwingMethodBasedActionListener;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.UIManager;
 
 /**
  * JFrame that keeps a BPanel.
  */
 public class BFrame extends JFrame {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Creates a BFrame with the specified BPanel.
-	 * @param panel
-	 * 
-	 * @return Returns a BRfame that keeps the specified panel. 
+	 *
+	 * @param panel the panel
+	 * @return Returns a BRfame that keeps the specified panel.
 	 */
 	public static BFrame show(JPanel panel) {
 		BFrame frame = new BFrame();
@@ -45,36 +47,39 @@ public class BFrame extends JFrame {
 		frame.setEnabled(true);
 		return frame;
 	}
-	
+
 	/**
 	 * Creates a BFrame with the specified BPanel.
-	 * @param panel
-	 * 
-	 * @return Returns a BRfame that keeps the specified panel. 
+	 *
+	 * @param panel the panel
+	 * @return Returns a BRfame that keeps the specified panel.
 	 */
 	public static BFrame mainWindow(JPanel panel) {
 		BFrame frame = show(panel);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		return frame;
 	}
-	
+
 	/**
 	 * Panel presented in this frame.
 	 */
 	JPanel panel;
-	
+
 
 	/**
 	 * Creates a new BFrame object.
 	 */
-	public BFrame() {		
+	public BFrame() {
 		super();
+		UIManager.put("Panel.background", Color.WHITE); //$NON-NLS-1$
+		UIManager.put("TextField.foreground", Color.BLACK); //$NON-NLS-1$
+		UIManager.put("TextField.inactiveForeground", Color.RED); //$NON-NLS-1$
 	}
-	
+
 	/**
 	 * Sets the panel of this frame.
-	 * 
-	 * @param panel
+	 *
+	 * @param panel the new panel
 	 */
 	public void setPanel(JPanel panel) {
 		removeOldPanel();
@@ -82,14 +87,14 @@ public class BFrame extends JFrame {
 		addPanel();
 		repaint();
 	}
-	
+
 	/**
 	 * Adds the panel to the frame.
 	 */
 	void addPanel() {
 		setTitle(panel.getName());
 		int w = Double.valueOf(panel.getPreferredSize().getWidth()).intValue();
-		int h = Double.valueOf(panel.getPreferredSize().getHeight()).intValue();		
+		int h = Double.valueOf(panel.getPreferredSize().getHeight()).intValue();
 		Dimension size = new Dimension(w+40,h+60);
 		setPreferredSize(size);
 		setSize(size);
@@ -100,7 +105,7 @@ public class BFrame extends JFrame {
 		scrollPane.setSize(size);
 		c.add(scrollPane);
 	}
-	
+
 	/**
 	 * Removes the old panel.
 	 */
@@ -110,39 +115,21 @@ public class BFrame extends JFrame {
 			invalidate();
 		}
 	}
-	
+
 	/**
 	 * Adds an action listener to a button of the child panel.
-	 * 
-	 * @param methodName
+	 *
+	 * @param methodName the method name
 	 */
 	protected void addActionListener(String methodName) {
 		if (panel instanceof BPanel) {
 			BPanel<?> b = (BPanel<?>) panel;
 			BButton button = b.getButton(methodName);
-			MethodBasedActionListener listener = 
-				new MethodBasedActionListener(methodName, this);
+			ActionListener listener = new SwingMethodBasedActionListener(methodName, this);
 			button.addActionListener(listener);
 		} else {
 			String msg = "Panel is not a BPanel"; //$NON-NLS-1$
 			throw new RuntimeException(msg);
-		}		
+		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-		
-
 }

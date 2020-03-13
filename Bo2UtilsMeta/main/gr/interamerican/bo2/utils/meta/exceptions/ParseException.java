@@ -25,7 +25,7 @@ public class ParseException extends Exception {
 	/**
 	 * Creates a new ParseException object. 
 	 *
-	 * @param message
+	 * @param message the message
 	 */
 	public ParseException(String message) {
 		super(message);
@@ -34,8 +34,8 @@ public class ParseException extends Exception {
 	/**
 	 * Creates a new ParseException object. 
 	 *
-	 * @param message
-	 * @param cause
+	 * @param message the message
+	 * @param cause the cause
 	 */
 	public ParseException(String message, Throwable cause) {
 		super(message, cause);

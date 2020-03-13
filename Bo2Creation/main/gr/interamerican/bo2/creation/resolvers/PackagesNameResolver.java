@@ -18,15 +18,15 @@ import gr.interamerican.bo2.creation.NameResolver;
  * Implementation of {@link NameResolver}.
  * 
  * This implementation expects that interfaces are placed inside a package
- * structure that has a <i>def</> package in its root. Implementations 
+ * structure that has a <i>def</i> package in its root. Implementations 
  * of the interfaces are placed inside an identical package structure that
- * has an <i>impl</> package in its root. Additionally the implementation
- * classes always have the <i>Impl suffix</i>. <br/.
- * Examples <br/>
+ * has an <i>impl</i> package in its root. Additionally the implementation
+ * classes always have the <i>Impl suffix</i>. <br>.
+ * Examples <br>
  * The interface com.foo.def.Person is implemented by the class 
- * com.foo.impl.PersonImpl. <br/>  
+ * com.foo.impl.PersonImpl. <br>  
  * The interface com.foo.def.domain.Address is implemented by the class 
- * com.foo.impl.domain.AddressImpl. <br/>  
+ * com.foo.impl.domain.AddressImpl. <br>  
  * 
  */
 public class PackagesNameResolver implements NameResolver {
@@ -50,8 +50,8 @@ public class PackagesNameResolver implements NameResolver {
 	/**
 	 * Creates a new DefImplPackageNameResolver object. 
 	 *
-	 * @param interfacePackage
-	 * @param implementationPackage
+	 * @param interfacePackage the interface package
+	 * @param implementationPackage the implementation package
 	 */
 	public PackagesNameResolver(
 			String interfacePackage,
@@ -61,9 +61,7 @@ public class PackagesNameResolver implements NameResolver {
 		this.implementationPackage = DOT + implementationPackage + DOT;
 	}
 
-	/* (non-Javadoc)
-	 * @see gr.interamerican.bo2.impl.open.creation.NameResolver#getImplementationFromInterface(java.lang.String)
-	 */	
+	@Override
 	public String getImplementationName(
 			String interfaceName) {
 		if (interfaceName == null) {
@@ -76,9 +74,7 @@ public class PackagesNameResolver implements NameResolver {
 		return interfaceName; 
 	}
 
-	/* (non-Javadoc)
-	 * @see gr.interamerican.bo2.impl.open.creation.NameResolver#getInterfaceFromImplementation(java.lang.String)
-	 */	
+	@Override
 	public String getDeclarationName(String implementationName) {
 		if (implementationName == null) {
 			return null;
@@ -89,5 +85,4 @@ public class PackagesNameResolver implements NameResolver {
 		}
 		return implementationName;
 	}
-
 }

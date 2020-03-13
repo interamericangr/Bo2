@@ -23,18 +23,18 @@ import java.util.Properties;
 /**
  * Implementation of {@link PersistenceWorkerFactory}.
  * 
- * This implementation searches to find the appropriate implementation
- * type of {@link PersistenceWorker} for each {@link PersistentObject}
- * type in a mappings file. If no mapping is found in this file for
- * a specified subclass of PersistentObject, then the factory will
- * automatically create a {@link GenericHibernatePersistenceWorker} for this
- * type, provided that the property <i>Hibernate</i> is set to true
- * in the deployment.properties file. <br/>
- * In the case that a GenericHibernatePersistenceWorker is created, the
+ * This implementation searches to find the appropriate implementation type of
+ * {@link PersistenceWorker} for each {@link PersistentObject} type in a
+ * mappings file. If no mapping is found in this file for a specified subclass
+ * of PersistentObject, then the factory will automatically create a
+ * {@link GenericHibernatePersistenceWorker} for this type. <br>
+ * In the case that a {@link GenericHibernatePersistenceWorker} is created, the
  * factory uses the utility class {@link ValidatorRegistry} searching for a
  * registered validator of the persistent class. If there is a validator
- * registered for the persistent class, then it is passed as a parameter
- * to the constructor of the GenericHibernatePersistenceWorker.
+ * registered for the persistent class, then it is passed as a parameter to the
+ * constructor of the GenericHibernatePersistenceWorker.<br>
+ * In order to use {@link ValidatorRegistry} every time, no association is being
+ * done to {@link GenericHibernatePersistenceWorker}.
  */
 public class PersistenceWorkerFactoryImpl 
 extends gr.interamerican.bo2.impl.open.creation.PersistenceWorkerFactoryImpl {
@@ -44,28 +44,19 @@ extends gr.interamerican.bo2.impl.open.creation.PersistenceWorkerFactoryImpl {
 	/**
 	 * Creates a new PersistenceWorkerFactoryImpl object. 
 	 *
-	 * @param properties
+	 * @param properties the properties
 	 */
 	public PersistenceWorkerFactoryImpl(Properties properties) {
 		super(properties);		
 	}
-	
+
 	@Override
-	public <M extends PersistentObject<?>> 
-	PersistenceWorker<M> createPw(Class<M> poClass) {
+	public <M extends PersistentObject<?>> PersistenceWorker<M> createPw(Class<M> poClass) {
 		PersistenceWorker<M> pw = createMappedPw(poClass);
 		if (pw == null) {
-			// TODO: Ο Validator δουλεύει μονάχα στην πρώτη φορά που γίνεται
-			// create ο PW. Στις επόμενες περιπτώσεις ο validator δεν
-			// χρησιμοποιείτε επειδή θα τον έχει ήδη βρει από κάτω.
-			Validator<M> validator = ValidatorRegistry.getValidator(poClass);			
-			pw = GenericHibernatePersistenceWorker.newInstance(poClass, validator);
-			@SuppressWarnings("unchecked") Class<? extends PersistenceWorker<?>> pwType = 
-				(Class<? extends PersistenceWorker<?>>) GenericHibernatePersistenceWorker.class;
-			associate(poClass, pwType);
+			Validator<M> validator = ValidatorRegistry.getValidator(poClass);
+			pw = new GenericHibernatePersistenceWorker<M>(poClass, validator);
 		}
 		return pw;
 	}
-
-
 }

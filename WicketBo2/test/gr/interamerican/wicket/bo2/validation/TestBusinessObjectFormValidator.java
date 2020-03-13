@@ -12,20 +12,6 @@
  ******************************************************************************/
 package gr.interamerican.wicket.bo2.validation;
 
-import gr.interamerican.bo2.samples.bean.BeanWith1Field;
-import gr.interamerican.bo2.samples.bean.BeanWith2Fields;
-import gr.interamerican.bo2.utils.meta.BasicBusinessObjectDescriptor;
-import gr.interamerican.bo2.utils.meta.BusinessObjectDescriptor;
-import gr.interamerican.bo2.utils.meta.BusinessObjectValidationExpression;
-import gr.interamerican.bo2.utils.meta.descriptors.BoPropertyDescriptor;
-import gr.interamerican.bo2.utils.meta.descriptors.LongBoPropertyDescriptor;
-import gr.interamerican.bo2.utils.meta.descriptors.StringBoPropertyDescriptor;
-import gr.interamerican.samples.utils.meta.BusinessObjectValidationExpressionImpl;
-import gr.interamerican.wicket.bo2.markup.html.form.SelfDrawnForm;
-import gr.interamerican.wicket.markup.html.TestPage;
-import gr.interamerican.wicket.markup.html.TestPanel;
-import gr.interamerican.wicket.test.WicketTest;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +20,19 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.junit.Assert;
 import org.junit.Test;
+
+import gr.interamerican.bo2.samples.bean.BeanWith1Field;
+import gr.interamerican.bo2.samples.bean.BeanWith2Fields;
+import gr.interamerican.bo2.utils.meta.BasicBusinessObjectDescriptor;
+import gr.interamerican.bo2.utils.meta.BusinessObjectDescriptor;
+import gr.interamerican.bo2.utils.meta.BusinessObjectValidationExpression;
+import gr.interamerican.bo2.utils.meta.descriptors.BoPropertyDescriptor;
+import gr.interamerican.bo2.utils.meta.descriptors.LongBoPropertyDescriptor;
+import gr.interamerican.bo2.utils.meta.descriptors.StringBoPropertyDescriptor;
+import gr.interamerican.samples.utils.meta.SampleBusinessObjectValidationExpression;
+import gr.interamerican.wicket.bo2.markup.html.form.SelfDrawnForm;
+import gr.interamerican.wicket.markup.html.TestPanel;
+import gr.interamerican.wicket.test.WicketTest;
 
 /**
  * Unit tests for {@link BusinessObjectFormValidator}.
@@ -58,17 +57,19 @@ public class TestBusinessObjectFormValidator extends WicketTest {
 	
 	@Override
 	@SuppressWarnings("nls")
-	protected Component initializeComponent() {
+	protected Component initializeComponent(String wicketId) {
 		CompoundPropertyModel<BeanWith2Fields> model = 
 			new CompoundPropertyModel<BeanWith2Fields>(new BeanWith2Fields("0", -1)); //$NON-NLS-1$
 		Form<BeanWith2Fields> form = new SelfDrawnForm<BeanWith2Fields>("sdf", model, createBod());
 		String markup = "<wicket:panel><form wicket:id=\"" 
 				      + SELF_DRAWN_FORM_ID + "\"><div wicket:id=\"" 
 			          + SelfDrawnForm.PANEL_WICKET_ID + "\"/></form></wicket:panel>";
-		return new TestPanel(TestPage.TEST_ID, markup).add(form);
+		return new TestPanel(wicketId, markup).add(form);
 	}
 	
 	/**
+	 * Creates the bod.
+	 *
 	 * @return Returns the BusinessObjectDescriptor for BeanWith1Field.
 	 */
 	private BusinessObjectDescriptor<BeanWith2Fields> createBod() {
@@ -82,17 +83,21 @@ public class TestBusinessObjectFormValidator extends WicketTest {
 	}
 	
 	/**
+	 * Creates the expression.
+	 *
 	 * @return Returns a sample {@link BusinessObjectValidationExpression}
 	 */
 	@SuppressWarnings("nls")
 	private BusinessObjectValidationExpression createExpression() {
-		BusinessObjectValidationExpression expression = new BusinessObjectValidationExpressionImpl();
+		SampleBusinessObjectValidationExpression expression = new SampleBusinessObjectValidationExpression();
 		expression.setExpression("field1.equals(field2.toString())");
 		expression.setMessage("Expression evaluation failed for: " + expression.getExpression());
 		return expression;
 	}
 	
 	/**
+	 * Gets the field 1 decriptor.
+	 *
 	 * @return Returns the LongBoPropertyDescriptor for field2 of BeanWith1Field.
 	 */
 	private StringBoPropertyDescriptor getField1Decriptor(){
@@ -105,6 +110,8 @@ public class TestBusinessObjectFormValidator extends WicketTest {
 	}
 	
 	/**
+	 * Gets the field 2 decriptor.
+	 *
 	 * @return Returns the LongBoPropertyDescriptor for field2 of BeanWith1Field.
 	 */
 	private LongBoPropertyDescriptor getField2Decriptor(){
@@ -115,5 +122,4 @@ public class TestBusinessObjectFormValidator extends WicketTest {
 		lbpd.setPackageName(BeanWith1Field.class.getPackage().getName());
         return lbpd;
     }
-
 }

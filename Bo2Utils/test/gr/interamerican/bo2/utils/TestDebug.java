@@ -35,7 +35,7 @@ public class TestDebug {
 	}
 	
 	/**
-	 * Tests get-set 
+	 * Tests get-set.
 	 */
 	@Test
 	public void testSet() {
@@ -45,7 +45,7 @@ public class TestDebug {
 	}
 	
 	/**
-	 * Tests get-set 
+	 * Tests get-set.
 	 */
 	@Test
 	public void testGet() {	
@@ -102,7 +102,7 @@ public class TestDebug {
 	}	
 	
 	/**
-	 * test isEnabled
+	 * test isEnabled.
 	 */
 	@Test
 	public void testIsEnabled(){
@@ -112,7 +112,7 @@ public class TestDebug {
 
 	
 	/**
-	 * test debug
+	 * test debug.
 	 */
 	@Test
 	public void testDebug(){

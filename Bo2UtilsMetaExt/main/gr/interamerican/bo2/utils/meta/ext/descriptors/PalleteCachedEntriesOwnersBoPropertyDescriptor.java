@@ -29,19 +29,17 @@ public class PalleteCachedEntriesOwnersBoPropertyDescriptor
 <T extends TranslatableEntryOwner<C,?,?>,C extends Comparable<? super C>> 
 extends MultipleCachedEntriesOwnersBoPropertyDescriptor<T, C>{
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Creates a new PalleteCachedEntriesOwnersBoPropertyDescriptor object. 
 	 *
-	 * @param typeId
-	 * @param subTypeId
-	 * @param cacheName
-	 * @param codeParser 
-	 * @param codeFormatter 
+	 * @param typeId the type id
+	 * @param subTypeId the sub type id
+	 * @param cacheName the cache name
+	 * @param codeParser the code parser
+	 * @param codeFormatter the code formatter
 	 */
 	public PalleteCachedEntriesOwnersBoPropertyDescriptor(
 	Long typeId, Long subTypeId, String cacheName, Parser<C> codeParser, Formatter<C> codeFormatter) {

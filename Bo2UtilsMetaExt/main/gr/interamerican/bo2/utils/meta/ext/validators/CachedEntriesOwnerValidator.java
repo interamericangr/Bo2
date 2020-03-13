@@ -33,9 +33,7 @@ public class CachedEntriesOwnerValidator
 C extends Comparable<? super C>> 
 implements Validator<Collection<T>> {
 	
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
 	/**
@@ -45,12 +43,14 @@ implements Validator<Collection<T>> {
 	
 	/**
 	 * Creates a new CachedEntriesValidator object. 
-	 * @param cacheName 
+	 *
+	 * @param cacheName the cache name
 	 */
 	public CachedEntriesOwnerValidator(String cacheName) {
 		this.delegate = new CachedEntryOwnerValidator<TranslatableEntryOwner<C,?,?>, C>(cacheName);
 	}
 
+	@Override
 	public void validate(Collection<T> value) throws ValidationException {
 		String msg = StringConstants.EMPTY;
 		for(TranslatableEntryOwner<C,?,?> entry : value) {
@@ -64,6 +64,4 @@ implements Validator<Collection<T>> {
 			throw new ValidationException(msg);
 		}
 	}
-
-
 }

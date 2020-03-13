@@ -13,17 +13,18 @@
 package gr.interamerican.bo2.impl.open.jdbc.parsed;
 
 import gr.interamerican.bo2.arch.EntitiesQuery;
+import gr.interamerican.bo2.impl.open.jdbc.JdbcQuery;
 
 /** 
  * {@link StoredDynamicEntitiesQuery} is a query that has its SQL query
  * statement stored in a resource file and also implements the interface 
  * {@link EntitiesQuery}. Alternatively, the SQL query can be supplied on
  * as a String along with a (unique) id. 
- * <br/>
+ * <br>
  * 
  * The type of entity returned by the <code>getEntity()</code> method is created
  * dynamically on runtime and contains the elements of the query columns.
- * Therefore StoredDynamicEntitiesQuery is declared as EntitiesQuery<Object>,
+ * Therefore StoredDynamicEntitiesQuery is declared as EntitiesQuery&lt;Object&gt;,
  * however the type of Object is a synthetic class that is created on runtime
  * and contains one field for each column of the row.
  * 
@@ -33,7 +34,11 @@ import gr.interamerican.bo2.arch.EntitiesQuery;
  * to small case and capitalizing each letter that is preceded by an underscore.
  * For example, FIRST_NAME column corresponds to firstName property.
  * 
+ * @deprecated Use of this api is not recommended. This might get moved outside
+ *             bo2. Switch to more simple Query implementations like
+ *             {@link JdbcQuery} and {@link DynamicJdbcQuery}
  */
+@Deprecated
 public class StoredDynamicEntitiesQuery 
 extends GenericStoredDynamicEntitiesQuery<Object> {
 	
@@ -41,7 +46,7 @@ extends GenericStoredDynamicEntitiesQuery<Object> {
 	/**
 	 * Creates a new StoredDynamicEntitiesQuery object. 
 	 *
-	 * @param path
+	 * @param path the path
 	 */
 	public StoredDynamicEntitiesQuery(String path) {
 		super(path, null);
@@ -50,8 +55,8 @@ extends GenericStoredDynamicEntitiesQuery<Object> {
 	/**
 	 * Creates a new StoredDynamicEntitiesQuery object. 
 	 *
-	 * @param sql
-	 * @param id
+	 * @param sql the sql
+	 * @param id the id
 	 */
 	public StoredDynamicEntitiesQuery(String sql, String id) {
 		super(sql, id, null);

@@ -16,7 +16,7 @@ import gr.interamerican.bo2.utils.adapters.Transformation;
 import gr.interamerican.bo2.utils.conditions.Condition;
 
 /**
- * Filters object against a condition. <br/>
+ * Filters object against a condition. <br>
  * 
  * The condition is specified in the Filter's constructor.
  * If the object fulfills the condition, then the object is 
@@ -40,7 +40,6 @@ public class AdvancedFilter<T,R> implements Transformation<T, R> {
 	 *        fulfill the condition. 
 	 */
 	public AdvancedFilter(Condition<T> condition, Transformation<T, R> transformation) {
-		super();
 		this.condition = condition;
 		this.transformation = transformation;
 	}
@@ -57,7 +56,7 @@ public class AdvancedFilter<T,R> implements Transformation<T, R> {
 	 */
 	Transformation<T, R> transformation;
 
-	
+	@Override
 	public R execute(T a) {
 		boolean check = condition.check(a);
 		if (check) {
@@ -65,5 +64,4 @@ public class AdvancedFilter<T,R> implements Transformation<T, R> {
 		}
 		return null; 
 	}
-
 }

@@ -21,7 +21,10 @@ import java.io.Serializable;
 /**
  * A {@link MethodBasedCallbackAction} is a Bo2WicketBlock that 
  * executes a method of its owner object.
+ * 
+ * @deprecated use method reference instead
  */
+@Deprecated
 public class MethodBasedCallbackAction 
 extends AbstractCommandCallback {
 	
@@ -52,11 +55,10 @@ extends AbstractCommandCallback {
 	/**
 	 * Creates a new MethodBasedBo2WicketBlock object. 
 	 *
-	 * @param methodName
-	 * @param owner
+	 * @param methodName the method name
+	 * @param owner the owner
 	 */
 	public MethodBasedCallbackAction(String methodName, Serializable owner) {
-		super();
 		this.methodName = methodName;
 		this.owner = owner;
 		this.handler = new EventHandlerComponent<Object>(ThrowingExceptionHandler.INSTANCE);
@@ -64,7 +66,8 @@ extends AbstractCommandCallback {
 	}
 	
 	/**
-	 * Initialized transient field {@link #mi}
+	 * Initialized transient field {@link #mi}.
+	 *
 	 * @return MethodInvocator.
 	 */
 	EventHandlerMethodInvocator methodInvocator() {

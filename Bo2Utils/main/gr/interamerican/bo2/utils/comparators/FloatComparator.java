@@ -29,14 +29,11 @@ implements Comparator<Number> {
 	private Float toFloat(Number n) {
 		return n.floatValue();
 	}
-	
-	/* (non-Javadoc)
-	 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
-	 */	
+
+	@Override
 	public int compare(Number o1, Number o2) {
 		Float b1 = toFloat(o1);
 		Float b2 = toFloat(o2);
 		return b1.compareTo(b2);
 	}
-
 }

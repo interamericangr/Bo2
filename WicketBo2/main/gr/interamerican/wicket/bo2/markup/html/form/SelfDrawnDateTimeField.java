@@ -35,20 +35,21 @@ public class SelfDrawnDateTimeField extends DateTimeField {
 	
 	/**
 	 * Creates a new SelfDrawnDateField object. 
-	 * 
-	 * @param id 
-	 * @param descriptor 
+	 *
+	 * @param id the id
+	 * @param descriptor the descriptor
 	 */
 	public SelfDrawnDateTimeField(String id, DateBoPropertyDescriptor descriptor) {
 		super(id, new Model<Date>());
 		SelfDrawnUtils.<Date>standardSelfDrawnFormComponentStuff(this, descriptor);
 	}
+	
 	/**
 	 * Creates a new SelfDrawnDateField object. 
-	 * 
-	 * @param id 
-	 * @param descriptor 
-	 * @param model
+	 *
+	 * @param id the id
+	 * @param model the model
+	 * @param descriptor the descriptor
 	 */
 	public SelfDrawnDateTimeField(String id, IModel<Date> model, DateBoPropertyDescriptor descriptor) {
 		super(id, model);

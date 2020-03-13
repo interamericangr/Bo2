@@ -43,14 +43,17 @@ public class TimeType extends AbstractType<Time> {
 		super();		
 	}
 
+	@Override
 	public Time get(ResultSet rs, String columnIndex) throws SQLException {
 		return rs.getTime(columnIndex);
 	}
 
+	@Override
 	public Time get(ResultSet rs, int columnIndex) throws SQLException {
 		return rs.getTime(columnIndex);
 	}
 
+	@Override
 	public synchronized String sqlString(Time t) {
 		if (t==null) {
 			return StringConstants.NULL;
@@ -59,6 +62,7 @@ public class TimeType extends AbstractType<Time> {
 		return StringUtils.quotes(s);
 	}
 
+	@Override
 	public Class<Time> getJavaType() {
 		return Time.class;
 	}

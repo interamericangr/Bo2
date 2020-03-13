@@ -23,9 +23,7 @@ public class StringMinLengthValidator
 extends AbstractValidator
 implements Validator<String> {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * minimum length.
@@ -35,7 +33,7 @@ implements Validator<String> {
 	/**
 	 * Creates a new StringMinLengthValidator object. 
 	 *
-	 * @param minLength
+	 * @param minLength the min length
 	 */
 	public StringMinLengthValidator(int minLength) {
 		super();
@@ -67,6 +65,7 @@ implements Validator<String> {
 		this.minLength = minLength;
 	}
 
+	@Override
 	public void validate(String value) throws ValidationException {
 		if(value==null) {
 			return;

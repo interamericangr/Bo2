@@ -27,9 +27,7 @@ import gr.interamerican.bo2.utils.meta.validators.StringMinLengthValidator;
 public class StringBoPropertyDescriptor 
 extends AbstractBoPropertyDescriptor<String> {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * min length.
@@ -39,7 +37,7 @@ extends AbstractBoPropertyDescriptor<String> {
 	/**
 	 * Creates a new StringBoPropertyDescriptor object. 
 	 *
-	 * @param parser
+	 * @param parser the parser
 	 */
 	public StringBoPropertyDescriptor(Parser<String> parser) {
 		super(parser);
@@ -103,8 +101,9 @@ extends AbstractBoPropertyDescriptor<String> {
 	}
 	
 	/**
-	 * @param expression
-	 *        Sets an expression to validate the property value with.
+	 * Sets the expression.
+	 *
+	 * @param expression        Sets an expression to validate the property value with.
 	 */
 	public void setExpression(String expression) {
 		this.expression = expression;
@@ -121,6 +120,8 @@ extends AbstractBoPropertyDescriptor<String> {
 	}
 	
 	/**
+	 * Gets the expression.
+	 *
 	 * @return Returns the expression.
 	 */
 	public String getExpression() {

@@ -25,7 +25,7 @@ import org.junit.Test;
 public class TestRequestCycleStats {
 	
 	/**
-	 * Test for newCycle()
+	 * Test for newCycle().
 	 */
 	@Test
 	public void testNewCycle() {

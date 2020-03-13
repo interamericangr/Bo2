@@ -18,12 +18,14 @@ import java.util.GregorianCalendar;
 
 /**
  * {@link Question} implementation used in cases where:
- * <li>Only one SQL statement is required.
+ * <ul>
+ * <li>Only one SQL statement is required.</li>
  * <li>The returned type cannot be retrieved from a single column with the JDBC api
- *     and needs to be constructed by the values taken from one or more columns.
- * <br/><br/>
+ *     and needs to be constructed by the values taken from one or more columns.</li>
+ *     </ul>
+ * <br><br>
  * The implementor has to implement {@link #createAnswer()} to construct the answer.
- * <br/>
+ * <br>
  * 
  * @param <A>
  *        Answer type 
@@ -32,9 +34,7 @@ public abstract class JdbcCustomAnswerSingleStatementQuestion<A>
 extends JdbcSingleStatementQuestion<A> 
 implements OrderedFieldsContainer, NamedFieldsContainer {
 	
-	/**
-	 * {@link ResultSet}
-	 */
+	/** {@link ResultSet}. */
 	private ResultSet rs;
 	
 	/**
@@ -47,20 +47,20 @@ implements OrderedFieldsContainer, NamedFieldsContainer {
 	 * A instance that will encapsulate the answer and extract
 	 * data from the {@link ResultSet} {@link #rs} to populate
 	 * it with.
-	 * <br/>
+	 * <br>
 	 * This will only execute if the result set has at least one
 	 * row. If no rows are returned the answer will be null. It
 	 * is the responsibility of the implementor to handle this
 	 * (e.g. by overriding {@link #getAnswer()}) or document it.
-	 * 
+	 *
 	 * @return the created answer
-	 * 
-	 * @throws DataAccessException 
+	 * @throws DataAccessException the data access exception
 	 */
 	protected abstract A createAnswer() throws DataAccessException;
 
 	@Override
 	protected void work() throws DataException, LogicException {
+		answer = null;
 		try {
 			rs = executePreparedQuery(sql(), getParamsFromNamedParams());
 			if(rs.next()) {
@@ -70,7 +70,7 @@ implements OrderedFieldsContainer, NamedFieldsContainer {
 			throw new DataException(e);
 		}
 	}
-	
+
 	@Override
 	public A getAnswer() {
 		return answer;
@@ -84,7 +84,7 @@ implements OrderedFieldsContainer, NamedFieldsContainer {
 			throw new DataAccessException(e);
 		}
     }
-    
+
 	@Override
 	public BigDecimal getBigDecimal(int field) throws DataAccessException {
     	try {
@@ -93,7 +93,7 @@ implements OrderedFieldsContainer, NamedFieldsContainer {
 			throw new DataAccessException(e);
 		}
     }
-   
+
 	@Override
 	public double getDouble(int field) throws DataAccessException {
     	try {
@@ -102,8 +102,7 @@ implements OrderedFieldsContainer, NamedFieldsContainer {
 			throw new DataAccessException(e);
 		}
     }
- 
-    
+
 	@Override
 	public float getFloat(int field) throws DataAccessException {
 		try {
@@ -130,7 +129,7 @@ implements OrderedFieldsContainer, NamedFieldsContainer {
 			throw new DataAccessException(e);
 		}
 	}
-    
+
 	@Override
 	public short getShort(int field) throws DataAccessException {
 		try {
@@ -148,7 +147,7 @@ implements OrderedFieldsContainer, NamedFieldsContainer {
 			throw new DataAccessException(e);
 		}
 	}
-  
+
 	@Override
 	public byte getByte(int field) throws DataAccessException {
 		try {
@@ -157,7 +156,7 @@ implements OrderedFieldsContainer, NamedFieldsContainer {
 			throw new DataAccessException(e);
 		}
 	}
-	
+
 	@Override
 	public byte[] getBytes(int field) throws DataAccessException {
 		try {
@@ -166,7 +165,7 @@ implements OrderedFieldsContainer, NamedFieldsContainer {
 			throw new DataAccessException(e);
 		}
 	}	
-   
+
 	@Override
 	public Date getDate(int field) throws DataAccessException {
     	try {
@@ -175,7 +174,7 @@ implements OrderedFieldsContainer, NamedFieldsContainer {
 			throw new DataAccessException(e);
 		}
     }
-    
+
 	@Override
 	public Calendar getCalendar(int field) throws DataAccessException {
     	try {
@@ -187,7 +186,7 @@ implements OrderedFieldsContainer, NamedFieldsContainer {
 			throw new DataAccessException(e);
 		}
     }
-  
+
 	@Override
 	public Object getObject(int field) throws DataAccessException {
 		try {
@@ -196,7 +195,7 @@ implements OrderedFieldsContainer, NamedFieldsContainer {
 			throw new DataAccessException(e);
 		}
 	}
-	
+
 	@Override
 	public BigDecimal getBigDecimal(String field) throws DataAccessException {
 		try {
@@ -295,7 +294,7 @@ implements OrderedFieldsContainer, NamedFieldsContainer {
 			throw new DataAccessException(e);
 		}
 	}
-	
+
 	@Override
 	public Object getObject(String field) throws DataAccessException {
 		try {
@@ -322,5 +321,4 @@ implements OrderedFieldsContainer, NamedFieldsContainer {
 			throw new DataAccessException(e);
 		}
 	}
-
 }

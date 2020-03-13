@@ -13,6 +13,7 @@
 package gr.interamerican.bo2.utils;
 
 import java.util.Map;
+import java.util.regex.Matcher;
 
 /**
  * Utility class that provides utilities that make it easier
@@ -22,15 +23,13 @@ import java.util.Map;
  */
 public class TemplateUtils {
 	
-	/**
-	 * char sequence to signify variables
-	 */
+	/** char sequence to signify variables. */
 	public static final String PREFIX = "_:";  //$NON-NLS-1$
 	
 	/**
 	 * Converts a name to a variable.
-	 * 
-	 * @param name
+	 *
+	 * @param name the name
 	 * @return the variable
 	 */
 	public static String variable(String name) {
@@ -44,17 +43,17 @@ public class TemplateUtils {
 	 * then we also search for instances of the variable starting with
 	 * a capital letter, and we replace the value with the first letter capital
 	 * as well. 
-	 * 
-	 * @param template
+	 *
+	 * @param template the template
 	 * @param name name of the variable
-	 * @param value
-	 * 
+	 * @param value the value
 	 * @return Returns the text of the template.
 	 */
 	public static String replace
 	(String template, String name, String value) {
 		String var = variable(name.trim());
-		String temp = template.replaceAll(var, value);
+		String quoteValue = Matcher.quoteReplacement(value);
+		String temp = template.replaceAll(var, quoteValue);
 		if (!StringUtils.startsWithUpperCase(name)) {
 			String uname = StringUtils.firstCapital(name);
 			String uValue = StringUtils.firstCapital(value);

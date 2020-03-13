@@ -19,15 +19,12 @@ import gr.interamerican.bo2.arch.exceptions.CouldNotEnlistException;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.creation.ObjectFactory;
-import gr.interamerican.bo2.creation.beans.ObjectFactoryImpl;
-import gr.interamerican.bo2.utils.CollectionUtils;
 import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.StringUtils;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
 
 /**
@@ -57,45 +54,17 @@ implements Provider {
 	 * Map with aliases for the managers.
 	 */
 	Map<String, String> managerAliases;
-	
-	
-	/**
-	 * Creates a map of ObjectFactories.
-	 * 
-	 * @param resourceManagerDefPaths
-	 * 
-	 * @return Returns a map of named object factories.
-	 */
-	public static Map<String, ObjectFactory> getFactoriesMapFromProperties(String[] resourceManagerDefPaths) {
-		Map<String, ObjectFactory> factories = new HashMap<String, ObjectFactory>();
-		for (int i = 0; i < resourceManagerDefPaths.length; i++) {	
-			Properties p = CollectionUtils.readEnhancedProperties(resourceManagerDefPaths[i]);
-			String name = p.getProperty("resourceWrappersManagerName"); //$NON-NLS-1$
-			ObjectFactory factory = new ObjectFactoryImpl(p);
-			ObjectFactory existing = factories.put(name, factory);
-			if(existing != null) {
-				String msg = "Duplicate manager declaration on Bo2 configuration: " + name; //$NON-NLS-1$
-				throw new RuntimeException(msg);
-			}
-		}
-		return factories;
-	}
-	
-	
-		
+
 	/**
 	 * Creates a new AbstractBaseProvider object.
 	 * 
 	 * This constructor initializes the object. Subclasses
 	 * should declare a constructor that calls the super constructor.
-	 * 
-	 * @param factories 
-	 *        Map that maps factories with the names of the resources.
-	 * @param managerAliases 
-	 *        Map with manager aliases
-	 * @param tmClass 
-	 *        Class of TransactionManager.
-	 * @throws InitializationException 
+	 *
+	 * @param factories        Map that maps factories with the names of the resources.
+	 * @param managerAliases        Map with manager aliases
+	 * @param tmClass        Class of TransactionManager.
+	 * @throws InitializationException the initialization exception
 	 */
 	public ProviderImpl(Map<String, ObjectFactory> factories, 
 			Map<String, String> managerAliases, String tmClass) 
@@ -110,8 +79,8 @@ implements Provider {
 	
 	/**
 	 * Initializes the managers.
-	 * 
-	 * @param factories
+	 *
+	 * @param factories the factories
 	 */
 	void initializeManagers(Map<String, ObjectFactory> factories) {
 		for (Map.Entry<String, ObjectFactory> entry : factories.entrySet()) {
@@ -126,11 +95,10 @@ implements Provider {
 	 * Initializes the transaction manager. TransactionManager implementations
 	 * with no-arg constructors and constructors accepting a single Provider
 	 * argument are supported. The latter take precedence.
-	 * 
-	 * @param tmClass 
-	 *        Class of transaction manager.
+	 *
+	 * @param tmClass        Class of transaction manager.
 	 *        
-	 * @throws InitializationException 
+	 * @throws InitializationException the initialization exception
 	 */	
 	void initializeTransactionManager(String tmClass) throws InitializationException {
 		if (StringUtils.isNullOrBlank(tmClass)) {
@@ -154,10 +122,9 @@ implements Provider {
 	
 	/**
 	 * Registers a transactional resource.
-	 * 
-	 * @param resource 
-	 * 
-	 * @throws InitializationException 
+	 *
+	 * @param resource the resource
+	 * @throws InitializationException the initialization exception
 	 */
 	void registerTransactionalResource(ResourceWrapper resource) 
 	throws InitializationException {
@@ -180,11 +147,10 @@ implements Provider {
 	
 	/**
 	 * Returns the concrete resource name, because it might be an alias.
-	 * 
+	 *
 	 * @param resourceName Resource name, possibly an alias.
-	 * 
 	 * @return concrete resource name.
-	 * @throws InitializationException 
+	 * @throws InitializationException the initialization exception
 	 */
 	String concreteResourceName(String resourceName) throws InitializationException {
 		String managerName = resourceName;
@@ -212,18 +178,13 @@ implements Provider {
 	
 	/**
 	 * Gets the resource with the specified name and type.
-	 * 
-	 * @param resourceName
-	 *        Name of the resource.
-	 * @param subclass
-	 *        Type of resource.
-	 * @param <C>
-	 *        Type of resource.
+	 *
+	 * @param <C>        Type of resource.
 	 *         
+	 * @param resourceName        Name of the resource.
+	 * @param subclass        Type of resource.
 	 * @return Returns the resource of the specified type and name.
-	 * 
-	 * @throws InitializationException
-	 *         If there is no {@link NamedResourceWrapperManager} with the 
+	 * @throws InitializationException         If there is no {@link NamedResourceWrapperManager} with the 
 	 *         specified name, of if the NamedResourceWrapperManager can't 
 	 *         provide the {@link ResourceWrapper} of the specified type.
 	 */

@@ -20,11 +20,11 @@ import gr.interamerican.bo2.arch.TransactionManager;
  *
  * This type of exception can be caused by another Throwable
  * that is thrown by the underlying implementation library
- * of the transaction manager. <br/>
+ * of the transaction manager. <br>
  * Even though this is exception comes from the data storage
  * layer, it is not a subtype of {@link DataException}. The
  * CouldNotRollbackException is a different type of exception
- * that requires usually special handling. <br/>
+ * that requires usually special handling. <br>
  * Rollback is an action that is usually executed because of an
  * exception. The initial exception that triggered the rollback
  * is stored in the <code>initial</code> member of the

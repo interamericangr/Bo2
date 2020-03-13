@@ -39,7 +39,7 @@ implements Transformation<A, R> {
 	/**
 	 * Creates a new MultipleStepsCreate object. 
 	 *
-	 * @param classes
+	 * @param classes the classes
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public MultipleStepsCreate(Class<?>... classes) {

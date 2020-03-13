@@ -11,7 +11,7 @@ import gr.interamerican.bo2.impl.open.po.PoUtils;
  * {@link Rule} that performs validations on a PersistentObject in the unit of
  * work that will ultimately update the persistent object in the data layer. If
  * the validation fails the object is detached before re-throwing the RuleException.
- * <br/><br/>
+ * <br><br>
  * The main application of this implementation is to reset side-effects caused by PO
  * reattachment in the unit of work.
  * 
@@ -38,9 +38,9 @@ extends AbstractPoValidator<P> {
 	
 	/**
 	 * Perform the actual validation. API users implement this.
-	 * 
-	 * @throws RuleException
-	 * @throws DataException
+	 *
+	 * @throws RuleException the rule exception
+	 * @throws DataException the data exception
 	 */
 	public abstract void doApply() throws RuleException, DataException;
 

@@ -9,8 +9,8 @@ public interface ModifiableByProperties {
 	
 	/**
 	 * Modifies this object according to the specified properties.
-	 * 
-	 * @param properties
+	 *
+	 * @param properties the properties
 	 */
 	public void beModified(Properties properties);
 

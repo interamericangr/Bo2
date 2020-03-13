@@ -22,6 +22,7 @@ import gr.interamerican.bo2.utils.meta.descriptors.FloatBoPropertyDescriptor;
 import gr.interamerican.bo2.utils.meta.descriptors.IntegerBoPropertyDescriptor;
 import gr.interamerican.bo2.utils.meta.descriptors.LongBoPropertyDescriptor;
 import gr.interamerican.bo2.utils.meta.descriptors.SelectionBoPropertyDescriptor;
+import gr.interamerican.bo2.utils.meta.descriptors.StringSelectionsBoPropertyDescriptor;
 import gr.interamerican.bo2.utils.meta.descriptors.StringBoPropertyDescriptor;
 import gr.interamerican.bo2.utils.meta.ext.descriptors.CachedEntryBoPropertyDescriptor;
 import gr.interamerican.bo2.utils.meta.ext.descriptors.CachedEntryOwnerBoPropertyDescriptor;
@@ -30,7 +31,7 @@ import gr.interamerican.bo2.utils.meta.ext.descriptors.MultipleCachedEntriesBoPr
 import gr.interamerican.bo2.utils.meta.ext.descriptors.PalleteCachedEntriesBoPropertyDescriptor;
 import gr.interamerican.bo2.utils.meta.ext.descriptors.PalleteCachedEntriesOwnersBoPropertyDescriptor;
 import gr.interamerican.bo2.utils.meta.ext.descriptors.SelectableBoPropertyDescriptor;
-import gr.interamerican.wicket.bo2.descriptors.TranslatableBoPropertyDescriptorWrapper;
+import gr.interamerican.bo2.utils.meta.ext.descriptors.TranslatableBoPropertyDescriptorWrapper;
 
 /**
  * Maps {@link BoPropertyDescriptor} type to {@link BoPDComponentFactory}.
@@ -38,6 +39,11 @@ import gr.interamerican.wicket.bo2.descriptors.TranslatableBoPropertyDescriptorW
 public class BoPDTypeBasedFactorySelection 
 extends TypeBasedSelection<BoPDComponentFactory<?>> {
 	
+	/**
+	 * Version UID
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Singleton. 
 	 */
@@ -61,6 +67,6 @@ extends TypeBasedSelection<BoPDComponentFactory<?>> {
 		INSTANCE.registerSelection(MoneyBoPropertyDescriptor.class, new MoneyBoPDComponentFactory());
 		INSTANCE.registerSelection(PalleteCachedEntriesBoPropertyDescriptor.class, new PalleteCachedEntriesForBoPDComponentFactory());
 		INSTANCE.registerSelection(PalleteCachedEntriesOwnersBoPropertyDescriptor.class, new PalleteCachedEntriesOwnersBoPDComponentFactory());
+		INSTANCE.registerSelection(StringSelectionsBoPropertyDescriptor.class, new StringSelectionsBoPDComponentFactory());
 	}
-
 }

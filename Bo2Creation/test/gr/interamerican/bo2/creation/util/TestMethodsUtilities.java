@@ -43,8 +43,9 @@ public class TestMethodsUtilities {
 	
 	/**
 	 * Unit test for isEquals(method).
-	 * @throws NoSuchMethodException 
-	 * @throws SecurityException 
+	 *
+	 * @throws SecurityException the security exception
+	 * @throws NoSuchMethodException the no such method exception
 	 */
 	@Test
 	public void testIsEqual() throws SecurityException, NoSuchMethodException {
@@ -53,9 +54,10 @@ public class TestMethodsUtilities {
 	}
 	
 	/**
-	 *Unit test for isHashcode(method).
-	 * @throws NoSuchMethodException 
-	 * @throws SecurityException 
+	 * Unit test for isHashcode(method).
+	 *
+	 * @throws SecurityException the security exception
+	 * @throws NoSuchMethodException the no such method exception
 	 */
 	@Test
 	public void testIsHashCode() throws SecurityException, NoSuchMethodException {

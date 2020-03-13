@@ -40,11 +40,12 @@ implements Key {
 	public TwoIntegersKey() {
 		super();
 	}
+	
 	/**
 	 * Creates a new TwoIntegersKey object. 
 	 *
-	 * @param first
-	 * @param second
+	 * @param first the first
+	 * @param second the second
 	 */
 	public TwoIntegersKey(Integer first, Integer second) {
 		super();
@@ -101,11 +102,13 @@ implements Key {
 		}
 		return -1;
 	}	
+	
 	@Override
 	public int hashCode() {
 		Integer[] thisFields = {first,second};
 		return Utils.generateHashCode(thisFields);
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (obj instanceof Key) {

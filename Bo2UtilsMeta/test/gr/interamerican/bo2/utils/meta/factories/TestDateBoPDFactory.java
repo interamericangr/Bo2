@@ -20,21 +20,20 @@ import gr.interamerican.samples.utils.meta.SamplePropertyDefinition;
 import org.junit.Test;
 
 /**
- * 
+ * A factory for creating TestDateBoPD objects.
  */
 public class TestDateBoPDFactory {
 
 	
 	
-	/**
-	 * SamplePropertyDefinition
-	 */
+	/** SamplePropertyDefinition. */
 	SamplePropertyDefinition pd =  new SamplePropertyDefinition();
 	
 
 	/**
-	 * Test Create
-	 * @throws ParseException 
+	 * Test Create.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@SuppressWarnings({ "nls" })
 	@Test
@@ -48,9 +47,9 @@ public class TestDateBoPDFactory {
 	}
 	
 	/**
-	 * test Create when fails
-	 * @throws ParseException 
-	 * 
+	 * test Create when fails.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@SuppressWarnings({ "nls" })
 	@Test(expected = ParseException.class)

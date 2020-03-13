@@ -42,13 +42,13 @@ public class GenericParser implements SqlParser {
 	 * JSQL parser instance.
 	 */
 	private static final CCJSqlParserManager JSQL_PARSER = new CCJSqlParserManager();
-	
+
 	@Override
 	public List<Parameter> getParameters(String sql) throws SqlParseException {
 		List<String> parmNames = SqlUtils.getParameterNames(sql);
 		return SqlUtils.namesToParametersList(parmNames);
 	}
-	
+
 	@Override
 	public List<Column> getColumns(String sql) throws SqlParseException {
 		String normalized = SqlProcessor.normalizeSql(sql);
@@ -75,7 +75,7 @@ public class GenericParser implements SqlParser {
 		}
 		throw new SqlParseException("Sql statement type not supported"); //$NON-NLS-1$
 	}
-	
+
 	@Override
 	public String removeParameter(String parameter, String sql)	throws SqlParseException {
 		String result = SqlProcessor.normalizeSql(sql);
@@ -121,8 +121,9 @@ public class GenericParser implements SqlParser {
 	
 	/**
 	 * Masks named parameters.
-	 * @param sql
-	 * @param namedParameters 
+	 *
+	 * @param sql the sql
+	 * @param namedParameters the named parameters
 	 * @return SQL with masked named parameters.
 	 */
 	private String maskNamedParameters(String sql, Set<String> namedParameters) {
@@ -135,12 +136,9 @@ public class GenericParser implements SqlParser {
 	public String removeUselessJoins(String sql) throws SqlParseException {
 		Set<String> namedParameters = getNamedParameters(sql);
 		String result = maskNamedParameters(sql, namedParameters);
-		
 		result = RemoveUselessJoinsFromSql.INSTANCE.remove(result);
-		
 		result = SqlProcessor.unmaskNamedParameters(result, namedParameters);
 		result = SqlProcessor.normalizeSql(result);
 		return result;
 	}
-
 }

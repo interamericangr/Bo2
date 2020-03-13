@@ -22,7 +22,7 @@ import gr.interamerican.bo2.utils.sql.elements.Parameter;
 import java.util.List;
 
 /**
- * 
+ * The Class AbstractParserTest.
  */
 public class AbstractParserTest {
 	
@@ -43,7 +43,7 @@ public class AbstractParserTest {
 	 *        Expected column alias.
 	 */
 	protected void checkColumn(List<Column> columns, int colNo, String name, String tbCreator, String tbName, String alias) {
-		List<Column> cols = SelectionUtils.selectByProperty("columnNo", colNo, columns, Column.class); //$NON-NLS-1$
+		List<Column> cols = SelectionUtils.selectByProperty(Column::getColumnNo, colNo, columns);
 		assertEquals(1, cols.size());		
 		Column col = cols.get(0); 
 		assertNotNull(col);
@@ -62,7 +62,7 @@ public class AbstractParserTest {
 	 *        expected parameter name.
 	 */
 	protected void checkParam(List<Parameter> parameters, String name) {
-		List<Parameter> params = SelectionUtils.selectByProperty("name", name, parameters, Parameter.class); //$NON-NLS-1$
+		List<Parameter> params = SelectionUtils.selectByProperty(Parameter::getName, name, parameters);
 		assertEquals(1, params.size());
 		Parameter parm = params.get(0); 
 		assertNotNull(parm);
@@ -70,9 +70,9 @@ public class AbstractParserTest {
 	
 	/**
 	 * Asserts whether the two given strings are equal ignoring case.
-	 * 
-	 * @param expected
-	 * @param actual
+	 *
+	 * @param expected the expected
+	 * @param actual the actual
 	 */
 	protected void checkStatement(String expected, String actual) {
 		boolean passed = actual.trim().equalsIgnoreCase(expected.trim());

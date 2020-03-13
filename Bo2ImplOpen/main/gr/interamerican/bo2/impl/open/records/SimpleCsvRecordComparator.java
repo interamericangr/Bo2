@@ -74,14 +74,13 @@ public class SimpleCsvRecordComparator implements Comparator<CsvRecord> {
 	/**
 	 * Default implementation for the comparison of two columns of two records.
 	 * This implementation compares String values.
-	 * 
-	 * @param o1
-	 * @param o2
-	 * @param index
+	 *
+	 * @param o1 the o 1
+	 * @param o2 the o 2
+	 * @param index the index
 	 * @return The comparison of a specific column of two {@link CsvRecord}s.
 	 */
 	protected int compareRecordsOnIndex(CsvRecord o1, CsvRecord o2, int index) {
 		return Utils.nullSafeCompare(o1.getString(index), o2.getString(index));
 	}
-
 }

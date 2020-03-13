@@ -13,7 +13,9 @@
 package gr.interamerican.bo2.samples.generics;
 
 /**
- * @param <A> 
+ * The Interface NumberedIA.
+ *
+ * @param <A> the generic type
  */
 public interface NumberedIA<A extends Number> {
 //

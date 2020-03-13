@@ -13,28 +13,15 @@
 package gr.interamerican.wicket.creators;
 
 import java.io.Serializable;
-import java.util.List;
 
 import org.apache.wicket.extensions.markup.html.repeater.data.table.DataTable;
 
 /**
- * Class that creates a {@link DataTable}.
+ * Class that creates a {@link DataTable} with a {@link String} sorting parameter.
  * 
- * @param <B> 
- *        Type of entity presented in the data table.
+ * @param <B>
+ *            Type of entity presented in the data table.
  */
-public interface DataTableCreator<B extends Serializable> extends Serializable {
-	
-	/**
-	 * Creates the {@link DataTable}.
-	 * 
-	 * @param id 
-	 *        Wicket id of the table.
-	 * @param elements 
-	 *        Elements to put in the table.
-	 *	  
-	 * @return Returns the {@link DataTable}
-	 */
-	public DataTable<B> createDataTable(String id, List<B> elements);
-	
+public interface DataTableCreator<B extends Serializable> extends DataTableProvider<B, String> {
+	// empty
 }

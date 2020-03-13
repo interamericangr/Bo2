@@ -12,41 +12,56 @@
  ******************************************************************************/
 package gr.interamerican.wicket.condition;
 
-
 import org.apache.wicket.Component;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 
 /**
- * Abstract implementation of {@link AjaxEnabledCondition} that
- * allows to specify a caller component. This can be used to
- * register feedback messages to the component that actually
- * executes the code instead of the component that declares it.
+ * Abstract implementation of {@link AjaxCondition} that allows to
+ * specify a caller component. This can be used to register feedback messages to
+ * the component that actually executes the code instead of the component that
+ * declares it.
  * 
  * @param <T>
- *        Type of object being checked. 
+ *            Type of object being checked.
+ * @deprecated Switch To {@link AjaxCondition} or {@link SimpleAjaxCondition}
  */
-public abstract class AbstractAjaxEnabledCondition<T> 
-implements AjaxEnabledCondition<T>{
-	
-	/**
-	 * serialVersionUID
-	 */
+@Deprecated
+public abstract class AbstractAjaxEnabledCondition<T> implements AjaxCondition<T> {
+
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Caller component.
 	 */
 	protected Component caller;
-	
+
+	/**
+	 * Checks if the condition is met for the specified object.
+	 * 
+	 * @param t
+	 *        Object being checked against the condition.
+	 * @param target
+	 *        AjaxRequestTarget.
+	 *        
+	 * @return Returns true if the condition is fulfilled by the
+	 *         specified object.
+	 */
 	public abstract boolean check(T t, AjaxRequestTarget target);
+
+	@Override
+	public boolean check(T t, AjaxRequestTarget target, Component c) {
+		this.caller = c;
+		return check(t, target);
+	}
 
 	/**
 	 * Sets the caller.
-	 * 
+	 *
 	 * @param caller
+	 *            the new caller
 	 */
 	public void setCaller(Component caller) {
 		this.caller = caller;
 	}
-
 }

@@ -26,8 +26,9 @@ public class TestVoidOperationAsLogicOperation {
 	
 	/**
 	 * Test for execute().
-	 * @throws LogicException 
-	 * @throws DataException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testExecute() throws DataException, LogicException {
@@ -41,8 +42,9 @@ public class TestVoidOperationAsLogicOperation {
 	
 	/**
 	 * Test for execute().
-	 * @throws LogicException 
-	 * @throws DataException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test(expected=DataException.class)
 	public void testExecute_withDataException() throws DataException, LogicException {
@@ -57,8 +59,9 @@ public class TestVoidOperationAsLogicOperation {
 	
 	/**
 	 * Test for execute().
-	 * @throws LogicException 
-	 * @throws DataException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test(expected=LogicException.class)
 	public void testExecute_withLogicException() throws DataException, LogicException {

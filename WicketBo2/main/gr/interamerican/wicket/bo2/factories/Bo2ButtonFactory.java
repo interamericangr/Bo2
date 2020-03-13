@@ -12,18 +12,20 @@
  ******************************************************************************/
 package gr.interamerican.wicket.bo2.factories;
 
+import org.apache.wicket.ajax.markup.html.form.AjaxButton;
+import org.apache.wicket.model.IModel;
+
 import gr.interamerican.wicket.ajax.markup.html.form.CallbackAjaxButton;
+import gr.interamerican.wicket.ajax.markup.html.form.CallbackAjaxButtonWithImage;
 import gr.interamerican.wicket.ajax.markup.html.form.CallbackAjaxImageButton;
 import gr.interamerican.wicket.bo2.callbacks.MethodBasedBo2WicketBlock;
 import gr.interamerican.wicket.callback.CallbackAction;
 import gr.interamerican.wicket.def.FeedbackOwner;
 
-import org.apache.wicket.ajax.markup.html.form.AjaxButton;
-import org.apache.wicket.model.IModel;
-
 /**
  * Factory of Bo2 enabled wicket components. 
  */
+@Deprecated
 public class Bo2ButtonFactory {
 
 	/**
@@ -46,7 +48,9 @@ public class Bo2ButtonFactory {
 	 *        
 	 * @return Returns a new AjaxButton that will execute the specified
 	 *         method.
+	 * @deprecated use {@link CallbackAjaxButton} directly instead
 	 */
+	@Deprecated
 	public static AjaxButton createButton 
 	(final String id, final IModel<String> model, final String messageHandler, final FeedbackOwner owner) {	
 		CallbackAction action = new MethodBasedBo2WicketBlock(messageHandler, owner);
@@ -66,7 +70,9 @@ public class Bo2ButtonFactory {
 	 *        
 	 * @return Returns a new AjaxButton that will execute the specified
 	 *         method.
+	 * @deprecated use {@link CallbackAjaxButton} directly instead
 	 */
+	@Deprecated
 	public static AjaxButton createButton 
 	(final String id, final String messageHandler, final FeedbackOwner owner) {	
 		CallbackAction action = new MethodBasedBo2WicketBlock(messageHandler, owner);
@@ -90,7 +96,9 @@ public class Bo2ButtonFactory {
 	 *        
 	 * @return Returns a new image AjaxButton that will execute the specified
 	 *         method.
+	 * @deprecated Switch to {@link CallbackAjaxButtonWithImage}
 	 */
+	@Deprecated
 	public static AjaxButton createImageButton 
 	(final String id, final IModel<String> model, final String messageHandler, final FeedbackOwner owner, String urlImage) {	
 		CallbackAction action = new MethodBasedBo2WicketBlock(messageHandler, owner);
@@ -112,11 +120,12 @@ public class Bo2ButtonFactory {
 	 *        
 	 * @return Returns a new image AjaxButton that will execute the specified
 	 *         method.
+	 * @deprecated Switch to {@link CallbackAjaxButtonWithImage}
 	 */
+	@Deprecated
 	public static AjaxButton createImageButton 
 	(final String id, final String messageHandler, final FeedbackOwner owner, String urlImage) {	
 		CallbackAction action = new MethodBasedBo2WicketBlock(messageHandler, owner);
 		return new CallbackAjaxImageButton(id, action,owner.getFeedBackPanel(),urlImage);		
 	}
-	
 }

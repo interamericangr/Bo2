@@ -27,7 +27,7 @@ import java.util.Properties;
  * 
  */
 public class ToProperties<T> 
-implements Transformation<T, Properties>{
+implements Transformation<T, Properties> {
 	
 	/**
 	 * Business object descriptor.
@@ -37,13 +37,13 @@ implements Transformation<T, Properties>{
 	/**
 	 * Creates a new ToProperties object. 
 	 *
-	 * @param descriptor
+	 * @param descriptor the descriptor
 	 */
 	public ToProperties(BusinessObjectDescriptor<T> descriptor) {
-		super();
 		this.descriptor = descriptor;
 	}
-	
+
+	@Override
 	public Properties execute(T a) {
 		Properties p = new Properties();		
 		Map<BoPropertyDescriptor<?>, Object> propertyValues = descriptor.get(a);
@@ -56,6 +56,5 @@ implements Transformation<T, Properties>{
 			p.setProperty(propertyName, propertyValue);
 		}		
 		return p;
-	}	
-
+	}
 }

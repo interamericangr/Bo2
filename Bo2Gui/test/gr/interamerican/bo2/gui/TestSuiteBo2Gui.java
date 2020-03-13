@@ -27,7 +27,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 /**
- * 
+ * The Class TestSuiteBo2Gui.
  */
 @RunWith(Suite.class)
 @SuiteClasses(

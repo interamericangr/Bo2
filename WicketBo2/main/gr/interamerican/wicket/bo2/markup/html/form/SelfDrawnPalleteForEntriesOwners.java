@@ -15,6 +15,7 @@ package gr.interamerican.wicket.bo2.markup.html.form;
 import gr.interamerican.bo2.arch.ext.TranslatableEntryOwner;
 import gr.interamerican.bo2.utils.meta.ext.descriptors.PalleteCachedEntriesOwnersBoPropertyDescriptor;
 import gr.interamerican.wicket.bo2.protocol.http.Bo2WicketSession;
+import gr.interamerican.wicket.bo2.utils.SelfDrawnComponentsConfiguration;
 import gr.interamerican.wicket.utils.MarkupConstants;
 
 import java.util.ArrayList;
@@ -30,70 +31,76 @@ import org.apache.wicket.model.util.ListModel;
  * Self-drawn {@link Palette}.
  * 
  * @param <L>
- *        Type of language id. 
- * @param <T> 
- *        Type of entry Owner.
+ *            Type of language id.
+ * @param <T>
+ *            Type of entry Owner.
  */
-public class SelfDrawnPalleteForEntriesOwners <L, T extends TranslatableEntryOwner<Long, ?, L>> 
-extends PalleteForEntriesOwner<L,T>{
-	
+public class SelfDrawnPalleteForEntriesOwners<L, T extends TranslatableEntryOwner<Long, ?, L>>
+extends PalleteForEntriesOwner<L, T> {
+
 	/**
 	 * serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	/**
-	 * Style
-	 */
-	private static final String WIDTH_STYLE ="width:200px"; //$NON-NLS-1$
-	
+
+	/** Style. */
+	private static final String WIDTH_STYLE = "width:200px"; //$NON-NLS-1$
+
 	/**
 	 * Number of choices to be visible on the screen with out scrolling.
 	 */
 	private static final int rows = 10;
-	
+
 	/**
 	 * Allow user to move selections up and down.
 	 */
 	private static boolean allowOrder = false;
-	
+
 	/**
-	 * Creates a new SelfDrawnPalleteForEntriesOwners object. 
-	 * 
-	 * @param id 
-	 * @param descriptor  
-	 * @param model 
-	 * @param choicesModel 
-	 * @param session 
+	 * Creates a new SelfDrawnPalleteForEntriesOwners object.
+	 *
+	 * @param id
+	 *            the id
+	 * @param model
+	 *            the model
+	 * @param descriptor
+	 *            the descriptor
+	 * @param choicesModel
+	 *            the choices model
+	 * @param session
+	 *            the session
 	 */
 
-	public SelfDrawnPalleteForEntriesOwners(
-	String id, IModel<List<T>> model, PalleteCachedEntriesOwnersBoPropertyDescriptor<T, ?> descriptor,
-	IModel<? extends Collection<? extends T>> choicesModel, Bo2WicketSession<?, L> session) {
+	public SelfDrawnPalleteForEntriesOwners(String id, IModel<List<T>> model,
+			PalleteCachedEntriesOwnersBoPropertyDescriptor<T, ?> descriptor,
+			IModel<? extends Collection<? extends T>> choicesModel, Bo2WicketSession<?, L> session) {
 		super(id, model, choicesModel, rows, allowOrder, session);
 		setOutputMarkupPlaceholderTag(true);
-    	setEnabled(!descriptor.isReadOnly());
+		setEnabled(!descriptor.isReadOnly());
+		add(SelfDrawnComponentsConfiguration.DEFAULT_PALLETE_THEME.get());
 	}
-	
+
 	/**
 	 * Creates a new SelfDrawnPalleteForEntries object.
-	 * 
-	 * @param id 
-	 * @param descriptor 
-	 * @param choicesModel 
-	 * @param session 
+	 *
+	 * @param id
+	 *            the id
+	 * @param descriptor
+	 *            the descriptor
+	 * @param choicesModel
+	 *            the choices model
+	 * @param session
+	 *            the session
 	 */
-	public SelfDrawnPalleteForEntriesOwners(
-	String id, PalleteCachedEntriesOwnersBoPropertyDescriptor<T, ?> descriptor, 
-	IModel<? extends Collection<? extends T>> choicesModel , Bo2WicketSession<?, L> session) {
+	public SelfDrawnPalleteForEntriesOwners(String id, PalleteCachedEntriesOwnersBoPropertyDescriptor<T, ?> descriptor,
+			IModel<? extends Collection<? extends T>> choicesModel, Bo2WicketSession<?, L> session) {
 		this(id, new ListModel<T>(new ArrayList<T>()), descriptor, choicesModel, session);
 	}
-	
+
 	@Override
-    protected void onComponentTag(ComponentTag tag) {  
+	protected void onComponentTag(ComponentTag tag) {
 		tag.setName(MarkupConstants.SPAN);
 		tag.put(MarkupConstants.STYLE, WIDTH_STYLE);
 		super.onComponentTag(tag);
 	}
-
 }

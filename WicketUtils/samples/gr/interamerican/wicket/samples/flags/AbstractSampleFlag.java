@@ -19,9 +19,7 @@ import gr.interamerican.bo2.utils.adapters.Flag;
  */
 public abstract class AbstractSampleFlag implements Flag {
 	
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
 	/**
@@ -34,14 +32,16 @@ public abstract class AbstractSampleFlag implements Flag {
 	 */
 	public static String DOWN_MESSAGE = "down"; //$NON-NLS-1$
 
+	@Override
 	public abstract boolean isUp();
 
+	@Override
 	public String getUpMessage() {
 		return UP_MESSAGE;
 	}
 
+	@Override
 	public String getDownMessage() {
 		return DOWN_MESSAGE;
 	}
-	
 }

@@ -38,26 +38,28 @@ public class ByteArrayAsResourceStream extends AbstractResourceStream {
 	/**
      * Input stream.
      */ 
-    private InputStream inputStream;
+    InputStream inputStream;
     
     /**
      * Creates a new ByteArrayResourceStream.
-     * @param data 
+     *
+     * @param data the data
      */
     public ByteArrayAsResourceStream(byte[] data) {
         super();
         fileData = data;
     }
-    
-    public void close() throws IOException {
+
+    @Override
+	public void close() throws IOException {
     	if (inputStream!=null) {
     		inputStream.close();    		
     	}        
     }
 
-    public InputStream getInputStream() throws ResourceStreamNotFoundException {
+    @Override
+	public InputStream getInputStream() throws ResourceStreamNotFoundException {
         inputStream = new ByteArrayInputStream(fileData);
         return inputStream;
     }
-
 }

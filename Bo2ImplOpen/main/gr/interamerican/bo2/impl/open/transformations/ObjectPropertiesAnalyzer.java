@@ -67,7 +67,9 @@ extends AbstractObjectStructureAnalyzer {
 	}
 	
 	/**
-	 * @param propertyName
+	 * Should be excluded.
+	 *
+	 * @param propertyName the property name
 	 * @return If the property should be excluded.
 	 */
 	private boolean shouldBeExcluded(String propertyName) {

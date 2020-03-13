@@ -20,16 +20,14 @@ import gr.interamerican.bo2.utils.meta.formatters.BooleanFormatter;
 public class NfBooleanFormatter extends NullFilteringFormatter<Boolean> {
 
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Creates a new NfBooleanFormatter object. 
 	 *
-	 * @param trueLiteral
-	 * @param falseLiteral
+	 * @param trueLiteral the true literal
+	 * @param falseLiteral the false literal
 	 */
 	public NfBooleanFormatter(String trueLiteral, String falseLiteral) {
 		super(new BooleanFormatter(trueLiteral, falseLiteral));

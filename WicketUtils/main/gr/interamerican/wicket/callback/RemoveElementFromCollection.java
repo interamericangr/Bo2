@@ -21,13 +21,13 @@ import java.util.Collection;
  * 
  * @param <B> 
  *        Type of elements in the collection.
+ * @deprecated bad utility
  */
+@Deprecated
 public class RemoveElementFromCollection<B extends Serializable> 
 extends SimpleCallbackAction {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -43,8 +43,8 @@ extends SimpleCallbackAction {
 	/**
 	 * Creates a new RemoveElementFromCollection object. 
 	 *
-	 * @param collection
-	 * @param element	   
+	 * @param collection the collection
+	 * @param element the element
 	 */
 	public RemoveElementFromCollection (Collection<B> collection, B element) {
 		super();
@@ -52,12 +52,8 @@ extends SimpleCallbackAction {
 		this.element = element;
 	}
 	
-	
 	@Override
 	protected void work() {
 		collection.remove(element);
 	}
-	
-	
-
 }

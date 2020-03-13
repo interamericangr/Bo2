@@ -22,6 +22,7 @@ package gr.interamerican.bo2.utils.conditions;
 public class ArrayHasOnlyNulls<T> 
 implements Condition<T[]> {
 	
+	@Override
 	public boolean check(T[] t) {
 		for (int i = 0; i < t.length; i++) {
 			if (t[i]!=null) {

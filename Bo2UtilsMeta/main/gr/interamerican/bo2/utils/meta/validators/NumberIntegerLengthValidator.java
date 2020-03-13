@@ -25,9 +25,7 @@ public class NumberIntegerLengthValidator<T extends Number>
 extends AbstractValidator
 implements Validator<T> {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Maximum length of integer part.
@@ -36,12 +34,14 @@ implements Validator<T> {
 	
 	/**
 	 * Creates a new NumberIntegerLengthValidator object. 
-	 * @param maxIntegerLength 
+	 *
+	 * @param maxIntegerLength the max integer length
 	 */
 	public NumberIntegerLengthValidator(int maxIntegerLength) {
 		this.maxIntegerLength = maxIntegerLength;
 	}
 
+	@Override
 	public void validate(T value) throws ValidationException {
 		if(value==null) {
 			return;

@@ -18,33 +18,37 @@ import gr.interamerican.bo2.arch.PersistentObject;
 import java.sql.Timestamp;
 
 /**
- * 
+ * The Interface TimestampPo.
  */
 public interface TimestampPo 
 extends PersistentObject<TimestampKey>, ModificationRecord 
 {
 	
 	/**
-	 * Gets invoiceNo
+	 * Gets invoiceNo.
+	 *
 	 * @return invoiceNo
 	 */
 	public String getTimestampNo();
 	
 	/**
-	 * Sets invoiceNo
-	 * @param invoiceNo
+	 * Sets invoiceNo.
+	 *
+	 * @param invoiceNo the new timestamp no
 	 */
 	public void setTimestampNo(String invoiceNo);
 	
 	/**
-	 * Gets tms
+	 * Gets tms.
+	 *
 	 * @return tms
 	 */
 	public Timestamp getTms();
 	
 	/**
-	 * Sets tms
-	 * @param tms
+	 * Sets tms.
+	 *
+	 * @param tms the new tms
 	 */
 	public void setTms(Timestamp tms);
 	

@@ -18,10 +18,11 @@ import org.apache.wicket.markup.html.panel.Panel;
  * An object that depends on a Panel.
  */
 public interface PanelDependent {
+	
 	/**
 	 * Sets the panel.
-	 * 
-	 * @param panel
+	 *
+	 * @param panel the new panel
 	 */
 	public void setPanel(Panel panel);
 	

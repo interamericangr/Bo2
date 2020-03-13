@@ -25,7 +25,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Unit tests for {@link FilePanel}
+ * Unit tests for {@link FilePanel}.
  */
 public class TestFilePanel extends WicketTest {
 	
@@ -62,12 +62,11 @@ public class TestFilePanel extends WicketTest {
 		Assert.assertTrue(((byte[]) subject.getDefaultModelObject()).length > 0);
 		Assert.assertNotNull(subject.getFileName());
 	}
-	
+
 	@Override
-	protected Component initializeComponent() {
+	protected Component initializeComponent(String wicketId) {
 		IModel<byte[]> model = new Model<byte[]>();
 		model.setObject(null);
 		return new FilePanel(TestPage.TEST_ID, model);
 	}
-
 }

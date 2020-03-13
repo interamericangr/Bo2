@@ -19,7 +19,7 @@ import gr.interamerican.bo2.impl.open.workers.AbstractOperation;
 import gr.interamerican.bo2.utils.annotations.Child;
 
 /**
- * 
+ * The Class DeleteInvoiceData.
  */
 public class DeleteInvoiceData 
 extends AbstractOperation {

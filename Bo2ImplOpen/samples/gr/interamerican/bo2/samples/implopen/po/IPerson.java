@@ -17,34 +17,42 @@ import gr.interamerican.bo2.arch.PersistentObject;
 import java.util.Set;
 
 /**
- * person PO interface
+ * person PO interface.
  */
 public interface IPerson extends PersistentObject<PersonKey> {
 
 	/**
-	 * @param name
-	 *            sets the person's name
+	 * Sets the name.
+	 *
+	 * @param name            sets the person's name
 	 */
 	public void setName(String name);
 
 	/**
+	 * Gets the name.
+	 *
 	 * @return the person's name
 	 */
 	public String getName();
 
 	/**
-	 * @param addresses
+	 * Sets the addresses.
+	 *
+	 * @param addresses the new addresses
 	 */
 	public void setAddresses(Set<IAddress> addresses);
 
 	/**
+	 * Gets the addresses.
+	 *
 	 * @return the person's addresses
 	 */
 	public Set<IAddress> getAddresses();
 
 	/**
-	 * @param address
-	 *            utility method to set the two-way association
+	 * Adds the address.
+	 *
+	 * @param address            utility method to set the two-way association
 	 */
 	public void addAddress(IAddress address);
 

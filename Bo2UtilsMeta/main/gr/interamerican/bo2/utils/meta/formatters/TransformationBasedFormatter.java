@@ -23,9 +23,8 @@ import gr.interamerican.bo2.utils.adapters.Transformation;
  */
 public class TransformationBasedFormatter<T>
 implements Formatter<T> {
-	/**
-	 * 
-	 */
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Transformation to String.
@@ -35,15 +34,15 @@ implements Formatter<T> {
 	/**
 	 * Creates a new TransformationBasedFormatter object. 
 	 *
-	 * @param transformation
+	 * @param transformation the transformation
 	 */
 	public TransformationBasedFormatter(Transformation<T, String> transformation) {
 		super();
 		this.transformation = transformation;
 	}
-	
+
+	@Override
 	public String format(T t) {
 		return transformation.execute(t);
 	}
-
 }

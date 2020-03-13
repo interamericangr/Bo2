@@ -26,10 +26,12 @@ import org.apache.wicket.model.IModel;
 public class DateBoPDComponentFactory 
 extends AbstractBoPDComponentFactory<DateBoPropertyDescriptor> {	
 	
+	@Override
 	public Component drawMain(DateBoPropertyDescriptor descriptor,String wicketId) {
 		return new SelfDrawnDateField(wicketId, descriptor);
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public Component drawMain(String wicketId, IModel<?> model, DateBoPropertyDescriptor descriptor) {
 		return new SelfDrawnDateField(wicketId,(IModel<Date>) model, descriptor);

@@ -29,12 +29,11 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * 
+ * A factory for creating TestMoneyBoPDComponent objects.
  */
 public class TestMoneyBoPDComponentFactory extends Bo2WicketTest{
-	/**
-	 * 
-	 */
+	
+	/** The Constant COMPONENT. */
 	protected static final String COMPONENT = "component"; //$NON-NLS-1$
 	/**
 	 * moneyOwner.
@@ -46,24 +45,19 @@ public class TestMoneyBoPDComponentFactory extends Bo2WicketTest{
 	 */
 	private MoneyOwnerObjectDescriptor moneyDescriptor = new MoneyOwnerObjectDescriptor();
 	
-	/**
-	 * 
-	 */
+	/** The money bo PD component factory. */
 	private MoneyBoPDComponentFactory moneyBoPDComponentFactory = 
 		new MoneyBoPDComponentFactory();
 	
-	/**
-	 * 
-	 */
+	/** The money bo property descriptor. */
 	private MoneyBoPropertyDescriptor moneyBoPropertyDescriptor = 
 		moneyDescriptor.moneyDescriptor();
 	
-	/**
-	 * the WicketTester
-	 */
+	/** the WicketTester. */
 	public WicketTester wicketTester = null;
+	
 	/**
-	 * 
+	 * Test draw main first.
 	 */
 	@Test
 	public void testDrawMain_First(){
@@ -77,7 +71,7 @@ public class TestMoneyBoPDComponentFactory extends Bo2WicketTest{
 	}
 	
 	/**
-	 * 
+	 * Test draw main sec.
 	 */
 	@Test
 	public void testDrawMain_Sec(){

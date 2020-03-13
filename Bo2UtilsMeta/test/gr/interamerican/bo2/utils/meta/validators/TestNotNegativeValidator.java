@@ -15,22 +15,22 @@ package gr.interamerican.bo2.utils.meta.validators;
 import gr.interamerican.bo2.utils.meta.exceptions.ValidationException;
 
 import org.junit.Test;
+
 /**
- * NotNegativeValidatorTest
+ * NotNegativeValidatorTest.
  */
 public class TestNotNegativeValidator {
 	
 	
-	 /**
-	 * NotNegativeValidator
-	 */
+	 /** NotNegativeValidator. */
 	NotNegativeValidator notNegVal = NotNegativeValidator.INSTANCE;
 	
 	
      /**
-     * Test validate
-     * @throws ValidationException 
-     */
+      * Test validate.
+      *
+      * @throws ValidationException the validation exception
+      */
 	@Test
     public void testValidateNotNegativeValue() throws ValidationException{
     	 
@@ -38,8 +38,9 @@ public class TestNotNegativeValidator {
      }
 	
     /**
-     * Test validate
-     * @throws ValidationException 
+     * Test validate.
+     *
+     * @throws ValidationException the validation exception
      */
 	@Test(expected=ValidationException.class)
     public void testValidateNegativeValue() throws ValidationException{

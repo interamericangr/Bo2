@@ -34,13 +34,13 @@ public abstract class JdbcExistsQuestion extends JdbcSingleStatementQuestion<Boo
 	 * Object that holds the answer.
 	 */
 	Boolean answer;		
-	
+
 	@Override
 	protected void work() throws DataException, LogicException {
 		answer = false;
 		String stmt = sql();
 		try {			
-			Object[] parms = this.getParamsFromNamedParams();
+			Object[] parms = getParamsFromNamedParams();
 			ResultSet rs = executePreparedQuery(stmt,parms);
 			if (rs.next()) {				
 				answer = true;
@@ -49,10 +49,9 @@ public abstract class JdbcExistsQuestion extends JdbcSingleStatementQuestion<Boo
 			throw new DataException(e);
 		}
 	}	
-	
+
 	@Override
 	public Boolean getAnswer() {	
 		return answer;
 	}
-	
 }

@@ -96,7 +96,8 @@ public class TestExceptionUnwrapper {
 	
 	/**
 	 * Tests get(t).
-	 * @throws FooException 
+	 *
+	 * @throws FooException the foo exception
 	 */
 	@SuppressWarnings("unchecked")
 	@Test(expected=FooException.class)
@@ -109,7 +110,8 @@ public class TestExceptionUnwrapper {
 	
 	/**
 	 * Tests get(t).
-	 * @throws FooException 
+	 *
+	 * @throws FooException the foo exception
 	 */
 	@SuppressWarnings("unchecked")
 	@Test()

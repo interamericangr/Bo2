@@ -17,22 +17,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 
+ * The Class ObjectTypeBean.
  */
 public class ObjectTypeBean implements Serializable {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
-	/**
-	 * 
-	 */
+	
+	/** The object type list. */
 	private List<ObjectType> objectTypeList =
 		new ArrayList<ObjectType>();
-	/**
-	 * 
-	 */
+	
+	/** The object type. */
 	private ObjectType objectType = 
 		ObjectType.OBJECT1;
 	/**

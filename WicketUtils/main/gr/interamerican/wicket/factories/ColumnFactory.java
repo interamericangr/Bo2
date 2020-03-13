@@ -42,24 +42,17 @@ public class ColumnFactory {
 	
 	/**
 	 * Creates a {@link PropertyColumn}.
-	 * 
-	 * @param propertyExpression
-	 *        Property expression to evaluate against the column object.
-	 * @param propertyLabel
-	 *        Label to put on table header for this column. Defaults to propertyExpression if null.
-	 * @param sortProperty 
-	 *        Property expression whose object column value is used for default sorting.
-	 * @param faultyExpressionTolerant 
-	 *        Indicates if a faulty expression is to be tolerated.
-	 * @param formatter
-	 *        Formatter of column Object.
-	 * 
-	 * @param <T>
-	 *        Type of column model object.
+	 *
+	 * @param <T>        Type of column model object.
 	 *        
+	 * @param propertyExpression        Property expression to evaluate against the column object.
+	 * @param propertyLabel        Label to put on table header for this column. Defaults to propertyExpression if null.
+	 * @param sortProperty        Property expression whose object column value is used for default sorting.
+	 * @param faultyExpressionTolerant        Indicates if a faulty expression is to be tolerated.
+	 * @param formatter        Formatter of column Object.
 	 * @return Returns a {@link PropertyColumn} for the specified input.
 	 */
-	public static <T extends Serializable> PropertyColumn<T>
+	public static <T extends Serializable> PropertyColumn<T,String>
 	createPropertyColumn(String propertyExpression, String propertyLabel, String sortProperty, boolean faultyExpressionTolerant, Formatter<?> formatter) {
 		if(propertyExpression==null) {
 			throw new RuntimeException("Cannot create a PropertyColumn with null property expression"); //$NON-NLS-1$
@@ -77,32 +70,26 @@ public class ColumnFactory {
 		}
 		
 		if(needToEnhance(faultyExpressionTolerant, formatter)) {
-			return new EnhancedPropertyColumn<T>(displayModel, sortProperty, propertyExpression, formatter, faultyExpressionTolerant);
+			return new EnhancedPropertyColumn<T,String>(displayModel, sortProperty, propertyExpression, formatter, faultyExpressionTolerant);
 		}
-		return new PropertyColumn<T>(displayModel, sortProperty, propertyExpression);
+		return new PropertyColumn<T,String>(displayModel, sortProperty, propertyExpression);
 	}
 	
 	/**
 	 * Creates a list of property columns.
-	 * 
-	 * @param propertyExpressions
-	 *        Names of properties.
-	 * @param propertyLabels
-	 *        Labels to put on table header of each column. Defaults to propertyExpressions if null.
-	 * @param sortProperties 
-	 *        Property expressions whose object column value is used for default sorting.
-	 * @param faultyExpressionTolerant 
-	 *        Indicates if a faulty expression is to be tolerated.
-	 * @param formatters
-	 *        Formatters of column Objects.
+	 *
+	 * @param <T>        Type of column model object.
 	 *        
-	 * @param <T>
-	 *        Type of column model object.
+	 * @param propertyExpressions        Names of properties.
+	 * @param propertyLabels        Labels to put on table header of each column. Defaults to propertyExpressions if null.
+	 * @param sortProperties        Property expressions whose object column value is used for default sorting.
+	 * @param faultyExpressionTolerant        Indicates if a faulty expression is to be tolerated.
+	 * @param formatters        Formatters of column Objects.
 	 *        
-	 * @return Returns a list of {@link PropertyColumn} objects for the 
+	 * @return Returns a list of {@link PropertyColumn} objects for the
 	 *         specified properties.
 	 */
-	public static <T extends Serializable> List<IColumn<T>>
+	public static <T extends Serializable> List<IColumn<T,String>>
 	createPropertyColumns(String[] propertyExpressions, String[] propertyLabels, String[] sortProperties, boolean faultyExpressionTolerant, Formatter<?>[] formatters) {
 		String[] labels = Utils.notNullOrEmpty(propertyLabels, propertyExpressions);
 		
@@ -119,7 +106,7 @@ public class ColumnFactory {
 			throw new RuntimeException(msg);
 		}
 		
-		List<IColumn<T>> list = new ArrayList<IColumn<T>>();
+		List<IColumn<T,String>> list = new ArrayList<IColumn<T,String>>();
 		for (int i=0; i<propertyExpressions.length; i++) {
 			String sortProperty = null;
 			if(sortProperties != null ) {
@@ -129,7 +116,7 @@ public class ColumnFactory {
 			if(formatters != null) {
 				formatter = formatters[i];
 			}
-			PropertyColumn<T> column = createPropertyColumn(propertyExpressions[i], labels[i], sortProperty, faultyExpressionTolerant, formatter);
+			PropertyColumn<T,String> column = createPropertyColumn(propertyExpressions[i], labels[i], sortProperty, faultyExpressionTolerant, formatter);
 			list.add(column);
 		}
 		return list;
@@ -137,8 +124,9 @@ public class ColumnFactory {
 	
 	/**
 	 * Indicates if {@link EnhancedPropertyColumn} is needed.
-	 * @param faultyExpressionTolerant
-	 * @param formatter
+	 *
+	 * @param faultyExpressionTolerant the faulty expression tolerant
+	 * @param formatter the formatter
 	 * @return True, if the column should be faultyExpressionTolerant or have a special formatter.
 	 */
 	private static boolean needToEnhance(boolean faultyExpressionTolerant, Formatter<?> formatter) {
@@ -147,17 +135,14 @@ public class ColumnFactory {
 	
 	/**
 	 * Creates a list of property columns.
-	 * 
-	 * @param propertyNames
-	 *        String containing the property names, separated by commas.
-	 * 
-	 * @param <T>
-	 *        Type of column model object.
+	 *
+	 * @param <T>        Type of column model object.
 	 *        
-	 * @return Returns a list of {@link PropertyColumn} objects for the 
+	 * @param propertyNames        String containing the property names, separated by commas.
+	 * @return Returns a list of {@link PropertyColumn} objects for the
 	 *         specified properties.
 	 */
-	public static <T extends Serializable> List<IColumn<T>>
+	public static <T extends Serializable> List<IColumn<T,String>>
 	createPropertyColumns(String propertyNames) {
 		String[] properties = 
 			TokenUtils.splitTrim(propertyNames, StringConstants.COMMA, false);

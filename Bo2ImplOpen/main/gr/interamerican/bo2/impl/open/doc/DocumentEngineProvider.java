@@ -16,7 +16,7 @@ import gr.interamerican.bo2.arch.ResourceWrapper;
 import gr.interamerican.bo2.utils.doc.DocumentEngine;
 
 /**
- * 
+ * The Interface DocumentEngineProvider.
  */
 public interface DocumentEngineProvider 
 extends ResourceWrapper {

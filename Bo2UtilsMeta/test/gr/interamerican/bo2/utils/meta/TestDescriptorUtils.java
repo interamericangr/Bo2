@@ -29,8 +29,9 @@ import org.junit.Test;
 public class TestDescriptorUtils {
 	
 	/**
-	 * test
-	 * @throws ParseException 
+	 * test.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@SuppressWarnings("nls")
 	@Test

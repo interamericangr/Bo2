@@ -17,15 +17,15 @@ import gr.interamerican.bo2.arch.PersistentObject;
 import gr.interamerican.bo2.utils.attributes.Named;
 
 /**
- * 
+ * The Interface Neighborhood.
  */
 public interface Neighborhood 
 extends Named, Populated, PersistentObject<NeighborhoodKey>, ModificationRecord, NeighborhoodKP {
 	
 	/**
 	 * Sets the population.
-	 * 
-	 * @param population
+	 *
+	 * @param population the new population
 	 */
 	public void setPopulation(int population);
 	

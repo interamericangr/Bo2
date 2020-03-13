@@ -21,9 +21,7 @@ import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
 public class BooleanParser 
 extends AbstractParser<Boolean> {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	@Override

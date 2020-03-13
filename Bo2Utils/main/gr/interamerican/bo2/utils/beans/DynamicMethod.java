@@ -66,7 +66,7 @@ public class DynamicMethod<T, P> {
 	/**
 	 * Creates a new DynamicMethod object. 
 	 *
-	 * @param clazzP
+	 * @param clazzP the clazz P
 	 */
 	public DynamicMethod(Class<P> clazzP) {
 		super();

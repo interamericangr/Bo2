@@ -1,23 +1,20 @@
 package gr.interamerican.bo2.arch.utils.adapters.number;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import gr.interamerican.bo2.arch.Money;
-import gr.interamerican.bo2.arch.utils.beans.MoneyImpl;
-import gr.interamerican.bo2.utils.adapters.Transformation;
+import static org.mockito.Mockito.*;
 
 import java.math.BigDecimal;
 
 import org.junit.Assert;
 import org.junit.Test;
 
+import gr.interamerican.bo2.arch.Money;
+import gr.interamerican.bo2.arch.utils.beans.MoneyImpl;
+import gr.interamerican.bo2.utils.adapters.Transformation;
+
 /**
  * Tests for {@link MoneyAwareNumberTransformation}.
  */
 public class TestMoneyAwareNumberTransformation {
-	
-	
 	
 	/**
 	 * Tests the constructor.
@@ -86,5 +83,4 @@ public class TestMoneyAwareNumberTransformation {
 		MoneyAwareNumberTransformation mant = new MoneyAwareNumberTransformation(trans);
 		mant.execute(new Object());				
 	}
-
 }

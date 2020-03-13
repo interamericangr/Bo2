@@ -27,9 +27,9 @@ public interface Rule extends Worker {
     
     /**
      * Applies the rule check.
-     * 
-     * @throws RuleException
-     * @throws DataException
+     *
+     * @throws RuleException the rule exception
+     * @throws DataException the data exception
      */
     public void apply() 
     throws RuleException, DataException;

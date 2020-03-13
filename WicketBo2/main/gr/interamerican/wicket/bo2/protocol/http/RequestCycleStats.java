@@ -99,7 +99,7 @@ public class RequestCycleStats {
 			trackedExceptionsStats.put(trackedException, 0L);
 		}
 	}
-	
+
 	/**
 	 * Updates the exception statistics based on the caught exception.
 	 * @param t
@@ -177,10 +177,4 @@ public class RequestCycleStats {
 	void newCycle() {
 		cycles++;
 	}
-	
-
-	
-	
-	
-
 }

@@ -29,7 +29,7 @@ import org.junit.Test;
 public class TestTokenUtils {
 	
 	/**
-	 * test startsWithUpperCase
+	 * test startsWithUpperCase.
 	 */
 	@Test
 	public void testSplit() {		
@@ -50,7 +50,7 @@ public class TestTokenUtils {
 	}
 	
 	/**
-	 * tests splitTrim
+	 * tests splitTrim.
 	 */	
 	@Test
 	public void testSplitTrim() {		
@@ -111,7 +111,7 @@ public class TestTokenUtils {
 	
 	
 	/**
-	 * test startsWithUpperCase
+	 * test startsWithUpperCase.
 	 */
 	@Test
 	public void testSplit_charSeperator() {		
@@ -133,7 +133,7 @@ public class TestTokenUtils {
 
 	
 	/**
-	 * test startsWithUpperCase
+	 * test startsWithUpperCase.
 	 */
 	@Test
 	public void testSplit_emptyTokens() {		
@@ -154,7 +154,7 @@ public class TestTokenUtils {
 	}
 	
 	/**
-	 * test startsWithUpperCase
+	 * test startsWithUpperCase.
 	 */
 	@Test
 	public void testSplit_emptyTokens2() {		
@@ -179,7 +179,7 @@ public class TestTokenUtils {
 	}
 	
 	/**
-	 * test startsWithUpperCase
+	 * test startsWithUpperCase.
 	 */
 	@Test
 	public void testSplit_emptyTokens3() {		
@@ -200,7 +200,7 @@ public class TestTokenUtils {
 	}
 	
 	/**
-	 * test startsWithUpperCase
+	 * test startsWithUpperCase.
 	 */
 	@Test
 	public void testSplit_emptyTokens4() {		
@@ -216,7 +216,7 @@ public class TestTokenUtils {
 	}
 	
 	/**
-	 * Unit
+	 * Unit.
 	 */
 	@Test
 	public void testToLines() {

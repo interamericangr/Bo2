@@ -32,9 +32,8 @@ extends ChoiceRendererForEntry<Long, TranslatableEntry<Long,ValuesBasedKey,Long>
 
 	/**
 	 * Creates a new ChoiceRendererForEntryWithCode object.
-	 * 
-	 * @param session 
-	 * 
+	 *
+	 * @param session the session
 	 */
 	public ChoiceRendererForTranslatableEntry(Bo2WicketSession<?, Long> session) {
 		super(session);
@@ -42,6 +41,9 @@ extends ChoiceRendererForEntry<Long, TranslatableEntry<Long,ValuesBasedKey,Long>
 	
 	/**
 	 * The value for displaying, is the "code - translated value" of TranslatableEntry object.
+	 *
+	 * @param object the object
+	 * @return the display value
 	 */
 	@Override
 	public Object getDisplayValue(TranslatableEntry<Long,ValuesBasedKey, Long> object) {

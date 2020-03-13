@@ -10,7 +10,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Tests for {@link CalculateMonth}.
+ * Tests for {@link Month}.
  */
 public class TestMonth {
 	

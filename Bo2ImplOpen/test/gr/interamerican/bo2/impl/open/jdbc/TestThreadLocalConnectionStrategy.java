@@ -26,15 +26,15 @@ import java.util.Properties;
 import org.junit.Test;
 
 /**
- * Unit test for {@link ThreadLocalConnectionStrategy}
+ * Unit test for {@link ThreadLocalConnectionStrategy}.
  */
 public class TestThreadLocalConnectionStrategy {
 	
 	/**
 	 * Unit test for the whole lifecycle of the ThreadLocalConnectionStrategy.
-	 * 
-	 * @throws InitializationException
-	 * @throws DataException 
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testLifeCycle() throws InitializationException, DataException {

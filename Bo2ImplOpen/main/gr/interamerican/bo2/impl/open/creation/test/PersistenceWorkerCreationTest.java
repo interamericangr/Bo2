@@ -17,14 +17,17 @@ import gr.interamerican.bo2.arch.PersistenceWorker;
 import gr.interamerican.bo2.arch.PersistentObject;
 import gr.interamerican.bo2.arch.Provider;
 import gr.interamerican.bo2.arch.exceptions.CouldNotBeginException;
-import gr.interamerican.bo2.arch.exceptions.CouldNotCommitException;
 import gr.interamerican.bo2.arch.exceptions.CouldNotRollbackException;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.arch.exceptions.PoNotFoundException;
 import gr.interamerican.bo2.arch.utils.ext.Bo2Session;
 import gr.interamerican.bo2.impl.open.creation.Factory;
+import gr.interamerican.bo2.impl.open.creation.test.conditions.ClassIsPwCondition;
 import gr.interamerican.bo2.impl.open.utils.Bo2;
+
+import java.io.IOException;
+import java.util.Collection;
 
 import org.junit.After;
 import org.junit.Before;
@@ -33,7 +36,7 @@ import org.junit.Before;
  * Unit test for creation of {@link PersistenceWorker}.
  */
 public class PersistenceWorkerCreationTest 
-extends AbstractTestClass {
+extends AbstractCreationTest {
 	
 	/**
 	 * manager.
@@ -41,23 +44,16 @@ extends AbstractTestClass {
 	private static Provider manager;
 	
 	/**
-	 * Did the current test fail?
-	 */
-	private boolean failed = false;
-	
-	
-	/**
 	 * Creates a new CreationTestBean object. 
-	 * 
-	 * @param className
-	 *  
-	 * @throws ClassNotFoundException
+	 *
+	 * @param className the class name
+	 * @throws ClassNotFoundException the class not found exception
 	 */
 	public PersistenceWorkerCreationTest(String className) 
 	throws ClassNotFoundException {
 		super(className);
 	}
-		
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public void testClass(Class<?> type) {
@@ -71,32 +67,38 @@ extends AbstractTestClass {
 	}
 	
 	/**
-	 * @throws InitializationException 
-	 * @throws CouldNotBeginException 
-	 * 
+	 * Before.
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws CouldNotBeginException the could not begin exception
 	 */
 	@Before
 	public void before() throws InitializationException, CouldNotBeginException {
-		failed = false;
 		manager = Bo2.getDefaultDeployment().getProvider();
 		manager.getTransactionManager().begin();
 	}
 	
 	/**
-	 * @throws DataException
-	 * @throws CouldNotCommitException 
+	 * After.
+	 *
+	 * @throws DataException the data exception
 	 */
 	@After
-	public void after() throws DataException, CouldNotCommitException {
-		if(!failed) {
-			manager.getTransactionManager().commit();
+	public void after() throws DataException {
+		Bo2Session.setProvider(null);
+		try {
+			manager.getTransactionManager().rollback();
+		} catch (CouldNotRollbackException e) {
+			throw new RuntimeException(e);
 		}
 		manager.close();
 	}
 	
 	/**
-	 * @param <P>
-	 * @param type
+	 * Test creation.
+	 *
+	 * @param <P> the generic type
+	 * @param type the type
 	 */
 	private <P extends PersistentObject<?>> 
 	void testCreation(Class<P> type) {
@@ -116,16 +118,14 @@ extends AbstractTestClass {
 			doFail(ie, type.getName());
 		} catch (RuntimeException rte) {
 			doFail(rte, type.getName());
-		} finally {
-			Bo2Session.setProvider(null);
 		}
 	}
 	
 	/**
 	 * Fails the test.
-	 * 
-	 * @param t
-	 * @param type
+	 *
+	 * @param t the t
+	 * @param type the type
 	 */
 	void doFail(Throwable t, String type) {
 		@SuppressWarnings("nls")
@@ -133,16 +133,18 @@ extends AbstractTestClass {
 		               + " failed. Reason of failure:" + t.toString();
 		System.err.println(message);
 		t.printStackTrace();
-		fail(message);	
-		
-		try {
-			manager.getTransactionManager().rollback();
-		} catch (CouldNotRollbackException e) {
-			throw new RuntimeException(e);
-		}
-		
+		fail(message);
 	}
-	
-	
 
+	/**
+	 * Test parameters.
+	 *
+	 * @param path the path
+	 * @param excluded the excluded
+	 * @return Returns the test parameters.
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 */
+	public static Collection<?> parameters(String path, String excluded) throws IOException {
+		return parameters(path, excluded, new ClassIsPwCondition());
+	}
 }

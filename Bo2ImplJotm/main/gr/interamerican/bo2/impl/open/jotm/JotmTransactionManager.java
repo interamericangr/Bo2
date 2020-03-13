@@ -34,25 +34,25 @@ import org.objectweb.jotm.Jotm;
 
 /**
  * TransactionManager implementation based on the Jotm api.
- * <br/>
+ * <br>
  * The Jotm singleton instance is created when the first instance
  * of this class is created and it is stopped, by invoking {@link Jotm#stop()}
  * when the count of {@link Provider} instances accessing an instance
  * of {@link JotmTransactionManager} and, therefore, the Jotm singleton
  * are reduced to zero.
- * <br/>
+ * <br>
  * Note that it is possible that a program that spawns many {@link Provider} 
  * instances will at some point have all its created Providers closed, but
  * has yet to create more Providers. In this case, the Jotm singleton will stop
  * but it will be replaced, as soon as another Provider gets instantiated by
  * a new instance.
- * <br/>
+ * <br>
  * XaPool does not close physical pooled JDBC connections when closing
  * the {@link StandardXAConnectionHandle}. This is not compatible with
  * the design of Bo2, which does not provide the concept a connection pool.
  * Bo2 expects the physical connection to close when {@link Connection#close()}
  * is invoked.
- * <br/> 
+ * <br> 
  * This mismatch is handled here. A collection of pooled connections is maintained 
  * and the physical connections are closed, if still open, when this TransactionManager closes.
  */
@@ -158,8 +158,8 @@ public class JotmTransactionManager extends JtaTransactionManager  {
 	
 	/**
 	 * Closes the physical JDBC connections.
-	 * 
-	 * @param c
+	 *
+	 * @param c the c
 	 */
 	void closePhysicalConnection(StandardXAConnectionHandle c) {
 		Connection physical = c.con;
@@ -174,6 +174,8 @@ public class JotmTransactionManager extends JtaTransactionManager  {
 	}
 	
 	/**
+	 * Gets the jotm transaction manager.
+	 *
 	 * @return Returns the delegate transaction manager.
 	 */
 	public org.objectweb.transaction.jta.TransactionManager getJotmTransactionManager() {

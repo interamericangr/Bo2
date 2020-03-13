@@ -18,25 +18,24 @@ import org.apache.wicket.Component;
 /**
  * Abstract {@link CallbackAction}. 
  */
-public abstract class AbstractCallbackAction 
+@Deprecated
+public abstract class AbstractCallbackAction
 implements CallbackAction {
-	/**
-	 * 
-	 */
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Caller component.
 	 */
 	protected Component caller;
-	
 
+	@Override
 	public void setCaller(Component caller) {
 		this.caller = caller;
 	}
 
-	
+	@Override
 	public Component getCaller() {		
 		return this.caller;
 	}
-
 }

@@ -37,15 +37,14 @@ public class TestQueryResults {
 	@SuppressWarnings("nls")
 	String[] rows = {"ena","dyo","tria"};
 	
-	/**
-	 * sample for tests
-	 */
+	/** sample for tests. */
 	QueryResultsSample sample = new QueryResultsSample();
 	
 	/**
-	 *  setup tests
-	 * @throws InitializationException
-	 * @throws DataException
+	 *  setup tests.
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
 	 */
 	@Before
 	public void before() throws InitializationException, DataException{
@@ -83,7 +82,7 @@ public class TestQueryResults {
 	}
 	
 	/**
-	 * Test clear
+	 * Test clear.
 	 */
 	@Test 
 	public void testClear(){	
@@ -94,7 +93,7 @@ public class TestQueryResults {
 	
 	/**
 	 * Test putAll
-	 * ����������� ��� map �� �����
+	 * ����������� ��� map �� �����.
 	 */
 	@Test
 	public void testPutAll()
@@ -111,10 +110,12 @@ public class TestQueryResults {
 	 * Sample query results implementation.
 	 */
 	private class QueryResultsSample extends QueryResults<Integer, String, TsEntitiesQueryImpl> {		
+		
 		@Override
 		public Integer key(TsEntitiesQueryImpl q) throws DataAccessException {			
 			return q.getRow();
 		}
+		
 		@Override
 		public String value(TsEntitiesQueryImpl q) throws DataAccessException {			
 			return q.getDescription();

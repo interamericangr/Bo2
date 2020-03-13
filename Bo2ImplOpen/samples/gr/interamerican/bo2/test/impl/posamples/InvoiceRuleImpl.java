@@ -23,7 +23,7 @@ import gr.interamerican.bo2.utils.annotations.Child;
 import java.util.Set;
 
 /**
- * 
+ * The Class InvoiceRuleImpl.
  */
 @DelegateKeyProperties("")
 public abstract class InvoiceRuleImpl extends AbstractModificationRecordPo<InvoiceRuleKey> 
@@ -38,7 +38,6 @@ implements InvoiceRule {
 	 * Name.
 	 */
 	@Property
-	@SuppressWarnings("unused")
 	private String ruleName;
 	
 	/**
@@ -46,7 +45,6 @@ implements InvoiceRule {
 	 */
 	@Property
 	@Child
-	@SuppressWarnings("unused")
 	private Set<InvoiceSubRule> subRules;
 
 }

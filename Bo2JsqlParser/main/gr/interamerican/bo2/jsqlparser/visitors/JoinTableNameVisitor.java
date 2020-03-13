@@ -19,16 +19,16 @@ import net.sf.jsqlparser.statement.select.SubSelect;
 
 
 /**
- * 
+ * The Class JoinTableNameVisitor.
  */
 public class JoinTableNameVisitor implements FromItemVisitor {
 
-	/**
-	 * table name
-	 */
+	/** table name. */
 	private String tableName;
 
 	/**
+	 * Gets the table name.
+	 *
 	 * @return the table name.
 	 */
 	public String getTableName() {
@@ -36,8 +36,8 @@ public class JoinTableNameVisitor implements FromItemVisitor {
 	}
 
 	@Override
-	public void visit(Table tableName) {
-		this.tableName = tableName.getName();
+	public void visit(Table table) {
+		this.tableName = table.getName();
 	}
 
 	@Override
@@ -49,6 +49,4 @@ public class JoinTableNameVisitor implements FromItemVisitor {
 	public void visit(SubJoin subjoin) {
 		throw new RuntimeException("subjoins not yet supported"); //$NON-NLS-1$
 	}
-
-
 }

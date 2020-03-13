@@ -21,10 +21,9 @@ import gr.interamerican.bo2.utils.meta.descriptors.StringBoPropertyDescriptor;
 public class StringBoPDFactory{
 
 	/**
-	 * Creates the StringBoPropertyDescriptor
-	 * 
-	 * @param pd
-	 *        PropertyDefinition
+	 * Creates the StringBoPropertyDescriptor.
+	 *
+	 * @param pd        PropertyDefinition
 	 *        
 	 * @return StringBoPropertyDescriptor
 	 */

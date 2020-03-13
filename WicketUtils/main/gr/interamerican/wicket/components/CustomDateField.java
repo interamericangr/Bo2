@@ -22,15 +22,14 @@ import org.apache.wicket.model.IModel;
  * Custom DateField.
  */
 public class CustomDateField extends DateField{
-	/**
-	 * serial
-	 */
+	
+	/** serial. */
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Creates a new CustomDateField object. 
 	 *
-	 * @param id
+	 * @param id the id
 	 */
 	public CustomDateField(String id) {
 		super(id);
@@ -40,8 +39,8 @@ public class CustomDateField extends DateField{
 	/**
 	 * Creates a new CustomDateField object. 
 	 *
-	 * @param id
-	 * @param model
+	 * @param id the id
+	 * @param model the model
 	 */
 	public CustomDateField(String id, IModel<Date> model) {
 		super(id, model);

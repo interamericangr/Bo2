@@ -12,54 +12,65 @@
  ******************************************************************************/
 package gr.interamerican.wicket.bo2.markup.html.form;
 
-import gr.interamerican.bo2.arch.ext.TranslatableEntryOwner;
-import gr.interamerican.wicket.bo2.protocol.http.Bo2WicketSession;
+import java.util.List;
 
 import org.apache.wicket.markup.html.form.IChoiceRenderer;
+import org.apache.wicket.model.IModel;
+
+import gr.interamerican.bo2.arch.ext.TranslatableEntryOwner;
+import gr.interamerican.wicket.bo2.protocol.http.Bo2WicketSession;
+import gr.interamerican.wicket.utils.WicketUtils;
 
 /**
- * {@link IChoiceRenderer} for {@link TranslatableEntryOwner} objects.
+ * {@link IChoiceRenderer} for {@link TranslatableEntryOwner} objects.<br>
+ * This implementation of choice renderer will print the language of the current
+ * session.
  * 
- * This implementation of choice renderer will print the language
- * of the current sesion.
- * 
- * @param <L> Type of language id.
- * @param <T> Type of object the renderer will render.
+ * @param <L>
+ *            Type of language id.
+ * @param <T>
+ *            Type of object the renderer will render.
  */
-public class ChoiceRendererForEntryOwner<L, T extends TranslatableEntryOwner<?, ?, L>> 
-implements IChoiceRenderer<T> {
+public class ChoiceRendererForEntryOwner<L, T extends TranslatableEntryOwner<?, ?, L>> implements IChoiceRenderer<T> {
 
 	/**
 	 * serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * Language used by this renderer.
 	 */
 	protected L languageId;
-	
+
 	/**
-	 * Creates a new ChoiceRendererForEntryOwner object. 
+	 * Creates a new ChoiceRendererForEntryOwner object.
 	 *
 	 * @param session
+	 *            the session
 	 */
-	public ChoiceRendererForEntryOwner(Bo2WicketSession<?, L> session){
+	public ChoiceRendererForEntryOwner(Bo2WicketSession<?, L> session) {
 		this.languageId = session.getLanguageId();
 	}
 
+	@Override
 	public Object getDisplayValue(T object) {
-		if(object==null || object.getEntry()==null) {
+		if (object == null || object.getEntry() == null) {
 			return null;
 		}
 		return object.getEntry().getTranslation(languageId);
 	}
 
+	@Override
 	public String getIdValue(T object, int index) {
-		if(object==null || object.getEntry()==null || object.getEntry().getCode()==null) {
+		if (object == null || object.getEntry() == null || object.getEntry().getCode() == null) {
 			return null;
 		}
-		return object.getEntry().getCode().toString();		
+		return object.getEntry().getCode().toString();
 	}
-	
+
+	@Override
+	public T getObject(String id, IModel<? extends List<? extends T>> choices) {
+		return WicketUtils.getObject(this, id, choices);
+	}
 }

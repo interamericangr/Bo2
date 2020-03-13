@@ -13,8 +13,9 @@
 package gr.interamerican.bo2.samples.interfaces;
 
 /**
- * @param <T>
- * 
+ * The Interface ICriteriaDependent.
+ *
+ * @param <T> the generic type
  */
 public interface ICriteriaDependent<T> {
 	/**
@@ -23,10 +24,11 @@ public interface ICriteriaDependent<T> {
 	 * @return The criteria.
 	 */
 	T getCriteria();
+	
 	/**
 	 * Sets the criteria.
-	 * 
-	 * @param criteria
+	 *
+	 * @param criteria the new criteria
 	 */
 	void setCriteria(T criteria);
 

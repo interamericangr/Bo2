@@ -21,10 +21,9 @@ extends MultipleExceptionTranslator {
 	
 	/**
 	 * Rethrows exception types not covered by the unwrappers.
-	 * 
-	 * @param t
-	 * 
-	 * @throws Exception 
+	 *
+	 * @param t the t
+	 * @throws E the e
 	 */
 	
 	@Override
@@ -36,8 +35,8 @@ extends MultipleExceptionTranslator {
 	
 	/**
 	 * Creates a new SimpleExceptionTranslator object.
-	 * 
-	 * @param clazz
+	 *
+	 * @param clazz the clazz
 	 */
 	@SuppressWarnings({ "unchecked" })
 	public SimpleExceptionTranslator(Class<E> clazz) {

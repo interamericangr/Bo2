@@ -6,12 +6,12 @@ import gr.interamerican.bo2.samples.bean.BeanWith2Fields;
 import org.junit.Test;
 
 /**
- * test {@link BeanCsvFormatter}
+ * test {@link BeanCsvFormatter}.
  */
 public class TestBeanCsvFormatter {
 	
 	/**
-	 * test format
+	 * test format.
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -24,7 +24,7 @@ public class TestBeanCsvFormatter {
 	}
 	
 	/**
-	 * test format
+	 * test format.
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -39,7 +39,7 @@ public class TestBeanCsvFormatter {
 	}
 	
 	/**
-	 * test format
+	 * test format.
 	 */
 	@SuppressWarnings("nls")
 	@Test

@@ -14,12 +14,22 @@ package gr.interamerican.bo2.test.def.samples;
 
 
 /**
- * 
+ * The Interface SampleJavaBean2.
  */
 public interface SampleJavaBean2 {
 
+	/**
+	 * Gets the property.
+	 *
+	 * @return the property
+	 */
 	public String getProperty();
 	
+	/**
+	 * Sets the property.
+	 *
+	 * @param property the new property
+	 */
 	public void setProperty(String property);
 	
 }	

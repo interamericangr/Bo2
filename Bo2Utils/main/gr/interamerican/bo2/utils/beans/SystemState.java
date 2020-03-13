@@ -16,18 +16,17 @@ import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.SystemUtils;
 
 /**
- * 
+ * The Class SystemState.
  */
 public class SystemState {
 	
 	/**
 	 * Creates a SystemState that contains the changes since the
 	 * specified previous SystemState.
-	 * 
-	 * @param first 
-	 * @param last 
-	 * 
-	 * @return Returns a SystemState that contains the increase in 
+	 *
+	 * @param first the first
+	 * @param last the last
+	 * @return Returns a SystemState that contains the increase in
 	 *         the system properties that from the first to the last
 	 *         system state.
 	 */
@@ -48,9 +47,8 @@ public class SystemState {
 	 * Max memoty.
 	 */
 	double maxMemory;
-	/**
-	 * Total memory
-	 */
+	
+	/** Total memory. */
 	double totalMemory;
 	/**
 	 * Used memory.
@@ -112,13 +110,14 @@ public class SystemState {
 		 SystemUtils.totalMemory(),
 		 SystemUtils.usedMemory());
 	}
+	
 	/**
 	 * Creates a new SystemState object. 
 	 *
-	 * @param freeMemory
-	 * @param maxMemory
-	 * @param totalMemory
-	 * @param usedMemory
+	 * @param freeMemory the free memory
+	 * @param maxMemory the max memory
+	 * @param totalMemory the total memory
+	 * @param usedMemory the used memory
 	 */
 	private SystemState(double freeMemory, double maxMemory, double totalMemory, double usedMemory) {
 		super();

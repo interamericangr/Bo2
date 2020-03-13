@@ -34,30 +34,25 @@ public class TestCsvRecord {
 	 * Count of columns of typical CsvRecord used in tests.
 	 */
 	private static final int COLUMN_COUNT=5;
-	/**
-	 * 1st field
-	 */
+	
+	/** 1st field. */
 	private static final int F1 = 0;
-	/**
-	 * 2nd field
-	 */
+	
+	/** 2nd field. */
 	private static final int F2 = 1;
-	/**
-	 * 3nd field
-	 */
+	
+	/** 3nd field. */
 	private static final int F3 = 2;
-	/**
-	 * 4th field
-	 */
+	
+	/** 4th field. */
 	private static final int F4 = 3;
-	/**
-	 * 5th field
-	 */
+	
+	/** 5th field. */
 	private static final int F5 = 4;
 	
 	
 	/**
-	 * tests successful creation
+	 * tests successful creation.
 	 */	
 	@Test
 	public void testCreation() {
@@ -71,7 +66,7 @@ public class TestCsvRecord {
 	}
 	
 	/**
-	 * tests setString
+	 * tests setString.
 	 */
 	@Test
 	public void testSetString() {
@@ -111,7 +106,7 @@ public class TestCsvRecord {
 	}
 	
 	/**
-	 * tests setField methods
+	 * tests setField methods.
 	 */
 	@Test
 	public void testSetFieldMethods() {
@@ -151,7 +146,7 @@ public class TestCsvRecord {
 	}
 	
 	/**
-	 * tests FieldNotFount on setter
+	 * tests FieldNotFount on setter.
 	 */
 	@Test(expected=FieldNotFoundException.class)	
 	public void testSetterFieldNotFound() {		
@@ -160,7 +155,7 @@ public class TestCsvRecord {
 	}
 	
 	/**
-	 * tests FieldNotFount on getter
+	 * tests FieldNotFount on getter.
 	 */
 	@Test(expected=FieldNotFoundException.class)	
 	public void testGetterFieldNotFound() {
@@ -169,7 +164,7 @@ public class TestCsvRecord {
 	}
 	
 	/**
-	 * tests getString
+	 * tests getString.
 	 */
 	@Test
 	public void testGetString() {
@@ -181,7 +176,7 @@ public class TestCsvRecord {
 	}
 	
 	/**
-	 * tests getInt
+	 * tests getInt.
 	 */
 	@Test
 	public void testGetInt() {
@@ -198,7 +193,7 @@ public class TestCsvRecord {
 	}
 	
 	/**
-	 * tests getDouble
+	 * tests getDouble.
 	 */
 	@Test
 	public void testGetDouble() {
@@ -220,7 +215,7 @@ public class TestCsvRecord {
 	}
 	
 	/**
-	 * tests getDate
+	 * tests getDate.
 	 */
 	@Test
 	public void testGetDate() {
@@ -241,7 +236,7 @@ public class TestCsvRecord {
 	}
 	
 	/**
-	 * tests getCalendar
+	 * tests getCalendar.
 	 */
 	@Test
 	public void testGetCalendar() {
@@ -259,7 +254,7 @@ public class TestCsvRecord {
 	}
 	
 	/**
-	 * tests getLong
+	 * tests getLong.
 	 */
 	@Test
 	public void testGetLong() {
@@ -277,7 +272,7 @@ public class TestCsvRecord {
 	}
 	
 	/**
-	 * tests getFloat
+	 * tests getFloat.
 	 */
 	@Test
 	public void testGetFloat() {
@@ -295,7 +290,7 @@ public class TestCsvRecord {
 	}
 	
 	/**
-	 * tests getShort
+	 * tests getShort.
 	 */
 	@Test
 	public void testGetShort() {
@@ -313,7 +308,7 @@ public class TestCsvRecord {
 	}
 	
 	/**
-	 * tests getBigDecimal
+	 * tests getBigDecimal.
 	 */
 	@Test
 	public void testGetBigDecimal() {
@@ -331,7 +326,7 @@ public class TestCsvRecord {
 	}
 	
 	/**
-	 * tests getBoolean
+	 * tests getBoolean.
 	 */
 	@Test
 	public void testGetBoolean() {
@@ -349,7 +344,7 @@ public class TestCsvRecord {
 	}
 	
 	/**
-	 * tests getObject
+	 * tests getObject.
 	 */
 	@Test
 	public void testGetObject() {
@@ -362,7 +357,7 @@ public class TestCsvRecord {
 	
 	
 	/**
-	 * tests getByte
+	 * tests getByte.
 	 */
 	@Test
 	public void testGetByte() {	
@@ -374,7 +369,7 @@ public class TestCsvRecord {
 	}	
 	
 	/**
-	 * tests getBytes
+	 * tests getBytes.
 	 */
 	@Test
 	public void testGetBytes() {	
@@ -386,7 +381,7 @@ public class TestCsvRecord {
 	}
 	
 	/**
-	 * tests toString
+	 * tests toString.
 	 */
 	@Test
 	public void testToString() {	

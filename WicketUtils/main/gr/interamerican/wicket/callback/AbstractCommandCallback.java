@@ -25,7 +25,10 @@ import org.apache.wicket.markup.html.form.Form;
  * {@link AbstractCommandCallback} is a base class for command pattern
  * based callbacks, namely callbacks that have a main <code>execute()</code> 
  * method.
+ * 
+ * @deprecated not intended for use
  */
+@Deprecated
 public abstract class AbstractCommandCallback 
 extends AbstractEventHandler<Component>
 implements CallbackAction, SimpleCommand {

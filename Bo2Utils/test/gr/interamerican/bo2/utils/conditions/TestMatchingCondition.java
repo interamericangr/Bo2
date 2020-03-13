@@ -27,7 +27,7 @@ import org.junit.Test;
 public class TestMatchingCondition {
 	
 	/**
-	 * Tests check()
+	 * Tests check().
 	 */
 	@Test
 	public void testCheck() {

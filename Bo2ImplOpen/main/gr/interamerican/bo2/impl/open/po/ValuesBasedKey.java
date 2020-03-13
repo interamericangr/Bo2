@@ -22,7 +22,7 @@ import gr.interamerican.bo2.utils.Utils;
  * and can change during the runtime.
  * 
  * The <code>setElement(position,element)</code> method assigns a value to the
- * element on the position specified. <br/>
+ * element on the position specified. <br>
  */
 public class ValuesBasedKey 
 extends AbstractKey {
@@ -38,9 +38,7 @@ extends AbstractKey {
 	}
 	
 	
-	/**
-	 * Serialization version UID
-	 */
+	/** Serialization version UID. */
 	private static final long serialVersionUID = 1L;
 	
 	/**

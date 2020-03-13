@@ -29,7 +29,7 @@ public class MessageGetter {
 	/**
 	 * Creates a new MessageGetter object. 
 	 *
-	 * @param resourceBundleName
+	 * @param resourceBundleName the resource bundle name
 	 */
 	public MessageGetter(String resourceBundleName) {
 		this.resourceBundle = ResourceBundle.getBundle(resourceBundleName);
@@ -38,8 +38,8 @@ public class MessageGetter {
 	/**
 	 * Creates a new MessageGetter object. 
 	 *
-	 * @param resourceBundleName
-	 * @param locale 
+	 * @param resourceBundleName the resource bundle name
+	 * @param locale the locale
 	 */
 	public MessageGetter(String resourceBundleName, Locale locale) {
 		if(locale==null) {
@@ -52,8 +52,8 @@ public class MessageGetter {
 	
 	/**
 	 * Gets the literal associated with a key.
-	 * 
-	 * @param key
+	 *
+	 * @param key the key
 	 * @return returns the literal associated with the specified key.
 	 */
 	public String getString(String key) {

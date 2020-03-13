@@ -29,8 +29,8 @@ public class TestVariableContainerUtils {
 	
 	/**
 	 * Unit test for getUserFields(VariableContainer).
-	 * 
-	 * @throws Exception
+	 *
+	 * @throws Exception the exception
 	 */	
 	@Test
 	public void testGetUserFields() throws Exception {
@@ -46,8 +46,8 @@ public class TestVariableContainerUtils {
 	
 	/**
 	 * Unit test for getVariables(VariableContainer).
-	 * 
-	 * @throws Exception
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test
 	public void testGetVariabless() throws Exception {

@@ -20,6 +20,7 @@ import java.util.Comparator;
 public class ComparablesComparator 
 implements Comparator<Comparable<?>> {
 	
+	@Override
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public int compare(Comparable o1, Comparable o2) {
 		if (o1==o2) {

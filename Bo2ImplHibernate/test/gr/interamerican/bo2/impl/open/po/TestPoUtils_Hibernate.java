@@ -12,10 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.po;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 import gr.interamerican.bo2.arch.DetachStrategy;
 import gr.interamerican.bo2.arch.PersistenceWorker;
 import gr.interamerican.bo2.arch.PersistentObject;
@@ -30,6 +27,7 @@ import gr.interamerican.bo2.samples.archutil.po.User;
 import gr.interamerican.bo2.samples.archutil.po.UserKey;
 import gr.interamerican.bo2.test.def.posamples.ArrayWithAnnot;
 import gr.interamerican.bo2.test.def.posamples.ArrayWithoutAnnot;
+import gr.interamerican.bo2.test.def.posamples.Customer;
 import gr.interamerican.bo2.test.def.posamples.ExtendedInvoice;
 import gr.interamerican.bo2.test.def.posamples.ExtendedTwiceInvoice;
 import gr.interamerican.bo2.test.def.posamples.Invoice;
@@ -55,6 +53,7 @@ import gr.interamerican.bo2.test.scenarios.DeleteInvoiceData;
 import gr.interamerican.bo2.test.utils.UtilityForBo2Test;
 import gr.interamerican.bo2.utils.DateUtils;
 import gr.interamerican.bo2.utils.ReflectionUtils;
+import gr.interamerican.bo2.utils.SelectionUtils;
 import gr.interamerican.bo2.utils.Utils;
 
 import java.lang.reflect.InvocationTargetException;
@@ -62,10 +61,11 @@ import java.lang.reflect.Method;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
+import org.hibernate.proxy.HibernateProxy;
 import org.junit.Assert;
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -86,7 +86,7 @@ public class TestPoUtils_Hibernate {
 	private String invoiceNo = "1"; //$NON-NLS-1$
 
 	/**
-	 * tests deepCopy with concrete objects
+	 * tests deepCopy with concrete objects.
 	 */
 	@Test
 	public void testDeepCopy_WithConcrete() {
@@ -94,7 +94,7 @@ public class TestPoUtils_Hibernate {
 	}
 	
 	/**
-	 * tests deepCopy with factored objects
+	 * tests deepCopy with factored objects.
 	 */
 	@Test
 	public void testDeepCopy_WithFactored() {		
@@ -102,7 +102,7 @@ public class TestPoUtils_Hibernate {
 	}
 	
 	/**
-	 * tests deepCopy with concrete objects
+	 * tests deepCopy with concrete objects.
 	 */
 	@Test
 	public void testDeepCopyPreservingModificationRecord_WithConcrete() {
@@ -110,7 +110,7 @@ public class TestPoUtils_Hibernate {
 	}
 	
 	/**
-	 * tests deepCopy with factored objects
+	 * tests deepCopy with factored objects.
 	 */
 	@Test
 	public void testDeepCopyPreservingModificationRecord_WithFactored() {		
@@ -121,9 +121,9 @@ public class TestPoUtils_Hibernate {
 	
 	/**
 	 * Tests deepCopy(p) and deepCopyPreservingModificationRecord(p).
-	 * 
-	 * @param factory
-	 * @param resetMdfRec 
+	 *
+	 * @param factory the factory
+	 * @param resetMdfRec the reset mdf rec
 	 */
 	@SuppressWarnings("nls")
 	public void testDeepCopy(SamplesFactory factory, boolean resetMdfRec) {
@@ -150,18 +150,8 @@ public class TestPoUtils_Hibernate {
 		Set<InvoiceLine> oneLines = one.getLines();
 		Set<InvoiceLine> twoLines = two.getLines();
 		
-		Iterator<InvoiceLine> oneIter = oneLines.iterator();
-		while(oneIter.hasNext()) {
-			InvoiceLine oneLine = oneIter.next();
-			InvoiceLine twoLine = null;
-			
-			Iterator<InvoiceLine> twoIter = twoLines.iterator();
-			while (twoIter.hasNext()) {
-				InvoiceLine temp = twoIter.next();
-				if(oneLine.equals(temp)) {
-					twoLine = temp;
-				}
-			}
+		for (InvoiceLine oneLine : oneLines) {
+			InvoiceLine twoLine = SelectionUtils.selectFirstByProperty(InvoiceLine::getKey, oneLine.getKey(), twoLines);
 			assertFalse(oneLine==twoLine);
 			assertTrue(PoUtils.deepEquals(oneLine, twoLine));
 			assertTrue(oneLine.equals(twoLine));
@@ -191,9 +181,10 @@ public class TestPoUtils_Hibernate {
 	/**
 	 * Tests that a deep copy of a persistent object is also a persistent object
 	 * when the modification record is preserved.
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testDeepCopyPreserveMdfIsPersistent() throws UnexpectedException, DataException, LogicException {
@@ -202,12 +193,29 @@ public class TestPoUtils_Hibernate {
 			DataException, InitializationException, UnexpectedException {
 				open(DeleteInvoiceData.class).execute();
 				Invoice inv1 = SamplesFactory.getBo2Factory().sampleInvoiceFull(1);
+				Customer customer = SamplesFactory.getBo2Factory().sampleCustomer("foo"); //$NON-NLS-1$
+				customer.setCustomerNo("whatever"); //$NON-NLS-1$
+				customer = openPw(Customer.class).store(customer);
 				inv1.setInvoiceNo(invoiceNo);
+				for (InvoiceLine line : inv1.getLines()) {
+					line.setCustomer(customer);
+				}
+				openPw(Invoice.class).store(inv1);
+			}
+		}.execute();
+
+		new AbstractBo2RuntimeCmd() {
+
+			@Override
+			public void work() throws LogicException, DataException, InitializationException, UnexpectedException {
 				PersistenceWorker<Invoice> ipw = openPw(Invoice.class);
-				inv1 = ipw.store(inv1);
-				
+				Invoice inv1 = Factory.create(Invoice.class);
+				inv1.setInvoiceNo(invoiceNo);
+				inv1 = ipw.read(inv1);
 				InvoiceLine line = inv1.getLines().iterator().next();
 				InvoiceLine copy = PoUtils.deepCopyPreservingModificationRecord(line);
+				assertTrue(line.getCustomer() instanceof HibernateProxy);
+				assertFalse(copy.getCustomer() instanceof HibernateProxy);
 				Assert.assertFalse(inv1.getLines().add(copy));
 				inv1.getLines().clear();
 				inv1.getLines().add(copy);
@@ -217,12 +225,14 @@ public class TestPoUtils_Hibernate {
 			}
 		}.execute();
 	}
+	
 	/**
 	 * Tests that a deep copy of a persistent object is not a persistent object
 	 * when the modification record is not preserved.
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test(expected=DataException.class)
 	public void testDeepCopyIsNotPersistent() throws UnexpectedException, DataException, LogicException {
@@ -248,7 +258,7 @@ public class TestPoUtils_Hibernate {
 	}
 	
 	/**
-	 * tests deepEquals for a equal Pos
+	 * tests deepEquals for a equal Pos.
 	 */
 	@Test
 	public void testDeepEquals_ForEqualPos() {
@@ -262,7 +272,7 @@ public class TestPoUtils_Hibernate {
 	}
 	
 	/**
-	 * tests deepEquals for a equal Pos
+	 * tests deepEquals for a equal Pos.
 	 */
 	@Test
 	public void testDeepEquals_ForSameObject() {
@@ -271,7 +281,7 @@ public class TestPoUtils_Hibernate {
 	}
 	
 	/**
-	 * tests deepEquals for a equal Pos
+	 * tests deepEquals for a equal Pos.
 	 */
 	@Test
 	public void testDeepEquals_ForDifferentClassObjects() {
@@ -287,7 +297,7 @@ public class TestPoUtils_Hibernate {
 	}
 	
 	/**
-	 * tests deepEquals when one argument is null
+	 * tests deepEquals when one argument is null.
 	 */
 	@Test
 	public void testDeepEquals_WithOneNull() {
@@ -299,7 +309,7 @@ public class TestPoUtils_Hibernate {
 	}
 	
 	/**
-	 * tests deepEquals when both arguments are null
+	 * tests deepEquals when both arguments are null.
 	 */
 	@Test
 	public void testDeepEquals_WithNulls() {		
@@ -307,7 +317,7 @@ public class TestPoUtils_Hibernate {
 	}
 	
 	/**
-	 * tests equals for a simple Po
+	 * tests equals for a simple Po.
 	 */
 	@Test
 	public void testDeepEquals_ForNotEqualPos() {
@@ -322,7 +332,7 @@ public class TestPoUtils_Hibernate {
 	}
 	
 	/**
-	 * tests equals for a simple Po
+	 * tests equals for a simple Po.
 	 */
 	@Test
 	public void testCopy_forNull() {		
@@ -333,7 +343,7 @@ public class TestPoUtils_Hibernate {
 	
 	
 	/**
-	 * Tests copy where object is instance of Timestamp 
+	 * Tests copy where object is instance of Timestamp.
 	 */
 	@Test
 	public void testCopy_Timestamp(){
@@ -346,7 +356,7 @@ public class TestPoUtils_Hibernate {
 	
 	
 	/**
-	 * Tests copy where object is instance of Set without child annotation
+	 * Tests copy where object is instance of Set without child annotation.
 	 */
 	@Test
 	public void testCopy_SetWithoutAnnotation(){
@@ -360,7 +370,7 @@ public class TestPoUtils_Hibernate {
 	}
 	
 	/**
-	 * Tests copy where object is List and there is a child annotation
+	 * Tests copy where object is List and there is a child annotation.
 	 */
 	@Test
 	public void testCopy_ListWithAnnotation(){
@@ -374,7 +384,7 @@ public class TestPoUtils_Hibernate {
 	}
 	
 	/**
-	 * Tests copy where object is array and there is a child annotation
+	 * Tests copy where object is array and there is a child annotation.
 	 */
 	@Test
 	public void testCopy_ArrayWithAnnotation(){
@@ -388,7 +398,7 @@ public class TestPoUtils_Hibernate {
 	
 	
 	/**
-	 * Tests copy where object is array and there is not a child annotation
+	 * Tests copy where object is array and there is not a child annotation.
 	 */
 	@Test
 	public void testCopy_ArrayWithoutAnnotation(){
@@ -402,7 +412,7 @@ public class TestPoUtils_Hibernate {
 
 
 	/**
-	 * Tests copy where object is instance of Money 
+	 * Tests copy where object is instance of Money.
 	 */
 	@Test
 	public void testCopy_Money(){
@@ -450,10 +460,10 @@ public class TestPoUtils_Hibernate {
 	
 	/**
 	 * Unit test for reattach.
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testReattach() throws UnexpectedException, DataException, LogicException {
@@ -495,9 +505,10 @@ public class TestPoUtils_Hibernate {
 	
 	/**
 	 * Unit test for serialize and deserialize.
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws IllegalArgumentException 
+	 *
+	 * @throws IllegalArgumentException the illegal argument exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws InvocationTargetException the invocation target exception
 	 */
 	@Test
 	public void testSerialize_Deserialize() 
@@ -616,6 +627,51 @@ public class TestPoUtils_Hibernate {
 		Assert.assertArrayEquals(expecteds, kp);
 	}
 	
+	/**
+	 * Unit test for
+	 * {@link PoUtils#merge(PersistentObject, PersistentObject, MergeMode, Class, String)}
+	 * 
+	 * @throws Exception
+	 */
+	@Test
+	public void testMerge() throws Exception {
+		final Invoice source = SamplesFactory.getBo2Factory().sampleInvoiceFull(5);
+		source.setInvoiceDate(DateUtils.today());
+		final Invoice target = SamplesFactory.getBo2Factory().sampleInvoiceFull(2);
+		target.setInvoiceDate(DateUtils.getDay1AD());
+		target.getLineByNo(2).setLineNo(99);
+		String no = ((Long) new Random().nextLong()).toString();
+		source.setInvoiceNo(no);
+		target.setInvoiceNo(no);
+		new AbstractBo2RuntimeCmd() {
+			@Override
+			public void work() throws LogicException, DataException, InitializationException, UnexpectedException {
+				open(DeleteInvoiceData.class).execute();
+				Invoice stored = openPw(Invoice.class).store(target);
+				assertEquals(2, stored.getLines().size());
+				// 1st merging - target is kept as is - only extra child
+				// entities are added
+				PoUtils.merge(source, stored, MergeMode.FAVOR_TARGET, Invoice.class, "LOCALDB"); //$NON-NLS-1$
+				stored = openPw(Invoice.class).update(stored);
+				assertEquals(6, stored.getLines().size());
+				assertNotNull(stored.getLineByNo(99));
+				assertEquals(DateUtils.getDay1AD(), stored.getInvoiceDate());
+				// 2nd merging - we will override target values - but keep any
+				// extra entities it has
+				PoUtils.merge(source, stored, MergeMode.FAVOR_SOURCE, Invoice.class, "LOCALDB"); //$NON-NLS-1$
+				stored = openPw(Invoice.class).update(stored);
+				assertEquals(6, stored.getLines().size());
+				assertEquals(DateUtils.today(), stored.getInvoiceDate());
+				// 3rd merging - target entity is completely overwritten
+				PoUtils.merge(source, stored, MergeMode.OVERWRITE, Invoice.class, "LOCALDB"); //$NON-NLS-1$
+				stored = openPw(Invoice.class).update(stored);
+				assertEquals(5, stored.getLines().size());
+				assertNull(stored.getLineByNo(99));
+				assertTrue(PoUtils.deepEquals(source, stored));
+			}
+		}.execute();
+	}
+
 	/**
 	 * Empty PO.
 	 */

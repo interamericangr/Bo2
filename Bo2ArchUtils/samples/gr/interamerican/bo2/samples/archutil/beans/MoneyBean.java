@@ -23,9 +23,7 @@ import java.math.BigDecimal;
  */
 public class MoneyBean implements Serializable {
 	
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
 	/**
@@ -56,10 +54,10 @@ public class MoneyBean implements Serializable {
 	/**
 	 * Creates a new MoneyBean object. 
 	 *
-	 * @param bdAmount1
-	 * @param bdAmount2
-	 * @param moneyAmount1
-	 * @param moneyAmount2
+	 * @param bdAmount1 the bd amount 1
+	 * @param bdAmount2 the bd amount 2
+	 * @param moneyAmount1 the money amount 1
+	 * @param moneyAmount2 the money amount 2
 	 */
 	public MoneyBean(BigDecimal bdAmount1, BigDecimal bdAmount2, Money moneyAmount1, Money moneyAmount2) {
 		super();
@@ -72,7 +70,7 @@ public class MoneyBean implements Serializable {
 	/**
 	 * Creates a new MoneyBean object. 
 	 *
-	 * @param amount1
+	 * @param amount1 the amount 1
 	 */
 	public MoneyBean(BigDecimal amount1) {
 		super();

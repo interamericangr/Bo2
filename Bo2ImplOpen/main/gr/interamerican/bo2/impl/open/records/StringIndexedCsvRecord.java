@@ -31,10 +31,10 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * CsvRecord is a record of a comma separated values (CSV) file. <br/>
+ * CsvRecord is a record of a comma separated values (CSV) file. <br>
  * 
  * The default separator is semicolon, but it is possible to change
- * the separator to any character. <br/>
+ * the separator to any character. <br>
  */
 public class StringIndexedCsvRecord extends AbstractBaseRecord
 implements ModifiableIndexedFieldsRecord<String>  {
@@ -84,8 +84,8 @@ implements ModifiableIndexedFieldsRecord<String>  {
 	
 	/**
 	 * Gets the index of the column.
-	 * 
-	 * @param field
+	 *
+	 * @param field the field
 	 * @return Returns a column name.
 	 */
 	private Integer fieldIndex(String field) {
@@ -97,122 +97,81 @@ implements ModifiableIndexedFieldsRecord<String>  {
 			throw new FieldNotFoundException(field);
 		}
 	}
-	
-	/* (non-Javadoc)
-	 * @see gr.interamerican.bo2.arch.records.IndexedFieldsRecord#getFields()
-	 */	
-	public List<String> getFields() {		
+
+	@Override
+	public List<String> getFields() {
 		return fieldIndexes;
 	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see gr.interamerican.bo2.arch.records.IndexedFieldsRecord#getString(java.lang.Object)
-	 */
+
+	@Override
 	public String getString(String field) {
 		return rec.getString(fieldIndex(field));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see gr.interamerican.bo2.arch.records.ModifiableIndexedFieldsRecord#setString(java.lang.Object, java.lang.String)
-	 */
+	@Override
 	public void setString(String field, String value) {
-		rec.setString(fieldIndex(field), value);			
+		rec.setString(fieldIndex(field), value);
 	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see gr.interamerican.bo2.arch.records.IndexedFieldsRecord#getBytes(java.lang.Object)
-	 */
-	public byte[] getBytes(String field) {		
-		return getString(field).getBytes(charset());		
+
+	@Override
+	public byte[] getBytes(String field) {
+		return getString(field).getBytes(charset());
 	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see gr.interamerican.bo2.arch.records.ModifiableIndexedFieldsRecord#setBytes(java.lang.Object, byte[])
-	 */
+
+	@Override
 	public void setBytes(String field, byte[] value) {
 		setString(field, new String(value, charset()));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see gr.interamerican.bo2.arch.records.IndexedFieldsRecord#getBoolean(java.lang.Object)
-	 */
+	@Override
 	public boolean getBoolean(String field) {
 		String val = getString(field);
 		return StringUtils.string2Bool(val);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see gr.interamerican.bo2.arch.records.ModifiableIndexedFieldsRecord#setBoolean(java.lang.Object, boolean)
-	 */
+	@Override
 	public void setBoolean(String field, boolean value) {
 		String val = StringUtils.bool2String(value);
-		setString(field, val);		
+		setString(field, val);
 	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see gr.interamerican.bo2.arch.records.IndexedFieldsRecord#getInt(java.lang.Object)
-	 */
-	public int getInt(String field) {		
-		String val = getString(field);		
+
+	@Override
+	public int getInt(String field) {
+		String val = getString(field);
 		return NumberUtils.string2Int(val);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see gr.interamerican.bo2.arch.records.ModifiableIndexedFieldsRecord#setInt(java.lang.Object, int)
-	 */
+	@Override
 	public void setInt(String field, int value) {
 		String val = Integer.toString(value);
-		setString(field, val);		
+		setString(field, val);
 	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see gr.interamerican.bo2.arch.records.IndexedFieldsRecord#getLong(java.lang.Object)
-	 */
+
+	@Override
 	public long getLong(String field) {
 		String val = getString(field);
 		return NumberUtils.string2Long(val);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see gr.interamerican.bo2.arch.records.ModifiableIndexedFieldsRecord#setLong(java.lang.Object, long)
-	 */
+	@Override
 	public void setLong(String field, long value) {
 		String val = Long.toString(value);
-		setString(field, val);		
+		setString(field, val);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see gr.interamerican.bo2.arch.records.IndexedFieldsRecord#getDouble(java.lang.Object)
-	 */
+	@Override
 	public double getDouble(String field) {
 		String val = getString(field);
 		return NumberUtils.string2Double(val);
 	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see gr.interamerican.bo2.arch.records.ModifiableIndexedFieldsRecord#setDouble(java.lang.Object, double)
-	 */
-	public void setDouble(String field, double value) {		
+
+	@Override
+	public void setDouble(String field, double value) {
 		String val = NumberUtils.format(value);
-		setString(field, val);			
+		setString(field, val);
 	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see gr.interamerican.bo2.arch.records.IndexedFieldsRecord#getDate(java.lang.Object)
-	 */
+
+	@Override
 	public Date getDate(String field) {
 		String val = getString(field);
 		try {
@@ -221,20 +180,14 @@ implements ModifiableIndexedFieldsRecord<String>  {
 			throw new RuntimeException(e);
 		}
 	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see gr.interamerican.bo2.arch.records.ModifiableIndexedFieldsRecord#setDate(java.lang.Object, java.util.Date)
-	 */
+
+	@Override
 	public void setDate(String field, Date value) {
 		String val = DateUtils.formatDate(value);
 		setString(field, val);
 	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see gr.interamerican.bo2.arch.records.IndexedFieldsRecord#getCalendar(java.lang.Object)
-	 */
+
+	@Override
 	public Calendar getCalendar(String field) {
 		Date dt = getDate(field);
 		Calendar cal = Calendar.getInstance();
@@ -242,135 +195,89 @@ implements ModifiableIndexedFieldsRecord<String>  {
 		return cal;
 	}
 
-	/*
-	 * 	(non-Javadoc)
-	 * @see gr.interamerican.bo2.arch.records.ModifiableIndexedFieldsRecord#setCalendar(java.lang.Object, java.util.Calendar)
-	 */
+	@Override
 	public void setCalendar(String field, Calendar value) {
 		String val = DateUtils.formatCalendar(value);
-		setString(field, val);		
+		setString(field, val);
 	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see gr.interamerican.bo2.arch.records.IndexedFieldsRecord#getBigDecimal(java.lang.Object)
-	 */
+
+	@Override
 	public BigDecimal getBigDecimal(String field) {
 		String val = getString(field);
 		return NumberUtils.string2BigDecimal(val);
-	}	
+	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see gr.interamerican.bo2.arch.records.ModifiableIndexedFieldsRecord#setBigDecimal(java.lang.Object, java.math.BigDecimal)
-	 */
+	@Override
 	public void setBigDecimal(String field, BigDecimal value) {
 		String val = NumberUtils.format(value);
-		setString(field, val);		
+		setString(field, val);
 	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see gr.interamerican.bo2.arch.records.IndexedFieldsRecord#getShort(java.lang.Object)
-	 */	
-	public short getShort(String field) {		
+
+	@Override
+	public short getShort(String field) {
 		return new Integer(getInt(field)).shortValue();
 	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see gr.interamerican.bo2.arch.records.ModifiableIndexedFieldsRecord#setShort(java.lang.Object, short)
-	 */		
+
+	@Override
 	public void setShort(String field, short value) {
 		setInt(field, value);
 	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see gr.interamerican.bo2.arch.records.IndexedFieldsRecord#getFloat(java.lang.Object)
-	 */
-	public float getFloat(String field) {		
+
+	@Override
+	public float getFloat(String field) {
 		return new Double(getDouble(field)).floatValue();
 	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see gr.interamerican.bo2.arch.records.ModifiableIndexedFieldsRecord#setFloat(java.lang.Object, float)
-	 */
-	public void setFloat(String field, float value) {		
+
+	@Override
+	public void setFloat(String field, float value) {
 		setDouble(field, value);
 	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see gr.interamerican.bo2.arch.records.IndexedFieldsRecord#getByte(java.lang.Object)
-	 */
-	public byte getByte(String field) {		
-		byte[] bytes =  getBytes(field);
-		if (bytes==null || bytes.length==0) {
+
+	@Override
+	public byte getByte(String field) {
+		byte[] bytes = getBytes(field);
+		if (bytes == null || bytes.length == 0) {
 			return 0;
 		}
 		return bytes[0];
 	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see gr.interamerican.bo2.arch.records.ModifiableIndexedFieldsRecord#setByte(java.lang.Object, byte)
-	 */
+
+	@Override
 	public void setByte(String field, byte value) {
-		byte[] bytes = {value};
+		byte[] bytes = { value };
 		setBytes(field, bytes);
 	}
-	
-	/*
-	 * 	(non-Javadoc)
-	 * @see gr.interamerican.bo2.arch.records.IndexedFieldsRecord#getObject(java.lang.Object)
-	 */
-	public Object getObject(String field) {		
+
+	@Override
+	public Object getObject(String field) {
 		return getString(field);
 	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see gr.interamerican.bo2.arch.records.ModifiableIndexedFieldsRecord#setObject(java.lang.Object, java.lang.Object)
-	 */
+
+	@Override
 	public void setObject(String field, Object value) {
 		String v = value == null ? "" : value.toString(); //$NON-NLS-1$
 		setString(field, v);
 	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see gr.interamerican.bo2.arch.records.Record#getBytes()
-	 */
-	public byte[] getBytes() {	
+
+	@Override
+	public byte[] getBytes() {
 		return rec.getBytes();
 	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see gr.interamerican.bo2.arch.records.Record#getBuffer()
-	 */
-	public String getBuffer() {		
+
+	@Override
+	public String getBuffer() {
 		return rec.getBuffer();
 	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see gr.interamerican.bo2.arch.records.Record#setBytes(byte[])
-	 */
+
+	@Override
 	public void setBytes(byte[] arg) {
-		rec.setBytes(arg);	
-	}	
-	
-	/*
-	 * (non-Javadoc)
-	 * @see gr.interamerican.bo2.arch.records.Record#setBuffer(java.lang.String)
-	 */
+		rec.setBytes(arg);
+	}
+
+	@Override
 	public void setBuffer(String arg) {
 		rec.setBuffer(arg);
 	}
-
 
 	/**
 	 * Gets the underlying {@link CsvRecord}.
@@ -380,5 +287,4 @@ implements ModifiableIndexedFieldsRecord<String>  {
 	public CsvRecord getRec() {
 		return rec;
 	}
-
 }

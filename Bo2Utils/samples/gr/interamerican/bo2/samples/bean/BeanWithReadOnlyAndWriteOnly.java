@@ -14,13 +14,14 @@ package gr.interamerican.bo2.samples.bean;
 
 import gr.interamerican.bo2.samples.anno.Anno;
 import gr.interamerican.bo2.samples.ibean.IBeanWithReadOnlyAndWriteOnly;
+import gr.interamerican.bo2.utils.attributes.Named;
 
 /**
  * Implementation of BeanWithReadOnlyAndWriteOnly, but it has
  * additionally one static method and one setter.
  */
 public class BeanWithReadOnlyAndWriteOnly 
-implements IBeanWithReadOnlyAndWriteOnly {
+implements IBeanWithReadOnlyAndWriteOnly, Named {
 	
 	/**
 	 * accessible.
@@ -43,33 +44,38 @@ implements IBeanWithReadOnlyAndWriteOnly {
 	 */
 	private Long id;
 
-	
+	@Override
 	public boolean isAccessible() {	
 		return accessible;
 	}
-	
+
+	@Override
 	public void setState(String state) {
 		this.state = state;
 		
 	}
 
+	@Override
 	public Long getId() {
 		return id;
 	}
 
+	@Override
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
+	@Override
 	public String getName() {
 		return name;
 	}
 	
 	/**
 	 * Sets the name.
-	 * 
-	 * @param name
+	 *
+	 * @param name the new name
 	 */
+	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -85,8 +91,8 @@ implements IBeanWithReadOnlyAndWriteOnly {
 	
 	/**
 	 * Sets the name.
-	 * 
-	 * @param name
+	 *
+	 * @param name the new name
 	 */
 	public void setName(Integer name) {
 		this.name = Integer.toString(name);

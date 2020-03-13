@@ -12,29 +12,63 @@
  ******************************************************************************/
 package gr.interamerican.wicket.callback;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
-import gr.interamerican.wicket.samples.actions.DummyCallback;
-import gr.interamerican.wicket.test.WicketTest;
-import gr.interamerican.wicket.utils.WicketPage;
+import static org.junit.Assert.*;
 
+import org.apache.wicket.ajax.AjaxRequestHandler;
 import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.markup.html.form.Form;
 import org.junit.Before;
 import org.junit.Test;
+
+import gr.interamerican.wicket.test.WicketTest;
+import gr.interamerican.wicket.utils.WicketPage;
 
 /**
  * Unit test for {@link CallbackWrapper}.
  */
-public class TestCallbackWrapper extends WicketTest{
-	
+@Deprecated
+public class TestCallbackWrapper extends WicketTest {
+
 	/**
-	 * action to test
-	 */
-	DummyCallback action = new DummyCallback();
-	
+		 * 
+		 */
+	public class InnerDummyCallback extends SimpleCallbackAction {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		/**
+		 * Shows if it has been excuted.
+		 */
+		private boolean executed = false;
+
+		@Override
+		protected void work() {
+			executed = true;
+		}
+
+		/**
+		 * Gets the executed.
+		 *
+		 * @return Returns the executed
+		 */
+		public boolean isExecuted() {
+			return executed;
+		}
+
+		/**
+		 * Assigns a new value to the executed.
+		 *
+		 * @param executed the executed to set
+		 */
+		public void setExecuted(boolean executed) {
+			this.executed = executed;
+		}
+
+	}
+
+	/** action to test. */
+	InnerDummyCallback action = new InnerDummyCallback();
+
 	/**
 	 * Test setup.
 	 */
@@ -42,7 +76,7 @@ public class TestCallbackWrapper extends WicketTest{
 	public void setup() {
 		action.setExecuted(false);
 	}
-	
+
 	/**
 	 * Unit test for the constructor.
 	 */
@@ -60,82 +94,50 @@ public class TestCallbackWrapper extends WicketTest{
 		CallbackWrapper wrapper = new CallbackWrapper();
 		assertNull(wrapper.action);
 	}
-		
+
 	/**
 	 * Test CallBack with action..
 	 */
 	@Test
-	public void testCallBack_withAction(){
+	public void testCallBack_withAction() {
 		WicketPage page = new WicketPage();
-		AjaxRequestTarget target = new AjaxRequestTarget(page);
+		AjaxRequestTarget target = new AjaxRequestHandler(page);
 		CallbackWrapper wrapper = new CallbackWrapper(action);
 		wrapper.callBack(target);
 		assertTrue(action.isExecuted());
 	}
-	
+
 	/**
 	 * Test CallBack with action.
 	 * 
 	 * No assert. just make sure there is no Exception here.
 	 */
 	@Test
-	public void testCallBack_withoutAction(){
+	public void testCallBack_withoutAction() {
 		WicketPage page = new WicketPage();
-		AjaxRequestTarget target = new AjaxRequestTarget(page);
+		AjaxRequestTarget target = new AjaxRequestHandler(page);
 		CallbackWrapper wrapper = new CallbackWrapper();
 		wrapper.callBack(target);
 	}
-	
-	
+
 	/**
-	 * Test CallBack with form.
-	 * 
-	 * No assert. just make sure there is no Exception here.
+	 * Test getAction.
 	 */
 	@Test
-	public void testCallBack_withForm(){
-		WicketPage page = new WicketPage();
-		Form<Void> form = new Form<Void>("form"); //$NON-NLS-1$
-		AjaxRequestTarget target = new AjaxRequestTarget(page);
-		CallbackWrapper wrapper = new CallbackWrapper();
-		wrapper.callBack(target,form);
-	}
-	
-	
-	/**
-	 * Test CallBack with form and action
-	 */
-	@Test
-	public void testCallBack_withFormAndAction(){
-		WicketPage page = new WicketPage();
-		Form<Void> form = new Form<Void>("form"); //$NON-NLS-1$
-		AjaxRequestTarget target = new AjaxRequestTarget(page);
-		CallbackWrapper wrapper = new CallbackWrapper(action);
-		wrapper.callBack(target,form);
-	}
-	
-	/**
-	 * Test getAction
-	 */
-	@Test
-	public void testSetAction(){
+	public void testSetAction() {
 		CallbackWrapper wrapper = new CallbackWrapper();
 		wrapper.setAction(action);
-		assertEquals(action,wrapper.action);
+		assertEquals(action, wrapper.action);
 	}
-	
+
 	/**
-	 * Test getAction
+	 * Test getAction.
 	 */
 	@Test
-	public void testGetAction(){
+	public void testGetAction() {
 		CallbackWrapper wrapper = new CallbackWrapper();
 		wrapper.action = action;
-		assertEquals(action,wrapper.getAction());
+		assertEquals(action, wrapper.getAction());
 	}
-	
-	
-	
-	
-	
+
 }

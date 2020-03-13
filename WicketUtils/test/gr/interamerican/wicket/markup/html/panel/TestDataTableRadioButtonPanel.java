@@ -12,49 +12,42 @@
  ******************************************************************************/
 package gr.interamerican.wicket.markup.html.panel;
 
-import gr.interamerican.wicket.utils.WicketPage;
+import static org.junit.Assert.*;
 
+import java.util.Random;
+
+import org.apache.wicket.Component;
+import org.apache.wicket.markup.Markup;
 import org.apache.wicket.markup.html.form.Radio;
-import org.apache.wicket.util.tester.WicketTester;
-import org.junit.Before;
+import org.apache.wicket.markup.html.form.RadioGroup;
+import org.apache.wicket.model.Model;
+import org.apache.wicket.util.tester.BaseWicketTester;
 import org.junit.Test;
 
+import gr.interamerican.bo2.samples.bean.BeanWith1Field;
+import gr.interamerican.wicket.test.WicketTest;
 
 /**
- * 
- * 
- *
+ * Tests the {@link DataTableRadioButtonPanel}.
  */
-public class TestDataTableRadioButtonPanel {
-
-
-	/**
-	 * the WicketTester
-	 */
-	public WicketTester wicketTester = null;
-
+public class TestDataTableRadioButtonPanel extends WicketTest {
 
 	/**
-	 * 
+	 * Test check box panel.
 	 */
-	@Before
-	public void setUp(){	
-		wicketTester = new WicketTester();	
-		wicketTester.startPage(WicketPage.class);
-		wicketTester.assertRenderedPage(WicketPage.class);	
-	}
-
-
-
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings("nls")
 	@Test
-	public void testDataTableRadioButtonPanel(){
-
-		Radio radioChoice =(Radio)wicketTester.
-		getComponentFromLastRenderedPage("radioGroup:dataTableRadioButtonPanel:radioButton");
-
-		//TODO: Find a way to assert the value of the radio
+	public void testDataTableRadioButtonPanel() {
+		RadioGroup<BeanWith1Field> group = new RadioGroup<>("group");
+		BeanWith1Field bean = new BeanWith1Field(new Random().nextLong());
+		group.add(new DataTableRadioButtonPanel<BeanWith1Field>("tested", new Model<BeanWith1Field>(bean)));
+		group.setMarkup(Markup.of("<wicket:extend> <input wicket:id=\"tested\" /></wicket:extend>"));
+		tester.startComponentInPage(group);
+		commonAssertions_noError(BaseWicketTester.StartComponentInPage.class);
+		Component tested = tester.getComponentFromLastRenderedPage("group:tested");
+		assertTrue(tested instanceof DataTableRadioButtonPanel);
+		@SuppressWarnings("unchecked")
+		Radio<BeanWith1Field> button = (Radio<BeanWith1Field>) tested.get("radioButton"); //$NON-NLS-1$
+		assertSame(bean, button.getDefaultModelObject());
 	}
-
-
 }

@@ -16,18 +16,38 @@ import gr.interamerican.bo2.arch.Key;
 import gr.interamerican.bo2.impl.open.annotations.KeyProperties;
 
 /**
- * 
+ * The Interface PoPoKey.
  */
 @KeyProperties("field1, field2")
 public interface PoPoKey  
 extends Key{
 
+	/**
+	 * Gets the field 1.
+	 *
+	 * @return the field 1
+	 */
 	public String getField1();
 
+	/**
+	 * Sets the field 1.
+	 *
+	 * @param field1 the new field 1
+	 */
 	public void setField1(String field1);
 
+	/**
+	 * Gets the field 2.
+	 *
+	 * @return the field 2
+	 */
 	public Integer getField2();
 
+	/**
+	 * Sets the field 2.
+	 *
+	 * @param field2 the new field 2
+	 */
 	public void setField2(Integer field2);
 
 }

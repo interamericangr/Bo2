@@ -37,15 +37,15 @@ import java.util.Properties;
  * a set of persistence objects between two systems or
  * performing a maintenance operation to specific POs of a
  * single system.
- * <br/>
+ * <br>
  * Simple keys that do not extend {@link Key} are written as
  * comma-separated values, e.g.
- * <br/>
+ * <br>
  * 1,2,12,33
- * <br/>
+ * <br>
  * Keys that extend {@link Key} follow the convention below:
  * [1,a],[2,bc],[3,ad]
- * <br/>
+ * <br>
  * Each bracket represents a Key instance. The comma-separated
  * values within the bracket represent the key instance property
  * values. The order of the key property values matches that
@@ -98,9 +98,8 @@ public class CopyToOtherSystemOperationConf<K extends Serializable & Comparable<
 	 * Keys to work on. This is optional.
 	 */
 	List<K> toKeys = new ArrayList<K>();
-	/**
-	 * 
-	 */
+	
+	/** The key properties types. */
 	Map<String, Class<?>> keyPropertiesTypes = new HashMap<String, Class<?>>();
 	/**
 	 * Properties to build this configuration with.
@@ -143,6 +142,8 @@ public class CopyToOtherSystemOperationConf<K extends Serializable & Comparable<
 	}
 
 	/**
+	 * Gets the from.
+	 *
 	 * @return the from
 	 */
 	public String getFrom() {
@@ -150,6 +151,8 @@ public class CopyToOtherSystemOperationConf<K extends Serializable & Comparable<
 	}
 
 	/**
+	 * Gets the to.
+	 *
 	 * @return the to
 	 */
 	public String getTo() {
@@ -157,6 +160,8 @@ public class CopyToOtherSystemOperationConf<K extends Serializable & Comparable<
 	}
 
 	/**
+	 * Gets the from keys.
+	 *
 	 * @return the fromkeys
 	 */
 	public List<K> getFromKeys() {
@@ -164,6 +169,8 @@ public class CopyToOtherSystemOperationConf<K extends Serializable & Comparable<
 	}
 
 	/**
+	 * Gets the to keys.
+	 *
 	 * @return the tokeys
 	 */
 	public List<K> getToKeys() {
@@ -172,8 +179,8 @@ public class CopyToOtherSystemOperationConf<K extends Serializable & Comparable<
 
 	/**
 	 * Gets a property from props.
-	 * 
-	 * @param key
+	 *
+	 * @param key the key
 	 * @return property value.
 	 */
 	public String getProperty(String key) {
@@ -198,8 +205,9 @@ public class CopyToOtherSystemOperationConf<K extends Serializable & Comparable<
 	
 	/**
 	 * Resolves simple to keys values from keys text.
-	 * @param keysText 
-	 * @param keys 
+	 *
+	 * @param keysText the keys text
+	 * @param keys the keys
 	 */
 	private void resolveSimpleKeys(String keysText, List<K> keys) {
 		if(StringUtils.isNullOrBlank(keysText)) {
@@ -237,7 +245,9 @@ public class CopyToOtherSystemOperationConf<K extends Serializable & Comparable<
 	}
 
 	/**
-	 * @param propertyName
+	 * Key strings.
+	 *
+	 * @param propertyName the property name
 	 * @return the key strings.
 	 */
 	private String[] keyStrings(String propertyName) {
@@ -260,8 +270,8 @@ public class CopyToOtherSystemOperationConf<K extends Serializable & Comparable<
 
 	/**
 	 * generates a {@link Key} from a string.
-	 * 
-	 * @param keyString
+	 *
+	 * @param keyString the key string
 	 * @return a {@link Key}.
 	 */
 	private K evaluateKeyString(String keyString) {

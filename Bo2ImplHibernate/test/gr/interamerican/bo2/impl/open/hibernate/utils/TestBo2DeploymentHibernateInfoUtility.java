@@ -12,13 +12,11 @@ import org.junit.Test;
 
 
 /**
- * 
+ * The Class TestBo2DeploymentHibernateInfoUtility.
  */
 public class TestBo2DeploymentHibernateInfoUtility {
 
-	/**
-	 * 
-	 */
+	/** The subject. */
 	Bo2DeploymentHibernateInfoUtility subject = Bo2DeploymentHibernateInfoUtility.get();
 
 	/**

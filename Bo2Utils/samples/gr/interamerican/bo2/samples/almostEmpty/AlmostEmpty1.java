@@ -15,11 +15,12 @@ package gr.interamerican.bo2.samples.almostEmpty;
  * Class that can't be instantiated by Factory.
  */
 public class AlmostEmpty1 {
+	
 	/**
 	 * Creates a new NotForFactory object. 
 	 *
-	 * @param i
+	 * @param i the i
 	 */
-	public AlmostEmpty1(int i) {/* empty */
+	public AlmostEmpty1(@SuppressWarnings("unused") int i) {/* empty */
 	}
 }

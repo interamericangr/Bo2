@@ -44,8 +44,9 @@ import org.junit.Test;
 public class TestHibernateBo2Utils {
 	
 	/**
-	 * tests isManaged()
-	 * @throws InitializationException 
+	 * tests isManaged().
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test
 	public void testGetHibernateSessionProvider() throws InitializationException {
@@ -58,8 +59,9 @@ public class TestHibernateBo2Utils {
 	}
 	
 	/**
-	 * tests isManaged()
-	 * @throws InitializationException 
+	 * tests isManaged().
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test
 	public void testLogSessionFactoryStatistics() throws InitializationException {
@@ -71,7 +73,7 @@ public class TestHibernateBo2Utils {
 	}
 	
 	/**
-	 * tests isTransient
+	 * tests isTransient.
 	 */
 	@Test
 	public void testIsTransient() {
@@ -89,7 +91,7 @@ public class TestHibernateBo2Utils {
 	}
 	
 	/**
-	 * Sample for testIsTransient
+	 * Sample for testIsTransient.
 	 */
 	private class InvoiceLineProxy extends InvoiceLineImpl implements HibernateProxy {
 
@@ -98,48 +100,62 @@ public class TestHibernateBo2Utils {
 		 */
 		private static final long serialVersionUID = 1L;
 
+		@Override
 		public Integer getType() {
 			return null;
 		}
 
+		@Override
 		public void setType(Integer type) { /* empty */ }
 
+		@Override
 		public Double getAmount() {
 			return null;
 		}
 
+		@Override
 		public void setAmount(Double amount) { /* empty */ }
 
+		@Override
 		public void setSubLines(Set<InvoiceSubLine> subLines) { /* empty */ }
 
+		@Override
 		public Set<InvoiceSubLine> getSubLines() {
 			return null;
 		}
 
+		@Override
 		public Integer getLineNo() {
 			return null;
 		}
 
+		@Override
 		public void setLineNo(Integer lineNo) { /* empty */ }
 
+		@Override
 		public String getInvoiceNo() {
 			return null;
 		}
 
+		@Override
 		public void setInvoiceNo(String invoiceNo) { /* empty */ }
 
+		@Override
 		public Object writeReplace() {
 			return null;
 		}
 
+		@Override
 		public LazyInitializer getHibernateLazyInitializer() {
 			return null;
 		}
 
+		@Override
 		public Customer getCustomer() {
 			return null;
 		}
 
+		@Override
 		public void setCustomer(Customer customer) { /* empty */ }
 		
 	}

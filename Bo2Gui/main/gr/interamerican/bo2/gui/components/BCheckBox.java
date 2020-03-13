@@ -23,9 +23,7 @@ public class BCheckBox
 extends JCheckBox 
 implements ValueComponent {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
 	/**

@@ -25,6 +25,7 @@ import org.apache.wicket.model.IModel;
  */
 public class StringBoPDComponentFactory extends AbstractBoPDComponentFactory<StringBoPropertyDescriptor> {
 
+	@Override
 	public Component drawMain(StringBoPropertyDescriptor descriptor, String wicketId) {
 		int maxLength = descriptor.getMaxLength();
 		if (maxLength > MarkupConstants.COLS_VALUE) {
@@ -33,6 +34,7 @@ public class StringBoPDComponentFactory extends AbstractBoPDComponentFactory<Str
 		return new SelfDrawnStringTextField(wicketId, descriptor);
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public Component drawMain(String cmpWicketId, IModel<?> model, StringBoPropertyDescriptor descriptor) {
 		int maxLength = descriptor.getMaxLength();

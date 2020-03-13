@@ -13,7 +13,7 @@ import javax.jms.MessageProducer;
 import javax.jms.Session;
 
 /**
- * A {@link Worker} that sends a {@link Message} to a {@link Destination}
+ * A {@link Worker} that sends a {@link Message} to a {@link Destination}.
  */
 public abstract class JmsProducer extends AbstractResourceConsumer {
 	
@@ -56,9 +56,9 @@ public abstract class JmsProducer extends AbstractResourceConsumer {
 	}
 	
 	/**
-	 * Sends the message to the {@link Destination}
-	 * 
-	 * @throws DataException 
+	 * Sends the message to the {@link Destination}.
+	 *
+	 * @throws DataException the data exception
 	 */
 	public final void execute() throws DataException {
 		try {
@@ -72,11 +72,10 @@ public abstract class JmsProducer extends AbstractResourceConsumer {
 	/**
 	 * Creates the JMS message using the current jms {@link Session}.
 	 * Implementors override this.
-	 * 
+	 *
 	 * @return JMS message
-	 * 
-	 * @throws JMSException 
-	 * @throws DataException 
+	 * @throws JMSException the JMS exception
+	 * @throws DataException the data exception
 	 */
 	public abstract Message createJmsMessage() throws JMSException, DataException;
 	

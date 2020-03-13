@@ -25,8 +25,8 @@ public interface IBeanWithId {
 	
 	/**
 	 * Sets the id.
-	 * 
-	 * @param id
+	 *
+	 * @param id the new id
 	 */
 	void setId(Integer id);
 	

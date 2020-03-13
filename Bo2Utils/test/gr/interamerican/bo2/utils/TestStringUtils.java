@@ -59,7 +59,7 @@ public class TestStringUtils {
 	};
 	
 	/**
-	 * tests showArguments
+	 * tests showArguments.
 	 */
 
 	@Test
@@ -72,7 +72,7 @@ public class TestStringUtils {
 	}
 	
 	/**
-	 * tests showArguments
+	 * tests showArguments.
 	 */
 	
 	@Test
@@ -93,7 +93,7 @@ public class TestStringUtils {
 	
 	
 	/**
-	 * tests leftJustify
+	 * tests leftJustify.
 	 */	
 	@Test
 	public void testLeftJustify() {		
@@ -119,7 +119,7 @@ public class TestStringUtils {
 	}
 	
 	/**
-	 * tests leftJustify
+	 * tests leftJustify.
 	 */	
 	@Test
 	public void testRightJustify() {		
@@ -147,7 +147,7 @@ public class TestStringUtils {
 	
 	
 	/**
-	 * tests string2Bool
+	 * tests string2Bool.
 	 */	
 	@Test
 	public void testString2Bool() {		
@@ -174,7 +174,7 @@ public class TestStringUtils {
 	}
 	
 	/**
-	 * tests bool2String
+	 * tests bool2String.
 	 */	
 	@Test
 	public void testBool2String() {
@@ -192,7 +192,7 @@ public class TestStringUtils {
 	}
 	
 	/**
-	 * tests removeLeadingZeros
+	 * tests removeLeadingZeros.
 	 */	
 	@Test
 	public void testRemoveLeadingZeros() {
@@ -213,7 +213,7 @@ public class TestStringUtils {
 	
 
 	/**
-	 * tests FirstCapital
+	 * tests FirstCapital.
 	 */	
 	@Test
 	public void testFirstCapital() {	
@@ -227,7 +227,7 @@ public class TestStringUtils {
 	}
 	
 	/**
-	 * tests FirstLowerCase
+	 * tests FirstLowerCase.
 	 */	
 	@Test
 	public void testFirstLowerCase() {	
@@ -241,7 +241,7 @@ public class TestStringUtils {
 	}
 	
 	/**
-	 * tests int2Str
+	 * tests int2Str.
 	 */	
 	@Test
 	public void testInt2Str() {		
@@ -263,7 +263,7 @@ public class TestStringUtils {
 	}
 	
 	/**
-	 * tests sameCharacterString
+	 * tests sameCharacterString.
 	 */	
 	@Test
 	public void testsSameCharacterString() {
@@ -276,7 +276,7 @@ public class TestStringUtils {
 	}
 	
 	/**
-	 * tests fixedLengthPadLeft
+	 * tests fixedLengthPadLeft.
 	 */	
 	@Test
 	public void testFixedLengthPadLeft() {		
@@ -301,7 +301,7 @@ public class TestStringUtils {
 	}
 	
 	/**
-	 * tests fixedLengthPadLeft
+	 * tests fixedLengthPadLeft.
 	 */	
 	@Test
 	public void testFixedLengthPadRight() {		
@@ -326,7 +326,7 @@ public class TestStringUtils {
 	}
 	
 	/**
-	 * tests isNullOrBlank
+	 * tests isNullOrBlank.
 	 */
 	@Test
 	public void testIsNullOrBlank() {
@@ -336,7 +336,7 @@ public class TestStringUtils {
 	}
 	
 	/**
-	 * tests insertAfter
+	 * tests insertAfter.
 	 */
 	@Test
 	public void testInsertAfter() {
@@ -354,7 +354,7 @@ public class TestStringUtils {
 	}
 	
 	/**
-	 * tests removeEmpty
+	 * tests removeEmpty.
 	 */
 	@Test
 	public void testRemoveEmpty() {
@@ -364,7 +364,7 @@ public class TestStringUtils {
 	}
 	
 	/**
-	 * Unit test for addPostfix
+	 * Unit test for addPostfix.
 	 */
 	@Test
 	public void testAddPrefix() {
@@ -374,7 +374,7 @@ public class TestStringUtils {
 	}
 	
 	/**
-	 * Unit test for removePrefix
+	 * Unit test for removePrefix.
 	 */
 	@Test
 	public void testRemovePrefix() {
@@ -386,7 +386,7 @@ public class TestStringUtils {
 	}
 
 	/**
-	 * Unit test for addPostfix
+	 * Unit test for addPostfix.
 	 */
 	@Test
 	public void testAddPostfix() {
@@ -396,7 +396,7 @@ public class TestStringUtils {
 	}
 	
 	/**
-	 * Unit test for surround
+	 * Unit test for surround.
 	 */
 	@Test
 	public void testSurround() {
@@ -406,7 +406,7 @@ public class TestStringUtils {
 	}
 	
 	/**
-	 * Unit test for toString()
+	 * Unit test for toString().
 	 */
 	@Test
 	public void testToString_withOneArg() {		
@@ -419,7 +419,7 @@ public class TestStringUtils {
 	}
 	
 	/**
-	 * Unit test for toString()
+	 * Unit test for toString().
 	 */
 	@Test
 	public void testToString_withTwoArgs() {		
@@ -491,7 +491,7 @@ public class TestStringUtils {
 	}
 
 	/**
-	 * test Concat
+	 * test Concat.
 	 */
 	@Test
 	public void testConcat() {
@@ -502,7 +502,7 @@ public class TestStringUtils {
 	}
 	
 	/**
-	 * test ConcatSeparated
+	 * test ConcatSeparated.
 	 */
 	@Test
 	public void testConcatSeparated() {
@@ -522,7 +522,7 @@ public class TestStringUtils {
 	
 	
 	/**
-	 * test trim
+	 * test trim.
 	 */
 	@Test
 	public void testTrim() {
@@ -540,7 +540,7 @@ public class TestStringUtils {
 	
 	
 	/**
-	 * test quotes
+	 * test quotes.
 	 */
 	@Test
 	public void testQuotes() {
@@ -551,7 +551,7 @@ public class TestStringUtils {
 	}
 	
 	/**
-	 * test parenthesis
+	 * test parenthesis.
 	 */
 	@Test
 	public void testParenthesis() {
@@ -562,7 +562,7 @@ public class TestStringUtils {
 	}
 	
 	/**
-	 * test squareBrackets
+	 * test squareBrackets.
 	 */
 	@Test
 	public void testSquareBrackets() {
@@ -573,7 +573,7 @@ public class TestStringUtils {
 	}
 	
 	/**
-	 * test curlyBrackets
+	 * test curlyBrackets.
 	 */
 	@Test
 	public void testCurlyBrackets() {
@@ -584,7 +584,7 @@ public class TestStringUtils {
 	}
 	
 	/**
-	 * test quotes
+	 * test quotes.
 	 */
 	@Test
 	public void testGenerics() {
@@ -597,7 +597,7 @@ public class TestStringUtils {
 	
 	
 	/**
-	 * test startsWithUpperCase
+	 * test startsWithUpperCase.
 	 */
 	@Test
 	public void testStartsWithUpperCase() {
@@ -612,7 +612,7 @@ public class TestStringUtils {
 	}
 	
 	/**
-	 * test arrayContainsString
+	 * test arrayContainsString.
 	 */
 	@Test
 	public void testArrayContainsString() {
@@ -636,7 +636,7 @@ public class TestStringUtils {
 	
 
 	/**
-	 * test mid
+	 * test mid.
 	 */
 	@Test
 	public void testMid() {
@@ -666,7 +666,7 @@ public class TestStringUtils {
 	}
 	
 	/**
-	 * test mid
+	 * test mid.
 	 */
 	@Test
 	public void testMid_EmptyString() {
@@ -680,7 +680,7 @@ public class TestStringUtils {
 	}
 	
 	/**
-	 * test mid
+	 * test mid.
 	 */
 	@Test
 	public void testMid_TwoParameters() {
@@ -693,7 +693,7 @@ public class TestStringUtils {
 	
 	
 	/**
-	 * test firstChar when value is null
+	 * test firstChar when value is null.
 	 */
 	@Test
 	public void testFirstChar_nullValue() {
@@ -702,7 +702,7 @@ public class TestStringUtils {
 	
 	
 	/**
-	 * test firstChar when string's length is zero
+	 * test firstChar when string's length is zero.
 	 */
 	@Test
 	public void testFirstChar_zeroLength() {
@@ -710,7 +710,7 @@ public class TestStringUtils {
 	}
 	
 	/**
-	 * test firstChar when string's length is zero
+	 * test firstChar when string's length is zero.
 	 */
 	@Test
 	public void testFirstChar() {
@@ -720,7 +720,7 @@ public class TestStringUtils {
 	}
 	
 	/**
-	 * test addSpaceBeforeChar
+	 * test addSpaceBeforeChar.
 	 */
 	@Test
 	public void testAddSpaceBeforeChar() {
@@ -731,7 +731,7 @@ public class TestStringUtils {
 	}
 	
 	/**
-	 * test addSpaceAfterChar
+	 * test addSpaceAfterChar.
 	 */
 	@Test
 	public void testAddSpaceAfterChar() {
@@ -743,7 +743,7 @@ public class TestStringUtils {
 	
 	
 	/**
-	 * test removeParenthesis
+	 * test removeParenthesis.
 	 */
 	@Test
 	public void testRemoveParenthesis() {
@@ -754,7 +754,7 @@ public class TestStringUtils {
 	}
 	
 	/**
-	 * test removeParenthesis
+	 * test removeParenthesis.
 	 */
 	@Test
 	public void testRemoveCharacter() {
@@ -765,7 +765,7 @@ public class TestStringUtils {
 	}
 	
 	/**
-	 * test removeParenthesis
+	 * test removeParenthesis.
 	 */
 	@Test
 	public void testRemoveCharacters() {
@@ -803,7 +803,7 @@ public class TestStringUtils {
 	}
 	
 	/**
-	 * tests replaceIgnoringCase()
+	 * tests replaceIgnoringCase().
 	 */
 	@Test
 	public void testReplaceIgnoringCase() {
@@ -815,7 +815,7 @@ public class TestStringUtils {
 	}
 	
 	/**
-	 * tests uScore2camelCase
+	 * tests uScore2camelCase.
 	 */	
 	@Test
 	public void testUScore2camelCase() {
@@ -835,7 +835,7 @@ public class TestStringUtils {
 	}
 	
 	/**
-	 * tests cutTo
+	 * tests cutTo.
 	 */
 	@Test
 	public void testCutTo() {
@@ -846,7 +846,7 @@ public class TestStringUtils {
 	}
 	
 	/**
-	 * tests xmlEndTag
+	 * tests xmlEndTag.
 	 */
 	@Test
 	public void testXmlEndTag() {
@@ -854,7 +854,7 @@ public class TestStringUtils {
 	}
 
 	/**
-	 * tests xmlEndTag
+	 * tests xmlEndTag.
 	 */
 	@Test
 	public void testXmlStartTag() {
@@ -862,7 +862,7 @@ public class TestStringUtils {
 	}
 	
 	/**
-	 * tests startsWith
+	 * tests startsWith.
 	 */
 	@Test
 	public void testStartsWith() {
@@ -875,7 +875,7 @@ public class TestStringUtils {
 	}
 	
 	/**
-	 * tests startsWith
+	 * tests startsWith.
 	 */
 	@Test
 	public void testRemovePartBetweenElements() {
@@ -893,7 +893,7 @@ public class TestStringUtils {
 	}
 	
 	/**
-	 * tests containsGreekLatinNumbersSpaces
+	 * tests containsGreekLatinNumbersSpaces.
 	 */
 	@Test
 	public void testContainsOnlyLettersNumbersSpaces() {
@@ -923,7 +923,7 @@ public class TestStringUtils {
 	}
 	
 	/**
-	 * test IgnoreCaseValueOf()
+	 * test IgnoreCaseValueOf().
 	 */
 	@Test
 	public void testIgnoreCaseValueOf() {
@@ -939,7 +939,7 @@ public class TestStringUtils {
 	
 	
 	/**
-	 * tests truncateCharsFromEnd
+	 * tests truncateCharsFromEnd.
 	 */
 	@Test
 	public void testTruncateCharsFromEnd() {
@@ -952,7 +952,7 @@ public class TestStringUtils {
 	}
 	
 	/**
-	 * tests splitByLength
+	 * tests splitByLength.
 	 */
 	@Test
 	public void testSplitByLength() {

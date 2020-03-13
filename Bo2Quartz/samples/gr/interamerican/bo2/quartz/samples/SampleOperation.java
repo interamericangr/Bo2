@@ -7,29 +7,31 @@ import gr.interamerican.bo2.utils.concurrent.ThreadUtils;
 
 
 /**
- * sample operation for the tests
+ * sample operation for the tests.
  */
 public class SampleOperation extends AbstractOperation {
 
-	/**
-	 * time to wait
-	 */
+	/** time to wait. */
 	int waitTime = 10;
 
 	/**
-	 * @param s
-	 *            setter for wait time.
+	 * Sets the wait time.
+	 *
+	 * @param s            setter for wait time.
 	 */
 	public void setWaitTime(int s) {
 		waitTime = s;
 	}
 
 	/**
+	 * Gets the wait time.
+	 *
 	 * @return wait time.
 	 */
 	public int getWaitTime() {
 		return waitTime;
 	}
+	
 	@Override
 	public void execute() throws LogicException, DataException {
 		ThreadUtils.sleep(waitTime);

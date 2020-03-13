@@ -24,24 +24,20 @@ import java.util.Date;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestTimeType.
  */
 public class TestTimeType {
 
 	
-	/**
-	 * TimeType
-	 */
+	/** TimeType. */
 	TimeType timeType = TimeType.INSTANCE;
 	
 	
-	/**
-	 * MockResultSet
-	 */
+	/** MockResultSet. */
 	MockResultSet rs = new MockResultSet();
 	
 	/**
-	 * Tests SqlString when value is null
+	 * Tests SqlString when value is null.
 	 */
 	@Test
 	public void testSqlString_nullValue(){
@@ -51,7 +47,7 @@ public class TestTimeType {
 	}
 	
 	/**
-	 * Tests SqlString 
+	 * Tests SqlString.
 	 */
 	@Test
 	public void testSqlString(){
@@ -62,7 +58,7 @@ public class TestTimeType {
 	}
 	
 	/**
-	 * Tests statementParameter when value is null
+	 * Tests statementParameter when value is null.
 	 */
 	@Test
 	public void testStatementParameter_nullValue(){
@@ -70,7 +66,7 @@ public class TestTimeType {
 	}
 	
 	/**
-	 * Tests statementParameter a date value
+	 * Tests statementParameter a date value.
 	 */
 	@Test
 	public void testStatementParameter(){
@@ -81,8 +77,9 @@ public class TestTimeType {
 	}
 	
 	/**
-	 * Tests get when column index is string
-	 * @throws SQLException
+	 * Tests get when column index is string.
+	 *
+	 * @throws SQLException the SQL exception
 	 */
 	@Test
 	public void testGet_string() throws SQLException{
@@ -93,8 +90,9 @@ public class TestTimeType {
 	}
 	
 	/**
-	 * Tests get when column index is integer
-	 * @throws SQLException
+	 * Tests get when column index is integer.
+	 *
+	 * @throws SQLException the SQL exception
 	 */
 	@Test
 	public void testGet_integer() throws SQLException{

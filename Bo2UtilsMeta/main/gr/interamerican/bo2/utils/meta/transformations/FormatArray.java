@@ -18,7 +18,7 @@ import gr.interamerican.bo2.utils.meta.formatters.Formatter;
 
 /**
  * Transforms an array of objects to an array of strings using an array 
- * of Formatters. <br/>
+ * of Formatters. <br>
  * 
  * Each object is transformed to string by the formatter with the same
  * index.
@@ -32,7 +32,7 @@ implements Transformation<Object[], String[]> {
 	 */
 	Formatter<?>[] formatters;
 
-	
+	@Override
 	public String[] execute(Object[] a) {
 		Object[] array = ArrayUtils.enforceCapacity(a, formatters.length);
 		String[] strings = new String[formatters.length];
@@ -48,11 +48,9 @@ implements Transformation<Object[], String[]> {
 	/**
 	 * Creates a new FormatArray object. 
 	 *
-	 * @param formatters
+	 * @param formatters the formatters
 	 */
 	public FormatArray(Formatter<?>[] formatters) {
-		super();
 		this.formatters = formatters;
 	}
-
 }

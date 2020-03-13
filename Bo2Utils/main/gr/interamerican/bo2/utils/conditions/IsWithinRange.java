@@ -30,13 +30,14 @@ implements Condition<T> {
 	/**
 	 * Creates a new IsWithinRangeCondition object. 
 	 *
-	 * @param range
+	 * @param range the range
 	 */
 	public IsWithinRange(Range<T> range) {
 		super();
 		this.range = range;
 	}	
 	
+	@Override
 	public boolean check(T t) {		
 		return range.contains(t);
 	}

@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Provides a defense mechanism to disallow the insertion of inappropriate characters
  * to database tables.
- * <br/>
+ * <br>
  * This may happen, for instance, when users copy-paste formatted text from word documents
  * to text areas.
  */
@@ -64,9 +64,7 @@ public class IllegalCharacterFilter {
 	 */
 	private char[] commonPunctuationChars = "!\"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~".toCharArray(); //$NON-NLS-1$
 	
-	/**
-	 * Character types for unicode punctuation blocks
-	 */
+	/** Character types for unicode punctuation blocks. */
 	private static final List<Byte> punctuationBlocks = new ArrayList<Byte>();
 	static {
 		punctuationBlocks.add(Character.DASH_PUNCTUATION);
@@ -80,7 +78,8 @@ public class IllegalCharacterFilter {
 	
 	/**
 	 * Filters the string argument from unknown characters replacing them if possible.
-	 * @param input
+	 *
+	 * @param input the input
 	 * @return Filtered string.
 	 */
 	public String filter(String input) {
@@ -120,9 +119,9 @@ public class IllegalCharacterFilter {
 	 * Extension point. Allows client applications to define new associations
 	 * or override default ones. If an association for a Character that is normally
 	 * omitted is made, the omission rule is canceled.
-	 * 
-	 * @param filtered
-	 * @param replacement
+	 *
+	 * @param filtered the filtered
+	 * @param replacement the replacement
 	 */
 	public static void registerAssociation(Character filtered, String replacement) {
 		filterByOmitting.remove(filtered);
@@ -130,7 +129,9 @@ public class IllegalCharacterFilter {
 	}
 	
 	/**
-	 * @param c
+	 * Should filter.
+	 *
+	 * @param c the c
 	 * @return Returns true, if the character should be filtered.
 	 */
 	private boolean shouldFilter(char c) {
@@ -151,7 +152,9 @@ public class IllegalCharacterFilter {
 	}
 	
 	/**
-	 * @param c
+	 * Explicit handling.
+	 *
+	 * @param c the c
 	 * @return True, if the character is explicitly omitted or replaced.
 	 */
 	private boolean explicitHandling(char c) {
@@ -159,8 +162,10 @@ public class IllegalCharacterFilter {
 	}
 	
 	/**
-	 * @param c
-	 * @return Returns true, if the character argument is used for punctuation. 
+	 * Checks if is punctuation.
+	 *
+	 * @param c the c
+	 * @return Returns true, if the character argument is used for punctuation.
 	 */
 	private boolean isPunctuation(char c) {
 		for(char pc : commonPunctuationChars) {
@@ -175,7 +180,9 @@ public class IllegalCharacterFilter {
 	}
 	
 	/**
-	 * @param c
+	 * Prints the.
+	 *
+	 * @param c the c
 	 * @return Character details for debugging.
 	 */
 	private String print(char c) {

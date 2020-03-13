@@ -13,21 +13,19 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * JdbcPropertiesLoaderQuestion test
+ * JdbcPropertiesLoaderQuestion test.
  */
 public class TestJdbcPropertiesLoaderQuestion {
 	
-	/**
-	 * test subject
-	 */
+	/** test subject. */
 	JdbcPropertiesLoaderQuestion impl = new JdbcPropertiesLoaderQuestionImpl();
 	
 	/**
-	 * test ask
-	 * 
-	 * @throws DataException
-	 * @throws LogicException
-	 * @throws UnexpectedException
+	 * test ask.
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test
 	public void testAsk() throws DataException, LogicException, UnexpectedException {
@@ -46,7 +44,7 @@ public class TestJdbcPropertiesLoaderQuestion {
 	}
 	
 	/**
-	 * implementation to test
+	 * implementation to test.
 	 */
 	@ManagerName("LOCALDB")
 	private class JdbcPropertiesLoaderQuestionImpl extends JdbcPropertiesLoaderQuestion {	

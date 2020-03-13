@@ -25,64 +25,50 @@ public interface Type<T> {
 	
 	/**
 	 * Gets the specified column from the current row of the specified result set.
-	 * 
-	 * @param rs
-	 *        Result set.
-	 * @param columnIndex
-	 *        Column to get.
+	 *
+	 * @param rs        Result set.
+	 * @param columnIndex        Column to get.
 	 *        
 	 * @return Returns the value of the specified column.
-	 * 
-	 * @throws SQLException 
+	 * @throws SQLException the SQL exception
 	 */
 	public T get(ResultSet rs, String columnIndex)
 	throws SQLException;
 	
 	/**
 	 * Gets the specified column from the current row of the specified result set.
-	 * 
-	 * @param rs
-	 *        Result set.
-	 * @param columnIndex
-	 *        Column to get.
-	 * @param returnNullValues
-	 *        If the SQL value is NULL, null is returned
+	 *
+	 * @param rs        Result set.
+	 * @param columnIndex        Column to get.
+	 * @param returnNullValues        If the SQL value is NULL, null is returned
 	 *        
 	 * @return Returns the value of the specified column.
-	 * 
-	 * @throws SQLException 
+	 * @throws SQLException the SQL exception
 	 */
 	public T get(ResultSet rs, String columnIndex, boolean returnNullValues)
 	throws SQLException;
 	
 	/**
 	 * Gets the specified column from the current row of the specified result set.
-	 * 
-	 * @param rs
-	 *        Result set.
-	 * @param columnIndex
-	 *        Column to get.
+	 *
+	 * @param rs        Result set.
+	 * @param columnIndex        Column to get.
 	 *        
 	 * @return Returns the value of the specified column.
-	 * 
-	 * @throws SQLException 
+	 * @throws SQLException the SQL exception
 	 */
 	public T get(ResultSet rs, int columnIndex)
 	throws SQLException;
 	
 	/**
 	 * Gets the specified column from the current row of the specified result set.
-	 * 
-	 * @param rs
-	 *        Result set.
-	 * @param columnIndex
-	 *        Column to get.
-	 * @param returnNullValues
-	 *        If the SQL value is NULL, null is returned
+	 *
+	 * @param rs        Result set.
+	 * @param columnIndex        Column to get.
+	 * @param returnNullValues        If the SQL value is NULL, null is returned
 	 *        
 	 * @return Returns the value of the specified column.
-	 * 
-	 * @throws SQLException 
+	 * @throws SQLException the SQL exception
 	 */
 	public T get(ResultSet rs, int columnIndex, boolean returnNullValues)
 	throws SQLException;

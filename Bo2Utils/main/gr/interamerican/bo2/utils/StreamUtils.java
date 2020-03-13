@@ -36,15 +36,13 @@ public class StreamUtils {
 	/**
 	 * Reads a text file from a resource file in the local classpath
 	 * and returns an array with the lines of the file.
-	 * 
-	 * @see #readResourceFile(String, boolean, boolean)
-	 * 
+	 *
 	 * @param path Path to the file.
-	 * 
 	 * @return Returns an array with names of mappings files.
 	 *         If the resource file is not found, then returns null.
-	 * @throws IOException
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 * @throws NullPointerException if the arg is null
+	 * @see #readResourceFile(String, boolean, boolean)
 	 */
 	public static String[] readResourceFile(String path)
 			throws IOException {
@@ -54,23 +52,18 @@ public class StreamUtils {
 	/**
 	 * Reads a text file from a resource file in the local classpath
 	 * and returns an array with the lines of the file.
-	 * <br/>
+	 * <br>
 	 * If the file cannot be found, returns null.
-	 * <br/>
+	 * <br>
 	 * The file is assumed to be encoded with the default Bo2 deployment
 	 * <code>resourceFileEncoding</code> property.
-	 * 
-	 * @param path
-	 *        Path to the file.
-	 * @param excludeEmptyLines
-	 *        If set to true, empty lines will be excluded.
-	 * @param excludeSharps
-	 *        If true, anything that follows a '#' in a line is ignored
-	 * 
+	 *
+	 * @param path        Path to the file.
+	 * @param excludeEmptyLines        If set to true, empty lines will be excluded.
+	 * @param excludeSharps        If true, anything that follows a '#' in a line is ignored
 	 * @return Returns an array with names of mappings files.
 	 *         If the resource file is not found, then returns null.
-	 * 
-	 * @throws IOException
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 * @throws NullPointerException if the arg is null
 	 */
 	public static String[] readResourceFile(String path, boolean excludeEmptyLines, boolean excludeSharps)
@@ -79,21 +72,19 @@ public class StreamUtils {
 		if(stream==null){
 			return null;
 		}
-		InputStreamReader insr = new InputStreamReader(stream, Bo2UtilsEnvironment.getDefaultResourceFileCharset());
+		InputStreamReader insr = new InputStreamReader(stream, Bo2UtilsEnvironment.get().getDefaultResourceFileCharset());
 		BufferedReader reader = new BufferedReader(insr);
 		return StreamUtils.consumeBufferedReader(reader, excludeEmptyLines, excludeSharps);
 	}
 
 	/**
 	 * Reads a text file from the filesystem and returns an array with the lines of the file.
-	 * 
-	 * @see #readFile(String, boolean, boolean)
-	 * 
+	 *
 	 * @param path Path to the file.
-	 * 
 	 * @return Returns an array with names of mappings files.
 	 *         If the resource file is not found, then returns null.
-	 * @throws IOException
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @see #readFile(String, boolean, boolean)
 	 */
 	public static String[] readFile(String path)
 			throws IOException {
@@ -102,28 +93,23 @@ public class StreamUtils {
 
 	/**
 	 * Reads a text file from the filesystem and returns an array with the lines of the file.
-	 * <br/>
+	 * <br>
 	 * The file is assumed to be encoded with the default Bo2 deployment <code>textEncoding</code>
-	 * 
-	 * @see Bo2UtilsEnvironment
-	 * 
-	 * @param path
-	 *        Path to the file.
-	 * @param excludeEmptyLines
-	 *        If set to true, empty lines will be excluded.
-	 * @param excludeSharps
-	 *        If true, anything that follows a '#' in a line is ignored
-	 * 
+	 *
+	 * @param path        Path to the file.
+	 * @param excludeEmptyLines        If set to true, empty lines will be excluded.
+	 * @param excludeSharps        If true, anything that follows a '#' in a line is ignored
 	 * @return Returns an array with names of mappings files.
 	 *         If the resource file is not found, then returns null.
-	 * @throws IOException
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @see Bo2UtilsEnvironment
 	 */
 	public static String[] readFile(String path, boolean excludeEmptyLines, boolean excludeSharps)
 			throws IOException {
 		try {
 			File file = new File(path);
 			InputStream stream = new FileInputStream(file);
-			InputStreamReader insr = new InputStreamReader(stream, Bo2UtilsEnvironment.getDefaultTextCharset());
+			InputStreamReader insr = new InputStreamReader(stream, Bo2UtilsEnvironment.get().getDefaultTextCharset());
 			BufferedReader reader = new BufferedReader(insr);
 			return StreamUtils.consumeBufferedReader(reader, excludeEmptyLines, excludeSharps);
 		} catch (FileNotFoundException fnfe) {
@@ -160,35 +146,27 @@ public class StreamUtils {
 
 	/**
 	 * Gets the raw contents of a file as bytes.
-	 * 
+	 *
 	 * @param file
+	 *            the file
 	 * @return Returns a byte array that contains the file contents.
 	 */
 	public static byte[] getFileContents(File file) {
-		FileInputStream stream = null;
-		try {
-			long size = file.length();
-			if (size>Integer.MAX_VALUE) {
-				String msg = "The file is too large"; //$NON-NLS-1$
-				throw new RuntimeException(msg);
-			}
-			int iSize = Long.valueOf(size).intValue();
-			stream = new FileInputStream(file);
-			byte[] buffer = new byte[iSize];
+
+		long size = file.length();
+		if (size > Integer.MAX_VALUE) {
+			String msg = "The file is too large"; //$NON-NLS-1$
+			throw new RuntimeException(msg);
+		}
+		int iSize = Long.valueOf(size).intValue();
+		byte[] buffer = new byte[iSize];
+		try (FileInputStream stream = new FileInputStream(file)) {
 			stream.read(buffer);
 			return buffer;
 		} catch (FileNotFoundException e) {
 			throw new RuntimeException(e);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
-		} finally {
-			try {
-				if (stream != null) {
-					stream.close();
-				}
-			} catch (IOException e) {
-				throw new RuntimeException(e);
-			}
 		}
 	}
 
@@ -225,53 +203,60 @@ public class StreamUtils {
 				URI uri;
 				uri = url.toURI();
 				return new File(uri);
-			} else {
-				return new File(path);
 			}
+			return new File(path);
 		} catch (URISyntaxException e) {
 			throw new RuntimeException(e);
 		}
 	}
 
 	/**
-	 * File to byte[]
+	 * File to byte[].
+	 *
 	 * @param in
+	 *            the in
 	 * @return byte[]
 	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
-	public static byte[] inputStreamToByteArray(InputStream in)
-			throws IOException {
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		byte[] buffer = new byte[65536];
-		int read = 0;
-		while ( (read = in.read(buffer)) != -1 ) {
-			out.write(buffer, 0, read);
+	public static byte[] inputStreamToByteArray(InputStream in) throws IOException {
+		try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
+			byte[] buffer = new byte[65536];
+			int read = 0;
+			while ((read = in.read(buffer)) != -1) {
+				out.write(buffer, 0, read);
+			}
+			byte[] bytes = out.toByteArray();
+			in.close();
+			return bytes;
 		}
-		byte[] bytes = out.toByteArray();
-		in.close();
-		out.close();
-		return bytes;
 	}
 
 	/**
-	 * �������� ��� ��� file ��� ������� ��� byte[].
+	 * �������� ��� ��� file ���
+	 * ������� ��� byte[].
+	 *
 	 * @param arr
-	 * @param file �� file ��� �� �����������.
+	 *            the arr
+	 * @param file
+	 *            �� file ��� ��
+	 *            �����������.
 	 * @throws IOException
-	 * 
+	 *             Signals that an I/O exception has occurred.
 	 */
-	public static void saveToFile(byte[] arr, File file) throws IOException{
-		FileOutputStream fos = new FileOutputStream(file);
-		fos.write(arr);
-		fos.flush();
-		fos.close();
+	public static void saveToFile(byte[] arr, File file) throws IOException {
+		try (FileOutputStream fos = new FileOutputStream(file)) {
+			fos.write(arr);
+			fos.flush();
+		}
 	}
 
-
 	/**
-	 * @param path
+	 * Gets the resource stream 0.
+	 *
+	 * @param path the path
 	 * @return the inputstream.
-	 * @throws IOException
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	static InputStream getResourceStream0(String path) throws IOException {
 		if (StringUtils.isNullOrBlank(path)) {
@@ -292,7 +277,7 @@ public class StreamUtils {
 	}
 
 	/**
-	 * Opens a resource file input stream. <br/>
+	 * Opens a resource file input stream. <br>
 	 * 
 	 * @param path
 	 *        path to the resource stream.
@@ -314,13 +299,12 @@ public class StreamUtils {
 	}
 
 	/**
-	 * Opens an input stream from a filesystem file. <br/>
-	 * 
+	 * Opens an input stream from a filesystem file. <br>
+	 *
 	 * @param path
-	 *        path to the resource stream.
-	 * 
+	 *        Path to the file.
 	 * @return Returns the stream.
-	 * @throws IOException
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public static InputStream getFileStream(String path)
 			throws IOException {
@@ -330,11 +314,10 @@ public class StreamUtils {
 
 	/**
 	 * Reads a text file from a path.
-	 * 
+	 *
 	 * @param path path.
-	 * 
 	 * @return Returns a string with the contents of the file.
-	 * @throws IOException
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	public static String readTextFile(String path)
 			throws IOException {
@@ -356,13 +339,12 @@ public class StreamUtils {
 	 * Reads a text file from a {@link BufferedReader}
 	 * and returns an array with the lines of the file.
 	 * The reader is close after use.
-	 * 
+	 *
 	 * @param reader BufferedReader.
 	 * @param excludeEmptyLines If true, empty lines will be excluded.
 	 * @param excludeSharps If true, anything that follows a '#' in a line is ignored
-	 * 
 	 * @return Returns an array with names of mappings files.
-	 * @throws IOException
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	static String[] consumeBufferedReader(BufferedReader reader, boolean excludeEmptyLines, boolean excludeSharps)
 			throws IOException {

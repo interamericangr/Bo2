@@ -7,17 +7,15 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Test LruCache
+ * Test LruCache.
  */
 public class TestLruCache {
 	
-	/**
-	 * test subject
-	 */
+	/** test subject. */
 	Map<String, Integer> subject = new LruCache<String, Integer>(3);
 	
 	/**
-	 * test
+	 * test.
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -41,7 +39,7 @@ public class TestLruCache {
 	
 
 	/**
-	 * test concurrent version
+	 * test concurrent version.
 	 */
 	@Test
 	public void test_withConcurrentHashMap() {

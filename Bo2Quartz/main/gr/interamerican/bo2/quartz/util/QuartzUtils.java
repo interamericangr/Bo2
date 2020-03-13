@@ -5,19 +5,16 @@ import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.impl.open.job.JobDescription;
 import gr.interamerican.bo2.quartz.QuartzSchedulerRegistry;
 import gr.interamerican.bo2.quartz.QuartzjobDescription;
-import gr.interamerican.bo2.utils.NumberUtils;
 import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.TokenUtils;
 import gr.interamerican.bo2.utils.beans.Pair;
 import gr.interamerican.bo2.utils.concurrent.ThreadUtils;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
 
 import org.quartz.JobKey;
@@ -29,21 +26,22 @@ import org.slf4j.LoggerFactory;
 
 
 /**
- * utilities for quartz
+ * utilities for quartz.
  */
 public class QuartzUtils {
 
-	/**
-	 * LOG
-	 */
+	/** LOG. */
 	public static final Logger LOGGER = LoggerFactory.getLogger(QuartzUtils.class);
 
 	/**
 	 * Delimiter for the name elements.
 	 */
 	private static final String NAME_DELIMITER = StringConstants.PIPE;
+	
 	/**
-	 * @param bean
+	 * Gets the job name.
+	 *
+	 * @param bean the bean
 	 * @return the unique name composed by the properties of quartz description bean
 	 */
 	private static String getJobName(JobDescription bean) {
@@ -61,7 +59,9 @@ public class QuartzUtils {
 	}
 
 	/**
-	 * @param bean
+	 * Generate random quartz job name.
+	 *
+	 * @param bean the bean
 	 * @return a random name that also contains information from the {@link JobDescription}
 	 */
 	public static String generateRandomQuartzJobName(JobDescription bean) {
@@ -69,8 +69,11 @@ public class QuartzUtils {
 		name += NAME_DELIMITER + Math.random();
 		return name;
 	}
+	
 	/**
-	 * @param bean
+	 * Gets the job group name.
+	 *
+	 * @param bean the bean
 	 * @return the name of the group that the given job should be.
 	 */
 	public static String getJobGroupName(JobDescription bean) {
@@ -78,7 +81,9 @@ public class QuartzUtils {
 	}
 
 	/**
-	 * @param c
+	 * Gets the job group name.
+	 *
+	 * @param c the c
 	 * @return the name of the group that the given job should be.
 	 */
 	public static String getJobGroupName(Class<? extends Operation> c) {
@@ -86,10 +91,11 @@ public class QuartzUtils {
 	}
 
 	/**
-	 * @param groupName
-	 *            name of the group to search, If null searches all groups.
+	 * Gets the scheduled job keys.
+	 *
+	 * @param groupName            name of the group to search, If null searches all groups.
 	 * @return the set of jobKeys
-	 * @throws DataException
+	 * @throws DataException the data exception
 	 */
 	public static Set<JobKey> getScheduledJobKeys(String groupName) throws DataException {
 		Scheduler scheduler = QuartzSchedulerRegistry.getScheduler();
@@ -114,10 +120,11 @@ public class QuartzUtils {
 	}
 
 	/**
-	 * @param groupName
-	 *            name of the group to search, If null searches all groups.
+	 * Gets the scheduled job names.
+	 *
+	 * @param groupName            name of the group to search, If null searches all groups.
 	 * @return the set of Pairs each containing a group name as left and a job name as right.
-	 * @throws DataException
+	 * @throws DataException the data exception
 	 */
 	public static Set<Pair<String, String>> getScheduledJobNames(String groupName) throws DataException {
 		Set<Pair<String, String>> names = new HashSet<Pair<String, String>>();
@@ -127,39 +134,39 @@ public class QuartzUtils {
 		}
 		return names;
 	}
+	
 	/**
-	 * @param groupName
-	 *            name of the group to search, If null searches all groups.
+	 * Gets the number of scheduled jobs.
+	 *
+	 * @param groupName            name of the group to search, If null searches all groups.
 	 * @return the number of scheduled jobs. Uses the above.
-	 * @throws DataException
+	 * @throws DataException the data exception
 	 */
 	public static int getNumberOfScheduledJobs(String groupName) throws DataException {
 		return getScheduledJobKeys(groupName).size();
 	}
 
 	/**
+	 * Gets the maximum number of threads.
+	 *
 	 * @return maximum number of threads name of the group to search, If null searches all groups.
-	 * @throws DataException
+	 * @throws DataException the data exception
 	 */
 	public static int getMaximumNumberOfThreads() throws DataException {
-		Properties prop = new Properties();
 		try {
-			prop.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("quartz.properties")); //$NON-NLS-1$
-		} catch (IOException e) {
+			return QuartzSchedulerRegistry.getScheduler().getMetaData().getThreadPoolSize();
+		} catch (SchedulerException e) {
 			throw new DataException(e);
-		} catch (NullPointerException e) {
-			return -1;
 		}
-		String prio = prop.getProperty("org.quartz.threadPool.threadCount"); //$NON-NLS-1$
-		return NumberUtils.string2Int(prio);
 	}
 
 	/**
-	 * @param groupName
-	 *            name of the group to search, If null searches all groups.
-	 * @param jobName
-	 * @return true if the given job name exists in the scheduler.
-	 * @throws DataException
+	 * Checks if is job scheduled.
+	 *
+	 * @param groupName            name of the group to search, If null searches all groups.
+	 * @param jobName the job name
+	 * @return true if the given job name exists in the scheduler. This means that the job is scheduled AND has not yet finished.
+	 * @throws DataException the data exception
 	 */
 	public static boolean isJobScheduled(String groupName, String jobName) throws DataException {
 		Set<JobKey> jobKeys = getScheduledJobKeys(groupName);
@@ -174,10 +181,9 @@ public class QuartzUtils {
 	/**
 	 * pauses the main thread until the given job has been completed.
 	 *
-	 * @param groupName
-	 *            name of the group that the job is registered. if null searches all groups.
-	 * @param jobName
-	 * @throws DataException
+	 * @param groupName            name of the group that the job is registered. if null searches all groups.
+	 * @param jobName the job name
+	 * @throws DataException the data exception
 	 */
 	public static void waitJobToComplete(String groupName, String jobName) throws DataException {
 		while (isJobScheduled(groupName, jobName)) {
@@ -188,9 +194,8 @@ public class QuartzUtils {
 	/**
 	 * pauses the main thread until the given job has no job scheduled.
 	 *
-	 * @param groupName
-	 *            name of the group. if null waits all jobs to finish.
-	 * @throws DataException
+	 * @param groupName            name of the group. if null waits all jobs to finish.
+	 * @throws DataException the data exception
 	 */
 	public static void waitGroupToComplete(String groupName) throws DataException {
 		while (getNumberOfScheduledJobs(groupName) > 0) {
@@ -201,18 +206,18 @@ public class QuartzUtils {
 	/**
 	 * pauses the main thread until the given job has been completed.
 	 *
-	 * @param bean
-	 *            the job to wait
-	 *
-	 * @throws DataException
+	 * @param bean            the job to wait
+	 * @throws DataException the data exception
 	 */
 	public static void waitJobToComplete(JobDescription bean) throws DataException {
 		waitJobToComplete(getJobGroupName(bean), bean.getJobName());
 	}
 
 	/**
-	 * @param bean
-	 * @param param
+	 * Gets the param from job description bean.
+	 *
+	 * @param bean the bean
+	 * @param param the param
 	 * @return the param from the bean.
 	 */
 	public static Object getParamFromJobDescriptionBean(JobDescription bean, String param) {
@@ -222,8 +227,10 @@ public class QuartzUtils {
 	}
 
 	/**
-	 * @param bean
-	 * @param param
+	 * Gets the string param from quartz description bean.
+	 *
+	 * @param bean the bean
+	 * @param param the param
 	 * @return the param from the bean.
 	 */
 	public static String getStringParamFromQuartzDescriptionBean(QuartzjobDescription bean,
@@ -243,7 +250,9 @@ public class QuartzUtils {
 	}
 
 	/**
-	 * @param bean
+	 * Gets the digest from job description.
+	 *
+	 * @param bean the bean
 	 * @return the digested version of the {@link JobDescription}.
 	 */
 	public static String getDigestFromJobDescription(JobDescription bean) {

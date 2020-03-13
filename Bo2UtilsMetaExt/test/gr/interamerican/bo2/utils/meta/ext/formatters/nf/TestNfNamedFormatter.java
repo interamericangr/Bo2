@@ -19,13 +19,13 @@ import gr.interamerican.bo2.utils.meta.ext.formatters.NamedFormatter;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestNfNamedFormatter.
  */
 public class TestNfNamedFormatter {
 
 	
 	/**
-	 * test Constructor
+	 * test Constructor.
 	 */
 	@Test
 	public void testConstructor(){

@@ -24,9 +24,7 @@ import org.junit.Test;
 public class TestAbstractParser {
 		
 	
-	/**
-	 * IntegerParser
-	 */
+	/** IntegerParser. */
 	AbstractParser<String> parser = new AbstractParser<String>() {
 		/**
 		 * serialVersionUID
@@ -40,8 +38,9 @@ public class TestAbstractParser {
 	
 		
 	/**
-	 * Test parse a value that is null
-	 * @throws ParseException
+	 * Test parse a value that is null.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@Test
 	public void testParse_Null() throws ParseException{
@@ -49,8 +48,9 @@ public class TestAbstractParser {
 	}
 	
 	/**
-	 * Test parse a value that is null
-	 * @throws ParseException
+	 * Test parse a value that is null.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@Test
 	public void testParse_NullString() throws ParseException{

@@ -18,8 +18,18 @@ package gr.interamerican.bo2.test.def.posamples;
 @SuppressWarnings("all")
 public interface InvoiceKP {
 	
+	/**
+	 * Gets the invoice no.
+	 *
+	 * @return the invoice no
+	 */
 	public String getInvoiceNo();
 	
+	/**
+	 * Sets the invoice no.
+	 *
+	 * @param invoiceNo the new invoice no
+	 */
 	public void setInvoiceNo(String invoiceNo);
 
 }

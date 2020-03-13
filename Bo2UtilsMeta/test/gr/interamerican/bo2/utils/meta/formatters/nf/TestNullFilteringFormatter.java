@@ -29,13 +29,11 @@ public class TestNullFilteringFormatter {
 	 */
 	Formatter<Object> delegate = new Replace<Object>("f"); //$NON-NLS-1$
 	
-	/**
-	 * writer to test
-	 */
+	/** writer to test. */
 	NullFilteringFormatter<Object> formatter = new NullFilteringFormatter<Object>(delegate);
 	
 	/**
-	 * Tests format(t) an integer
+	 * Tests format(t) an integer.
 	 */
 	@Test
 	public void testMainFormat(){

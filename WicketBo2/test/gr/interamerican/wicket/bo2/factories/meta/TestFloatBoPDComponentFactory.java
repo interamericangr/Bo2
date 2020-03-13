@@ -23,24 +23,20 @@ import org.apache.wicket.model.PropertyModel;
 import org.junit.Test;
 
 /**
- * 
+ * A factory for creating TestFloatBoPDComponent objects.
  */
 public class TestFloatBoPDComponentFactory extends BaseClassForTestingComponentFactory{
 	
-	/**
-	 * 
-	 */
+	/** The float bo PD component factory. */
 	private FloatBoPDComponentFactory floatBoPDComponentFactory =
 		new FloatBoPDComponentFactory();
 	
-	/**
-	 * 
-	 */
+	/** The float bo property descriptor. */
 	private FloatBoPropertyDescriptor floatBoPropertyDescriptor = 
 		bean1descriptor.floatDescriptor();
 
 	/**
-	 * 
+	 * Test draw main first.
 	 */
 	@Test
 	public void testDrawMain_First(){
@@ -50,7 +46,7 @@ public class TestFloatBoPDComponentFactory extends BaseClassForTestingComponentF
 	}
 	
 	/**
-	 * 
+	 * Test draw main second.
 	 */
 	@Test
 	public void testDrawMain_Second(){

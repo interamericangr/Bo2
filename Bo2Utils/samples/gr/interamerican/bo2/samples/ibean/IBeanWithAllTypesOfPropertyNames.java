@@ -13,14 +13,16 @@
 package gr.interamerican.bo2.samples.ibean;
 
 /**
- * Bean interface with various types of property names. <br/>
+ * Bean interface with various types of property names. <br>
  * 
  * Types of property names:
+ * <ul>
  * <li> boolean old with accessors isOld() and setOld(b) </li>
  * <li> boolean fine with accessors getFine() and setFine(b) </li>
  * <li> Boolean enabled with accessors getEnabled() and setEnabled(b) </li> 
  * <li> Boolean enabled with accessors getEnabled() and setEnabled(b) </li>
  * <li> Object object with accessors getObject() and setObject(o) </li>
+ * </ul>
  */
 public interface IBeanWithAllTypesOfPropertyNames {
 	
@@ -33,8 +35,8 @@ public interface IBeanWithAllTypesOfPropertyNames {
 	
 	/**
 	 * Sets the object.
-	 * 
-	 * @param object
+	 *
+	 * @param object the new object
 	 */
 	void setObject(Object object);
 	
@@ -47,8 +49,8 @@ public interface IBeanWithAllTypesOfPropertyNames {
 	
 	/**
 	 * Sets the old.
-	 * 
-	 * @param old
+	 *
+	 * @param old the new old
 	 */
 	void setOld(boolean old);
 	
@@ -61,8 +63,8 @@ public interface IBeanWithAllTypesOfPropertyNames {
 	
 	/**
 	 * Sets the enabled.
-	 * 
-	 * @param enabled
+	 *
+	 * @param enabled the new enabled
 	 */
 	void setEnabled(Boolean enabled);
 	
@@ -75,8 +77,8 @@ public interface IBeanWithAllTypesOfPropertyNames {
 	
 	/**
 	 * Sets the fine.
-	 * 
-	 * @param fine
+	 *
+	 * @param fine the new fine
 	 */
 	void setFine(boolean fine);
 	

@@ -51,9 +51,6 @@ extends AbstractOperation {
 		new UserPwImpl();
 	
 	
-	/* (non-Javadoc)
-	 * @see gr.interamerican.bo2.impl.open.workers.AbstractOperation#execute()
-	 */
 	@Override
 	public void execute() throws DataException {
 	

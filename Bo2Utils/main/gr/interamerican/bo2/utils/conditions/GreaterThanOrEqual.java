@@ -30,6 +30,7 @@ extends ComparisonCondition<T>
 implements Condition<T> {
 	
 	
+	@Override
 	public boolean check(T t) {		
 		return (comparator.compare(t, comparedValue) >= 0); 		
 	}

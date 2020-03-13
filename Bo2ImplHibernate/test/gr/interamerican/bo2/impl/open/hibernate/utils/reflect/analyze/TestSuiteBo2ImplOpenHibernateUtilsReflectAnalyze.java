@@ -4,7 +4,7 @@
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/copyleft/lesser.html
- * 
+ *
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
@@ -23,12 +23,12 @@ import org.junit.runners.Suite.SuiteClasses;
  * Test suite for package <code>gr.interamerican.bo2.impl.open.hibernate</code>.
  *
  */
-@SuppressWarnings("deprecation")
 @RunWith(Suite.class)
 @SuiteClasses(
 		{
-			TestModificationRecordFieldsAnalyzer.class,
-			TestHibernateAwarePoAnalyzer.class
+			TestHibernateAwarePoAnalyzer.class,
+			TestHibernateAwarePoAnalyzerResolver.class,
+			TestHibernatePoAnalyzer.class
 		}
 		)
 public class TestSuiteBo2ImplOpenHibernateUtilsReflectAnalyze {

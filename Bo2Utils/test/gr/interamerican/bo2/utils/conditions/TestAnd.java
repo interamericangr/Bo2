@@ -23,9 +23,8 @@ import org.junit.Test;
 public class TestAnd {
 	
 	/**
-	 * Tests check()
+	 * Tests check().
 	 */
-	@SuppressWarnings("unchecked")
 	@Test
 	public void testCheck() {
 		And<Object> trueAnd = new And<Object>(new True<Object>(), new True<Object>());
@@ -35,5 +34,4 @@ public class TestAnd {
 		And<Object> trueAnd2 = new And<Object>(new ArrayList<Condition<Object>>());
 		Assert.assertTrue(trueAnd2.check(null));
 	}
-
 }

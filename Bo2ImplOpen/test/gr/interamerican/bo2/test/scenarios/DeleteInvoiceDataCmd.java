@@ -19,48 +19,33 @@ import gr.interamerican.bo2.impl.open.jdbc.Sql;
 import java.sql.SQLException;
 
 /**
- * 
+ * The Class DeleteInvoiceDataCmd.
  */
 @SuppressWarnings("nls")
 public class DeleteInvoiceDataCmd extends JdbcCommand {
-	/**
-	 * sql
-	 */
+	
+	/** sql. */
 	@Sql private String sqlSubRules = "delete from TEST.INVOICESUBRULE";
 	
-	/**
-	 * sql
-	 */	
+	/** sql. */	
 	@Sql private String sqlSubLines = "delete from TEST.INVOICESUBLINE";
 	
-	/**
-	 * sql
-	 */
+	/** sql. */
 	@Sql private String sqlRules = "delete from TEST.INVOICERULE";
 	
-	/**
-	 * sql
-	 */
+	/** sql. */
 	@Sql private String sqlLines = "delete from TEST.INVOICELINE";
 	
-	/**
-	 * sql
-	 */
+	/** sql. */
 	@Sql private String sqlCustomerAddress = "delete from TEST.CUSTOMERADDRESS";
 	
-	/**
-	 * sql
-	 */
+	/** sql. */
 	@Sql private String sqlInvoiceCustomers = "delete from TEST.INVOICECUSTOMER";
 	
-	/**
-	 * sql
-	 */
+	/** sql. */
 	@Sql private String sqlCustomers = "delete from TEST.CUSTOMER";
 		
-	/**
-	 * sql
-	 */
+	/** sql. */
 	@Sql private String sqlInvoices = "delete from TEST.INVOICE";
 	
 	@Override

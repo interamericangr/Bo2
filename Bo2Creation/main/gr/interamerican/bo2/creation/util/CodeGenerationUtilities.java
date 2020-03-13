@@ -30,7 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 
+ * The Class CodeGenerationUtilities.
  */
 @SuppressWarnings("nls")
 public class CodeGenerationUtilities {
@@ -85,8 +85,8 @@ public class CodeGenerationUtilities {
 	
 	/**
 	 * Clears java comments from java code.
-	 * @param code
-	 * 
+	 *
+	 * @param code the code
 	 * @return The code cleared from eny comments.
 	 */
 	public static String clearJavaComments(String code) {
@@ -104,8 +104,8 @@ public class CodeGenerationUtilities {
 	
 	
 	/**
-	 * Generates a string of method parameters to be put in a method declaration
-	 * 
+	 * Generates a string of method parameters to be put in a method declaration.
+	 *
 	 * @param parameterTypes the types of the parameters (ordered)
 	 * @return the generated arguments string
 	 */
@@ -125,8 +125,8 @@ public class CodeGenerationUtilities {
 	}
 
 	/**
-	 * Generates a string of method arguments to be put in a method invocation
-	 * 
+	 * Generates a string of method arguments to be put in a method invocation.
+	 *
 	 * @param population the number of parameters
 	 * @return the generated arguments string
 	 */
@@ -143,9 +143,8 @@ public class CodeGenerationUtilities {
 	
 	/**
 	 * Creates a new ClassCreationException.
-	 * 
-	 * @param type
-	 * 
+	 *
+	 * @param type the type
 	 * @return Returns a new ClassCreationException.
 	 */
 	public static ClassCreationException typeNotSupported(Class<?> type) {

@@ -43,12 +43,11 @@ public class SelfDrawnForm<T extends Serializable> extends Form<T> {
 	/**
 	 * Creates a new SelfDrawnForm object. 
 	 *
-	 * @param id
-	 * @param model
-	 * @param beanDescriptor
-	 * @param columns
-	 * @param dropDownFix
-	 * 
+	 * @param id the id
+	 * @param model the model
+	 * @param beanDescriptor the bean descriptor
+	 * @param columns the columns
+	 * @param dropDownFix the drop down fix
 	 * @see SelfDrawnPanel
 	 */
 	public SelfDrawnForm(String id, CompoundPropertyModel<T> model, BusinessObjectDescriptor<T> beanDescriptor, int columns, Map<String, Long> dropDownFix) {
@@ -62,9 +61,9 @@ public class SelfDrawnForm<T extends Serializable> extends Form<T> {
 	/**
 	 * Creates a new SelfDrawnForm object. 
 	 *
-	 * @param id
-	 * @param model 
-	 * @param beanDescriptor 
+	 * @param id the id
+	 * @param model the model
+	 * @param beanDescriptor the bean descriptor
 	 */
 	public SelfDrawnForm(String id, CompoundPropertyModel<T> model, BusinessObjectDescriptor<T> beanDescriptor) {		
 		this(id, model, beanDescriptor, 1, null);

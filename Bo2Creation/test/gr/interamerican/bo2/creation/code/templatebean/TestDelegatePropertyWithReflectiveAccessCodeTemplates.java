@@ -18,7 +18,7 @@ import java.util.Map;
 
 
 /**
- * Test for {@link DelegatePropertyWithReflectiveAccessCodeTemplates}
+ * Test for {@link DelegatePropertyWithReflectiveAccessCodeTemplates}.
  */
 public class TestDelegatePropertyWithReflectiveAccessCodeTemplates 
 extends BaseTestPropertyCodeTemplates {

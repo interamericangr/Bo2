@@ -32,31 +32,26 @@ import org.apache.wicket.util.resource.IResourceStream;
  * We add the components here and the markupConstant that is needed.
  */
 public class ComponentFactoryPage extends WebPage implements IMarkupResourceStreamProvider,IMarkupCacheKeyProvider{
-	/**
-	 * 
-	 */
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * A dummy Bean.
 	 */
 	@SuppressWarnings("unused")
 	private Bean1 bean1 = new Bean1();
-	/**
-	 * button for sumbission of a form
-	 */
+	
+	/** button for sumbission of a form. */
 	@SuppressWarnings("unused")
 	private Button button = new Button("submit"); //$NON-NLS-1$
-	/**
-	 * 
-	 */
+	
+	/** The markup constant. */
 	private String markupConstant;
-	/**
-	 * 
-	 */
+	
+	/** The type. */
 	private String type;
-	/**
-	 * 
-	 */
+	
+	/** The wicket id. */
 	private String wicketId;
 	
 	/**
@@ -115,11 +110,13 @@ public class ComponentFactoryPage extends WebPage implements IMarkupResourceStre
 		this.type = type;
 		this.add(form);	
 	}
-	
+
+	@Override
 	public String getCacheKey(MarkupContainer container, Class<?> containerClass) {	
 		return null;
 	}
 
+	@Override
 	public IResourceStream getMarkupResourceStream(MarkupContainer container, Class<?> containerClass) {
 		  StringBuilder sb = new StringBuilder();
 		  

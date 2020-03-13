@@ -12,6 +12,8 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.creation;
 
+import java.util.Properties;
+
 import gr.interamerican.bo2.arch.DetachStrategy;
 import gr.interamerican.bo2.arch.PersistenceWorker;
 import gr.interamerican.bo2.arch.PersistenceWorkerFactory;
@@ -23,10 +25,10 @@ import gr.interamerican.bo2.creation.creators.NewJavabeanClassCreator;
 import gr.interamerican.bo2.creation.exception.ClassCreationException;
 import gr.interamerican.bo2.impl.open.utils.Bo2;
 import gr.interamerican.bo2.utils.CollectionUtils;
+import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.Utils;
+import gr.interamerican.bo2.utils.functions.SerializableSupplier;
 import gr.interamerican.bo2.utils.reflect.beans.VariableDefinition;
-
-import java.util.Properties;
 
 /**
  * Utility class that serves as a facade hiding the default object factory.
@@ -87,8 +89,6 @@ public class Factory {
 	
 	/**
 	 * Resets the current factory to its default value.
-	 * 
-	 * @param currentFactory New current factory.
 	 */
 	public static void resetCurrentFactory() {
 		Factory.currentFactory = defaultFactory;
@@ -97,8 +97,8 @@ public class Factory {
 	/**
 	 * Creates an implementation instance of the specified declaration type
 	 * name.
-	 * 
-	 * @param declarationTypeName
+	 *
+	 * @param declarationTypeName the declaration type name
 	 * @return an instance of the implementation type
 	 */
 	public static Object create(String declarationTypeName) {
@@ -107,7 +107,7 @@ public class Factory {
 
 	/**
 	 * Creates a {@link PersistenceWorker} for a type of 
-	 * {@link PersistentObject}. <br/>
+	 * {@link PersistentObject}. <br>
 	 * 
 	 * @param <M> Type of PersistentObject for which the the
 	 *            PersistenceWorker will be created.
@@ -122,10 +122,9 @@ public class Factory {
 	}
 
 	/**
-	 * Returns the declaration type name of the specified implementation type
-	 * 
-	 * @param type
-	 *            Type of the implementation type
+	 * Returns the declaration type name of the specified implementation type.
+	 *
+	 * @param type            Type of the implementation type
 	 * @return the name of the corresponding declaration type
 	 */
 	public static String declarationTypeName(Class<?> type) {
@@ -134,46 +133,59 @@ public class Factory {
 	
 	/**
 	 * returns the implementation type of the specified declaration type name.
-	 * 
-	 * @param declarationTypeName
-	 * @return returns the implementation type of the specified declaration 
+	 *
+	 * @param declarationTypeName the declaration type name
+	 * @return returns the implementation type of the specified declaration
 	 *         type name.
 	 */
 	public static Class<?> getType(String declarationTypeName){
 		return currentFactory.getImplementationType(declarationTypeName);
 	}
-	
+
 	/**
 	 * Creates an object of the specified type.
-	 * 
+	 *
+	 * @param <M>
+	 *            type of object.
 	 * @param type
 	 *            Type of object to be created.
-	 * @param <M> type of object.            
-	 * 
 	 * @return Returns an object of the specified type.
 	 */
-	public static <M> M create (Class<M> type) {
+	public static <M> M create(Class<M> type) {
 		return currentFactory.create(type);
 	}
-	
+
+	/**
+	 * Returns a {@link SerializableSupplier} of M that is based on
+	 * {@link Factory#create(Class)}.
+	 *
+	 * @param <M>
+	 *            type of object.
+	 * @param type
+	 *            Type of object to be created.
+	 * @return Supplier of new instances of the object
+	 */
+	public static <M> SerializableSupplier<M> supplier(Class<M> type) {
+		return () -> create(type);
+	}
+
 	/**
 	 * Registers a fixture that the underlying {@link ObjectFactory} will use
 	 * when the application requires the creation of an object instance
 	 * for the supplied <code>declarationType</code>
-	 * <br/>
+	 * <br>
 	 * The normal process for object creation will not be used if a
 	 * fixture has been set. 
-	 * <br/>
+	 * <br>
 	 * This facility is meant to allow developers to specify mock instances
 	 * to be created for a declarationType in certain unit testing scenarions
 	 * where the actual implementation is not available in the classpath.
-	 * <br/>
+	 * <br>
 	 * The fixtures concern only invocations to {@link #create(Class)}.
-	 * 
-	 * @param declarationType
-	 *         Declaration class
-	 * @param fixture
-	 *         Instance to be returned upon a request for a declarationType
+	 *
+	 * @param <M> the generic type
+	 * @param declarationType         Declaration class
+	 * @param fixture         Instance to be returned upon a request for a declarationType
 	 *         object creation
 	 */
 	public static <M> void registerFixture(Class<M> declarationType, M fixture) {
@@ -184,15 +196,15 @@ public class Factory {
 	 * Registers a fixture that the underlying {@link ObjectFactory} will use
 	 * when the application requires the creation of an object instance
 	 * for the supplied <code>declarationType</code>
-	 * <br/>
+	 * <br>
 	 * The normal process for object creation will not be used if a
 	 * fixture has been set. 
-	 * <br/>
+	 * <br>
 	 * This facility is meant to allow developers to specify ObjectFactory 
 	 * instances that will be used for the instantiation of a declarationType 
 	 * in certain unit testing scenarios where the actual implementation 
 	 * is not available in the classpath.
-	 * <br/>
+	 * <br>
 	 * The fixtures only affect calls to the {@link #create(Class)} method
 	 * of this {@link ObjectFactory}. 
 	 *
@@ -208,11 +220,55 @@ public class Factory {
 	}
 	
 	/**
+	 * Registers a fixture that the underlying {@link PersistenceWorkerFactory} will use
+	 * when the application requires the creation of a {@link PersistenceWorker}
+	 * for the supplied <code>declarationType</code>
+	 * <br>
+	 * The normal process for {@link PersistenceWorker} creation will not be used if a
+	 * fixture has been set. 
+	 * <br>
+	 * This facility is meant to allow developers to specify mock instances
+	 * to be created for a declarationType in certain unit testing scenarions
+	 * where the actual implementation is not available in the classpath.
+	 * <br>
+	 * The fixtures concern only invocations to {@link #createPw(Class)}.
+	 * 
+	 * @param declarationType
+	 *         Declaration class
+	 * @param fixture
+	 *         Instance to be returned upon a request for a declarationType
+	 *        {@link PersistenceWorker} creation
+	 */
+	public static <M extends PersistentObject<?>, T extends PersistenceWorker<M>>  void registerPwFixture(Class<M> declarationType, T fixture){
+		defaultPwFactory.registerPwFixture(declarationType, fixture);
+	}
+	
+	/**
 	 * Resets any fixtures configured programmatically to the underlying
-	 * {@link ObjectFactory} using {@link #registerFixture(Class, Object)}
+	 * {@link ObjectFactory} using {@link #registerFixture(Class, Object)}.
 	 */
 	public static void resetFixtures() {
 		currentFactory.resetFixtures();
+	}
+	
+	/**
+	 * Resets any fixtures configured programmatically to the underlying
+	 * {@link PersistenceWorkerFactory} using {@link #registerPwFixture(Class, PersistenceWorker)}
+	 */
+	public static void resetPwFixtures() {
+		defaultPwFactory.resetPwFixtures();
+	}
+	
+	/**
+	 * Resets any fixtures configured programmatically both to the
+	 * {@link ObjectFactory} and to the{@link PersistenceWorkerFactory}.
+	 * 
+	 * @see #resetFixtures()
+	 * @see #resetPwFixtures() 
+	 */
+	public static void resetAllFixtures(){
+		resetFixtures();
+		resetPwFixtures();
 	}
 	
 	/**
@@ -220,12 +276,10 @@ public class Factory {
 	 * 
 	 * If value is null, then the method will create a new object,
 	 * otherwise it will return the same value.
-	 * 
-	 * @param type
-	 *            Type of object to be created.
-	 * @param <M> type of object.            
+	 *
+	 * @param <M> type of object.
 	 * @param value Value
-	 * 
+	 * @param type            Type of object to be created.
 	 * @return Returns an object of the specified type that is never null.
 	 */
 	public static <M> M nullSafe (M value, Class<M> type) {
@@ -249,7 +303,7 @@ public class Factory {
 	 */
 	public static synchronized Class<?> compileJavaBean(String className, VariableDefinition<?>[] properties) {		
 		try {
-			return Class.forName(className);
+			return ReflectionUtils.forName(className);
 		} catch (ClassNotFoundException e1) {			
 			return compileNewJavaBean(className, properties);
 		}
@@ -278,7 +332,7 @@ public class Factory {
 	}
 	
 	/**
-	 * Gets the default detach strategy of objects of the specified class. <br/>.
+	 * Gets the default detach strategy of objects of the specified class. <br>.
 	 *   
 	 * @param clazz
 	 *        Class 
@@ -296,7 +350,4 @@ public class Factory {
 		Class<? extends PersistentObject<?>> poClass = Utils.cast(clazz);
 		return defaultPwFactory.getDetachStrategy(poClass);		
 	}
-	
-	
-
 }

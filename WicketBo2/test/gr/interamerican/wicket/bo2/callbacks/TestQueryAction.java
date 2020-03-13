@@ -12,64 +12,36 @@
  ******************************************************************************/
 package gr.interamerican.wicket.bo2.callbacks;
 
-import gr.interamerican.bo2.samples.bean.BeanWith1Field;
-import gr.interamerican.wicket.bo2.protocol.http.Bo2WicketRequestCycle;
-import gr.interamerican.wicket.bo2.test.MockApplicationForWicketBo2;
-import gr.interamerican.wicket.markup.html.panel.searchFlow.SearchFlowPanelDef;
-import gr.interamerican.wicket.markup.html.panel.searchFlow.SearchFlowPanelDefImpl;
-import gr.interamerican.wicket.markup.html.panel.service.ServicePanel;
-import gr.interamerican.wicket.samples.queries.BeanWithOneFieldQuery;
-
 import java.util.List;
 
-import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.model.Model;
 import org.apache.wicket.request.cycle.RequestCycle;
-import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Assert;
 import org.junit.Test;
-import org.mockito.Mockito;
 
+import gr.interamerican.bo2.arch.exceptions.DataException;
+import gr.interamerican.bo2.samples.bean.BeanWith1Field;
+import gr.interamerican.wicket.bo2.protocol.http.Bo2WicketRequestCycle;
+import gr.interamerican.wicket.bo2.test.Bo2WicketTest;
+import gr.interamerican.wicket.samples.queries.BeanWithOneFieldQuery;
 
 /**
  * Unit test for {@link QueryAction}.
  */
-public class TestQueryAction {
-	
-	/**
-	 * the WicketTester
-	 */
-	public WicketTester wicketTester =
-		new WicketTester(new MockApplicationForWicketBo2());
-	
+public class TestQueryAction extends Bo2WicketTest {
+
 	/**
 	 * Unit test for the action.
+	 * 
+	 * @throws DataException
 	 */
 	@Test
-	public void testAction() {
+	public void testAction() throws DataException {
 		RequestCycle rc = RequestCycle.get();
 		Bo2WicketRequestCycle.beginRequest(rc);
-		
-		SearchFlowPanelDef<BeanWith1Field, BeanWith1Field> definition = 
-			new SearchFlowPanelDefImpl<BeanWith1Field, BeanWith1Field>();
-		
-		ServicePanel panel = Mockito.mock(ServicePanel.class);
-		definition.setServicePanel(panel);
 		BeanWith1Field criterion = new BeanWith1Field(2L);
-		Model<BeanWith1Field> model = new Model<BeanWith1Field>(criterion);
-		definition.setCriteriaModel(model);
-		
-		
-		QueryAction<BeanWith1Field, BeanWith1Field, BeanWithOneFieldQuery> action =
-			new QueryAction<BeanWith1Field, BeanWith1Field, BeanWithOneFieldQuery>
-			(definition, BeanWithOneFieldQuery.class);
-		
-		AjaxRequestTarget target = Mockito.mock(AjaxRequestTarget.class);		
-		action.callBack(target);
-		List<BeanWith1Field> results = definition.getResults();
+		QueryAction<BeanWith1Field, BeanWith1Field, BeanWithOneFieldQuery> action = new QueryAction<BeanWith1Field, BeanWith1Field, BeanWithOneFieldQuery>(BeanWithOneFieldQuery.class);
+		List<BeanWith1Field> results = action.search(criterion);
 		Assert.assertEquals(1, results.size());
-		
-		Bo2WicketRequestCycle.endRequest(rc);		
+		Bo2WicketRequestCycle.endRequest(rc);
 	}
-
 }

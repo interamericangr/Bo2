@@ -20,20 +20,18 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * 
+ * A factory for creating TestBigDecimalBoPD objects.
  */
 public class TestBigDecimalBoPDFactory {
 
 	
 	
-	/**
-	 * SamplePropertyDefinition
-	 */
+	/** SamplePropertyDefinition. */
 	SamplePropertyDefinition pd =  new SamplePropertyDefinition();
 	
 	
 	/**
-	 * Test create
+	 * Test create.
 	 */
 	@SuppressWarnings({ "nls" })
 	@Test
@@ -50,8 +48,7 @@ public class TestBigDecimalBoPDFactory {
 	}
 	
 	/**
-	 * test Create when fails
-	 * 
+	 * test Create when fails.
 	 */
 	@SuppressWarnings({ "nls" })
 	@Test(expected = RuntimeException.class)
@@ -63,7 +60,7 @@ public class TestBigDecimalBoPDFactory {
 	}
 	
 	/**
-	 * Test for the generated max length
+	 * Test for the generated max length.
 	 */
 	@Test
 	public void testMaxLength(){

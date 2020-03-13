@@ -33,7 +33,7 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 /**
- * Test {@link JotmConnectionStrategy}
+ * Test {@link JotmConnectionStrategy}.
  */
 public class TestJotmConnectionStrategy {
 
@@ -50,6 +50,7 @@ public class TestJotmConnectionStrategy {
 		Provider prov = mock(Provider.class);
 		jotm = new JotmTransactionManager(prov);
 		when(prov.getTransactionManager()).thenAnswer(new Answer<TransactionManager>() {
+			@Override
 			public TransactionManager answer(InvocationOnMock invocation) throws Throwable {
 				return jotm;
 			}
@@ -67,8 +68,9 @@ public class TestJotmConnectionStrategy {
 	}
 
 	/**
-	 * Test doConnect
-	 * @throws InitializationException
+	 * Test doConnect.
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test
 	public void testDoConnect() throws InitializationException {
@@ -80,7 +82,7 @@ public class TestJotmConnectionStrategy {
 	}
 
 	/**
-	 * Tests validateSetup
+	 * Tests validateSetup.
 	 */
 	@Test
 	public void testValidateSetup_valid() {
@@ -98,5 +100,4 @@ public class TestJotmConnectionStrategy {
 		JotmConnectionStrategy subject = new JotmConnectionStrategy();
 		ReflectionUtils.invokeMethodByUniqueName(subject, "validateSetup", new Object[]{}); //$NON-NLS-1$
 	}
-
 }

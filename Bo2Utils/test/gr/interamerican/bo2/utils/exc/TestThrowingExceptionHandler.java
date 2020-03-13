@@ -50,7 +50,8 @@ public class TestThrowingExceptionHandler {
 	
 	/**
 	 * Assert that the handler rethrows the same exception.
-	 * @param t 
+	 *
+	 * @param t the t
 	 */
 	void assertTheSame(Throwable t) {
 		ThrowingExceptionHandler h = new ThrowingExceptionHandler();
@@ -64,8 +65,8 @@ public class TestThrowingExceptionHandler {
 	/**
 	 * Assert that the handler rethrows as the cause
 	 * of the thrown exception.
-	 * 
-	 * @param t 
+	 *
+	 * @param t the t
 	 */
 	void assertTheCause(Throwable t) {
 		ThrowingExceptionHandler h = new ThrowingExceptionHandler();

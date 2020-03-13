@@ -16,23 +16,21 @@ import static org.junit.Assert.assertEquals;
 import gr.interamerican.bo2.utils.meta.exceptions.ValidationException;
 
 import org.junit.Test;
+
 /**
- * StringMaxLengthValidatorTest
+ * StringMaxLengthValidatorTest.
  */
 public class TestStringMaxLengthValidator {
 
 	
-	/**
-	 * StringMaxLengthValidator me length iso me 5
-	 */
+	/** StringMaxLengthValidator me length iso me 5. */
 	StringMaxLengthValidator stringMaxLenghtVal = new StringMaxLengthValidator(5);
-	/**
-	 * StringMaxLengthValidator me length iso me 0
-	 */
+	
+	/** StringMaxLengthValidator me length iso me 0. */
 	StringMaxLengthValidator zeroLengthVal = new StringMaxLengthValidator();
 	
 	/**
-	 * Test getMaxLength
+	 * Test getMaxLength.
 	 */
 	@Test
 	public void testGetMaxLength(){
@@ -41,7 +39,7 @@ public class TestStringMaxLengthValidator {
 	}
 	
 	/**
-	 * Test setMaxLength
+	 * Test setMaxLength.
 	 */
 	@Test
 	public void testsetMaxLength(){
@@ -51,8 +49,9 @@ public class TestStringMaxLengthValidator {
 	
 	
 	/**
-	 * Test validate
-	 * @throws ValidationException 
+	 * Test validate.
+	 *
+	 * @throws ValidationException the validation exception
 	 */
 	@Test
 	public void testValidateMinLength() throws ValidationException{
@@ -61,8 +60,9 @@ public class TestStringMaxLengthValidator {
 	}
 	
 	/**
-	 * Test validate
-	 * @throws ValidationException 
+	 * Test validate.
+	 *
+	 * @throws ValidationException the validation exception
 	 */
 	@Test(expected=ValidationException.class)
 	public void testValidateMaxLength() throws ValidationException{

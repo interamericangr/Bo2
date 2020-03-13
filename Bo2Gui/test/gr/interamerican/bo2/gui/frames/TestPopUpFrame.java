@@ -17,12 +17,12 @@ import org.junit.Test;
 
 
 /**
- * test case for {@link PopUpFrame}
+ * test case for {@link PopUpFrame}.
  */
 public class TestPopUpFrame {
 
 	/**
-	 * test method for {@link PopUpFrame#PopUpFrame(String)}
+	 * test method for {@link PopUpFrame#PopUpFrame(String)}.
 	 */
 	@Test
 	public void testPopUpFrame() {

@@ -18,7 +18,8 @@ public class TestAbstractStreamBasedQuery {
 	
 	/**
 	 * Test for init().
-	 * @throws InitializationException 
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@SuppressWarnings({"unchecked", "rawtypes", "nls", })
 	@Test
@@ -40,7 +41,8 @@ public class TestAbstractStreamBasedQuery {
 	
 	/**
 	 * Test for init().
-	 * @throws InitializationException 
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@SuppressWarnings({"nls"})
 	@Test(expected=InitializationException.class)
@@ -83,6 +85,9 @@ public class TestAbstractStreamBasedQuery {
 	
 	
 	
+	/**
+	 * The Class ConcreteQuery.
+	 */
 	class ConcreteQuery extends AbstractStreamBasedQuery {
 
 		@Override

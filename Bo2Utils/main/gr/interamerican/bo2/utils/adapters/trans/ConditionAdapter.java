@@ -28,23 +28,24 @@ import gr.interamerican.bo2.utils.conditions.Condition;
  */
 public class ConditionAdapter<T> 
 implements Transformation<T, Boolean> {
+
 	/**
 	 * Adapted condition.
 	 */
 	Condition<T> condition;
 
 	/**
-	 * Creates a new ConditionAdapter object. 
+	 * Creates a new ConditionAdapter object.
 	 *
 	 * @param condition
+	 *            the condition
 	 */
 	public ConditionAdapter(Condition<T> condition) {
-		super();
 		this.condition = condition;
 	}
-	
-	public Boolean execute(T a) {
-		return condition.check(a);		
-	}          
 
+	@Override
+	public Boolean execute(T a) {
+		return condition.check(a);
+	}
 }

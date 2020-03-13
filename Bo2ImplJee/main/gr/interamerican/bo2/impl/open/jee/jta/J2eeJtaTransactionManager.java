@@ -29,9 +29,8 @@ extends JtaTransactionManager {
 
 	/**
 	 * Creates a new J2eeJtaTransactionManager object. 
-	 * 
-	 * @throws InitializationException 
 	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	public J2eeJtaTransactionManager() throws InitializationException {
 		super();		

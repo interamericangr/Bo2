@@ -39,9 +39,10 @@ public class TestAbstractQueryCrawlerOperation {
 	
 	/**
 	 * Unit test for execute.
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testExecute_withReal() 

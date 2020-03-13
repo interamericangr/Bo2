@@ -20,11 +20,11 @@ import java.io.Serializable;
 
 /**
  * {@link ServicePanelDef} is the base type for definition beans of wicket
- * components that provide user interface services. <br/>
+ * components that provide user interface services. <br>
  * 
  * Wicket service definitions are the means for information exchange between
  * service client and service provider. They also act as keys used in order 
- * to locate the appropriate wicket service implementation. <br/>
+ * to locate the appropriate wicket service implementation. <br>
  * 
  * ServicePanels execute actions provided by their clients. The providers may
  * also provide a {@link Flag} for each action that indicates whether the
@@ -71,24 +71,27 @@ public interface ServicePanelDef extends Serializable {
 	 * by this definition instance.
 	 * 
 	 * @return the ServicePanel.
+	 * @deprecated Should not exist - To be removed
 	 */
+	@Deprecated
 	public ServicePanel getServicePanel();
 	
 	/**
 	 * Sets the {@link ServicePanel} that was created with this definition instance. 
 	 * This is performed automatically in the {@link ServicePanel} constructor.
 	 * This method is not part of the public Bo2 API.
-	 * 
-	 * @param servicePanel 
+	 *
+	 * @param servicePanel the new service panel
+	 * @deprecated Should not exist - To be removed
 	 */
+	@Deprecated
 	public void setServicePanel(ServicePanel servicePanel);
 	
 	/**
 	 * Gets the disableUnauthorizedButtons.
-	 * 
-	 * @see #setDisableUnauthorizedButtons(Boolean)
-	 * 
+	 *
 	 * @return disableUnauthorizedButtons.
+	 * @see #setDisableUnauthorizedButtons(Boolean)
 	 */
 	public Boolean getDisableUnauthorizedButtons();
 	

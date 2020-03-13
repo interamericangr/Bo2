@@ -50,8 +50,8 @@ implements Codified<C>, Named {
 	/**
 	 * Creates a new CodifiedImpl object. 
 	 *
-	 * @param code
-	 * @param name
+	 * @param code the code
+	 * @param name the name
 	 */
 	public CodifiedNamedImpl(C code, String name) {
 		super();
@@ -64,6 +64,7 @@ implements Codified<C>, Named {
 	 *
 	 * @return Returns the code
 	 */
+	@Override
 	public C getCode() {
 		return code;
 	}
@@ -72,6 +73,7 @@ implements Codified<C>, Named {
 	 *
 	 * @param code the code to set
 	 */
+	@Override
 	public void setCode(C code) {
 		this.code = code;
 	}
@@ -80,6 +82,7 @@ implements Codified<C>, Named {
 	 *
 	 * @return Returns the name
 	 */
+	@Override
 	public String getName() {
 		return name;
 	}
@@ -88,13 +91,14 @@ implements Codified<C>, Named {
 	 *
 	 * @param name the name to set
 	 */
+	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	@Override
 	public int compareTo(Codified<C> o) {
 		if(o==null) { return 1; }
 		return Utils.nullSafeCompare(o.getCode(), this.getCode());
 	}
-	
 }

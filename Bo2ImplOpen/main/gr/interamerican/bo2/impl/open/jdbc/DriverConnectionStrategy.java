@@ -33,13 +33,11 @@ extends ConnectionStrategy {
     /**
      * Input properties Property name for database URL.
      */
-    static final String KEY_DBURL="DBURL"; //$NON-NLS-1$
-    /**
-     * Input properties Property name for database driver class
-     */
+    public static final String KEY_DBURL="DBURL"; //$NON-NLS-1$
+    
+    /** Input properties Property name for database driver class. */
     static final String KEY_DBDRIVER="DBDRIVER"; //$NON-NLS-1$    
 		
-	
 	/**
 	 * database URL.
 	 */
@@ -62,9 +60,8 @@ extends ConnectionStrategy {
 			Class.forName(dbDriver);			
 			if (StringUtils.isNullOrBlank(component.getDbUser())) {
 				return DriverManager.getConnection(dbUrl);	        	
-		    } else {
-		    	return DriverManager.getConnection(dbUrl,component.getDbUser(),component.getDbPass());	        	
 		    }
+		    	return DriverManager.getConnection(dbUrl,component.getDbUser(),component.getDbPass());	        	
 		} catch (ClassNotFoundException cnfe) {
 			throw new InitializationException(cnfe);
 		} catch (SQLException sqle) {
@@ -76,5 +73,4 @@ extends ConnectionStrategy {
 	protected Class<?>[] compatibleTransactionManagerImplementations() {
 		return new Class<?>[]{JdbcConnectionsTransactionManager.class};
 	}
-
 }

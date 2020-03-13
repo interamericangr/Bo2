@@ -32,26 +32,28 @@ import org.odftoolkit.simple.table.Table;
 import org.odftoolkit.simple.text.Paragraph;
 
 /**
- * 
+ * The Class OddCases.
  */
 public class OddCases {
 
-	/**
-	 * dpi
-	 */
+	/** dpi. */
 	static double DPI = 400.0;
-	/**
-	 * inche
-	 */
+
+	/** inche. */
 	static double INCH = 2.54;
 
 	/**
+	 * The main method.
+	 *
 	 * @param args
+	 *            the arguments
 	 * @throws Exception
+	 *             the exception
 	 */
 	public static void main(String[] args) throws Exception {
 		/*
-		 * attempt to calculate dynamically image size for 400dpi TODO: decide about the image dimensions method
+		 * attempt to calculate dynamically image size for 400dpi TODO: decide
+		 * about the image dimensions method
 		 */
 		BufferedImage awt = ImageIO.read(new File("/tmp/test.jpg")); //$NON-NLS-1$
 		int heightPx = awt.getHeight();
@@ -65,16 +67,17 @@ public class OddCases {
 		/*
 		 * Read from FS is just for testing, any InputStream will do.
 		 */
-		FileInputStream fis = new FileInputStream(new File("/tmp/test.jpg")); //$NON-NLS-1$
 		TextDocument odt = TextDocument.newTextDocument();
+		try (FileInputStream fis = new FileInputStream(new File("/tmp/test.jpg"))) { //$NON-NLS-1$
+			/*
+			 * Insert the image to the odt package
+			 */
+			OdfPackage pkg = odt.getPackage();
+			pkg.insert(fis, "Pictures/test.jpg", "image/jpeg"); //$NON-NLS-1$ //$NON-NLS-2$
+		}
 		/*
-		 * Insert the image to the odt package
-		 */
-		OdfPackage pkg = odt.getPackage();
-		pkg.insert(fis, "Pictures/test.jpg", "image/jpeg"); //$NON-NLS-1$ //$NON-NLS-2$
-		fis.close();
-		/*
-		 * Add a table with 2 cells, first one has text, the second will get the image.
+		 * Add a table with 2 cells, first one has text, the second will get the
+		 * image.
 		 */
 		Table table = odt.addTable(1, 2);
 		Cell cell = table.getCellByPosition(0, 0);
@@ -87,11 +90,11 @@ public class OddCases {
 		Paragraph p = Paragraph.newParagraph(cell2); // required
 		TextPElement firstParagraph = OdfElement.findFirstChildNode(TextPElement.class, cell2.getOdfElement());
 		DrawFrameElement frame = firstParagraph.newDrawFrameElement();
-		frame.setSvgHeightAttribute("0.672cm"); //hardcoded //$NON-NLS-1$
-		frame.setSvgWidthAttribute("3.444cm"); //hardcoded //$NON-NLS-1$
+		frame.setSvgHeightAttribute("0.672cm"); // hardcoded //$NON-NLS-1$
+		frame.setSvgWidthAttribute("3.444cm"); // hardcoded //$NON-NLS-1$
 		DrawImageElement imgElement = frame.newDrawImageElement();
 		imgElement.setXlinkHrefAttribute("Pictures/test.jpg"); //$NON-NLS-1$
-		imgElement.setXlinkTypeAttribute("simple"); //required //$NON-NLS-1$
+		imgElement.setXlinkTypeAttribute("simple"); // required //$NON-NLS-1$
 		odt.save("/tmp/test.odt"); //$NON-NLS-1$
 		OdfUtils.saveContentAsXml(odt);
 	}

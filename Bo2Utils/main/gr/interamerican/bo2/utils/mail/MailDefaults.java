@@ -36,17 +36,12 @@ public class MailDefaults {
 	 * header Charset.
 	 */
 	String messageSubjectCharset = ENCODING_GREEK;
-	
-	
-	
-	
+
 	/**
-	 * Creates a new MailDefaults object. 
-	 *
+	 * Hidden Constructor.
 	 */
-	MailDefaults() {
-		super();		
-	}
+	private MailDefaults() {}
+	
 	/**
 	 * Gets the messageBodyEncoding.
 	 *

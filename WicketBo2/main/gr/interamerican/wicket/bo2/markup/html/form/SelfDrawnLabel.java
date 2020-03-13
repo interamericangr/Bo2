@@ -30,8 +30,8 @@ public class SelfDrawnLabel extends Label{
 	/**
 	 * Creates a new SelfDrawnLabel object. 
 	 *
-	 * @param id
-	 * @param label
+	 * @param id the id
+	 * @param label the label
 	 */
 	public SelfDrawnLabel(String id, String label) {
 		super(id, label);

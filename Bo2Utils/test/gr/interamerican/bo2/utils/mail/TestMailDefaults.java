@@ -23,7 +23,7 @@ public class TestMailDefaults {
 	/**
 	 * Object to test.
 	 */
-	MailDefaults defaults = new MailDefaults();
+	MailDefaults defaults = MailDefaults.INSTANCE;
 	
 	/**
 	 * Unit test for getMessageType.
@@ -84,7 +84,4 @@ public class TestMailDefaults {
 		defaults.setMessageSubjectCharset(messageSubjectCharset);
 		Assert.assertEquals(messageSubjectCharset, defaults.messageSubjectCharset);
 	}
-	
-	
-
 }

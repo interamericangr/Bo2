@@ -77,9 +77,7 @@ import org.junit.Test;
  */
 public class TestScenarioInvoiceHibernateOperations {
 
-	/**
-	 * samples factory
-	 */
+	/** samples factory. */
 	private static SamplesFactory factory=SamplesFactory.getBo2Factory();
 	
 	/**
@@ -117,14 +115,10 @@ public class TestScenarioInvoiceHibernateOperations {
 	 */
 	private String taxId = "taxId0"; //$NON-NLS-1$
 	
-	/**
-	 * invoiceNo
-	 */
+	/** invoiceNo. */
 	String invoiceNo = "AA2"; //$NON-NLS-1$
 	
-	/**
-	 * copy invoiceNo
-	 */
+	/** copy invoiceNo. */
 	String copyInvoiceNo = "BB2"; //$NON-NLS-1$
 	
 	/**
@@ -139,10 +133,10 @@ public class TestScenarioInvoiceHibernateOperations {
 	
 	/**
 	 * before each test.
-	 * 
-	 * @throws DataException
-	 * @throws LogicException
-	 * @throws UnexpectedException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Before
 	public void beforeEachTest() 
@@ -167,10 +161,10 @@ public class TestScenarioInvoiceHibernateOperations {
 	 * <li>commit
 	 * <li>read
 	 * <li>compare initial object with read version.
-	 * 
-	 * @throws DataException
-	 * @throws LogicException
-	 * @throws UnexpectedException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test
 	public void testStoreAndRead() 
@@ -221,10 +215,10 @@ public class TestScenarioInvoiceHibernateOperations {
 	
 	/**
 	 * Test case for checking that collections are indeed lazily initialized.
-	 * 
-	 * @throws DataException
-	 * @throws LogicException
-	 * @throws UnexpectedException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test (expected = LazyInitializationException.class)
 	public void testRead_LazyInitializationOfCollections() 
@@ -277,10 +271,10 @@ public class TestScenarioInvoiceHibernateOperations {
 	 * for {@link Child} POs). If we do not specify constrained="true" hibernate
 	 * does not know whether to put a null value or a proxy, so it checks
 	 * the database and therefore populates the object anyway. 
-	 * 
-	 * @throws DataException
-	 * @throws LogicException
-	 * @throws UnexpectedException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test
 	public void testRead_OneToOne() 
@@ -327,10 +321,10 @@ public class TestScenarioInvoiceHibernateOperations {
 	 * <li>delete
 	 * <li>read (expecting PoNotFoundException)
 	 * <li>transaction gets rolled back
-	 * 
-	 * @throws DataException
-	 * @throws LogicException
-	 * @throws UnexpectedException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test (expected=PoNotFoundException.class)
 	public void testDelete_Fails() 
@@ -362,10 +356,10 @@ public class TestScenarioInvoiceHibernateOperations {
 	 * <li>commit
 	 * <li>read
 	 * <li>catch the PoNotFoundException
-	 * 
-	 * @throws DataException
-	 * @throws LogicException
-	 * @throws UnexpectedException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test
 	public void testDelete_Succeeds() 
@@ -426,10 +420,10 @@ public class TestScenarioInvoiceHibernateOperations {
 	 * <li>read
 	 * <li>commit
 	 * <li>read
-	 * 
-	 * @throws DataException
-	 * @throws LogicException
-	 * @throws UnexpectedException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test
 	@SuppressWarnings("nls")
@@ -523,11 +517,10 @@ public class TestScenarioInvoiceHibernateOperations {
 	/**
 	 * Tests many to one relationships and deep-copy on POs that
 	 * have many-to-one relationships.
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
-	 * 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -605,10 +598,10 @@ public class TestScenarioInvoiceHibernateOperations {
 	 * as the reading of the original. If this is not the case,
 	 * the method will attempt to initialize proxies of a detached
 	 * object, which throws an Exception.
-	 * 
-	 * @throws DataException
-	 * @throws LogicException
-	 * @throws UnexpectedException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test
 	@SuppressWarnings("nls")
@@ -685,10 +678,10 @@ public class TestScenarioInvoiceHibernateOperations {
 	 * <li>transaction2: read
 	 * <li>transaction3: re-attach, modify and persist
 	 * <li>transaction4: confirm operations
-	 * 
-	 * @throws UnexpectedException
-	 * @throws DataException
-	 * @throws LogicException
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testReattachToSession_unmodifiedInstance() 
@@ -769,12 +762,12 @@ public class TestScenarioInvoiceHibernateOperations {
 	 * Tests re-attaching an object graph containing uninitialized HibernateProxy instances
 	 * after serializing and de-serializing it with the standard Java serialization
 	 * mechanism. After re-attaching the proxies are initialized.
-	 * 
-	 * @throws UnexpectedException
-	 * @throws DataException
-	 * @throws LogicException
-	 * @throws IOException 
-	 * @throws ClassNotFoundException 
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws ClassNotFoundException the class not found exception
 	 */
 	@Test
 	public void testReattachToSession_deSerializedInstance() 
@@ -808,35 +801,34 @@ public class TestScenarioInvoiceHibernateOperations {
 		Customer c = invoice.getCustomer().getCustomer();
 		Assert.assertTrue(c instanceof HibernateProxy);
 		Assert.assertTrue(((HibernateProxy)c).getHibernateLazyInitializer().isUninitialized());
-		
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ObjectOutputStream oos = new ObjectOutputStream(baos);
-        oos.writeObject(invoice);
-        oos.flush();
-        baos.flush();
-        oos.close();
-        baos.close();
-        ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
-        ObjectInputStream ois = new ObjectInputStream(bais);
-        invoice = (Invoice) ois.readObject();
-		
-        new AbstractBo2RuntimeCmd() {
+
+		try (ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				ObjectOutputStream oos = new ObjectOutputStream(baos);) {
+			oos.writeObject(invoice);
+			oos.flush();
+			baos.flush();
+			ByteArrayInputStream bais = new ByteArrayInputStream(baos.toByteArray());
+			ObjectInputStream ois = new ObjectInputStream(bais);
+			invoice = (Invoice) ois.readObject();
+		}
+
+		new AbstractBo2RuntimeCmd() {
 			@Override
 			public void work() throws LogicException, DataException, InitializationException, UnexpectedException {
 				PoUtils.reattach(invoice, getProvider());
 				Assert.assertEquals(taxId, invoice.getCustomer().getCustomer().getTaxId());
 			}
 		}.execute();
-		
+
 	}
-	
+
 	/**
 	 * Tests re-attaching an object graph of a deep copied object. Many-to-one associations
 	 * should be reattached for reading.
-	 * 
-	 * @throws UnexpectedException
-	 * @throws DataException
-	 * @throws LogicException
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testReattachToSession_deepCopiedInstance() 
@@ -872,19 +864,9 @@ public class TestScenarioInvoiceHibernateOperations {
 		Customer c = invoice.getCustomer().getCustomer();
 		Assert.assertNull(invoice.getLastModified());
 		Assert.assertTrue(HibernateBo2Utils.isTransient(invoice));
-		Assert.assertTrue(c instanceof HibernateProxy);
-		Assert.assertTrue(((HibernateProxy)c).getHibernateLazyInitializer().isUninitialized());
-		
-        new AbstractBo2RuntimeCmd() {
-			@Override
-			public void work() throws LogicException, DataException, InitializationException, UnexpectedException {
-				PoUtils.reattach(invoice, getProvider());
-				Assert.assertEquals(taxId, invoice.getCustomer().getCustomer().getTaxId());
+		Assert.assertEquals(taxId, c.getTaxId());
 			}
-		}.execute();
 		
-	}
-	
 	/**
 	 * Tests re-attaching a detached MODIFIED instance.
 	 * 
@@ -892,10 +874,10 @@ public class TestScenarioInvoiceHibernateOperations {
 	 * <li>transaction2: read
 	 * <li>transaction3: modify, re-attach, modify and persist
 	 * <li>transaction4: confirm operations
-	 * 
-	 * @throws UnexpectedException
-	 * @throws DataException
-	 * @throws LogicException
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testReattachToSession_modifiedInstance() 
@@ -987,10 +969,10 @@ public class TestScenarioInvoiceHibernateOperations {
 	 * <li>transaction2: read
 	 * <li>transaction3: modify, re-attach, flush
 	 * <li>transaction4: confirm operations
-	 * 
-	 * @throws UnexpectedException
-	 * @throws DataException
-	 * @throws LogicException
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testReattachToSession_modifiedInstanceAndFlushManually() 
@@ -1071,10 +1053,10 @@ public class TestScenarioInvoiceHibernateOperations {
 	 * <li>transaction2: read
 	 * <li>transaction3: re-attach, modify, evict and persist
 	 * <li>transaction4: confirm operations
-	 * 
-	 * @throws DataException
-	 * @throws LogicException
-	 * @throws UnexpectedException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test
 	public void testEvictingFromSession() 
@@ -1162,10 +1144,10 @@ public class TestScenarioInvoiceHibernateOperations {
 	/**
 	 * Tests that when re-attaching a detached instance other references of
 	 * objects owned by this instance to be re-attached as well.
-	 * 
-	 * @throws DataException
-	 * @throws LogicException
-	 * @throws UnexpectedException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test
 	public void testReattachInvoiceReattachesChildren() 
@@ -1235,10 +1217,10 @@ public class TestScenarioInvoiceHibernateOperations {
 	/**
 	 * Tests that when re-attaching a detached instance transient objects
 	 * on its graph are not attached.
-	 * 
-	 * @throws DataException
-	 * @throws LogicException
-	 * @throws UnexpectedException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test
 	public void testReattachInvoiceDoesNotAttachTransientChildren() 
@@ -1293,10 +1275,10 @@ public class TestScenarioInvoiceHibernateOperations {
 	/**
 	 * Tests that when re-attaching a detached instance transient objects
 	 * on its graph are not attached.
-	 * 
-	 * @throws DataException
-	 * @throws LogicException
-	 * @throws UnexpectedException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test
 	public void testReattachForUpdateInvoiceAttachesTransientChildren() 
@@ -1335,10 +1317,10 @@ public class TestScenarioInvoiceHibernateOperations {
 	/**
 	 * Tests that when re-attaching a detached instance transient objects
 	 * on its graph are not attached.
-	 * 
-	 * @throws DataException
-	 * @throws LogicException
-	 * @throws UnexpectedException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test
 	public void testDetachAfterReattachForUpdateInvoiceLeavesTransientChildrenDetached() 
@@ -1393,11 +1375,10 @@ public class TestScenarioInvoiceHibernateOperations {
 	 * This test case tests that after re-attaching an object possible
 	 * occurrences of many-to-one associations in the object graph mapped
 	 * with insert="false" update="false" are also re-attached.
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
-	 * 
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */	
 	@Test
 	public void testReattachmentOfObjectsThroughManyToOne() throws UnexpectedException, DataException, LogicException {
@@ -1485,11 +1466,10 @@ public class TestScenarioInvoiceHibernateOperations {
 	/**
 	 * This test case is the same as the one above. The only
 	 * difference is that the Invoice is read using an HQL query.
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
-	 * 
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */	
 	@Test
 	public void testReattachmentOfObjectsFromHqlThroughManyToOne() throws UnexpectedException, DataException, LogicException {
@@ -1570,12 +1550,11 @@ public class TestScenarioInvoiceHibernateOperations {
 	Date customerLmd = null;
 	
 	/**
-	 * Tests that the lastModified fields of Entities referenced
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
-	 * 
+	 * Tests that the lastModified fields of Entities referenced.
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	@SuppressWarnings("nls")
@@ -1683,10 +1662,10 @@ public class TestScenarioInvoiceHibernateOperations {
 	 * <li>transaction2: read
 	 * <li>transaction3: modify, re-attach, modify and flush
 	 * <li>transaction4: confirm operations
-	 * 
-	 * @throws UnexpectedException
-	 * @throws DataException
-	 * @throws LogicException
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	//@Test
 	public void testReattach_Modified_Flush() 
@@ -1795,10 +1774,10 @@ public class TestScenarioInvoiceHibernateOperations {
 	 * <li>transaction2: read
 	 * <li>transaction3: modify, re-attach, modify and update with worker
 	 * <li>transaction4: confirm operations
-	 * 
-	 * @throws UnexpectedException
-	 * @throws DataException
-	 * @throws LogicException
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	//@Test
 	public void testReattach_Modified_WorkerUpdate() 
@@ -1898,9 +1877,7 @@ public class TestScenarioInvoiceHibernateOperations {
 	@ManagerName("LOCALDB")
 	private class InvoiceHqlQuery extends AbstractHqlQuery<Invoice> {
 		
-		/**
-		 * InvoiceNo
-		 */
+		/** InvoiceNo. */
 		@Parameter String invoiceNumber;
 		
 		@Override

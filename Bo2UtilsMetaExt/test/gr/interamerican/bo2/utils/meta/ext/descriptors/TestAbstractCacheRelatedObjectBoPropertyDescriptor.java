@@ -27,25 +27,21 @@ import org.junit.Test;
  * Unit test for {@link AbstractCacheRelatedObjectBoPropertyDescriptor}.
  */
 public class TestAbstractCacheRelatedObjectBoPropertyDescriptor extends AbstractCacheRelatedTest {
-	/**
-	 * TYPE
-	 */
+	
+	/** TYPE. */
 	private static final Long TYPE = 1000L;
-	/**
-	 * SUBTYPE
-	 */
+	
+	/** SUBTYPE. */
 	private static final Long SUBTYPE = 1L;
-	/**
-	 * PARSER
-	 */
+	
+	/** PARSER. */
 	private static final Parser<Long> PARSER = new LongParser();
-	/**
-	 * Formatter
-	 */
+	
+	/** Formatter. */
 	private static final Formatter<Long> FORMATTER = ObjectFormatter.<Long>getInstance();
 
 	/**
-	 * Test constructor
+	 * Test constructor.
 	 */
 	@Test
 	public void testConstructor(){
@@ -61,9 +57,8 @@ public class TestAbstractCacheRelatedObjectBoPropertyDescriptor extends Abstract
 	 * Implementation of descriptor for the tests.
 	 */
 	private class Descriptor extends AbstractCacheRelatedObjectBoPropertyDescriptor<TypedSelectableImpl<Long>, Long> {
-		/**
-		 * 
-		 */
+		
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 1L;
 
 		/**

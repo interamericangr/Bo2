@@ -22,7 +22,7 @@ import org.junit.Test;
 
 
 /**
- * test case for {@link UselessJoinsFinder}
+ * test case for {@link UselessJoinsFinder}.
  */
 public class TestFindUselessJoinsOperation {
 
@@ -41,9 +41,9 @@ public class TestFindUselessJoinsOperation {
 	}
 
 	/**
-	 * test method for {@link UselessJoinsFinder#find(String)}
-	 * 
-	 * @throws SqlParseException
+	 * test method for {@link UselessJoinsFinder#find(String)}.
+	 *
+	 * @throws SqlParseException the sql parse exception
 	 */
 	@Test
 	public void testFind() throws SqlParseException {

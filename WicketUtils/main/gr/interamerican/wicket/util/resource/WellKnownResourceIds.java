@@ -34,14 +34,10 @@ public class WellKnownResourceIds {
 	 */
 	public static final String FP_UPLOAD_BTN_LABEL = "fp_uploadButtonLabel";
 	
-	/**
-	 * Select column label of data table with radios
-	 */
+	/** Select column label of data table with radios. */
 	public static final String PDT_SELECT_LABEL = "pdt_selectLabel";
 	
-	/**
-	 * Select column label of data table with check boxes
-	 */
+	/** Select column label of data table with check boxes. */
 	public static final String MSDT_SELECT_LABEL = "msdt_selectLabel";
 	
 	/**

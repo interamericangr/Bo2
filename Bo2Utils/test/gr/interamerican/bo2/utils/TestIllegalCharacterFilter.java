@@ -21,7 +21,7 @@ import org.junit.Test;
 public class TestIllegalCharacterFilter {
 	
 	/**
-	 * test filter()
+	 * test filter().
 	 */
 	@SuppressWarnings("nls")
 	@Test

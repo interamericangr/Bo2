@@ -54,7 +54,8 @@ extends EmptyVisitor {
 	
 	/**
 	 * Creates a new RebuildQueryAfterParameterRemoval object. 
-	 * @param newWhereClauses 
+	 *
+	 * @param newWhereClauses the new where clauses
 	 */
 	public RebuildQueryWithNewWhereClause(List<String> newWhereClauses) {
 		super();
@@ -132,6 +133,8 @@ extends EmptyVisitor {
 	}
 	
 	/**
+	 * Gets the result.
+	 *
 	 * @return Returns the re-built query.
 	 */
 	public String getResult() {

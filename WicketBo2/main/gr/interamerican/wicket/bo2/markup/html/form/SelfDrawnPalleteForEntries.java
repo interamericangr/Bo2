@@ -15,6 +15,7 @@ package gr.interamerican.wicket.bo2.markup.html.form;
 import gr.interamerican.bo2.arch.ext.TranslatableEntry;
 import gr.interamerican.bo2.utils.meta.ext.descriptors.PalleteCachedEntriesBoPropertyDescriptor;
 import gr.interamerican.wicket.bo2.protocol.http.Bo2WicketSession;
+import gr.interamerican.wicket.bo2.utils.SelfDrawnComponentsConfiguration;
 import gr.interamerican.wicket.utils.MarkupConstants;
 
 import java.util.ArrayList;
@@ -43,9 +44,7 @@ extends PaletteForEntry<L,T>{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	/**
-	 * Style
-	 */
+	/** Style. */
 	private static final String WIDTH_STYLE ="width:200px"; //$NON-NLS-1$
 	
 	/**
@@ -60,12 +59,12 @@ extends PaletteForEntry<L,T>{
 	
 	/**
 	 * Creates a new SelfDrawnPalleteForEntries object. 
-	 * 
-	 * @param id 
-	 * @param descriptor  
-	 * @param model 
-	 * @param choicesModel 
-	 * @param session 
+	 *
+	 * @param id the id
+	 * @param model the model
+	 * @param descriptor the descriptor
+	 * @param choicesModel the choices model
+	 * @param session the session
 	 */
 
 	public SelfDrawnPalleteForEntries(
@@ -74,27 +73,27 @@ extends PaletteForEntry<L,T>{
 		super(id, model, choicesModel, rows, allowOrder, session);
 		setOutputMarkupPlaceholderTag(true);
     	setEnabled(!descriptor.isReadOnly());
+		add(SelfDrawnComponentsConfiguration.DEFAULT_PALLETE_THEME.get());
 	}
 	
 	/**
 	 * Creates a new SelfDrawnPalleteForEntries object.
-	 * 
-	 * @param id 
-	 * @param descriptor 
-	 * @param choicesModel 
-	 * @param session 
+	 *
+	 * @param id the id
+	 * @param descriptor the descriptor
+	 * @param choicesModel the choices model
+	 * @param session the session
 	 */
 	public SelfDrawnPalleteForEntries(
 	String id, PalleteCachedEntriesBoPropertyDescriptor<T, ?> descriptor, 
 	IModel<? extends Collection<? extends T>> choicesModel , Bo2WicketSession<?, L> session) {
 		this(id, new ListModel<T>(new ArrayList<T>()), descriptor, choicesModel, session);
 	}
-	
+
 	@Override
     protected void onComponentTag(ComponentTag tag) {  
 		tag.setName(MarkupConstants.SPAN);
 		tag.put(MarkupConstants.STYLE, WIDTH_STYLE);
 		super.onComponentTag(tag);
 	}
-		
 }

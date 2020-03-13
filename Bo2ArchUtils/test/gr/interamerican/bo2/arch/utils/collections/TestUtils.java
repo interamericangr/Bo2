@@ -25,12 +25,12 @@ import java.util.Set;
 import org.junit.Test;
 
 /**
- * tests for {@link Utils}
+ * tests for {@link Utils}.
  */
 public class TestUtils {
 	
 	/**
-	 * tests arrayAsCodifiedSet()
+	 * tests arrayAsCodifiedSet().
 	 */
 	@Test
 	public void testArrayAsCodifiedSet() {
@@ -47,7 +47,7 @@ public class TestUtils {
 	}
 	
 	/**
-	 * tests getMax()
+	 * tests getMax().
 	 */
 	@Test
 	public void testGetMax() {
@@ -60,7 +60,7 @@ public class TestUtils {
 	}
 	
 	/**
-	 * tests getMin()
+	 * tests getMin().
 	 */
 	@Test
 	public void testGetMin() {
@@ -73,7 +73,7 @@ public class TestUtils {
 	}
 	
 	/**
-	 * tests maxByKey()
+	 * tests maxByKey().
 	 */
 	@Test
 	public void testMaxByKey() {
@@ -86,7 +86,7 @@ public class TestUtils {
 	}
 	
 	/**
-	 * tests minByKey()
+	 * tests minByKey().
 	 */
 	@Test
 	public void testGetMaxByKey() {
@@ -99,10 +99,10 @@ public class TestUtils {
 	}
 	
 	/**
-	 * creates an array of sample pos
-	 * 
+	 * creates an array of sample pos.
+	 *
 	 * @param number array size
-	 * @return an array of sample pos 
+	 * @return an array of sample pos
 	 */
 	private SomePo[] samplePos(int number) {
 		SomePo[] pos = new SomePo[number];
@@ -116,7 +116,7 @@ public class TestUtils {
 	}
 	
 	/**
-	 * Test getMax given an empty collection
+	 * Test getMax given an empty collection.
 	 */
 	@Test
 	public void testGetMaxWithNullCollection(){
@@ -126,7 +126,7 @@ public class TestUtils {
 	}
 	
 	/**
-	 * Test getMax given an empty collection
+	 * Test getMax given an empty collection.
 	 */
 	@Test
 	public void testGetMaxWithEmptyCollection(){
@@ -136,7 +136,7 @@ public class TestUtils {
 	}
 	
 	/**
-	 * Test getMin given an empty collection
+	 * Test getMin given an empty collection.
 	 */
 	@Test
 	public void testGetMinWithNullCollection(){
@@ -146,7 +146,7 @@ public class TestUtils {
 	}
 	
 	/**
-	 * Test getMin given an empty collection
+	 * Test getMin given an empty collection.
 	 */
 	@Test
 	public void testGetMinWithEmptyCollection(){
@@ -156,19 +156,15 @@ public class TestUtils {
 	}
 	
 	/**
-	 * sample po
+	 * sample po.
 	 */
 	@SuppressWarnings({ "unused", "serial" })
 	private class SomePo implements PersistentObject<Integer> {
 		
-		/**
-		 * string property
-		 */
+		/** string property. */
 		String string;
 		
-		/**
-		 * key
-		 */
+		/** key. */
 		Integer key;
 		
 		/**
@@ -191,23 +187,17 @@ public class TestUtils {
 
 		
 
-		/* (non-Javadoc)
-		 * @see gr.interamerican.bo2.arch.PersistentObject#getKey()
-		 */
+		@Override
 		public Integer getKey() {
 			return key;
 		}
 
-		/* (non-Javadoc)
-		 * @see gr.interamerican.bo2.arch.PersistentObject#setKey(java.io.Serializable)
-		 */
+		@Override
 		public void setKey(Integer key) {
 			this.key = key;
 		}
 
-		/* (non-Javadoc)
-		 * @see gr.interamerican.bo2.arch.PersistentObject#tidy()
-		 */
+		@Override
 		public void tidy() {
 			/* empty */
 		}

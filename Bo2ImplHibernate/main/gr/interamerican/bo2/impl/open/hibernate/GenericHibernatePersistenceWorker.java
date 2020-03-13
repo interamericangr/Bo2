@@ -40,100 +40,111 @@ implements PersistenceWorker<P> {
 	 * Factory method.
 	 * 
 	 * Creates a new {@link PersistenceWorker} for a persistent class.
+	 *
+	 * @param <E>
+	 *            Persistent class.
 	 * 
 	 * @param entityType
-	 *        Persistent class. 
-	 * @param validator 
-	 *        Validator.
-	 * @param <E>
-	 *        Persistent class.
-	 * 
-	 *
-	 *        
+	 *            Persistent class.
+	 * @param validator
+	 *            Validator.
 	 * @return Returns a new GenericHibernatePersistenceWorker.
-	 */	
-	public static <E extends PersistentObject<?>> 
-	GenericHibernatePersistenceWorker<E> newInstance(Class<E> entityType, Validator<E> validator) {
+	 */
+	public static <E extends PersistentObject<?>> GenericHibernatePersistenceWorker<E> newInstance(Class<E> entityType,
+			Validator<E> validator) {
 		RefreshMode mode = RefreshMode.getRefreshMode(entityType);
-		return new GenericHibernatePersistenceWorker<E>(entityType,validator,mode);
+		return new GenericHibernatePersistenceWorker<E>(entityType, validator, mode);
 	}
-	
+
 	/**
 	 * Factory method.
 	 * 
 	 * Creates a new {@link PersistenceWorker} for a persistent class.
+	 *
+	 * @param <E>
+	 *            Persistent class.
 	 * 
 	 * @param entityType
-	 *        Persistent class. 
-	 * @param <E>
-	 *        Persistent class.
-	 *        
+	 *            Persistent class.
 	 * @return Returns a new GenericHibernatePersistenceWorker.
-	 */	
-	public static <E extends PersistentObject<?>> 
-	GenericHibernatePersistenceWorker<E> newInstance(Class<E> entityType) {
+	 */
+	public static <E extends PersistentObject<?>> GenericHibernatePersistenceWorker<E> newInstance(
+			Class<E> entityType) {
 		RefreshMode mode = RefreshMode.getRefreshMode(entityType);
 		return new GenericHibernatePersistenceWorker<E>(entityType, mode);
 	}
-	
+
 	/**
-	 * Creates a new GenericHibernatePersistenceWorker object. 
+	 * Creates a new GenericHibernatePersistenceWorker object.
 	 *
 	 * @param poClass
-	 * @param validator 
-	 * @param mode 
+	 *            the po class
+	 * @param validator
+	 *            the validator
+	 * @param mode
+	 *            the mode
 	 */
 	public GenericHibernatePersistenceWorker(Class<P> poClass, Validator<P> validator, RefreshMode mode) {
-		super(poClass,validator,mode);
-		managerName = Bo2AnnoUtils.getManagerName(poClass);		
+		super(poClass, validator, mode);
+		managerName = Bo2AnnoUtils.getManagerName(poClass);
 	}
-	
+
 	/**
-	 * Creates a new GenericHibernatePersistenceWorker object. 
-	 *
+	 * Creates a new GenericHibernatePersistenceWorker object.
+	 * 
 	 * @param poClass
-	 * @param mode 
+	 * @param validator
+	 */
+	public GenericHibernatePersistenceWorker(Class<P> poClass, Validator<P> validator) {
+		this(poClass, validator, RefreshMode.getRefreshMode(poClass));
+	}
+
+	/**
+	 * Creates a new GenericHibernatePersistenceWorker object.
+	 * 
+	 * @param poClass
+	 * @param mode
 	 */
 	public GenericHibernatePersistenceWorker(Class<P> poClass, RefreshMode mode) {
-		this(poClass,null,mode);				
-	}	
-	
+		this(poClass, null, mode);
+	}
+
 	/**
-	 * Creates a new GenericHibernatePersistenceWorker object. 
-	 *
+	 * Creates a new GenericHibernatePersistenceWorker object.
+	 * 
 	 * @param poClass
+	 *            the po class
 	 */
 	public GenericHibernatePersistenceWorker(Class<P> poClass) {
-		this(poClass,null,RefreshMode.getRefreshMode(poClass));				
-	}	
-	
+		this(poClass, null, RefreshMode.getRefreshMode(poClass));
+	}
+
 	@Override
 	protected void prepareObject(P po) {
-		po.tidy();	
+		po.tidy();
 	}
-	
+
 	@Override
 	protected Serializable getUniqueId(P po) {
 		return po.getKey();
 	}
-	
-	public DetachStrategy getDetachStrategy() {		
+
+	@Override
+	public DetachStrategy getDetachStrategy() {
 		return new HibernateDetachStrategy();
 	}
-	
+
 	@Override
-	public P read(P o) 
-	throws DataException, PoNotFoundException {		
+	public P read(P o) throws DataException, PoNotFoundException {
 		P po = super.read(o);
 		PoUtils.setDetachStrategy(po, getDetachStrategy());
 		return po;
 	}
-	
+
 	@Override
 	public P store(P o) throws DataException, PoNotFoundException {
 		P po = super.store(o);
 		PoUtils.setDetachStrategy(po, getDetachStrategy());
 		return po;
 	}
-	
 }

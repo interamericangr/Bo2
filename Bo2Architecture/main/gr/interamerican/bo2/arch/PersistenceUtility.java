@@ -23,13 +23,15 @@ import gr.interamerican.bo2.arch.exceptions.PoNotFoundException;
  * the underlying persistence implementation.
  * The main methods of a {@link PersistenceUtility} are four methods
  * used for CRUD operations.
+ * <ul>
  * <li> <code>store(po)</code> </li>
  * <li> <code>read(po)</code> </li>  
  * <li> <code>update(po)</code> </li>
  * <li> <code>delete(po)</code> </li>
+ * </ul>
  * The name store is used instead of create, implying that the
  * object is created in the JVM, and it is just stored in the
- * database. <br/>
+ * database. <br>
  * All methods have only one argument, the object to persist.
  * Ideally these methods will apply any change that would take place
  * during the database operation to the argument it self. 
@@ -46,13 +48,12 @@ public interface PersistenceUtility<PO> {
     /**
      * Reads an object.
      *  
+     *
      * @param o Object to read from data storage.
-     * 
      * @return Returns the object related with the persistence
      *         operation.
-     * 
-     * @throws DataException
-     * @throws PoNotFoundException
+     * @throws DataException the data exception
+     * @throws PoNotFoundException the po not found exception
      */
     public PO read(PO o) 
     throws DataException, PoNotFoundException;
@@ -60,13 +61,12 @@ public interface PersistenceUtility<PO> {
     /**
      * Stores the object.
      *  
+     *
      * @param o Object to be stored to data storage.
-     * 
      * @return Returns the object related with the persistence
      *         operation.
-     * 
-     * @throws DataException
-     * @throws PoNotFoundException
+     * @throws DataException the data exception
+     * @throws PoNotFoundException the po not found exception
      */
     public PO store(PO o) 
     throws DataException, PoNotFoundException;
@@ -74,14 +74,12 @@ public interface PersistenceUtility<PO> {
     
     /**
      * Deletes an object from the data storage.
-     * 
+     *
      * @param o Object to be deleted from data storage.
-     * 
      * @return Returns the object related with the persistence
      *         operation.
-     * 
-     * @throws DataException
-     * @throws PoNotFoundException
+     * @throws DataException the data exception
+     * @throws PoNotFoundException the po not found exception
      */
     public PO delete(PO o) 
     throws DataException, PoNotFoundException;  
@@ -90,14 +88,12 @@ public interface PersistenceUtility<PO> {
     
     /**
      * Updates an object in the data storage.
-     * 
-     * @param o Object to be updated.     
-     * 
+     *
+     * @param o Object to be updated.
      * @return Returns the object related with the persistence
      *         operation.
-     * 
-     * @throws DataException
-     * @throws PoNotFoundException
+     * @throws DataException the data exception
+     * @throws PoNotFoundException the po not found exception
      */
     public PO update (PO o) 
     throws DataException , PoNotFoundException;

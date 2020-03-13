@@ -36,9 +36,7 @@ public class TestBPanelForMap {
 		return map;
 	}
 	
-	/**
-	 * Field0, field1
-	 */
+	/** Field0, field1. */
 	static final String[] FIRSTFIELDS = { "field0", "field1" }; //$NON-NLS-1$ //$NON-NLS-2$
 	
 	/**

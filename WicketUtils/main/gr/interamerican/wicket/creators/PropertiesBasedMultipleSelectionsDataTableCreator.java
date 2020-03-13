@@ -38,14 +38,13 @@ import org.apache.wicket.model.IModel;
  * CheckBoxes.
  * 
  * @param <B> type of bean.
- * 
+ * @deprecated Use {@link FunctionalDataTableCreator}
  */
+@Deprecated
 public class PropertiesBasedMultipleSelectionsDataTableCreator<B extends Serializable>
 extends PropertiesBasedDataTableCreator<B>{
 	
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
 	/**
@@ -144,28 +143,28 @@ extends PropertiesBasedDataTableCreator<B>{
 		super(beanClass, properties, labels, sortProperty, formatters);
 		this.selectColumnLabelModel = selectColumnLabelModel;
 	}
-	
+
 	@Override
-	public List<IColumn<B>> createColumns() {
+	public List<IColumn<B,String>> createColumns() {
 		selectColumnLabelModel = StringResourceUtils.getResourceModel(
 			WellKnownResourceIds.MSDT_SELECT_LABEL, null, selectColumnLabelModel, StringConstants.EMPTY);
-		List<IColumn<B>> tableColumns = new ArrayList<IColumn<B>>();
-		tableColumns.add(new MultipleSelectionsColumn<B>(selectColumnLabelModel));
+		List<IColumn<B,String>> tableColumns = new ArrayList<IColumn<B,String>>();
+		tableColumns.add(new MultipleSelectionsColumn<>(selectColumnLabelModel));
 		tableColumns.addAll(super.createColumns());
 		return tableColumns;
 	}
-	
+
 	@Override
-	public DataTable<B> createDataTable(String id, List<B> elements) {
+	public DataTable<B,String> createDataTable(String id, List<B> elements) {
 		List<B> data = elements;
 		if(sortProperty != null) {
 			data = CollectionUtils.sort(data, beanClass, sortProperty);
 		}
 		SortableDataProvider<B> provider = new SortableDataProvider<B>(data, beanClass);
 		if(disablePaging && provider.size()>0) {
-			return new DefaultDataTable<B> (id, createColumns(), provider, provider.size());
+			return new DefaultDataTable<B,String> (id, createColumns(), provider, (int) provider.size());
 		}
-		return new DefaultDataTable<B> (id, createColumns(), provider, Utils.notNull(rowsPerPage, 10));
+		return new DefaultDataTable<B,String> (id, createColumns(), provider, Utils.notNull(rowsPerPage, 10));
 	}
 	
 	/**

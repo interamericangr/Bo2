@@ -26,10 +26,12 @@ import org.apache.wicket.model.IModel;
 public class BigDecimalBoPDComponentFactory
 extends AbstractBoPDComponentFactory<BigDecimalBoPropertyDescriptor> {	
 	
+	@Override
 	public Component drawMain(BigDecimalBoPropertyDescriptor descriptor, String wicketId) {
 		return new SelfDrawnBigDecimalTextField(wicketId, descriptor);
 	}
 	
+	@Override
 	@SuppressWarnings("unchecked")
 	public Component drawMain(String wicketId, IModel<?> model, BigDecimalBoPropertyDescriptor descriptor) {
 		return new SelfDrawnBigDecimalTextField(wicketId, (IModel<BigDecimal>) model, descriptor);

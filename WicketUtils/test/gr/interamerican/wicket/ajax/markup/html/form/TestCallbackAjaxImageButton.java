@@ -13,20 +13,23 @@
 package gr.interamerican.wicket.ajax.markup.html.form;
 
 import static org.junit.Assert.assertEquals;
-import gr.interamerican.wicket.samples.actions.DummyCallback;
-import gr.interamerican.wicket.test.WicketTest;
-import gr.interamerican.wicket.utils.ImageType;
-import gr.interamerican.wicket.utils.WicketPage;
 
+import org.apache.wicket.ajax.AjaxRequestHandler;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.Model;
 import org.junit.Test;
 
+import gr.interamerican.wicket.callback.DummyCallback;
+import gr.interamerican.wicket.test.WicketTest;
+import gr.interamerican.wicket.utils.ImageType;
+import gr.interamerican.wicket.utils.WicketPage;
+
 /**
  * Test for {@link CallbackAjaxImageButton}.
  */
+@Deprecated
 public class TestCallbackAjaxImageButton extends WicketTest{
 
 	
@@ -67,7 +70,7 @@ public class TestCallbackAjaxImageButton extends WicketTest{
 	@Test
 	public void testOnError(){
 		WicketPage page = new WicketPage();
-		AjaxRequestTarget target = new AjaxRequestTarget(page);
+		AjaxRequestTarget target = new AjaxRequestHandler(page);
 		Form<Void> form = new Form <Void>("id"); //$NON-NLS-1$
 		FeedbackPanel panel = new FeedbackPanel("panelId"); //$NON-NLS-1$
 		button = new CallbackAjaxImageButton(id,model,action,panel,ImageType.EDIT.getImage());

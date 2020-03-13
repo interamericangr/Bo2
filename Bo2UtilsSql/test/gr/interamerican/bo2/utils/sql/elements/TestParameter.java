@@ -18,28 +18,22 @@ import gr.interamerican.bo2.utils.sql.types.IntegerType;
 import org.junit.Test;
 
 /**
- * Unit test for Parameter
+ * Unit test for Parameter.
  */
 public class TestParameter {
 
-	/**
-	 * parameter to test
-	 */
+	/** parameter to test. */
 	Parameter parameter = new Parameter();
 	
-	/**
-	 * NAME
-	 */
+	/** NAME. */
 	private static final String NAME = "name"; //$NON-NLS-1$
 		
-	/**
-	 * TYPE
-	 */
+	/** TYPE. */
 	private static final IntegerType TYPE = IntegerType.INSTANCE;
 	
 	
 	/**
-	 * Test setName
+	 * Test setName.
 	 */
 	@Test
 	public void testSetName(){
@@ -48,7 +42,7 @@ public class TestParameter {
 	}
 	
 	/**
-	 * Test getName
+	 * Test getName.
 	 */
 	@Test
 	public void testGetName(){
@@ -58,7 +52,7 @@ public class TestParameter {
 	
 	
 	/**
-	 * Test setType
+	 * Test setType.
 	 */
 	@Test
 	public void testSetType(){
@@ -67,7 +61,7 @@ public class TestParameter {
 	}
 	
 	/**
-	 * Test getType
+	 * Test getType.
 	 */
 	@Test
 	public void testGetType(){

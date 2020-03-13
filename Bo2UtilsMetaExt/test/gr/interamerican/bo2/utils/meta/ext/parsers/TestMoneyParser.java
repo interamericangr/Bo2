@@ -27,9 +27,7 @@ import org.junit.Test;
  */
 public class TestMoneyParser {
 	
-	/**
-	 * 
-	 */
+	/** The Constant amount. */
 	static final String amount = "1200"; //$NON-NLS-1$
 	
 	/**
@@ -39,7 +37,8 @@ public class TestMoneyParser {
 	
 	/**
 	 * test for {@link MoneyParser#parse(String)}.
-	 * @throws ParseException 
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@Test
 	public void test() throws ParseException{

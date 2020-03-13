@@ -22,15 +22,15 @@ import org.quartz.TriggerBuilder;
 
 
 /**
- * implementation of {@link JobScheduler}
+ * implementation of {@link JobScheduler}.
  */
 public class QuartzJobSchedulerImpl implements JobScheduler {
 	
 	/**
 	 * submits a single job.
 	 *
-	 * @param jobDescription
-	 * @throws DataException
+	 * @param jobDescription the job description
+	 * @throws DataException the data exception
 	 */
 	void submitJob(JobDescription jobDescription) throws DataException {
 		QuartzjobDescription quartzjobDescription = Factory.create(QuartzjobDescription.class);

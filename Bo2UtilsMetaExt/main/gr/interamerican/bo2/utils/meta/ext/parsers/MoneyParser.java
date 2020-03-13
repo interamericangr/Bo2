@@ -28,27 +28,25 @@ import java.math.BigDecimal;
 public class MoneyParser 
 implements Parser<Money> {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
-	/**
-	 * Big decimal parser
-	 */
+	
+	/** Big decimal parser. */
 	private BigDecimalParser bdParser;
 	
 	/**
 	 * Creates a new MoneyParser object. 
-	 * @param decimalLength 
+	 *
+	 * @param decimalLength the decimal length
 	 */
 	public MoneyParser(int decimalLength) {
 		bdParser = new BigDecimalParser(decimalLength);
 	}
-	
+
+	@Override
 	public Money parse(String value) throws ParseException {
 		BigDecimal bd = bdParser.parse(value);
 		Money money = new MoneyImpl(bd);
 		return money;
 	}
-
 }

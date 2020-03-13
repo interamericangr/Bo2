@@ -12,17 +12,6 @@
  ******************************************************************************/
 package gr.interamerican.wicket.markup.html.panel.picker;
 
-import gr.interamerican.wicket.ajax.markup.html.form.CallbackAjaxButton;
-import gr.interamerican.wicket.callback.CallbackAction;
-import gr.interamerican.wicket.callback.CallbackWrapper;
-import gr.interamerican.wicket.creators.DataTableCreator;
-import gr.interamerican.wicket.markup.html.panel.ServicePanelUtils;
-import gr.interamerican.wicket.markup.html.panel.crud.picker.CrudPickerPanel;
-import gr.interamerican.wicket.markup.html.panel.listTable.ListTablePanel;
-import gr.interamerican.wicket.markup.html.panel.service.ServicePanel;
-import gr.interamerican.wicket.util.resource.StringResourceUtils;
-import gr.interamerican.wicket.util.resource.WellKnownResourceIds;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -34,12 +23,24 @@ import org.apache.wicket.markup.html.form.RadioGroup;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 
+import gr.interamerican.bo2.utils.adapters.Flag;
+import gr.interamerican.wicket.ajax.markup.html.form.CallbackAjaxButton;
+import gr.interamerican.wicket.callback.ICallbackAction;
+import gr.interamerican.wicket.callback.PickAction;
+import gr.interamerican.wicket.creators.DataTableProvider;
+import gr.interamerican.wicket.markup.html.panel.ServicePanelUtils;
+import gr.interamerican.wicket.markup.html.panel.crud.picker.CrudPickerPanel;
+import gr.interamerican.wicket.markup.html.panel.listTable.ListTablePanel;
+import gr.interamerican.wicket.markup.html.panel.service.ServicePanel;
+import gr.interamerican.wicket.util.resource.StringResourceUtils;
+import gr.interamerican.wicket.util.resource.WellKnownResourceIds;
+
 /**
  * Basic {@link ServicePanel} that shows a List of objects and
  * allows the user to pick one of them.
  * 
- * This panel requires one {@link CallbackAction} that is executed
- * when the user requests to go back and one {@link CallbackAction}
+ * This panel requires one {@link ICallbackAction} that is executed
+ * when the user requests to go back and one {@link PickAction}
  * that is executed when the user selects an object from the list.
  * 
  * If the <code>itemSelectedAction</code> is null, the select button
@@ -71,14 +72,10 @@ extends ListTablePanel<B> {
 	 */
 	protected static final String RADIOGROUP_ID = "radioGroup"; //$NON-NLS-1$
 	
-	/**
-	 * Select row {@link AjaxButton}
-	 */	
+	/** Select row {@link AjaxButton}. */	
 	protected CallbackAjaxButton selectButton;  
 	
-	/**
-	 * Select row {@link AjaxButton}
-	 */	
+	/** Select row {@link AjaxButton}. */	
 	protected CallbackAjaxButton secondSelectButton;  
 	
 	/**
@@ -88,9 +85,8 @@ extends ListTablePanel<B> {
 	
 	/**
 	 * Creates a new AbstractQueryResultsPanel object. 
-	 * 
-	 * @param definition 
 	 *
+	 * @param definition the definition
 	 */
 	public PickerPanel(PickerPanelDef<B> definition) {			
 		super(definition);
@@ -102,69 +98,33 @@ extends ListTablePanel<B> {
 		return (PickerPanelDef<B>)definition;
 	}
 	
-	@SuppressWarnings({ "serial", "nls" })
+	@SuppressWarnings("nls")
 	@Override
 	protected void init() {
 		super.init();
-		
-		IModel<String> selectLabel = StringResourceUtils.getResourceModel(
-				WellKnownResourceIds.PP_SELECT_BTN_LABEL, this, getDefinition().getSelectLabelModel(), "Select");
+
+		IModel<String> selectLabel = StringResourceUtils.getResourceModel(WellKnownResourceIds.PP_SELECT_BTN_LABEL,
+				this, getDefinition().getSelectLabelModel(), "Select");
 		IModel<String> secondSelectLabel = StringResourceUtils.getResourceModel(
-				WellKnownResourceIds.PP_2ND_SELECT_BTN_LABEL, this, getDefinition().getSecondSelectLabelModel(), "Select");
-		
-		CallbackAction itemSelectedAction = getDefinition().getItemSelectedAction();
-		CallbackAction secondItemSelectedAction = getDefinition().getSecondItemSelectedAction();
-		
-		if(itemSelectedAction!=null) {
-			itemSelectedAction.setCaller(this);
-			if(getDefinition().getRefreshListAfterPickAction()) {
-				itemSelectedAction = new RefreshTableAction(itemSelectedAction);
-				getDefinition().setItemSelectedAction(itemSelectedAction);
-			}
-		}
-		if(secondItemSelectedAction!=null) {
-			if(getDefinition().getRefreshListAfterPickAction()) {
-				secondItemSelectedAction = new RefreshTableAction(secondItemSelectedAction);
-				getDefinition().setSecondItemSelectedAction(secondItemSelectedAction);
-			}
-			secondItemSelectedAction.setCaller(this);
-		}
-		
-		selectButton = new CallbackAjaxButton(SELECT_BUTTON_ID,	selectLabel, itemSelectedAction, getFeedBackPanel()) {		
-			@Override
-			public void onSubmit(AjaxRequestTarget target, Form<?> form) {
-				if(!ServicePanelUtils.authorizedByFlag(getDefinition().getItemSelectedActionFlag())) {
-					target.add(feedBackPanel);
-					PickerPanel.this.error(getDefinition().getItemSelectedActionFlag().getDownMessage());
-					return;
-				}
-				B selection = radioGroup.getModelObject();
-				if(selection == null) { return; }
-				getDefinition().getBeanModel().setObject(selection);
-				super.onSubmit(target, form);
-			}
-		};
+				WellKnownResourceIds.PP_2ND_SELECT_BTN_LABEL, this, getDefinition().getSecondSelectLabelModel(),
+				"Select");
+
+		PickAction<B> itemSelectedAction = getDefinition().getItemSelectedAction();
+		PickAction<B> secondItemSelectedAction = getDefinition().getSecondItemSelectedAction();
+
+		selectButton = new CallbackAjaxButton(SELECT_BUTTON_ID, selectLabel,
+				new WrappedICallbackAction(itemSelectedAction, getDefinition().getItemSelectedActionFlag()),
+				getFeedBackPanel());
 
 		ServicePanelUtils.disableButton(getDefinition(), getDefinition().getItemSelectedActionFlag(), selectButton);
-		
-		secondSelectButton = new CallbackAjaxButton(SECOND_SELECT_BUTTON_ID, 
-			secondSelectLabel, secondItemSelectedAction, getFeedBackPanel()) {		
-			@Override
-			public void onSubmit(AjaxRequestTarget target, Form<?> form) {
-				if(!ServicePanelUtils.authorizedByFlag(getDefinition().getSecondItemSelectedActionFlag())) {
-					target.add(feedBackPanel);
-					PickerPanel.this.error(getDefinition().getSecondItemSelectedActionFlag().getDownMessage());
-					return;
-				}
-				B selection = radioGroup.getModelObject();
-				if(selection == null) { return; }
-				getDefinition().getBeanModel().setObject(selection);
-				super.onSubmit(target, form);
-			}
-		};
-		
-		ServicePanelUtils.disableButton(getDefinition(), getDefinition().getSecondItemSelectedActionFlag(), secondSelectButton);
-		
+
+		secondSelectButton = new CallbackAjaxButton(SECOND_SELECT_BUTTON_ID, secondSelectLabel,
+				new WrappedICallbackAction(secondItemSelectedAction, getDefinition().getSecondItemSelectedActionFlag()),
+				getFeedBackPanel());
+
+		ServicePanelUtils.disableButton(getDefinition(), getDefinition().getSecondItemSelectedActionFlag(),
+				secondSelectButton);
+
 		radioGroup = new RadioGroup<B>(RADIOGROUP_ID, new Model<B>());
 	}
 	
@@ -176,6 +136,7 @@ extends ListTablePanel<B> {
 		tableForm.add(selectButton);
 		tableForm.add(secondSelectButton);
 		tableForm.add(backButton);
+		tableForm.add(getDefinition().createButton(EXPORT_BUTTON_ID, getDefinition(), this));
 		add(tableForm);		
 		add(feedBackPanel);
 		if(getDefinition().getItemSelectedAction() == null) {
@@ -185,7 +146,7 @@ extends ListTablePanel<B> {
 			secondSelectButton.setVisible(false);
 		}
 	}
-	
+
 	@SuppressWarnings("nls")
 	@Override
 	protected void validateDef() {
@@ -197,39 +158,82 @@ extends ListTablePanel<B> {
 			String msg = "Cannot initialize a PickerPanel with null model in its definition.";
 			throw new RuntimeException(msg);
 		}
-		
 	}
-	
+
 	/**
-	 * Wrapper around an action that is supplied by the service
-	 * panel client. This wrapper is responsible for repainting the 
-	 * panel's data table with the updated data.
+	 * Does the repainting of the panel's data table with the updated data.
+	 * 
+	 * @param target
+	 * @param form
 	 */
-	protected class RefreshTableAction extends CallbackWrapper {
-		
+	protected void refreshTable(AjaxRequestTarget target, Form<?> form) {
+		List<B> list = getDefinition().getList();
+		DataTableProvider<B, ?> dataTableCreator = getDefinition().getDataTableCreator();
+		RadioGroup<B> newRadioGroup = new RadioGroup<B>(RADIOGROUP_ID, new Model<B>());
+		DataTable<B, ?> newTable = dataTableCreator.createDataTable(DATATABLE_ID, list);
+		newRadioGroup.add(newTable);
+		radioGroup.replaceWith(newRadioGroup);
+		radioGroup = newRadioGroup;
+		target.add(form);
+	}
+
+	/**
+	 * The actual {@link ICallbackAction} used on 'select'.
+	 */
+	class WrappedICallbackAction implements ICallbackAction {
+
 		/**
-		 * serialVersionUID
+		 * Serial Version UID
 		 */
 		private static final long serialVersionUID = 1L;
 
 		/**
-		 * Creates a new CrudPickerPanel.NewItemAction object.
-		 * 
-		 * @param action 
+		 * The Actual Action
 		 */
-		public RefreshTableAction(CallbackAction action) {
-			super(action);
-		} 
-		
-		@Override public void after() {
-			List<B> list = getDefinition().getList();
-			DataTableCreator<B> dataTableCreator = getDefinition().getDataTableCreator();
-			RadioGroup<B> newRadioGroup = new RadioGroup<B>(RADIOGROUP_ID, new Model<B>());
-			DataTable<B> newTable = dataTableCreator.createDataTable(DATATABLE_ID, list);
-			newRadioGroup.add(newTable);
-			radioGroup.replaceWith(newRadioGroup);
-			radioGroup = newRadioGroup;
-		}		
-	}
+		private PickAction<B> pick;
 
+		/**
+		 * Flag
+		 */
+		private Flag flag;
+
+		/**
+		 * Constructor.
+		 * 
+		 * @param pick
+		 *            The Actual Action
+		 * @param flag
+		 *            Flag
+		 */
+		public WrappedICallbackAction(PickAction<B> pick, Flag flag) {
+			this.pick = pick;
+			this.flag = flag;
+		}
+
+		@SuppressWarnings("deprecation")
+		@Override
+		public void invoke(AjaxRequestTarget target, Form<?> form) {
+			if (!ServicePanelUtils.authorizedByFlag(flag)) {
+				PickerPanel.this.error(flag.getDownMessage());
+				return;
+			}
+			B selection = radioGroup.getModelObject();
+			if (selection == null) {
+				return;
+			}
+			getDefinition().getBeanModel().setObject(selection);
+			// backwards compatibility
+			if (pick instanceof gr.interamerican.wicket.callback.CallbackAction) {
+				gr.interamerican.wicket.callback.CallbackAction callback = (gr.interamerican.wicket.callback.CallbackAction) pick;
+				callback.setCaller(PickerPanel.this);
+				callback.callBack(target, form);
+			} else {
+				pick.doPick(target, selection);
+			}
+			if (!getDefinition().getRefreshListAfterPickAction()) {
+				return;
+			}
+			refreshTable(target, form);
+		}
+	}
 }

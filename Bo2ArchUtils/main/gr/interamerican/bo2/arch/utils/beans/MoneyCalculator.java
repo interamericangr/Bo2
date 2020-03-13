@@ -20,7 +20,7 @@ import java.util.Currency;
 
 /**
  * Money calculator does calculations for {@link Money} keeping always the 
- * same count of decimal places on the results. <br/>
+ * same count of decimal places on the results. <br>
  * 
  * The count of decimal places is defined as a parameter in this object's 
  * constructor. The calculator keeps always two numbers. The first number
@@ -28,7 +28,7 @@ import java.util.Currency;
  * BigDecimal that has scale equal to the number of decimal places of this
  * calculator. Rounding is done always using <code>BigDecimal.ROUND_HALF_EVEN</code>.
  * The second number kept by the calculator is the remainder. The remainder
- * keeps the remainder of the result's rounding. <br/>
+ * keeps the remainder of the result's rounding. <br>
  * The constructor argument <code>addRemainder</code> specifies the use of
  * the remainder in calculations. If this argument is set to true, then the
  * remainder that was before a calculation will be added to the result of the
@@ -65,10 +65,10 @@ public class MoneyCalculator {
 	/**
 	 * Validates that the specified money has the same currency
 	 * as this calculator.
-	 * 
-	 * @param money
+	 *
+	 * @param money the money
 	 */
-	private void validate(Money money) {
+	private void validate(@SuppressWarnings("unused") Money money) {
 		/* for the time being empty */
 	}
 
@@ -95,7 +95,7 @@ public class MoneyCalculator {
 	}
 
 	/**
-	 * Sets the specified argument to this calculator's result. <br/>
+	 * Sets the specified argument to this calculator's result. <br>
 	 * 
 	 * The result is always rounded to the number of decimal digits, 
 	 * specified for this calculator. The remainder is not modified.
@@ -111,7 +111,7 @@ public class MoneyCalculator {
 	}
 	
 	/**
-	 * Adds the specified argument to this calculator's result. <br/>
+	 * Adds the specified argument to this calculator's result. <br>
 	 * 
 	 * The result is always rounded to the number of decimal digits, 
 	 * specified for this calculator. The remainder is not affected.
@@ -128,7 +128,7 @@ public class MoneyCalculator {
 	}
 
 	/**
-	 * Subtracts the specified argument from this calculator's result. <br/>
+	 * Subtracts the specified argument from this calculator's result. <br>
 	 * 
 	 * The result is always rounded to the number of decimal digits, 
 	 * specified for this calculator. The remainder is not affected.
@@ -146,10 +146,10 @@ public class MoneyCalculator {
 	
 	/**
 	 * Multiplies the current result with the specified argument
-	 * and sets the result of the multiplication as the m to this calculator's result. <br/>
+	 * and sets the result of the multiplication as the m to this calculator's result. <br>
 	 * 
 	 * The result is always rounded to the number of decimal digits, 
-	 * specified for this calculator. <br/>
+	 * specified for this calculator. <br>
 	 * The remainder of the truncation is not affected.
 	 * 
 	 * @param bd

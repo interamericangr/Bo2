@@ -21,20 +21,18 @@ import org.junit.Test;
 /**
  * Unit test for {@link PropertyIsWithinRange}.
  */
+@Deprecated
 public class TestPropertyIsWithinRange {
-	
+
 	/**
 	 * Tests the constructor.
 	 */
 	@Test
 	@SuppressWarnings("nls")
 	public void testConstructor() {
-		PropertyIsWithinRange<BeanWith2Fields, Integer> condition = 
-			new PropertyIsWithinRange<BeanWith2Fields, Integer>
-				("field2", BeanWith2Fields.class, new Range<Integer>(5,6));
+		PropertyIsWithinRange<BeanWith2Fields, Integer> condition = new PropertyIsWithinRange<BeanWith2Fields, Integer>(
+				"field2", BeanWith2Fields.class, new Range<Integer>(5, 6));
 		Assert.assertNotNull(condition.condition);
 		Assert.assertTrue(condition.condition instanceof IsWithinRange);
 	}
-	
-	
 }

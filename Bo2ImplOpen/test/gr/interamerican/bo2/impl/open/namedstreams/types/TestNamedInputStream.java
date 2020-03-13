@@ -30,7 +30,7 @@ import org.junit.Test;
 
 
 /**
- * 
+ * The Class TestNamedInputStream.
  */
 @SuppressWarnings("nls")
 public class TestNamedInputStream {
@@ -45,12 +45,13 @@ public class TestNamedInputStream {
 	
 	/**
 	 * Creates a sample.
-	 * 
+	 *
+	 * @param rows the rows
 	 * @return Returns the sample.
 	 */
 	NamedInputStream sample(String... rows) {
 		Charset encoding = Charset.defaultCharset();
-		InputStream in = Streams.input(encoding, lines);
+		InputStream in = Streams.input(encoding, rows);
 		return new NamedInputStream(null,in,"NIS",lines[0].length()+1,in,encoding,"NIS_URI");
 	}
 	
@@ -83,8 +84,8 @@ public class TestNamedInputStream {
 
 	/**
 	 * Unit test for readRecord.
-	 * 
-	 * @throws DataException
+	 *
+	 * @throws DataException the data exception
 	 */	
 	@Test
 	public void testReadRecord() throws DataException {
@@ -99,8 +100,8 @@ public class TestNamedInputStream {
 	
 	/**
 	 * Unit test for readString().
-	 * 
-	 * @throws DataException
+	 *
+	 * @throws DataException the data exception
 	 */	
 	@Test
 	public void testReadString() throws DataException {
@@ -114,8 +115,8 @@ public class TestNamedInputStream {
 	
 	/**
 	 * Unit test for writeString.
-	 * 
-	 * @throws DataException
+	 *
+	 * @throws DataException the data exception
 	 */	
 	@Test(expected=DataOperationNotSupportedException.class)
 	public void testWriteString() 
@@ -126,8 +127,8 @@ public class TestNamedInputStream {
 	
 	/**
 	 * Unit test for writeString.
-	 * 
-	 * @throws DataException
+	 *
+	 * @throws DataException the data exception
 	 */	
 	@Test(expected=DataOperationNotSupportedException.class)
 	public void testWriteRecord() 
@@ -138,8 +139,8 @@ public class TestNamedInputStream {
 	
 	/**
 	 * Unit test for find.
-	 * 
-	 * @throws DataException
+	 *
+	 * @throws DataException the data exception
 	 */	
 	@Test(expected=DataOperationNotSupportedException.class)
 	public void testFind() throws DataException {
@@ -149,9 +150,9 @@ public class TestNamedInputStream {
 	
 	/**
 	 * Test for close().
-	 * 
-	 * @throws IOException 
-	 * @throws DataException 
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testClose() throws IOException, DataException {

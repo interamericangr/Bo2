@@ -18,8 +18,8 @@ import gr.interamerican.bo2.utils.adapters.VoidOperation;
 
 /**
  * Sets the modification record.
- * 
- * @param <P> 
+ *
+ * @param <P> the generic type
  */
 public class SetModificationRecord<P extends PersistentObject<?> & ModificationRecord>
 implements VoidOperation<P> {
@@ -33,16 +33,16 @@ implements VoidOperation<P> {
 	/**
 	 * Creates a new SetModificationRecord object. 
 	 *
-	 * @param record
+	 * @param record the record
 	 */
 	public SetModificationRecord(ModificationRecord record) {
 		super();
 		this.record = record;
 	}
-	
+
+	@Override
 	public void execute(P a) {
 		a.setLastModified(record.getLastModified());
 		a.setLastModifiedBy(record.getLastModifiedBy());
 	}
-
 }

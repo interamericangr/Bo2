@@ -13,7 +13,7 @@
 package gr.interamerican.bo2.test.def.samples.enums;
 
 /**
- * 
+ * The Enum Sex.
  */
 public enum Sex {
 	

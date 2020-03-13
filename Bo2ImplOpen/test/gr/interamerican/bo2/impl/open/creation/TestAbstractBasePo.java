@@ -44,7 +44,7 @@ public class TestAbstractBasePo extends BaseTestForAbstractBasePo {
 	}
 
 	/**
-	 * tests updatePo
+	 * tests updatePo.
 	 */
 	@Test
 	@SuppressWarnings("unused")
@@ -59,13 +59,13 @@ public class TestAbstractBasePo extends BaseTestForAbstractBasePo {
 	}
 	
 	/**
-	 * tests updatePo
+	 * tests updatePo.
 	 */
 	@Test
 	@SuppressWarnings("unused")
 	public void testTidy() {
 		Invoice po = this.getSamplesFactory().sampleInvoiceFull(4);
-		String invoiceNo = "X";
+		String invoiceNo = "X"; //$NON-NLS-1$
 		po.getKey().setInvoiceNo(invoiceNo);
 		po.tidy();
 		Set<InvoiceLine> lines = po.getLines();
@@ -77,7 +77,4 @@ public class TestAbstractBasePo extends BaseTestForAbstractBasePo {
 			}
 		}
 	}
-	
-
-
 }

@@ -29,7 +29,7 @@ public class TestBo2DeploymentInfoUtility {
 	Bo2DeploymentInfoUtility subject = Bo2DeploymentInfoUtility.get();
 	
 	/**
-	 * Test getInfoForManager()
+	 * Test getInfoForManager().
 	 */
 	@Test
 	@SuppressWarnings("nls")
@@ -45,14 +45,10 @@ public class TestBo2DeploymentInfoUtility {
 		
 		String localDb2 = subject.getInfoForManager(Bo2.DEFAULT_DEPLOYMENT_PROPERTIES_PATH, "LOCALDB");
 		Assert.assertEquals(localDb, localDb2);
-		
-		String localDbCustomDepl = subject.getInfoForManager(
-			Bo2.getDefaultDeployment().getDeploymentBean().getPathToSecondaryBatchDeployment(), "LOCALDB");
-		Assert.assertTrue(localDbCustomDepl.contains("Connection strategy: "));
 	}
 	
 	/**
-	 * Test getJdbcManagers()
+	 * Test getJdbcManagers().
 	 */
 	@Test
 	public void testGetJdbcManagers() {
@@ -62,7 +58,7 @@ public class TestBo2DeploymentInfoUtility {
 	}
 	
 	/**
-	 * Test getRealManagerNameForAlias
+	 * Test getRealManagerNameForAlias.
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -75,7 +71,7 @@ public class TestBo2DeploymentInfoUtility {
 	}
 	
 	/**
-	 * Test getRealManagerNameForAlias
+	 * Test getRealManagerNameForAlias.
 	 */
 	@Test(expected=RuntimeException.class)
 	public void testGetRealManagerNameForAlias_nonExistant() {
@@ -83,7 +79,7 @@ public class TestBo2DeploymentInfoUtility {
 	}
 	
 	/**
-	 * test getPropertiesOfManager
+	 * test getPropertiesOfManager.
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -94,12 +90,22 @@ public class TestBo2DeploymentInfoUtility {
 	}
 	
 	/**
-	 * Test getManagerNames
+	 * Test getManagerNames.
 	 */
 	@Test
 	public void testGetManagerNames() {
 		List<String> managers = subject.getManagerNames();
 		Assert.assertTrue(managers.size()>0);
+	}
+	
+	/**
+	 * Test get configuration summary.
+	 */
+	@Test
+	public void testGetConfigurationSummary() {
+		String configurationSummary = subject.getConfigurationSummary();
+		Assert.assertNotNull(configurationSummary);
+		Assert.assertTrue(configurationSummary.length() > 0);
 	}
 
 }

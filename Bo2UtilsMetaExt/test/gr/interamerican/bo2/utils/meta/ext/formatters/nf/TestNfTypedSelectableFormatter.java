@@ -19,13 +19,13 @@ import gr.interamerican.bo2.utils.meta.ext.formatters.TypedSelectableFormatter;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestNfTypedSelectableFormatter.
  */
 public class TestNfTypedSelectableFormatter {
 
 	
 	/**
-	 * test Constructor
+	 * test Constructor.
 	 */
 	@Test
 	public void testConstructor(){

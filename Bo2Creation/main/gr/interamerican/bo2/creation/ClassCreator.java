@@ -23,23 +23,21 @@ public interface ClassCreator {
 	/**
 	 * Creates a new class that implements the interface of the specified
 	 * type.
-	 * 
-	 * @param type
-	 *        Type being instrumented.
+	 *
+	 * @param type        Type being instrumented.
 	 *        
-	 * @return Returns a class that implements the interfaces of the 
+	 * @return Returns a class that implements the interfaces of the
 	 *         specified type.
 	 *         
-	 * @throws ClassCreationException 
+	 * @throws ClassCreationException the class creation exception
 	 */
 	public Class<?> create(Class<?> type) throws ClassCreationException;
 	
 	/**
 	 * Gets the name of the compile time class that was used by this
 	 * ClassCreator for the creation of the runTimeClass.
-	 * 
-	 * @param runTimeName
-	 * 
+	 *
+	 * @param runTimeName the run time name
 	 * @return Returns the name of the plain class.
 	 */
 	public String compileTimeClassName(String runTimeName);
@@ -47,9 +45,8 @@ public interface ClassCreator {
 	/**
 	 * Gets the name of the compile time class that was used by this
 	 * ClassCreator for the creation of the runTimeClass.
-	 * 
-	 * @param compileTimeName
-	 * 
+	 *
+	 * @param compileTimeName the compile time name
 	 * @return Returns the name of the plain class.
 	 */
 	public String runTimeClassName(String compileTimeName);

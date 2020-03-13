@@ -59,7 +59,7 @@ public class TestPropertiesInitializedBean {
 	}
 	
 	/**
-	 * 
+	 * Test get date with exception.
 	 */
 	@Test(expected = RuntimeException.class)
 	public void testGetDate_WithException() {
@@ -158,7 +158,7 @@ public class TestPropertiesInitializedBean {
 		/**
 		 * Creates a new Bean1 object. 
 		 *
-		 * @param properties
+		 * @param properties the properties
 		 */
 		public Bean1(Properties properties) {
 			super(properties);
@@ -392,7 +392,7 @@ public class TestPropertiesInitializedBean {
 		/**
 		 * ��������� floatField1.
 		 *
-		 * @param floatField1 
+		 * @param floatField1 the new float field 1
 		 */
 		public void setFloatField1(Float floatField1) {
 			this.floatField1 = floatField1;
@@ -412,7 +412,7 @@ public class TestPropertiesInitializedBean {
 		/**
 		 * ��������� shortField1.
 		 *
-		 * @param shortField1 
+		 * @param shortField1 the new short field 1
 		 */
 		public void setShortField1(Short shortField1) {
 			this.shortField1 = shortField1;
@@ -431,7 +431,7 @@ public class TestPropertiesInitializedBean {
 		/**
 		 * ��������� byteField1.
 		 *
-		 * @param byteField1 
+		 * @param byteField1 the new byte field 1
 		 */
 		public void setByteField1(Byte byteField1) {
 			this.byteField1 = byteField1;
@@ -450,7 +450,7 @@ public class TestPropertiesInitializedBean {
 		/**
 		 * ��������� characterFieldNull.
 		 *
-		 * @param characterFieldNull 
+		 * @param characterFieldNull the new character field null
 		 */
 		public void setCharacterFieldNull(Character characterFieldNull) {
 			this.characterFieldNull = characterFieldNull;
@@ -465,10 +465,11 @@ public class TestPropertiesInitializedBean {
 		public Boolean getBooleanField3() {
 			return booleanField3;
 		}
+		
 		/**
 		 * ��������� booleanField3.
 		 *
-		 * @param booleanField3 
+		 * @param booleanField3 the new boolean field 3
 		 */
 		public void setBooleanField3(Boolean booleanField3) {
 			this.booleanField3 = booleanField3;
@@ -487,7 +488,7 @@ public class TestPropertiesInitializedBean {
 		/**
 		 * ��������� booleanField4.
 		 *
-		 * @param booleanField4 
+		 * @param booleanField4 the new boolean field 4
 		 */
 		public void setBooleanField4(Boolean booleanField4) {
 			this.booleanField4 = booleanField4;
@@ -521,15 +522,16 @@ public class TestPropertiesInitializedBean {
 		/**
 		 * ��������� dateField2.
 		 *
-		 * @param dateField2 
+		 * @param dateField2 the new date field 2
 		 */
 		public void setDateField2(Date dateField2) {
 			this.dateField2 = dateField2;
 		}
+		
 		/**
 		 * Creates a new Bean2 object. 
 		 *
-		 * @param properties
+		 * @param properties the properties
 		 */
 		public Bean2(Properties properties) {
 			super(properties);

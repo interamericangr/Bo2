@@ -14,7 +14,7 @@ import org.mockito.Mockito;
 
 
 /**
- * test suite for {@link WriteOnlyNsFactory}
+ * test suite for {@link WriteOnlyNsFactory}.
  */
 public class TestWriteOnlyNsFactory {
 
@@ -29,7 +29,7 @@ public class TestWriteOnlyNsFactory {
 	}
 
 	/**
-	 * test case for {@link WriteOnlyNsFactory#writer(OutputStream, String, Charset, String)}
+	 * test case for {@link WriteOnlyNsFactory#writer(OutputStream, String, Charset, String)}.
 	 */
 	@Test
 	public void testWriter() {
@@ -51,7 +51,7 @@ public class TestWriteOnlyNsFactory {
 	}
 
 	/**
-	 * test case for {@link WriteOnlyNsFactory#output(OutputStream, String, int, Charset, String)}
+	 * test case for {@link WriteOnlyNsFactory#output(OutputStream, String, int, Charset, String)}.
 	 */
 	@Test
 	public void testOutput() {
@@ -74,14 +74,14 @@ public class TestWriteOnlyNsFactory {
 	}
 
 	/**
-	 *
+	 * A factory for creating ConcreteWriteOnlyNs objects.
 	 */
 	class ConcreteWriteOnlyNsFactory extends WriteOnlyNsFactory {
 
 		/**
-		 * default constructor
+		 * default constructor.
 		 *
-		 * @param resourceType
+		 * @param resourceType the resource type
 		 */
 		public ConcreteWriteOnlyNsFactory(StreamResource resourceType) {
 			super(resourceType);

@@ -22,6 +22,7 @@ import org.junit.Test;
 /**
  * Unit test for {@link GetProperty}.
  */
+@Deprecated
 public class TestGetProperty {
 	/**
 	 * Unit test for the adapter.
@@ -52,7 +53,4 @@ public class TestGetProperty {
 		Assert.assertEquals(expected, actual);
 		Assert.assertNull(getter.execute(null));
 	}
-	
-
-
 }

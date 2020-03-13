@@ -41,22 +41,18 @@ import org.junit.Test;
 public class TestWorkerUtils {
 
 	
-	/**
-	 * WorkerUtils to test
-	 */
+	/** WorkerUtils to test. */
 	WorkerUtils utils = new WorkerUtils();
 	
-	/**
-	 * query that brings CompanyUser
-	 */
+	/** query that brings CompanyUser. */
 	TsEntitiesQueryImpl query = new TsEntitiesQueryImpl();
 	
 	/**
-	 * tests queryResultsAsList
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 * tests queryResultsAsList.
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testQueryResultsAsList() 
@@ -78,11 +74,11 @@ public class TestWorkerUtils {
 	}
 	
 	/**
-	 * tests queryResultsAsConvertedList
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 * tests queryResultsAsConvertedList.
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testQueryResultsAsConvertedList() 
@@ -104,11 +100,11 @@ public class TestWorkerUtils {
 	}
 	
 	/**
-	 * tests queryTransformedResultsAsList
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 * tests queryTransformedResultsAsList.
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testQueryTransformedResultsAsList() 
@@ -134,11 +130,11 @@ public class TestWorkerUtils {
 	
 	
 	/**
-	 * tests queryResultsAsSet
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 * tests queryResultsAsSet.
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testQueryResultsAsSet() 
@@ -160,11 +156,11 @@ public class TestWorkerUtils {
 	}
 	
 	/**
-	 * tests queryResultsAsConvertedSet
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 * tests queryResultsAsConvertedSet.
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testQueryResultsAsConvertedSet() 
@@ -186,11 +182,11 @@ public class TestWorkerUtils {
 	}
 	
 	/**
-	 * tests queryTransformedResultsAsList
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 * tests queryTransformedResultsAsList.
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testQueryTransformedResultsAsSet() 
@@ -222,11 +218,11 @@ public class TestWorkerUtils {
 	
 	
 	/**
-	 * tests queryTransformedResultsAsList
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 * tests queryTransformedResultsAsList.
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testCreate() 
@@ -246,11 +242,11 @@ public class TestWorkerUtils {
 	}
 	
 	/**
-	 * tests queryTransformedResultsAsList
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 * tests queryTransformedResultsAsList.
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testExecute_with3() 
@@ -269,11 +265,11 @@ public class TestWorkerUtils {
 	}
 	
 	/**
-	 * tests queryTransformedResultsAsList
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 * tests queryTransformedResultsAsList.
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testExecute_with2() 
@@ -288,11 +284,11 @@ public class TestWorkerUtils {
 	}
 	
 	/**
-	 * tests queryTransformedResultsAsList
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 * tests queryTransformedResultsAsList.
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testApply_with3() 
@@ -311,11 +307,11 @@ public class TestWorkerUtils {
 	}
 	
 	/**
-	 * tests queryTransformedResultsAsList
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 * tests queryTransformedResultsAsList.
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testApply_with2() 
@@ -336,6 +332,8 @@ public class TestWorkerUtils {
 	 * Transforms a {@link TypedSelectable} to a {@link CodifiedImpl}.
 	 */
 	private class Adapter implements Transformation<TypedSelectable<Long>, CodifiedImpl> {
+		
+		@Override
 		public CodifiedImpl execute(TypedSelectable<Long> a) {
 			CodifiedImpl codified = new CodifiedImpl();
 			codified.setCode(a.getCode());
@@ -347,14 +345,17 @@ public class TestWorkerUtils {
 	 * Implementation of {@link Codified}.
 	 */
 	private class CodifiedImpl implements Codified<Long> {
-		/**
-		 * code
-		 */
+		
+		/** code. */
 		private Long code;
 
+		@Override
 		public Long getCode() { return code; }
+		
+		@Override
 		public void setCode(Long code) { this.code = code; }
 		
+		@Override
 		public int compareTo(Codified<Long> o) {
 			if(o==null) { return 1; }
 			return Utils.nullSafeCompare(o.getCode(), this.getCode());

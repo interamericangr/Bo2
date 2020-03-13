@@ -26,6 +26,8 @@ public class TableNamesFinderInSelectElements extends AbstractTableNamesFinder {
 
 	/**
 	 * Entry point of this visitor.
+	 *
+	 * @param plainSelect the plain select
 	 */
 	@Override
 	@SuppressWarnings("unchecked")

@@ -33,7 +33,7 @@ import org.mockito.Mockito;
 public class TestPanelFactory extends WicketTest {
 	
 	/**
-	 * Unit test for create()
+	 * Unit test for create().
 	 */
 	@Test
 	public void testCreate() {
@@ -45,7 +45,7 @@ public class TestPanelFactory extends WicketTest {
 	}
 	
 	/**
-	 * test registerFixture
+	 * test registerFixture.
 	 */
 	@Test
 	public void testRegisterFixture() {

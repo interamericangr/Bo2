@@ -19,7 +19,7 @@ import gr.interamerican.bo2.impl.open.hibernate.refreshmodes.JustGet;
 import gr.interamerican.bo2.test.def.posamples.Invoice;
 
 /**
- * 
+ * The Class InvoicePwImpl.
  */
 public class InvoicePwImpl 
 extends GenericHibernatePersistenceWorker<Invoice> {

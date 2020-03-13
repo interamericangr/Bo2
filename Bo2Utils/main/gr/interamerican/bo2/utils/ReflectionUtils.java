@@ -12,11 +12,6 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils;
 
-import gr.interamerican.bo2.utils.beans.MultipleValuesMap;
-import gr.interamerican.bo2.utils.beans.Pair;
-import gr.interamerican.bo2.utils.reflect.analyze.TypeAnalysis;
-import gr.interamerican.bo2.utils.reflect.beans.BeanPropertyDefinition;
-
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AccessibleObject;
 import java.lang.reflect.Constructor;
@@ -36,6 +31,13 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import gr.interamerican.bo2.utils.beans.MultipleValuesMap;
+import gr.interamerican.bo2.utils.beans.Pair;
+import gr.interamerican.bo2.utils.functions.SerializableFunction;
+import gr.interamerican.bo2.utils.functions.SerializableSupplier;
+import gr.interamerican.bo2.utils.reflect.analyze.TypeAnalysis;
+import gr.interamerican.bo2.utils.reflect.beans.BeanPropertyDefinition;
+
 /**
  * Utilities relevant with the java reflection API.
  */
@@ -45,16 +47,6 @@ public class ReflectionUtils {
 	 * Logger.
 	 */
 	private static final Logger logger = LoggerFactory.getLogger(ReflectionUtils.class.getName());
-
-	/**
-	 * Indicates if this is an IBM JRE.
-	 */
-	private static boolean isIbmJre;
-
-	static {
-		String vendor = System.getProperty("java.vendor"); //$NON-NLS-1$
-		isIbmJre = vendor.startsWith("IBM"); //$NON-NLS-1$
-	}
 
 	/**
 	 * No arguments for a getter.
@@ -218,10 +210,9 @@ public class ReflectionUtils {
 	 * Finds the names of the properties of o1, for which a property with the
 	 * same name exists on o2, and this property has different value in o2,
 	 * compared to the value of the property in o1.
-	 * 
-	 * @param o1
-	 * @param o2
-	 * 
+	 *
+	 * @param o1 the o 1
+	 * @param o2 the o 2
 	 * @return Returns an array with the names of the properties.
 	 */
 	public static String[] namesOfPropertiesWithDifferentValue(Object o1, Object o2) {
@@ -265,35 +256,32 @@ public class ReflectionUtils {
 		}
 		TypeAnalysis sourceType = TypeAnalysis.analyze(source.getClass());
 		TypeAnalysis targetType = TypeAnalysis.analyze(target.getClass());
-		copyProperty(sourceType, targetType, source, target, property);
+		copyProperty(sourceType, targetType, source, target, property, false);
 	}
 
 	/**
 	 * Copies all common properties of an object to another.
-	 * 
+	 *
+	 * @param source            Object who's properties will be copied to the target object.
+	 * @param target            Object to which the properties will be copied.
 	 * @see #copyProperties(Object, Object, String[])
-	 * 
-	 * @param source
-	 *            Object who's properties will be copied to the target object.
-	 * @param target
-	 *            Object to which the properties will be copied.
 	 */
 	public static void copyProperties(Object source, Object target) {
 		copyProperties(source, target, null);
 	}
 
 	/**
-	 * Copies common properties of an object to another. <br/>
+	 * Copies common properties of an object to another. <br>
 	 * 
 	 * The method will copy all properties of the source object that have their
 	 * name included in the properties array, to the target object. The property
 	 * will be copied only if it has the same type in both objects or if the
 	 * type of the first object's property is assignable to the type of the
 	 * second object's property. Source and target object don't need to be
-	 * instances of the same class. <br/>
+	 * instances of the same class. <br>
 	 * If the value of a property is null, then the default value defined for
 	 * the property type is set. The default values are specified and retrieved
-	 * from the {@link Defaults} utility class. <br/>
+	 * from the {@link Defaults} utility class. <br>
 	 * If either the source or the target objects are null the method will have
 	 * no effect on either object.
 	 * 
@@ -325,14 +313,8 @@ public class ReflectionUtils {
 		} else {
 			propertiesToCopy = properties;
 		}
-		if (withDefaults) {
-			for (String property : propertiesToCopy) {
-				copyPropertyWithDefault(sourceType, targetType, source, target, property);
-			}
-		} else {
-			for (String property : propertiesToCopy) {
-				copyProperty(sourceType, targetType, source, target, property);
-			}
+		for (String property : propertiesToCopy) {
+			copyProperty(sourceType, targetType, source, target, property, withDefaults);
 		}
 	}
 
@@ -362,17 +344,17 @@ public class ReflectionUtils {
 	}
 
 	/**
-	 * Copies common properties of an object to another. <br/>
+	 * Copies common properties of an object to another. <br>
 	 * 
 	 * The method will copy all properties of the source object that have their
 	 * name included in the properties array, to the target object. The property
 	 * will be copied only if it has the same type in both objects or if the
 	 * type of the first object's property is assignable to the type of the
 	 * second object's property. Source and target object don't need to be
-	 * instances of the same class. <br/>
+	 * instances of the same class. <br>
 	 * If the value of a property is null, then the default value defined for
 	 * the property type is set. The default values are specified and retrieved
-	 * from the {@link Defaults} utility class. <br/>
+	 * from the {@link Defaults} utility class. <br>
 	 * If either the source or the target objects are null the method will have
 	 * no effect on either object.
 	 * 
@@ -391,15 +373,11 @@ public class ReflectionUtils {
 	/**
 	 * Copies all common properties of an object to another excluding some
 	 * properties.
-	 * 
+	 *
+	 * @param source            Object who's properties will be copied to the target object.
+	 * @param target            Object to which the properties will be copied.
+	 * @param excluded            List of properties to exclude.
 	 * @see #copyProperties(Object, Object, String[])
-	 * 
-	 * @param source
-	 *            Object who's properties will be copied to the target object.
-	 * @param target
-	 *            Object to which the properties will be copied.
-	 * @param excluded
-	 *            List of properties to exclude.
 	 */
 	public static void copyPropertiesExcluding(Object source, Object target, String[] excluded) {
 		if (ArrayUtils.isNullOrEmpty(excluded)) {
@@ -415,7 +393,7 @@ public class ReflectionUtils {
 		Set<String> allProperties = sourceType.getNamesOfProperties();
 		for (String property : allProperties) {
 			if (!excludedProperties.contains(property)) {
-				copyProperty(sourceType, targetType, source, target, property);
+				copyProperty(sourceType, targetType, source, target, property, false);
 			}
 		}
 	}
@@ -445,10 +423,9 @@ public class ReflectionUtils {
 	/**
 	 * Gets the first field of type that can can be assigned to the
 	 * requiredType.
-	 * 
-	 * @param requiredType
-	 * @param type
-	 * 
+	 *
+	 * @param requiredType the required type
+	 * @param type the type
 	 * @return Returns the first field of type that can can be assigned to the
 	 *         requiredType.
 	 */
@@ -481,8 +458,10 @@ public class ReflectionUtils {
 		try {
 			return type.getMethod(methodName, args);
 		} catch (SecurityException e) {
+			logger.error(ExceptionUtils.getThrowableStackTrace(e));
 			return null;
 		} catch (NoSuchMethodException e) {
+			logger.info(ExceptionUtils.getThrowableStackTrace(e));
 			return null;
 		}
 	}
@@ -499,12 +478,13 @@ public class ReflectionUtils {
 	 *         no method matching the search criteria, returns null.
 	 */
 	public static Method getPublicMethodWithoutParamsByName(String methodName, Class<?> type) {
-		Class<?>[] paramTypes = null;
 		try {
-			return type.getMethod(methodName, paramTypes);
+			return type.getMethod(methodName);
 		} catch (SecurityException e) {
+			logger.error(ExceptionUtils.getThrowableStackTrace(e));
 			return null;
 		} catch (NoSuchMethodException e) {
+			logger.info(ExceptionUtils.getThrowableStackTrace(e));
 			return null;
 		}
 	}
@@ -608,7 +588,7 @@ public class ReflectionUtils {
 		allMethods.addAll(getPublicMethods(type));
 
 		if (type.getSuperclass() == null) {
-			return SelectionUtils.selectByName(methodName, allMethods, Method.class);
+			return SelectionUtils.selectByProperty(Method::getName, methodName, allMethods);
 		}
 
 		/*
@@ -648,11 +628,13 @@ public class ReflectionUtils {
 
 		allMethods.addAll(inheritedMethods);
 
-		return SelectionUtils.selectByName(methodName, allMethods, Method.class);
+		return SelectionUtils.selectByProperty(Method::getName, methodName, allMethods);
 	}
 
 	/**
-	 * @param mod
+	 * Checks if is default access.
+	 *
+	 * @param mod the mod
 	 * @return Returns true, if the access modifier is default.
 	 */
 	public static boolean isDefaultAccess(int mod) {
@@ -667,16 +649,11 @@ public class ReflectionUtils {
 	 * NOTE: In case of overloaded methods that have declared parameter types
 	 * lists for which the parameter types are assignable to each other
 	 * on-by-one this will invoke the first method matched.
-	 * 
-	 * @param <T>
-	 *            Type of the return type.
-	 * @param methodName
-	 *            Name of the method.
-	 * @param owner
-	 *            Runtime object to invoke the method on.
-	 * @param args
-	 *            Varargs list of arguments for the method.
-	 * 
+	 *
+	 * @param <T>            Type of the return type.
+	 * @param owner            Runtime object to invoke the method on.
+	 * @param methodName            Name of the method.
+	 * @param args            Varargs list of arguments for the method.
 	 * @return Returns the method result, or null if it is void.
 	 */
 	@SuppressWarnings({ "unchecked", "nls" })
@@ -703,9 +680,7 @@ public class ReflectionUtils {
 				m.setAccessible(true);
 			}
 			return (T) m.invoke(owner, args);
-		} catch (IllegalArgumentException e) {
-			throw new RuntimeException(e);
-		} catch (IllegalAccessException e) {
+		} catch (IllegalArgumentException | IllegalAccessException e) {
 			throw new RuntimeException(e);
 		} catch (InvocationTargetException e) {
 			throw new RuntimeException(e.getCause());
@@ -725,51 +700,7 @@ public class ReflectionUtils {
 	 */
 	public static List<Method> getPublicMethodsByName(String methodName, Class<?> type) {
 		List<Method> list = getPublicMethods(type);
-		return SelectionUtils.selectByName(methodName, list, Method.class);
-	}
-
-	/**
-	 * Gets all public methods of a type.
-	 * 
-	 * Normally type.getMethods() should do the job. But IBM JREs don't follow
-	 * the standard. IBM JREs don't return two methods with the same signature
-	 * that are defined in different interfaces the <code>type</code> implements
-	 * and are not implemented by <code>type</code>. This method gets all
-	 * methods, even in this case.
-	 * 
-	 * @param type
-	 * 
-	 * @return Returns a list with all public
-	 */
-	private static Set<Method> getPublicMethodsForIbmJre(Class<?> type) {
-		Set<Method> methods = new HashSet<Method>();
-		CollectionUtils.addAll(methods, type.getMethods());
-		Class<?>[] interfaces = type.getInterfaces();
-		for (Class<?> intfc : interfaces) {
-			Set<Method> interfaceMethods = getPublicMethodsForIbmJre(intfc);
-			methods.addAll(interfaceMethods);
-		}
-		return methods;
-	}
-
-	/**
-	 * Gets all public methods of a type.
-	 * 
-	 * Normally type.getMethods() should do the job. But IBM JREs don't follow
-	 * the standard. IBM JREs don't return two methods with the same signature
-	 * that are defined in different interfaces, implemented by
-	 * <code>type</code>. This method gets all methods.
-	 * 
-	 * @param type
-	 * 
-	 * @return Returns a list with all public
-	 */
-	public static Method[] getPublicMethodsOfType(Class<?> type) {
-		if (isIbmJre) {
-			Set<Method> set = getPublicMethodsForIbmJre(type);
-			return CollectionUtils.toArray(set, new Method[0]);
-		}
-		return type.getMethods();
+		return SelectionUtils.selectByProperty(Method::getName, methodName, list);
 	}
 
 	/**
@@ -782,18 +713,17 @@ public class ReflectionUtils {
 	 * @return Returns a list with methods.
 	 */
 	public static List<Method> getPublicMethods(Class<?> type) {
-		Method[] all = getPublicMethodsOfType(type);
-		List<Method> list = new ArrayList<Method>();
-		MultipleValuesMap<String, Method> index = new MultipleValuesMap<String, Method>();
-		Set<Method> genericMethods = new HashSet<Method>();
-
+		Method[] all = type.getMethods();
+		Set<Method> result = new HashSet<>();
+		MultipleValuesMap<String, Method> index = new MultipleValuesMap<>();
+		Set<Method> genericMethods = new HashSet<>();
 		for (Method candidate : all) {
 			if (!(candidate.isSynthetic() || candidate.isBridge())) {
 				String name = candidate.getName();
 				Class<?>[] args = candidate.getParameterTypes();
+
 				Method method = getPublicMethod(name, type, args);
-				if (method.equals(candidate)) {
-					list.add(method);
+				if (result.add(method)) {
 					index.put(name, method);
 					if (GenericsUtils.isVariableParameterType(method)) {
 						genericMethods.add(method);
@@ -801,6 +731,7 @@ public class ReflectionUtils {
 				}
 			}
 		}
+		
 
 		for (Method genericMethod : genericMethods) {
 			Set<Method> named = index.get(genericMethod.getName());
@@ -819,14 +750,14 @@ public class ReflectionUtils {
 							 * overridden methods. Overloaded methods must be
 							 * included.
 							 */
-							list.remove(genericMethod);
+							result.remove(genericMethod);
 							break;
 						}
 					}
 				}
 			}
 		}
-		return list;
+		return new ArrayList<>(result);
 	}
 
 	/**
@@ -834,9 +765,8 @@ public class ReflectionUtils {
 	 * This includes public, protected and default access methods.
 	 * Inherited methods that are overridden somewhere in the class hierarchy are ommitted.
 	 * This takes into account parameterized methods.
-	 * 
-	 * @param type
-	 * 
+	 *
+	 * @param type the type
 	 * @return Finds all public, protected and default access methods of a class.
 	 */
 	public static List<Method> getAccessibleMethods(Class<?> type) {
@@ -861,10 +791,9 @@ public class ReflectionUtils {
 	/**
 	 * Returns true if a method has the same signature with any method included
 	 * in a list.
-	 * 
-	 * @param existingMethods
-	 * @param method
-	 * 
+	 *
+	 * @param existingMethods the existing methods
+	 * @param method the method
 	 * @return Returns true if a method has the same signature with any method
 	 *         included in a list.
 	 */
@@ -879,12 +808,13 @@ public class ReflectionUtils {
 
 	/**
 	 * Returns true, if the two methods have the same signature.
-	 * 
-	 * @see GenericsUtils
-	 * 
+	 *
 	 * @param m1
+	 *            the m 1
 	 * @param m2
+	 *            the m 2
 	 * @return Returns true, if the two methods have the same signature.
+	 * @see GenericsUtils
 	 */
 	static boolean sameMethodSignature(Method m1, Method m2) {
 		if (!m1.getName().equals(m2.getName())) {
@@ -898,26 +828,26 @@ public class ReflectionUtils {
 			return false;
 		}
 
-		boolean sameClassHierarchy = clazz1.isAssignableFrom(clazz2) || clazz2.isAssignableFrom(clazz1);
 		Class<?>[] params1 = m1.getParameterTypes();
 		Class<?>[] params2 = m2.getParameterTypes();
-		
-		if (sameClassHierarchy) {
-			for (int i = 0; i < params1.length; i++) { 
-				if (params1[i] != params2[i])
-					/*
-					 * if there is a mismatch check for match 
-					 * considering parameterized arguments
-					 */
+
+		if (params1.length != params2.length) {
+			return false;
+		}
+
+		boolean sameClassHierarchy = clazz1.isAssignableFrom(clazz2) || clazz2.isAssignableFrom(clazz1);
+		for (int i = 0; i < params1.length; i++) {
+			if (params1[i] != params2[i]) {
+				/*
+				 * if there is a mismatch check for match considering
+				 * parameterized arguments
+				 */
+				if (sameClassHierarchy) {
 					return GenericsUtils.isGenericParametersMatch(m1, m2);
+				}
+				return false;
 			}
 		}
-		
-		for (int i = 0; i < params1.length; i++) {
-			if (params1[i] != params2[i])
-				return false;
-		}
-		
 		return true;
 	}
 
@@ -992,18 +922,16 @@ public class ReflectionUtils {
 	public static Object get(Field field, Object obj) {
 		try {
 			return field.get(obj);
-		} catch (IllegalArgumentException e) {
-			throw new RuntimeException(e);
-		} catch (IllegalAccessException e) {
+		} catch (IllegalArgumentException | IllegalAccessException e) {
 			throw new RuntimeException(e);
 		}
 	}
 
 	/**
 	 * Gets the values of a List of Fields from an Object.
-	 * 
-	 * @param fields
-	 * @param obj
+	 *
+	 * @param fields the fields
+	 * @param obj the obj
 	 * @return List with fields' values on the specified instance.
 	 */
 	public static List<Object> get(List<Field> fields, Object obj) {
@@ -1044,6 +972,23 @@ public class ReflectionUtils {
 		}
 		String msg = "No such field: " + fieldName; //$NON-NLS-1$
 		throw new RuntimeException(msg);
+	}
+
+	/**
+	 * Returns a {@link SerializableFunction} that actually makes use of
+	 * {@link ReflectionUtils#get(String, Object)}.
+	 * 
+	 * @param fieldName
+	 *            Name of the field that will be evaluated on an object.
+	 * @param <T>
+	 *            the type of the input to the function
+	 * @param <R>
+	 *            the type of the result of the function
+	 * @return The {@link SerializableFunction}
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T, R> SerializableFunction<T, R> getFunction(String fieldName) {
+		return f -> (R) ReflectionUtils.get(fieldName, f);
 	}
 
 	/**
@@ -1088,9 +1033,7 @@ public class ReflectionUtils {
 			if (!Modifier.isFinal(field.getModifiers())) {
 				field.set(obj, val);
 			}
-		} catch (IllegalArgumentException e) {
-			throw new RuntimeException(e);
-		} catch (IllegalAccessException e) {
+		} catch (IllegalArgumentException | IllegalAccessException e) {
 			throw new RuntimeException(e);
 		}
 	}
@@ -1130,7 +1073,7 @@ public class ReflectionUtils {
 
 	/**
 	 * Sets the first field with the specified declared type of an object with a
-	 * value. <br/>
+	 * value. <br>
 	 * This method should be use with caution in test classes only (for example
 	 * to inject a dependency without hard-coding the field name, if it is known
 	 * that there is only one field of the specified type on the class of the
@@ -1163,7 +1106,7 @@ public class ReflectionUtils {
 	 * 
 	 * If the property has a setter method, then it will be called. If the
 	 * property does not have a setter method, the field will be set. If there
-	 * is no such field, then the method will ignore it. <br/>
+	 * is no such field, then the method will ignore it. <br>
 	 * The method will box any {@link Exception} thrown during java reflection
 	 * calls inside a {@link RuntimeException}.
 	 * 
@@ -1191,7 +1134,7 @@ public class ReflectionUtils {
 	 * If the property has a getter method, then it will be called. If the
 	 * property does not have a getter method, the field will be get. If there
 	 * is no such field, then a RuntimeException with cause a
-	 * NoSuchFieldException will be thrown. <br/>
+	 * NoSuchFieldException will be thrown. <br>
 	 * The method will box any {@link Exception} thrown during java reflection
 	 * calls inside a {@link RuntimeException}.
 	 * 
@@ -1209,6 +1152,23 @@ public class ReflectionUtils {
 			return invoke(getter, obj, GETTER_ARGS);
 		}
 		return get(property, obj);
+	}
+
+	/**
+	 * Returns a {@link SerializableFunction} that actually makes use of
+	 * {@link ReflectionUtils#getProperty(String, Object)}.
+	 * 
+	 * @param property
+	 *            name of the property.
+	 * @param <T>
+	 *            the type of the input to the function
+	 * @param <R>
+	 *            the type of the result of the function
+	 * @return The {@link SerializableFunction}
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T, R> SerializableFunction<T, R> getPropertyFunction(String property) {
+		return f -> (R) ReflectionUtils.getProperty(property, f);
 	}
 
 	/**
@@ -1259,13 +1219,12 @@ public class ReflectionUtils {
 	 * Gets the field that has the specified annotation.
 	 * 
 	 * The field must be unique.
-	 * 
-	 * @param fields
-	 * @param annotation
+	 *
+	 * @param fields the fields
+	 * @param annotation the annotation
 	 * @return Returns the field with the specified annotation. Returns null if
 	 *         there is no field with the specified annotation.
-	 * @throws RuntimeException
-	 *             if there are more than one fields annotated with the
+	 * @throws RuntimeException             if there are more than one fields annotated with the
 	 *             specified annotation.
 	 */
 	public static Field getUnique(Collection<Field> fields, Class<? extends Annotation> annotation) {
@@ -1307,12 +1266,12 @@ public class ReflectionUtils {
 
 	/**
 	 * Gets the constructor of a class that is compatible with the args list.
-	 * 
-	 * @see #getConstructor(Class, Class...)
-	 * 
-	 * @param className
-	 * @param args
+	 *
+	 * @param <T> the generic type
+	 * @param className the class name
+	 * @param args the args
 	 * @return The constructor.
+	 * @see #getConstructor(Class, Class...)
 	 */
 	public static <T> Constructor<T> getConstructor(String className, Class<?>... args) {
 		try {
@@ -1335,10 +1294,10 @@ public class ReflectionUtils {
 	 * 
 	 * Use this with caution, as it is possible this check to be true for more
 	 * than one constructors of a class.
-	 * 
-	 * @param <T>
-	 * @param clazz
-	 * @param args
+	 *
+	 * @param <T> the generic type
+	 * @param clazz the clazz
+	 * @param args the args
 	 * @return a {@link Constructor} of the class.
 	 */
 	@SuppressWarnings("unchecked")
@@ -1388,9 +1347,8 @@ public class ReflectionUtils {
 
 	/**
 	 * Gets the wrapper class of the specified primitive class.
-	 * 
-	 * @param primitive
-	 * 
+	 *
+	 * @param primitive the primitive
 	 * @return Returns the wrapper class of the specified class. If the
 	 *         specified class is not primitive, returns the same class.
 	 */
@@ -1465,16 +1423,14 @@ public class ReflectionUtils {
 	 * A copy constructor is a constructor that takes as argument an instance of
 	 * the specified class and creates a new instance by copying the specified
 	 * argument. According to Josh Bloch a copy-constructor is a better
-	 * alternative to using <code>clone()</code>. <br/>
+	 * alternative to using <code>clone()</code>. <br>
 	 * This method returns the constructor that takes an instance of the
 	 * specified class as argument. There is no guarantee that this constructor
 	 * is actually a copy constructor, so this method should be used with
 	 * caution.
-	 * 
-	 * @param clazz
-	 * 
-	 * @param <T>
-	 * 
+	 *
+	 * @param <T> the generic type
+	 * @param clazz the clazz
 	 * @return Returns the copy-constructor of the specified class, if the class
 	 *         has a copy-constructor. If the class does not have a
 	 *         copy-constructor, returns null.
@@ -1486,11 +1442,9 @@ public class ReflectionUtils {
 
 	/**
 	 * Gets the no argument constructor of a class, if the class has one.
-	 * 
-	 * @param clazz
-	 * 
-	 * @param <T>
-	 * 
+	 *
+	 * @param <T> the generic type
+	 * @param clazz the clazz
 	 * @return Returns the no argument constructor of the specified class, if
 	 *         the class has one. If the class does not have a default
 	 *         constructor, returns null.
@@ -1508,11 +1462,9 @@ public class ReflectionUtils {
 
 	/**
 	 * Gets the no argument constructor of a class, if the class has one.
-	 * 
-	 * @param clazz
-	 * 
-	 * @param <T>
-	 * 
+	 *
+	 * @param <T> the generic type
+	 * @param clazz the clazz
 	 * @return Returns the no argument constructor of the specified class, if
 	 *         the class has one. If the class does not have a default
 	 *         constructor, returns null.
@@ -1532,22 +1484,16 @@ public class ReflectionUtils {
 	 * Creates a new instance of a class using a given constructor and an
 	 * appropriate array of arguments. All caught exceptions are re-thrown as a
 	 * {@link RuntimeException}.
-	 * 
-	 * @param <T>
-	 * @param constructor
-	 * @param args
-	 *            ordered array of arguments.
-	 * 
+	 *
+	 * @param <T> the generic type
+	 * @param constructor the constructor
+	 * @param args            ordered array of arguments.
 	 * @return Returns a new instance of the class.
 	 */
 	public static <T> T newInstance(Constructor<T> constructor, Object... args) {
 		try {
 			return constructor.newInstance(args);
-		} catch (InstantiationException e) {
-			throw new RuntimeException(e);
-		} catch (IllegalAccessException e) {
-			throw new RuntimeException(e);
-		} catch (IllegalArgumentException e) {
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException e) {
 			throw new RuntimeException(e);
 		} catch (InvocationTargetException e) {
 			throw new RuntimeException(e.getTargetException());
@@ -1557,34 +1503,28 @@ public class ReflectionUtils {
 	/**
 	 * Loads the class with the specified name and creates a new instance using
 	 * its public no-argument constructor.
-	 * 
-	 * @param className
-	 *            Name of the class.
-	 * @param <T>
-	 *            Type of the new instance.
-	 * 
+	 *
+	 * @param <T>            Type of the new instance.
+	 * @param className            Name of the class.
 	 * @return Returns a new instance of the class with the specified name.
 	 */
 	public static <T> T newInstance(String className) {
 		try {
 			Class<T> clazz = forName(className);
 			return clazz.newInstance();
-		} catch (ClassNotFoundException cnfe) {
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException cnfe) {
 			throw new RuntimeException(cnfe);
-		} catch (InstantiationException ie) {
-			throw new RuntimeException(ie);
-		} catch (IllegalAccessException iae) {
-			throw new RuntimeException(iae);
 		}
 	}
 
 	/**
 	 * Searches for the class with the specified name in the classloader of this
 	 * class and then in the context classloader if the first search fails.
-	 * 
-	 * @param className
+	 *
+	 * @param <T> the generic type
+	 * @param className the class name
 	 * @return Class with the specified name.
-	 * @throws ClassNotFoundException
+	 * @throws ClassNotFoundException the class not found exception
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> Class<T> forName(String className) throws ClassNotFoundException {
@@ -1610,30 +1550,43 @@ public class ReflectionUtils {
 
 	/**
 	 * Creates a new instance of a class using its no argument constructor.
-	 * 
-	 * @param <T>
-	 * @param clazz
+	 *
+	 * @param <T> the generic type
+	 * @param clazz the clazz
 	 * @return Returns a new instance of the class.
 	 */
 	public static <T> T newInstance(Class<T> clazz) {
 		try {
 			return clazz.newInstance();
-		} catch (InstantiationException e) {
-			throw new RuntimeException(e);
-		} catch (IllegalAccessException e) {
+		} catch (InstantiationException | IllegalAccessException e) {
 			throw new RuntimeException(e);
 		}
 	}
 
 	/**
+	 * Returns a {@link SerializableSupplier} of T that is based on the method
+	 * {@link ReflectionUtils#newInstance(Class)}.<br>
+	 * This essentially uses the public default constructor.
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @param clazz
+	 *            the clazz
+	 * @return Returns a new instance of the class.
+	 */
+	public static <T> SerializableSupplier<T> supplier(Class<T> clazz) {
+		return () -> newInstance(clazz);
+	}
+
+	/**
 	 * Creates an instance of a class given its name and a list of constructor
 	 * args.
-	 * 
-	 * @see #newInstance(Class, Object...)
-	 * 
-	 * @param className
-	 * @param args
+	 *
+	 * @param <T> the generic type
+	 * @param className the class name
+	 * @param args the args
 	 * @return Instance.
+	 * @see #newInstance(Class, Object...)
 	 */
 	public static <T> T newInstance(String className, Object... args) {
 		try {
@@ -1648,10 +1601,10 @@ public class ReflectionUtils {
 	/**
 	 * Creates a new instance of a class given a list of arguments for one of
 	 * its constructors.
-	 * 
-	 * @param <T>
-	 * @param clazz
-	 * @param args
+	 *
+	 * @param <T> the generic type
+	 * @param clazz the clazz
+	 * @param args the args
 	 * @return Returns a new instance of the class.
 	 */
 	public static <T> T newInstance(Class<T> clazz, Object... args) {
@@ -1669,12 +1622,9 @@ public class ReflectionUtils {
 
 	/**
 	 * Creates a new instance of the class with the specified class name.
-	 * 
-	 * @param className
-	 *            Name of class.
-	 * @param <T>
-	 *            Type of object being returned.
-	 * 
+	 *
+	 * @param <T>            Type of object being returned.
+	 * @param className            Name of class.
 	 * @return If the specified class name is not empty, returns the new
 	 *         instance, otherwise returns null.
 	 */
@@ -1690,9 +1640,9 @@ public class ReflectionUtils {
 	 * Sets null to all fields of the super type.
 	 * 
 	 * This method is use
-	 * 
-	 * @param ob
-	 * @param annotations
+	 *
+	 * @param ob the ob
+	 * @param annotations the annotations
 	 */
 	public static void setNullToDuplicateFieldsOfSuper(Object ob, Class<? extends Annotation>[] annotations) {
 		Class<?> myClass = ob.getClass();
@@ -1752,12 +1702,9 @@ public class ReflectionUtils {
 		setAccessible(method);
 		try {
 			return method.invoke(target, args);
-		} catch (IllegalArgumentException ilarex) {
+		} catch (IllegalArgumentException | IllegalAccessException exception) {
 			logInvokeException(method, target, args);
-			throw invocationException(method, ilarex);
-		} catch (IllegalAccessException ilacex) {
-			logInvokeException(method, target, args);
-			throw invocationException(method, ilacex);
+			throw invocationException(method, exception);
 		} catch (InvocationTargetException intaex) {
 			logInvokeException(method, target, args);
 			throw invocationException(method, intaex.getCause());
@@ -1767,10 +1714,9 @@ public class ReflectionUtils {
 	/**
 	 * Creates a {@link RuntimeException} that wraps an exception thrown during
 	 * a method invocation.
-	 * 
-	 * @param method
-	 * @param ex
-	 * 
+	 *
+	 * @param method the method
+	 * @param ex the ex
 	 * @return returns
 	 */
 	static RuntimeException invocationException(Method method, Throwable ex) {
@@ -1783,10 +1729,10 @@ public class ReflectionUtils {
 	/**
 	 * Logs context on {@link #invoke(Method, Object, Object...)} upon an
 	 * Exception.
-	 * 
-	 * @param method
-	 * @param target
-	 * @param args
+	 *
+	 * @param method the method
+	 * @param target the target
+	 * @param args the args
 	 */
 	@SuppressWarnings("nls")
 	private static void logInvokeException(Method method, Object target, Object... args) {
@@ -1867,9 +1813,8 @@ public class ReflectionUtils {
 	/**
 	 * Determines if a class is concrete, i.e. it is not abstract or an
 	 * interface. Null input returns false.
-	 * 
-	 * @param clazz
-	 * 
+	 *
+	 * @param clazz the clazz
 	 * @return True, if the class is concrete.
 	 */
 	public static boolean isConcreteClass(Class<?> clazz) {
@@ -1885,9 +1830,8 @@ public class ReflectionUtils {
 	/**
 	 * Determines if a class is concrete, i.e. it is not abstract or an
 	 * interface. Null input returns false.
-	 * 
-	 * @param clazz
-	 * 
+	 *
+	 * @param clazz the clazz
 	 * @return True, if the class is concrete.
 	 */
 	public static boolean isAbstractClass(Class<?> clazz) {
@@ -1905,10 +1849,9 @@ public class ReflectionUtils {
 
 	/**
 	 * Finds if a method is implemented by the specified class.
-	 * 
-	 * @param method
-	 * @param clazz
-	 * 
+	 *
+	 * @param method the method
+	 * @param clazz the clazz
 	 * @return Returns true if the method is implemented.
 	 */
 	public static boolean isImplemented(Method method, Class<?> clazz) {
@@ -1931,9 +1874,8 @@ public class ReflectionUtils {
 	 * Finds if a class has a default constructor.
 	 * 
 	 * Works also for abstract classes with implicit default constructors.
-	 * 
-	 * @param clazz
-	 * 
+	 *
+	 * @param clazz the clazz
 	 * @return Returns true if the specified class has a default constructor.
 	 */
 	public static boolean isNoDefaultConstructor(Class<?> clazz) {
@@ -1961,10 +1903,9 @@ public class ReflectionUtils {
 	/**
 	 * Checks if the return type of the abstrct method can be supported by the
 	 * return type of the candidate method.
-	 * 
-	 * @param abstrct
-	 * @param candidate
-	 * 
+	 *
+	 * @param abstrct the abstrct
+	 * @param candidate the candidate
 	 * @return true if the return type can be supported, otherwise false.
 	 */
 	public static boolean returnTypeIsCompatible(Method abstrct, Method candidate) {
@@ -1979,13 +1920,11 @@ public class ReflectionUtils {
 	 * results, starting from the closest super class. Each type is only
 	 * included once, but the order in the list depends on the aforementioned
 	 * procedure.
-	 * 
-	 * @param type
-	 * @param baseType
-	 *            Base type beyond which the hierarchy is not fetched. Each and
+	 *
+	 * @param type the type
+	 * @param baseType            Base type beyond which the hierarchy is not fetched. Each and
 	 *            every one of the returned types must be a sub-type of this
 	 *            type.
-	 * 
 	 * @return Ordered type hierarchy of the specified type.
 	 */
 	public static List<Class<?>> getTypeHierarchy(Class<?> type, Class<?> baseType) {
@@ -2083,15 +2022,22 @@ public class ReflectionUtils {
 
 	/**
 	 * Creates pairs of getter - setter methods for a specified property.
-	 * 
-	 * @param sourceType
-	 * @param targetType
-	 * @param property
+	 *
+	 * @param sourceType the source type
+	 * @param targetType the target type
+	 * @param property the property
 	 * @return Returns a pair or null if there is no pair.
 	 */
 	private static Pair<Method, Method> pairGetterAndSetter(TypeAnalysis sourceType, TypeAnalysis targetType,
 			String property) {
 		BeanPropertyDefinition<?> sourceProperty = sourceType.getFirstPropertyByName(property);
+		
+		if (sourceProperty==null) {
+			@SuppressWarnings("nls")
+			String msg = "Property " + property + " not found in type";
+			throw new RuntimeException(msg);			
+		}
+		
 		Method getter = sourceProperty.getGetter();
 		if (getter == null) {
 			return null;
@@ -2108,7 +2054,11 @@ public class ReflectionUtils {
 	}
 
 	/**
-	 * Copies a property from source to target, if possible.
+	 * Copies a property from source to target, if possible.<br>
+	 * If the value of the property is null and the 'useDefault' option is true,
+	 * then the default value defined for the property type is set. The default
+	 * values are specified and retrieved from the {@link Defaults} utility
+	 * class.
 	 * 
 	 * @param sourceType
 	 *            Type of source object.
@@ -2120,49 +2070,17 @@ public class ReflectionUtils {
 	 *            The object to which the property is copied.
 	 * @param property
 	 *            Name of property.
+	 * @param useDefault
+	 *            Whether to use the 'default' value if the found value is null
 	 */
 	private static void copyProperty(TypeAnalysis sourceType, TypeAnalysis targetType, Object source, Object target,
-			String property) {
-		// Debug.increaseCounter("copyProperty");
-
+			String property, boolean useDefault) {
 		Pair<Method, Method> pair = pairGetterAndSetter(sourceType, targetType, property);
 		if (pair != null) {
 			Method getter = pair.getLeft();
 			Method setter = pair.getRight();
 			Object value = ReflectionUtils.invoke(getter, source, GETTER_ARGS);
-			Object[] setterArgs = { value };
-			ReflectionUtils.invoke(setter, target, setterArgs);
-		}
-	}
-
-	/**
-	 * Copies a property from source to target, if possible.
-	 * 
-	 * If the value of the property is null, then the default value defined for
-	 * the property type is set. The default values are specified and retrieved
-	 * from the {@link Defaults} utility class.
-	 * 
-	 * @param sourceType
-	 *            Type of source object.
-	 * @param targetType
-	 *            Type of target object.
-	 * @param source
-	 *            The object from which the property is copied.
-	 * @param target
-	 *            The object to which the property is copied.
-	 * @param property
-	 *            Name of property.
-	 */
-	private static void copyPropertyWithDefault(TypeAnalysis sourceType, TypeAnalysis targetType, Object source,
-			Object target, String property) {
-		// Debug.increaseCounter("copyProperty");
-
-		Pair<Method, Method> pair = pairGetterAndSetter(sourceType, targetType, property);
-		if (pair != null) {
-			Method getter = pair.getLeft();
-			Method setter = pair.getRight();
-			Object value = ReflectionUtils.invoke(getter, source, GETTER_ARGS);
-			if (value == null) {
+			if (value == null && useDefault) {
 				Class<?> valueType = setter.getParameterTypes()[0];
 				value = Defaults.getDefaultValue(valueType);
 			}
@@ -2173,10 +2091,9 @@ public class ReflectionUtils {
 
 	/**
 	 * Gets a mandatory property.
-	 * 
-	 * @param property
-	 * @param type
-	 * 
+	 *
+	 * @param property the property
+	 * @param type the type
 	 * @return Returns the property.
 	 */
 	public static BeanPropertyDefinition<?> mandatoryPropertyOfClass(String property, Class<?> type) {
@@ -2187,5 +2104,4 @@ public class ReflectionUtils {
 		}
 		return bpd;
 	}
-
 }

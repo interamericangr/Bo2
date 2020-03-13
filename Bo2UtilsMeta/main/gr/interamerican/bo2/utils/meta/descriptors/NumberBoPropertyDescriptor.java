@@ -24,8 +24,8 @@ extends BoPropertyDescriptor<T> {
 	
 	/**
 	 * Sets the length of the integer part of the number.
-	 * 
-	 * @param lengthOfIntPart
+	 *
+	 * @param lengthOfIntPart the new length of integer part
 	 */
 	void setLengthOfIntegerPart(int lengthOfIntPart);
 	
@@ -61,8 +61,8 @@ extends BoPropertyDescriptor<T> {
 	/**
 	 * Sets the flag on and of for allowing this property to accept
 	 * values of zero.
-	 * 
-	 * @param zeroAllowed
+	 *
+	 * @param zeroAllowed the new zero allowed
 	 */
 	void setZeroAllowed(boolean zeroAllowed);
 	
@@ -76,8 +76,8 @@ extends BoPropertyDescriptor<T> {
 	
 	/**
 	 * Sets the flag for accepting negative values.
-	 * 
-	 * @param negativeAllowed
+	 *
+	 * @param negativeAllowed the new negative allowed
 	 */
 	void setNegativeAllowed(boolean negativeAllowed);
 

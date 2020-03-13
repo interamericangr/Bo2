@@ -25,15 +25,13 @@ import org.junit.Test;
  */
 public class TestNrCachedEntryOwnerFormatter {
 	
-	/**
-	 * Sample
-	 */
+	/** Sample. */
 	NrCachedEntryOwnerFormatter<TranslatableEntryOwner<Long,?,?>, Long> formatter = 
 		new NrCachedEntryOwnerFormatter<TranslatableEntryOwner<Long,?,?>, Long>(
 			FormatterResolver.getFormatter(Long.class));
 
 	/**
-	 * Test method for mainFormat
+	 * Test method for mainFormat.
 	 */
 	@Test
 	public void testMainFormat() {

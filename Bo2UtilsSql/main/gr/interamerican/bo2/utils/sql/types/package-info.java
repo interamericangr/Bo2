@@ -11,7 +11,7 @@
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
 /**
- * This package contains definitions of SQL types. <br/>
+ * This package contains definitions of SQL types. <br>
  * 
  */
  package gr.interamerican.bo2.utils.sql.types;

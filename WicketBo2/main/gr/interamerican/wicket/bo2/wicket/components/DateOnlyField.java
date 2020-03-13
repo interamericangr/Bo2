@@ -14,15 +14,13 @@ import org.apache.wicket.model.PropertyModel;
  */
 public class DateOnlyField extends DateField {
 
-	/**
-	 *
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * default constructor.
 	 *
-	 * @param id
+	 * @param id the id
 	 */
 	public DateOnlyField(String id) {
 		super(id);
@@ -33,8 +31,8 @@ public class DateOnlyField extends DateField {
 	/**
 	 * Construct.
 	 *
-	 * @param id
-	 * @param model
+	 * @param id the id
+	 * @param model the model
 	 */
 	public DateOnlyField(String id, IModel<Date> model) {
 		super(id, model);
@@ -47,7 +45,7 @@ public class DateOnlyField extends DateField {
 	/**
 	 * alter the {@link DateField} with the {@link DateOnlyTextField}.
 	 *
-	 * @param my
+	 * @param my the my
 	 */
 	private void alterEmbendedDateTextField(DateOnlyTextField my) {
 		ReflectionUtils.set("dateField", my, this); //$NON-NLS-1$
@@ -56,7 +54,7 @@ public class DateOnlyField extends DateField {
 	}
 
 	@Override
-	protected void convertInput() {
+	public void convertInput() {
 		try {
 			// Get the converted input values
 			Date dateFieldInput = ((DateOnlyTextField) get(DATE)).getConvertedInput();

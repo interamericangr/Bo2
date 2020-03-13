@@ -9,21 +9,19 @@ import java.util.Properties;
 
 
 /**
- * used with {@link TestPropertiesLauncher}
+ * used with {@link TestPropertiesLauncher}.
  */
-public class TestCmd extends AbstractBo2RuntimeWithPropertiesCmd {
+public class TestCmd extends AbstractBo2RuntimeCmd {
 
-	/**
-	 *
-	 */
+	/** The run. */
 	private static boolean run = false;
 
-	/**
-	 *
-	 */
+	/** The static properties. */
 	private static Properties staticProperties;
 
 	/**
+	 * Gets the run.
+	 *
 	 * @return access
 	 */
 	public static boolean getRun() {
@@ -33,6 +31,8 @@ public class TestCmd extends AbstractBo2RuntimeWithPropertiesCmd {
 	}
 
 	/**
+	 * Gets the static properties.
+	 *
 	 * @return the staticProperties
 	 */
 	public static Properties getStaticProperties() {
@@ -43,7 +43,6 @@ public class TestCmd extends AbstractBo2RuntimeWithPropertiesCmd {
 	public void work() throws LogicException, DataException, InitializationException,
 	UnexpectedException {
 		run = true;
-		staticProperties = executionProperties;
 	}
 
 }

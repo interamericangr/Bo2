@@ -47,7 +47,7 @@ public class Meta {
 
 
 	/**
-	 * Gets the Meta {@code}link MessageGetter} with default {@link Locale}.
+	 * Gets the Meta {@link MessageGetter} with default {@link Locale}.
 	 * 
 	 * @return Returns MessageGetter.
 	 */
@@ -60,8 +60,8 @@ public class Meta {
 	
 	/**
 	 * Gets the Meta {@code}link MessageGetter} with specified {@link Locale}.
-	 * @param locale 
-	 * 
+	 *
+	 * @param locale the locale
 	 * @return Returns MessageGetter.
 	 */
 	private static MessageGetter getMessages(Locale locale) {
@@ -80,12 +80,13 @@ public class Meta {
 	
 	/**
 	 * Creates a range from two string values.
-	 * @param <T> 
-	 * @param left
-	 * @param right
-	 * @param descriptor
+	 *
+	 * @param <T> the generic type
+	 * @param left the left
+	 * @param right the right
+	 * @param descriptor the descriptor
 	 * @return Returns a range.
-	 * @throws ParseException 
+	 * @throws ParseException the parse exception
 	 */
 	@SuppressWarnings({"rawtypes", "unchecked"})
 	public static <T> Range
@@ -102,12 +103,11 @@ public class Meta {
 	
 	/**
 	 * Formats a value.
-	 * 
-	 * @param <T>
-	 * @param value
-	 * @param descriptor
+	 *
+	 * @param <T> the generic type
+	 * @param value the value
+	 * @param descriptor the descriptor
 	 * @return Returns a range.
-	 * 
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> String
@@ -121,13 +121,10 @@ public class Meta {
 	 * Creates a {@link Formatter} that delegates the format method
 	 * to a {@link BoPropertyDescriptor}.
 	 *      
-	 * @param boPD
-	 *        BoPropertyDescriptor.
-	 * @param <T>
-	 *        Type of object formatted.
-	 * 
+	 *
+	 * @param <T>        Type of object formatted.
+	 * @param boPD        BoPropertyDescriptor.
 	 * @return Returns a formatter.
-	 * 
 	 */	
 	public static <T> Formatter<T> getFormatter(final BoPropertyDescriptor<T> boPD) {
 		Formatter<T> formatter = new Formatter<T>() {
@@ -135,14 +132,14 @@ public class Meta {
 			 * serialVersionUID
 			 */
 			private static final long serialVersionUID = 1L;
+			@Override
 			public String format(T t) {				
 				return boPD.format(t);
 			}
 		};
 		return formatter;
 	}
-	/**
-	 * Creates a default formatter length
-	 */
+	
+	/** Creates a default formatter length. */
 	public static int getDefaultFormatterLength = 10;
 }

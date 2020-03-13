@@ -23,7 +23,7 @@ import java.util.GregorianCalendar;
 import org.junit.Test;
 
 /**
- * tests the ArrayComparator class
+ * tests the ArrayComparator class.
  */
 public class TestArrayComparator {
 	

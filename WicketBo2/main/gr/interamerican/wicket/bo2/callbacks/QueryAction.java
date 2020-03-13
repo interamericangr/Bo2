@@ -12,80 +12,70 @@
  ******************************************************************************/
 package gr.interamerican.wicket.bo2.callbacks;
 
-import gr.interamerican.bo2.arch.EntitiesQuery;
-import gr.interamerican.bo2.arch.exceptions.DataException;
-import gr.interamerican.bo2.arch.exceptions.InitializationException;
-import gr.interamerican.bo2.arch.exceptions.LogicException;
-import gr.interamerican.bo2.arch.ext.CriteriaDependent;
-import gr.interamerican.bo2.impl.open.workers.WorkerUtils;
-import gr.interamerican.wicket.bo2.protocol.http.Bo2WicketRequestCycle;
-import gr.interamerican.wicket.markup.html.panel.searchFlow.SearchFlowPanel;
-import gr.interamerican.wicket.markup.html.panel.searchFlow.SearchFlowPanelDef;
-
 import java.io.Serializable;
 import java.util.List;
 
-import org.apache.wicket.ajax.AjaxRequestTarget;
+import gr.interamerican.bo2.arch.EntitiesQuery;
+import gr.interamerican.bo2.arch.exceptions.DataException;
+import gr.interamerican.bo2.arch.ext.CriteriaDependent;
+import gr.interamerican.bo2.impl.open.workers.WorkerUtils;
+import gr.interamerican.wicket.bo2.protocol.http.Bo2WicketRequestCycle;
+import gr.interamerican.wicket.callback.SearchAction;
+import gr.interamerican.wicket.markup.html.panel.searchFlow.SearchFlowPanel;
+import gr.interamerican.wicket.markup.html.panel.searchFlow.SearchFlowPanelDef;
 
 /**
  * Query action for search action of a {@link SearchFlowPanel}.
  * 
- * @param <C> 
- *        Type of criteria bean.
+ * @param <C>
+ *            Type of criteria bean.
  * @param <B>
- *        Type of result bean.
- * @param <Q> 
- *        Type of query.
+ *            Type of result bean.
+ * @param <Q>
+ *            Type of query.
  */
-public class QueryAction
-<C extends Serializable, 
- B extends Serializable,
- Q extends EntitiesQuery<B> & CriteriaDependent<C>> 
-extends Bo2WicketBlock {
-	
+public class QueryAction<C extends Serializable, B extends Serializable, Q extends EntitiesQuery<B> & CriteriaDependent<C>>
+implements SearchAction<C, B> {
+
 	/**
 	 * serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * SearchFlowPanel definition.
-	 */
-	SearchFlowPanelDef<C, B> definition;
-	
-	/**
 	 * Query.
 	 */
 	Class<Q> queryClass;
-	
 
-	
 	/**
-	 * Creates a new QueryAction object. 
+	 * Creates a new QueryAction object.
+	 *
+	 * @param queryClass
+	 *            Class of query.
+	 */
+	public QueryAction(Class<Q> queryClass) {
+		this.queryClass = queryClass;
+	}
+
+	/**
+	 * Creates a new QueryAction object.
 	 *
 	 * @param definition
-	 *        Definition of the {@link SearchFlowPanel}.
-	 * @param queryClass 
-	 *        Class of query.
+	 *            Definition of the {@link SearchFlowPanel}.
+	 * @param queryClass
+	 *            Class of query.
+	 * @deprecated Use the other constructor
 	 */
-	public QueryAction(SearchFlowPanelDef<C, B> definition, Class<Q> queryClass) {
-		super();
-		this.definition = definition;
+	@Deprecated
+	public QueryAction(@SuppressWarnings("unused") SearchFlowPanelDef<C, B> definition, Class<Q> queryClass) {
 		this.queryClass = queryClass;
 	}
 
 	@Override
-	public void work() 
-	throws InitializationException, DataException, LogicException {
-		AjaxRequestTarget target = getHandlerParameter(AjaxRequestTarget.class);
-		target.add(definition.getServicePanel());
+	public List<B> search(C criteria) throws DataException {
 		Q query = Bo2WicketRequestCycle.open(queryClass);
-		C criteria = definition.getCriteriaModel().getObject();
 		query.setCriteria(criteria);
 		query.execute();
-		List<B> results = WorkerUtils.queryResultsAsList(query);
-		definition.setResults(results);
+		return WorkerUtils.queryResultsAsList(query);
 	}
-
 }
-

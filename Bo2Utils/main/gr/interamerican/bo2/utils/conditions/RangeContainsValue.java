@@ -31,7 +31,7 @@ implements Condition<Range<P>> {
 	/**
 	 * Creates a new RangeContains object. 
 	 *
-	 * @param value
+	 * @param value the value
 	 */
 	public RangeContainsValue(P value) {
 		super();

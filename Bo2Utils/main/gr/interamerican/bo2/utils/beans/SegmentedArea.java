@@ -25,9 +25,7 @@ public class SegmentedArea
 <X extends Comparable<? super X>, Y extends Comparable<? super Y>, V>
 implements Serializable {
 	
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
 	/**
@@ -39,10 +37,9 @@ implements Serializable {
 	/**
 	 * Gets the value associated with the area that contains
 	 * the specified x and y dimensions.
-	 * 
-	 * @param xDimension
-	 * @param yDimension
-	 * 
+	 *
+	 * @param xDimension the x dimension
+	 * @param yDimension the y dimension
 	 * @return Returns the value associated with the area that contains
 	 *         the specified x and y dimensions, or null if their is no
 	 *         area containing the specified dimensions.
@@ -58,11 +55,10 @@ implements Serializable {
 	/**
 	 * Indicates if this area contains the point that is defined by the specified 
 	 * x and y dimensions. 
-	 * 
-	 * @param xDimension
-	 * @param yDimension
-	 * 
-	 * @return Returns true if the point belongs to this area, otherwise 
+	 *
+	 * @param xDimension the x dimension
+	 * @param yDimension the y dimension
+	 * @return Returns true if the point belongs to this area, otherwise
 	 *         returns false.
 	 */
 	public boolean contains(X xDimension, Y yDimension) {

@@ -18,35 +18,27 @@ import gr.interamerican.bo2.arch.ext.Codified;
 import org.junit.Test;
 
 /**
- * TestCodifiedNamedImpl
+ * TestCodifiedNamedImpl.
  */
 public class TestCodifiedNamedImpl {
 	
 	
 	
-	/**
-	 * CODE
-	 */
+	/** CODE. */
 	private static final Integer CODE=1;
 	
-	/**
-	 * name
-	 */
+	/** name. */
 	private static final String NAME= "name"; //$NON-NLS-1$
 	
-	/**
-	 * emptyCodifiedName
-	 */
+	/** emptyCodifiedName. */
 	CodifiedNamedImpl<Integer> emptyCodifiedName = new CodifiedNamedImpl<Integer>();
 	
-	/**
-	 * codifiedName
-	 */
+	/** codifiedName. */
 	CodifiedNamedImpl<Integer> codifiedName = new CodifiedNamedImpl<Integer>(CODE,NAME);
 	
    
 	/**
-	 * Test getCode
+	 * Test getCode.
 	 */
 	@Test
 	public void testGetCode(){
@@ -55,7 +47,7 @@ public class TestCodifiedNamedImpl {
 	
 	
 	/**
-	 * Test setCode
+	 * Test setCode.
 	 */
 	@Test
 	public void testSetCode(){
@@ -65,7 +57,7 @@ public class TestCodifiedNamedImpl {
 	
 	
 	/**
-	 * Test getName
+	 * Test getName.
 	 */
 	@Test
 	public void testGetName(){
@@ -73,7 +65,7 @@ public class TestCodifiedNamedImpl {
 	}
 	
 	/**
-	 * Test setName
+	 * Test setName.
 	 */
 	@Test
 	public void testSetName(){
@@ -82,7 +74,7 @@ public class TestCodifiedNamedImpl {
 	}
 	
 	/**
-	 * Test CompareTo
+	 * Test CompareTo.
 	 */
 	@Test
 	public void testCompareTo(){

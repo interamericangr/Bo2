@@ -28,10 +28,8 @@ import gr.interamerican.bo2.test.utils.UtilityForBo2Test;
 
 /**
  * Unit test for a {@link PersistenceUtility}.
- * 
- * @param <PW>
- *         
  *
+ * @param <PW> the generic type
  */
 public class PersistenceUtilityUserTestbean <PW extends PersistenceUtility<User>> {
 	
@@ -48,10 +46,9 @@ public class PersistenceUtilityUserTestbean <PW extends PersistenceUtility<User>
 	
 	/**
 	 * Creates a new PersistenceWorkerUserTestbean object. 
-	 * 
-	 * @param pw
-	 * 
-	 * @throws InitializationException 
+	 *
+	 * @param pw the pw
+	 * @throws InitializationException the initialization exception
 	 */
 	public PersistenceUtilityUserTestbean(PW pw) throws InitializationException {
 		super();
@@ -61,8 +58,9 @@ public class PersistenceUtilityUserTestbean <PW extends PersistenceUtility<User>
 
 	/**
 	 * Setup.
-	 * @throws InitializationException
-	 * @throws DataException 
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
 	 */	
 	public void setUp() throws InitializationException, DataException {
 		if (pw instanceof Worker) {
@@ -74,8 +72,8 @@ public class PersistenceUtilityUserTestbean <PW extends PersistenceUtility<User>
 	
 	/**
 	 * Tear down.
-	 * 
-	 * @throws DataException
+	 *
+	 * @throws DataException the data exception
 	 */	
 	public void tearDown() throws DataException {
 		if (pw instanceof Worker) {
@@ -90,12 +88,10 @@ public class PersistenceUtilityUserTestbean <PW extends PersistenceUtility<User>
 	
 	/**
 	 * Unit test for throwing a PoNotFoundException.
-	 * 
-	 * @throws PoNotFoundException
-	 * 
+	 *
+	 * @throws PoNotFoundException the po not found exception
 	 * @see UtilityForBo2Test#getNotExistingUserId()
-	 * 
-	 * @Test(expected=PoNotFoundException.class)
+	 * @Test(expected=PoNotFoundException.class) 
 	 */
 		
 	public void testPoNotFoundExceptionOnRead() 
@@ -121,8 +117,8 @@ public class PersistenceUtilityUserTestbean <PW extends PersistenceUtility<User>
 	
 	/**
 	 * Unit test to check that read does not fail.
-	 * @throws DataException 
-	 * 
+	 *
+	 * @throws DataException the data exception
 	 * @see UtilityForBo2Test#getExistingUserId()
 	 */	
 	public void testReadDoesNotFail() 
@@ -134,7 +130,8 @@ public class PersistenceUtilityUserTestbean <PW extends PersistenceUtility<User>
 	
 	/**
 	 * Unit test to check that update does not fail.
-	 * @throws DataException 
+	 *
+	 * @throws DataException the data exception
 	 */
 	public void testUpdateDoesNotFail() 
 	throws DataException {		
@@ -154,7 +151,8 @@ public class PersistenceUtilityUserTestbean <PW extends PersistenceUtility<User>
 	 * An object is created and then saved. Then it is read and
 	 * checked that the read object has the same attributes as
 	 * the saved.
-	 * @throws DataException 
+	 *
+	 * @throws DataException the data exception
 	 */
 	public void testUpdateAndReadDontFail() 
 	throws DataException {
@@ -184,7 +182,8 @@ public class PersistenceUtilityUserTestbean <PW extends PersistenceUtility<User>
 	 * An object is created and then saved. Then it is read and
 	 * checked that the read object has the same attributes as
 	 * the saved.
-	 * @throws DataException 
+	 *
+	 * @throws DataException the data exception
 	 */	
 	public void testStoreReadAndDeleteDontFail() 
 	throws DataException {

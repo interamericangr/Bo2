@@ -22,9 +22,7 @@ public class SampleBean1 {
 	 */
 	private Integer numberProperty;
 	
-	/**
-	 * String property
-	 */
+	/** String property. */
 	private String stringProperty;
 	
 	/**

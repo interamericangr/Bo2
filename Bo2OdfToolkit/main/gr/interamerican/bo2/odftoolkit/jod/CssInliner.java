@@ -1,5 +1,6 @@
 package gr.interamerican.bo2.odftoolkit.jod;
 
+import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.TokenUtils;
 
@@ -10,14 +11,29 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
+/**
+ * The Class CssInliner.
+ */
 public class CssInliner {
 	
-	public static final String CSS_STYLE = "style";
-	public static final String CSS_CLASS = "class";
+	/** The Constant CSS_STYLE. */
+	public static final String CSS_STYLE = "style"; //$NON-NLS-1$
 	
+	/** The Constant CSS_CLASS. */
+	public static final String CSS_CLASS = "class"; //$NON-NLS-1$
+	
+	/** The style by tag. */
 	Map<String, String> styleByTag = new HashMap<String, String>();
+	
+	/** The style by class. */
 	Map<String, String> styleByClass = new HashMap<String, String>();
 	
+	/**
+	 * Inline css.
+	 *
+	 * @param xhtml the xhtml
+	 * @return the string
+	 */
 	public String inlineCss(String xhtml) {
 		Document doc = Jsoup.parse(xhtml);
 		Element style = doc.select(CSS_STYLE).first();
@@ -27,6 +43,12 @@ public class CssInliner {
         return doc.html();
 	}
 	
+	/**
+	 * Extract styles.
+	 *
+	 * @param stylesSection the styles section
+	 */
+	@SuppressWarnings("nls")
 	void extractStyles(String stylesSection) {
 		String[] tokens = TokenUtils.splitTrim(stylesSection, "{}");
 		
@@ -37,8 +59,8 @@ public class CssInliner {
 			String style = tokens[index++];
 			
 			//omit xml comments
-			classesOrTags = classesOrTags.replaceAll("<!--.*-->", "");
-			style = style.replaceAll("<!--.*-->", "");
+			classesOrTags = classesOrTags.replaceAll("<!--.*--&gt;", "");
+			style = style.replaceAll("<!--.*--&gt;", "");
 			
 			//omit line changes
 			classesOrTags = classesOrTags.replaceAll("\n", "").trim();
@@ -62,13 +84,24 @@ public class CssInliner {
 		}
 	}
 	
+	/**
+	 * Checks if is class.
+	 *
+	 * @param classOrTag the class or tag
+	 * @return true, if is class
+	 */
 	boolean isClass(String classOrTag) {
-		if(classOrTag.startsWith(".")) {
+		if(classOrTag.startsWith(StringConstants.DOT)) {
 			return true;
 		}
 		return false;
 	}
 	
+	/**
+	 * Apply styles.
+	 *
+	 * @param doc the doc
+	 */
 	void applyStyles(Document doc) {
 		for(Map.Entry<String, String> entry : styleByTag.entrySet()) {
 			for(Element e : doc.getElementsByTag(entry.getKey())) {
@@ -83,5 +116,4 @@ public class CssInliner {
 			}
 		}
 	}
-
 }

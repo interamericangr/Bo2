@@ -27,26 +27,82 @@ import java.util.Set;
 public interface Invoice 
 extends PersistentObject<InvoiceKey>, InvoiceKP, ModificationRecord {
 	
+	/**
+	 * Gets the invoice date.
+	 *
+	 * @return the invoice date
+	 */
 	public Date getInvoiceDate();
 	
+	/**
+	 * Sets the invoice date.
+	 *
+	 * @param invoiceDate the new invoice date
+	 */
 	public void setInvoiceDate(Date invoiceDate);
 	
+	/**
+	 * Gets the customer.
+	 *
+	 * @return the customer
+	 */
 	public InvoiceCustomer getCustomer();
 	
+	/**
+	 * Sets the customer.
+	 *
+	 * @param customer the new customer
+	 */
 	public void setCustomer(InvoiceCustomer customer);
 	
+	/**
+	 * Gets the lines.
+	 *
+	 * @return the lines
+	 */
 	public Set<InvoiceLine> getLines();
 	
+	/**
+	 * Sets the lines.
+	 *
+	 * @param lines the new lines
+	 */
 	public void setLines(Set<InvoiceLine> lines);
 	
+	/**
+	 * Gets the rules.
+	 *
+	 * @return the rules
+	 */
 	public Set<InvoiceRule> getRules();
 	
+	/**
+	 * Sets the rules.
+	 *
+	 * @param rules the new rules
+	 */
 	public void setRules(Set<InvoiceRule> rules);
 	
+	/**
+	 * Gets the info.
+	 *
+	 * @return the info
+	 */
 	public InvoiceInfo getInfo();
 
+	/**
+	 * Sets the info.
+	 *
+	 * @param info the new info
+	 */
 	public void setInfo(InvoiceInfo info);
 	
+	/**
+	 * Gets the line by no.
+	 *
+	 * @param lineNo the line no
+	 * @return the line by no
+	 */
 	public InvoiceLine getLineByNo(Integer lineNo);
 	
 

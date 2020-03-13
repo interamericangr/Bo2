@@ -12,41 +12,43 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import gr.interamerican.bo2.samples.bean.BeanWith2Fields;
-import gr.interamerican.bo2.samples.bean.BeanWithOrderedFields;
-import gr.interamerican.bo2.utils.conditions.Condition;
-import gr.interamerican.bo2.utils.conditions.PropertiesEqual;
-import gr.interamerican.bo2.utils.conditions.PropertyIsNull;
+import static org.junit.Assert.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.junit.Assert;
 import org.junit.Test;
+
+import gr.interamerican.bo2.samples.SampleBean2;
+import gr.interamerican.bo2.samples.bean.BeanWith2Fields;
+import gr.interamerican.bo2.samples.bean.BeanWithOrderedFields;
+import gr.interamerican.bo2.utils.conditions.Condition;
+import gr.interamerican.bo2.utils.conditions.functional.Match;
+import gr.interamerican.bo2.utils.conditions.functional.PropertiesEqual;
+import gr.interamerican.bo2.utils.conditions.functional.PropertyIsNull;
 
 /**
  * Unit tests for {@link SelectionUtils}.
  */
+@SuppressWarnings("deprecation")
 public class TestSelectionUtils {
 
 	/**
-	 * Unit test for max
+	 * Unit test for max.
 	 */
 	@Test
 	public void testMax_onEmptySet() {
 		Set<BeanWith2Fields> set = new HashSet<BeanWith2Fields>();
-		BeanWith2Fields maxOwner = SelectionUtils.max(set, "field2"); //$NON-NLS-1$
-		assertNull(maxOwner);		
+		assertNull(SelectionUtils.max(set, "field2")); //$NON-NLS-1$
+		assertNull(SelectionUtils.max(set, BeanWith2Fields::getField2));
 	}
 
 	/**
-	 * Unit test for max
+	 * Unit test for max.
 	 */
 	@Test
 	public void testMax_onFullSet() {
@@ -55,27 +57,27 @@ public class TestSelectionUtils {
 		b1.setField2(12);
 		set.add(b1);
 		BeanWith2Fields b2 = new BeanWith2Fields();
-		b2.setField2(18);
+		b2.setField2(null);
 		set.add(b2);
 		BeanWith2Fields b3 = new BeanWith2Fields();
 		b3.setField2(20);
 		set.add(b3);
-		BeanWith2Fields maxOwner = SelectionUtils.max(set, "field2"); //$NON-NLS-1$
-		assertSame(b3, maxOwner);		
+		assertSame(b3, SelectionUtils.max(set, "field2")); //$NON-NLS-1$
+		assertSame(b3, SelectionUtils.max(set, BeanWith2Fields::getField2));
 	}
 
 	/**
-	 * Unit test for max
+	 * Unit test for max.
 	 */
 	@Test
 	public void testMin_onEmptySet() {
 		Set<BeanWith2Fields> set = new HashSet<BeanWith2Fields>();
-		BeanWith2Fields minOwner = SelectionUtils.min(set, "field2"); //$NON-NLS-1$
-		assertNull(minOwner);		
+		assertNull(SelectionUtils.min(set, "field2")); //$NON-NLS-1$
+		assertNull(SelectionUtils.min(set, BeanWith2Fields::getField2));
 	}
 
 	/**
-	 * Unit test for max
+	 * Unit test for max.
 	 */
 	@Test
 	public void testMin_onFullSet() {
@@ -87,35 +89,35 @@ public class TestSelectionUtils {
 		b2.setField2(18);
 		set.add(b2);
 		BeanWith2Fields b3 = new BeanWith2Fields();
-		b2.setField2(2);
 		set.add(b3);
-		BeanWith2Fields minOwner = SelectionUtils.min(set, "field2"); //$NON-NLS-1$
-		assertSame(minOwner, b3);		
+		assertSame(SelectionUtils.min(set, "field2"), b3); //$NON-NLS-1$
+		assertSame(SelectionUtils.min(set, BeanWith2Fields::getField2), b3);
 	}
-	
+
 	/**
-	 * Unit test for max
+	 * Unit test for max.
 	 */
 	@Test
 	public void testSelection() {
-		Assert.assertTrue (SelectionUtils.selection(true, true, false));
-		Assert.assertFalse (SelectionUtils.selection(false, true, false));
+		assertTrue(SelectionUtils.selection(true, true, false));
+		assertFalse(SelectionUtils.selection(false, true, false));
 	}
-	
+
 	/**
-	 * Unit test for max
+	 * Unit test for max.
 	 */
 	@SuppressWarnings("nls")
 	@Test(expected = RuntimeException.class)
 	public void testSelectFirstByProperty_fail() {
 		BeanWith2Fields bean1 = new BeanWith2Fields();
 		BeanWith2Fields bean2 = new BeanWith2Fields();
-		Collection<BeanWith2Fields> collection = Arrays.asList(bean1,bean2);
+		Collection<BeanWith2Fields> collection = Arrays.asList(bean1, bean2);
 		SelectionUtils.selectFirstByProperty("field3", "hello", collection, BeanWith2Fields.class);
+		// cannot re-produce with functional - won't even compile
 	}
-	
+
 	/**
-	 * Unit test for max
+	 * Unit test for max.
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -124,28 +126,30 @@ public class TestSelectionUtils {
 		bean1.setField1("hello");
 		BeanWith2Fields bean2 = new BeanWith2Fields();
 		bean2.setField1("hello");
-		Collection<BeanWith2Fields> collection = Arrays.asList(bean1,bean2);
-		BeanWith2Fields actual = SelectionUtils.selectFirstByProperty("field1", "hello", collection, BeanWith2Fields.class);
-		Assert.assertEquals(bean1,actual);
-		
+		Collection<BeanWith2Fields> collection = Arrays.asList(bean1, bean2);
+		assertEquals(bean1, SelectionUtils.selectFirstByProperty("field1", "hello", collection, BeanWith2Fields.class));
+		assertEquals(bean1, SelectionUtils.selectFirstByProperty(BeanWith2Fields::getField1, "hello", collection));
+
 		Collection<BeanWith2Fields> emptyCollection = Arrays.asList();
-		Assert.assertNull(SelectionUtils.selectFirstByProperty("field1", "hello", emptyCollection, BeanWith2Fields.class));
+		assertNull(SelectionUtils.selectFirstByProperty("field1", "hello", emptyCollection, BeanWith2Fields.class));
+		assertNull(SelectionUtils.selectFirstByProperty(BeanWith2Fields::getField1, "hello", emptyCollection));
 	}
-	
+
 	/**
-	 * Unit test for max
+	 * Unit test for selectFirstWithNotNullProperty.
 	 */
 	@SuppressWarnings("nls")
 	@Test(expected = RuntimeException.class)
 	public void testSelectFirstWithNotNullByProperty_fail() {
 		BeanWith2Fields bean1 = new BeanWith2Fields();
 		BeanWith2Fields bean2 = new BeanWith2Fields();
-		Collection<BeanWith2Fields> collection = Arrays.asList(bean1,bean2);
+		Collection<BeanWith2Fields> collection = Arrays.asList(bean1, bean2);
 		SelectionUtils.selectFirstWithNotNullProperty("field3", collection, BeanWith2Fields.class);
+		// cannot re-produce with functional - won't even compile
 	}
-	
+
 	/**
-	 * Unit test for max
+	 * Unit test for selectFirstWithNotNullProperty.
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -154,13 +158,13 @@ public class TestSelectionUtils {
 		bean1.setField1(null);
 		BeanWith2Fields bean2 = new BeanWith2Fields();
 		bean2.setField1("hello");
-		Collection<BeanWith2Fields> collection = Arrays.asList(bean1,bean2);
-		BeanWith2Fields actual = SelectionUtils.selectFirstWithNotNullProperty("field1", collection, BeanWith2Fields.class);
-		Assert.assertEquals(bean2,actual);
+		Collection<BeanWith2Fields> collection = Arrays.asList(bean1, bean2);
+		assertEquals(bean2, SelectionUtils.selectFirstWithNotNullProperty("field1", collection, BeanWith2Fields.class));
+		assertEquals(bean2, SelectionUtils.selectFirstWithNotNullProperty(BeanWith2Fields::getField1, collection));
 	}
-	
+
 	/**
-	 * Unit test for max
+	 * Unit test for selectFirstWithNullProperty.
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -169,13 +173,13 @@ public class TestSelectionUtils {
 		bean1.setField1(null);
 		BeanWith2Fields bean2 = new BeanWith2Fields();
 		bean2.setField1("hello");
-		Collection<BeanWith2Fields> collection = Arrays.asList(bean1,bean2);
-		BeanWith2Fields actual = SelectionUtils.selectFirstWithNullProperty("field1", collection, BeanWith2Fields.class);
-		Assert.assertEquals(bean1,actual);
+		Collection<BeanWith2Fields> collection = Arrays.asList(bean1, bean2);
+		assertEquals(bean1, SelectionUtils.selectFirstWithNullProperty("field1", collection, BeanWith2Fields.class));
+		assertEquals(bean1, SelectionUtils.selectFirstWithNullProperty(BeanWith2Fields::getField1, collection));
 	}
-	
+
 	/**
-	 * Unit test for findIfItExistsByProperty
+	 * Unit test for findIfItExistsByProperty.
 	 */
 	@Test
 	@SuppressWarnings("nls")
@@ -184,15 +188,15 @@ public class TestSelectionUtils {
 		bean1.setField1("hello");
 		BeanWith2Fields bean2 = new BeanWith2Fields();
 		bean2.setField1("hello");
-		Collection<BeanWith2Fields> collection = Arrays.asList(bean1,bean2);
-		Boolean actual = SelectionUtils.existsByProperty("field1", "hello", collection, BeanWith2Fields.class);
-		Assert.assertTrue(actual);
-		actual = SelectionUtils.existsByProperty("field1", "petros", collection, BeanWith2Fields.class);
-		Assert.assertFalse(actual);
+		Collection<BeanWith2Fields> collection = Arrays.asList(bean1, bean2);
+		assertTrue(SelectionUtils.existsByProperty("field1", "hello", collection, BeanWith2Fields.class));
+		assertTrue(SelectionUtils.existsByProperty(BeanWith2Fields::getField1, "hello", collection));
+		assertFalse(SelectionUtils.existsByProperty("field1", "petros", collection, BeanWith2Fields.class));
+		assertFalse(SelectionUtils.existsByProperty(BeanWith2Fields::getField1, "petros", collection));
 	}
-	
+
 	/**
-	 * Unit test for findIfItExistsByProperty
+	 * Unit test for findIfItExistsByProperty.
 	 */
 	@Test
 	@SuppressWarnings("nls")
@@ -200,27 +204,24 @@ public class TestSelectionUtils {
 		BeanWith2Fields bean1 = new BeanWith2Fields();
 		bean1.setField1("hello");
 		bean1.setField2(4);
-		
+
 		BeanWith2Fields bean2 = new BeanWith2Fields();
 		bean2.setField1("hello");
 		bean2.setField2(4);
-		
-		Collection<BeanWith2Fields> collection = Arrays.asList(bean1,bean2);
-		String[] properties = {"field1", "field2"};
-		Object values[] = {"hello", 4};
-		
-		Condition<BeanWith2Fields> exists = 
-			new PropertiesEqual<BeanWith2Fields>(properties, values, BeanWith2Fields.class);
+
+		Collection<BeanWith2Fields> collection = Arrays.asList(bean1, bean2);
+
+		Condition<BeanWith2Fields> exists = new PropertiesEqual<>(new Match<>(BeanWith2Fields::getField1, "hello"),
+				new Match<>(BeanWith2Fields::getField2, 4));
 		boolean actual = SelectionUtils.existsByCondition(exists, collection);
-		Assert.assertTrue(actual);
-		
-		Condition<BeanWith2Fields> notExists = 
-			new PropertyIsNull<BeanWith2Fields>("field1", BeanWith2Fields.class);
+		assertTrue(actual);
+
+		Condition<BeanWith2Fields> notExists = new PropertyIsNull<BeanWith2Fields>(BeanWith2Fields::getField1);
 		actual = SelectionUtils.existsByCondition(notExists, collection);
-		Assert.assertFalse(actual);
-		
+		assertFalse(actual);
+
 	}
-	
+
 	/**
 	 * tests getMatchingElements.
 	 */
@@ -230,20 +231,64 @@ public class TestSelectionUtils {
 		BeanWithOrderedFields bwof1 = new BeanWithOrderedFields("1", "a", 1, 1L, 1D);
 		BeanWithOrderedFields bwof2 = new BeanWithOrderedFields("2", "b", 2, 2L, 2D);
 		BeanWithOrderedFields bwof3 = new BeanWithOrderedFields("2", "c", 3, 3L, 3D);
-		List<BeanWithOrderedFields> collection = Arrays.asList(new BeanWithOrderedFields[]{bwof1, bwof2, bwof3});
-		
-		List<BeanWithOrderedFields> results = 
-			SelectionUtils.getMatchingElements(collection, "first", "2");
-		assertEquals(results.size(),2);
-		assertEquals(results.get(0),bwof2);
-		assertEquals(results.get(1),bwof3);
-		
-		results = SelectionUtils.getMatchingElements(collection, "third", 3);
-		assertEquals(results.size(),1);
-		assertEquals(results.get(0),bwof3);
-		
-		results = SelectionUtils.getMatchingElements(collection, "third", 78);
-		assertEquals(results.size(),0);
-	}
+		List<BeanWithOrderedFields> collection = Arrays.asList(new BeanWithOrderedFields[] { bwof1, bwof2, bwof3 });
 
+		List<BeanWithOrderedFields> results = SelectionUtils.getMatchingElements(collection, "first", "2");
+		assertEquals(results.size(), 2);
+		assertEquals(results.get(0), bwof2);
+		assertEquals(results.get(1), bwof3);
+
+		results = SelectionUtils.getMatchingElements(collection, "third", 3);
+		assertEquals(results.size(), 1);
+		assertEquals(results.get(0), bwof3);
+
+		results = SelectionUtils.getMatchingElements(collection, "third", 78);
+		assertEquals(results.size(), 0);
+	}
+	
+	/**
+	 * Test for {@link SelectionUtils#selectFirstByProperties(String[], Object[], Collection, Class)}
+	 */
+	@SuppressWarnings("nls")
+	@Test
+	public void testSelectFirstByProperties() {
+		List<SampleBean2> list = new ArrayList<SampleBean2>();
+		SampleBean2 sampleBean = new SampleBean2();
+		sampleBean.setField1("a");
+		sampleBean.setField2("c");
+
+		SampleBean2 sampleBean2 = new SampleBean2();
+		sampleBean2.setField1("b");
+		sampleBean2.setField2("d");
+
+		list.add(sampleBean);
+		list.add(sampleBean2);
+				
+		SampleBean2 actual = SelectionUtils.selectFirstByProperties(new String[] {"field1","field2"}, new String[] {"a","c"}, list, SampleBean2.class);
+		assertNotNull(actual);
+		assertEquals(sampleBean, actual);
+	}
+	
+	/**
+	 * Test for {@link SelectionUtils#selectFirstByProperties(Collection, Match...)}
+	 */
+	@SuppressWarnings("nls")
+	@Test
+	public void testSelectFirstByProperties_Matchers() {
+		List<SampleBean2> list = new ArrayList<SampleBean2>();
+		SampleBean2 sampleBean = new SampleBean2();
+		sampleBean.setField1("a");
+		sampleBean.setField2("c");
+
+		SampleBean2 sampleBean2 = new SampleBean2();
+		sampleBean2.setField1("b");
+		sampleBean2.setField2("d");
+
+		list.add(sampleBean);
+		list.add(sampleBean2);
+		
+		SampleBean2 actual = SelectionUtils.selectFirstByProperties(list, new Match<SampleBean2,String>(SampleBean2::getField1,"a"), new Match<SampleBean2,String>(SampleBean2::getField2,"c"));
+		assertNotNull(actual);
+		assertEquals(sampleBean, actual);
+	}
 }

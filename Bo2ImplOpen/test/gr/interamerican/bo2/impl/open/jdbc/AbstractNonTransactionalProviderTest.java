@@ -33,7 +33,8 @@ public class AbstractNonTransactionalProviderTest {
 	
 	/**
 	 * Setup tests.
-	 * @throws InitializationException 
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Before
 	public void setup() throws InitializationException {
@@ -42,7 +43,8 @@ public class AbstractNonTransactionalProviderTest {
 	
 	/**
 	 * tear down tests.
-	 * @throws DataException 
+	 *
+	 * @throws DataException the data exception
 	 */
 	@After
 	public void tearDown() throws DataException {

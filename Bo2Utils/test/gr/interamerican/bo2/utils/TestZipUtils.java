@@ -1,34 +1,29 @@
 package gr.interamerican.bo2.utils;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * {@link ZipUtils} test
+ * {@link ZipUtils} test.
  */
 public class TestZipUtils {
 	
 	/**
-	 * Test zipFlatDir
-	 * 
-	 * TODO: make this test PC independent
-	 * @throws IOException 
+	 * Test zipFlatDir<br>
+	 * TODO : not a good work-around
 	 */
 	@SuppressWarnings("nls")
-//	@Test
-	public void testZipFlatDir() throws IOException {
-		ByteArrayOutputStream baos = ZipUtils.zipFlatDir("/tmp/zipme");
+	@Test
+	public void testZipFlatDir() {
+		ByteArrayOutputStream baos = ZipUtils.zipFlatDir(System.getProperty("user.dir"));
 		byte[] zip = baos.toByteArray();
 		Assert.assertTrue(zip.length > 0);
-		
-		FileOutputStream fos = new FileOutputStream("/tmp/zipme.zip");
-		fos.write(zip);
-		fos.flush();
-		fos.close();
+
+//		try (FileOutputStream fos = new FileOutputStream("C:\\zipme.zip")) {
+//			fos.write(zip);
+//			fos.flush();
+//		}
 	}
-	
 }

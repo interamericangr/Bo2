@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  * {@link ExpressionBasedSelection} makes a selection by evaluating a 
- * series of expressions. <br/>
+ * series of expressions. <br>
  * 
  * @param <V> 
  *        Type of the return type of the expressions being evaluated.
@@ -62,14 +62,13 @@ public class ExpressionBasedSelection<V,S> {
 	/**
 	 * Evaluates the property expressions against the specified bean 
 	 * until the result of an expression is equal to the specified expected 
-	 * result. <br/>
+	 * result. <br>
 	 * 
 	 * When the result of the expression is equal with the expected result,
 	 * then the method returns the right element of the pair that contained
 	 * the expression.
-	 * 
-	 * @param bean
-	 * 
+	 *
+	 * @param bean the bean
 	 * @return Returns the right element of the first pair, who's left element
 	 *         property expression, evaluated on the specified bean will return
 	 *         a result that is equal with the <code>expecedValue</code> of this

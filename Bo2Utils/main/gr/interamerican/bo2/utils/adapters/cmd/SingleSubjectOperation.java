@@ -39,8 +39,8 @@ implements SimpleCommand {
 	/**
 	 * Creates a new SingleSubjectOperation object. 
 	 *
-	 * @param operation
-	 * @param subject
+	 * @param operation the operation
+	 * @param subject the subject
 	 */
 	@SuppressWarnings("unchecked")
 	public SingleSubjectOperation(VoidOperation<? extends T> operation, T subject) {

@@ -26,14 +26,12 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestEntryUserTypeForInteger.
  */
 public class TestEntryUserTypeForInteger {
 
 	
-	/**
-	 * entryUserType to test
-	 */
+	/** entryUserType to test. */
 	EntryUserTypeForInteger entryUserType = new EntryUserTypeForInteger();
 	
 	/**
@@ -44,9 +42,7 @@ public class TestEntryUserTypeForInteger {
 	
 	
 	
-	/**
-	 * ENTRY_USER_PROPERTIES_PATH
-	 */
+	/** ENTRY_USER_PROPERTIES_PATH. */
 	private final String ENTRY_USER_PROPERTIES_PATH = 
 		"/gr/interamerican/rsrc/hibernate/types/EntryUserType.properties"; //$NON-NLS-1$
 	
@@ -65,7 +61,7 @@ public class TestEntryUserTypeForInteger {
 	}
 	
 	/**
-	 * tests ObjectToSQLString
+	 * tests ObjectToSQLString.
 	 */
 	@Test
 	public void testObjectToSQLString(){
@@ -73,7 +69,7 @@ public class TestEntryUserTypeForInteger {
 	}
 	
 	/**
-	 * tests ObjectToSQLString
+	 * tests ObjectToSQLString.
 	 */
 	@Test
 	public void testToXMLString(){
@@ -81,7 +77,7 @@ public class TestEntryUserTypeForInteger {
 	}
 	
 	/**
-	 * tests ObjectToSQLString
+	 * tests ObjectToSQLString.
 	 */
 	@SuppressWarnings("nls")
 	@Test

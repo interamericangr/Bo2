@@ -15,15 +15,13 @@ package gr.interamerican.bo2.test.impl.samples;
 import gr.interamerican.bo2.impl.open.po.AbstractBasePo;
 
 /**
- * 
+ * The Class MyPo.
  */
 public class MyPo 
 extends AbstractBasePo<PoPoKey>
 {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
 	

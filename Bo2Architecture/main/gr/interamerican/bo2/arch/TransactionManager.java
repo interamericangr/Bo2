@@ -44,48 +44,46 @@ public interface TransactionManager {
 	
 	/**
 	 * Starts a transaction.
-	 * 
-	 * @throws CouldNotBeginException
+	 *
+	 * @throws CouldNotBeginException the could not begin exception
 	 */
 	public void begin() throws CouldNotBeginException;
 	
 	/**
 	 * Commits the current transaction.
-	 * 
-	 * @throws CouldNotCommitException
+	 *
+	 * @throws CouldNotCommitException the could not commit exception
 	 */
 	public void commit() throws CouldNotCommitException;
 	
 	/**
 	 * Rolls back the current transaction.
-	 * 
-	 * @throws CouldNotRollbackException 
+	 *
+	 * @throws CouldNotRollbackException the could not rollback exception
 	 */
 	public void rollback() throws CouldNotRollbackException;
 	
 	/**
 	 * Includes a resource in the transaction.
-	 * 
-	 * @param resource
-	 *        Resource to add.
+	 *
+	 * @param resource        Resource to add.
 	 *        
-	 * @throws CouldNotEnlistException 
+	 * @throws CouldNotEnlistException the could not enlist exception
 	 */
 	public void enList(ResourceWrapper resource) throws CouldNotEnlistException; 
 	
 	/**
 	 * Removes a resource from the transaction.
-	 * 
-	 * @param resource
-	 *        Resource to remove.
+	 *
+	 * @param resource        Resource to remove.
 	 *        
-	 * @throws CouldNotDelistException 
+	 * @throws CouldNotDelistException the could not delist exception
 	 */
 	public void deList(ResourceWrapper resource) throws CouldNotDelistException; 
 	
 	/**
 	 * Returns true, if the current unit of work has been marked rollback only.
-	 * <br/>
+	 * <br>
 	 * TransactionManager implementations that do not care about this JTA semantic
 	 * should always return false.
 	 * 

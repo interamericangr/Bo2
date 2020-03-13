@@ -53,8 +53,8 @@ public class TestAbstractHibernatePersistenceUtility {
 	
 	/**
 	 * Creates a new TestGenericHibernatePersistenceWorker object. 
-	 * @throws InitializationException 
 	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	public TestAbstractHibernatePersistenceUtility() throws InitializationException {
 		super();
@@ -65,8 +65,9 @@ public class TestAbstractHibernatePersistenceUtility {
 
 	/**
 	 * See bean.
-	 * @throws InitializationException
-	 * @throws DataException
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
 	 */
 	@Before
 	public void setUp() throws InitializationException, DataException {		
@@ -75,8 +76,8 @@ public class TestAbstractHibernatePersistenceUtility {
 
 	/**
 	 * See bean.
-	 * 
-	 * @throws DataException
+	 *
+	 * @throws DataException the data exception
 	 */
 	@After
 	public void tearDown() throws DataException {
@@ -85,8 +86,8 @@ public class TestAbstractHibernatePersistenceUtility {
 
 	/**
 	 * See bean.
-	 * 
-	 * @throws PoNotFoundException
+	 *
+	 * @throws PoNotFoundException the po not found exception
 	 */
 	@Test(expected=PoNotFoundException.class)
 	public void testPoNotFoundExceptionOnRead() throws PoNotFoundException {
@@ -95,7 +96,8 @@ public class TestAbstractHibernatePersistenceUtility {
 
 	/**
 	 * See bean.
-	 * @throws DataException 
+	 *
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testReadDoesNotFail() 
@@ -105,7 +107,8 @@ public class TestAbstractHibernatePersistenceUtility {
 	
 	/**
 	 * See bean.
-	 * @throws DataException 
+	 *
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testUpdateDoesNotFail() 
@@ -115,7 +118,8 @@ public class TestAbstractHibernatePersistenceUtility {
 
 	/**
 	 * See bean.
-	 * @throws DataException 
+	 *
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testUpdateAndReadDontFail() 
@@ -125,7 +129,8 @@ public class TestAbstractHibernatePersistenceUtility {
 
 	/**
 	 * See bean.
-	 * @throws DataException 
+	 *
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testStoreReadAndDeleteDontFail() 
@@ -153,13 +158,12 @@ public class TestAbstractHibernatePersistenceUtility {
 	
 	
 	/**
-	 * Deletes a customer
-	 * 
-	 * @param cust
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 * Deletes a customer.
+	 *
+	 * @param cust the cust
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	void cleanDatabase(Customer cust) 
 	throws UnexpectedException, DataException, LogicException {
@@ -177,10 +181,10 @@ public class TestAbstractHibernatePersistenceUtility {
 	
 	/**
 	 * test logStaleObjectException().
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
-	 * 
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test()
 	@SuppressWarnings("nls")
@@ -215,10 +219,10 @@ public class TestAbstractHibernatePersistenceUtility {
 	
 	/**
 	 * test logStaleObjectException().
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
-	 * 
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test()
 	@SuppressWarnings("nls")
@@ -269,16 +273,16 @@ public class TestAbstractHibernatePersistenceUtility {
 	
 	/**
 	 * Implementation of AbstractHibernatePersistenceUtility.
-	 * 
-	 * @param <P> 
+	 *
+	 * @param <P> the generic type
 	 */
 	class PoAHPU<P extends PersistentObject<?>> 
 	extends AbstractHibernatePersistenceUtility<P> {
 
 		/**
 		 * Creates a new InvoiceAHPU object.
-		 * 
-		 * @param poClass 
+		 *
+		 * @param poClass the po class
 		 */
 		public PoAHPU(Class<P> poClass) {
 			super(poClass,null,RefreshMode.getDefaultMode());
@@ -288,6 +292,7 @@ public class TestAbstractHibernatePersistenceUtility {
 		protected void prepareObject(P po) {
 			po.tidy();
 		}
+		
 		@Override
 		protected Serializable getUniqueId(P po) {
 			return po.getKey();

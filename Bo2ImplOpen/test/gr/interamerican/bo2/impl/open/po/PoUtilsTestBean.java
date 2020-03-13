@@ -35,7 +35,7 @@ public class PoUtilsTestBean {
 	/**
 	 * Creates a new AbstractBasePoTest object. 
 	 *
-	 * @param factory
+	 * @param factory the factory
 	 */
 	public PoUtilsTestBean(SamplesFactory factory) {
 		super();
@@ -43,7 +43,7 @@ public class PoUtilsTestBean {
 	}
 	
 	/**
-	 * tests equals for a simple Po
+	 * tests equals for a simple Po.
 	 */
 	public void testDeepEqualsForEqualInvoiceLines() {
 		InvoiceLine line1a = factory.sampleInvoiceLine(1);
@@ -52,7 +52,7 @@ public class PoUtilsTestBean {
 	}
 	
 	/**
-	 * tests equals for a simple Po
+	 * tests equals for a simple Po.
 	 */
 	public void testDeepEqualsForNotEqualInvoiceLines() {
 		InvoiceLine line1a = factory.sampleInvoiceLine(1);	
@@ -64,7 +64,7 @@ public class PoUtilsTestBean {
 	
 	
 	/**
-	 * tests equals for a complex Po
+	 * tests equals for a complex Po.
 	 */	
 	public void testDeepEqualsForEqualInvoices() {
 		Invoice invoice1a = factory.sampleInvoiceFull(5);
@@ -81,7 +81,7 @@ public class PoUtilsTestBean {
 	
 	
 	/**
-	 * tests equals for a complex Po
+	 * tests equals for a complex Po.
 	 */	
 	public void testDeepEqualsForNonEqualInvoices() {
 		Invoice invoice1a = factory.sampleInvoiceFull(5);

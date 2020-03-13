@@ -12,9 +12,12 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.runtime;
 
+import gr.interamerican.bo2.arch.Operation;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
 import gr.interamerican.bo2.arch.exceptions.UnexpectedException;
+import gr.interamerican.bo2.impl.open.creation.Factory;
+import gr.interamerican.bo2.utils.EnhancedProperties;
 import gr.interamerican.bo2.utils.StreamUtils;
 
 import java.io.IOException;
@@ -27,7 +30,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * The {@link PropertiesLauncher}'s responsibility is to execute a
- * {@link AbstractBo2RuntimeWithPropertiesCmd}. <br/>
+ * {@link AbstractBo2RuntimeWithPropertiesCmd}. <br>
  *
  * This class has only a main method, that takes the name of a
  * {@link AbstractBo2RuntimeWithPropertiesCmd} class as argument and a second argument the path of
@@ -42,9 +45,11 @@ public class PropertiesLauncher {
 
 
 	/**
-	 * @param path
+	 * Gets the properties from file.
+	 *
+	 * @param path the path
 	 * @return the properties read from file (resource of filesystem)
-	 * @throws IOException
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	private static Properties getPropertiesFromFile(String path) throws IOException {
 		InputStream stream;
@@ -55,7 +60,7 @@ public class PropertiesLauncher {
 			stream = StreamUtils.getFileStream(path);
 			LOG.trace("File Opened from File System Stream" + path); //$NON-NLS-1$
 		}
-		Properties p = new Properties();
+		EnhancedProperties p = new EnhancedProperties();
 		p.load(stream);
 		LOG.trace("Properties provided " + p); //$NON-NLS-1$
 		return p;
@@ -65,13 +70,13 @@ public class PropertiesLauncher {
 	/**
 	 * launches the pre-process class if it exists.
 	 *
-	 * @param p
-	 * @throws ClassNotFoundException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
-	 * @throws UnexpectedException
-	 * @throws LogicException
-	 * @throws DataException
+	 * @param p the p
+	 * @throws ClassNotFoundException the class not found exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	static void launchPreprocess(Properties p) throws ClassNotFoundException,
 	InstantiationException, IllegalAccessException, DataException, LogicException,
@@ -86,13 +91,13 @@ public class PropertiesLauncher {
 	/**
 	 * launches the post-process class if it exists.
 	 *
-	 * @param p
-	 * @throws ClassNotFoundException
-	 * @throws IllegalAccessException
-	 * @throws InstantiationException
-	 * @throws UnexpectedException
-	 * @throws LogicException
-	 * @throws DataException
+	 * @param p the p
+	 * @throws ClassNotFoundException the class not found exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	static void launchPostprocess(Properties p) throws ClassNotFoundException,
 	InstantiationException, IllegalAccessException, DataException, LogicException,
@@ -105,22 +110,29 @@ public class PropertiesLauncher {
 	}
 
 	/**
-	 * launches a {@link RuntimeCommand}
+	 * launches a {@link RuntimeCommand}.
 	 *
-	 * @param name
-	 * @param p
-	 * @throws ClassNotFoundException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
-	 * @throws DataException
-	 * @throws LogicException
-	 * @throws UnexpectedException
+	 * @param name the name
+	 * @param p the p
+	 * @throws ClassNotFoundException the class not found exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	static void launchRuntimeCommand(String name, Properties p) throws ClassNotFoundException,
 	InstantiationException, IllegalAccessException, DataException, LogicException,
 	UnexpectedException {
 		Class<?> cmdClass = Class.forName(name);
-		RuntimeCommand cmd = (RuntimeCommand) cmdClass.newInstance();
+		RuntimeCommand cmd = null;
+		if (RuntimeCommand.class.isAssignableFrom(cmdClass)) {
+			cmd = (RuntimeCommand) cmdClass.newInstance();
+		} else if (Operation.class.isAssignableFrom(cmdClass)) {
+			cmd = new RuntimeCommand((Operation) Factory.create(cmdClass));
+		} else {
+			throw new DataException(name + " is neither an Operation nor a RuntimeCommand"); //$NON-NLS-1$
+		}
 		if (cmd instanceof AbstractBo2RuntimeWithPropertiesCmd) {
 			((AbstractBo2RuntimeWithPropertiesCmd) cmd)
 			.setExecutionProperties(hidePrePostOperation(p));
@@ -131,31 +143,32 @@ public class PropertiesLauncher {
 	/**
 	 * launches the main class passing also the properties.
 	 *
-	 * @param className
-	 * @param p
-	 * @throws ClassNotFoundException
-	 * @throws DataException
-	 * @throws LogicException
-	 * @throws UnexpectedException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
+	 * @param className the class name
+	 * @param p the p
+	 * @throws ClassNotFoundException the class not found exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	static void launchAbstractBo2RuntimeWithPropertiesCmd(String className, Properties p)
 			throws ClassNotFoundException, DataException, LogicException, UnexpectedException,
 			InstantiationException, IllegalAccessException {
 		LOG.trace("Launching " + className); //$NON-NLS-1$
 		Class<?> cmdClass = Class.forName(className);
-		AbstractBo2RuntimeWithPropertiesCmd cmd = (AbstractBo2RuntimeWithPropertiesCmd) cmdClass
-				.newInstance();
-		cmd.setExecutionProperties(p);
+		AbstractBo2RuntimeCmd cmd = (AbstractBo2RuntimeCmd) cmdClass.newInstance();
+		if (cmd instanceof AbstractBo2RuntimeWithPropertiesCmd) {
+			((AbstractBo2RuntimeWithPropertiesCmd) cmd).setExecutionProperties(p);
+		}
 		cmd.execute();
 	}
 
 	/**
 	 * hides all parameters accessed by the {@link PropertiesLauncher}.
 	 *
-	 * @param p
-	 * @return
+	 * @param p the p
+	 * @return the properties
 	 */
 	static Properties hidePrePostOperation(Properties p) {
 		Properties hidden = new Properties();
@@ -178,7 +191,7 @@ public class PropertiesLauncher {
 	 * this is the only way
 	 * for the ant process to exit.
 	 *
-	 * @param arg
+	 * @param arg the arg
 	 */
 	private static void launch(String arg) {
 		try {

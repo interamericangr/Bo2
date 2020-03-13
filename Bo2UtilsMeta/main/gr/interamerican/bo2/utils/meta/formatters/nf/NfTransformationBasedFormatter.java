@@ -27,9 +27,8 @@ import gr.interamerican.bo2.utils.meta.formatters.TransformationBasedFormatter;
  */
 public class NfTransformationBasedFormatter<T> 
 extends AbstractNullFilteringFormatter<T> {
-	/**
-	 * 
-	 */
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Formatter.
@@ -39,7 +38,7 @@ extends AbstractNullFilteringFormatter<T> {
 	/**
 	 * Creates a new NsFormatter object. 
 	 *
-	 * @param transformation
+	 * @param transformation the transformation
 	 */
 	public NfTransformationBasedFormatter(Transformation<T, String> transformation) {
 		super();

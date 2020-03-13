@@ -34,7 +34,9 @@ import java.io.Serializable;
  *        Type of PersistentObject
  * @param <K> 
  *        Type of Key
+ * @deprecated use {@link CopyComplexEntityOperation} instead
  */
+@Deprecated
 public class CopyToOtherSystemOperation
 <P extends PersistentObject<K>, 
  K extends Serializable & Comparable<? super K>> 

@@ -37,14 +37,17 @@ extends AbstractType<byte[]> {
 		super();		
 	}
 	
+	@Override
 	public byte[] get(ResultSet rs, String columnIndex) throws SQLException {		
 		return rs.getBytes(columnIndex);
 	}
 	
+	@Override
 	public byte[] get(ResultSet rs, int columnIndex) throws SQLException {
 		return rs.getBytes(columnIndex);
 	}
 
+	@Override
 	public String sqlString(byte[] t) {
 		if (t==null) {
 			return StringConstants.NULL;
@@ -53,6 +56,7 @@ extends AbstractType<byte[]> {
 		return StringUtils.quotes(s);
 	}
 
+	@Override
 	public Class<byte[]> getJavaType() {		
 		return byte[].class;
 	}

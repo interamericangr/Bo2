@@ -10,8 +10,13 @@ import gr.interamerican.bo2.utils.iterable.IterableNestedPropertyCrawler;
 import java.util.Collection;
 
 /**
- * Method invocation utility bean for use inside Bo2 operations.
+ * Method invocation utility bean for use inside Bo2 business
+ * logic objects. <br>
+ * 
+ * Invokes a method on all items of a collection.
+ * @deprecated Use Native Java8 Functionality {@link Collection#forEach(java.util.function.Consumer)}
  */
+@Deprecated
 public class Invoker {
 	
 	/**
@@ -33,14 +38,11 @@ public class Invoker {
 	/**
 	 * Invokes a method of the owner object on each element 
 	 * of the specified collection.
-	 * 
-	 * @param method
-	 *        Name of a public or declared method of the owner class.	         
-	 * @param collection
-	 *        Collection that contains the elements.
-	 * 
-	 * @throws DataException
-	 * @throws LogicException
+	 *
+	 * @param method        Name of a public or declared method of the owner class.	         
+	 * @param collection        Collection that contains the elements.
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void invokeOnCollection(String method, Collection<?> collection) 
@@ -56,17 +58,13 @@ public class Invoker {
 	 * Invokes a method of the owner object on each element 
 	 * of the collection that is derrived as a nested property
 	 * of the specified object.
-	 * 
-	 * @param method
-	 *        Name of a public or declared method of the owner class.	         
-	 * @param object
-	 *        Object that has the collection.
-	 * @param property
-	 *        String that specified the property or nested property
+	 *
+	 * @param method        Name of a public or declared method of the owner class.	         
+	 * @param object        Object that has the collection.
+	 * @param property        String that specified the property or nested property
 	 *        of the specified object that returns the collection.        
-	 * 
-	 * @throws DataException
-	 * @throws LogicException
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void invokeOnCollection(String method, Object object, String property) 

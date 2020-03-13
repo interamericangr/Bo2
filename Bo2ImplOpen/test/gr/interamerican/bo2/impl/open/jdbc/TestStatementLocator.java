@@ -25,9 +25,9 @@ public class TestStatementLocator {
 	
 	/**
 	 * Tests getSqlField(clazz).
-	 * 
-	 * @throws NoSuchFieldException 
-	 * @throws SecurityException 
+	 *
+	 * @throws SecurityException the security exception
+	 * @throws NoSuchFieldException the no such field exception
 	 */
 	@Test
 	public void testGetSqlField_classWithOne() 
@@ -56,9 +56,9 @@ public class TestStatementLocator {
 	
 	/**
 	 * Tests the constructor.
-	 * 
-	 * @throws NoSuchFieldException 
-	 * @throws SecurityException 
+	 *
+	 * @throws SecurityException the security exception
+	 * @throws NoSuchFieldException the no such field exception
 	 */
 	@Test()
 	public void testConstructor() throws SecurityException, NoSuchFieldException {

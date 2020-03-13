@@ -27,7 +27,8 @@ extends AbstractHibernateDetachStrategy {
 	 * serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
+	@Override
 	public void detach(Object object, Provider provider) {
 		for (Object o : transientObjectsOnLastReattach) {
 			if (o instanceof ModificationRecord) {
@@ -36,10 +37,9 @@ extends AbstractHibernateDetachStrategy {
 		}
 		transientObjectsOnLastReattach.clear();
 	}
-	
+
 	@Override
 	protected void doReattach(Object object, Session session) {
 		session.update(object);
 	}
-	
 }

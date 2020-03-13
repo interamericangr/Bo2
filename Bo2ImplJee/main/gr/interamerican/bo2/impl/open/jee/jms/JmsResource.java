@@ -7,33 +7,27 @@ import javax.jms.Session;
 /**
  * Describes a JMS resource in terms of a {@link Connection},
  * a {@link Session} and a {@link Destination}.
- * <br/>
+ * <br>
  * This class is not part of the public API. It is meant to facilitate
  * integration with JMS 1.1.
  */
 public class JmsResource {
 	
-	/**
-	 * connection
-	 */
+	/** connection. */
 	Connection connection;
 	
-	/**
-	 * destination
-	 */
+	/** destination. */
 	Destination destination;
 	
-	/**
-	 * session
-	 */
+	/** session. */
 	Session session;
 	
 	/**
 	 * Creates a new JmsResource object. 
 	 *
-	 * @param connection
-	 * @param destination
-	 * @param session 
+	 * @param connection the connection
+	 * @param destination the destination
+	 * @param session the session
 	 */
 	public JmsResource(Connection connection, Destination destination, Session session) {
 		super();

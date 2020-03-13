@@ -28,8 +28,8 @@ extends TextFieldProperties {
 	
 	/**
 	 * Sets the count of rows.
-	 * 
-	 * @param rows
+	 *
+	 * @param rows the new rows
 	 */
 	void setRows(int rows);
 

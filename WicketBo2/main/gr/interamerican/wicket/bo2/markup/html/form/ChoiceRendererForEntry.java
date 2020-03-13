@@ -12,10 +12,14 @@
  ******************************************************************************/
 package gr.interamerican.wicket.bo2.markup.html.form;
 
-import gr.interamerican.bo2.arch.ext.TranslatableEntry;
-import gr.interamerican.wicket.bo2.protocol.http.Bo2WicketSession;
+import java.util.List;
 
 import org.apache.wicket.markup.html.form.IChoiceRenderer;
+import org.apache.wicket.model.IModel;
+
+import gr.interamerican.bo2.arch.ext.TranslatableEntry;
+import gr.interamerican.wicket.bo2.protocol.http.Bo2WicketSession;
+import gr.interamerican.wicket.utils.WicketUtils;
 
 /**
  * {@link IChoiceRenderer} for {@link TranslatableEntry} objects.
@@ -48,17 +52,21 @@ implements IChoiceRenderer<T> {
 		this.languageId = session.getLanguageId();
 	}
 
+	@Override
 	public Object getDisplayValue(T object) {
 		return object==null ? null : object.getTranslation(languageId); 
 	}
-	
+
+	@Override
 	public String getIdValue(T object, int index) {
 		if(object==null || object.getCode()==null) {
 			return null;
 		}
 		return object.getCode().toString();
 	}
-	
-	
-	
+
+	@Override
+	public T getObject(String id, IModel<? extends List<? extends T>> choices) {
+		return WicketUtils.getObject(this, id, choices);
+	}
 }

@@ -24,6 +24,7 @@ import org.junit.Test;
 /**
  * Tests for {@link CallbackActionBehavior}.
  */
+@Deprecated
 public class TestCallbackActionBehavior {
 	
 	/**
@@ -32,7 +33,7 @@ public class TestCallbackActionBehavior {
 	@Test
 	public void testConstructor() {
 		CallbackAction action = mock(CallbackAction.class);
-		String event = "onUpdate"; //$NON-NLS-1$
+		String event = "Update"; //$NON-NLS-1$
 		CallbackActionBehavior beh = new CallbackActionBehavior(event, action);
 		assertEquals(event, beh.getEvent());
 		assertEquals(action, beh.callbackAction);

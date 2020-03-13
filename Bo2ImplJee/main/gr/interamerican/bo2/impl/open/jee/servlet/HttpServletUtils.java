@@ -17,12 +17,12 @@ public class HttpServletUtils {
 	 * There is an inconsistency on the evaluation of GET request parameters across
 	 * servlet containers. This utility attempts to provide a more consistently working
 	 * solution.
-	 * <br/>
+	 * <br>
 	 * {@link HttpServletRequest#getQueryString()} returns the query string that is 
 	 * contained in the request URL after the path. The value is not decoded by the 
-	 * container. This is something like the following: a=A&b=%20 (two named parameters
+	 * container. This is something like the following: a=A&amp;b=%20 (two named parameters
 	 * a with value 'A' and b with URL encoded value ' '). 
-	 * <br/>
+	 * <br>
 	 * This method will retrieve the (possibly) URL encoded value of the specified named
 	 * GET parameter and will URL decode it. The decoding mechanism used does not alter 
 	 * any String that is not URL encoded.

@@ -58,7 +58,7 @@ public class StringUtils {
     /**
      * 
      * Creates a left justified string of specified length. 
-     * Example leftJustify("test",10,'a'); "test" --> "testaaaaaa" |----10----|
+     * Example leftJustify("test",10,'a'); "test" --&gt; "testaaaaaa" |----10----|
      * If the input string is lengthier than the <code>len</code> argument
      * then the result string is not truncated, but rather is the same as
      * the input string.
@@ -68,7 +68,9 @@ public class StringUtils {
      * @param c character that fills blanks
      * @return a String of length <code>len</code> that has the input String <code>str</code>
      *         in the left part. If length of <code>str</code> is less than <code>len</code>,
-     *         then the remaining characters on the riht are filled with character <code>c</code>   
+     *         then the remaining characters on the riht are filled with character <code>c</code>
+     *         If the length is greater or equal to the length of <code>str</code> the input is 
+     *         returnes as is.   
      */
     public static String leftJustify(String str, int len, char c) {
         int l = str.length();
@@ -84,14 +86,16 @@ public class StringUtils {
     /**
      * 
      * Creates a right justified string of specified length. 
-     * Example rightJustify("test",10,'a'); "test" --> "aaaaaatest" |----10----|
+     * Example rightJustify("test",10,'a'); "test" --&gt; "aaaaaatest" |----10----|
      * 
      * @param str input String 
      * @param len length of output String
      * @param c character that fills blanks
      * @return a String of length <code>len</code> that has the input String <code>str</code>
      *         in the right part. If length of <code>str</code> is less than <code>len</code>,
-     *         then the remaining characters on the left are filled with character <code>c</code>   
+     *         then the remaining characters on the left are filled with character <code>c</code>
+     *         If the length is greater or equal to the length of <code>str</code> the input is 
+     *         returnes as is.
      */
     public static String rightJustify(String str, int len, char c) {
         int l = str.length();
@@ -116,7 +120,8 @@ public class StringUtils {
      *  String values 1 and true will result to true.
      *  Any other value will result to false.
      *  
-     * @param s
+     *
+     * @param s the s
      * @return returns a boolean value for the input string.
      */
 
@@ -137,11 +142,11 @@ public class StringUtils {
 
 
     /**
-     * converts a boolean to 1 or 0
-     * 
-     * @param b
-     * @return returns 1 or 0 
-     **/
+     * converts a boolean to 1 or 0.
+     *
+     * @param b the b
+     * @return returns 1 or 0
+     */
     public static String bool2String(boolean b) {
     	return b ? "1" : "0"; //$NON-NLS-1$ //$NON-NLS-2$ 
     }
@@ -172,8 +177,8 @@ public class StringUtils {
 
     /**
      * Capitalizes the first character of string.
-     * 
-     * @param string 
+     *
+     * @param string the string
      * @return Returns the string with the first character capital.
      */
     public static String firstCapital(String string) {
@@ -186,8 +191,8 @@ public class StringUtils {
     
     /**
      * Makes lower case the first character of string.
-     * 
-     * @param string 
+     *
+     * @param string the string
      * @return Returns the string with the first character lower case.
      */
     public static String firstLowerCase(String string) {
@@ -206,12 +211,13 @@ public class StringUtils {
      * 
      * If the length is less than the actual length of the
      * input integer, then the output will be truncated. 
-     * <br/>
+     * <br>
      * Examples:
+     * <ul>
      * <li> for integer 3 and length 4 returns 0003
      * <li> for integer 3005 and length 3 returns 300 
      *     (truncates the digits from the right side).
-     * 
+     * </ul>
      * 
      * @param num integer that will be printed to string 
      * @param length length of output string.
@@ -250,26 +256,33 @@ public class StringUtils {
     	}
     	return new String (b);
     }
-    
-    /**
-     * padRight the argument, but truncates it to the specified length if the argument exceeds it
-     * @param arg
-     * @param length
-     * @return padRight of the argument
-     */
-    public static String fixedLengthPadRight (String arg, int length) {
-    	String s= padRight(arg.trim(),length);	
-    	int i=s.length()-length;
-    	if (i>0) return mid(s,i);
-    	else return s;
-    }
+
+	/**
+	 * padRight the argument, but truncates it to the specified length if the
+	 * argument exceeds it.
+	 *
+	 * @param arg
+	 *            the arg
+	 * @param length
+	 *            the length
+	 * @return padRight of the argument
+	 */
+	public static String fixedLengthPadRight(String arg, int length) {
+		String s = padRight(arg.trim(), length);
+		int i = s.length() - length;
+		if (i > 0) {
+			return mid(s, i);
+		}
+		return s;
+	}
     
     /**
      * same as substring but throws no IndexOutOfBoundsException
-     * works exactly as Visual Basic's mid
-     * @param s 
-     * @param start
-     * @param length
+     * works exactly as Visual Basic's mid.
+     *
+     * @param s the s
+     * @param start the start
+     * @param length the length
      * @return the substring starting from start and until length
      */
     public static String mid(String s,int start, int length) {
@@ -287,10 +300,11 @@ public class StringUtils {
     /**
      * same as substring but throws no IndexOutOfBoundsException
      * works well even if start is greater than the string length
-     * works exactly as Visual Basic's mid
-     * @param s 
-     * @param start 
-     * @return the substring starting from start 
+     * works exactly as Visual Basic's mid.
+     *
+     * @param s the s
+     * @param start the start
+     * @return the substring starting from start
      */
     public static String mid(String s,int start) {
     	int len = s.length();
@@ -299,85 +313,109 @@ public class StringUtils {
     	}
     	int length = len - start;
     	return s.substring(start,start+length);
-    }
-    
-    /**
-     * Replaces a part of String with another String
-     * Same functionality as Visual Basic mid. Throws no runtime exceptions
-     * @param arg String to change
-     * @param start Part of the String where the new String will be inserted
-     * @param len Length of the part that will be replaced by the new String 
-     * @param newPart New String to insert inside the old String
-     * @return String
-     */
-    public static String mid (String arg, int start, int len, String newPart) {
-    	if (start>arg.length()) return arg;
-    	int l=arg.length()-start+1;
-    	if (arg.length()<start+len) {
-    		String p1=mid(arg,0,start-1);
-    		String newP=mid(newPart,0,l);
-    		return p1+newP;
-    	} else {
-    		String newP=fixedLengthPadLeft(newPart,len);
-    		String p1=mid(arg,0,start);
-    		String p2=mid(arg,start+len);
-    		return p1+newP+p2;
-    	}
-    }
-    
-    /**
-     * padLeft the argument, but truncates it to the specified length if the argument exceeds it
-     * @param arg
-     * @param length
-     * @return padLeft of the argument
-     */
-    public static String fixedLengthPadLeft (String arg, int length) {
-    	String s=padLeft(arg.trim(),length);	
-    	if (s.length()>length) return mid(s,0,length);
-    	else return s;
-    }
-    
-    /**
-     * 
-     * @param arg
-     * @param length
-     * @return a String of defined length with the argument arg justified left and filled with spaces
-     */
-    public static String padLeft(String arg, int length) {
-    	int l = arg.length();
-    	if (l>length) return arg;
-    	else return arg+spaces(length-l);
-    }
+	}
 
-    /**
-     * 
-     * @param arg
-     * @param length
-     * @return a String of defined length with the argument arg justified right and filled with spaces
-     */
-    public static String padRight(String arg, int length) {
-    	int l = arg.length();
-    	if (l>length) return arg;	
-    	else return spaces(length-l)+arg;
-    }
-    
-    /**
-     * Space String
-     * @param length
-     * @return a blank string of defined length
-     */
-    public static String spaces (int length) {
-    	return sameCharacterString(length,' ');	
-    }
-    
-    /**
+	/**
+	 * Replaces a part of String with another String Same functionality as
+	 * Visual Basic mid. Throws no runtime exceptions
+	 * 
+	 * @param arg
+	 *            String to change
+	 * @param start
+	 *            Part of the String where the new String will be inserted
+	 * @param len
+	 *            Length of the part that will be replaced by the new String
+	 * @param newPart
+	 *            New String to insert inside the old String
+	 * @return String
+	 */
+	public static String mid(String arg, int start, int len, String newPart) {
+		if (start > arg.length())
+			return arg;
+		int l = arg.length() - start + 1;
+		if (arg.length() < start + len) {
+			String p1 = mid(arg, 0, start - 1);
+			String newP = mid(newPart, 0, l);
+			return p1 + newP;
+		}
+		String newP = fixedLengthPadLeft(newPart, len);
+		String p1 = mid(arg, 0, start);
+		String p2 = mid(arg, start + len);
+		return p1 + newP + p2;
+	}
+
+	/**
+	 * padLeft the argument, but truncates it to the specified length if the
+	 * argument exceeds it.
+	 *
+	 * @param arg
+	 *            the arg
+	 * @param length
+	 *            the length
+	 * @return padLeft of the argument
+	 */
+	public static String fixedLengthPadLeft(String arg, int length) {
+		String s = padLeft(arg.trim(), length);
+		if (s.length() > length) {
+			return mid(s, 0, length);
+		}
+		return s;
+	}
+
+	/**
+	 * Pad left.
+	 *
+	 * @param arg
+	 *            the arg
+	 * @param length
+	 *            the length
+	 * @return a String of defined length with the argument arg justified left
+	 *         and filled with spaces
+	 */
+	public static String padLeft(String arg, int length) {
+		int l = arg.length();
+		if (l > length) {
+			return arg;
+		}
+		return arg + spaces(length - l);
+	}
+
+	/**
+	 * Pad right.
+	 *
+	 * @param arg
+	 *            the arg
+	 * @param length
+	 *            the length
+	 * @return a String of defined length with the argument arg justified right
+	 *         and filled with spaces
+	 */
+	public static String padRight(String arg, int length) {
+		int l = arg.length();
+		if (l > length) {
+			return arg;
+		}
+		return spaces(length - l) + arg;
+	}
+
+	/**
+	 * Space String.
+	 *
+	 * @param length
+	 *            the length
+	 * @return a blank string of defined length
+	 */
+	public static String spaces(int length) {
+		return sameCharacterString(length, ' ');
+	}
+
+	/**
      * Creates a string with the contents of an array.
      * 
      * The array elements are separated by a delimiter.
-     * 
-     * @param array
-     * @param delimiter
-     * 
+     *
+     * @param array the array
+     * @param delimiter the delimiter
      * @return Returns a string with the contents of the array.
      */
     public static String array2String(Object[] array, String delimiter) {
@@ -451,7 +489,8 @@ public class StringUtils {
 	/**
 	 * Puts a string in single quotes.
 	 *  
-	 * @param string
+	 *
+	 * @param string the string
 	 * @return returns the string in quotes.
 	 */
 	public static String quotes(String string) {
@@ -461,7 +500,8 @@ public class StringUtils {
 	/**
 	 * Puts a string in double quotes.
 	 *  
-	 * @param string
+	 *
+	 * @param string the string
 	 * @return returns the string in double quotes.
 	 */
 	public static String doubleQuotes(String string) {
@@ -471,7 +511,8 @@ public class StringUtils {
 	/**
 	 * Puts a string in parenthesis.
 	 *  
-	 * @param string
+	 *
+	 * @param string the string
 	 * @return returns the string in parenthesis.
 	 */
 	public static String parenthesis(String string) {
@@ -481,7 +522,8 @@ public class StringUtils {
 	/**
 	 * Puts a string in square brackets.
 	 *  
-	 * @param string
+	 *
+	 * @param string the string
 	 * @return returns the string in square brackets.
 	 */
 	public static String squareBrackets(String string) {
@@ -492,7 +534,8 @@ public class StringUtils {
 	 * Puts a string in square brackets, as long as the String
 	 * is not null or empty.
 	 *  
-	 * @param string
+	 *
+	 * @param string the string
 	 * @return returns the string in square brackets.
 	 */
 	public static String squareBracketsWithMandatoryContent(String string) {
@@ -503,12 +546,12 @@ public class StringUtils {
 	}
 	
 	/**
-	 * Puts a string inside the generic signs (<>).
+	 * Puts a string inside the generic signs (&lt;&gt;).
 	 * 
-	 * Example generics("abc") = "<abc>".
+	 * Example generics("abc") = "&lt;abc&gt;".
 	 *  
-	 * @param string
-	 * 
+	 *
+	 * @param string the string
 	 * @return returns the string inside the inequity signs.
 	 */
 	public static String generics(String string) {
@@ -518,7 +561,8 @@ public class StringUtils {
 	/**
 	 * Puts a string in square brackets.
 	 *  
-	 * @param string
+	 *
+	 * @param string the string
 	 * @return returns the string in square brackets.
 	 */
 	public static String curlyBrackets(String string) {
@@ -583,11 +627,10 @@ public class StringUtils {
 	/**
 	 * Returns the value of the specified array, that matches the
 	 * specified string value, ignoring case.
-	 * 
-	 * @param <T>
-	 * @param values
-	 * @param value
-	 * 
+	 *
+	 * @param <T> the generic type
+	 * @param values the values
+	 * @param value the value
 	 * @return Returns the matching value.
 	 */
 	public static <T> T ignoreCaseValueOf(T[] values, String value) {
@@ -657,30 +700,30 @@ public class StringUtils {
 		}
 		return sb.toString();
 	}
-	
-	
-	
+
 	/**
 	 * Concatenates strings putting a separator between them.
-	 * 
-	 * @param separator 
-	 *        separator string.
-	 * @param strings 
-	 *        Array of objects to concatenate.  
-	 * 
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @param separator
+	 *            separator string.
+	 * @param strings
+	 *            Array of objects to concatenate.
 	 * @return Return the concatenation of the strings.
 	 */
-	public static <T> String concatSeparated(String separator, T...strings) {
+	@SafeVarargs
+	public static <T> String concatSeparated(String separator, final T... strings) {
 		StringBuilder sb = new StringBuilder();
 		for (int i = 0; i < strings.length; i++) {
 			sb.append(StringUtils.toString(strings[i]));
-			if (i!=strings.length-1) {
+			if (i != strings.length - 1) {
 				sb.append(separator);
 			}
-		} 
+		}
 		return sb.toString();
 	}
-	
+
 	/**
 	 * Adds a string to the left of an other string, only if 
 	 * none of the strings is null.
@@ -893,9 +936,8 @@ public class StringUtils {
 	
 	/**
 	 * Removes any parentheses from string.
-	 * 
-	 * @param string
-	 * 
+	 *
+	 * @param string the string
 	 * @return Returns the string having removed its parenthesis.
 	 */	
 	public static String removeParenthesis(String string) {		
@@ -1036,9 +1078,9 @@ public class StringUtils {
 	
 	/**
 	 * Converts a string that has words separated with underscore to a 
-	 * camel case string. <br/>
+	 * camel case string. <br>
 	 * 
-	 * Example: invoice_no -> invoiceNo.
+	 * Example: invoice_no -&gt; invoiceNo.
 	 * 
 	 * @param string
 	 *        String to convert.
@@ -1085,11 +1127,9 @@ public class StringUtils {
 	}
 	
 	/**
-	 * Gets the xml start tag for a string. <br/>
-	 * 
-	 * 
-	 * @param tag
-	 * 
+	 * Gets the xml start tag for a string. <br>
+	 *
+	 * @param tag the tag
 	 * @return Returns the start xml tag for the specified tag.
 	 */
 	@SuppressWarnings("nls")
@@ -1098,11 +1138,9 @@ public class StringUtils {
 	}
 	
 	/**
-	 * Gets the xml start tag for a string. <br/>
-	 * 
-	 * 
-	 * @param tag
-	 * 
+	 * Gets the xml start tag for a string. <br>
+	 *
+	 * @param tag the tag
 	 * @return Returns the start xml tag for the specified tag.
 	 */
 	@SuppressWarnings("nls")
@@ -1162,10 +1200,9 @@ public class StringUtils {
 	/**
 	 * Checks if the specified string contains only characters that
 	 * represent Letters of any language, Numbers and spaces.
-	 * 
-	 * @param s
-	 * 
-	 * @return True, if s contains only characters that represent 
+	 *
+	 * @param s the s
+	 * @return True, if s contains only characters that represent
 	 *         Greek and Latin letters and numbers.
 	 */
 	@SuppressWarnings("nls")
@@ -1174,12 +1211,10 @@ public class StringUtils {
 	}
 	
 	/**
-	 * Truncates n characters from the end of a String
-	 * 
-	 * @param s
-	 *        String
-	 * @param n
-	 *        Number of characters to truncate.
+	 * Truncates n characters from the end of a String.
+	 *
+	 * @param s        String
+	 * @param n        Number of characters to truncate.
 	 *        
 	 * @return Returns the truncated String.
 	 */
@@ -1195,24 +1230,24 @@ public class StringUtils {
 	
 	/**
 	 * Strips the package from a fully qualified class name.
-	 * @param fqcn
+	 *
+	 * @param fqcn the fqcn
 	 * @return simple class name
 	 */
 	public static String stripPkgFromFqcn(String fqcn) {
-		if(fqcn.indexOf(StringConstants.DOT) == -1)
+		if(fqcn.indexOf(StringConstants.DOT) == -1) {
 			return fqcn;
-		else
-			return fqcn.substring(fqcn.lastIndexOf(StringConstants.DOT)+1, fqcn.length());
+		}
+		return fqcn.substring(fqcn.lastIndexOf(StringConstants.DOT)+1, fqcn.length());
 	}
-	
+
 	/**
 	 * Truncates the specified string if necessary to the specified
 	 * maximum length.
-	 * 
-	 * @param string
-	 * @param length
-	 * 
-	 * @return If the string is null, returns an empty string. 
+	 *
+	 * @param string the string
+	 * @param length the length
+	 * @return If the string is null, returns an empty string.
 	 *         If the string has a length that excceeds the specified maximum
 	 *         length, then it is truncated to the specified maximum length.
 	 */
@@ -1228,13 +1263,11 @@ public class StringUtils {
 	
 	/**
 	 * Splits a string into strings by length.
-	 * 
-	 * @param string
-	 * @param length
-	 * 
+	 *
+	 * @param string the string
+	 * @param length the length
 	 * @return If the string is null, returns an empty array
 	 *         If the string is not null, returns an array of strings splitted by the length
-	 *         
 	 */         
 	@SuppressWarnings("nls")
 	public static String[] splitByLength(String string,int length){
@@ -1250,8 +1283,9 @@ public class StringUtils {
 	
 	/**
 	 * This utility is meant to help identify the unicode codepoint
-	 * of all chars in a supplied String
-	 * @param s
+	 * of all chars in a supplied String.
+	 *
+	 * @param s the s
 	 */
 	public static void mapStringCharsToUnicodeCodepoints(String s) {
 		if(s==null) {

@@ -22,6 +22,7 @@ import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.arch.ext.CriteriaDependent;
 import gr.interamerican.bo2.impl.open.jdbc.AbstractJdbcWorker;
+import gr.interamerican.bo2.impl.open.jdbc.JdbcQuery;
 import gr.interamerican.bo2.utils.StreamUtils;
 import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.adapters.TransformationSpec;
@@ -38,11 +39,11 @@ import java.util.HashMap;
  * statement stored in a resource file and also implements the interface 
  * {@link EntitiesQuery}. Alternatively, the SQL query can be supplied on
  * as a String along with a (unique) id. 
- * <br/>
+ * <br>
  * 
  * The type of entity returned by the <code>getEntity()</code> method is created
  * dynamically on runtime and contains the elements of the query columns.
- * Therefore StoredDynamicEntitiesQuery is declared as EntitiesQuery<Object>,
+ * Therefore StoredDynamicEntitiesQuery is declared as EntitiesQuery&lt;Object&gt;,
  * however the type of Object is a synthetic class that is created on runtime
  * and contains one field for each column of the row.
  * 
@@ -54,8 +55,11 @@ import java.util.HashMap;
  * 
  * @param <C> 
  *        Type of criteria.
- * 
+ * @deprecated Use of this api is not recommended. This might get moved outside
+ *             bo2. Switch to more simple Query implementations like
+ *             {@link JdbcQuery} and {@link DynamicJdbcQuery}
  */
+@Deprecated
 public class GenericStoredDynamicEntitiesQuery<C> 
 extends AbstractJdbcWorker 
 implements  EntitiesQuery<Object>, CriteriaDependent<C>, OrderedFieldsContainer, 
@@ -101,7 +105,7 @@ NamedFieldsContainer, OrderedNamedFieldsContainer, TransformationSpec {
 	 * @param path
 	 *        Path to the file that contains the SQL query statement.
 	 * @param criteria 
-	 *        Criteria bean. If Class<C> is not Object.class, then this must not be null. 
+	 *        Criteria bean. If Class&lt;C&gt; is not Object.class, then this must not be null. 
 	 */
 	public GenericStoredDynamicEntitiesQuery(String path, C criteria) {
 		super();				
@@ -121,7 +125,7 @@ NamedFieldsContainer, OrderedNamedFieldsContainer, TransformationSpec {
 	 * @param id
 	 *        ID for the query.
 	 * @param criteria 
-	 *        Criteria bean. If Class<C> is not Object.class, then this must not be null. 
+	 *        Criteria bean. If Class&lt;C&gt; is not Object.class, then this must not be null. 
 	 */
 	public GenericStoredDynamicEntitiesQuery(String sql, String id, C criteria) {
 		super();				
@@ -180,8 +184,8 @@ NamedFieldsContainer, OrderedNamedFieldsContainer, TransformationSpec {
 	
 	/**
 	 * Initializes the wrapped query.
-	 * 
-	 * @throws InitializationException
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@SuppressWarnings("unchecked")
 	void initPredefinedReportQuery() throws InitializationException {
@@ -239,22 +243,27 @@ NamedFieldsContainer, OrderedNamedFieldsContainer, TransformationSpec {
 	}
 	
 	
+	@Override
 	public void execute() throws DataException {
 		query.execute();
 	}
 	
+	@Override
 	public Object getEntity() throws DataAccessException {		
 		return query.getEntity();
 	}
 	
+	@Override
 	public boolean next() throws DataAccessException {		
 		return query.next();
 	}
 	
+	@Override
 	public int getRow() throws DataAccessException {		
 		return query.getRow();
 	}
 
+	@Override
 	public void setAvoidLock(boolean avoidLock) {
 		this.avoidLock = avoidLock;
 		if (query!=null) {
@@ -262,75 +271,93 @@ NamedFieldsContainer, OrderedNamedFieldsContainer, TransformationSpec {
 		}
 	}
 
+	@Override
 	public boolean isAvoidLock() {		
 		return avoidLock;
 	}
 
+	@Override
 	public int getFieldOrder(String field) {
 		return query.getFieldOrder(field);
 	}
 
+	@Override
 	public String getFieldName(int field) {
 		return query.getFieldName(field);
 
 	}
 
+	@Override
 	public int getFieldsCount() {
 		return query.getFieldsCount();
 	}
 
+	@Override
 	public String getString(int field) throws DataAccessException {
 		return query.getString(field);
 	}
 
+	@Override
 	public BigDecimal getBigDecimal(int field) throws DataAccessException {
 		return query.getBigDecimal(field);
 	}
 
+	@Override
 	public double getDouble(int field) throws DataAccessException {
 		return query.getDouble(field);
 	}
 
+	@Override
 	public float getFloat(int field) throws DataAccessException {
 		return query.getFloat(field);
 	}
 
+	@Override
 	public int getInt(int field) throws DataAccessException {
 		return query.getInt(field);
 	}
 
+	@Override
 	public long getLong(int field) throws DataAccessException {
 		return query.getLong(field);
 	}
 
+	@Override
 	public short getShort(int field) throws DataAccessException {
 		return query.getShort(field);
 	}
 
+	@Override
 	public boolean getBoolean(int field) throws DataAccessException {
 		return query.getBoolean(field);
 	}
 
+	@Override
 	public byte getByte(int field) throws DataAccessException {
 		return query.getByte(field);
 	}
 
+	@Override
 	public byte[] getBytes(int field) throws DataAccessException {
 		return query.getBytes(field);
 	}
 
+	@Override
 	public Date getDate(int field) throws DataAccessException {
 		return query.getDate(field);
 	}
 
+	@Override
 	public Calendar getCalendar(int field) throws DataAccessException {
 		return query.getCalendar(field);
 	}
 
+	@Override
 	public Object getObject(int field) throws DataAccessException {
 		return query.getObject(field);
 	}
 	
+	@Override
 	public void setCriteria(C criteria) {
 		this.criteria = criteria;
 		if (query!=null) {
@@ -338,62 +365,77 @@ NamedFieldsContainer, OrderedNamedFieldsContainer, TransformationSpec {
 		}		
 	}
 
+	@Override
 	public C getCriteria() {
 		return criteria;
 	}	
 	
+	@Override
 	public String getString(String field) throws DataAccessException {
 		return query.getString(field);
 	}
 
+	@Override
 	public BigDecimal getBigDecimal(String field) throws DataAccessException {
 		return query.getBigDecimal(field);
 	}
 
+	@Override
 	public double getDouble(String field) throws DataAccessException {
 		return query.getDouble(field);
 	}
 
+	@Override
 	public float getFloat(String field) throws DataAccessException {
 		return query.getFloat(field);
 	}
 
+	@Override
 	public int getInt(String field) throws DataAccessException {
 		return query.getInt(field);
 	}
 
+	@Override
 	public long getLong(String field) throws DataAccessException {
 		return query.getLong(field);
 	}
 
+	@Override
 	public short getShort(String field) throws DataAccessException {
 		return query.getShort(field);
 	}
 
+	@Override
 	public boolean getBoolean(String field) throws DataAccessException {
 		return query.getBoolean(field);
 	}
 
+	@Override
 	public byte getByte(String field) throws DataAccessException {
 		return query.getByte(field);
 	}
 
+	@Override
 	public byte[] getBytes(String field) throws DataAccessException {
 		return query.getBytes(field);
 	}
 
+	@Override
 	public Date getDate(String field) throws DataAccessException {
 		return query.getDate(field);
 	}
 
+	@Override
 	public Calendar getCalendar(String field) throws DataAccessException {
 		return query.getCalendar(field);
 	}
 
+	@Override
 	public Object getObject(String field) throws DataAccessException {
 		return query.getObject(field);
 	}
 	
+	@Override
 	public Class<?> getArgumentType() {
 		if (query==null) {
 			return null;
@@ -401,6 +443,7 @@ NamedFieldsContainer, OrderedNamedFieldsContainer, TransformationSpec {
 		return query.getArgumentType();
 	}
 
+	@Override
 	public Class<?> getResultType() {
 		if (query==null) {
 			return null;

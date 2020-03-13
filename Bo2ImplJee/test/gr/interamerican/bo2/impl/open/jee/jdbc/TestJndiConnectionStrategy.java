@@ -22,28 +22,23 @@ import gr.interamerican.bo2.utils.ReflectionUtils;
 import java.lang.reflect.Method;
 import java.sql.SQLException;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Unit test for {@link DriverConnectionStrategy}
- * 
- *
+ * Unit test for {@link DriverConnectionStrategy}.
  */
 public class TestJndiConnectionStrategy {
 	
-	/**
-	 * Provider;
-	 */
+	/** Provider;. */
 	JdbcConnectionProviderImpl provider;
 	/**
 	 * object to test.
 	 */
 	JndiConnectionStrategy strategy;
 	
-	/**
-	 * Mock strategy
-	 */
+	/** Mock strategy. */
 	JndiConnectionStrategy mock = new JndiConnectionStrategy() {
 		@Override
 		javax.sql.DataSource getDatasourceFromJndi(String jndiKey) {			
@@ -53,7 +48,8 @@ public class TestJndiConnectionStrategy {
 	
 	/**
 	 * tests setup.
-	 * @throws InitializationException 
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Before
 	public void setup() throws InitializationException {
@@ -64,9 +60,9 @@ public class TestJndiConnectionStrategy {
 	
 	/**
 	 * Tests that failure throws the appropriate Exception
-	 * if a mandatory property DBDRIVER is missing.
-	 * 
-	 * @throws InitializationException 
+	 * if a mandatory property KEY_DBJNDINAME is missing.
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=InitializationException.class)
 	public void testParseProperties_missingJndi() throws InitializationException {		
@@ -75,20 +71,32 @@ public class TestJndiConnectionStrategy {
 	}
 	
 	/**
-	 * Tests parseProperties.
-	 * 
-	 * @throws InitializationException 
+	 * Tests parseProperties. Fails because there is no context
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
-	@Test()
-	public void testParseProperties_succeed() throws InitializationException {
+	@Test(expected=InitializationException.class)
+	public void testParseProperties_fail() throws InitializationException {
 		strategy.parseProperties();
+	}
+	
+	/**
+	 * Tests parseProperties. Fails because there is no context
+	 *
+	 * @throws InitializationException the initialization exception
+	 */
+	@Test
+	public void testParseProperties_succeed() throws InitializationException {
+		mock.setComponent(provider);
+		mock.parseProperties();
+		Assert.assertNotNull(mock.dataSource);
 	}	
 	
 	/**
 	 * Tests that failure throws the appropriate Exception
 	 * if the connection fails.
-	 * 
-	 * @throws InitializationException 
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=InitializationException.class)
 	public void testDoConnect_fail() throws InitializationException {
@@ -98,19 +106,19 @@ public class TestJndiConnectionStrategy {
 		Method method = ReflectionUtils.getMethodByUniqueName("parseProperties", provider.getClass()); //$NON-NLS-1$
 		Object[] args = null;
 		ReflectionUtils.invoke(method, provider, args);
-		strategy.dbJndiName = "foo"; //$NON-NLS-1$
 		strategy.doConnect();
 	}
 	
 	/**
 	 * Tests that failure throws the appropriate Exception
 	 * if the connection fails.
-	 * 
-	 * @throws InitializationException 
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test()
 	public void testDoConnect_succeed() throws InitializationException {
 		mock.setComponent(provider);
+		mock.parseProperties();
 		mock.doConnect();
 	}
 	
@@ -118,8 +126,8 @@ public class TestJndiConnectionStrategy {
 	/**
 	 * Tests that failure throws the appropriate Exception
 	 * if the connection fails.
-	 * 
-	 * @throws InitializationException 
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=InitializationException.class)
 	public void testDoConnect_failFromDatasource1() throws InitializationException {
@@ -140,8 +148,8 @@ public class TestJndiConnectionStrategy {
 	/**
 	 * Tests that failure throws the appropriate Exception
 	 * if the connection fails.
-	 * 
-	 * @throws InitializationException 
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=InitializationException.class)
 	public void testDoConnect_failFromDatasource2() throws InitializationException {

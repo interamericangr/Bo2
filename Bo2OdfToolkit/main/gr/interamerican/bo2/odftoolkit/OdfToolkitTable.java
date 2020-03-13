@@ -12,6 +12,9 @@
  ******************************************************************************/
 package gr.interamerican.bo2.odftoolkit;
 
+import gr.interamerican.bo2.odftoolkit.barcode.BarCodeFactory;
+import gr.interamerican.bo2.odftoolkit.barcode.BarCodeType;
+import gr.interamerican.bo2.odftoolkit.barcode.BarcodeTableUtils;
 import gr.interamerican.bo2.odftoolkit.utils.OdfUtils;
 import gr.interamerican.bo2.utils.IllegalCharacterFilter;
 import gr.interamerican.bo2.utils.StringConstants;
@@ -25,6 +28,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import org.krysalis.barcode4j.HumanReadablePlacement;
 import org.odftoolkit.odfdom.dom.OdfDocumentNamespace;
 import org.odftoolkit.odfdom.dom.element.draw.DrawFrameElement;
 import org.odftoolkit.odfdom.dom.element.draw.DrawImageElement;
@@ -45,19 +49,19 @@ import org.odftoolkit.simple.text.Paragraph;
  * Implementation of {@link DocumentTable}.
  */
 public class OdfToolkitTable implements DocumentTable {
-	/**
-	 * draw:style-name
-	 */
+	
+	
+	/** draw:style-name. */
 	private static final OdfName STYLENAME = 
- OdfName.newName(OdfDocumentNamespace.DRAW, "style-name"); //$NON-NLS-1$
+        OdfName.newName(OdfDocumentNamespace.DRAW, "style-name"); //$NON-NLS-1$
 	
 	
 			
 	/**
 	 * Creates a new OdfToolkitTable object. 
 	 *
-	 * @param owner
-	 * @param table
+	 * @param owner the owner
+	 * @param table the table
 	 */
 	public OdfToolkitTable(TextDocument owner, Table table) {
 		super();
@@ -75,6 +79,7 @@ public class OdfToolkitTable implements DocumentTable {
 	 */
 	Table table;
 
+	@Override
 	public void appendRow() throws DocumentEngineException {
 		table.appendRow();
 		int newRow = table.getRowCount()-1;
@@ -85,6 +90,7 @@ public class OdfToolkitTable implements DocumentTable {
 		}		
 	}
 
+	@Override
 	public void appendColumn() throws DocumentEngineException {
 		table.appendColumn();
 		int newCol = table.getColumnCount()-1;
@@ -120,11 +126,11 @@ public class OdfToolkitTable implements DocumentTable {
 	
 	/**
 	 * Copies the styles of the from cell to the to cell.
-	 * 
-	 * @param fromRow
-	 * @param fromCol
-	 * @param toRow
-	 * @param toCol
+	 *
+	 * @param fromRow the from row
+	 * @param fromCol the from col
+	 * @param toRow the to row
+	 * @param toCol the to col
 	 */
 	void copyStyles(int fromRow, int fromCol, int toRow, int toCol) {
 		Cell from = table.getCellByPosition(fromCol, fromRow);
@@ -157,14 +163,17 @@ public class OdfToolkitTable implements DocumentTable {
 		}
 	}	
 
+	@Override
 	public void deleteRow(int row) throws DocumentEngineException {
 		table.removeRowsByIndex(row, 1);		
 	}
 
+	@Override
 	public void deleteColumn(int column) throws DocumentEngineException {
 		table.removeColumnsByIndex(column, 1);		
 	}
 
+	@Override
 	public void setCell(int row, int column, String value) throws DocumentEngineException {
 		checkCellCoordinates(row, column);		
 		Cell cell = table.getCellByPosition(column, row);		
@@ -176,6 +185,7 @@ public class OdfToolkitTable implements DocumentTable {
 		p.setTextContent(txt);
 	}	
 	
+	@Override
 	public void setCell(int row, int column, BusinessDocument doc) 
 	throws DocumentEngineException {
 		checkCellCoordinates(row, column);		
@@ -187,14 +197,17 @@ public class OdfToolkitTable implements DocumentTable {
 		OdfUtils.replaceElementWithContent(toBeReplaced, owner, source.document);		
 	}
 
+	@Override
 	public void delete() throws DocumentEngineException {		
 		table.remove();
 	}
 	
+	@Override
 	public int getColumnCount() throws DocumentEngineException {
 		return table.getColumnCount();
 	}
 	
+	@Override
 	public int getRowCount() throws DocumentEngineException {
 		return table.getRowCount();
 	}
@@ -223,12 +236,10 @@ public class OdfToolkitTable implements DocumentTable {
 	/**
 	 * Checks that the specified row and column are included
 	 * in the table and if not, throws a DocumentEngineException.
-	 * 
-	 * @param row
-	 * @param column
-	 * 
-	 * @throws DocumentEngineException 
-	 *         If the table has less rows or columns than 
+	 *
+	 * @param row the row
+	 * @param column the column
+	 * @throws DocumentEngineException         If the table has less rows or columns than 
 	 *         the specified values.
 	 */
 	@SuppressWarnings("nls")
@@ -242,12 +253,14 @@ public class OdfToolkitTable implements DocumentTable {
 		}
 	}
 	
+	@Override
 	public void setCellGraphic(int row, int column, String pictureName) 
 	throws DocumentEngineException {
 		checkCellCoordinates(row, column);		
 		Cell cell = table.getCellByPosition(column, row);		
-		double widthMM = cell.getTableColumn().getWidth()-2;
-		double heightMM = cell.getTableRow().getHeight()-2;
+		double widthMM = (cell.getTableColumn().getWidth()-2) * cell.getColumnSpannedNumber();
+		double heightMM = (cell.getTableRow().getHeight()-2) * cell.getRowSpannedNumber();
+
 		NumberFormat nf = NumberFormat.getInstance(Locale.US);
 		String width = nf.format(widthMM).trim() + "mm"; //$NON-NLS-1$
 		String height = nf.format(heightMM).trim() + "mm"; //$NON-NLS-1$
@@ -258,7 +271,6 @@ public class OdfToolkitTable implements DocumentTable {
 		TextPElement pele = 
 			OdfElement.findFirstChildNode(TextPElement.class, cell.getOdfElement());
 		DrawFrameElement frame = pele.newDrawFrameElement();
-		
 		
 		/*
 		 * TODO: Set style of frame with attribute style:wrap=run-through. 
@@ -273,6 +285,7 @@ public class OdfToolkitTable implements DocumentTable {
         image.setXlinkTypeAttribute("simple"); //$NON-NLS-1$
 	}
 	
+	@Override
 	public void setCellGraphic(int row, int column, String pictureName, byte[] picture, String pictureType)
 	throws DocumentEngineException {
 		OdfToolkitTextDocument doc = new OdfToolkitTextDocument(owner);
@@ -282,10 +295,9 @@ public class OdfToolkitTable implements DocumentTable {
 	
 	/**
 	 * Adds a new graphics style.
-	 * 
-	 * @param frame
-	 * 
-	 * @throws DocumentEngineException 
+	 *
+	 * @param frame the new picture style wrap run through
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	@SuppressWarnings("nls")
 	void setPictureStyleWrapRunThrough(DrawFrameElement frame) 
@@ -307,5 +319,28 @@ public class OdfToolkitTable implements DocumentTable {
 			throw new DocumentEngineException(e);
 		}
 	}
+	
+	/**
+	 * Sets the barcode.
+	 *
+	 * @throws DocumentEngineException the document engine exception
+	 */
+	public void setBarcode() throws DocumentEngineException {
+		Cell cell = table.getCellByPosition(0, 0);
+		String value = cell.getStringValue();
+		value = value.trim();
+		if (!StringUtils.isNullOrBlank(value)) {
+			String name = table.getTableName();
+			BarCodeType type = BarcodeTableUtils.getBarcodeType(name,owner);
+			HumanReadablePlacement hrp = BarcodeTableUtils.getHumanReadablePlacement(name, owner);		
+			BarCodeFactory bcf = new BarCodeFactory();
+			byte[] bytes = bcf.getBarCode(value, type, hrp);
+			setCellGraphic(0, 0, table.getTableName(), bytes, bcf.getImageType());			
+		}
+	}
+	
+	
+	
+	
 
 }

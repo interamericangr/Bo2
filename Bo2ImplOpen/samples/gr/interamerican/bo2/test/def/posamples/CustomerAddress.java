@@ -23,12 +23,32 @@ import gr.interamerican.bo2.arch.PersistentObject;
 public interface CustomerAddress 
 extends CustomerAddressKP, PersistentObject<CustomerAddressKey>, ModificationRecord {
 	
+	/**
+	 * Gets the street.
+	 *
+	 * @return the street
+	 */
 	public String getStreet();
 	
+	/**
+	 * Sets the street.
+	 *
+	 * @param street the new street
+	 */
 	public void setStreet(String street);
 	
+	/**
+	 * Gets the street no.
+	 *
+	 * @return the street no
+	 */
 	public String getStreetNo();
 	
+	/**
+	 * Sets the street no.
+	 *
+	 * @param streetNo the new street no
+	 */
 	public void setStreetNo(String streetNo);
 
 }

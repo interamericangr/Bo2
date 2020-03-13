@@ -12,19 +12,16 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.workers;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+
+import org.junit.Test;
+
 import gr.interamerican.bo2.arch.PersistenceWorker;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.impl.open.creation.Factory;
 import gr.interamerican.bo2.samples.archutil.po.User;
 import gr.interamerican.bo2.samples.archutil.po.UserKey;
 import gr.interamerican.bo2.samples.ibean.Identified;
-
-import org.junit.Test;
 
 /**
  * Unit test for {@link FactorySupportedPoHandler}.
@@ -37,8 +34,8 @@ public class TestFactorySupportedPoDeleter {
 	
 	/**
 	 * Tests delete(k).
-	 * 
-	 * @throws DataException
+	 *
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testDelete() throws DataException {
@@ -57,9 +54,8 @@ public class TestFactorySupportedPoDeleter {
 	
 	/**
 	 * Tests deleteByProperties(k).
-	 * 
-	 * 
-	 * @throws DataException
+	 *
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testGetByProperties() throws DataException {

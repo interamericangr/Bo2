@@ -19,7 +19,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 /**
- * 
+ * The Class TestSuiteBo2GuiBatch.
  */
 @RunWith(Suite.class)
 @SuiteClasses(
@@ -30,6 +30,7 @@ import org.junit.runners.Suite.SuiteClasses;
 		TestLongProcessLabelPanel.class,
 		TestLongProcessPanel.class,
 		TestLongProcessStatusPanel.class,
+		TestBatchProcessExecutionStatusPanel.class,
 		TestMultiThreadedLongProcessPanel.class,
 	}
 )

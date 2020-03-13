@@ -22,17 +22,16 @@ import java.sql.SQLException;
 import org.junit.Test;
 
 /**
- * Unit test for JdbcCommand
- *
+ * Unit test for JdbcCommand.
  */
 public class TestJdbcCommand  extends AbstractNonTransactionalProviderTest {
 	
 	
 	/**
 	 * tests that a method annotated as SQL can be executed as query.
-	 * 
-	 * @throws InitializationException 
-	 * @throws DataException 
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testExecute() throws InitializationException, DataException {		
@@ -52,44 +51,35 @@ public class TestJdbcCommand  extends AbstractNonTransactionalProviderTest {
 	 */
 	@ManagerName("LOCALDB")
 	private static class JdbcCommandImpl extends JdbcCommand {
-		/**
-		 * statement
-		 */		
+		
+		/** statement. */		
 		private String stmt0 = 
 			"delete from X__X.USERS where id = ?"; //$NON-NLS-1$
 		
 		
-		/**
-		 * statement
-		 */
+		/** statement. */
 		private String stmt1 = 
 			"insert into X__X.USERS "  //$NON-NLS-1$
 			 +	" (ID, USR_ID, USR_NM, ROLE_ID)  values (?, ?, ?, ?) "; //$NON-NLS-1$
 		
-		/**
-		 * statement
-		 */
+		/** statement. */
 		private String stmt2 = 
 			"update X__X.USERS set USR_ID = ? where ID = ?"; //$NON-NLS-1$
 		
-		/**
-		 * statement
-		 */
+		/** statement. */
 		private String stmt3 = 
 			"update X__X.USERS set USR_NM = ? where ID = ?"; //$NON-NLS-1$
 		
 
-		/**
-		 * records affected by statement 1
-		 */
+		/** records affected by statement 1. */
 		int i0=0;
 		
-		/**
-		 * records affected by statement 1
-		 */
+		/** records affected by statement 1. */
 		int i1=0;
 		
 		/**
+		 * Gets the i0.
+		 *
 		 * @return the i0
 		 */
 		public int getI0() {
@@ -98,6 +88,8 @@ public class TestJdbcCommand  extends AbstractNonTransactionalProviderTest {
 
 
 		/**
+		 * Gets the i1.
+		 *
 		 * @return the i1
 		 */
 		public int getI1() {
@@ -106,6 +98,8 @@ public class TestJdbcCommand  extends AbstractNonTransactionalProviderTest {
 
 
 		/**
+		 * Gets the i2.
+		 *
 		 * @return the i2
 		 */
 		public int getI2() {
@@ -114,6 +108,8 @@ public class TestJdbcCommand  extends AbstractNonTransactionalProviderTest {
 
 
 		/**
+		 * Gets the i3.
+		 *
 		 * @return the i3
 		 */
 		public int getI3() {
@@ -121,14 +117,10 @@ public class TestJdbcCommand  extends AbstractNonTransactionalProviderTest {
 		}
 
 
-		/**
-		 * records affected by statement 2
-		 */
+		/** records affected by statement 2. */
 		int i2=0;
 		
-		/**
-		 * records affected by statement 2
-		 */
+		/** records affected by statement 2. */
 		int i3=0;
 		
 

@@ -50,14 +50,14 @@ public abstract class JdbcSimpleQuestion<A> extends JdbcSingleStatementQuestion<
 	 * Object that holds the answer.
 	 */
 	A answer;	
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void work() throws DataException, LogicException {
 		answer = null;
 		String stmt = sql();
 		try {
-			Object[] parms = this.getParamsFromNamedParams();
+			Object[] parms = getParamsFromNamedParams();
 			ResultSet rs = executePreparedQuery(stmt,parms);
 			if (rs.next()) {
 				Class<?> answerClass = answerType();
@@ -69,13 +69,13 @@ public abstract class JdbcSimpleQuestion<A> extends JdbcSingleStatementQuestion<
 		} catch (SQLException e) {
 			throw new DataException(e);
 		}
-	}	
-	
+	}
+
 	@Override
 	public A getAnswer() {	
 		return answer;
 	}
-	
+
 	/**
 	 * Gets the type of answer.
 	 * 
@@ -92,5 +92,4 @@ public abstract class JdbcSimpleQuestion<A> extends JdbcSingleStatementQuestion<
 		}
 		return answerType;
 	}
-		
 }

@@ -17,7 +17,7 @@ import gr.interamerican.bo2.impl.open.properties.Parameter;
 import gr.interamerican.bo2.impl.open.workers.StandAloneWorker;
 
 /**
- * sample string parameter
+ * sample string parameter.
  */
 public class SampleStringParam
 extends StandAloneWorker
@@ -26,6 +26,8 @@ implements Parameter<String> {
 	 * Parameter value.
 	 */
 	public static final String VALUE = "strparm"; //$NON-NLS-1$
+	
+	@Override
 	public String getValue() throws DataException {			
 		return VALUE;
 	}

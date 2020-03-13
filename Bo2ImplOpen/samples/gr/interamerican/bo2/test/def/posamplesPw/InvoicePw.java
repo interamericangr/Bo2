@@ -16,7 +16,7 @@ import gr.interamerican.bo2.arch.PersistenceWorker;
 import gr.interamerican.bo2.test.def.posamples.Invoice;
 
 /**
- * 
+ * The Interface InvoicePw.
  */
 public interface InvoicePw extends PersistenceWorker<Invoice> {
 	/* empty */

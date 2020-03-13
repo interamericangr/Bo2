@@ -21,8 +21,9 @@ import org.junit.Test;
 public class TestNsDefinitionFactory {
 	
 	/**
-	 * Unit test for getDefinition()
-	 * @throws InitializationException 
+	 * Unit test for getDefinition().
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -45,7 +46,7 @@ public class TestNsDefinitionFactory {
 		assertEquals(name, def.getName());
 		assertEquals(path, def.getUri());
 		assertEquals(type, def.getType());
-		assertEquals(Bo2UtilsEnvironment.getDefaultTextCharset(), def.getEncoding());
+		assertEquals(Bo2UtilsEnvironment.get().getDefaultTextCharset(), def.getEncoding());
 		assertEquals(0, def.getRecordLength());
 		assertEquals(resource, def.getResourceType());
 		
@@ -53,7 +54,7 @@ public class TestNsDefinitionFactory {
 	
 	
 	/**
-	 * Tests handleOptionalDefinitionElement
+	 * Tests handleOptionalDefinitionElement.
 	 */
 	@Test
 	public void testHandleOptionalDefinitionElement_reclen() {
@@ -66,7 +67,7 @@ public class TestNsDefinitionFactory {
 	}
 	
 	/**
-	 * Tests handleOptionalDefinitionElement
+	 * Tests handleOptionalDefinitionElement.
 	 */
 	@Test
 	public void testHandleOptionalDefinitionElement_encoding() {

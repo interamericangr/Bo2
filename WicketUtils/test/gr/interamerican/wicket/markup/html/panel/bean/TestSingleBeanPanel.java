@@ -12,20 +12,10 @@
  ******************************************************************************/
 package gr.interamerican.wicket.markup.html.panel.bean;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
-import gr.interamerican.bo2.samples.bean.BeanWithOrderedFields;
-import gr.interamerican.wicket.ajax.markup.html.form.CallbackAjaxButton;
-import gr.interamerican.wicket.markup.html.TestPage;
-import gr.interamerican.wicket.samples.actions.DummyCallback;
-import gr.interamerican.wicket.samples.creators.FieldsPanelCreatorForBeanWithOrderedFields;
-import gr.interamerican.wicket.samples.panels.BeanWithOrderedFieldsFormPanel;
-import gr.interamerican.wicket.test.WicketTest;
+import static org.junit.Assert.*;
 
 import java.io.Serializable;
-import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
 
 import org.apache.wicket.feedback.FeedbackMessage;
@@ -37,6 +27,15 @@ import org.apache.wicket.util.tester.FormTester;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import gr.interamerican.wicket.ajax.markup.html.form.CallbackAjaxButton;
+import gr.interamerican.wicket.callback.MockedCallback;
+import gr.interamerican.wicket.creators.PanelCreator;
+import gr.interamerican.wicket.markup.html.TestPage;
+import gr.interamerican.wicket.samples.panels.BeanWithOrderedFieldsFormPanel;
+import gr.interamerican.wicket.samples.panels.MyBeanWithOrderedFields;
+import gr.interamerican.wicket.samples.panels.MyBeanWithOrderedFieldsFormPanel;
+import gr.interamerican.wicket.test.WicketTest;
 
 /**
  * Unit test for {@link SingleBeanPanel}.
@@ -51,7 +50,7 @@ public class TestSingleBeanPanel extends WicketTest {
 	public void testCreation() {		
 		tester.assertComponent(path("beanForm"), Form.class);
 		tester.assertVisible(path("beanForm"));
-		Form<BeanWithOrderedFields> form = (Form<BeanWithOrderedFields>)
+		Form<MyBeanWithOrderedFields> form = (Form<MyBeanWithOrderedFields>)
 			tester.getComponentFromLastRenderedPage(path("beanForm"));
 		assertNotNull(form);
 		
@@ -92,7 +91,7 @@ public class TestSingleBeanPanel extends WicketTest {
 	public void testFormSubmit() {		
 		tester.assertComponent(path("beanForm"), Form.class);
 		tester.assertVisible(path("beanForm"));
-		Form<BeanWithOrderedFields> form = (Form<BeanWithOrderedFields>)
+		Form<MyBeanWithOrderedFields> form = (Form<MyBeanWithOrderedFields>)
 			tester.getComponentFromLastRenderedPage(path("beanForm"));
 		assertNotNull(form);
 		
@@ -117,13 +116,13 @@ public class TestSingleBeanPanel extends WicketTest {
 		assertEquals(bean, form.getModelObject());
 		assertEquals(bean, bwofPanel.getDefaultModelObject());
 		
-		BeanWithOrderedFields userInput = new BeanWithOrderedFields("11", "22", 33, 44L, 5.5d);
+		MyBeanWithOrderedFields userInput = new MyBeanWithOrderedFields("11", "22", 33, 44L, 5.5d);
 		FormTester formTester = tester.newFormTester(path("beanForm"));
 		formTester.setValue("beanFormFieldsPanel:first", String.valueOf(userInput.getFirst()));
 		formTester.setValue("beanFormFieldsPanel:second", String.valueOf(userInput.getSecond()));
 		formTester.setValue("beanFormFieldsPanel:third", String.valueOf(userInput.getThird()));
 		formTester.setValue("beanFormFieldsPanel:fourth", String.valueOf(userInput.getFourth()));
-		formTester.setValue("beanFormFieldsPanel:fifth", new DecimalFormat().format((userInput.getFifth())));
+		formTester.setValue("beanFormFieldsPanel:fifth", NumberFormat.getInstance(getLocale()).format(userInput.getFifth()));
 		
 		callback.setExecuted(false);
 		
@@ -132,8 +131,8 @@ public class TestSingleBeanPanel extends WicketTest {
     	
     	assertTrue(callback.isExecuted());
     	
-    	BeanWithOrderedFields formBean = form.getModelObject();
-    	BeanWithOrderedFields panelBean = (BeanWithOrderedFields) bwofPanel.getDefaultModelObject();
+    	MyBeanWithOrderedFields formBean = form.getModelObject();
+    	MyBeanWithOrderedFields panelBean = (MyBeanWithOrderedFields) bwofPanel.getDefaultModelObject();
     	
     	assertEquals(formBean.getFirst(), userInput.getFirst());
     	assertEquals(formBean.getSecond(), userInput.getSecond());
@@ -159,7 +158,7 @@ public class TestSingleBeanPanel extends WicketTest {
 	public void testClearForm() {
 		tester.assertComponent(path("beanForm"), Form.class);
 		tester.assertVisible(path("beanForm"));
-		Form<BeanWithOrderedFields> form = (Form<BeanWithOrderedFields>)
+		Form<MyBeanWithOrderedFields> form = (Form<MyBeanWithOrderedFields>)
 			tester.getComponentFromLastRenderedPage(path("beanForm"));
 		assertNotNull(form);
 		
@@ -174,10 +173,17 @@ public class TestSingleBeanPanel extends WicketTest {
 		tester.assertComponent(path("beanForm:beanFormFieldsPanel:first"), TextField.class);
 		TextField firstFld = (TextField) tester.getComponentFromLastRenderedPage(path("beanForm:beanFormFieldsPanel:first"));
 		assertNotNull(firstFld.getDefaultModelObject());
-		
+
+		try {
+			tester.executeAjaxEvent(clearButton, "onclick");
+			fail("This should have failed");
+		} catch (Exception e) {
+			// empty
+		}
+		definition.setBeanCreator(MyBeanWithOrderedFields::newInstance);
 		tester.executeAjaxEvent(clearButton, "onclick");
 		
-		BeanWithOrderedFields cleared = form.getModelObject();
+		MyBeanWithOrderedFields cleared = form.getModelObject();
 		assertNull(cleared.getFirst());
 		assertNull(cleared.getSecond());
 		assertNull(cleared.getThird());
@@ -198,7 +204,7 @@ public class TestSingleBeanPanel extends WicketTest {
 	public void testFormSubmit_InvalidUserInput() {		
 		tester.assertComponent(path("beanForm"), Form.class);
 		tester.assertVisible(path("beanForm"));
-		Form<BeanWithOrderedFields> form = (Form<BeanWithOrderedFields>)
+		Form<MyBeanWithOrderedFields> form = (Form<MyBeanWithOrderedFields>)
 			tester.getComponentFromLastRenderedPage(path("beanForm"));
 		assertNotNull(form);
 		
@@ -218,7 +224,7 @@ public class TestSingleBeanPanel extends WicketTest {
 		assertEquals(bean, bwofPanel.getDefaultModelObject());
 		
 		String notdouble = "noDoubleHere";
-		BeanWithOrderedFields userInput = new BeanWithOrderedFields("11", "22", 33, 44L, 5.5d);
+		MyBeanWithOrderedFields userInput = new MyBeanWithOrderedFields("11", "22", 33, 44L, 5.5d);
 		FormTester formTester = tester.newFormTester(path("beanForm"));
 		formTester.setValue("beanFormFieldsPanel:first", String.valueOf(userInput.getFirst()));
 		formTester.setValue("beanFormFieldsPanel:second", String.valueOf(userInput.getSecond()));
@@ -239,11 +245,11 @@ public class TestSingleBeanPanel extends WicketTest {
 		List<Serializable> errors = tester.getMessages(FeedbackMessage.ERROR);
 		Assert.assertFalse(errors.isEmpty());
 		
-		Assert.assertTrue(errors.get(0).toString().contains("noDoubleHere"));
+		Assert.assertTrue(errors.get(0).toString().contains("fifth"));
 		System.out.println(errors.get(0));
 		
-    	BeanWithOrderedFields formBean = form.getModelObject();
-    	BeanWithOrderedFields panelBean = (BeanWithOrderedFields) bwofPanel.getDefaultModelObject();
+    	MyBeanWithOrderedFields formBean = form.getModelObject();
+    	MyBeanWithOrderedFields panelBean = (MyBeanWithOrderedFields) bwofPanel.getDefaultModelObject();
     	
     	assertEquals(bean, formBean);
     	assertEquals(bean, panelBean);
@@ -253,56 +259,40 @@ public class TestSingleBeanPanel extends WicketTest {
 	/**
 	 * Dummy callback for item selection.
 	 */
-	private DummyCallback callback = new DummyCallback();
+	private MockedCallback callback = new MockedCallback();
 	
 	/**
 	 * criterion.
 	 */
-	BeanWithOrderedFields bean = new BeanWithOrderedFields("1","2",3,4L,5.0);
+	MyBeanWithOrderedFields bean = new MyBeanWithOrderedFields("1","2",3,4L,5.0);
 	
-	/**
-	 * panel definition 
-	 */
-	SingleBeanPanelDef<BeanWithOrderedFields> definition = createDef();
+	/** panel definition. */
+	SingleBeanPanelDef<MyBeanWithOrderedFields> definition = createDef();
 	
 	/**
 	 * Tests setup.
 	 */
-	@SuppressWarnings("serial")
 	@Before
 	public void setupTests() {
 		definition = createDef();
-		SingleBeanPanel<BeanWithOrderedFields> panel = 
-			new SingleBeanPanel<BeanWithOrderedFields>(definition) {
-			@Override protected BeanWithOrderedFields newBean() {
-				return new BeanWithOrderedFields();
-			}
-		};
+		SingleBeanPanel<MyBeanWithOrderedFields> panel = 
+			new SingleBeanPanel<MyBeanWithOrderedFields>(definition);
 		tester.startPage(getTestPage(panel));
 	}
-	
+
 	/**
 	 * Creates a sample definition.
 	 * 
 	 * @return returns a definition.
 	 */
-	SingleBeanPanelDef<BeanWithOrderedFields> createDef() {
-		
-		FieldsPanelCreatorForBeanWithOrderedFields creator = 
-			new FieldsPanelCreatorForBeanWithOrderedFields();
-				
-		SingleBeanPanelDef<BeanWithOrderedFields> def = 
-			new SingleBeanPanelDefImpl<BeanWithOrderedFields>();		
-
+	SingleBeanPanelDef<MyBeanWithOrderedFields> createDef() {
+		SingleBeanPanelDef<MyBeanWithOrderedFields> def = new SingleBeanPanelDefImpl<MyBeanWithOrderedFields>();
 		def.setBackAction(null);
-		def.setBeanFieldsPanelCreator(creator);
+		def.setBeanFieldsPanelCreator(PanelCreator.getCompoundCreator(MyBeanWithOrderedFieldsFormPanel::new));
 		def.setBeanAction(callback);
-		def.setBeanModel(new CompoundPropertyModel<BeanWithOrderedFields>(bean));
+		def.setBeanModel(new CompoundPropertyModel<MyBeanWithOrderedFields>(bean));
 		def.setShowClearButton(true);
 		def.setWicketId(TestPage.TEST_ID);
 		return def;
 	}
-	
-	
-
 }

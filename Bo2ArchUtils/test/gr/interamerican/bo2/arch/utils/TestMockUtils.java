@@ -22,13 +22,14 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Unit tests for {@link MockUtils}
+ * Unit tests for {@link MockUtils}.
  */
 public class TestMockUtils {
 	
 	/**
-	 * Unit test for mockEntitiesQuery()
-	 * @throws DataAccessException
+	 * Unit test for mockEntitiesQuery().
+	 *
+	 * @throws DataAccessException the data access exception
 	 */
 	@Test
 	public void testMockEntitiesQuery() throws DataAccessException {

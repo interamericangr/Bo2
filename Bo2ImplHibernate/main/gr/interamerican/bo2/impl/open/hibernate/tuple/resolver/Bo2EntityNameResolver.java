@@ -38,23 +38,24 @@ public class Bo2EntityNameResolver implements EntityNameResolver {
 	 * Singleton instance.
 	 */
 	public static final Bo2EntityNameResolver INSTANCE = new Bo2EntityNameResolver();
-	
+
+	@Override
 	@SuppressWarnings("nls")
 	public String resolveEntityName(Object entity) {
 		Class<?> clazz = entity.getClass();
 		String entityName = Factory.declarationTypeName(clazz);
 		if(logger.isDebugEnabled()) {
-			String msg = "Type: " + clazz.getName() + " -----> Entity: " + entityName;
+			String msg = "Type: " + clazz.getName() + " -----&gt; Entity: " + entityName;
 			logger.debug(msg);
 		}
 		return entityName;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		return getClass().equals( obj.getClass() );
 	}
-	
+
 	@Override
 	public int hashCode() {
 		return getClass().hashCode();

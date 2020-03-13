@@ -15,16 +15,14 @@ extends MultipleExceptionTranslator {
 	/**
 	 * Creates a new DataLogicExTranslator.
 	 */
-	@SuppressWarnings("unchecked")
 	public DataLogicExTranslator() {
 		super(DataException.class, LogicException.class);		
 	}
-	
+
 	@Override
 	public void rethrow(Throwable t) throws DataException, LogicException {
 		rethrow(DataException.class, t);
 		rethrow(LogicException.class, t);
 		rethrowRest(t);
 	}
-
 }

@@ -25,56 +25,66 @@ import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.IModel;
 
 /**
- * A column that has an ajax link that executes a callback. 
+ * A column that has an ajax link that executes a callback.
  * 
- * @param <T> 
+ * @param <T>
+ *            the type of the object that will be rendered in this column's
+ *            cells
+ * @param <S>
+ *            the type of the sort property
+ * @deprecated Use {@link AjaxLinkImagePickColumn} instead. Do note that
+ *             {@link AjaxLinkImagePickColumn} does not accept a
+ *             {@link BeanPanelDef} and will not modify it therefore. If you
+ *             wanted to do that - it must be done manually.
  */
-public class CallbackAjaxLinkColumn<T> extends AbstractColumn<T>{
+@Deprecated
+public class CallbackAjaxLinkColumn<T, S> extends AbstractColumn<T, S> {
 
 	/**
 	 * serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * Callback action.
 	 */
-	private CallbackAction action; 
-	
+	private CallbackAction action;
+
 	/**
 	 * Image type.
 	 */
 	private ImageType imageType;
-	
+
 	/**
 	 * Row T instance holder.
 	 */
 	BeanPanelDef<T> rowHolder;
 
 	/**
-	 * Creates a new CallbackAjaxLinkColumn object. 
+	 * Creates a new CallbackAjaxLinkColumn object.
 	 * 
 	 * @param model
-	 *        Column label resource model. 
+	 *            Column label resource model.
 	 * @param action
-	 *        Callback action.
+	 *            Callback action.
 	 * @param imageType
-	 *        Type of image.
+	 *            Type of image.
 	 * @param rowHolder
-	 *        Holder of current row model, that the callback action may use to gain access
-	 *        to the current row T instance.
+	 *            Holder of current row model, that the callback action may use
+	 *            to gain access to the current row T instance.
 	 */
-	public CallbackAjaxLinkColumn(IModel<String> model, CallbackAction action, ImageType imageType, BeanPanelDef<T> rowHolder) {
+	public CallbackAjaxLinkColumn(IModel<String> model, CallbackAction action, ImageType imageType,
+			BeanPanelDef<T> rowHolder) {
 		super(model);
 		this.action = action;
 		this.imageType = imageType;
 		this.rowHolder = rowHolder;
 	}
 
+	@Override
 	public void populateItem(Item<ICellPopulator<T>> cellItem, String componentId, final IModel<T> rowModel) {
-		
 		Panel cell = new DataTableAjaxLinkPanel<T>(componentId, rowModel, imageType) {
-			
+
 			/**
 			 * serialVersionUID.
 			 */
@@ -85,10 +95,8 @@ public class CallbackAjaxLinkColumn<T> extends AbstractColumn<T>{
 				rowHolder.getBeanModel().setObject(rowModel.getObject());
 				action.callBack(target);
 			}
-			
+
 		};
-		
 		cellItem.add(cell);
 	}
-	
 }

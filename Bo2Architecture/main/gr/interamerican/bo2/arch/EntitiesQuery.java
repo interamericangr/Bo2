@@ -24,9 +24,9 @@ extends Query {
 	
 	/**
 	 * Gets the current persistent object.
-	 * 
+	 *
 	 * @return Returns the persistent object of the current row.
-	 * @throws DataAccessException 
+	 * @throws DataAccessException the data access exception
 	 */
 	public P getEntity() throws DataAccessException;
 

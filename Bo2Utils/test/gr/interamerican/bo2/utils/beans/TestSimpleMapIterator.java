@@ -3,7 +3,6 @@ package gr.interamerican.bo2.utils.beans;
 import static org.junit.Assert.*;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 import org.junit.Assert;
@@ -18,7 +17,7 @@ public class TestSimpleMapIterator {
 	
 
 	/**
-	 * Tests iterator
+	 * Tests iterator.
 	 */	
 	@Test
 	public void testConstructor() {
@@ -54,9 +53,8 @@ public class TestSimpleMapIterator {
 	
 	
 	/**
-	 * Tests iterator
+	 * Tests iterator.
 	 */
-	@SuppressWarnings("nls")
 	@Test
 	public void testIterator_next() {
 		Map<String, Integer> map = new HashMap<String, Integer>();
@@ -76,7 +74,7 @@ public class TestSimpleMapIterator {
 	}
 	
 	/**
-	 * Tests iterator
+	 * Tests iterator.
 	 */	
 	@Test(expected=UnsupportedOperationException.class)
 	public void testIterator_remove() {

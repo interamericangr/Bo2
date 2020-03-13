@@ -18,7 +18,17 @@ package gr.interamerican.bo2.test.def.posamples;
 @SuppressWarnings("all")
 public interface CustomerAddressKP extends CustomerKP {
 
+	/**
+	 * Gets the address no.
+	 *
+	 * @return the address no
+	 */
 	public Integer getAddressNo();
 	
+	/**
+	 * Sets the address no.
+	 *
+	 * @param addressNo the new address no
+	 */
 	public void setAddressNo(Integer addressNo);
 }

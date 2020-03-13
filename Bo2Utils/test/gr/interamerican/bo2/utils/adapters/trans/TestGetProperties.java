@@ -13,15 +13,14 @@
 package gr.interamerican.bo2.utils.adapters.trans;
 
 import gr.interamerican.bo2.samples.bean.BeanWithNestedBean;
-import gr.interamerican.bo2.utils.adapters.trans.GetProperties;
-import gr.interamerican.bo2.utils.adapters.trans.GetProperty;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Unit test for {@link GetProperty}.
+ * Unit test for {@link GetProperties}.
  */
+@Deprecated
 public class TestGetProperties {
 	
 	

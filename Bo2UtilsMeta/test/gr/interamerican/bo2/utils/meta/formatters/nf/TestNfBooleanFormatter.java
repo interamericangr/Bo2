@@ -16,7 +16,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestNfBooleanFormatter.
  */
 @SuppressWarnings("nls")
 public class TestNfBooleanFormatter {

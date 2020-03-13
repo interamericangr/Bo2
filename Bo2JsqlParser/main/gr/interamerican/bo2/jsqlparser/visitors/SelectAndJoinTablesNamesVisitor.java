@@ -42,9 +42,7 @@ import net.sf.jsqlparser.statement.update.Update;
  */
 public class SelectAndJoinTablesNamesVisitor implements StatementVisitor, SelectVisitor, FromItemVisitor {
 
-	/**
-	 * 
-	 */
+	/** The table names. */
 	protected Set<String> tableNames = new HashSet<String>();
 
 	@Override
@@ -106,6 +104,8 @@ public class SelectAndJoinTablesNamesVisitor implements StatementVisitor, Select
 	}
 
 	/**
+	 * Gets the table names.
+	 *
 	 * @return the tables names.
 	 */
 	public Set<String> getTableNames() {

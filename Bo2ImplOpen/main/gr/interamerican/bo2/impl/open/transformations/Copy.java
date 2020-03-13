@@ -26,25 +26,18 @@ import gr.interamerican.bo2.utils.adapters.Modification;
 public class Copy<A> 
 extends CopyProperties<A, A>
 implements Modification<A>, Copier<A> {
-	
-	
 
 	/**
 	 * Creates a new CopyTo object. 
 	 *
-	 * @param clazz
+	 * @param clazz the clazz
 	 */
 	public Copy(Class<A> clazz) {
 		super(clazz,clazz);
 	}
 
-	
+	@Override
 	public A copy(A objectToCopy) {	
 		return execute(objectToCopy);
 	}
-	
-	
-	
-	
-
 }

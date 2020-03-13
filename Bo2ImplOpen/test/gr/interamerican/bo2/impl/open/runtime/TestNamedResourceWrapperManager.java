@@ -43,9 +43,9 @@ public class TestNamedResourceWrapperManager {
 	}	
 	
 	/**
-	 * Tests createResourceWrapper
-	 * 
-	 * @throws InitializationException 
+	 * Tests createResourceWrapper.
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test	
 	public void testCreateResourceWrapper() throws InitializationException {
@@ -58,8 +58,8 @@ public class TestNamedResourceWrapperManager {
 	/**
 	 * Tests createResourceWrapper throwing an InitializationException
 	 * when it fails to create a ResourceWrapper.
-	 * 
-	 * @throws InitializationException 
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=InitializationException.class)	
 	public void testCreateResourceWrapper_fail() throws InitializationException {
@@ -69,9 +69,9 @@ public class TestNamedResourceWrapperManager {
 	}
 	
 	/**
-	 * Tests createResourceWrapper
-	 * 
-	 * @throws InitializationException 
+	 * Tests createResourceWrapper.
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test	
 	public void testGetResource() throws InitializationException {

@@ -18,9 +18,8 @@ import java.io.Serializable;
  * Address.
  */
 public class Address implements Serializable{
-	/**
-	 * 
-	 */
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 3L;
 	/**
 	 * Country.

@@ -12,15 +12,15 @@
  ******************************************************************************/
 package gr.interamerican.bo2.odftoolkit;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import gr.interamerican.bo2.odftoolkit.utils.OdfUtils;
 import gr.interamerican.bo2.odftoolkit.utils.ResourceUtils;
 import gr.interamerican.bo2.utils.StreamUtils;
 import gr.interamerican.bo2.utils.doc.BusinessDocument;
 import gr.interamerican.bo2.utils.doc.DocumentEngineException;
 import gr.interamerican.bo2.utils.doc.DocumentTable;
-
-import org.junit.Assert;
-import org.junit.Test;
 
 /**
  * Unit tests for {@link OdfToolkitTable}.
@@ -32,10 +32,9 @@ public class TestOdfToolkitTable {
 	
 	/**
 	 * Gets a sample table with the name Table1.
-	 * 
+	 *
 	 * @return Returns the table.
-	 * 
-	 * @throws DocumentEngineException
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	OdfToolkitTable sampleTable() throws DocumentEngineException {
 		OdfToolkitEngine engine = new OdfToolkitEngine();
@@ -49,8 +48,8 @@ public class TestOdfToolkitTable {
 	
 	/**
 	 * Unit test for getRowCount().
-	 * 
-	 * @throws DocumentEngineException
+	 *
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	@Test
 	public void testGetRowCount() throws DocumentEngineException {		
@@ -65,8 +64,8 @@ public class TestOdfToolkitTable {
 	
 	/**
 	 * Unit test for getRowCount().
-	 * 
-	 * @throws DocumentEngineException
+	 *
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	@Test
 	public void testGetColumnCount() throws DocumentEngineException {		
@@ -80,8 +79,9 @@ public class TestOdfToolkitTable {
 	}
 	
 	/**
-	 * Unit test for appendColumn()
-	 * @throws Exception 
+	 * Unit test for appendColumn().
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test
 	public void testAppendColumn() throws Exception {
@@ -104,8 +104,9 @@ public class TestOdfToolkitTable {
 	}
 	
 	/**
-	 * Unit test for appendColumn()
-	 * @throws Exception 
+	 * Unit test for appendColumn().
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test
 	public void testAppendRow() throws Exception {
@@ -134,9 +135,9 @@ public class TestOdfToolkitTable {
 	}
 	
 	/**
-	 * Unit test for appendColumn()
-	 * 
-	 * @throws DocumentEngineException
+	 * Unit test for appendColumn().
+	 *
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	@Test
 	public void testDeleteRow() throws DocumentEngineException {		
@@ -154,9 +155,9 @@ public class TestOdfToolkitTable {
 	}
 	
 	/**
-	 * Unit test for appendColumn()
-	 * 
-	 * @throws DocumentEngineException
+	 * Unit test for appendColumn().
+	 *
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	@Test
 	public void testDeleteColumn() throws DocumentEngineException {		
@@ -172,9 +173,9 @@ public class TestOdfToolkitTable {
 	}
 	
 	/**
-	 * Unit test for setCell()
-	 * 
-	 * @throws DocumentEngineException
+	 * Unit test for setCell().
+	 *
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	@Test(expected=DocumentEngineException.class)
 	public void testSetCell_invalidRow() throws DocumentEngineException {
@@ -184,9 +185,9 @@ public class TestOdfToolkitTable {
 	
 	
 	/**
-	 * Unit test for setCell()
-	 * 
-	 * @throws DocumentEngineException
+	 * Unit test for setCell().
+	 *
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	@Test(expected=DocumentEngineException.class)
 	public void testSetCell_invalidColumn() throws DocumentEngineException {
@@ -195,9 +196,9 @@ public class TestOdfToolkitTable {
 	}
 	
 	/**
-	 * Unit test for setCell(int,int,String)
-	 * 
-	 * @throws DocumentEngineException
+	 * Unit test for setCell(int,int,String).
+	 *
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	@Test
 	public void testSetCell_string() throws DocumentEngineException {
@@ -220,9 +221,9 @@ public class TestOdfToolkitTable {
 	}
 	
 	/**
-	 * Unit test for setCell(int,int,String)
-	 * 
-	 * @throws DocumentEngineException
+	 * Unit test for setCell(int,int,String).
+	 *
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	@Test
 	public void testSetCell_string_onHeader() throws DocumentEngineException {
@@ -242,9 +243,9 @@ public class TestOdfToolkitTable {
 	}
 	
 	/**
-	 * Unit test for setCell(int,int,BusinessDocument)
-	 * 
-	 * @throws DocumentEngineException
+	 * Unit test for setCell(int,int,BusinessDocument).
+	 *
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	@Test
 	public void testSetCell_BusinessDocument() throws DocumentEngineException {
@@ -276,14 +277,11 @@ public class TestOdfToolkitTable {
 	
 	
 	/**
-	 * Unit test for setCell(int,int,BusinessDocument)
-	 * 
-	 * @throws DocumentEngineException
-	 * 
+	 * Unit test for setCell(int,int,BusinessDocument).
 	 * TODO: fix this test.
 	 */
 	@Test
-	public void testSetCell_BusinessDocument_onHeader() throws DocumentEngineException {
+	public void testSetCell_BusinessDocument_onHeader() {
 //		OdfToolkitEngine engine = new OdfToolkitEngine();
 //		String path = ResourceUtils.inputPath("HeaderTableWithoutLogo.odt");
 //		BusinessDocument template = engine.openDocument(path);		
@@ -297,9 +295,9 @@ public class TestOdfToolkitTable {
 	}
 	
 	/**
-	 * Unit test for checkCellCoordinates()
-	 * 
-	 * @throws DocumentEngineException
+	 * Unit test for checkCellCoordinates().
+	 *
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	@Test(expected=DocumentEngineException.class)
 	public void testCheckCellCoordinates_invalidRow() throws DocumentEngineException {
@@ -308,9 +306,9 @@ public class TestOdfToolkitTable {
 	}
 	
 	/**
-	 * Unit test for checkCellCoordinates()
-	 * 
-	 * @throws DocumentEngineException
+	 * Unit test for checkCellCoordinates().
+	 *
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	@Test(expected=DocumentEngineException.class)
 	public void testCheckCellCoordinates_invalidCol() throws DocumentEngineException {
@@ -319,9 +317,9 @@ public class TestOdfToolkitTable {
 	}
 	
 	/**
-	 * Unit test for checkCellCoordinates()
-	 * 
-	 * @throws DocumentEngineException
+	 * Unit test for checkCellCoordinates().
+	 *
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	@Test()
 	public void testCheckCellCoordinates() throws DocumentEngineException {
@@ -330,9 +328,9 @@ public class TestOdfToolkitTable {
 	}
 	
 	/**
-	 * Unit test for setCell()
-	 * 
-	 * @throws DocumentEngineException
+	 * Unit test for setCell().
+	 *
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	@Test()
 	public void testInvalid() throws DocumentEngineException {
@@ -346,8 +344,9 @@ public class TestOdfToolkitTable {
 	
 	
 	/**
-	 * Unit test for appendColumn()
-	 * @throws Exception 
+	 * Unit test for appendColumn().
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test
 	public void testCopyStyles() throws Exception {
@@ -368,8 +367,9 @@ public class TestOdfToolkitTable {
 	}
 	
 	/**
-	 * Unit test for appendColumn()
-	 * @throws Exception 
+	 * Unit test for appendColumn().
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test
 	public void testCopyStyleOfFirstColumnToOthers() throws Exception {
@@ -389,9 +389,9 @@ public class TestOdfToolkitTable {
 	
 	
 	/**
-	 * Unit test for delete()
-	 * 
-	 * @throws DocumentEngineException
+	 * Unit test for delete().
+	 *
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	@Test
 	public void testDelete() throws DocumentEngineException {		
@@ -406,9 +406,9 @@ public class TestOdfToolkitTable {
 	}
 	
 	/**
-	 * Unit test for delete()
-	 * 
-	 * @throws DocumentEngineException
+	 * Unit test for delete().
+	 *
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	@Test
 	public void testGetStyleOfCellParagraph() throws DocumentEngineException {		
@@ -428,8 +428,9 @@ public class TestOdfToolkitTable {
 	}
 	
 	/**
-	 * Unit test for setCell(int,int,String)
-	 * @throws Exception 
+	 * Unit test for setCell(int,int,String).
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test
 	public void testSetCellGraphic_newPicture() throws Exception {
@@ -455,8 +456,9 @@ public class TestOdfToolkitTable {
 	}
 	
 	/**
-	 * Unit test for setCell(int,int,String)
-	 * @throws Exception 
+	 * Unit test for setCell(int,int,String).
+	 *
+	 * @throws Exception the exception
 	 */
 	@Test
 	public void testSetCellGraphic_existingPicture() throws Exception {
@@ -473,9 +475,28 @@ public class TestOdfToolkitTable {
 		doc.newPicture(imageName, image, imageType);
 		table1.setCellGraphic(0,0, imageName);
 		table1.setCellGraphic(1,1, imageName);		
+		table = template.getTable("Table2");
+		OdfToolkitTable table2 = (OdfToolkitTable) table;
+		table2.setCellGraphic(1, 1, imageName);
 		String outPath = ResourceUtils.outputPath("OdfToolkitTable_SetCellGraphic_existingPic.odt");
 		engine.saveDocument(template, outPath);		
 		OdfUtils.saveContentAsXml(OdfToolkitEngine.safeCast(template).document);
+	}
+	
+	/**
+	 * Unit test for getBarcodeType().
+	 *
+	 * @throws Exception the exception
+	 */
+	@Test
+	public void testSetBarcode() throws Exception {
+		OdfToolkitEngine engine = new OdfToolkitEngine();
+		String path = ResourceUtils.inputPath("DocumentWithBarcodeTables.odt");
+		BusinessDocument template = engine.openDocument(path);
+		OdfToolkitTable table = (OdfToolkitTable) template.getTable("Barcode_a");
+		table.setBarcode();
+		String outpath = ResourceUtils.outputPath("TestSetBarcode.odt");
+		engine.saveDocument(template, outpath);		
 	}
 	
 	

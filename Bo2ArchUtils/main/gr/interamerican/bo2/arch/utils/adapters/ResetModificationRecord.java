@@ -18,8 +18,8 @@ import gr.interamerican.bo2.arch.utils.beans.ModificationRecordImpl;
 
 /**
  * Sets the modification record.
- * 
- * @param <P> 
+ *
+ * @param <P> the generic type
  */
 public class ResetModificationRecord<P extends PersistentObject<?> & ModificationRecord>
 extends SetModificationRecord<P> {

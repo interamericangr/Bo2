@@ -16,26 +16,26 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-
-
-
-
 /**
  * Test suite for package <code>gr.interamerican.wicket.utils</code>.
- * 
  */
+@SuppressWarnings("deprecation")
 @RunWith(Suite.class)
 @SuiteClasses(
 	{
-
-		TestCallbackWrapper.class,
 		TestAbstractCallbackAction.class,
-		TestChainedCallbackActionImpl.class,
-		TestSimpleCallbackAction.class,
+		TestAddElementToCollectionAction.class,
 		TestAddElementToCollectionI.class,
 		TestAddElementToCollectionL.class,
-		TestRemoveElementFromCollection.class,
+		TestAddElementToSet.class,
+		TestCallbackWrapper.class,
+		TestChainedCallbackActionImpl.class,
+		TestDummyCallback.class,
 		TestMethodBasedCallbackAction.class,
+		TestRemoveElementFromCollection.class,
+		TestRemoveElementFromSet.class,
+		TestRenderBeanPanel.class,
+		TestSimpleCallbackAction.class
 	
 	}
 )

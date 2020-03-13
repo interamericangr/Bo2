@@ -27,6 +27,7 @@ import net.sf.jasperreports.engine.JRField;
  */
 public class EntitiesQueryJrDatasource 
 implements JRDataSource {
+
 	/**
 	 * Query.
 	 */
@@ -35,14 +36,13 @@ implements JRDataSource {
 	/**
 	 * Creates a new QueryJrDatasource object. 
 	 *
-	 * @param query
+	 * @param query the query
 	 */
 	public EntitiesQueryJrDatasource(EntitiesQuery<?> query) {
 		super();
 		this.query = query;
 	}
 
-	
 	@Override
 	public boolean next() throws JRException {		
 		try {
@@ -51,8 +51,6 @@ implements JRDataSource {
 			throw new JRException(e);
 		}
 	}
-	
-	
 
 	@Override
 	public Object getFieldValue(JRField jrField) throws JRException {
@@ -68,5 +66,4 @@ implements JRDataSource {
 			throw new JRException(e);
 		}
 	}
-
 }

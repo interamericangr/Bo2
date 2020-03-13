@@ -100,8 +100,8 @@ public class ConditionalStringBuilder {
 
 	/**
 	 * Sets the separator.
-	 * 
-	 * @param separator
+	 *
+	 * @param separator the new separator
 	 */
 	public void setSeparator(String separator) {
 		this.separator = separator;

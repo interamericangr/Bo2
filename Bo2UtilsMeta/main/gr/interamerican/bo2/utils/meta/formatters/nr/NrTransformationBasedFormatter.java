@@ -28,9 +28,8 @@ import gr.interamerican.bo2.utils.meta.formatters.nf.NullFilteringFormatter;
  */
 public class NrTransformationBasedFormatter<T> 
 extends AbstractNullReturningFormatter<T> {
-	/**
-	 * 
-	 */
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Formatter.
@@ -40,7 +39,7 @@ extends AbstractNullReturningFormatter<T> {
 	/**
 	 * Creates a new NsFormatter object. 
 	 *
-	 * @param transformation
+	 * @param transformation the transformation
 	 */
 	public NrTransformationBasedFormatter(Transformation<T, String> transformation) {
 		super();
@@ -51,5 +50,4 @@ extends AbstractNullReturningFormatter<T> {
 	protected String mainFormat(T t) {
 		return formatter.format(t);
 	}
-
 }

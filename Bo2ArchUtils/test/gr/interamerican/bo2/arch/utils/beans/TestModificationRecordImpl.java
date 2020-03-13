@@ -20,29 +20,23 @@ import java.util.Date;
 import org.junit.Test;
 
 /**
- * TestModificationRecordImpl
+ * TestModificationRecordImpl.
  */
 public class TestModificationRecordImpl {
 	
 	
-	/**
-	 * LAST_MODIFIED
-	 */
+	/** LAST_MODIFIED. */
 	private static final Date LAST_MODIFIED = new Date();
 	
-	/**
-	 * LAST_MODIFIED_BY
-	 */
+	/** LAST_MODIFIED_BY. */
 	private static final String LAST_MODIFIED_BY = "name"; //$NON-NLS-1$
 	
-	/**
-	 * record
-	 */
+	/** record. */
 	ModificationRecordImpl record = new ModificationRecordImpl();
 	
 		
 	/**
-	 * Test getLastModified
+	 * Test getLastModified.
 	 */
 	@Test
 	public void testGetLastModified(){
@@ -51,7 +45,7 @@ public class TestModificationRecordImpl {
 	}
 	
 	/**
-	 * Test setLastModified
+	 * Test setLastModified.
 	 */
 	@Test
 	public void testSetLastModified(){
@@ -59,7 +53,7 @@ public class TestModificationRecordImpl {
 	}
 	
 	/**
-	 * Test getLastModifiedBy
+	 * Test getLastModifiedBy.
 	 */
 	@Test
 	public void testGetLastModifiedBy(){
@@ -68,7 +62,7 @@ public class TestModificationRecordImpl {
 	}
 	
 	/**
-	 * Test setLastModifiedBy
+	 * Test setLastModifiedBy.
 	 */
 	@Test
 	public void testSetLastModifiedBy(){
@@ -76,7 +70,7 @@ public class TestModificationRecordImpl {
 	}
 	
 	/**
-	 * Test Equals
+	 * Test Equals.
 	 */
 	@Test
 	public void testEqualsWithNullValue(){
@@ -84,7 +78,7 @@ public class TestModificationRecordImpl {
 	}
 	
 	/**
-	 * initializeRecord
+	 * initializeRecord.
 	 */
 	private void initializeRecord(){
 		record.setLastModified(LAST_MODIFIED);
@@ -92,7 +86,7 @@ public class TestModificationRecordImpl {
 	}
 	
 	/**
-	 * Test Equals
+	 * Test Equals.
 	 */
 	@Test
 	public void testEquals(){
@@ -104,7 +98,7 @@ public class TestModificationRecordImpl {
 	}
 	
 	/**
-	 * Test Equals
+	 * Test Equals.
 	 */
 	@Test
 	public void testEqualsWithFalseValue(){
@@ -112,7 +106,7 @@ public class TestModificationRecordImpl {
 	}
 	
 	/**
-	 * Test hashCode
+	 * Test hashCode.
 	 */
 	@Test
 	public void testHashCode(){

@@ -27,7 +27,9 @@ import org.apache.wicket.markup.html.panel.Panel;
  * It is this panel's responsibility to know how many {@link CallbackAction}s
  * it needs and in which order and the responsibility of its creators to
  * provide a valid List of {@link CallbackAction}s.
+ * @deprecated not used - bad utility
  */
+@Deprecated
 public class CallbackActionPanel extends Panel {
 	
 	/**
@@ -43,8 +45,8 @@ public class CallbackActionPanel extends Panel {
 	/**
 	 * Creates a new CallbackActionPanel object. 
 	 *
-	 * @param id
-	 * @param actions 
+	 * @param id the id
+	 * @param actions the actions
 	 */
 	public CallbackActionPanel(String id, List<CallbackAction> actions) {
 		super(id);
@@ -53,14 +55,13 @@ public class CallbackActionPanel extends Panel {
 	
 	/**
 	 * Executes the {@link CallbackAction}.
-	 * 
-	 * @param action
-	 * @param target
+	 *
+	 * @param action the action
+	 * @param target the target
 	 */
 	protected void callback(CallbackAction action, AjaxRequestTarget target) {
 		if(action != null) {
 			action.callBack(target);
 		}
 	}
-
 }

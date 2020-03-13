@@ -44,40 +44,48 @@ implements InvoiceSubRule{
 		this.key = Factory.create(InvoiceSubRuleKey.class);
 	}
 
+	@Override
 	public Long getSubRuleCd() {
 		return key.getSubRuleCd();
 	}
 
+	@Override
 	public void setSubRuleCd(Long subRuleCd) {		
 		key.setSubRuleCd(subRuleCd);
 		String[] properties = {"subRuleCd"};
 		fixChildren(properties);
 	}
 
+	@Override
 	public Long getRuleCd() {
 		return key.getRuleCd();
 	}
 
+	@Override
 	public void setRuleCd(Long ruleCd) {
 		key.setRuleCd(ruleCd);
 		String[] properties = {"ruleCd"};
 		fixChildren(properties);
 	}
 
+	@Override
 	public String getInvoiceNo() {
 		return this.key.getInvoiceNo();
 	}
 
+	@Override
 	public void setInvoiceNo(String invoiceNo) {
 		key.setInvoiceNo(invoiceNo);
 		String[] properties = {"invoiceNo"};
 		fixChildren(properties);
 	}
 
+	@Override
 	public void setSubRuleName(String name) {
 		this.subRuleName = name;
 	}
 
+	@Override
 	public String getSubRuleName() {
 		return this.subRuleName;
 	}

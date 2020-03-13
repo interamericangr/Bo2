@@ -30,140 +30,101 @@ import java.util.Date;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestNamedStreamQuery.
  */
 public class TestNamedStreamQuery {
 
 	
-	/**
-	 * NamedStreamQuery to test
-	 */
+	/** NamedStreamQuery to test. */
 	StreamQuery query = new StreamQuery();
 	
 	
 
-	/**
-	 * Number of colums
-	 */
+	/** Number of colums. */
 	private static final int COLUMNS = 14;
 	
-	/**
-	 * Field1
-	 */
+	/** Field1. */
 	private static final int FIELD1 = 1;
 	
-	/**
-	 * Field2
-	 */
+	/** Field2. */
 	private static final int FIELD2 = 2;
-	/**
-	 * Field3
-	 */
+	
+	/** Field3. */
 	private static final int FIELD3 = 3;
 	
-	/**
-	 * Field4
-	 */
+	/** Field4. */
 	private static final int FIELD4 = 4;
 	
-	/**
-	 * Field5
-	 */
+	/** Field5. */
 	private static final int FIELD5 = 5;
-	/**
-	 * Field6
-	 */
+	
+	/** Field6. */
 	private static final int FIELD6 = 6;
 	
-	/**
-	 * Field7
-	 */
+	/** Field7. */
 	private static final int FIELD7 = 7;
-	/**
-	 * Field8
-	 */
+	
+	/** Field8. */
 	private static final int FIELD8 = 8;
-	/**
-	 * Field9
-	 */
+	
+	/** Field9. */
 	private static final int FIELD9 = 9;
-	/**
-	 * Field10
-	 */
+	
+	/** Field10. */
 	private static final int FIELD10 = 10;
-	/**
-	 * Field11
-	 */
+	
+	/** Field11. */
 	private static final int FIELD11 = 11;
-	/**
-	 * Field12
-	 */
+	
+	/** Field12. */
 	private static final int FIELD12 = 12;
-	/**
-	 * Field13
-	 */
+	
+	/** Field13. */
 	private static final int FIELD13 = 13;
-	/**
-	 * Value for field1
-	 */
+	
+	/** Value for field1. */
 	private static final String VALUE1 = "value1"; //$NON-NLS-1$
 	
-	/**
-	 * Value for field2
-	 */
+	/** Value for field2. */
 	private static final Integer VALUE2 = 10; 
-	/**
-	 * Value for field3
-	 */
+	
+	/** Value for field3. */
 	private static final Short VALUE3 = 1; 
-	/**
-	 * Value for field4
-	 */
+	
+	/** Value for field4. */
 	private static final Double VALUE4 = 5.0;
-	/**
-	 * Value for field5
-	 */
+	
+	/** Value for field5. */
 	private static final Long VALUE5 = 6000L;	
 	
-	/**
-	 * Value for field6
-	 */
+	/** Value for field6. */
 	private static final Boolean VALUE6 = false;
-	/**
-	 * Value for field7
-	 */
+	
+	/** Value for field7. */
 	private static final Float VALUE7 = (float)7.0;
-	/**
-	 * Value for field8
-	 */
+	
+	/** Value for field8. */
 	private static final Byte VALUE8 = 13;
-	/**
-	 *  Value for field9
-	 */
+	
+	/**  Value for field9. */
 	private static final BigDecimal VALUE9 = new BigDecimal(13);
-	/**
-	 *  Value for field10
-	 */
+	
+	/**  Value for field10. */
 	private static final String VALUE10 = "2011-02-18"; //$NON-NLS-1$
-	/**
-	 *  Value for field11
-	 */
+	
+	/**  Value for field11. */
 	private static final Calendar VALUE11 = Calendar.getInstance();
 	
-	/**
-	 *  Value for field12
-	 */
+	/**  Value for field12. */
 	private static final byte[] VALUE12 = new byte[12]; 
 	
-	/**
-	 * Value for field13
-	 */
+	/** Value for field13. */
 	private static final Address VALUE13 = new Address();
 	
 	
 
 	/**
-	 * Test getString
+	 * Test getString.
 	 */
 	@Test
 	public void testGetString(){
@@ -172,7 +133,7 @@ public class TestNamedStreamQuery {
 		}
 	
 	/**
-	 * Test getInt
+	 * Test getInt.
 	 */
 	@Test
 	public void testGetInt(){
@@ -181,7 +142,7 @@ public class TestNamedStreamQuery {
 		}
 	
 	/**
-	 * Test getShort
+	 * Test getShort.
 	 */
 	@Test
 	public void testGetShort(){
@@ -190,7 +151,7 @@ public class TestNamedStreamQuery {
 		}
 	
 	/**
-	 * Test getDouble
+	 * Test getDouble.
 	 */
 	@Test
 	public void testGetDouble(){
@@ -199,7 +160,7 @@ public class TestNamedStreamQuery {
 		}
 	
 	/**
-	 * Test getLong
+	 * Test getLong.
 	 */
 	@Test
 	public void testGetLong(){
@@ -208,7 +169,7 @@ public class TestNamedStreamQuery {
 		}
 	
 	/**
-	 * Test getLong
+	 * Test getLong.
 	 */
 	@Test
 	public void testGetBoolean(){
@@ -217,7 +178,7 @@ public class TestNamedStreamQuery {
 		}
 	
 	/**
-	 * Test getFloat
+	 * Test getFloat.
 	 */
 	@Test
 	public void testGetFloat(){
@@ -227,7 +188,7 @@ public class TestNamedStreamQuery {
 	
 	
 	/**
-	 * Test getByte
+	 * Test getByte.
 	 */
 	@Test
 	public void testGetByte(){
@@ -236,7 +197,7 @@ public class TestNamedStreamQuery {
 		}
 	
 	/**
-	 * Test getBigDecimal
+	 * Test getBigDecimal.
 	 */
 	@Test
 	public void testGetBigDecimal(){
@@ -245,7 +206,7 @@ public class TestNamedStreamQuery {
 		}
 	
 	/**
-	 * Test getGetDate
+	 * Test getGetDate.
 	 */
 	@Test
 	public void testGetDate(){
@@ -259,7 +220,7 @@ public class TestNamedStreamQuery {
 	}
 	
 	/**
-	 * Test getBigDecimal
+	 * Test getBigDecimal.
 	 */
 	@Test
 	public void testGetCalendar(){
@@ -268,7 +229,7 @@ public class TestNamedStreamQuery {
 		}
 	
 	/**
-	 * Test getGetBytes
+	 * Test getGetBytes.
 	 */
 	@Test
 	public void testGetBytes(){
@@ -277,7 +238,7 @@ public class TestNamedStreamQuery {
 	}
 	
 	/**
-	 * Test getGetObject
+	 * Test getGetObject.
 	 */
 	@Test
 	public void testGetObject(){
@@ -285,7 +246,7 @@ public class TestNamedStreamQuery {
 	}
 	
 	/**
-	 * implementation to test
+	 * implementation to test.
 	 */
 	private class StreamQuery extends NamedStreamQuery{
 
@@ -293,37 +254,34 @@ public class TestNamedStreamQuery {
 		 * Creates a new StreamQuery object. 
 		 */
 		public StreamQuery(){
-			super();
-			emptyRecord(Bo2UtilsEnvironment.getDefaultTextCharset());
+			emptyRecord(Bo2UtilsEnvironment.get().getDefaultTextCharset());
 		}
-		
+
 		@Override
 		protected IndexedFieldsRecord<String> emptyRecord(Charset charset) {
-			CsvRecord record = new CsvRecord(COLUMNS);
-			record.setCharset(charset);
-			record.setString(FIELD1, VALUE1);
-			record.setInt(FIELD2, VALUE2);
-			record.setShort(FIELD3,VALUE3);
-			record.setDouble(FIELD4,VALUE4);
-			record.setLong(FIELD5,VALUE5);
-			record.setBoolean(FIELD6,VALUE6);
-			record.setFloat(FIELD7,VALUE7);
-			record.setByte(FIELD8,VALUE8);
-			record.setBigDecimal(FIELD9, VALUE9);
+			CsvRecord csvRecord = new CsvRecord(COLUMNS);
+			csvRecord.setCharset(charset);
+			csvRecord.setString(FIELD1, VALUE1);
+			csvRecord.setInt(FIELD2, VALUE2);
+			csvRecord.setShort(FIELD3,VALUE3);
+			csvRecord.setDouble(FIELD4,VALUE4);
+			csvRecord.setLong(FIELD5,VALUE5);
+			csvRecord.setBoolean(FIELD6,VALUE6);
+			csvRecord.setFloat(FIELD7,VALUE7);
+			csvRecord.setByte(FIELD8,VALUE8);
+			csvRecord.setBigDecimal(FIELD9, VALUE9);
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd"); //$NON-NLS-1$
 			try{
-			record.setDate(FIELD10, df.parse(VALUE10));
+			csvRecord.setDate(FIELD10, df.parse(VALUE10));
 			}
 			catch(ParseException e){
 				//empty}	
 			}
-			record.setCalendar(FIELD11, VALUE11);
-			record.setBytes(FIELD12, VALUE12);
-			record.setObject(FIELD13, VALUE13);
-			StringIndexedCsvRecord indexedRecord = new StringIndexedCsvRecord(record);
+			csvRecord.setCalendar(FIELD11, VALUE11);
+			csvRecord.setBytes(FIELD12, VALUE12);
+			csvRecord.setObject(FIELD13, VALUE13);
+			StringIndexedCsvRecord indexedRecord = new StringIndexedCsvRecord(csvRecord);
 			return indexedRecord;
 		}
-		
 	}
-	
 }

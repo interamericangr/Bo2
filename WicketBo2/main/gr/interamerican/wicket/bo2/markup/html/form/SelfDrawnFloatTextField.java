@@ -12,46 +12,57 @@
  ******************************************************************************/
 package gr.interamerican.wicket.bo2.markup.html.form;
 
-import gr.interamerican.bo2.utils.meta.descriptors.NumberBoPropertyDescriptor;
-
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.util.convert.converter.AbstractDecimalConverter;
-import org.apache.wicket.util.convert.converter.FloatConverter;
+import org.apache.wicket.util.convert.IConverter;
+
+import gr.interamerican.bo2.utils.meta.descriptors.NumberBoPropertyDescriptor;
 
 /**
  * Self-drawn Float TextField.
  */
-public class SelfDrawnFloatTextField extends AbstractSelfDrawnNumberTextField<Float>{
+public class SelfDrawnFloatTextField extends AbstractSelfDrawnTextField<Float> {
 
 	/**
 	 * serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
-	 * Creates a new FloatSelfDrawnTextField object. 
+	 * Converter in use
+	 */
+	private final FloatConverterForSelfDrawn converter;
+
+	/**
+	 * Creates a new FloatSelfDrawnTextField object.
 	 *
 	 * @param id
+	 *            the id
 	 * @param descriptor
+	 *            the descriptor
 	 */
 	public SelfDrawnFloatTextField(String id, NumberBoPropertyDescriptor<Float> descriptor) {
 		super(id, descriptor, Float.class);
+		this.converter = new FloatConverterForSelfDrawn(descriptor);
 	}
-	
+
 	/**
-	 * Creates a new FloatSelfDrawnTextField object. 
-	 * 
-	 * @param model 
+	 * Creates a new FloatSelfDrawnTextField object.
+	 *
 	 * @param id
+	 *            the id
+	 * @param model
+	 *            the model
 	 * @param descriptor
+	 *            the descriptor
 	 */
 	public SelfDrawnFloatTextField(String id, IModel<Float> model, NumberBoPropertyDescriptor<Float> descriptor) {
 		super(id, model, descriptor, Float.class);
+		this.converter = new FloatConverterForSelfDrawn(descriptor);
 	}
-	
+
+	@SuppressWarnings("unchecked")
 	@Override
-	protected AbstractDecimalConverter<Float> getNumberCoverter() {
-		return new FloatConverter();
+	public <C> IConverter<C> getConverter(Class<C> type) {
+		return (IConverter<C>) converter;
 	}
-	
 }

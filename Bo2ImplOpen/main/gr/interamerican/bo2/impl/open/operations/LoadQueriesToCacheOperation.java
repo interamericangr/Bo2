@@ -25,12 +25,12 @@ import java.util.List;
 
 /**
  * This operation takes as input an array of queries and loads their 
- * elements on a cache. <br/>
+ * elements on a cache. <br>
  * 
  * The prerequisite for this is that each query is an {@link EntitiesQuery}
  * and the entity it returns is a sub-type of {@link TypedSelectable}.
  * The type of code of the {@link TypedSelectable} must match the type of
- * code of the cache that is loaded. <br/>
+ * code of the cache that is loaded. <br>
  * This operation can't be executed multiple times for different arrays of
  * queries, this is why it does not provide setter methods for the array
  * of queries and the cache, but instead takes both as parameters in its
@@ -57,8 +57,8 @@ extends AbstractOperation {
 	/**
 	 * Creates a new LoadQueriesToCacheOperation object.
 	 *
-	 * @param queries
-	 * @param cache
+	 * @param queries the queries
+	 * @param cache the cache
 	 */
 	public LoadQueriesToCacheOperation(
 			List<EntitiesQuery<? extends TypedSelectable<C>>> queries,
@@ -109,9 +109,9 @@ extends AbstractOperation {
 	
 	/**
 	 * Loads a query in cache.
-	 * 
+	 *
 	 * @param query Query to load.
-	 * @throws DataException 
+	 * @throws DataException the data exception
 	 */
 	void loadQuary(EntitiesQuery<? extends TypedSelectable<C>> query) 
 	throws DataException {

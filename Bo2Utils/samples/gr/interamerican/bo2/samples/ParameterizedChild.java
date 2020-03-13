@@ -1,7 +1,7 @@
 package gr.interamerican.bo2.samples;
 
 /**
- * 
+ * The Class ParameterizedChild.
  */
 public abstract class ParameterizedChild extends ParameterizedFather<Number> {
 	

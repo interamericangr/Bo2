@@ -25,18 +25,14 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestBusinessObjectDescriptor.
  */
 public class TestBusinessObjectDescriptor {
 	
-	/**
-	 * Bean1
-	 */
+	/** Bean1. */
 	Bean1 bean;
 	
-	/**
-	 * Bean1descriptor
-	 */
+	/** Bean1descriptor. */
 	Bean1descriptor boDesc = new Bean1descriptor();
 	
 	/**

@@ -40,10 +40,10 @@ import org.junit.Test;
 public class TestGenericsUtils {
 	
 	/**
-	 * Tests getCollectionTypeOfField()
-	 * 
-	 * @throws SecurityException
-	 * @throws NoSuchFieldException
+	 * Tests getCollectionTypeOfField().
+	 *
+	 * @throws SecurityException the security exception
+	 * @throws NoSuchFieldException the no such field exception
 	 */
 	@Test
 	public void testGetCollectionTypeOfField_withRawList() 
@@ -53,10 +53,10 @@ public class TestGenericsUtils {
 	}
 	
 	/**
-	 * Tests getCollectionTypeOfField()
-	 * 
-	 * @throws SecurityException
-	 * @throws NoSuchFieldException
+	 * Tests getCollectionTypeOfField().
+	 *
+	 * @throws SecurityException the security exception
+	 * @throws NoSuchFieldException the no such field exception
 	 */
 	@Test
 	public void testGetCollectionTypeOfField_withParameterizedSet() 
@@ -66,10 +66,10 @@ public class TestGenericsUtils {
 	}
 	
 	/**
-	 * Tests getCollectionTypeOfField()
-	 * 
-	 * @throws SecurityException
-	 * @throws NoSuchFieldException
+	 * Tests getCollectionTypeOfField().
+	 *
+	 * @throws SecurityException the security exception
+	 * @throws NoSuchFieldException the no such field exception
 	 */
 	@Test
 	public void testGetCollectionTypeOfField_withStringList() 
@@ -79,10 +79,10 @@ public class TestGenericsUtils {
 	}
 	
 	/**
-	 * Tests getCollectionTypeOfField()
-	 * 
-	 * @throws SecurityException
-	 * @throws NoSuchFieldException
+	 * Tests getCollectionTypeOfField().
+	 *
+	 * @throws SecurityException the security exception
+	 * @throws NoSuchFieldException the no such field exception
 	 */
 	@Test
 	public void testGetCollectionTypeOfField_withParameterizedType() 
@@ -92,10 +92,10 @@ public class TestGenericsUtils {
 	}
 	
 	/**
-	 * Tests getCollectionTypeOfField()
-	 * 
-	 * @throws SecurityException
-	 * @throws NoSuchFieldException
+	 * Tests getCollectionTypeOfField().
+	 *
+	 * @throws SecurityException the security exception
+	 * @throws NoSuchFieldException the no such field exception
 	 */
 	@Test (expected=RuntimeException.class)	
 	public void testGetCollectionTypeOfField_withNoCollection() 
@@ -108,8 +108,7 @@ public class TestGenericsUtils {
 	/**
 	 * Tests getCollectionTypeOfProperty()
 	 * 
-	 * rawList
-	 * 
+	 * rawList.
 	 */
 	@Test
 	public void testGetCollectionTypeOfProperty_withRawList() {
@@ -120,8 +119,7 @@ public class TestGenericsUtils {
 	/**
 	 * Tests getCollectionTypeOfProperty()
 	 * 
-	 * rawList
-	 * 
+	 * rawList.
 	 */
 	@Test
 	public void testGetCollectionTypeOfProperty_withParameterizedSet() {
@@ -134,7 +132,7 @@ public class TestGenericsUtils {
 	/**
 	 * Tests getCollectionTypeOfProperty()
 	 * 
-	 * stringList
+	 * stringList.
 	 */
 	@Test
 	public void testGetCollectionTypeOfProperty_withStringList() {
@@ -145,7 +143,7 @@ public class TestGenericsUtils {
 	/**
 	 * Tests getCollectionTypeOfProperty()
 	 * 
-	 * string
+	 * string.
 	 */
 	@Test (expected=RuntimeException.class)	
 	public void testGetCollectionTypeOfProperty_withNoCollection() {
@@ -155,8 +153,7 @@ public class TestGenericsUtils {
 	/**
 	 * Tests getCollectionTypeOfProperty()
 	 * 
-	 * noField
-	 * 
+	 * noField.
 	 */
 	@Test (expected=RuntimeException.class)	
 	public void testGetCollectionTypeOfProperty_withNoProperty() {
@@ -172,7 +169,7 @@ public class TestGenericsUtils {
 	
 	
 	/**
-	 * Unit test for isVariableReturnType()
+	 * Unit test for isVariableReturnType().
 	 */
 	@Test
 	public void testIsVariableReturnType_staticMethodReturnsGeneric() {
@@ -181,7 +178,7 @@ public class TestGenericsUtils {
 	}
 	
 	/**
-	 * Unit test for isVariableReturnType()
+	 * Unit test for isVariableReturnType().
 	 */
 	@Test
 	public void testIsVariableReturnType_staticMethodReturnsGenericCollection() {
@@ -190,7 +187,7 @@ public class TestGenericsUtils {
 	}
 	
 	/**
-	 * Unit test for isVariableReturnType()
+	 * Unit test for isVariableReturnType().
 	 */
 	@Test
 	public void testIsVariableReturnType_methodReturnsGeneric() {
@@ -199,7 +196,7 @@ public class TestGenericsUtils {
 	}
 	
 	/**
-	 * Unit test for isVariableReturnType()
+	 * Unit test for isVariableReturnType().
 	 */
 	@Test
 	public void testIsVariableReturnType_methodReturnsGenericInParameterizedSubtype() {
@@ -208,7 +205,7 @@ public class TestGenericsUtils {
 	}
 	
 	/**
-	 * Unit test for isVariableReturnType()
+	 * Unit test for isVariableReturnType().
 	 */
 	@Test
 	public void testIsVariableReturnType_methodReturnsGenericInSubtype() {
@@ -217,7 +214,7 @@ public class TestGenericsUtils {
 	}
 	
 	/**
-	 * Unit test for isVariableReturnType()
+	 * Unit test for isVariableReturnType().
 	 */
 	@Test
 	public void testIsVariableReturnType_methodReturnsString() {
@@ -229,7 +226,7 @@ public class TestGenericsUtils {
 	//////////////////////////////////////////////////////////////
 	
 	/**
-	 * Unit test for isVariableParameterType()
+	 * Unit test for isVariableParameterType().
 	 */
 	@Test
 	public void testIsVariableParameterType_genericArgInStaticMethod() {
@@ -238,7 +235,7 @@ public class TestGenericsUtils {
 	}
 	
 	/**
-	 * Unit test for isVariableParameterType()
+	 * Unit test for isVariableParameterType().
 	 */
 	@Test
 	public void testIsVariableParameterType_genericCollectionArg() {
@@ -247,7 +244,7 @@ public class TestGenericsUtils {
 	}
 	
 	/**
-	 * Unit test for isVariableParameterType()
+	 * Unit test for isVariableParameterType().
 	 */
 	@Test
 	public void testIsVariableParameterType_genericArg() {
@@ -256,7 +253,7 @@ public class TestGenericsUtils {
 	}
 	
 	/**
-	 * Unit test for isVariableParameterType()
+	 * Unit test for isVariableParameterType().
 	 */
 	@Test
 	public void testIsVariableParameterType_genericArgInSubtype() {
@@ -268,7 +265,7 @@ public class TestGenericsUtils {
 	
 	
 	/**
-	 * Unit test for isVariableReturnType()
+	 * Unit test for isVariableReturnType().
 	 */
 	@Test
 	public void testIsParameterizedReturnType_staticMethodReturnsGeneric() {
@@ -277,7 +274,7 @@ public class TestGenericsUtils {
 	}
 	
 	/**
-	 * Unit test for isVariableReturnType()
+	 * Unit test for isVariableReturnType().
 	 */
 	@Test
 	public void testIsParameterizedReturnType_staticMethodReturnsGenericCollection() {
@@ -286,7 +283,7 @@ public class TestGenericsUtils {
 	}
 	
 	/**
-	 * Unit test for isVariableReturnType()
+	 * Unit test for isVariableReturnType().
 	 */
 	@Test
 	public void testIsParameterizedReturnType_methodReturnsGeneric() {
@@ -295,7 +292,7 @@ public class TestGenericsUtils {
 	}
 		
 	/**
-	 * Unit test for isVariableReturnType()
+	 * Unit test for isVariableReturnType().
 	 */
 	@Test
 	public void testIsParameterizedReturnType_methodReturnsString() {
@@ -306,7 +303,7 @@ public class TestGenericsUtils {
 	//////////////////////////////////////////////////////////////
 	
 	/**
-	 * Unit test for isParameterizedParameterType()
+	 * Unit test for isParameterizedParameterType().
 	 */
 	@Test
 	public void testIsParameterizedParameterType_genericCollectionArg() {
@@ -315,7 +312,7 @@ public class TestGenericsUtils {
 	}
 		
 	/**
-	 * Unit test for isParameterizedParameterType()
+	 * Unit test for isParameterizedParameterType().
 	 */
 	@Test
 	public void testIsParameterizedParameterType_genericArg() {
@@ -324,7 +321,7 @@ public class TestGenericsUtils {
 	}
 	
 	/**
-	 * Unit test for isVariableParameterType()
+	 * Unit test for isVariableParameterType().
 	 */
 	@Test
 	public void testIsParameterizedParameterType_noArg() {
@@ -333,7 +330,7 @@ public class TestGenericsUtils {
 	}
 	
 	/**
-	 * Unit test form getGenericInterfaces()
+	 * Unit test form getGenericInterfaces().
 	 */
 	@Test
 	public void testFindTypeParameter() {
@@ -353,6 +350,14 @@ public class TestGenericsUtils {
 	///////////////////////////////////////////////////////////	
 	
 	
-	static class IntegerRange extends Range<Integer> {/*empty*/}
+	/**
+	 * The Class IntegerRange.
+	 */
+	static class IntegerRange extends Range<Integer> {
+
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;}
 
 }

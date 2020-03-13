@@ -34,8 +34,9 @@ public class TestProviderUtils {
 	Properties properties = new Properties();
 	
 	/**
-	 * Unit test for getMandatoryProperty
-	 * @throws InitializationException
+	 * Unit test for getMandatoryProperty.
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	public void testGetMandatoryProperty_ok() throws InitializationException {			
 		String expected = "expected"; //$NON-NLS-1$
@@ -46,8 +47,9 @@ public class TestProviderUtils {
 	}
 	
 	/**
-	 * Unit test for getMandatoryProperty
-	 * @throws InitializationException
+	 * Unit test for getMandatoryProperty.
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=InitializationException.class)
 	public void testGetMandatoryProperty_fail() throws InitializationException {
@@ -57,7 +59,7 @@ public class TestProviderUtils {
 
 	
 	/**
-	 * test GetResourceWrapper
+	 * test GetResourceWrapper.
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -69,10 +71,11 @@ public class TestProviderUtils {
 	
 	
 	/**
-	 * private class to test
+	 * private class to test.
 	 */
 	private class SampleWrapper implements ResourceWrapper{
 
+		@Override
 		public void close() throws DataException {
 			// empty
 		}

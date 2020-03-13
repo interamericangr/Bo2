@@ -25,19 +25,18 @@ import gr.interamerican.samples.utils.meta.SamplePropertyDefinition;
 import org.junit.Test;
 
 /**
- * 
+ * A factory for creating TestCachedEntryOwnerBoPD objects.
  */
 public class TestCachedEntryOwnerBoPDFactory {
 
 	
-	/**
-	 * SamplePropertyDefinition
-	 */
+	/** SamplePropertyDefinition. */
 	SamplePropertyDefinition pd =  new SamplePropertyDefinition();
 	
 	/**
-	 * @throws ParseException 
-	 * 
+	 * Test create.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -62,9 +61,9 @@ public class TestCachedEntryOwnerBoPDFactory {
 	
 
 	/**
-	 * test create when fails
-	 * @throws ParseException 
-	 * 
+	 * test create when fails.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@SuppressWarnings("nls")
 	@Test(expected = ParseException.class)

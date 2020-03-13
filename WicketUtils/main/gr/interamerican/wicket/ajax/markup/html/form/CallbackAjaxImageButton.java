@@ -12,17 +12,20 @@
  ******************************************************************************/
 package gr.interamerican.wicket.ajax.markup.html.form;
 
-import gr.interamerican.wicket.callback.CallbackAction;
-import gr.interamerican.wicket.utils.MarkupConstants;
-
 import org.apache.wicket.markup.ComponentTag;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.StringResourceModel;
 
+import gr.interamerican.wicket.callback.CallbackAction;
+import gr.interamerican.wicket.utils.MarkupConstants;
+
 /**
- * An image ajaxButton that executes a callback action. 
+ * An image ajaxButton that executes a callback action.
+ * 
+ * @deprecated Use {@link CallbackAjaxButtonWithImage} instead 
  */
+@Deprecated
 public class CallbackAjaxImageButton extends CallbackAjaxButton {
 
 	/**

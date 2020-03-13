@@ -46,8 +46,9 @@ public class TestMultipleCachedEntriesBoPDFactory {
 	}
 	
 	/**
-	 * @throws ParseException 
-	 * 
+	 * Test create.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -71,9 +72,9 @@ public class TestMultipleCachedEntriesBoPDFactory {
 	}
 	
 	/**
-	 * test create when fails
-	 * @throws ParseException 
-	 * 
+	 * test create when fails.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@SuppressWarnings("nls")
 	@Test(expected = ParseException.class)

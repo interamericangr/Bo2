@@ -4,14 +4,16 @@ import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.utils.StringUtils;
 
 
+/**
+ * The Class InvalidNsdUtility.
+ */
 public class InvalidNsdUtility {
 
 	/**
 	 * Creates an initialization exception.
-	 * 
-	 * @param name
-	 * @param problem
-	 * 
+	 *
+	 * @param problem the problem
+	 * @param name the name
 	 * @return Returns the exception.
 	 */
 	public static InitializationException 
@@ -21,10 +23,9 @@ public class InvalidNsdUtility {
 	
 	/**
 	 * Creates an initialization exception.
-	 * 
-	 * @param name
-	 * @param problem
-	 * 
+	 *
+	 * @param problem the problem
+	 * @param name the name
 	 * @return Returns the exception.
 	 */
 	public static String 

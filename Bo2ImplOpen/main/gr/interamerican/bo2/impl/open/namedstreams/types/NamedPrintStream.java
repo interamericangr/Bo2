@@ -29,13 +29,13 @@ public class NamedPrintStream extends AbstractNamedStream<PrintStream> {
 	
 	/**
 	 * Creates a new NamedBufferedReader object.
-	 * 
-	 * @param resourceType
-	 * @param stream
-	 * @param name
-	 * @param resource 
-	 * @param encoding 
-	 * @param uri 
+	 *
+	 * @param resourceType the resource type
+	 * @param stream the stream
+	 * @param name the name
+	 * @param resource the resource
+	 * @param encoding the encoding
+	 * @param uri the uri
 	 */
 	public NamedPrintStream(
 			StreamResource resourceType, PrintStream stream, 

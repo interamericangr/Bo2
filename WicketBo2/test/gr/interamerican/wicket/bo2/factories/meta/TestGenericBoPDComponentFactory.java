@@ -26,19 +26,16 @@ import org.junit.Test;
 
 
 /**
- * 
- * 
+ * A factory for creating TestGenericBoPDComponent objects.
  */
 public class TestGenericBoPDComponentFactory extends BaseClassForTestingComponentFactory{
 	
-	/**
-	 * 
-	 */
+	/** The generic bo PD component factory. */
 	private GenericBoPDComponentFactory genericBoPDComponentFactory = 
 		new GenericBoPDComponentFactory();
 	
 	/**
-	 * 
+	 * Test generic bo PD component factory.
 	 */
 	@Test
 	public void testGenericBoPDComponentFactory() {	

@@ -41,7 +41,7 @@ public class TestCopyFromProperties {
 	}
 	
 	/**
-	 * Test for execute()
+	 * Test for execute().
 	 */
 	public void testExecute() {
 		Properties p = new Properties();
@@ -55,7 +55,7 @@ public class TestCopyFromProperties {
 	}
 	
 	/**
-	 * Test for execute()
+	 * Test for execute().
 	 */
 	@Test
 	public void testExecute_withDates() {
@@ -73,7 +73,7 @@ public class TestCopyFromProperties {
 	}
 	
 	/**
-	 * Test for execute()
+	 * Test for execute().
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -96,7 +96,7 @@ public class TestCopyFromProperties {
 	}
 	
 	/**
-	 * Test for execute()
+	 * Test for execute().
 	 */
 	@SuppressWarnings("nls")
 	@Test

@@ -28,12 +28,11 @@ public interface Query extends Worker, DataOperation {
        
     /**
      * Fetches the next row.
-     * 
-     * @return Returns true if the next row is fetched, 
+     *
+     * @return Returns true if the next row is fetched,
      *         else it returns false.
      *         
-     * @throws DataAccessException
-     * 
+     * @throws DataAccessException the data access exception
      */
     public boolean next() 
     throws DataAccessException;
@@ -42,9 +41,9 @@ public interface Query extends Worker, DataOperation {
  
 	/**
 	 * Gets the current row number.
-	 * 
+	 *
 	 * @return the current row number
-	 * @throws DataAccessException
+	 * @throws DataAccessException the data access exception
 	 */
 	public int getRow() throws DataAccessException;
 	
@@ -61,12 +60,12 @@ public interface Query extends Worker, DataOperation {
 	 * acceptable to let data be modified by other threads,
 	 * while it might be unacceptable to lock the data for a
 	 * long time. In the latter case, the query should be 
-	 * instructed to avoid locks. <br/>
+	 * instructed to avoid locks. <br>
 	 * It is possible that the technology used for the implementation 
 	 * of the query can't support calling locking or avoiding locks.
 	 * In such case, the method should throw a {@link DataOperationNotSupportedException}
 	 * if this method is called with an argument <code>true</code> or
-	 * <code>false</code> that can't be supported. <br/>
+	 * <code>false</code> that can't be supported. <br>
 	 * 
 	 * @param avoidLock 
 	 *        Indicates if the query will avoid to lock fetched

@@ -15,7 +15,7 @@ package gr.interamerican.bo2.utils.exc;
 
 /**
  * <p>{@link ExceptionHandler} that re-throws the thrown
- * it handles. <br/>
+ * it handles. <br>
  * 
  * <p>If the thrown is an Error or a RuntimeException, it is 
  * re-thrown as is. Otherwise, it is wrapped inside a 
@@ -24,9 +24,7 @@ package gr.interamerican.bo2.utils.exc;
 public class ThrowingExceptionHandler 
 implements ExceptionHandler, ExceptionTranslator<RuntimeException> {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Instance.

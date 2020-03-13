@@ -13,53 +13,74 @@
 package gr.interamerican.wicket.markup.html.panel.listTable;
 
 import static org.junit.Assert.assertEquals;
-import gr.interamerican.bo2.samples.bean.BeanWithOrderedFields;
-import gr.interamerican.bo2.samples.collections.BeanCollections;
-import gr.interamerican.wicket.markup.html.TestPage;
-import gr.interamerican.wicket.samples.creators.DataTableCreatorForBeanWithOrderedFields;
-import gr.interamerican.wicket.test.WicketTest;
+
+import java.util.List;
 
 import org.apache.wicket.extensions.markup.html.repeater.data.table.DataTable;
 import org.junit.Test;
 
+import gr.interamerican.bo2.samples.bean.BeanWithOrderedFields;
+import gr.interamerican.bo2.samples.collections.BeanCollections;
+import gr.interamerican.bo2.utils.functions.SerializableRunnable;
+import gr.interamerican.bo2.utils.functions.SerializableSupplier;
+import gr.interamerican.bo2.utils.meta.beans.ExportDataSetup;
+import gr.interamerican.wicket.creators.ExportActionCreator;
+import gr.interamerican.wicket.markup.html.TestPage;
+import gr.interamerican.wicket.samples.creators.SampleDataTableCreators;
+import gr.interamerican.wicket.test.WicketTest;
+
 /**
  * Unit test for {@link ListTablePanel}.
  */
-@SuppressWarnings({"nls","unchecked"})
+@SuppressWarnings({ "nls", "unchecked" })
 public class TestListTablePanel extends WicketTest {
-	
+
+	/**
+		 * 
+		 */
+	public class DummyCreator implements ExportActionCreator<BeanWithOrderedFields> {
+
+		/**
+		 * Version UID
+		 */
+		private static final long serialVersionUID = 1L;
+
+		@Override
+		public SerializableRunnable getCreator(ExportDataSetup<BeanWithOrderedFields> input,
+				SerializableSupplier<List<BeanWithOrderedFields>> data) {
+			return () -> {
+				// empty
+			};
+		}
+
+	}
+
 	/**
 	 * Creates a sample definition.
 	 * 
 	 * @return returns a definition.
 	 */
 	ListTablePanelDef<BeanWithOrderedFields> createDef() {
-		DataTableCreatorForBeanWithOrderedFields creator = 
-			new DataTableCreatorForBeanWithOrderedFields();		
-		creator.setRowsPerPage(5);
-		
-		ListTablePanelDef<BeanWithOrderedFields> def = 
-			new ListTablePanelDefImpl<BeanWithOrderedFields>();
+		ListTablePanelDef<BeanWithOrderedFields> def = new ListTablePanelDefImpl<BeanWithOrderedFields>();
 		def.setList(BeanCollections.listOfBeanWithOrderedFields());
 		def.setBackAction(null);
-		def.setDataTableCreator(creator);
-
+		def.setDataTableCreator(SampleDataTableCreators.empty(5));
+		def.setExportActionCreator(new DummyCreator());
 		def.setWicketId(TestPage.TEST_ID);
 		return def;
 	}
-	
+
 	/**
 	 * Tests creation of {@link ListTablePanel}.
-	 */	
+	 */
 	@Test
-	public void testCreation() {		
+	public void testCreation() {
 		tester.startPage(getTestPage(new ListTablePanel<BeanWithOrderedFields>(createDef())));
 		tester.assertComponent(path("tableForm:listTable"), DataTable.class);
 		tester.assertVisible(path("tableForm:listTable"));
-		DataTable<BeanWithOrderedFields> table = (DataTable<BeanWithOrderedFields>) 
-			tester.getComponentFromLastRenderedPage(path("tableForm:listTable"));
-		assertEquals(3, table.getColumns().size());		
+		DataTable<BeanWithOrderedFields, String> table = (DataTable<BeanWithOrderedFields, String>) tester
+				.getComponentFromLastRenderedPage(path("tableForm:listTable"));
+		assertEquals(3, table.getColumns().size());
 		assertEquals(7, table.getDataProvider().size());
 	}
-
 }

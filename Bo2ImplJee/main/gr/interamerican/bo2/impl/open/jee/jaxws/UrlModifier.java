@@ -5,7 +5,7 @@ import java.net.URL;
 import gr.interamerican.bo2.utils.adapters.Modification;
 
 /**
- * 
+ * The Interface UrlModifier.
  */
 public interface UrlModifier extends Modification<URL> {
 	//EMPTY

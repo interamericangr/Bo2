@@ -12,7 +12,10 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.jdbc;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
+
+import org.junit.Test;
+
 import gr.interamerican.bo2.arch.exceptions.DataAccessException;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
@@ -21,8 +24,6 @@ import gr.interamerican.bo2.impl.open.annotations.ManagerName;
 import gr.interamerican.bo2.impl.open.annotations.Parameter;
 import gr.interamerican.bo2.test.utils.UtilityForBo2Test;
 
-import org.junit.Test;
-
 /**
  * Test for {@link JdbcCustomAnswerSingleStatementQuestion}.
  */
@@ -30,10 +31,10 @@ public class TestJdbcCustomAnswerSingleStatementQuestion extends AbstractNonTran
 	
 	/**
 	 * tests the question that uses named parameters.
-	 * 
-	 * @throws InitializationException 
-	 * @throws LogicException 
-	 * @throws DataException 
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testExecuteQuestion_withNamedParams() 
@@ -44,15 +45,15 @@ public class TestJdbcCustomAnswerSingleStatementQuestion extends AbstractNonTran
 		question.open();		
 		question.id = id;
 		question.ask();
-		Boolean answer = question.getAnswer();
+		assertTrue(question.getAnswer());
+		question.id = 111111;
+		question.ask();
+		assertFalse(question.getAnswer());
 		question.close();
-		
-		assertTrue(answer);
-		
 	}
 	
 	/**
-	 * implementation to test
+	 * implementation to test.
 	 */
 	@ManagerName("LOCALDB")
 	private class JdbcCustomAnswerQuestionSample 
@@ -67,12 +68,12 @@ public class TestJdbcCustomAnswerSingleStatementQuestion extends AbstractNonTran
 		 * sgl.
 		 */		
 		@Sql private static final String sql = "select 1 from X__X.users where id = :id"; //$NON-NLS-1$	
-		
+
 		@Override
 		protected Boolean createAnswer() throws DataAccessException {
 			return getBoolean(1); 
 		}
-		
+
 		@Override
 		public Boolean getAnswer() {
 			if(super.getAnswer()==null) {
@@ -80,7 +81,5 @@ public class TestJdbcCustomAnswerSingleStatementQuestion extends AbstractNonTran
 			}
 			return super.getAnswer();
 		}
-		
 	}
-	
 }

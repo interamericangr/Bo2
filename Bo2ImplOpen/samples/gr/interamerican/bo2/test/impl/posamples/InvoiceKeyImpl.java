@@ -4,14 +4,15 @@ import gr.interamerican.bo2.impl.open.po.AbstractKey;
 import gr.interamerican.bo2.test.def.posamples.InvoiceKey;
 
 /**
- * 
+ * The Class InvoiceKeyImpl.
  */
 public class InvoiceKeyImpl extends AbstractKey implements InvoiceKey {
 
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
 	String invoiceNo;
 	
 	/**
@@ -19,6 +20,7 @@ public class InvoiceKeyImpl extends AbstractKey implements InvoiceKey {
 	 *
 	 * @return Returns the invoiceNo
 	 */
+	@Override
 	public String getInvoiceNo() {
 		return invoiceNo;
 	}
@@ -28,6 +30,7 @@ public class InvoiceKeyImpl extends AbstractKey implements InvoiceKey {
 	 *
 	 * @param invoiceNo the invoiceNo to set
 	 */
+	@Override
 	public void setInvoiceNo(String invoiceNo) {
 		this.invoiceNo = invoiceNo;
 	}

@@ -15,44 +15,44 @@ import java.util.Properties;
  */
 public class QuartzJobSchedulerProviderImpl implements JobSchedulerProvider {
 
-	/**
-	 * Scheduled jobs
-	 */
+	/** Scheduled jobs. */
 	List<JobDescription> jobs = new ArrayList<JobDescription>();
 
-	/**
-	 * Concrete scheduler
-	 */
+	/** Concrete scheduler. */
 	JobScheduler scheduler;
 
 	/**
 	 * Creates a new JobSchedulerProviderImpl object.
 	 *
-	 * @param p
+	 * @param p the p
 	 */
 	@SuppressWarnings("unused")
 	public QuartzJobSchedulerProviderImpl(Properties p) {
 		scheduler = new QuartzJobSchedulerImpl();
 	}
 
+	@Override
 	public List<JobDescription> getScheduledJobs() {
 		return Collections.unmodifiableList(jobs);
 	}
 
+	@Override
 	public void clearJobs() {
 		jobs.clear();
 	}
 
+	@Override
 	public void close() throws DataException {
 		clearJobs();
 	}
 
+	@Override
 	public JobScheduler getScheduler() {
 		return scheduler;
 	}
 
+	@Override
 	public void scheduleJob(JobDescription job) {
 		jobs.add(job);
 	}
-
 }

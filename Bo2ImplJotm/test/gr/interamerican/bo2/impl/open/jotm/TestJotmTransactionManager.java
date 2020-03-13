@@ -21,16 +21,15 @@ import gr.interamerican.bo2.test.utils.UtilityForBo2Test;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestJotmTransactionManager.
  */
 public class TestJotmTransactionManager {
 	/**
 	 * test for hibernate.
 	 */
 	ProviderTransactionManagerTestBean testBeanHib;
-	/**
-	 * Test for jdbc
-	 */
+	
+	/** Test for jdbc. */
 	ProviderTransactionManagerTestBean testBeanJdbc;
 	
 	/**
@@ -45,10 +44,10 @@ public class TestJotmTransactionManager {
 	
 	/**
 	 * Tests commit with JDBC.
-	 * 
-	 * @throws DataException
-	 * @throws LogicException
-	 * @throws UnexpectedException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test
 	public void testCommit_withJdbc() throws DataException, LogicException, UnexpectedException {
@@ -57,10 +56,10 @@ public class TestJotmTransactionManager {
 	
 	/**
 	 * Tests commit with Hibernate.
-	 * 
-	 * @throws DataException
-	 * @throws LogicException
-	 * @throws UnexpectedException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */	
 	@Test
 	public void testCommit_withHibernate() throws DataException, LogicException, UnexpectedException {
@@ -69,10 +68,10 @@ public class TestJotmTransactionManager {
 
 	/**
 	 * Tests rollback with JDBC.
-	 * 
-	 * @throws DataException
-	 * @throws LogicException
-	 * @throws UnexpectedException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test
 	public void testRollback_withJdbc() throws DataException, LogicException, UnexpectedException {
@@ -81,10 +80,10 @@ public class TestJotmTransactionManager {
 	
 	/**
 	 * Tests rollback with Hibernate.
-	 * 
-	 * @throws DataException
-	 * @throws LogicException
-	 * @throws UnexpectedException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */	
 	@Test
 	public void testRollback_withHibernate() throws DataException, LogicException, UnexpectedException {

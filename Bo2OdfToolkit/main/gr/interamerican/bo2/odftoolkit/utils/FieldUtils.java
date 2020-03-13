@@ -12,12 +12,6 @@
  ******************************************************************************/
 package gr.interamerican.bo2.odftoolkit.utils;
 
-import gr.interamerican.bo2.odftoolkit.span.TextSpanFragment;
-import gr.interamerican.bo2.utils.IllegalCharacterFilter;
-import gr.interamerican.bo2.utils.StringConstants;
-import gr.interamerican.bo2.utils.StringUtils;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import org.odftoolkit.odfdom.dom.element.text.TextLineBreakElement;
@@ -25,7 +19,11 @@ import org.odftoolkit.odfdom.dom.element.text.TextSpanElement;
 import org.odftoolkit.odfdom.dom.element.text.TextUserFieldGetElement;
 import org.odftoolkit.odfdom.pkg.OdfFileDom;
 import org.odftoolkit.simple.TextDocument;
-import org.w3c.dom.Node;
+
+import gr.interamerican.bo2.odftoolkit.span.TextSpanFragment;
+import gr.interamerican.bo2.utils.IllegalCharacterFilter;
+import gr.interamerican.bo2.utils.StringConstants;
+import gr.interamerican.bo2.utils.StringUtils;
 
 /**
  * Processes a document's user fields.
@@ -72,17 +70,14 @@ public class FieldUtils {
 	 *        
 	 * @return Returns a list with all TextUserFieldGetElement of the dom.
 	 */
-	public static List<TextUserFieldGetElement> getUserFieldGetElements(OdfFileDom dom) {
-		List<TextUserFieldGetElement> list = new ArrayList<TextUserFieldGetElement>();
-		Node root = dom.getRootElement();
-		XmlUtils.getAllNodesOfType(root, TextUserFieldGetElement.class, list);
-		return list;
+	public static List<TextUserFieldGetElement> getUserFieldGetElements(OdfFileDom dom) {		
+		return OdfUtils.getElements(dom, TextUserFieldGetElement.class);
 	}
 	
 	/**
 	 * Replaces the user fields on a OdfFileDom with the values retrieved by evaluating
 	 * each field's name as an OGNL expression against a specified model object.
-	 * <br/>
+	 * <br>
 	 * Values are checked for illegal characters.
 	 * 
 	 * @param dom
@@ -94,24 +89,35 @@ public class FieldUtils {
 	public static void setFields(OdfFileDom dom, Object model) {
 		List<TextUserFieldGetElement> fields = getUserFieldGetElements(dom);
 		for (TextUserFieldGetElement field : fields) {
-			String fieldName = field.getTextNameAttribute();
-			String value = ExpressionEvaluator.getInstance().getValue(fieldName, model);
-			value = IllegalCharacterFilter.SINGLETON.filter(value);
-			value = nastyHack(value);
-			replaceField(dom, field, value);			
+			setField(dom, field, model);		
 		}
 	}
 	
 	/**
-	 * prefix for {@link #nastyHack(String)} 
-	 * 
-	 * The first char is Greek 'X' unicode 3a7
+	 * Replaces the user fields on a OdfFileDom with the values retrieved by evaluating
+	 * each field's name as an OGNL expression against a specified model object.
+	 * <br>
+	 * Values are checked for illegal characters.
+	 *
+	 * @param dom        TextDocument on which the fields are replaced by values.
+	 * @param field the field
+	 * @param model        OGNL model object.
 	 */
+	static void setField(OdfFileDom dom, TextUserFieldGetElement field, Object model) {		
+		String fieldName = field.getTextNameAttribute();
+		String value = ExpressionEvaluator.getInstance().getValue(fieldName, model);
+		value = IllegalCharacterFilter.SINGLETON.filter(value);
+		value = nastyHack(value);
+		replaceField(dom, field, value);					
+	}
+	
+	/** prefix for {@link #nastyHack(String)}   The first char is Greek 'X' unicode 3a7. */
 	public static final String BAD_PREFIX = "\u03a7] "; //$NON-NLS-1$
 	
 	/**
 	 * Hack for a corner case of OnE that has to do with inactive brands and models... 
-	 * @param value
+	 *
+	 * @param value the value
 	 * @return the string value without the {@value #BAD_PREFIX}
 	 */
 	static String nastyHack(String value) {
@@ -121,13 +127,11 @@ public class FieldUtils {
 	/**
 	 * Replaces a document's user fields with the values retrieved by evaluating
 	 * each fiald's name as an OGNL expression against a specified model object.
-	 * 
-	 * @param doc
-	 *        TextDocument on which the fields are replaced by values.
-	 * @param model
-	 *        OGNL model object.
+	 *
+	 * @param doc        TextDocument on which the fields are replaced by values.
+	 * @param model        OGNL model object.
 	 *        
-	 * @throws Exception
+	 * @throws Exception the exception
 	 */
 	public static void setFields(TextDocument doc, Object model) throws Exception {
 		setFields(doc.getContentDom(), model);

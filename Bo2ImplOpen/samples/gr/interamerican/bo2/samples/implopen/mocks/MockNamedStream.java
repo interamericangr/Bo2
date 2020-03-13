@@ -28,25 +28,24 @@ import java.nio.charset.Charset;
  * the class itself. This is why it can't be removed and replaced
  * by mock objects created by a mocking framework.
  */
-public class MockNamedStream<T> extends AbstractNamedStream<T> {
-
+public class MockNamedStream<T>
+extends AbstractNamedStream<T> {
 	
 	/**
 	 * Creates a new MockNamedStream object. 
 	 *
-	 * @param streamType
-	 * @param resourceType
-	 * @param stream
-	 * @param name
-	 * @param recordLength
-	 * @param encoding 
-	 * @param uri 
+	 * @param streamType the stream type
+	 * @param resourceType the resource type
+	 * @param stream the stream
+	 * @param name the name
+	 * @param recordLength the record length
+	 * @param encoding the encoding
+	 * @param uri the uri
 	 */
 	public MockNamedStream(StreamType streamType, StreamResource resourceType, T stream, String name, int recordLength, Charset encoding, String uri) {
 		super(streamType, resourceType, stream, name, recordLength, stream, encoding, uri);
 	}
-	
-	
+
 	@Override
 	protected void validate() {
 		/* no checks */
@@ -56,18 +55,17 @@ public class MockNamedStream<T> extends AbstractNamedStream<T> {
 	public byte[] readRecord() throws DataException, DataOperationNotSupportedException {
 		return null;
 	}
-	
+
 	@Override
 	public String readString() throws DataException, DataOperationNotSupportedException {
 		return null;
 	}
 
-	
 	@Override
 	public void writeRecord(byte[] record) throws DataException, DataOperationNotSupportedException {
 		/* empty */		
 	}
-	
+
 	@Override
 	public void writeString(String string) throws DataException, DataOperationNotSupportedException {
 		/* empty */				
@@ -78,9 +76,9 @@ public class MockNamedStream<T> extends AbstractNamedStream<T> {
 		return false;
 	}
 
+
 	@Override
 	public void close() throws DataException, DataOperationNotSupportedException {
 		/* empty */				
 	}
-
 }

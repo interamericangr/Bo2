@@ -17,24 +17,27 @@ import org.apache.wicket.markup.html.form.Form;
 
 /**
  * CallbackAction that executes an action that does not depend
- * on the {@link AjaxRequestTarget} or the {@link Form}. <br/>
+ * on the {@link AjaxRequestTarget} or the {@link Form}. <br>
  * 
  * This CallbackAction has a method <code>work()</code> that is
  * executed always.
+ * 
+ * @deprecated
  */
+@Deprecated
 public abstract class SimpleCallbackAction 
 extends AbstractCallbackAction {
 
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	public void callBack(AjaxRequestTarget target) {
 		work();
 	}
 
+	@Override
 	public void callBack(AjaxRequestTarget target, Form<?> form) {
 		work();
 	}
@@ -43,5 +46,4 @@ extends AbstractCallbackAction {
 	 * Main method of the CallbackAction.
 	 */
 	protected abstract void work();
-	
 }

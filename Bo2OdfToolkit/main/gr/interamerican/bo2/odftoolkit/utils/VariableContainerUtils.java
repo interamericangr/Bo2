@@ -29,37 +29,33 @@ public class VariableContainerUtils {
 	
 	/**
 	 * Gets a list with the names of the variable fields.
-	 * 
-	 * @param container
+	 *
+	 * @param container the container
 	 * @return Returns the list.
 	 */
 	public static List<TextUserFieldDeclElement> getUserFields(VariableContainer container) {
 		OdfElement containerElement = container.getVariableContainerElement();
 		TextUserFieldDeclsElement userFields = 
 			OdfElement.findFirstChildNode(TextUserFieldDeclsElement.class, containerElement);
-		if (userFields!=null) {
-			return XmlUtils.asList(userFields.getChildNodes());
-		} else {
-			return new ArrayList<TextUserFieldDeclElement>();
+		if (userFields==null) {
+			return new ArrayList<>();
 		}
-		
+		return XmlUtils.asList(userFields.getChildNodes());
 	}
-	
+
 	/**
 	 * Gets a list with the names of the variable fields.
-	 * 
-	 * @param container
+	 *
+	 * @param container the container
 	 * @return Returns the list.
 	 */
 	public static List<TextVariableDeclElement> getVariables(VariableContainer container) {
 		OdfElement containerElement = container.getVariableContainerElement();
 		TextVariableDeclsElement userVariables = 
 			OdfElement.findFirstChildNode(TextVariableDeclsElement.class, containerElement);
-		if (userVariables!=null) {
-			return XmlUtils.asList(userVariables.getChildNodes());
-		} else {
-			return new ArrayList<TextVariableDeclElement>();
-		}		
+		if (userVariables==null) {
+			return new ArrayList<>();
+		}
+		return XmlUtils.asList(userVariables.getChildNodes());
 	}
-	
 }

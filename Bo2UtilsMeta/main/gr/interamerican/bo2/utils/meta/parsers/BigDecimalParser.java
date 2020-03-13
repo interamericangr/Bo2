@@ -25,9 +25,7 @@ import java.math.RoundingMode;
  */
 public class BigDecimalParser extends AbstractParser<BigDecimal> {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Decimal digits.
@@ -43,7 +41,8 @@ public class BigDecimalParser extends AbstractParser<BigDecimal> {
 	
 	/**
 	 * Creates a new DoubleParser object. 
-	 * @param decimalDigits 
+	 *
+	 * @param decimalDigits the decimal digits
 	 */
 	public BigDecimalParser(int decimalDigits) {
 		this.decimalDigits = decimalDigits;

@@ -14,15 +14,16 @@ package gr.interamerican.bo2.samples.ibean;
 
 /**
  * Identified with an additional setId.
- * 
- * @param <T> 
+ *
+ * @param <T> the generic type
  */
 public interface MultiplyIdentified<T>
 extends Identified<T> {
+	
 	/**
 	 * Sets the id.
-	 * 
-	 * @param id
+	 *
+	 * @param id the new id
 	 */
 	void setId(String id);
 	

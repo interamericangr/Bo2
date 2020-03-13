@@ -57,7 +57,6 @@ implements Transformation<A, R> {
 	 *        Type of result.
 	 */
 	public Create(Class<A> argumentType, Class<R> resultType) {
-		super();
 		this.argumentType = argumentType;
 		this.resultType = resultType;		
 		this.constructor = 
@@ -68,9 +67,9 @@ implements Transformation<A, R> {
 		}
 		 
 	}
-	
+
+	@Override
 	public R execute(A a) {
 		return ReflectionUtils.newInstance(constructor, a);
 	}
-
 }

@@ -33,12 +33,14 @@ public interface JobSchedulerProvider extends ResourceWrapper {
 	/**
 	 * API users use this to schedule a job to be executed after the end 
 	 * of the current unit of work.
-	 * 
-	 * @param job
+	 *
+	 * @param job the job
 	 */
 	void scheduleJob(JobDescription job);
 	
 	/**
+	 * Gets the scheduled jobs.
+	 *
 	 * @return Returns all scheduled jobs. Implementations should never return null.
 	 */
 	List<JobDescription> getScheduledJobs();

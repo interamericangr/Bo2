@@ -24,6 +24,7 @@ import java.math.BigDecimal;
  */
 public class MoneyCopier implements Copier<Money>{
 
+	@Override
 	public Money copy(Money objectToCopy) {
 		if(objectToCopy == null) {
 			return null;
@@ -54,5 +55,4 @@ public class MoneyCopier implements Copier<Money>{
 		String msg = "Could not create instance of " + objectToCopy.getClass(); //$NON-NLS-1$
 		throw new RuntimeException(msg);
 	}
-
 }

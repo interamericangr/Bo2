@@ -72,19 +72,15 @@ implements HibernateSessionProvider {
 	 * Input properties Property name for hibernate mappings indexer.
 	 * The indexer lists a number of txt files that, in turn, list class
 	 * paths to hbm.xml files.
-	 * <br/>
+	 * <br>
 	 * This file, as well as the txt files it points to may, or may not exist.
 	 */
 	public static final String HIBERNATE_MAPPINGS = "HIBERNATE_MAPPINGS"; //$NON-NLS-1$
 
-	/**
-	 * Hibernate SessionFactory used to create sessions
-	 */
+	/** Hibernate SessionFactory used to create sessions. */
 	private SessionFactory sessionFactory;
 
-	/**
-	 * the hibernate session this provider provides
-	 */
+	/** the hibernate session this provider provides. */
 	private Session session;
 
 	/**
@@ -105,13 +101,12 @@ implements HibernateSessionProvider {
 	/**
 	 * Creates a new HibernateSessionProviderImpl object.
 	 *
-	 * @param properties
-	 * @throws InitializationException
+	 * @param properties the properties
+	 * @throws InitializationException the initialization exception
 	 */
 	public HibernateSessionProviderImpl(Properties properties)
 			throws InitializationException {
 		super(properties);
-		openSession();
 	}
 
 	@Override
@@ -119,19 +114,31 @@ implements HibernateSessionProvider {
 		super.parseProperties();
 		String pathToCfg = ProviderUtils.getMandatoryProperty(getProperties(), HIBERNATE_CFG_XML);
 		String dbSchema = ProviderUtils.getMandatoryProperty(getProperties(), KEY_DBSCHEMA);
+		//System.out.println("db schema: " + dbSchema);
 		String sessionInterceptor = getProperties().getProperty(SESSION_INTERCEPTOR);
 		String hibernateMappingsPath = getProperties().getProperty(HIBERNATE_MAPPINGS);
 		sessionFactory = HibernateConfigurations.getSessionFactory(pathToCfg, dbSchema, sessionInterceptor, hibernateMappingsPath);
 	}
 
+	@Override
 	public Session getHibernateSession() {
+		if(isClosed) {
+			return null;
+		}
+		if(session == null) {
+			try {
+				openSession();
+			} catch (InitializationException e) {
+				throw new RuntimeException(e);
+			}
+		}
 		return session;
 	}
 
 	/**
 	 * Opens the session.
-	 * 
-	 * @throws InitializationException
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	private void openSession() throws InitializationException {
 		try {
@@ -143,8 +150,8 @@ implements HibernateSessionProvider {
 
 	/**
 	 * Closes the session.
-	 * 
-	 * @throws DataException
+	 *
+	 * @throws DataException the data exception
 	 */
 	private void closeSession() throws DataException {
 		try {
@@ -169,29 +176,34 @@ implements HibernateSessionProvider {
 		}
 	}
 
+	@Override
 	public void flush(Object object) {
 		flushStrategy.flush(object, session, entities, excluded);
 	}
 
+	@Override
 	public void register(Object object) {
 		entities.add(object);
 	}
 
+	@Override
 	public void unregister(Object object) {
 		entities.remove(object);
 		PoUtils.setDetachStrategy(object, null);
 	}
 
+	@Override
 	public void setExcluded(Object object) {
 		excluded.add(object);
 	}
 
+	@Override
 	public void setNotExcluded(Object object) {
 		excluded.remove(object);
 	}
 
+	@Override
 	public void setFlushStrategy(FlushStrategy flushStrategy) {
 		this.flushStrategy = flushStrategy;
 	}
-
 }

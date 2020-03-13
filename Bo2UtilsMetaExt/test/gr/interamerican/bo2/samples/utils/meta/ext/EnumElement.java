@@ -60,8 +60,8 @@ implements Serializable, OwnedEntry<Long, Long , Long> {
 	/**
 	 * Creates a new EnumElement object. 
 	 *
-	 * @param typeId
-	 * @param element
+	 * @param typeId the type id
+	 * @param element the element
 	 */
 	public EnumElement(Long typeId, Enum<?> element) {
 		super();
@@ -72,52 +72,64 @@ implements Serializable, OwnedEntry<Long, Long , Long> {
 		this.owner = element;
 	}
 
+	@Override
 	public Long getTypeId() {
 		return typeId;
 	}
 
 
+	@Override
 	public void setTypeId(Long typeId) {
 		this.typeId = typeId;
 	}
 
+	@Override
 	public Long getSubTypeId() {
 		return subTypeId;
 	}
 
+	@Override
 	public void setSubTypeId(Long subTypeId) {
 		this.subTypeId = subTypeId;
 	}
 
+	@Override
 	public Long getCode() {
 		return code;
 	}
 
+	@Override
 	public void setCode(Long code) {
 		this.code = code;
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}
 
+	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	@Override
 	public Long getTranslationResourceId() {		
 		return null;
 	}
 	
+	@Override
 	public String getTranslation(Long languageId) {
 		return null;
 	}
 	
+	@Override
 	@SuppressWarnings("unchecked")
 	public TranslatableEntryOwner<Long, Long, Long> getOwner() {		
 		return (TranslatableEntryOwner<Long, Long, Long>) owner;
 	}
 
+	@Override
 	public int compareTo(Codified<Long> o) {
 		if(o==null) { return 1; }
 		return Utils.nullSafeCompare(o.getCode(), this.getCode());

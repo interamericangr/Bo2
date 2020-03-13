@@ -16,26 +16,28 @@ import gr.interamerican.bo2.impl.open.creation.Factory;
 import gr.interamerican.bo2.impl.open.po.AbstractBasePo;
 
 /**
- * 
+ * The Class PoPo.
  */
 public class PoPo extends AbstractBasePo<PoPoKey> {
 
 	
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 
+	/**
+	 * Public Constructor 
+	 *
+	 */
 	public PoPo() {
-		super();
-		this.key = (PoPoKey) Factory.create(PoPoKey.class);
+		this.key = Factory.create(PoPoKey.class);
 	}
 	
-	/*
-	 * delegate properties οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½ οΏ½οΏ½ properties οΏ½οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½οΏ½,
-	 * οΏ½οΏ½ οΏ½οΏ½οΏ½οΏ½:
+	/**
+	 * delegate properties για όλα τα properties του κλειδιού,
+	 * ως εξής:
+	 * @param field1 
 	 */	
 	public void setField1(String field1) {
 		key.setField1(field1);
@@ -43,6 +45,9 @@ public class PoPo extends AbstractBasePo<PoPoKey> {
 	}
 	
 	
+	/**
+	 * @return field 1
+	 */
 	public String getField1() {
 		return key.getField1();
 	}

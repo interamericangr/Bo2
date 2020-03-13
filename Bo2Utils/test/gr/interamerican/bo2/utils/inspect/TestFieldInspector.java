@@ -12,12 +12,12 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Test {@link FieldInspector}
+ * Test {@link FieldInspector}.
  */
 public class TestFieldInspector {
 	
 	/**
-	 * test inspect()
+	 * test inspect().
 	 */
 	@Test
 	public void testInspect() {
@@ -37,7 +37,7 @@ public class TestFieldInspector {
 	}
 	
 	/**
-	 * Sample impl that omits static fields
+	 * Sample impl that omits static fields.
 	 */
 	static class FieldInspectorImpl extends FieldInspector {
 		

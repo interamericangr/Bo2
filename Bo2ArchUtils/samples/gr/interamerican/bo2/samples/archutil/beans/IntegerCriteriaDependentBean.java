@@ -19,11 +19,13 @@ implements CriteriaDependent<Integer> {
 	String property1;
 
 	
+	@Override
 	public Integer getCriteria() {
 		return criteria;
 	}
 
 	
+	@Override
 	public void setCriteria(Integer criteria) {
 		this.criteria = criteria;
 	}

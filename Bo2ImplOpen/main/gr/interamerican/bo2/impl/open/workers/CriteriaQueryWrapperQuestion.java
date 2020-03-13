@@ -36,27 +36,27 @@ implements CriteriaDependent<C> {
 
 	/**
 	 * Creates a new CriteriaQueryWrapperQuestion object.
-	 * 
-	 * @param query
-	 *        Query wrapped by this question. 
+	 *
 	 * @param <Q>
-	 *        Type of the query. The query must implement both
-	 *        interfaces {@link EntitiesQuery} and {@link CriteriaDependent}.
+	 *            Type of the query. The query must implement both interfaces
+	 *            {@link EntitiesQuery} and {@link CriteriaDependent}.
+	 * @param query
+	 *            Query wrapped by this question.
 	 */
-	public <Q extends EntitiesQuery<T> & CriteriaDependent<C>>
-	CriteriaQueryWrapperQuestion(Q query) {
-		super(query);		
+	public <Q extends EntitiesQuery<T> & CriteriaDependent<C>> CriteriaQueryWrapperQuestion(Q query) {
+		super(query);
 	}
 
+	@Override
 	public C getCriteria() {
 		return criteria;
 	}
 
+	@Override
 	public void setCriteria(C criteria) {
 		this.criteria = criteria;
 		@SuppressWarnings("unchecked")
 		CriteriaDependent<C> q = (CriteriaDependent<C>) query;
 		q.setCriteria(criteria);
 	}
-
 }

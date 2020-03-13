@@ -25,12 +25,12 @@ public interface Converter<L,R> {
 	
 	/**
 	 * Converts the specified object to an object of a different type.
-	 * 
+	 *
 	 * @param l Object to convert.
 	 * @return Returns the object that corresponds to the conversion
 	 *         of the specified object.
 	 *         
-	 * @throws ConversionException 
+	 * @throws ConversionException the conversion exception
 	 */
 	public R convert(L l) throws ConversionException;
 

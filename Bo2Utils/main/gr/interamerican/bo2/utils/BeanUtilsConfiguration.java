@@ -9,7 +9,7 @@ import org.apache.commons.beanutils.converters.DateConverter;
 import org.apache.commons.beanutils.converters.DateTimeConverter;
 
 /**
- * Configures {@link BeanUtilsBean}
+ * Configures {@link BeanUtilsBean}.
  */
 public class BeanUtilsConfiguration {
 
@@ -32,23 +32,20 @@ public class BeanUtilsConfiguration {
 		BeanUtilsBean.setInstance(new BeanUtilsBean(new EnumAwareConvertUtilsBean()));
 
 		DateTimeConverter dtConverter = new DateConverter();
-		dtConverter.setPattern(Bo2UtilsEnvironment.getIsoDateFormatPattern());
+		dtConverter.setPattern("yyyy-MM-dd");  //$NON-NLS-1$
 		ConvertUtils.register(dtConverter, java.util.Date.class);
 	}
 
 	/**
 	 * ConvertUtilsBean sub-type that supports enums.
 	 */
-	@SuppressWarnings("rawtypes")
 	public static class EnumAwareConvertUtilsBean extends ConvertUtilsBean {
 
-		/**
-		 * singleton
-		 */
+		/** singleton. */
 		private static final EnumConverter ENUM_CONVERTER = new EnumConverter();
 
 		@Override
-		public Converter lookup(Class pClazz) {
+		public Converter lookup(Class<?> pClazz) {
 			Converter converter = super.lookup(pClazz);
 
 			if (converter == null && pClazz.isEnum()) {
@@ -63,7 +60,6 @@ public class BeanUtilsConfiguration {
 	/**
 	 * General purpose enum converter.
 	 */
-	@SuppressWarnings("rawtypes")
 	public static class EnumConverter extends AbstractConverter {
 
 		@Override
@@ -74,22 +70,21 @@ public class BeanUtilsConfiguration {
 			return ((Enum<?>) pValue).name();
 		}
 
-		@Override
 		@SuppressWarnings("unchecked")
-		protected Object convertToType(final Class pType, final Object pValue) throws Throwable {
+		@Override
+		protected <T> T convertToType(final Class<T> pType, final Object pValue) throws Throwable {
 			if(pValue == null) {
 				return null;
 			}
 			
-			Class<? extends Enum> type = pType;
-			return Enum.valueOf(type, pValue.toString());
+			@SuppressWarnings("rawtypes")
+			Class<? extends Enum> type = (Class<? extends Enum>) pType;
+			return (T) Enum.valueOf(type, pValue.toString());
 		}
 
 		@Override
-		protected Class getDefaultType() {
+		protected Class<?> getDefaultType() {
 			return null;
 		}
-
 	}
-
 }

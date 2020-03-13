@@ -4,13 +4,12 @@ import gr.interamerican.bo2.utils.meta.formatters.EnumFormatter;
 
 /**
  * Null returning enum formatter.
- * @param <E> 
+ *
+ * @param <E> the element type
  */
 public class NfEnumFormatter<E extends Enum<E>> extends NullFilteringFormatter<E> {
 
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**

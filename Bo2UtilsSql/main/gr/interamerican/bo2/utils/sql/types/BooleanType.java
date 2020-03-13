@@ -37,14 +37,17 @@ extends AbstractType<Boolean> {
 		super();		
 	}
 	
+	@Override
 	public Boolean get(ResultSet rs, String columnIndex) throws SQLException {		
 		return rs.getBoolean(columnIndex);
 	}
 	
+	@Override
 	public Boolean get(ResultSet rs, int columnIndex) throws SQLException {
 		return rs.getBoolean(columnIndex);
 	}
 
+	@Override
 	public String sqlString(Boolean t) {
 		if (t==null) {
 			return StringConstants.NULL;
@@ -52,6 +55,7 @@ extends AbstractType<Boolean> {
 		return StringUtils.bool2String(t);
 	}
 
+	@Override
 	public Class<Boolean> getJavaType() {		
 		return Boolean.class;
 	}

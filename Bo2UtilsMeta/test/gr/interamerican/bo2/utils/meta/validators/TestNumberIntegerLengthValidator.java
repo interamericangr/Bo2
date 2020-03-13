@@ -31,7 +31,8 @@ public class TestNumberIntegerLengthValidator {
 
 	/**
 	 * Test method for validate(java.lang.Number)}.
-	 * @throws ValidationException 
+	 *
+	 * @throws ValidationException the validation exception
 	 */
 	@Test
 	public void testValidate() throws ValidationException {

@@ -12,46 +12,59 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.conditions;
 
-import gr.interamerican.bo2.utils.adapters.trans.GetRangeFromProperties;
+import java.util.function.Function;
+
+import gr.interamerican.bo2.utils.adapters.trans.GetRange;
 import gr.interamerican.bo2.utils.beans.Range;
 
 /**
- * Checks that a specified value is within the limits defined by
- * two properties.
+ * Checks that a specified value is within the limits defined by two properties.
  * 
  * 
- * @param <T> 
- *        Type of objects being checked by the condition.
- * @param <P> 
- *        Return type of the properties that define the range.
+ * @param <T>
+ *            Type of objects being checked by the condition.
+ * @param <P>
+ *            Return type of the properties that define the range.
  * 
  */
-public class ValueIsWithinRangeDefinedByProperties<T, P extends Comparable<? super P >> 
+public class ValueIsWithinRangeDefinedByProperties<T, P extends Comparable<? super P>>
 extends ConditionOnTransformation<T, Range<P>>
 implements Condition<T> {
 
 	/**
-	 * Creates a new ValueIsWithinRangeDefinedByProperties object. 
+	 * Creates a new ValueIsWithinRangeDefinedByProperties object.
 	 * 
 	 * @param leftProperty
-	 *        Expression for left property.  
-	 * @param rightProperty 
-	 *        Expression for right property.
-	 * @param clazz 
-	 *        Class of objects being checked.
-	 * @param value 
-	 *        Value that must be within the limits specified by the properties.
+	 *            Expression for left property.
+	 * @param rightProperty
+	 *            Expression for right property.
+	 * @param clazz
+	 *            Class of objects being checked.
+	 * @param value
+	 *            Value that must be within the limits specified by the
+	 *            properties.
 	 *
-	 * 
+	 * @deprecated Use the Other Constructor
 	 */
-	public ValueIsWithinRangeDefinedByProperties
-	(String leftProperty, String rightProperty, Class<T> clazz, final P value) {
-		super(
-			new GetRangeFromProperties<T, P>(leftProperty, rightProperty, clazz), 
-			new RangeContainsValue<P>(value));
+	@Deprecated
+	public ValueIsWithinRangeDefinedByProperties(String leftProperty, String rightProperty, Class<T> clazz,
+			final P value) {
+		super(new gr.interamerican.bo2.utils.adapters.trans.GetRangeFromProperties<T, P>(leftProperty, rightProperty,
+				clazz), new RangeContainsValue<P>(value));
 	}
-	
-	
-	
 
+	/**
+	 * Public Constructo.
+	 * 
+	 * @param getLeft
+	 *            Function that defines the left limit of the range.
+	 * @param getRight
+	 *            Function that defines the right limit of the range.
+	 * @param value
+	 *            Value that must be within the limits specified by the
+	 *            properties.
+	 */
+	public ValueIsWithinRangeDefinedByProperties(Function<T, P> getLeft, Function<T, P> getRight, final P value) {
+		super(new GetRange<>(getLeft, getRight), new RangeContainsValue<>(value));
+	}
 }

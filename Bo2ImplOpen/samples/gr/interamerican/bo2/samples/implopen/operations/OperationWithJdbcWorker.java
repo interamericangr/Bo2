@@ -29,8 +29,10 @@ import java.sql.SQLException;
 @ManagerName("LOCALDB")
 public class OperationWithJdbcWorker extends AbstractOperation {
 	
+	/** The Constant FAILING_ID. */
 	public static final String FAILING_ID = "1560";
 	
+	/** The wf. */
 	@Child WorkerFixture wf = new WorkerFixture();
 
 	@Override
@@ -38,10 +40,20 @@ public class OperationWithJdbcWorker extends AbstractOperation {
 		wf.execute();
 	}
 
+	/**
+	 * Gets the row count.
+	 *
+	 * @return the row count
+	 */
 	public int getRowCount() {
 		return wf.getRowCount();
 	}
 
+	/**
+	 * Sets the id.
+	 *
+	 * @param id the new id
+	 */
 	public void setId(String id) {
 		wf.setId(id);
 	}
@@ -52,10 +64,14 @@ public class OperationWithJdbcWorker extends AbstractOperation {
 	@SuppressWarnings("all")
 	private class WorkerFixture extends JdbcCommand {
 
+		/** The sql. */
 		@Sql
 		String sql = "insert into X__X.INVOICE values (?, CURRENT TIMESTAMP, '', CURRENT DATE, '')";
 
+		/** The row count. */
 		int rowCount;
+		
+		/** The id. */
 		String id;
 
 		@Override
@@ -71,10 +87,20 @@ public class OperationWithJdbcWorker extends AbstractOperation {
 			}
 		}
 
+		/**
+		 * Gets the row count.
+		 *
+		 * @return the row count
+		 */
 		public int getRowCount() {
 			return rowCount;
 		}
 
+		/**
+		 * Sets the id.
+		 *
+		 * @param id the new id
+		 */
 		public void setId(String id) {
 			this.id = id;
 		}

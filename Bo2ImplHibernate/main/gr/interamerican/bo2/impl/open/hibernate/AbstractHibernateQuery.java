@@ -83,6 +83,7 @@ implements EntitiesQuery<P>, Question<P>  {
 	 */
 	protected abstract Iterator<?> createIterator();
 
+	@Override
 	public boolean next() throws DataAccessException {
 		try {
 			Debug.setActiveModule(this);
@@ -98,22 +99,26 @@ implements EntitiesQuery<P>, Question<P>  {
 		} catch (HibernateException he) {
 			logHibernateException(he);
 			Debug.resetActiveModule();
-			throw new DataAccessException (he);
+			throw new DataAccessException(he);
 		}
 	}
 
-	public int getRow() throws DataAccessException {		
-		return row;		
+	@Override
+	public int getRow() throws DataAccessException {
+		return row;
 	}
 
+	@Override
 	public void setAvoidLock(boolean avoidLock) {
 		/* empty */
 	}
 
+	@Override
 	public boolean isAvoidLock() {
 		return true;
 	}
 
+	@Override
 	public final void execute() throws DataException {
 		WorkerExecutionDetails details = new WorkerExecutionDetails();
 		details.setTaskInfo("Executing a hibernate query"); //$NON-NLS-1$
@@ -125,18 +130,20 @@ implements EntitiesQuery<P>, Question<P>  {
 		} catch (HibernateException he) {
 			logger.error(he.toString());
 			Debug.resetActiveModule();
-			throw new DataException (he);
+			throw new DataException(he);
 		} finally {
 			checkTransactionHealth(details);
 		}
 	}
-	
+
+	@Override
 	@SuppressWarnings("unchecked")
 	public P getEntity() throws DataAccessException {
 		register(currentObject);
 		return (P) currentObject;
 	}
-	
+
+	@Override
 	public final void ask() throws DataException {
 		this.answer = null;
 		execute();
@@ -145,20 +152,20 @@ implements EntitiesQuery<P>, Question<P>  {
 		}
 		closeIterator();
 	}
-	
-	public P getAnswer() {		
+
+	@Override
+	public P getAnswer() {
 		return answer;
 	}
-	
+
 	/**
 	 * Closes the {@link HibernateIterator} of the result set.
 	 */
 	@SuppressWarnings("nls")
 	private void closeIterator() {
-		if(iterator instanceof HibernateIterator) {
+		if (iterator instanceof HibernateIterator) {
 			Debug.debug(logger, "Closing hibernate iterator. " + this.getClass().getName());
 			Hibernate.close(iterator);
 		}
 	}
-
 }

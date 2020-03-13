@@ -17,7 +17,7 @@ import gr.interamerican.bo2.utils.StringUtils;
 /**
  * This MatchingRule matches two strings, where the first string
  * is given as a criterion and the second string is the value being 
- * matched. <br/>
+ * matched. <br>
  * 
  * If the first string is null, then it implied that there was no
  * criterion given, so anything would match. If the first string
@@ -27,6 +27,7 @@ import gr.interamerican.bo2.utils.StringUtils;
 public class StringCriteriaMatchingRule 
 implements MatchingRule<String, String>{
 	
+	@Override
 	public boolean isMatch(String first, String second) {
 		if (StringUtils.isNullOrBlank(first)) {
 			return true;

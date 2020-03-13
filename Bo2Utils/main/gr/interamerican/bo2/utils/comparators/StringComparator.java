@@ -21,10 +21,8 @@ import java.util.Comparator;
  */
 public class StringComparator 
 implements Comparator<Object> {	
-	
-	/* (non-Javadoc)
-	 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
-	 */	
+
+	@Override
 	public int compare(Object o1, Object o2) {
 		if (o1==o2) {
 			return 0;
@@ -37,5 +35,4 @@ implements Comparator<Object> {
 		}			
 		return o1.toString().compareTo(o2.toString());
 	}
-
 }

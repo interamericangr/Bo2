@@ -19,7 +19,10 @@ import java.io.Serializable;
 /**
  * A {@link MethodBasedBo2WicketBlock} is a Bo2WicketBlock that 
  * executes a method of its owner object.
+ * 
+ * @deprecated use method reference instead
  */
+@Deprecated
 public class MethodBasedBo2WicketBlock 
 extends Bo2WicketBlock {
 	
@@ -36,8 +39,8 @@ extends Bo2WicketBlock {
 	/**
 	 * Creates a new MethodBasedBo2WicketBlock object. 
 	 *
-	 * @param methodName
-	 * @param owner
+	 * @param methodName the method name
+	 * @param owner the owner
 	 */
 	public MethodBasedBo2WicketBlock(String methodName, Serializable owner) {
 		/* don't call super() */
@@ -58,5 +61,4 @@ extends Bo2WicketBlock {
 	public <T> void setHandlerParameter(java.lang.Class<T> paramType, T param) {
 		callback.setHandlerParameter(paramType, param);
 	}
-
 }

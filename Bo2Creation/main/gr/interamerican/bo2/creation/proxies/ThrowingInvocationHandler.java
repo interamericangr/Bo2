@@ -33,7 +33,7 @@ extends AbstractFakeInvocationHandler {
 	/**
 	 * Creates a new CustomizedThrowingInvocationHandler object. 
 	 *
-	 * @param throwable
+	 * @param throwable the throwable
 	 */
 	public ThrowingInvocationHandler(Class<? extends Throwable> throwable) {
 		super();

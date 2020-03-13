@@ -25,8 +25,7 @@ import gr.interamerican.bo2.utils.adapters.Transformation;
 public class GetTheSame<T> implements Modification<T>{
 
 	@Override
-	public T execute(T a) {		
+	public T execute(T a) {
 		return a;
 	}
-
 }

@@ -20,6 +20,7 @@ import gr.interamerican.bo2.utils.CollectionUtils;
 import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.StreamUtils;
 import gr.interamerican.bo2.utils.StringUtils;
+import gr.interamerican.bo2.utils.Utils;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -34,6 +35,11 @@ import org.slf4j.LoggerFactory;
  */
 public class Bo2Deployment {
 	
+	/**
+	 * JVM user argument to override deployment.properties settings
+	 */
+	private static final String PATH_TO_MANAGER_ALIASES = "pathToManagerAliases"; //$NON-NLS-1$
+
 	/**
 	 * Default logger for Bo2.
 	 */
@@ -78,15 +84,9 @@ public class Bo2Deployment {
 			 */
 			String path = deploymentBean.getPathToManagersList();
 			String[] managers = StreamUtils.readResourceFile(path);
-			managerFactories = ProviderImpl.getFactoriesMapFromProperties(managers);
+			managerFactories = Bo2Utils.getFactoriesMapFromProperties(managers);
 			
-			managerAliases = new HashMap<String, String>();
-			Properties prop = CollectionUtils.readProperties(deploymentBean.getPathToManagerAliases());
-			for (Map.Entry<Object, Object> entry: prop.entrySet()) {
-				String alias = (String)entry.getKey();
-				String name = (String)entry.getValue();
-				managerAliases.put(alias, name);
-			}
+			loadManagerAliases();
 			
 			/*
 			 * Classes with static initializers to pre-load. OPTIONAL
@@ -104,6 +104,20 @@ public class Bo2Deployment {
 			throw new RuntimeException(e);
 		}			
 	}
+
+	/**
+	 * Loads manager aliases.
+	 */
+	private void loadManagerAliases() {
+		managerAliases = new HashMap<String, String>();
+		String managerAliasesPath = Utils.notNull(System.getProperty(PATH_TO_MANAGER_ALIASES), deploymentBean.getPathToManagerAliases());
+		Properties prop = CollectionUtils.readProperties(managerAliasesPath);
+		for (Map.Entry<Object, Object> entry: prop.entrySet()) {
+			String alias = (String)entry.getKey();
+			String name = (String)entry.getValue();
+			managerAliases.put(alias, name);
+		}
+	}
 	
 	/**
 	 * Gets the deployment properties.
@@ -117,10 +131,9 @@ public class Bo2Deployment {
 	
 	/**
 	 * Loads a class.
-	 * 
-	 * @param className
-	 * 
-	 * @throws ClassNotFoundException 
+	 *
+	 * @param className the class name
+	 * @throws ClassNotFoundException the class not found exception
 	 */
 	private static void loadClass(String className) throws ClassNotFoundException {
 		if (!StringUtils.isNullOrBlank(className)) {
@@ -140,18 +153,12 @@ public class Bo2Deployment {
 	
 	/**
 	 * Creates a new Provider for this Bo2Deployment.
-	 * 
+	 *
 	 * @return Returns a new provider.
-	 * 
-	 * @throws InitializationException 
+	 * @throws InitializationException the initialization exception
 	 */
 	public Provider getProvider() throws InitializationException {		
 		return new ProviderImpl	(managerFactories, 
 				managerAliases, deploymentBean.getTransactionManagerClass());		
 	}
-	
-	
-	
-	
-
 }

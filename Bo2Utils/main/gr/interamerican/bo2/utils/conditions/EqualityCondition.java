@@ -16,8 +16,8 @@ import gr.interamerican.bo2.utils.Utils;
 
 /**
  * Is equal {@link Condition}.
- * 
- * @param <T> 
+ *
+ * @param <T> the generic type
  */
 public class EqualityCondition<T> implements Condition<T> {
 	/**
@@ -27,7 +27,6 @@ public class EqualityCondition<T> implements Condition<T> {
 	 *        Value checked for equality.
 	 */
 	public EqualityCondition(T value) {
-		super();
 		this.value = value;
 	}
 
@@ -36,9 +35,8 @@ public class EqualityCondition<T> implements Condition<T> {
 	 */
 	T value;
 
-	
+	@Override
 	public boolean check(T t) {		
 		return Utils.equals(value, t);
 	}
-
 }

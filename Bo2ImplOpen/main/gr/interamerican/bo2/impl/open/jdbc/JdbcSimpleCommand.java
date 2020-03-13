@@ -20,29 +20,27 @@ import gr.interamerican.bo2.utils.Debug;
 import java.sql.SQLException;
 
 /**
- * {@link JdbcCommand} that executes only one SQL statement.
- * 
+ * {@link JdbcCommand} that executes only one SQL statement.<br>
  * This class implements the {@link EntitiesCounter} interface.
  * The <code>getEntitiesCount()</code> method returns the count
  * of records updated by the last execution of the SQL statement.
- *
  */
 public abstract class JdbcSimpleCommand 
 extends JdbcCommand 
 implements DataCommand, EntitiesCounter {
-	
+
 	/**
 	 * Count of records affected by las execution.
 	 */
 	int recordsAffected = 0;
-	
+
 	/**
 	 * SQL statement of the query.
 	 * 
 	 * @return Returns the SQL string for the query.
 	 */	
 	protected abstract String sql();
-	
+
 	/**
 	 * Parameters for the query.
 	 * 
@@ -53,7 +51,7 @@ implements DataCommand, EntitiesCounter {
 	 *         statement.
 	 */
 	protected abstract Object[] parameters();
-	
+
 	@Override
 	public final void work() throws DataException {
 		recordsAffected = 0;
@@ -66,16 +64,15 @@ implements DataCommand, EntitiesCounter {
 			Debug.resetActiveModule();			
 		}
 	}
-	
+
 	@Override
 	public void open() throws DataException {		
 		super.open();
 		prepare(sql());
 	}
-	
+
 	@Override
 	public int getEntitiesCount() {	
 		return recordsAffected;
 	}
-
 }

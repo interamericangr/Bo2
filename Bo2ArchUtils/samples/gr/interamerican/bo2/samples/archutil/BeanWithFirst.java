@@ -13,7 +13,7 @@
 package gr.interamerican.bo2.samples.archutil;
 
 /**
- * 
+ * The Class BeanWithFirst.
  */
 public class BeanWithFirst {
 	/**
@@ -32,7 +32,7 @@ public class BeanWithFirst {
 	/**
 	 * Creates a new BeanWithFirst object. 
 	 *
-	 * @param first
+	 * @param first the first
 	 */
 	public BeanWithFirst(Integer first) {
 		super();

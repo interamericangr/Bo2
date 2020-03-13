@@ -21,13 +21,13 @@ import java.util.Collection;
  * 
  * @param <B> 
  *        Type of elements in the collection.
+ * @deprecated
  */
+@Deprecated
 public abstract class AddElementToCollection<B extends Serializable> 
 extends SimpleCallbackAction {
 	
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
 	/**
@@ -48,9 +48,9 @@ extends SimpleCallbackAction {
 	/**
 	 * Creates a new AddElementToCollectionAction object. 
 	 *
-	 * @param collection
-	 * @param element
-	 * @param indexPropertyName 
+	 * @param collection the collection
+	 * @param element the element
+	 * @param indexPropertyName the index property name
 	 */
 	public AddElementToCollection
 	(Collection<B> collection, B element, String indexPropertyName) {
@@ -59,7 +59,4 @@ extends SimpleCallbackAction {
 		this.element = element;
 		this.indexPropertyName = indexPropertyName;
 	}
-	
-	
-
 }

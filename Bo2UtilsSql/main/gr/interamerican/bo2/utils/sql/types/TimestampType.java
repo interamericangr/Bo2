@@ -43,14 +43,17 @@ extends AbstractType<Timestamp> {
 		super();
 	}
 	
+	@Override
 	public Timestamp get(ResultSet rs, String columnIndex) throws SQLException {		
 		return rs.getTimestamp(columnIndex);
 	}
 	
+	@Override
 	public Timestamp get(ResultSet rs, int columnIndex) throws SQLException {	
 		return rs.getTimestamp(columnIndex);
 	}	
 	
+	@Override
 	public synchronized String sqlString(Timestamp t) {
 		if (t==null) {
 			return StringConstants.NULL;
@@ -59,6 +62,7 @@ extends AbstractType<Timestamp> {
 		return StringUtils.quotes(s);
 	}
 	
+	@Override
 	public Class<Timestamp> getJavaType() {		
 		return Timestamp.class;
 	}

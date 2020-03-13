@@ -14,11 +14,21 @@ package gr.interamerican.bo2.samples.ibean;
 
 
 /**
- * empty interface
+ * empty interface.
  */
-@SuppressWarnings("all")
 public interface SubSampleInterface extends SampleInterface {
+	
+	/**
+	 * Gets the field 0.
+	 *
+	 * @return the field 0
+	 */
 	public String getField0();
 
+	/**
+	 * Sets the field 0.
+	 *
+	 * @param field0 the new field 0
+	 */
 	public void setField0(String field0);
 }

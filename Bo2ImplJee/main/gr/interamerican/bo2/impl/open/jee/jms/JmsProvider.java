@@ -10,12 +10,10 @@ public interface JmsProvider extends ResourceWrapper {
 	
 	/**
 	 * Gets the JMS resources for the specified name.
-	 * 
-	 * @param name
-	 * 
+	 *
+	 * @param name the name
 	 * @return JmsResource
-	 * 
-	 * @throws InitializationException
+	 * @throws InitializationException the initialization exception
 	 */
 	JmsResource getResource(String name) throws InitializationException;
 	

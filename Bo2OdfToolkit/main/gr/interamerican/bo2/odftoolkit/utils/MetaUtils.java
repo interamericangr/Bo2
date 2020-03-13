@@ -10,7 +10,7 @@ import org.odftoolkit.odfdom.pkg.OdfElement;
 import org.odftoolkit.simple.Document;
 
 /**
- * 
+ * The Class MetaUtils.
  */
 public class MetaUtils {
 	
@@ -33,16 +33,13 @@ public class MetaUtils {
 	/**
 	 * Gets the user defined property of the specified document
 	 * that has the specified name.
-	 * 
-	 * @param doc
-	 *        Document
-	 * @param name
-	 *        Name of user defined property
-	 * 
+	 *
+	 * @param doc        Document
+	 * @param name        Name of user defined property
 	 * @return Returns a the specified property if it exists.
 	 *         Otherwise returns null.
 	 *         
-	 * @throws Exception 
+	 * @throws Exception the exception
 	 */
 	public static String getProperty(Document doc, String name) 
 	throws Exception {				

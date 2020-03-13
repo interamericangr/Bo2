@@ -42,10 +42,10 @@ extends ListMultipleChoice<T>{
 	/**
 	 * Creates a new ListMultipleChoiceForEntry object. 
 	 *
-	 * @param id
-	 * @param choicesModel 
-	 * @param choices
-	 * @param session
+	 * @param id the id
+	 * @param choicesModel the choices model
+	 * @param choices the choices
+	 * @param session the session
 	 */
 	public MultipleChoiceForEntry(String id, 
 	IModel<? extends List<T>> choicesModel, List<? extends T> choices, Bo2WicketSession<?, L> session) {

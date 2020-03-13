@@ -12,20 +12,20 @@
  ******************************************************************************/
 package gr.interamerican.bo2.arch.utils;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import gr.interamerican.bo2.arch.EntitiesQuery;
-import gr.interamerican.bo2.arch.PersistenceWorker;
-import gr.interamerican.bo2.arch.PersistentObject;
-import gr.interamerican.bo2.arch.exceptions.DataAccessException;
-import gr.interamerican.bo2.arch.exceptions.DataException;
+import static org.mockito.Mockito.*;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
+
+import gr.interamerican.bo2.arch.EntitiesQuery;
+import gr.interamerican.bo2.arch.PersistenceWorker;
+import gr.interamerican.bo2.arch.PersistentObject;
+import gr.interamerican.bo2.arch.exceptions.DataAccessException;
+import gr.interamerican.bo2.arch.exceptions.DataException;
 
 /**
  * Utilities for mocking.
@@ -34,22 +34,24 @@ public class MockUtils {
 	
 	/**
 	 * Mocks an {@link EntitiesQuery} sub-class so that next() and getEntity() work on an Iterator.
-	 * 
-	 * @param <P>
-	 * @param <T>
-	 * @param clazz
-	 * @param iterator
+	 *
+	 * @param <P> the generic type
+	 * @param <T> the generic type
+	 * @param clazz the clazz
+	 * @param iterator the iterator
 	 * @return Mock.
 	 */
 	public static <P, T extends EntitiesQuery<P>> T mockEntitiesQuery(Class<T> clazz, final Iterator<P> iterator) {
 		T result = mock(clazz);
 		try {
 			when(result.next()).thenAnswer(new Answer<Boolean>() {
+				@Override
 				public Boolean answer(InvocationOnMock invocation) throws Throwable {
 					return iterator.hasNext();
 				}
 			});
 			when(result.getEntity()).thenAnswer(new Answer<P>() {
+				@Override
 				public P answer(InvocationOnMock invocation) throws Throwable {
 					return iterator.next();
 				}
@@ -62,11 +64,11 @@ public class MockUtils {
 	
 	/**
 	 * Mocks an {@link EntitiesQuery} sub-class so that next() and getEntity() work on a List.
-	 * 
-	 * @param <P>
-	 * @param <T>
-	 * @param clazz
-	 * @param list
+	 *
+	 * @param <P> the generic type
+	 * @param <T> the generic type
+	 * @param clazz the clazz
+	 * @param list the list
 	 * @return Mock.
 	 */
 	public static <P, T extends EntitiesQuery<P>> T mockEntitiesQuery(Class<T> clazz, List<P> list) {
@@ -74,11 +76,26 @@ public class MockUtils {
 	}
 	
 	/**
-	 * Mocks a {@link PersistenceWorker} 
-	 * 
-	 * @param onRead
-	 * @param onUpdate
-	 * @param onSave
+	 * Mocks an {@link EntitiesQuery} sub-class so that next() and getEntity() work on a List.
+	 *
+	 * @param <P> the generic type
+	 * @param <T> the generic type
+	 * @param clazz the clazz
+	 * @param results Expected results
+	 * @return Mock.
+	 */
+	@SafeVarargs
+	public static <P, T extends EntitiesQuery<P>> T mockEntitiesQuery(Class<T> clazz, P... results) {
+		return mockEntitiesQuery(clazz, Arrays.asList(results));
+	}
+	
+	/**
+	 * Mocks a {@link PersistenceWorker} .
+	 *
+	 * @param <P> the generic type
+	 * @param onRead the on read
+	 * @param onUpdate the on update
+	 * @param onSave the on save
 	 * @return Mock.
 	 */
 	@SuppressWarnings("unchecked")
@@ -94,5 +111,4 @@ public class MockUtils {
 		}
 		return pw;
 	}
-
 }

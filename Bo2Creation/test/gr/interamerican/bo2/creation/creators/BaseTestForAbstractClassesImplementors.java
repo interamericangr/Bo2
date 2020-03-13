@@ -33,6 +33,7 @@ import gr.interamerican.bo2.samples.abstractimpl.AbstractComparableBeanWithIdAnd
 import gr.interamerican.bo2.samples.abstractimpl.AbstractSmartCalcImpl;
 import gr.interamerican.bo2.samples.abstractimpl.CriteriaDependentImpl;
 import gr.interamerican.bo2.samples.abstractimpl.MyCriteriaKeeper;
+import gr.interamerican.bo2.samples.abstractimpl.pkg2.MyCriteriaKeeperSub;
 import gr.interamerican.bo2.utils.DateUtils;
 
 import java.math.BigDecimal;
@@ -56,7 +57,7 @@ public class BaseTestForAbstractClassesImplementors {
 	/**
 	 * Creates a new BaseTestForAbstractClassesImplementors object. 
 	 *
-	 * @param creator
+	 * @param creator the creator
 	 */
 	public BaseTestForAbstractClassesImplementors(ImplementorForAbstractClasses creator) {
 		super();
@@ -65,9 +66,10 @@ public class BaseTestForAbstractClassesImplementors {
 
 	/**
 	 * Unit test for create.
-	 * @throws ClassCreationException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
 	public void testCreate_onlyWithFields() 
@@ -84,9 +86,10 @@ public class BaseTestForAbstractClassesImplementors {
 	
 	/**
 	 * Unit test for create.
-	 * @throws ClassCreationException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -115,9 +118,10 @@ public class BaseTestForAbstractClassesImplementors {
 	
 	/**
 	 * Unit test for create.
-	 * @throws ClassCreationException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -146,9 +150,10 @@ public class BaseTestForAbstractClassesImplementors {
 	
 	/**
 	 * Unit test for create.
-	 * @throws ClassCreationException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -176,9 +181,10 @@ public class BaseTestForAbstractClassesImplementors {
 	
 	/**
 	 * Unit test for create.
-	 * @throws ClassCreationException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -204,9 +210,10 @@ public class BaseTestForAbstractClassesImplementors {
 	
 	/**
 	 * Unit test for create.
-	 * @throws ClassCreationException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
 	public void testCreate_withPropertyOnStaticField() 
@@ -223,9 +230,10 @@ public class BaseTestForAbstractClassesImplementors {
 	
 	/**
 	 * Unit test for create.
-	 * @throws ClassCreationException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
 	public void testCreate_onlyWithFieldsAndInheritance() 
@@ -244,8 +252,8 @@ public class BaseTestForAbstractClassesImplementors {
 	/**
 	 * Unit test for create on abstract class that has fields to support
 	 * the properties, but they are not annotated as Property.
-	 * 
-	 * @throws ClassCreationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
 	 */
 	@Test(expected=ClassCreationException.class)
 	public void testCreate_notAllFieldsMarkedAsProperty() 
@@ -255,8 +263,8 @@ public class BaseTestForAbstractClassesImplementors {
 	
 	/**
 	 * Unit test for create on abstract class with odd properties.
-	 * 
-	 * @throws ClassCreationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
 	 */
 	@Test(expected=ClassCreationException.class)
 	public void testCreate_withOddProperties() 
@@ -266,7 +274,8 @@ public class BaseTestForAbstractClassesImplementors {
 	
 	/**
 	 * Unit test for create with interface.
-	 * @throws ClassCreationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
 	 */
 	@Test(expected=ClassCreationException.class)
 	public void testCreate_withInvalidType() 
@@ -277,8 +286,8 @@ public class BaseTestForAbstractClassesImplementors {
 	/**
 	 * Unit test for create with annotation that has wrong delegate
 	 * properties annotation.
-	 * 
-	 * @throws ClassCreationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
 	 */
 	@Test(expected=ClassCreationException.class)
 	public void testCreate_withWrongDelegatePropertiesAnno() 
@@ -300,10 +309,10 @@ public class BaseTestForAbstractClassesImplementors {
 	/**
 	 * Unit test for create that includes {@link Property}, {@link DelegateProperties}
 	 * and {@link DelegateMethods} annotations.
-	 * 
-	 * @throws ClassCreationException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -338,9 +347,10 @@ public class BaseTestForAbstractClassesImplementors {
 	
 	/**
 	 * Unit test for wrongDelegate.
-	 * @throws ClassCreationException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@SuppressWarnings("unchecked")
 	@Test()
@@ -360,9 +370,10 @@ public class BaseTestForAbstractClassesImplementors {
 	
 	/**
 	 * Unit test for wrongDelegate.
-	 * @throws ClassCreationException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@SuppressWarnings({ "unchecked", "nls" })
 	@Test()
@@ -390,9 +401,10 @@ public class BaseTestForAbstractClassesImplementors {
 	
 	/**
 	 * Unit test for wrongDelegate.
-	 * @throws ClassCreationException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@SuppressWarnings({ "unchecked", "nls" })
 	@Test()
@@ -419,7 +431,8 @@ public class BaseTestForAbstractClassesImplementors {
 	
 	/**
 	 * Unit test for wrongDelegate.
-	 * @throws ClassCreationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
 	 */
 	@Test(expected=ClassCreationException.class)
 	public void testCreate_withWrongDelegateToOtherAnno() 
@@ -429,9 +442,10 @@ public class BaseTestForAbstractClassesImplementors {
 	
 	/**
 	 * Unit test for create.
-	 * @throws ClassCreationException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test()
 	public void testCreate_withGenericInterface() 
@@ -445,11 +459,11 @@ public class BaseTestForAbstractClassesImplementors {
 	}
 	
 	/**
-	 * Unit test for create for covariant odd properties
-	 * 
-	 * @throws ClassCreationException
-	 * @throws InstantiationException
-	 * @throws IllegalAccessException
+	 * Unit test for create for covariant odd properties.
+	 *
+	 * @throws ClassCreationException the class creation exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
 	 */
 	@Test
 	public void testCreate_withOddProperties_covariantGetter()
@@ -458,6 +472,21 @@ public class BaseTestForAbstractClassesImplementors {
 		CriteriaDependentImpl impl = (CriteriaDependentImpl) type.newInstance();
 		impl.setCriteria(DateUtils.today());
 		Assert.assertEquals(DateUtils.today(), impl.getCriteria());
+	}
+	
+	/**
+	 * Test create with default field and different package subclass.
+	 *
+	 * @throws ClassCreationException the class creation exception
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 */
+	@Test
+	public void testCreate_withDefaultFieldAndDifferentPackageSubclass()
+	throws ClassCreationException, InstantiationException, IllegalAccessException {
+		Class<?> type = creator.create(MyCriteriaKeeperSub.class);
+		MyCriteriaKeeperSub sub = (MyCriteriaKeeperSub) type.newInstance();
+		Assert.assertEquals((Integer) MyCriteriaKeeperSub.ID, sub.getCriteria());
 	}
 	
 }

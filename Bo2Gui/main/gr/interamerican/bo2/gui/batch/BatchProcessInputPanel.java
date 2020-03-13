@@ -43,7 +43,7 @@ public class BatchProcessInputPanel extends BPanelForMap<Properties> {
 	/**
 	 * Creates a new non editable BatchProcessInputPanel object. 
 	 *
-	 * @param model 
+	 * @param model the model
 	 */
 	public BatchProcessInputPanel(Properties model) {
 		this(model,false);

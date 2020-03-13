@@ -12,15 +12,14 @@
  ******************************************************************************/
 package gr.interamerican.wicket.bo2.markup.html.form;
 
-import gr.interamerican.bo2.utils.meta.descriptors.NumberBoPropertyDescriptor;
-
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.util.convert.converter.AbstractDecimalConverter;
+
+import gr.interamerican.bo2.utils.meta.descriptors.NumberBoPropertyDescriptor;
 
 /**
  * Self-drawn Long TextField.
  */
-public class SelfDrawnLongTextField extends AbstractSelfDrawnNumberTextField<Long>{
+public class SelfDrawnLongTextField extends AbstractSelfDrawnTextField<Long>{
 
 	/**
 	 * serialVersionUID.
@@ -30,27 +29,21 @@ public class SelfDrawnLongTextField extends AbstractSelfDrawnNumberTextField<Lon
 	/**
 	 * Creates a new LongSelfDrawnTextField object. 
 	 *
-	 * @param id
-	 * @param descriptor
+	 * @param id the id
+	 * @param descriptor the descriptor
 	 */
 	public SelfDrawnLongTextField(String id, NumberBoPropertyDescriptor<Long> descriptor) {
 		super(id, descriptor, Long.class);
 	}
 	
 	/**
-     * Creates a new LongSelfDrawnTextField object.
-     *
-     * @param id
-     * @param descriptor
-     * @param model
-     */
+	 * Creates a new LongSelfDrawnTextField object.
+	 *
+	 * @param id the id
+	 * @param model the model
+	 * @param descriptor the descriptor
+	 */
     public SelfDrawnLongTextField(String id, IModel<Long> model, NumberBoPropertyDescriptor<Long> descriptor) {
         super(id, model, descriptor, Long.class);
     }
-    
-    @Override
-    protected AbstractDecimalConverter<Long> getNumberCoverter() {
-    	return null;
-    }
-    
 }

@@ -19,7 +19,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Constants for CodeGen class
+ * Constants for CodeGen class.
  */
 @SuppressWarnings("nls")
 public class CodeGenerationConstants {
@@ -29,14 +29,10 @@ public class CodeGenerationConstants {
 	 */
 	private CodeGenerationConstants() {/* empty */}
 	
-	/**
-	 * a semicolon
-	 */
+	/** a semicolon. */
 	public static final String SEMICOLON = ";"; 
 	
-	/**
-	 * Start comments
-	 */
+	/** Start comments. */
 	public static final String COMMENT_START = "/*";
 	
 	/**
@@ -55,139 +51,89 @@ public class CodeGenerationConstants {
 	public static final String CR = "\n"; 
 
 	
-	/**
-	 * an opening bracket
-	 */
+	/** an opening bracket. */
 	public static final String OPENING_CURLY_BRACKET = "{"; 
 	
-	/**
-	 * a closing bracket
-	 */
+	/** a closing bracket. */
 	public static final String CLOSING_CURLY_BRACKET = "}"; 
 	
-	/**
-	 * an opening parenthesis
-	 */
+	/** an opening parenthesis. */
 	public static final String OPENING_PARENTHESIS = "("; 
 	
-	/**
-	 * a closing parenthesis
-	 */
+	/** a closing parenthesis. */
 	public static final String CLOSING_PARENTHESIS = ")";
 	
-	/**
-	 * an opening parenthesis
-	 */
+	/** an opening parenthesis. */
 	public static final String OPENING_BRACKET = "["; 
 	
-	/**
-	 * a closing parenthesis
-	 */
+	/** a closing parenthesis. */
 	public static final String CLOSING_BRACKET = "]"; 
 	
 	/**
-	 * less than <.
+	 * less than &lt;.
 	 */
 	public static final String LT = "<"; 
 	
 	/**
-	 * greater than >.
+	 * greater than &gt;.
 	 */
 	public static final String GT = ">"; 
 	
-	/**
-	 * a space
-	 */
+	/** a space. */
 	public static final String SPACE = " ";  
 	
-	/**
-	 * a tab
-	 */
+	/** a tab. */
 	public static final String TAB = "\t";
 	
-	/**
-	 * change line
-	 */
+	/** change line. */
 	public static final String NEWLINE = "\n";
 	
-	/**
-	 * equals
-	 */
+	/** equals. */
 	public static final String EQUALS = "="; 
 	
-	/**
-	 * this java keyword
-	 */
+	/** this java keyword. */
 	public static final String KEYWORD_THIS = "this"; 
 	
-	/**
-	 * return java keyword
-	 */
+	/** return java keyword. */
 	public static final String KEYWORD_RETURN = "return";
 	
-	/**
-	 * new java keyword
-	 */
+	/** new java keyword. */
 	public static final String KEYWORD_NEW = "new";
 	
-	/**
-	 * void java keyword
-	 */
+	/** void java keyword. */
 	public static final String KEYWORD_VOID = "void";
 	
-	/**
-	 * super java keyword
-	 */
+	/** super java keyword. */
 	public static final String KEYWORD_SUPER = "super";
 	
-	/**
-	 * null java keyword
-	 */
+	/** null java keyword. */
 	public static final String KEYWORD_NULL = "null";
 	
-	/**
-	 * if
-	 */
+	/** if. */
 	public static final String IF = "if";
 	
-	/**
-	 * a dot
-	 */
+	/** a dot. */
 	public static final String DOT = ".";
 	
-	/**
-	 * a comma
-	 */
+	/** a comma. */
 	public static final String COMMA = ",";
 	
-	/**
-	 * empty string 
-	 */
+	/** empty string. */
 	public static final String EMPTY_STRING = "";
 	
-	/**
-	 * the public modifier
-	 */
+	/** the public modifier. */
 	public static final String MODIFIER_PUBLIC = "public";
 	
-	/**
-	 * the private modifier
-	 */
+	/** the private modifier. */
 	public static final String MODIFIER_PRIVATE = "private"; 
 	
-	/**
-	 * suffix of a getter method
-	 */
+	/** suffix of a getter method. */
 	public static final String GETTER_PREFIX = "get"; 
 	
-	/**
-	 * suffix of a setter method
-	 */
+	/** suffix of a setter method. */
 	public static final String SETTER_PREFIX = "set"; 
 	
-	/**
-	 * a method parameter suffix (param1, param2 etc) 
-	 */
+	/** a method parameter suffix (param1, param2 etc). */
 	public static final String PARAMETER_SUFFIX = "param";
 	
 	/**
@@ -195,24 +141,16 @@ public class CodeGenerationConstants {
 	 */
 	public static final String CLASS_EXTENSION = "class";
 	
-	/**
-	 * create (a method of {@link Set})
-	 */
+	/** create (a method of {@link Set}). */
 	public static final String SET_ADDALL_METHOD = "addAll";
 	
-	/**
-	 * create (a method of {@link Set})
-	 */
+	/** create (a method of {@link Set}). */
 	public static final String SET_CLEAR_METHOD = "clear";
 	
-	/**
-	 * a double quote
-	 */
+	/** a double quote. */
 	public static final String DOUBLEQUOTE = "\"";
 	
-	/**
-	 * an comment indicating an empty code segment
-	 */
+	/** an comment indicating an empty code segment. */
 	public static final String COMMENT_EMPTY = "/* empty */";
 		
 	/**
@@ -240,23 +178,15 @@ public class CodeGenerationConstants {
 	 */
 	public static final String LONG_CLASSNAME = Long.class.getName();
 	
-	/**
-	 * the FQCN of {@link ReflectionUtils}
-	 */
+	/** the FQCN of {@link ReflectionUtils}. */
 	public static final String REFLECTIONUTILS_CLASSNAME = ReflectionUtils.class.getName();
 	
-	/**
-	 * the FQCN of Class
-	 */
+	/** the FQCN of Class. */
 	public static final String CLASS_CLASSNAME = Class.class.getName();
 	
-	/**
-	 * the FQCN of {@link Serializable}
-	 */
+	/** the FQCN of {@link Serializable}. */
 	public static final String SERIALIZABLE = "java.io.Serializable";
 	
-	/**
-	 * the FQCN of {@link Serializable}
-	 */
+	/** the FQCN of {@link Serializable}. */
 	public static final String SERIALIAL_VERSION_UID = "serialVersionUID";
 }

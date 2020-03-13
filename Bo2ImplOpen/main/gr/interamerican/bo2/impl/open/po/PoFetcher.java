@@ -52,33 +52,28 @@ public class PoFetcher {
 			new TypeBasedSelection<Modification<?>>();
 
 	/**
-	 * Registers a global cache for a PersistentObject class. <br/>
+	 * Registers a global cache for a PersistentObject class. <br>
 	 * 
 	 * If there is already a cache for the same class, then the old class
 	 * will be replaced by a new empty cache.
-	 * <br/>
+	 * <br>
 	 * When a cache is registered for a class, then the objects of this
 	 * cache must be usable by different threads, because the cache is
 	 * static, so the same object could be served to different clients.
 	 * Modification of a cached object by one thread, will have side effects
-	 * in a multithreaded environment as a web application. <br/>
+	 * in a multithreaded environment as a web application. <br>
 	 * Persistent classes that require binding of the persistent entity
 	 * with an instance of the persister are not suitable for being
 	 * cached in static space. Persistent classes that could have parts of
 	 * them lazily loaded by an ORM framework fall to this category,
 	 * because instances of these classes need a persister attached to them
 	 * in order to deal with lazily loaded parts of the object.
-	 * 
-	 * @param poClass
-	 *        Class of {@link PersistentObject}s being stored in the
+	 *
+	 * @param <K>        Type of persistent object key.
+	 * @param <P>        Type of persistent object
+	 * @param poClass        Class of {@link PersistentObject}s being stored in the
 	 *        cache.
-	 * @param maxSize
-	 *        Maximum size of cache.
-	 * @param <K>
-	 *        Type of persistent object key.
-	 * @param <P>
-	 *        Type of persistent object
-	 * 
+	 * @param maxSize        Maximum size of cache.
 	 */
 	public static <K extends Serializable & Comparable<? super K>, P extends PersistentObject<K>>
 	void setCacheSize (Class<P> poClass, int maxSize) {
@@ -86,35 +81,29 @@ public class PoFetcher {
 	}
 
 	/**
-	 * Registers a global cache for a PersistentObject class. <br/>
+	 * Registers a global cache for a PersistentObject class. <br>
 	 * 
 	 * If there is already a cache for the same class, then the old class
 	 * will be replaced by a new empty cache.
-	 * <br/>
+	 * <br>
 	 * When a cache is registered for a class, then the objects of this
 	 * cache must be usable by different threads, because the cache is
 	 * static, so the same object could be served to different clients.
 	 * Modification of a cached object by one thread, will have side effects
-	 * in a multithreaded environment as a web application. <br/>
+	 * in a multithreaded environment as a web application. <br>
 	 * Persistent classes that require binding of the persistent entity
 	 * with an instance of the persister are not suitable for being
 	 * cached in static space. Persistent classes that could have parts of
 	 * them lazily loaded by an ORM framework fall to this category,
 	 * because instances of these classes need a persister attached to them
 	 * in order to deal with lazily loaded parts of the object.
-	 * 
-	 * @param poClass
-	 *        Class of {@link PersistentObject}s being stored in the
+	 *
+	 * @param <K>        Type of persistent object key.
+	 * @param <P>        Type of persistent object
+	 * @param poClass        Class of {@link PersistentObject}s being stored in the
 	 *        cache.
-	 * @param maxSize
-	 *        Maximum size of cache.
-	 * @param <K>
-	 *        Type of persistent object key.
-	 * @param <P>
-	 *        Type of persistent object
-	 * 
+	 * @param maxSize        Maximum size of cache.
 	 * @return Returns the cache.
-	 * 
 	 */
 	static <K extends Serializable & Comparable<? super K>, P extends PersistentObject<K>>
 	PoCache<K, P> newCache (Class<P> poClass, int maxSize) {
@@ -128,18 +117,12 @@ public class PoFetcher {
 
 	/**
 	 * Gets the cache for the specified class.
-	 * 
-	 * @param poClass
-	 *        Class of {@link PersistentObject}s being stored in the
+	 *
+	 * @param <K>        Type of persistent object key.
+	 * @param <P>        Type of persistent object
+	 * @param poClass        Class of {@link PersistentObject}s being stored in the
 	 *        cache.
-	 * 
-	 * @param <K>
-	 *        Type of persistent object key.
-	 * @param <P>
-	 *        Type of persistent object
-	 * 
 	 * @return Returns the cache.
-	 * 
 	 */
 	static synchronized <K extends Serializable & Comparable<? super K>, P extends PersistentObject<K>>
 	PoCache<K, P> getCache (Class<P> poClass) {
@@ -157,24 +140,24 @@ public class PoFetcher {
 	 * 
 	 * If class P is a child of class Q, and class Q has a method that takes
 	 * one argument of type equal with the type of key of class P, then
-	 * this method can be used to fetch elements of P. <br/>
+	 * this method can be used to fetch elements of P. <br>
 	 * 
-	 * If Q is PersistentObject<L> and  P is PersistentObject<K> and
+	 * If Q is PersistentObject&lt;L&gt; and  P is PersistentObject&lt;K&gt; and
 	 * P is a child element of Q, then if Q has a method that takes
 	 * an element of type K (key type of P), and returns an instance
-	 * of P, then this method can be used to fetch elements of P. <br/>
+	 * of P, then this method can be used to fetch elements of P. <br>
 	 * This feature is useful in the case that a cache has been registered
 	 * for the type Q. In this case, the elements of P are children of Q
-	 * and they could be retrieved from their cached Q parent. <br/>
-	 * 
-	 * @param <K>
-	 * @param <P>
-	 * @param <L>
-	 * @param <Q>
-	 * @param poClass
-	 * @param fatherClass
-	 * @param methodName
-	 * @param argNames
+	 * and they could be retrieved from their cached Q parent. <br>
+	 *
+	 * @param <K> the key type
+	 * @param <P> the generic type
+	 * @param <L> the generic type
+	 * @param <Q> the generic type
+	 * @param poClass the po class
+	 * @param fatherClass the father class
+	 * @param methodName the method name
+	 * @param argNames the arg names
 	 */
 	@SuppressWarnings("nls")
 	public static
@@ -230,13 +213,11 @@ public class PoFetcher {
 	 * This method is useful in unit testing by putting fixture objects
 	 * in the cache and thus imitating the behavior of a system that would
 	 * read these fixtures from the database.
-	 * 
-	 * @param poClass
-	 *        Class of persistent objects.
-	 * @param po
-	 *        Persistent object to put in the cache.
-	 * @param <K>
-	 * @param <P>
+	 *
+	 * @param <K> the key type
+	 * @param <P> the generic type
+	 * @param poClass        Class of persistent objects.
+	 * @param po        Persistent object to put in the cache.
 	 */
 	public static
 	<K extends Serializable & Comparable<? super K>, P extends PersistentObject<K>>
@@ -247,11 +228,11 @@ public class PoFetcher {
 
 	/**
 	 * Unloads the given element from the cache.
-	 * 
-	 * @param poClass
-	 *            of the element
-	 * @param po
-	 *            to remove.
+	 *
+	 * @param <K> the key type
+	 * @param <P> the generic type
+	 * @param poClass            of the element
+	 * @param po            to remove.
 	 */
 	public static <K extends Serializable & Comparable<? super K>, P extends PersistentObject<K>> void unload(
 			Class<P> poClass, P po) {
@@ -266,14 +247,10 @@ public class PoFetcher {
 	 * with the specified class. If there is no cache already created
 	 * for the specified class, then a new cache with size 0 is created.
 	 *
-	 * @param poClass
-	 *        Class of persistent object.
-	 * @param key
-	 *        Key of the specified persistent object.
-	 * 
-	 * @param <K>
-	 * @param <P>
-	 * 
+	 * @param <K> the key type
+	 * @param <P> the generic type
+	 * @param poClass        Class of persistent object.
+	 * @param key        Key of the specified persistent object.
 	 * @return Returns the cache for the specified class.
 	 */
 	@SuppressWarnings("unchecked")
@@ -324,18 +301,14 @@ public class PoFetcher {
 	 * If the persistent object type P has a reference to a persistent object
 	 * R by having the properties of R's key, then this method can be used
 	 * to fetch the R instance that is referenced by the specified P po.
-	 * 
-	 * @param po
-	 *        Persistent object that contains a reference to another
+	 *
+	 * @param <K> the key type
+	 * @param <P> the generic type
+	 * @param <L> the generic type
+	 * @param <Q> the generic type
+	 * @param po        Persistent object that contains a reference to another
 	 *        persistent object's key properties.
-	 * @param refClass
-	 *        Class of the referenced persistent object.
-	 * 
-	 * @param <K>
-	 * @param <P>
-	 * @param <L>
-	 * @param <Q>
-	 * 
+	 * @param refClass        Class of the referenced persistent object.
 	 * @return Returns the referenced persistent object.
 	 */
 	@SuppressWarnings({ "unchecked" })
@@ -398,9 +371,8 @@ public class PoFetcher {
 		 * Class of Key.
 		 */
 		Class<?> poKeyClass;
-		/**
-		 * Method that selects the child
-		 */
+		
+		/** Method that selects the child. */
 		Method method;
 		/**
 		 * Names of key properties that are also method arguments.

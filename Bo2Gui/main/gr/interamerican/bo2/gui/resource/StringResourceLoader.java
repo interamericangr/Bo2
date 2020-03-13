@@ -20,10 +20,10 @@ import java.awt.Component;
 public interface StringResourceLoader {
 	
 	/**
-	 * Loads the resource with the specified key for the specified component
-	 * 
-	 * @param component
-	 * @param key
+	 * Loads the resource with the specified key for the specified component.
+	 *
+	 * @param component the component
+	 * @param key the key
 	 * @return String resource.
 	 */
 	String loadStringResource(Component component, String key);

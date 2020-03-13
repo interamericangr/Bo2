@@ -18,7 +18,7 @@ import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.meta.formatters.Formatter;
 
 /**
- * {@link Formatter} for {@link TypedSelectable} objects. <br/>
+ * {@link Formatter} for {@link TypedSelectable} objects. <br>
  * 
  * The formatter writes the TypeId,SubTypeId,Code separated by commas.
  * The String representations of these properties are created by the
@@ -27,11 +27,10 @@ import gr.interamerican.bo2.utils.meta.formatters.Formatter;
 public class TypedSelectableFormatter 
 implements Formatter<TypedSelectable<?>> {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	public String format(TypedSelectable<?> t) {			
 		return StringUtils.concat(
 				StringUtils.toString(t.getTypeId()),
@@ -40,5 +39,4 @@ implements Formatter<TypedSelectable<?>> {
 				StringConstants.COMMA,
 				StringUtils.toString(t.getCode()));	
 	}
-
 }

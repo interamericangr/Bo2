@@ -32,10 +32,11 @@ import org.junit.Test;
 public class TestPoCache {
 
 	/**
-	 * Test for get,
-	 * @throws UnexpectedException
-	 * @throws DataException
-	 * @throws LogicException
+	 * Test for get,.
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testGet() throws UnexpectedException, DataException, LogicException {
@@ -94,7 +95,7 @@ public class TestPoCache {
 	}
 
 	/**
-	 * test for remove
+	 * test for remove.
 	 */
 	@Test
 	public void testRemove() {

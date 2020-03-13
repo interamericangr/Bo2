@@ -20,7 +20,7 @@ import gr.interamerican.bo2.samples.ibean.IBeanWithIdAndName;
 import gr.interamerican.bo2.test.def.samples.enums.Sex;
 
 /**
- * 
+ * The Interface SamplePo.
  */
 public interface SamplePo 
 extends SamplePoKP, PersistentObject<SamplePoKey>, 
@@ -28,69 +28,79 @@ ModificationRecord, SampleCalculator, SampleJavaBean3,
 TypedSelectable<Long>, IBeanWithIdAndName, 
 PoDependent<SamplePoForTest>
 {	
+	
 	/**
-	 * Sets the serial no
-	 * 
-	 * @param serialNo
+	 * Sets the serial no.
+	 *
+	 * @param serialNo the new serial no
 	 */
 	public void setSerialNo(Long serialNo);
 	
 	/**
+	 * Gets the serial no.
+	 *
 	 * @return the serial no
 	 */
 	public Long getSerialNo();
 	
 	/**
 	 * hack used to initialize class fields
-	 * with @DelegateProperties or @DelegateMethods
+	 * with @DelegateProperties or @DelegateMethods.
 	 */
 	public void init();
 	
 	/**
-	 * 
-	 * @param longs
+	 * Sets the longs.
+	 *
+	 * @param longs the new longs
 	 */
 	void setLongs(Long[] longs);
 	
 	/**
-	 * 
-	 * @return
+	 * Gets the longs.
+	 *
+	 * @return the longs
 	 */
 	Long[] getLongs();
 	
 	/**
-	 * 
-	 * @param bytes
+	 * Sets the bytes.
+	 *
+	 * @param bytes the new bytes
 	 */
 	void setBytes(byte[] bytes);
 	
 	/**
-	 * 
-	 * @return
+	 * Gets the bytes.
+	 *
+	 * @return the bytes
 	 */
 	byte[] getBytes();
 	
 	/**
-	 * 
-	 * @return
+	 * Gets the i.
+	 *
+	 * @return the i
 	 */
 	int getI();
 	
 	/**
-	 * 
-	 * @param i
+	 * Sets the i.
+	 *
+	 * @param i the new i
 	 */
 	void setI(int i);
 	
 	/**
-	 * Enum
-	 * @param sex
+	 * Enum.
+	 *
+	 * @param sex the new sex
 	 */
 	void setSex(Sex sex);
 	
 	/**
 	 * Enum
-	 * @return
+	 * @return the sex
 	 */
 	Sex getSex();
 	

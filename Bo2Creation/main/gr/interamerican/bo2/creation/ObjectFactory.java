@@ -13,13 +13,13 @@
 package gr.interamerican.bo2.creation;
 
 /**
- * Object Factory. <br/>
+ * Object Factory. <br>
  * 
  * This factory supports the distinction of declaration and implementation types.
  * The declaration type can be an interface, an abstract class or even a concrete
  * class. The implementation type is always a concrete class. The implementation
  * type does not need to pre-exist; it could be created dynamically by the factory. 
- * <br/>
+ * <br>
  * The methods of this factory are declared as not throwing exception. This is so
  * in order to make the code that uses the factory more readable. Any exception 
  * thrown by the method's of the ObjectFactory should be wrapped inside a 
@@ -29,17 +29,14 @@ public interface ObjectFactory {
 
 	/**
 	 * Creates an object of the specified type.
-	 * 
-	 * @param type 
-	 *        Declaration type of the object to be created.
+	 *
+	 * @param <M>        Type of object to be created.
+	 * @param type        Declaration type of the object to be created.
 	 *        The declaration type, could be an interface, abstract
 	 *        or concrete class.
-	 * @param <M> 
-	 *        Type of object to be created.
-	 * 
 	 * @return Returns an object of the specified type.
 	 *         The implementation type of the returned object is
-	 *         the type returned by <code>getImplementationType(Class<?> declarationType)</code>.
+	 *         the type returned by <code>getImplementationType(Class&lt;?&gt; declarationType)</code>.
 	 */
 	public <M> M create(Class<M> type);
 
@@ -63,7 +60,7 @@ public interface ObjectFactory {
 	 * If it is not existing, the Factory first checks the available type
 	 * mappings to get an implementation name. If no implementation name is
 	 * found, the Factory uses a NameResolver in order to get the class name of
-	 * the default implementation (i.e. gr.intermarican...def...Foo -->
+	 * the default implementation (i.e. gr.intermarican...def...Foo --&gt;
 	 * gr.interamerican...impl...FooImpl).
 	 * 
 	 * The Factory goes on to load that class, unless (a) it is abstract or (b)
@@ -80,9 +77,9 @@ public interface ObjectFactory {
 
 	/**
 	 * Returns the implementation type that corresponds to a declaration
-	 * type name. <br/>
+	 * type name. <br>
 	 * 
-	 * The work is delegated to getImplementationType(Class<?> type) as soon
+	 * The work is delegated to getImplementationType(Class&lt;?&gt; type) as soon
 	 * as the declaration type is resolved from the declaration type name.
 	 * 
 	 * @param declarationTypeName 
@@ -128,14 +125,14 @@ public interface ObjectFactory {
 	 * Registers a fixture that this {@link ObjectFactory} will use
 	 * when the application requires the creation of an object instance
 	 * for the supplied <code>declarationType</code>
-	 * <br/>
+	 * <br>
 	 * The normal process for object creation will not be used if a
 	 * fixture has been set. 
-	 * <br/>
+	 * <br>
 	 * This facility is meant to allow developers to specify mock instances
 	 * to be created for a declarationType in certain unit testing scenarios
 	 * where the actual implementation is not available in the classpath.
-	 * <br/>
+	 * <br>
 	 * The fixtures only affect calls to the {@link #create(Class)} method
 	 * of the {@link ObjectFactory}. 
 	 *
@@ -153,15 +150,15 @@ public interface ObjectFactory {
 	 * Registers a fixture that this {@link ObjectFactory} will use
 	 * when the application requires the creation of an object instance
 	 * for the supplied <code>declarationType</code>
-	 * <br/>
+	 * <br>
 	 * The normal process for object creation will not be used if a
 	 * fixture has been set. 
-	 * <br/>
+	 * <br>
 	 * This facility is meant to allow developers to specify ObjectFactory 
 	 * instances that will be used for the instantiation of a declarationType 
 	 * in certain unit testing scenarios where the actual implementation 
 	 * is not available in the classpath.
-	 * <br/>
+	 * <br>
 	 * The fixtures only affect calls to the {@link #create(Class)} method
 	 * of this {@link ObjectFactory}. 
 	 *
@@ -176,7 +173,7 @@ public interface ObjectFactory {
 	
 	/**
 	 * Resets any fixtures configured programmatically using 
-	 * {@link #registerFixture(Class, Object)}
+	 * {@link #registerFixture(Class, Object)}.
 	 */
 	void resetFixtures();
 

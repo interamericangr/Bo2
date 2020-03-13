@@ -17,7 +17,7 @@ import gr.interamerican.bo2.utils.attributes.SimpleCommand;
 /**
  * {@link FailSafeCommand} is a wrapper for {@link SimpleCommand}s that
  * guarantees that the execute method will never throw an exception,
- * not even a {@link RuntimeException}. <br/>
+ * not even a {@link RuntimeException}. <br>
  * 
  * PeriodicCommand is a wrapper around a SimpleCommand. The SimpleCommand
  * will be executed once for every x executions of the PeriodicCommand, 

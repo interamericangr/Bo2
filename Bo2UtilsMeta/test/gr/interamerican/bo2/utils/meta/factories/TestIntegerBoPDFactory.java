@@ -21,21 +21,20 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * 
+ * A factory for creating TestIntegerBoPD objects.
  */
 public class TestIntegerBoPDFactory {
 
 	
 	
-	/**
-	 * SamplePropertyDefinition
-	 */
+	/** SamplePropertyDefinition. */
 	SamplePropertyDefinition pd =  new SamplePropertyDefinition();
 	
 	
 	/**
-	 * Test create
-	 * @throws ParseException 
+	 * Test create.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@SuppressWarnings({ "nls" })
 	@Test
@@ -52,9 +51,9 @@ public class TestIntegerBoPDFactory {
 	}
 	
 	/**
-	 * test Create when fails
-	 * @throws ParseException 
-	 * 
+	 * test Create when fails.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@SuppressWarnings({ "nls" })
 	@Test(expected = ParseException.class)
@@ -66,8 +65,9 @@ public class TestIntegerBoPDFactory {
 	}
 	
 	/**
-	 * Test for the generated max length
-	 * @throws ParseException 
+	 * Test for the generated max length.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@Test
 	public void testMaxLength() throws ParseException{

@@ -36,8 +36,8 @@ public class SuffixNameResolver implements NameResolver {
 		super();
 		this.suffix = suffix;
 	}
-
 	
+	@Override
 	public String getImplementationName(
 			String interfaceName) {
 		if (interfaceName == null) {
@@ -46,7 +46,7 @@ public class SuffixNameResolver implements NameResolver {
 		return interfaceName.trim() + suffix; 
 	}
 
-	
+	@Override
 	public String getDeclarationName(String implementationName) {
 		if (implementationName == null) {
 			return null;
@@ -59,5 +59,4 @@ public class SuffixNameResolver implements NameResolver {
 		}		 
 		return implementationName;
 	}
-
 }

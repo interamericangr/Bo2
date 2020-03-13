@@ -39,10 +39,10 @@ public class TestEntitiesQueryCmd {
 
 	/**
 	 * Test method for EntitiesQueryCmd#getResults()} .
-	 * 
-	 * @throws UnexpectedException
-	 * @throws DataException
-	 * @throws LogicException
+	 *
+	 * @throws LogicException the logic exception
+	 * @throws DataException the data exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test
 	public void testGetResults() throws LogicException, DataException, UnexpectedException {

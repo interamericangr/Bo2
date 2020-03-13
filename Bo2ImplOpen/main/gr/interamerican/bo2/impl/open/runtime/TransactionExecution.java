@@ -13,7 +13,7 @@
 package gr.interamerican.bo2.impl.open.runtime;
 
 /**
- * 
+ * The Class TransactionExecution.
  */
 public class TransactionExecution {
 	// empty

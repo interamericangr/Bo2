@@ -16,7 +16,7 @@ import gr.interamerican.bo2.arch.Key;
 import gr.interamerican.bo2.impl.open.annotations.KeyProperties;
 
 /**
- * 
+ * The Interface PlanetKey.
  */
 @KeyProperties("planetId")
 public interface PlanetKey extends PlanetKP, Key {

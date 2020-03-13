@@ -35,91 +35,89 @@ public class Erasers {
 	/**
 	 * Maps classes to modifications that delete them.
 	 */
-	static final Map<Class<?>, Modification<?>> erasers = 
-		new HashMap<Class<?>, Modification<?>>();
-	
+	static final Map<Class<?>, Modification<?>> erasers = new HashMap<Class<?>, Modification<?>>();
+
 	/**
-	 * Gets a cleaner modification that deletes instances of 
-	 * the specified class.
-	 * 
+	 * Gets a cleaner modification that deletes instances of the specified
+	 * class.
+	 *
 	 * @param <T>
+	 *            the generic type
 	 * @param clazz
-	 * 
-	 * @return Returns a {@link Modification} that deletes a 
-	 *         persistent object. 
+	 *            the clazz
+	 * @return Returns a {@link Modification} that deletes a persistent object.
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes", "nls" })
-	public static <T> Modification<T>
-	getEraser(Class<T> clazz) {		
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	public static <T> Modification<T> getEraser(Class<T> clazz) {
 		Modification<T> eraser = (Modification<T>) erasers.get(clazz);
-		if (eraser==null) {
-			if (PersistentObject.class.isAssignableFrom(clazz)) {				
-				Class<? extends PersistentObject<?>> poClass = 
-					(Class<? extends PersistentObject<?>>) clazz;				
-				eraser = new CleanerImpl(poClass);				
+		if (eraser == null) {
+			if (PersistentObject.class.isAssignableFrom(clazz)) {
+				Class<? extends PersistentObject<?>> poClass = (Class<? extends PersistentObject<?>>) clazz;
+				eraser = new CleanerImpl(poClass);
 			} else {
-				String msg = "Eraser not found for class " + clazz.getName();
+				String msg = "Eraser not found for class " + clazz.getName(); //$NON-NLS-1$
 				throw new RuntimeException(msg);
-			}			
+			}
 		}
 		return eraser;
 	}
-	
+
 	/**
 	 * Registers a cleaner for a class.
-	 * 
+	 *
 	 * @param <T>
+	 *            the generic type
 	 * @param clazz
+	 *            the clazz
 	 * @param eraser
+	 *            the eraser
 	 */
-	public static <T extends PersistentObject<?>> 
-	void register(Class<T> clazz, Modification<T> eraser) {
+	public static <T extends PersistentObject<?>> void register(Class<T> clazz, Modification<T> eraser) {
 		erasers.put(clazz, eraser);
 	}
-	
-	
 
 	/**
 	 * Deletes the specified object.
-	 * 
+	 *
 	 * @param <T>
+	 *            the generic type
 	 * @param clazz
+	 *            the clazz
 	 * @param o
+	 *            the o
 	 */
-	public static <T> 
-	void erase(Class<T> clazz, T o) {
-		if (o!=null) {
+	public static <T> void erase(Class<T> clazz, T o) {
+		if (o != null) {
 			Modification<T> del = getEraser(clazz);
 			del.execute(o);
-		}		
+		}
 	}
-	
-	
-	
+
 	/**
 	 * Modification that deletes a persistent object.
-	 * 
+	 *
 	 * @param <T>
+	 *            the generic type
 	 */
-	static class CleanerImpl<T extends PersistentObject<?>> 
-	implements Modification<T> {
+	static class CleanerImpl<T extends PersistentObject<?>> implements Modification<T> {
 		/**
 		 * Crud command.
 		 */
 		CrudCmd<T> crud;
 
 		/**
-		 * Creates a new SimpleCleaner object. 
+		 * Creates a new SimpleCleaner object.
 		 *
 		 * @param poClass
+		 *            the po class
 		 */
 		CleanerImpl(Class<T> poClass) {
-			super();
-			this.crud = new CrudCmd<T>(Factory.createPw(poClass),true);
+			this.crud = new CrudCmd<T>(Factory.createPw(poClass), true);
 		}
-		
+
+		@Override
 		public T execute(T a) {
-			if (a==null) {
+			if (a == null) {
 				return null;
 			}
 			try {
@@ -130,8 +128,7 @@ public class Erasers {
 				throw new RuntimeException(e);
 			} catch (LogicException e) {
 				throw new RuntimeException(e);
-			}		
+			}
 		}
 	}
-
 }

@@ -59,8 +59,9 @@ public class TestOdfToolkitEngine {
 	}
 	
 	/**
-	 * Test for newDocument()
-	 * @throws DocumentEngineException 
+	 * Test for newDocument().
+	 *
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	@Test
 	public void testNewDocument() throws DocumentEngineException {
@@ -69,8 +70,9 @@ public class TestOdfToolkitEngine {
 	}
 	
 	/**
-	 * Test for newDocument()
-	 * @throws DocumentEngineException 
+	 * Test for newDocument().
+	 *
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	@Test
 	public void testOpenDocument_path() throws DocumentEngineException {		
@@ -79,8 +81,9 @@ public class TestOdfToolkitEngine {
 	}
 	
 	/**
-	 * Test for newDocument()
-	 * @throws DocumentEngineException 
+	 * Test for newDocument().
+	 *
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	@Test
 	public void testOpenDocument_file() throws DocumentEngineException {
@@ -90,9 +93,10 @@ public class TestOdfToolkitEngine {
 	}
 	
 	/**
-	 * Test for newDocument()
-	 * @throws DocumentEngineException 
-	 * @throws FileNotFoundException 
+	 * Test for newDocument().
+	 *
+	 * @throws DocumentEngineException the document engine exception
+	 * @throws FileNotFoundException the file not found exception
 	 */
 	@Test
 	public void testOpenDocument_stream() 
@@ -104,8 +108,9 @@ public class TestOdfToolkitEngine {
 	}
 	
 	/**
-	 * Test for newDocument()
-	 * @throws DocumentEngineException 
+	 * Test for newDocument().
+	 *
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	@Test
 	public void testSaveDocument_path() 
@@ -117,8 +122,9 @@ public class TestOdfToolkitEngine {
 	}
 
 	/**
-	 * Test for newDocument()
-	 * @throws DocumentEngineException 
+	 * Test for newDocument().
+	 *
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	@Test
 	public void testSaveDocument_file() 
@@ -131,8 +137,9 @@ public class TestOdfToolkitEngine {
 	}
 	
 	/**
-	 * Test for newDocument()
-	 * @throws DocumentEngineException 
+	 * Test for newDocument().
+	 *
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	@Test
 	public void testSaveDocument_stream() 
@@ -145,8 +152,9 @@ public class TestOdfToolkitEngine {
 	}
 	
 	/**
-	 * Test for newDocument()
-	 * @throws DocumentEngineException 
+	 * Test for newDocument().
+	 *
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	@Test
 	public void testSaveDocument_toSameFile() 
@@ -162,9 +170,9 @@ public class TestOdfToolkitEngine {
 	}
 	
 	/**
-	 * Test for getToPdf() 
-	 * 
-	 * @throws DocumentEngineException 
+	 * Test for getToPdf() .
+	 *
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	@Test
 	public void testToPdf() throws DocumentEngineException {
@@ -176,8 +184,9 @@ public class TestOdfToolkitEngine {
 	}
 	
 	/**
-	 * Test for saveDocument()
-	 * @throws DocumentEngineException 
+	 * Test for saveDocument().
+	 *
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	@Test(expected=DocumentEngineException.class)
 	public void testSaveDocument_fail() 
@@ -189,8 +198,9 @@ public class TestOdfToolkitEngine {
 	}
 	
 	/**
-	 * Test for openDocument()
-	 * @throws DocumentEngineException 
+	 * Test for openDocument().
+	 *
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	@Test(expected=DocumentEngineException.class)
 	public void testOpenDocument_fail() 

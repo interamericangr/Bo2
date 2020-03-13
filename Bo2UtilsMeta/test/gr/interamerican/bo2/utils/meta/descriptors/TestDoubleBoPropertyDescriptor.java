@@ -23,14 +23,13 @@ import org.junit.Test;
  */
 public class TestDoubleBoPropertyDescriptor {
 	
-	/**
-	 * DoubleBoPropertyDescriptor
-	 */
+	/** DoubleBoPropertyDescriptor. */
 	private DoubleBoPropertyDescriptor doubleDesc = new DoubleBoPropertyDescriptor();
 	
 	/**
-	 * Test Parse
-	 * @throws ParseException
+	 * Test Parse.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@Test		
 	public void testParse() throws ParseException{
@@ -42,8 +41,9 @@ public class TestDoubleBoPropertyDescriptor {
 	}
 	
 	/**
-	 * Test Parse
-	 * @throws ParseException
+	 * Test Parse.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@Test		
 	public void testParseNullValue() throws ParseException{
@@ -52,7 +52,7 @@ public class TestDoubleBoPropertyDescriptor {
 	}
 	
 	/**
-	 * Test format
+	 * Test format.
 	 */
 	@Test
 	public void testFormat(){

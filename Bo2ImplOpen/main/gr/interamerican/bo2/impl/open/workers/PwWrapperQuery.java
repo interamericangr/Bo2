@@ -32,9 +32,9 @@ import java.io.Serializable;
  * to {@link Query}. The query is an {@link EntitiesQuery} that fetches the entity read
  * by the persistence worker. The class is also {@link CriteriaDependent}. The type of
  * criteria can't be other than the key of the entity {@link PersistentObject}. 
- * 
- * @param <P> 
- * @param <K> 
+ *
+ * @param <P> the generic type
+ * @param <K> the key type
  */
 public class PwWrapperQuery
 <P extends PersistentObject<K>, K extends Serializable & Comparable<? super K>> 

@@ -12,49 +12,37 @@
  ******************************************************************************/
 package gr.interamerican.bo2.gui.sql;
 
-import gr.interamerican.bo2.arch.exceptions.DataException;
-import gr.interamerican.bo2.gui.listeners.RuntimeCommandContext;
+import static org.junit.Assert.assertTrue;
 
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 
-import org.junit.Assert;
 import org.junit.Test;
-import org.mockito.Mockito;
+
+import gr.interamerican.bo2.arch.exceptions.DataException;
+import gr.interamerican.bo2.gui.listeners.RuntimeCommandContext;
 
 /**
- * Test {@link QueryPanel}.
+ * Test {@link UpdatePanel}.
  */
 public class TestUpdatePanel {
-	
+
 	/**
-	 * Test subject.
-	 */
-	UpdatePanel panel = new UpdatePanel();
-	
-	/**
-	 * @throws DataException 
-	 * 
+	 * Test execute and get result.
+	 *
+	 * @throws DataException the data exception
 	 */
 	@SuppressWarnings("nls")
 	@Test
 	public void testExecuteAndGetResult() throws DataException {
-		JComboBox managersSelection = Mockito.mock(JComboBox.class);
-		Mockito.when(managersSelection.getSelectedItem()).thenReturn("LOCALDB");
-		panel.managersSelection = managersSelection;
-		
-		JTextArea sqlArea = Mockito.mock(JTextArea.class);
-		Mockito.when(sqlArea.getText()).thenReturn("delete from test.users where usr_id='Non existant user id'");
-		panel.sqlArea = sqlArea;
+		UpdatePanel panel = new UpdatePanel();
+		panel.managersSelection = new JComboBox<>(new String[] {"LOCALDB"});
+		panel.sqlArea = new JTextArea("delete from test.users where usr_id='Non existant user id'");
 		
 		RuntimeCommandContext.get().beginProcessing();
-		
 		String result = panel.executeAndGetResult();
-		
 		RuntimeCommandContext.get().endProcessing();
 		
-		Assert.assertTrue(result.startsWith("0"));
-		
+		assertTrue(result.startsWith("0"));
 	}
-
 }

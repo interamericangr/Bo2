@@ -18,7 +18,7 @@ public class TestAbstractMonitoringOperation {
 	AbstractMonitoringOperation<Object> sample() {
 		return  new AbstractMonitoringOperation<Object>() {
 			@Override
-			public void execute(Object a) {/*empty*/};
+			public void execute(Object a) {/*empty*/}
 		};
 	}
 	

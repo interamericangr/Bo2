@@ -39,9 +39,7 @@ import org.junit.Test;
  */
 public class TestFlushStrategy {
 	
-	/**
-	 * samples factory
-	 */
+	/** samples factory. */
 	private static SamplesFactory factory=SamplesFactory.getBo2Factory();
 	
 	/**
@@ -49,43 +47,31 @@ public class TestFlushStrategy {
 	 */
 	private DeleteInvoiceData clear = new DeleteInvoiceData();
 	
-	/**
-	 * Sample
-	 */
+	/** Sample. */
 	private Invoice one;
 	
-	/**
-	 * Sample
-	 */
+	/** Sample. */
 	private Invoice two;
 	
-	/**
-	 * Sample
-	 */
+	/** Sample. */
 	private Invoice three;
 	
-	/**
-	 * Sample key
-	 */
+	/** Sample key. */
 	private String invoiceNoOne = "Inv1"; //$NON-NLS-1$
 	
-	/**
-	 * Sample key
-	 */
+	/** Sample key. */
 	private String invoiceNoTwo = "Inv2"; //$NON-NLS-1$
 	
-	/**
-	 * Sample key
-	 */
+	/** Sample key. */
 	private String invoiceNoThree = "Inv3"; //$NON-NLS-1$
 	
 		
 	/**
 	 * Deletes old and stores fresh samples.
-	 * 
-	 * @throws UnexpectedException
-	 * @throws DataException
-	 * @throws LogicException
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Before
 	public void storeSamples() 
@@ -113,10 +99,10 @@ public class TestFlushStrategy {
 	 * 
 	 * We expect to see all managed entities' modifications
 	 * persisted in the DB.
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testFlushPolicy_SESSION() 
@@ -159,9 +145,10 @@ public class TestFlushStrategy {
 	 * persisted in the DB.
 	 * 
 	 * We will modify only invoice one.
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testFlushPolicy_OBJECT() 
@@ -210,9 +197,10 @@ public class TestFlushStrategy {
 	 * persisted anyway.
 	 * 
 	 * We will modify only invoice one.
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testFlushPolicy_EXCLUDING() 

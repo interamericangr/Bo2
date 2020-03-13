@@ -34,9 +34,9 @@ public class WsUtils {
 	}
 
 	/**
-	 * {@link XMLGregorianCalendar} to {@link Date}
-	 * 
-	 * @param xmlCalendar
+	 * {@link XMLGregorianCalendar} to {@link Date}.
+	 *
+	 * @param xmlCalendar the xml calendar
 	 * @return Date
 	 */
 	public static Date xmlGregorianCalendar2Date(XMLGregorianCalendar xmlCalendar) {
@@ -47,9 +47,9 @@ public class WsUtils {
 	}
 
 	/**
-	 * {@link Date} to {@link XMLGregorianCalendar}
-	 * 
-	 * @param date
+	 * {@link Date} to {@link XMLGregorianCalendar}.
+	 *
+	 * @param date the date
 	 * @return XMLGregorianCalendar
 	 */
 	public static XMLGregorianCalendar date2XmlGregorianCalendar(Date date) {

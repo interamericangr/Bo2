@@ -28,15 +28,15 @@ import org.odftoolkit.odfdom.dom.element.text.TextUserFieldGetElement;
 import org.odftoolkit.simple.TextDocument;
 
 /**
- * Unit tests for {@link FieldUtils}
+ * Unit tests for {@link FieldUtils}.
  */
 @SuppressWarnings("nls")
 public class TestFieldUtils {
 	
 	/**
 	 * Unit test for getUserFieldGetElements(document).
-	 * 
-	 * @throws Exception
+	 *
+	 * @throws Exception the exception
 	 */
 	//@Test
 	public void testGetUserFieldGetElements() throws Exception {
@@ -48,7 +48,8 @@ public class TestFieldUtils {
 	
 	/**
 	 * Unit test for replaceField().
-	 * @throws Exception
+	 *
+	 * @throws Exception the exception
 	 */
 	//@Test
 	public void testReplaceField() throws Exception {
@@ -65,8 +66,9 @@ public class TestFieldUtils {
 	}
 	
 	/**
-	 * Unit test 
-	 * @throws Exception 
+	 * Unit test .
+	 *
+	 * @throws Exception the exception
 	 */	
 	//@Test
 	public void testSetFields() throws Exception {
@@ -89,7 +91,8 @@ public class TestFieldUtils {
 	 * Unit test for setFields.
 	 * 
 	 * Sets user fields in header and footer.
-	 * @throws Exception 
+	 *
+	 * @throws Exception the exception
 	 */	
 	//@Test
 	public void testSetFields_inHeaderAndFooter() throws Exception {
@@ -116,8 +119,8 @@ public class TestFieldUtils {
 	 * Unit test for setFields.
 	 * 
 	 * Sets fields in a letter. A field value contains line breaks.
-	 * 
-	 * @throws Exception 
+	 *
+	 * @throws Exception the exception
 	 */	
 	@Test
 	public void testSetUserFields_Letter() throws Exception {

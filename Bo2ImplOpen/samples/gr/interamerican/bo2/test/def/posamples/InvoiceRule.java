@@ -27,12 +27,32 @@ import java.util.Set;
 public interface InvoiceRule 
 extends InvoiceRuleKP, PersistentObject<InvoiceRuleKey>, ModificationRecord {
 	
+	/**
+	 * Sets the rule name.
+	 *
+	 * @param name the new rule name
+	 */
 	public void setRuleName(String name);
 	
+	/**
+	 * Gets the rule name.
+	 *
+	 * @return the rule name
+	 */
 	public String getRuleName();
 	
+	/**
+	 * Gets the sub rules.
+	 *
+	 * @return the sub rules
+	 */
 	public Set<InvoiceSubRule> getSubRules();
 	
+	/**
+	 * Sets the sub rules.
+	 *
+	 * @param subRules the new sub rules
+	 */
 	public void setSubRules(Set<InvoiceSubRule> subRules);
 	
 }

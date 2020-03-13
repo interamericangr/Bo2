@@ -23,13 +23,11 @@ import org.junit.Test;
  */
 public class TestPoKeyFormatter {
 
-	/**
-	 * PoKeyWriter to test
-	 */
+	/** PoKeyWriter to test. */
 	PoKeyFormatter formatter = new PoKeyFormatter();
 	
 	/**
-	 * test
+	 * test.
 	 */
 	@Test
 	public void testFormat_withNonNullKey(){
@@ -41,7 +39,7 @@ public class TestPoKeyFormatter {
 	}
 	
 	/**
-	 * test
+	 * test.
 	 */
 	@Test
 	public void testFormat_withNullKey(){
@@ -52,7 +50,7 @@ public class TestPoKeyFormatter {
 	
 	
 	/**
-	 * sample class
+	 * sample class.
 	 */
 	private class Sample implements PersistentObject<Integer>{
 
@@ -66,14 +64,17 @@ public class TestPoKeyFormatter {
 		 */
 		Integer key;
 
+		@Override
 		public Integer getKey() {
 			return key;
 		}
 
+		@Override
 		public void setKey(Integer key) {
 			this.key = key;			
 		}
 
+		@Override
 		public void tidy() {
 			// empty			
 		}

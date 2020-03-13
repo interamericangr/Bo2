@@ -17,43 +17,32 @@ import gr.interamerican.bo2.arch.ext.TypedSelectable;
 import gr.interamerican.bo2.utils.Utils;
 
 /**
- * 
+ * The Class CustomerRole.
  */
 public class CustomerRole implements TypedSelectable<Integer> {
 	
-	/**
-	 * id
-	 */
+	/** id. */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * code
-	 */
+	/** code. */
 	private Integer code;
 	
-	/**
-	 * name
-	 */
+	/** name. */
 	private String name;
 	
-	/**
-	 * type
-	 */
+	/** type. */
 	private Long typeId;
 	
-	/**
-	 * subtype
-	 */
+	/** subtype. */
 	private Long subTypeId;
 	
 	/**
 	 * Creates a new CompanyRole object. 
-	 * 
-	 * @param typeId 
-	 * @param subTypeId 
-	 * @param code 
-	 * @param name 
 	 *
+	 * @param typeId the type id
+	 * @param subTypeId the sub type id
+	 * @param code the code
+	 * @param name the name
 	 */
 	public CustomerRole(Long typeId, Long subTypeId, Integer code, String name) {
 		this.typeId = typeId;
@@ -62,39 +51,48 @@ public class CustomerRole implements TypedSelectable<Integer> {
 		this.name = name;
 	}
 
+	@Override
 	public Integer getCode() {
 		return code;
 	}
 
+	@Override
 	public void setCode(Integer code) {
 		this.code = code;
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}
 
+	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	@Override
 	public void setTypeId(Long typeId) {
 		this.typeId = typeId;
 	}
 
+	@Override
 	public Long getTypeId() {
 		return typeId;
 	}
 
+	@Override
 	public void setSubTypeId(Long subTypeId) {
 		this.subTypeId = subTypeId;
 		
 	}
 
+	@Override
 	public Long getSubTypeId() {
 		return subTypeId;
 	}
 
+	@Override
 	public int compareTo(Codified<Integer> o) {
 		if(o==null) { return 1; }
 		return Utils.nullSafeCompare(o.getCode(), this.getCode());

@@ -12,49 +12,61 @@
  ******************************************************************************/
 package gr.interamerican.wicket.bo2.markup.html.form;
 
-import gr.interamerican.bo2.utils.meta.descriptors.NumberBoPropertyDescriptor;
-
 import java.math.BigDecimal;
 
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.util.convert.converter.AbstractDecimalConverter;
-import org.apache.wicket.util.convert.converter.BigDecimalConverter;
+import org.apache.wicket.util.convert.IConverter;
+
+import gr.interamerican.bo2.utils.meta.descriptors.NumberBoPropertyDescriptor;
 
 /**
  * Self-drawn BigDecimal TextField.
  */
-public class SelfDrawnBigDecimalTextField 
-extends AbstractSelfDrawnNumberTextField<BigDecimal>{
+public class SelfDrawnBigDecimalTextField extends AbstractSelfDrawnTextField<BigDecimal> {
 
 	/**
 	 * serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
-	 * Creates a new BigDecimalSelfDrawnTextField object. 
-	 *
-	 * @param id
-	 * @param descriptor
-	 * @param model
+	 * Converter in use
 	 */
-	public SelfDrawnBigDecimalTextField(String id, IModel<BigDecimal> model, NumberBoPropertyDescriptor<BigDecimal> descriptor) {
-		super(id, model, descriptor, BigDecimal.class);
-	}
-	
+	private final BigDecimalConverterForSelfDrawn converter;
+
 	/**
-	 * Creates a new BigDecimalSelfDrawnTextField object. 
+	 * Creates a new BigDecimalSelfDrawnTextField object.
 	 *
 	 * @param id
+	 *            the id
+	 * @param model
+	 *            the model
 	 * @param descriptor
+	 *            the descriptor
+	 */
+	public SelfDrawnBigDecimalTextField(String id, IModel<BigDecimal> model,
+			NumberBoPropertyDescriptor<BigDecimal> descriptor) {
+		super(id, model, descriptor, BigDecimal.class);
+		this.converter = new BigDecimalConverterForSelfDrawn(descriptor);
+	}
+
+	/**
+	 * Creates a new BigDecimalSelfDrawnTextField object.
+	 *
+	 * @param id
+	 *            the id
+	 * @param descriptor
+	 *            the descriptor
 	 */
 	public SelfDrawnBigDecimalTextField(String id, NumberBoPropertyDescriptor<BigDecimal> descriptor) {
 		super(id, descriptor, BigDecimal.class);
+		this.converter = new BigDecimalConverterForSelfDrawn(descriptor);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	protected AbstractDecimalConverter<BigDecimal> getNumberCoverter() {
-		return new BigDecimalConverter();
+	public <C> IConverter<C> getConverter(Class<C> type) {
+		return (IConverter<C>) converter;
 	}
 
 }

@@ -16,19 +16,18 @@ import static org.junit.Assert.assertEquals;
 import gr.interamerican.bo2.utils.meta.exceptions.ValidationException;
 
 import org.junit.Test;
+
 /**
- * MinValueValidatorTest
+ * MinValueValidatorTest.
  */
 public class TestMinValueValidator {
 	
 	
-	/**
-	 * MinValueValidator
-	 */
+	/** MinValueValidator. */
 	MinValueValidator<Integer> minValid = new MinValueValidator<Integer>(10);
 
 	/**
-	 * Test getMinimum
+	 * Test getMinimum.
 	 */
 	@Test
 	public void testGetMinimum(){
@@ -38,7 +37,7 @@ public class TestMinValueValidator {
 	
 	
 	/**
-	 * Test setMinimumLength
+	 * Test setMinimumLength.
 	 */
 	@Test
 	public void testSetMinimumLength(){
@@ -47,8 +46,9 @@ public class TestMinValueValidator {
 	}
 
 	/**
-	 * Test validate
-	 * @throws ValidationException 
+	 * Test validate.
+	 *
+	 * @throws ValidationException the validation exception
 	 */
 	@Test
 	public void testValidateLowerValue() throws ValidationException{
@@ -57,8 +57,9 @@ public class TestMinValueValidator {
 	}
 	
 	/**
-	 * Test validate
-	 * @throws ValidationException 
+	 * Test validate.
+	 *
+	 * @throws ValidationException the validation exception
 	 */
 	@Test(expected=ValidationException.class)
 	public void testValidateHigherValue() throws ValidationException{

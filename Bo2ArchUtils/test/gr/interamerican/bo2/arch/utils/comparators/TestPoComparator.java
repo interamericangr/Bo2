@@ -20,7 +20,7 @@ import org.junit.Test;
 
 
 /**
- * Unit tests of {@link PoComparator}
+ * Unit tests of {@link PoComparator}.
  */
 public class TestPoComparator {
 	
@@ -30,7 +30,7 @@ public class TestPoComparator {
 	private PoComparator<UserKey, User> comparator = new PoComparator<UserKey, User>();
 
 	/**
-	 * Tests compareTo
+	 * Tests compareTo.
 	 */
 	@Test
 	@SuppressWarnings("nls")

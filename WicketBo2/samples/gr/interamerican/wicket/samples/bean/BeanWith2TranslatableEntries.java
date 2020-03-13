@@ -39,8 +39,8 @@ implements Serializable {
 	/**
 	 * Creates a new BeanWith2TranslatableEntrys object. 
 	 *
-	 * @param field1
-	 * @param field2
+	 * @param field1 the field 1
+	 * @param field2 the field 2
 	 */
 	public BeanWith2TranslatableEntries(TranslatableEntry<Long, Long, Long> field1, TranslatableEntry<Long, Long, Long> field2) {
 		super();
@@ -68,8 +68,8 @@ implements Serializable {
 
 	/**
 	 * Sets field 1.
-	 * 
-	 * @param field1
+	 *
+	 * @param field1 the field 1
 	 */
 	public void setField1(TranslatableEntry<Long, Long, Long> field1) {
 		this.field1=field1;		
@@ -85,8 +85,8 @@ implements Serializable {
 	
 	/**
 	 * Sets field 2.
-	 * 
-	 * @param field2
+	 *
+	 * @param field2 the field 2
 	 */
 	public void setField2(TranslatableEntry<Long, Long, Long> field2) {
 		this.field2=field2;

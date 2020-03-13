@@ -25,8 +25,9 @@ import org.junit.Test;
 public class TestExpressionEngine {
 
 	/**
-	 * Test method for evaluate
-	 * @throws ValidationException 
+	 * Test method for evaluate.
+	 *
+	 * @throws ValidationException the validation exception
 	 */
 	@Test
 	public void testEvaluate() throws ValidationException {
@@ -38,8 +39,9 @@ public class TestExpressionEngine {
 	}
 	
 	/**
-	 * Test method for evaluate
-	 * @throws ValidationException 
+	 * Test method for evaluate.
+	 *
+	 * @throws ValidationException the validation exception
 	 */
 	@Test(expected=ValidationException.class)
 	public void testEvaluate_throwsVex() throws ValidationException {

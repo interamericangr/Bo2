@@ -71,101 +71,75 @@ implements PersistenceUtility<P> {
 	private RefreshMode mode;
 	
 	/**
-	 * Creates a new GenericHibernatePersistenceWorker object. 
+	 * Creates a new GenericHibernatePersistenceWorker object.
 	 * 
-	 * @param poClass 
-	 *        Persistent class.
-	 * @param validator 
-	 *        Validator used to validate objects before save.
-	 * @param mode 
-	 *        Refresh mode.
+	 * @param poClass
+	 *            Persistent class.
+	 * @param validator
+	 *            Validator used to validate objects before save.
+	 * @param mode
+	 *            Refresh mode.
 	 */
 	public AbstractHibernatePersistenceUtility(Class<P> poClass, Validator<P> validator, RefreshMode mode) {
-		super();
 		this.poClass = poClass;
 		this.validator = validator;
 		this.mode = mode;
 	}
-	
-	
+
 	/**
 	 * Prepares the object for the persistence operation.
 	 * 
 	 * @param po
-	 *        Object to prepare for persistence.
+	 *            Object to prepare for persistence.
 	 */
 	protected abstract void prepareObject(P po);
-	
+
 	/**
 	 * Gets the unique id of the persistent object.
 	 * 
 	 * @param po
-	 *        Persistent object.
-	 *        
+	 *            Persistent object.
+	 * 
 	 * @return Returns the unique id of the specified entity.
 	 */
 	protected abstract Serializable getUniqueId(P po);
-	
+
 	/**
 	 * Reads an object.
-	 * 
+	 *
 	 * @param o
-	 * 
+	 *            the o
 	 * @return Returns the object.
-	 * 
 	 * @throws HibernateException
+	 *             the hibernate exception
 	 * @throws PoNotFoundException
+	 *             the po not found exception
 	 */
 	P readFromDB(P o) throws HibernateException, PoNotFoundException {
 		Serializable uid = getUniqueId(o);
-		@SuppressWarnings("unchecked") 
-		P po = (P) mode.getOnRead().get(session, uid, poClass);		
-		if (po==null) {
+		@SuppressWarnings("unchecked")
+		P po = (P) mode.getOnRead().get(session, uid, poClass);
+		if (po == null) {
 			String message = poClass.getSimpleName() + " not found: " + StringUtils.toString(uid); //$NON-NLS-1$
 			throw new PoNotFoundException(message);
-		}	
+		}
 		register(po);
 		return po;
 	}
 
-	public P read(P o) 
-	throws DataException, PoNotFoundException {
+	@Override
+	public P read(P o) throws DataException, PoNotFoundException {
 		WorkerExecutionDetails details = new WorkerExecutionDetails();
 		details.setTaskInfo("Reading " + poClass.getSimpleName() + StringConstants.SPACE + o); //$NON-NLS-1$
 		try {
 			Debug.setActiveModule(this);
 			validateOpen();
-			log("About to read object", o); //$NON-NLS-1$			
+			log("About to read object", o); //$NON-NLS-1$
 			return readFromDB(o);
-		} catch (UnresolvableObjectException e) {			
-			throw new PoNotFoundException(e);			
+		} catch (UnresolvableObjectException e) {
+			throw new PoNotFoundException(e);
 		} catch (HibernateException e) {
-			throw newDataException(e,o);
-		} finally {
-			Debug.resetActiveModule();			
-			Bo2Session.setState(null);
-			checkTransactionHealth(details);
-		}
-	}
-
-	public P delete(P o) 
-	throws DataException, PoNotFoundException {
-		WorkerExecutionDetails details = new WorkerExecutionDetails();
-		details.setTaskInfo("Deleting " + poClass.getSimpleName() + StringConstants.SPACE + o); //$NON-NLS-1$
-		try {
-			Debug.setActiveModule(this);
-			validateOpen();
-			Bo2Session.setState(CrudStates.PRE_DELETE);
-			prepareObject(o);
-			log("About to delete object", o); //$NON-NLS-1$			 
-			P managed = o;			
-			if (!session.contains(o)) {
-				managed = readFromDB(o);
-			}			
-			super.deleteEntity(managed);			
-			return managed; 
-		} catch (HibernateException e) {			
-			throw newDataException(e,o);
+			throw newDataException(e, o);
 		} finally {
 			Debug.resetActiveModule();
 			Bo2Session.setState(null);
@@ -173,31 +147,54 @@ implements PersistenceUtility<P> {
 		}
 	}
 
-	public P store(P o) 
-	throws DataException, PoNotFoundException {
+	@Override
+	public P delete(P o) throws DataException, PoNotFoundException {
+		WorkerExecutionDetails details = new WorkerExecutionDetails();
+		details.setTaskInfo("Deleting " + poClass.getSimpleName() + StringConstants.SPACE + o); //$NON-NLS-1$
+		try {
+			Debug.setActiveModule(this);
+			validateOpen();
+			Bo2Session.setState(CrudStates.PRE_DELETE);
+			prepareObject(o);
+			log("About to delete object", o); //$NON-NLS-1$
+			P managed = o;
+			if (!session.contains(o)) {
+				managed = readFromDB(o);
+			}
+			super.deleteEntity(managed);
+			return managed;
+		} catch (HibernateException e) {
+			throw newDataException(e, o);
+		} finally {
+			Debug.resetActiveModule();
+			Bo2Session.setState(null);
+			checkTransactionHealth(details);
+		}
+	}
+
+	@Override
+	public P store(P o) throws DataException, PoNotFoundException {
 		WorkerExecutionDetails details = new WorkerExecutionDetails();
 		details.setTaskInfo("Storing " + poClass.getSimpleName() + StringConstants.SPACE + o); //$NON-NLS-1$
 		try {
 			Debug.setActiveModule(this);
 			validateOpen();
 			Bo2Session.setState(CrudStates.PRE_STORE);
-			prepareObject(o);			
+			prepareObject(o);
 			validate(o);
 			log("About to store object", o); //$NON-NLS-1$
-			saveEntity (o);
+			saveEntity(o);
 			Serializable uid = getUniqueId(o);
-			@SuppressWarnings("unchecked") 
+			@SuppressWarnings("unchecked")
 			P po = (P) mode.getOnStore().get(session, uid, poClass);
-			if(po != o) {
-				String msg = StringUtils.concat(
-						"New PO instance created on store: ", //$NON-NLS-1$
-						poClass.getName() + StringUtils.toString(o),
-						". How did this happen?"); //$NON-NLS-1$
+			if (po != o) {
+				String msg = StringUtils.concat("New PO instance created on store: ", //$NON-NLS-1$
+						poClass.getName() + StringUtils.toString(o), ". How did this happen?"); //$NON-NLS-1$
 				LOGGER.warn(msg);
 			}
-			return po; 
-		} catch (HibernateException e) {			
-			throw newDataException(e,o);
+			return po;
+		} catch (HibernateException e) {
+			throw newDataException(e, o);
 		} catch (ValidationException ve) {
 			throw new DataException(ve);
 		} finally {
@@ -206,9 +203,9 @@ implements PersistenceUtility<P> {
 			checkTransactionHealth(details);
 		}
 	}
-	
-	public P update(P o) 
-	throws DataException, PoNotFoundException {
+
+	@Override
+	public P update(P o) throws DataException, PoNotFoundException {
 		WorkerExecutionDetails details = new WorkerExecutionDetails();
 		details.setTaskInfo("Updating " + poClass.getSimpleName() + StringConstants.SPACE + o); //$NON-NLS-1$
 		try {
@@ -221,59 +218,63 @@ implements PersistenceUtility<P> {
 			@SuppressWarnings("unchecked")
 			P merged = (P) mergeEntity(o);
 			Serializable uid = getUniqueId(merged);
-			@SuppressWarnings("unchecked")	
+			@SuppressWarnings("unchecked")
 			P po = (P) mode.getOnUpdate().get(session, uid, poClass);
-			if(po != o) {
-				String msg = StringUtils.concat(
-						"New PO instance created on update: ", //$NON-NLS-1$
-						poClass.getName() + StringUtils.toString(o),
-						". Did you mean to store?"); //$NON-NLS-1$
+			if (po != o) {
+				String msg = StringUtils.concat("New PO instance created on update: ", //$NON-NLS-1$
+						poClass.getName() + StringUtils.toString(o), ". Did you mean to store?"); //$NON-NLS-1$
 				LOGGER.warn(msg);
 			}
-			return po; 
-		} catch (HibernateException e) {			
-			throw newDataException(e,o);
+			return po;
+		} catch (HibernateException e) {
+			throw newDataException(e, o);
 		} catch (ValidationException ve) {
-			throw new DataException(ve);			
+			throw new DataException(ve);
 		} finally {
 			Debug.resetActiveModule();
 			Bo2Session.setState(null);
 			checkTransactionHealth(details);
 		}
 	}
-		
-	public boolean ignoresSomething() {		
+
+	@Override
+	public boolean ignoresSomething() {
 		return false;
 	}
-	
+
 	/**
 	 * Logs a persistent object.
 	 * 
-	 * @param message Message.
-	 * @param po Object to log.
+	 * @param message
+	 *            Message.
+	 * @param po
+	 *            Object to log.
 	 */
 	@SuppressWarnings("nls")
 	private void log(String message, P po) {
 		if (LOGGER.isTraceEnabled()) {
 			LOGGER.trace(message);
-			Serializable uid = getUniqueId(po);						
+			Serializable uid = getUniqueId(po);
 			LOGGER.trace("Key: " + uid.toString());
 		}
 	}
-	
+
 	/**
 	 * Validates the specified object.
+	 *
 	 * @param po
+	 *            the po
 	 * @throws ValidationException
+	 *             the validation exception
 	 */
 	private void validate(P po) throws ValidationException {
-		if (validator!=null) {
+		if (validator != null) {
 			validator.validate(po);
 		}
 	}
-	
+
 	@Override
-	protected String managerNameNotSet() {	
+	protected String managerNameNotSet() {
 		return managerNameNotSetToClass(poClass);
 	}
 
@@ -285,18 +286,18 @@ implements PersistenceUtility<P> {
 	protected Class<P> getPoClass() {
 		return poClass;
 	}
-	
+
 	/**
 	 * Creates a {@link DataException} wrapper for a {@link HibernateException}.
 	 * 
 	 * This method also logs the caught HibernateException.
 	 * 
 	 * @param he
-	 *        HibernateException that is being wrapped inside a new 
-	 *        DataeXception.
-	 * @param o 
-	 *        Persistent object.
-	 *        
+	 *            HibernateException that is being wrapped inside a new
+	 *            DataeXception.
+	 * @param o
+	 *            Persistent object.
+	 * 
 	 * @return Returns the DataException.
 	 */
 	DataException newDataException(HibernateException he, Object o) {
@@ -304,9 +305,10 @@ implements PersistenceUtility<P> {
 			StaleObjectStateException stoe = (StaleObjectStateException) he;
 			logStaleObjectException(stoe, o);
 		} else {
-			if(Bo2.getDefaultDeployment().getDeploymentBean().getTargetEnvironment()==TargetEnvironment.DEVELOPMENT) {
+			if (Bo2.getDefaultDeployment().getDeploymentBean()
+					.getTargetEnvironment() == TargetEnvironment.DEVELOPMENT) {
 				String entityName = Factory.declarationTypeName(o.getClass());
-				Serializable id = ((PersistentObject<?>)o).getKey();
+				Serializable id = ((PersistentObject<?>) o).getKey();
 				specialLogHibernateException(entityName, id, o);
 			} else {
 				logHibernateException(he);
@@ -314,27 +316,27 @@ implements PersistenceUtility<P> {
 		}
 		return new DataException(he);
 	}
-	
+
 	/**
 	 * Logs a StaleObjectStateException.
 	 * 
 	 * @param he
-	 *        StaleObjectStateException. This object contains the class name
-	 *        and the id of the object on which the check failed.
+	 *            StaleObjectStateException. This object contains the class name
+	 *            and the id of the object on which the check failed.
 	 * @param o
-	 *        The object on which the worker operation is performed
+	 *            The object on which the worker operation is performed
 	 */
 	void logStaleObjectException(StaleObjectStateException he, Object o) {
 		logHibernateException(he);
 		specialLogHibernateException(he.getEntityName(), he.getIdentifier(), o);
 	}
-	
+
 	/**
-	 * 
-	 * 
-	 * @param entityName
-	 * @param id
-	 * @param o
+	 * Special log hibernate exception.
+	 *
+	 * @param entityName the entity name
+	 * @param id the id
+	 * @param o the o
 	 */
 	@SuppressWarnings("nls")
 	void specialLogHibernateException(String entityName, Serializable id, Object o) {
@@ -392,8 +394,4 @@ implements PersistenceUtility<P> {
 			} 
 		}
 	}
-	
-	
-	
-	
 }

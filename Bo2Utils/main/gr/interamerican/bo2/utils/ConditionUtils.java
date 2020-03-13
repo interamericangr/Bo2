@@ -32,17 +32,12 @@ public class ConditionUtils {
 	/**
 	 * Puts all elements of a collection that fill a specified condition to
 	 * another collection.
-	 * 
-	 * @param superSet
-	 *            Collection with all elements being checked.
-	 * @param subSet
-	 *            Collection where the elements are put that fill the condition.
-	 * @param condition
-	 *            Condition.
-	 * @param <S>
-	 *            Type of element that the condition validates
-	 * @param <T>
-	 *            Type of elements in the collections (must extend <S>)
+	 *
+	 * @param <S>            Type of element that the condition validates
+	 * @param <T>            Type of elements in the collections (must extend &lt;S&gt;)
+	 * @param superSet            Collection with all elements being checked.
+	 * @param subSet            Collection where the elements are put that fill the condition.
+	 * @param condition            Condition.
 	 */
 	public static <S, T extends S> void fillSubset(Collection<T> superSet, Collection<T> subSet, Condition<S> condition) {
 		for (T t : superSet) {
@@ -55,16 +50,11 @@ public class ConditionUtils {
 	/**
 	 * Gets a list with all elements of a collection that fill a specified
 	 * condition.
-	 * 
-	 * @param superSet
-	 *            Collection with all elements being checked.
-	 * @param condition
-	 *            Condition.
-	 * @param <S>
-	 *            Type of element that the condition validates
-	 * @param <T>
-	 *            Type of elements in the collections (must extend <S>)
-	 * 
+	 *
+	 * @param <S>            Type of element that the condition validates
+	 * @param <T>            Type of elements in the collections (must extend &lt;S&gt;)
+	 * @param superSet            Collection with all elements being checked.
+	 * @param condition            Condition.
 	 * @return Returns a list with the elements that fulfill the condition.
 	 */
 	public static <S, T extends S> List<T> getSubset(Collection<T> superSet, Condition<S> condition) {

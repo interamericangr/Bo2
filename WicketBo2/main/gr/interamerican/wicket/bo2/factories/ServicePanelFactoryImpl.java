@@ -49,7 +49,7 @@ public class ServicePanelFactoryImpl implements ServicePanelFactory {
 	
 	/**
 	 * Service panel associations found in the current deployment.
-	 * This associates panelId --> panel implementation class.
+	 * This associates panelId --&gt; panel implementation class.
 	 */
 	private static Map<String, Class<?>> servicePanelAssociations;
 	
@@ -70,8 +70,8 @@ public class ServicePanelFactoryImpl implements ServicePanelFactory {
 	
 	/**
 	 * Loads panel factory definitions.
-	 * 
-	 * @param paths
+	 *
+	 * @param paths the paths
 	 */
 	static void loadPanelFactoryDefinitions(String[] paths) {
 		if(paths == null) {
@@ -97,8 +97,8 @@ public class ServicePanelFactoryImpl implements ServicePanelFactory {
 	 * Loads a class if it is available in the classpath. If unavailable,
 	 * a warning is printed. This is not normally acceptable and should be 
 	 * considered a fatal error when in production. 
-	 * 
-	 * @param name
+	 *
+	 * @param name the name
 	 * @return panel implementation class with the supplied name
 	 */
 	@SuppressWarnings("nls")
@@ -149,6 +149,7 @@ public class ServicePanelFactoryImpl implements ServicePanelFactory {
 	 */
 	ServicePanelFixtureResolver resolver = new DefaultServicePanelFixtureResolver();
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public <P extends ServicePanel> P createPanel(ServicePanelDef definition) {
 		String panelId = definition.getPanelId();
@@ -180,8 +181,8 @@ public class ServicePanelFactoryImpl implements ServicePanelFactory {
 	
 	/**
 	 * Failure to create. Throws a RuntimeException.
-	 * 
-	 * @param def
+	 *
+	 * @param def the def
 	 */
 	@SuppressWarnings("nls")
 	private void creationFailed(ServicePanelDef def) {
@@ -191,6 +192,7 @@ public class ServicePanelFactoryImpl implements ServicePanelFactory {
 		throw new RuntimeException(msg);
 	}
 
+	@Override
 	public ServicePanelFixtureResolver getFixtureResolver() {
 		return resolver;
 	}

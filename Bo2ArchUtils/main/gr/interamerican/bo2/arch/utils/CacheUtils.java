@@ -31,10 +31,10 @@ public class CacheUtils {
 
 	/**
 	 * Adds a collection of {@link TypedSelectable} elements in a cache.
-	 * 
-	 * @param cache
-	 * @param collection
+	 *
 	 * @param <C> Type of code of the elements in the cache.
+	 * @param cache the cache
+	 * @param collection the collection
 	 */
 	public static <C extends Comparable<? super C>> void loadEntries
 	(Cache<C> cache, Collection<? extends TypedSelectable<C>> collection) {
@@ -45,10 +45,10 @@ public class CacheUtils {
 	
 	/**
 	 * Adds a collection of {@link TypedSelectable} elements in a cache.
-	 * 
-	 * @param cache
-	 * @param collection
+	 *
 	 * @param <C> Type of code of the elements in the cache.
+	 * @param cache the cache
+	 * @param collection the collection
 	 */
 	public static <C extends Comparable<? super C>> void loadEntryOwners
 	(Cache<C> cache, Collection<? extends TranslatableEntryOwner<C, ?, ?>> collection) {

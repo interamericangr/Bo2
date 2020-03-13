@@ -19,7 +19,7 @@ import gr.interamerican.bo2.test.def.posamples.InvoiceSubRule;
 import gr.interamerican.bo2.test.def.posamples.InvoiceSubRuleKey;
 
 /**
- * 
+ * The Class InvoiceSubRuleImpl.
  */
 @DelegateKeyProperties("")
 public abstract class InvoiceSubRuleImpl 
@@ -35,7 +35,6 @@ implements InvoiceSubRule {
 	 * Name.
 	 */
 	@Property
-	@SuppressWarnings("unused")
 	private String subRuleName;
 
 }

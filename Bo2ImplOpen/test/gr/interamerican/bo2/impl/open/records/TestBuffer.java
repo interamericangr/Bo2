@@ -58,7 +58,7 @@ public class TestBuffer {
 	private static final String RF2B = "RF2B";
 	
 	/**
-	 * tests successful creation
+	 * tests successful creation.
 	 */
 	@Test
 	public void testCreation() {
@@ -73,7 +73,7 @@ public class TestBuffer {
 	}
 	
 	/**
-	 * tests setString
+	 * tests setString.
 	 */
 	@Test
 	public void testSetString() {
@@ -119,7 +119,7 @@ public class TestBuffer {
 	}
 	
 	/**
-	 * tests setField methods
+	 * tests setField methods.
 	 */
 	@Test
 	public void testSetFieldMethods() {
@@ -165,7 +165,7 @@ public class TestBuffer {
 	}
 	
 	/**
-	 * tests FieldNotFount on setter
+	 * tests FieldNotFount on setter.
 	 */
 	@Test(expected=FieldNotFoundException.class)	
 	public void testSetterFieldNotFound() {
@@ -174,7 +174,7 @@ public class TestBuffer {
 	}
 	
 	/**
-	 * tests FieldNotFount on getter
+	 * tests FieldNotFount on getter.
 	 */
 	@Test(expected=FieldNotFoundException.class)	
 	public void testGetterFieldNotFound() {
@@ -183,7 +183,7 @@ public class TestBuffer {
 	}
 	
 	/**
-	 * tests getString
+	 * tests getString.
 	 */
 	@Test
 	public void testGetString() {
@@ -196,7 +196,7 @@ public class TestBuffer {
 	}
 	
 	/**
-	 * tests getInt
+	 * tests getInt.
 	 */
 	@Test
 	public void testGetInt() {
@@ -214,7 +214,7 @@ public class TestBuffer {
 	}
 	
 	/**
-	 * tests getDouble
+	 * tests getDouble.
 	 */
 	@Test
 	public void testGetDouble() {
@@ -236,7 +236,7 @@ public class TestBuffer {
 	}
 	
 	/**
-	 * tests getDate
+	 * tests getDate.
 	 */
 	@Test
 	public void testGetDate() {
@@ -257,7 +257,7 @@ public class TestBuffer {
 	}
 	
 	/**
-	 * tests getCalendar
+	 * tests getCalendar.
 	 */
 	@Test
 	public void testGetCalendar() {
@@ -278,7 +278,7 @@ public class TestBuffer {
 	
 	
 	/**
-	 * tests getLong
+	 * tests getLong.
 	 */
 	@Test
 	public void testGetLong() {
@@ -296,7 +296,7 @@ public class TestBuffer {
 	}
 	
 	/**
-	 * tests getFloat
+	 * tests getFloat.
 	 */
 	@Test
 	public void testGetFloat() {
@@ -314,7 +314,7 @@ public class TestBuffer {
 	}
 	
 	/**
-	 * tests getFloat
+	 * tests getFloat.
 	 */
 	@Test
 	public void testGetShort() {
@@ -332,7 +332,7 @@ public class TestBuffer {
 	}
 	
 	/**
-	 * tests getBigDecimal
+	 * tests getBigDecimal.
 	 */
 	@Test
 	public void testGetBigDecimal() {
@@ -350,7 +350,7 @@ public class TestBuffer {
 	}
 	
 	/**
-	 * tests getBoolean
+	 * tests getBoolean.
 	 */
 	@Test
 	public void testGetBoolean() {
@@ -369,7 +369,7 @@ public class TestBuffer {
 	
 	
 	/**
-	 * tests getByte
+	 * tests getByte.
 	 */
 	@Test
 	public void testGetByte() {	
@@ -381,7 +381,7 @@ public class TestBuffer {
 	}
 	
 	/**
-	 * tests getFields
+	 * tests getFields.
 	 */
 	@Test
 	public void testGetFields() {
@@ -391,7 +391,7 @@ public class TestBuffer {
 	}
 	
 	/**
-	 * tests toString
+	 * tests toString.
 	 */
 	@Test
 	public void testToString() {	
@@ -427,19 +427,13 @@ public class TestBuffer {
 		 *   
 		 */
 		
-		/**
-		 * fields
-		 */
+		/** fields. */
 		private static String[] fields = {F1, F2, F3, F4, RF12, RF2B};
 		
-		/**
-		 * lengths
-		 */
+		/** lengths. */
 		private static int[] lengths = {5, 5, 10, 10, 7, 3};
 		
-		/**
-		 * positions
-		 */
+		/** positions. */
 		private static int[] positions = {0, 5, 10, 20, 0, 7};
 		
 		/**
@@ -448,7 +442,7 @@ public class TestBuffer {
 		private static final BufferSpec SPEC = new BufferSpec(fields, lengths, positions);
 	
 		/**
-		 * Creates a new SampleBuffer object
+		 * Creates a new SampleBuffer object.
 		 */
 		SampleBuffer() {
 			super(SPEC);		

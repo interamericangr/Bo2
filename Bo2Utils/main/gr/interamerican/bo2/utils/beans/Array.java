@@ -46,7 +46,7 @@ public class Array {
 	/**
 	 * Creates a new Array object. 
 	 *
-	 * @param array
+	 * @param array the array
 	 */
 	public Array(Object... array) {
 		super();

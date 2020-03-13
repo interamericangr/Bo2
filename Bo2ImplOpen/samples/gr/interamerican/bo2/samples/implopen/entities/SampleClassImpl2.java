@@ -15,14 +15,14 @@ package gr.interamerican.bo2.samples.implopen.entities;
 import gr.interamerican.bo2.creation.annotations.DelegateProperties;
 
 /**
- * sample abstract class
+ * sample abstract class.
  */
 public abstract class SampleClassImpl2 implements SampleClass {
 	
 	/**
-	 * a sample key field declared as an inteface
+	 * a sample key field declared as an interface
 	 */
-	@SuppressWarnings({ "unused", "cast" })
+	@SuppressWarnings("cast")
 	@DelegateProperties("field1, field2")
 	private SampleClassKey sampleInterface = (SampleClassKey) new SampleClassKeyImpl1();
 	

@@ -24,7 +24,7 @@ import org.junit.Test;
 public class TestFormatArray {
 	
 	/**
-	 * 
+	 * Test execute.
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Test

@@ -29,13 +29,12 @@ public class Execute {
 	/**
 	 * Executes an array of operations inside a transaction
 	 * using the default transactional provider of the current deployment.
-	 * 
-	 * @param operations
-	 *        Operations to execute.
+	 *
+	 * @param operations        Operations to execute.
 	 *        
-	 * @throws UnexpectedException
-	 * @throws DataException
-	 * @throws LogicException
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	public static void transactional(Operation... operations) 
 	throws UnexpectedException, DataException, LogicException {
@@ -46,15 +45,13 @@ public class Execute {
 	/**
 	 * Executes an array of operations inside a transaction
 	 * using the default transactional provider of the current deployment.
-	 * 
-	 * @param depl 
-	 *        Deployment.
-	 * @param operations
-	 *        Operations to execute.
+	 *
+	 * @param depl        Deployment.
+	 * @param operations        Operations to execute.
 	 *        
-	 * @throws UnexpectedException
-	 * @throws DataException
-	 * @throws LogicException
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	public static void transactional(String depl, Operation... operations) 
 	throws UnexpectedException, DataException, LogicException {
@@ -65,12 +62,12 @@ public class Execute {
 	/**
 	 * Executes a sequence of operations without marking any transaction.
 	 *        
-	 * @param operations
-	 *        Operations to execute.
+	 *
+	 * @param operations        Operations to execute.
 	 *        
-	 * @throws DataException
-	 * @throws LogicException
-	 * @throws InitializationException 
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws InitializationException the initialization exception
 	 */
 	public static void nonTransactional(Operation... operations) 
 	throws DataException, LogicException, InitializationException {

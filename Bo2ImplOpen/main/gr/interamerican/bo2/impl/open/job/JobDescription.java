@@ -7,17 +7,21 @@ import java.util.Map;
 
 /**
  * Description of a job that is scheduled. This includes:
- * <li/> the class of an {@link Operation}
- * <li/> the operation named parameters
- * <li/> whether the job should be executed synchronously, i.e. the application
- *       should wait for it to finish. By default jobs are asynchronous.
- * <li/> whether the job triggering is nonTransactional. By default it is
+ * <ul>
+ * <li> the class of an {@link Operation} </li>
+ * <li> the operation named parameters  </li>
+ * <li> whether the job should be executed synchronously, i.e. the application
+ *       should wait for it to finish. By default jobs are asynchronous. </li>
+ * <li> whether the job triggering is nonTransactional. By default it is
  *       transactional, i.e. the job is fired only if the unit of work in
- *       which it was scheduled commits.
+ *       which it was scheduled commits. </li>
+ *       </ul>
  */
 public interface JobDescription extends Serializable {
 	
 	/**
+	 * Gets the job name.
+	 *
 	 * @return the jobName assigned during the creation.
 	 */
 	String getJobName();
@@ -60,7 +64,7 @@ public interface JobDescription extends Serializable {
 	/**
 	 * Assigns a new value to the synchronous.
 	 *
-	 * @param synchronous
+	 * @param synchronous the new synchronous
 	 */
 	void setSynchronous(boolean synchronous);
 
@@ -74,7 +78,7 @@ public interface JobDescription extends Serializable {
 	/**
 	 * Assigns a new value to the nonTransactional.
 	 *
-	 * @param nonTransactional
+	 * @param nonTransactional the new non transactional
 	 */
 	void setNonTransactional(boolean nonTransactional);
 

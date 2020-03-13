@@ -34,7 +34,7 @@ import org.junit.Test;
 public class TestStreamType {
 	
 	/**
-	 * Tests isOk(object)
+	 * Tests isOk(object).
 	 */
 	@Test
 	public void testIsOk() {
@@ -49,7 +49,7 @@ public class TestStreamType {
 	}
 	
 	/**
-	 * Tests isOutputStream(object)
+	 * Tests isOutputStream(object).
 	 */
 	@Test
 	public void testIsOutputStream() {

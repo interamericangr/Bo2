@@ -21,7 +21,7 @@ import org.junit.Test;
 public class TestIsNotNull {
 	
 	/**
-	 * Tests check()
+	 * Tests check().
 	 */
 	@Test
 	public void testCheck() {

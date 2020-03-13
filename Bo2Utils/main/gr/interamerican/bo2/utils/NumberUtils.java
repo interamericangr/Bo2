@@ -30,6 +30,8 @@ public class NumberUtils {
 	private static final ThreadLocal<DecimalFormat> DF_TL = new ThreadLocal<DecimalFormat>();
 	
 	/**
+	 * Df.
+	 *
 	 * @return Returns the default DecimalFormat for the current thread.
 	 */
 	private static DecimalFormat df() {
@@ -40,6 +42,8 @@ public class NumberUtils {
 	}
 	
 	/**
+	 * Gets the default decimal format.
+	 *
 	 * @return Returns the default DecimalFormat for the default Locale.
 	 *         No grouping is used on the integer part.
 	 */
@@ -94,8 +98,8 @@ public class NumberUtils {
      * 
      * If the string does not represent a numeric
      * value, then the result will be 0.
-     * 
-     * @param s
+     *
+     * @param s the s
      * @return returns an integer value for the string.
      */
     public static int string2Int(String s) {
@@ -115,8 +119,8 @@ public class NumberUtils {
      * 
      * If the string does not represent a numeric
      * value, then the result will be 0.
-     * 
-     * @param s
+     *
+     * @param s the s
      * @return returns a long value for the string.
      */
     public static long string2Long(String s) {
@@ -229,9 +233,9 @@ public class NumberUtils {
     
     /**
      * Creates a formatted string from a number.
-     * 
+     *
      * @param n number to format.
-     * @param decimalDigits 
+     * @param decimalDigits the decimal digits
      * @return Returns a formatted string for the parameter
      */
     public static String format(Number n, int decimalDigits) {
@@ -246,9 +250,9 @@ public class NumberUtils {
      * specified number of minimum integer digits. 
      * The number is converted to a long. Precision may 
      * be lost, if the input has decimal digits.  
-     * 
+     *
      * @param n number to format.
-     * @param integerDigits 
+     * @param integerDigits the integer digits
      * @return Returns a formatted string for the parameter
      */
     public static String formatInt(Number n, int integerDigits) {
@@ -277,10 +281,10 @@ public class NumberUtils {
      
      /**
       * Parses a double.
-      * 
+      *
       * @param str String to parse.
       * @return Returns the double value of the string. If the string is null, returns null.
-      * @throws ParseException
+      * @throws ParseException the parse exception
       */
      public static Double parseDouble(String str) throws ParseException {
     	 if (str==null || str==StringConstants.NULL) {
@@ -291,10 +295,10 @@ public class NumberUtils {
      
      /**
       * Parses a float.
-      * 
+      *
       * @param str String to parse.
       * @return Returns the float value of the string. If the string is null, returns null.
-      * @throws ParseException
+      * @throws ParseException the parse exception
       */
      public static Float parseFloat(String str) throws ParseException {
     	 if (str==null) {
@@ -323,41 +327,44 @@ public class NumberUtils {
     		s = StringConstants.ZERO + s; 
     	 }
     	 return s;
-     }
-    
-    /**
-     * Returns the largest numbers from a number of given numbers.
-     * 
-     * @param numbers
-     * 
-     * @return the largest one
-     */
-    public static Number max(Number...numbers){
-    	if(numbers.length==0) {
-    		throw new RuntimeException("Zero args supplied, cannot produce result."); //$NON-NLS-1$
-    	}
-    	if(numbers.length==1) {
-    		return numbers[0];
-    	}
-    	Number maximum = numbers[0];
-    	for (int i = 1; i < numbers.length; i++) {
-    		if (numbers[i].doubleValue()>maximum.doubleValue()) {
-    			maximum = numbers[i];
-    		}
+	}
+
+	/**
+	 * Returns the largest numbers from a number of given numbers.
+	 * 
+	 * @param <T>
+	 *            Type of Number
+	 * @param numbers
+	 *            the numbers
+	 * @return the largest one
+	 */
+	@SafeVarargs
+	public static <T extends Number> T max(T... numbers) {
+		if (numbers.length == 0) {
+			throw new RuntimeException("Zero args supplied, cannot produce result."); //$NON-NLS-1$
 		}
-    	return maximum;
-    }
-    
-    /**
-     * Creates a new BigDecimal
-     * 
-     * @param value
-     *        Value of the big decimal.
-     * @param scale
-     *        Number of decimal digits.
-     *        
-     * @return Returns the new BigDecimal.
-     */
+		if (numbers.length == 1) {
+			return numbers[0];
+		}
+		T maximum = numbers[0];
+		for (int i = 1; i < numbers.length; i++) {
+			if (numbers[i].doubleValue() > maximum.doubleValue()) {
+				maximum = numbers[i];
+			}
+		}
+		return maximum;
+	}
+
+	/**
+	 * Creates a new BigDecimal.
+	 *
+	 * @param value
+	 *            Value of the big decimal.
+	 * @param scale
+	 *            Number of decimal digits.
+	 * 
+	 * @return Returns the new BigDecimal.
+	 */
     public static BigDecimal newBigDecimal(double value, int scale) {
     	DecimalFormat decimalFormat = new DecimalFormat();
     	if (scale==0) {
@@ -391,8 +398,8 @@ public class NumberUtils {
     /**
      * Returns true, if the Number type can contain fractional digits.
      * This happens for Float, Double and BigDecimal.
-     * 
-     * @param number
+     *
+     * @param number the number
      * @return True, if the Number type can contain fractional digits.
      */
     public static boolean isFractionalType(Number number) {
@@ -419,10 +426,9 @@ public class NumberUtils {
 	
 	/**
 	 * Calculates the greatest common divisor of two numbers.
-	 * 
-	 * @param first
-	 * @param second
-	 * 
+	 *
+	 * @param first the first
+	 * @param second the second
 	 * @return Returns the greatest common divisor.
 	 */
 	public static long gcd(long first, long second) {
@@ -434,10 +440,9 @@ public class NumberUtils {
 	
 	/**
 	 * Calculates the greatest common divisor of two numbers.
-	 * 
-	 * @param first
-	 * @param second
-	 * 
+	 *
+	 * @param first the first
+	 * @param second the second
 	 * @return Returns the greatest common divisor.
 	 */
 	public static long gcd(int first, int second) {

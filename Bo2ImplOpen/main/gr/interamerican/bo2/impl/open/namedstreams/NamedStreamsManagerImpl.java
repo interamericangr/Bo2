@@ -25,7 +25,6 @@ import java.util.Properties;
 
 /**
  * Implementation of NamedStreamsProvider.
- * 
  */
 public class NamedStreamsManagerImpl 
 implements NamedStreamsProvider {
@@ -35,18 +34,13 @@ implements NamedStreamsProvider {
 	 */ 
 	Properties properties;
 
-	/**
-	 * Streams opened by the program
-	 */
+	/** Streams opened by the program. */
 	HashMap<String, NamedStream<?>> streams;
 	
 	/**
 	 * Factory for {@link NamedStreamDefinition} objects.
 	 */
 	NsDefinitionFactory nsdFactory = new NsDefinitionFactory();
-	
-
-	
 
 	/**
 	 * Creates a new NamedStreamsCreator that is reads input by a Properties
@@ -63,13 +57,11 @@ implements NamedStreamsProvider {
 	
 	/**
 	 * Gets the definition of the stream with the specified logical name.
-	 * 
-	 * @param name
-	 *        Stream name.
+	 *
+	 * @param name        Stream name.
 	 *        
 	 * @return Returns the definition.
-	 * 
-	 * @throws InitializationException
+	 * @throws InitializationException the initialization exception
 	 */
 	NamedStreamDefinition getDefinition(String name) throws InitializationException {
 		return nsdFactory.create(name, properties);
@@ -77,10 +69,10 @@ implements NamedStreamsProvider {
 	
 	/**
 	 * Opens a NamedStream.
-	 * 
-	 * @param def
+	 *
+	 * @param def the def
 	 * @return Returns the NamedStream.
-	 * @throws InitializationException
+	 * @throws InitializationException the initialization exception
 	 */
 	NamedStream<?> open(NamedStreamDefinition def) throws InitializationException {
 		try {
@@ -91,7 +83,7 @@ implements NamedStreamsProvider {
 			throw new InitializationException(e);
 		}
 	}
-	
+
 	@Override
 	public NamedStream<?> getStream(String name) throws InitializationException {
 		NamedStream<?> ns = streams.get(name);
@@ -102,7 +94,7 @@ implements NamedStreamsProvider {
 		}
 		return ns;
 	}
-	
+
 	@Override
 	public NamedStream<?> getSharedStream(String name) throws InitializationException {
 		/*
@@ -121,7 +113,7 @@ implements NamedStreamsProvider {
 			return SharedNamedStreamsRegistry.getStream(name, this);
 		}
 	}
-		
+
 	@Override
 	public void close() throws DataException {
 		for (NamedStream<?> stream : streams.values()) {
@@ -130,22 +122,22 @@ implements NamedStreamsProvider {
 		streams.clear();
 		SharedNamedStreamsRegistry.releaseSharedStreams(this);
 	}
-	
+
 	@Override
 	public void registerStream(NamedStream<?> stream) {
 		streams.put(stream.getName(), stream);
 	}
-	
+
 	@Override
 	public void registerSharedStream(NamedStream<?> stream) {
 		SharedNamedStreamsRegistry.register(stream.getName(), stream, this);
 	}
-	
+
 	@Override
 	public void registerStreamDefinition(NamedStreamDefinition definition) {
 		properties.setProperty(definition.getName(), definition.getSpecsString());
 	}
-	
+
 	@Override
 	public NamedStream<?> convert(String nameOfStreamToConvert, StreamType typeOfNewStream, String nameOfNewStream)
 	throws DataException {
@@ -162,14 +154,4 @@ implements NamedStreamsProvider {
 			throw new DataException(iex);
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-
-	
-	
 }

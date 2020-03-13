@@ -56,10 +56,10 @@ implements Comparator<Number> {
 	};
 	
 	/**
-	 * Finds the index of the Number sub-type
+	 * Finds the index of the Number sub-type.
+	 *
 	 * @param n Number
-	 * 
-	 * @return Returns the index of the sub-type of number in 
+	 * @return Returns the index of the sub-type of number in
 	 *         the <code>types</code> array.
 	 */
 	int type(Number n) {
@@ -71,9 +71,7 @@ implements Comparator<Number> {
 		return DEFAULT_TYPE;
 	}
 	
-	/* (non-Javadoc)
-	 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
-	 */	
+	@Override
 	public int compare(Number n1, Number n2) {
 		if (n1==n2) {
 			return 0;
@@ -89,5 +87,4 @@ implements Comparator<Number> {
 		Comparator<Number> comparator= (Comparator<Number>) COMPARATORS[maxType];
 		return comparator.compare(n1, n2);		
 	}
-
 }

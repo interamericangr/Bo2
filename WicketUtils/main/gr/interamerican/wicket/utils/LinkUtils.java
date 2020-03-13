@@ -18,7 +18,7 @@ import org.apache.wicket.Page;
 import org.apache.wicket.markup.html.link.Link;
 
 /**
- * 
+ * The Class LinkUtils.
  */
 public class LinkUtils {
 
@@ -73,7 +73,9 @@ public class LinkUtils {
 	 * @param linkDesc Link description.
 	 * 
 	 * @return Returns the link.
+	 * @deprecated Use {@link #createLink(String, Class)} instead - this method is silly
 	 */
+	@Deprecated
 	public static Link<String> createLink(final Pair<String,Class<? extends Page>> linkDesc) {
 		return createLink(linkDesc.getLeft(),linkDesc.getRight());
 	}

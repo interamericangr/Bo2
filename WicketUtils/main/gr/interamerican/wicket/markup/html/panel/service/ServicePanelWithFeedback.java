@@ -20,28 +20,28 @@ import org.apache.wicket.markup.html.panel.FeedbackPanel;
 /**
  * {@link ServicePanelDef} with a feedback panel.
  */
-public abstract class ServicePanelWithFeedback 
-extends ServicePanel implements FeedbackOwner {
-	
+public abstract class ServicePanelWithFeedback extends ServicePanel implements FeedbackOwner {
+
 	/**
 	 * serialVersionUID.
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * Feedback panel.
 	 */
 	protected FeedbackPanel feedBackPanel;
-	
+
 	/**
 	 * wicket id.
 	 */
 	private static final String FEEDBACK_PANEL_ID = "feedback"; //$NON-NLS-1$
-	
+
 	/**
-	 * Creates a new ServicePanelWithFeedback object. 
-	 * 
-	 * @param definition 
+	 * Public Constructor
+	 *
+	 * @param definition
+	 *            the definition
 	 */
 	public ServicePanelWithFeedback(ServicePanelDef definition) {
 		super(definition);
@@ -50,20 +50,15 @@ extends ServicePanel implements FeedbackOwner {
 
 	@Override
 	protected abstract void paint();
-	
-	@Override
-	protected void validateDef() {
-		super.validateDef();
-	}
 
 	@Override
 	protected void init() {
 		feedBackPanel = new FeedbackPanel(FEEDBACK_PANEL_ID, new ContainerFeedbackMessageFilter(this));
 		feedBackPanel.setOutputMarkupPlaceholderTag(true);
 	}
-	
+
+	@Override
 	public FeedbackPanel getFeedBackPanel() {
 		return feedBackPanel;
 	}
-
 }

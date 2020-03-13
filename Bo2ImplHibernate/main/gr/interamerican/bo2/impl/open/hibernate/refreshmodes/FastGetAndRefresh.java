@@ -27,7 +27,8 @@ public class FastGetAndRefresh implements GetFromSession {
 	 * Instance.
 	 */
 	public static final FastGetAndRefresh INSTANCE = new FastGetAndRefresh(); 
-	
+
+	@Override
 	public Object get(Session session, Serializable id, Class<?> persistentClass) {
 		Object o = session.get(persistentClass, id);		
 		session.refresh(o);		

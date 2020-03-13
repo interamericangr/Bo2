@@ -26,7 +26,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Tests 
+ * Tests.
  */
 public class TestGenericHibernatePersistenceUtility {
 
@@ -43,8 +43,8 @@ public class TestGenericHibernatePersistenceUtility {
 	
 	/**
 	 * Creates a new TestGenericHibernatePersistenceWorker object. 
-	 * @throws InitializationException 
 	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	public TestGenericHibernatePersistenceUtility() throws InitializationException {
 		super();
@@ -55,8 +55,9 @@ public class TestGenericHibernatePersistenceUtility {
 
 	/**
 	 * See bean.
-	 * @throws InitializationException
-	 * @throws DataException
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
 	 */
 	@Before
 	public void setUp() throws InitializationException, DataException {		
@@ -65,8 +66,8 @@ public class TestGenericHibernatePersistenceUtility {
 
 	/**
 	 * See bean.
-	 * 
-	 * @throws DataException
+	 *
+	 * @throws DataException the data exception
 	 */
 	@After
 	public void tearDown() throws DataException {
@@ -75,8 +76,8 @@ public class TestGenericHibernatePersistenceUtility {
 
 	/**
 	 * See bean.
-	 * 
-	 * @throws PoNotFoundException
+	 *
+	 * @throws PoNotFoundException the po not found exception
 	 */
 	@Test(expected=PoNotFoundException.class)
 	public void testPoNotFoundExceptionOnRead() throws PoNotFoundException {
@@ -85,7 +86,8 @@ public class TestGenericHibernatePersistenceUtility {
 
 	/**
 	 * See bean.
-	 * @throws DataException 
+	 *
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testReadDoesNotFail() 
@@ -95,7 +97,8 @@ public class TestGenericHibernatePersistenceUtility {
 	
 	/**
 	 * See bean.
-	 * @throws DataException 
+	 *
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testUpdateDoesNotFail() 
@@ -105,7 +108,8 @@ public class TestGenericHibernatePersistenceUtility {
 
 	/**
 	 * See bean.
-	 * @throws DataException 
+	 *
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testUpdateAndReadDontFail() 
@@ -115,7 +119,8 @@ public class TestGenericHibernatePersistenceUtility {
 
 	/**
 	 * See bean.
-	 * @throws DataException 
+	 *
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testStoreReadAndDeleteDontFail() 

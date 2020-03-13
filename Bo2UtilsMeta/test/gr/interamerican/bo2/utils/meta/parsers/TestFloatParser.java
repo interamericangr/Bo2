@@ -23,13 +23,13 @@ import org.junit.Test;
 public class TestFloatParser {
 		
 	
-	/**
-	 * FloatParser
-	 */
+	/** FloatParser. */
 	FloatParser parser = new FloatParser(3);
+	
 	/**
-	 * unit test for parse
-	 * @throws ParseException
+	 * unit test for parse.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -46,11 +46,10 @@ public class TestFloatParser {
 	
 	/**
 	 * main test method.
-	 * @param string 
-	 *        parse input
-	 * @param val
-	 *        expected output.     
-	 * @throws ParseException
+	 *
+	 * @param string        parse input
+	 * @param val        expected output.     
+	 * @throws ParseException the parse exception
 	 */
 	private void test(String string, float val) throws ParseException {	
 		Float fl = parser.parse(string);
@@ -60,8 +59,9 @@ public class TestFloatParser {
 
 	
 	/**
-	 * Test parse a value that is not number
-	 * @throws ParseException
+	 * Test parse a value that is not number.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@Test(expected=ParseException.class)
 	public void testParseFalseValue() throws ParseException{

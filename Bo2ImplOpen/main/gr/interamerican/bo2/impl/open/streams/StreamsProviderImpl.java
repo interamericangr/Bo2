@@ -65,7 +65,8 @@ public class StreamsProviderImpl implements StreamsProvider {
 	public StreamsProviderImpl() {
 		workDir = StringConstants.EMPTY;		
 	}
-		
+
+	@Override
 	public InputStream getInputStream(String fileDescriptor) throws DataException {
 		try {
 			String path = getPath(fileDescriptor);
@@ -77,6 +78,7 @@ public class StreamsProviderImpl implements StreamsProvider {
 		}
 	}
 
+	@Override
 	public OutputStream getOutputStream(String fileDescriptor) throws DataException {
 		try {			
 			String path = getPath(fileDescriptor);
@@ -87,7 +89,7 @@ public class StreamsProviderImpl implements StreamsProvider {
 			throw new DataException(e);
 		}
 	}
-	
+
 	@Override
 	public InputStream getManagedInputStream(String fileDescriptor) throws DataException {
 		InputStream is = getInputStream(fileDescriptor);
@@ -104,8 +106,8 @@ public class StreamsProviderImpl implements StreamsProvider {
 	
 	/**
 	 * Real path for the fileDescriptor.
-	 * 
-	 * @param fileDescriptor
+	 *
+	 * @param fileDescriptor the file descriptor
 	 * @return Returns the path.
 	 */
 	protected String getPath(String fileDescriptor) {
@@ -115,6 +117,8 @@ public class StreamsProviderImpl implements StreamsProvider {
 		return workDir + File.separator + fileDescriptor;
 	}
 
+	@SuppressWarnings("resource")
+	@Override
 	public void close() throws DataException {
 		/* 
 		 * Unmanaged streams should be explicitly closed by the program
@@ -128,5 +132,4 @@ public class StreamsProviderImpl implements StreamsProvider {
 			}
 		}
 	}
-
 }

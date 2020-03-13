@@ -42,13 +42,11 @@ import org.junit.Test;
  */
 public class TestComponentFactory extends WicketTest{
 	
-	/**
-	 * the WicketTester
-	 */
+	/** the WicketTester. */
 	public WicketTester wicketTester = null;
 
 	/**
-	 * 
+	 * Sets the up.
 	 */
 	@Before
 	public void setUp(){	
@@ -171,7 +169,7 @@ public class TestComponentFactory extends WicketTest{
 		String[] wicketIds = new String[]{TestPage.TEST_ID};
 		Form<Void> form = new Form<Void>(TestPage.FORM_ID);
 		ComponentFactory.addDateTextFields(form, wicketIds);
-		wicketTester.startPage(new ComponentFactoryPage(form, MarkupConstants.INPUT,StringConstants.EMPTY));
+		wicketTester.startPage(new ComponentFactoryPage(form, MarkupConstants.INPUT,StringConstants.DATE));
 		wicketTester.assertComponent(WicketUtils.wicketPath(TestPage.FORM_ID,TestPage.TEST_ID), DateTextField.class);
 	}
 

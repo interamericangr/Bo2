@@ -91,6 +91,4 @@ public class TestAbstractEventHandler {
 		Integer actual = aeh.getHandlerParameter(Integer.class);
 		assertSame(i, actual);	
 	}
-	
-
 }

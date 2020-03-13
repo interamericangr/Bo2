@@ -30,32 +30,25 @@ import org.junit.Test;
  */
 public class TestCachedEntryBoPropertyDescriptor extends AbstractCacheRelatedTest {
 
-	/**
-	 * TYPE
-	 */
+	/** TYPE. */
 	private static final Long TYPE = 1000L;
-	/**
-	 * SUBTYPE
-	 */
+	
+	/** SUBTYPE. */
 	private static final Long SUBTYPE = 1L;
-	/**
-	 * PARSER
-	 */
+	
+	/** PARSER. */
 	private static final Parser<Long> PARSER = new LongParser();
-	/**
-	 * Formatter
-	 */
+	
+	/** Formatter. */
 	private static final Formatter<Long> FORMATTER = ObjectFormatter.<Long>getInstance();
-	/**
-	 * CODE
-	 */
+	
+	/** CODE. */
 	private static final Long CODE = 1L;
 
 	/**
-	 * Create CachedEntryBoPropertyDescriptor
-	 * 
+	 * Create CachedEntryBoPropertyDescriptor.
+	 *
 	 * @return CachedEntryBoPropertyDescriptor
-	 * 
 	 */
 	public CachedEntryBoPropertyDescriptor<TypedSelectable<Long>, Long> createDescriptor() {
 		TypedSelectable<Long> value = new TypedSelectableImpl<Long>();
@@ -70,9 +63,9 @@ public class TestCachedEntryBoPropertyDescriptor extends AbstractCacheRelatedTes
 	}
 
 	/**
-	 * Test parse Parse a value given the code
-	 * 
-	 * @throws ParseException
+	 * Test parse Parse a value given the code.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@Test
 	public void testParse() throws ParseException {
@@ -84,9 +77,9 @@ public class TestCachedEntryBoPropertyDescriptor extends AbstractCacheRelatedTes
 	}
 
 	/**
-	 * Test parse Parse a value given the code
-	 * 
-	 * @throws ParseException
+	 * Test parse Parse a value given the code.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@Test(expected = ParseException.class)
 	public void testParseFalseValue() throws ParseException {
@@ -97,9 +90,9 @@ public class TestCachedEntryBoPropertyDescriptor extends AbstractCacheRelatedTes
 	}
 
 	/**
-	 * Test validate Checks if value exists in Cashe
-	 * 
-	 * @throws ValidationException
+	 * Test validate Checks if value exists in Cashe.
+	 *
+	 * @throws ValidationException the validation exception
 	 */
 	@Test
 	public void testValidate() throws ValidationException {
@@ -112,9 +105,9 @@ public class TestCachedEntryBoPropertyDescriptor extends AbstractCacheRelatedTes
 	}
 
 	/**
-	 * Test validate Checks if value exists in Cashe
-	 * 
-	 * @throws ValidationException
+	 * Test validate Checks if value exists in Cashe.
+	 *
+	 * @throws ValidationException the validation exception
 	 */
 	@Test(expected = ValidationException.class)
 	public void testValidateNoInCacheValue() throws ValidationException {
@@ -127,7 +120,7 @@ public class TestCachedEntryBoPropertyDescriptor extends AbstractCacheRelatedTes
 	}
 
 	/**
-	 * Test getValues Gets the set of possible values for the entry
+	 * Test getValues Gets the set of possible values for the entry.
 	 */
 	@Test
 	public void testGetValues() {

@@ -30,42 +30,32 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestSelectablesSet.
  */
 public class TestSelectablesSet {
 	
-	/**
-	 * 6 sample users
-	 */
+	/** 6 sample users. */
 	private User v1;
-	/**
-	 * 
-	 */
+	
+	/** The v 2. */
 	private User v2;
-	/**
-	 * 
-	 */
+	
+	/** The v 3. */
 	private User v3;
-	/**
-	 * 
-	 */
+	
+	/** The v 4. */
 	private User v4;
-	/**
-	 * 
-	 */
+	
+	/** The v 5. */
 	private User v5;
-	/**
-	 * 
-	 */
+	
+	/** The v 6. */
 	private User v6;
 	
-	/**
-	 * and a SelectablesSet
-	 */
+	/** and a SelectablesSet. */
 	private SelectablesSet<Long> set;
-	/**
-	 * an old-fashioned Set with the 3 first users
-	 */
+	
+	/** an old-fashioned Set with the 3 first users. */
 	private Set<User> plainSet; 
 
 	/**
@@ -100,7 +90,7 @@ public class TestSelectablesSet {
 	}
 	
 	/**
-	 * tests Collection handling methods implemented in SelectablesSet
+	 * tests Collection handling methods implemented in SelectablesSet.
 	 */
 	@Test
 	public void testSetMethods() {
@@ -208,7 +198,7 @@ public class TestSelectablesSet {
 
 	/**
 	 * Test add
-	 * Add a user that already exists
+	 * Add a user that already exists.
 	 */
 	@Test
 	public void testAdd(){
@@ -216,7 +206,7 @@ public class TestSelectablesSet {
 	}
 	
 	/**
-	 * Test addAll
+	 * Test addAll.
 	 */
 	@Test
 	public void testAddAll(){
@@ -231,7 +221,7 @@ public class TestSelectablesSet {
 	
 	/**
 	 * Test add
-	 * Add a user that already exists
+	 * Add a user that already exists.
 	 */
 	@Test
 	public void testAddExistableUser(){
@@ -239,7 +229,7 @@ public class TestSelectablesSet {
 	}
 	
 	/**
-	 * Test equals with null value
+	 * Test equals with null value.
 	 */
 	@Test
 	public void testEqualsWithNullValue(){
@@ -247,7 +237,7 @@ public class TestSelectablesSet {
 	}
 	
 	/**
-	 * Test equals with null value
+	 * Test equals with null value.
 	 */
 	@Test
 	public void testEqualsWithSameSelectable(){

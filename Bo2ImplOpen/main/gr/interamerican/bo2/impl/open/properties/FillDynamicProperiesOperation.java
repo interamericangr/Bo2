@@ -31,7 +31,7 @@ import java.util.Properties;
  * 
  * Dynamic properties are properties that have a value returned by a
  * {@link Parameter} object or that have their value copied from another
- * property. <br/>
+ * property. <br>
  * Dynamic properties are marked with a specific prefix. The value of this
  * prefix is defined by the static member <code>DYNAPARM_PREFIX</code>.
  * Similarly, copied properties are marked with a prefix that is defined by the
@@ -97,10 +97,9 @@ public class FillDynamicProperiesOperation extends AbstractOperation {
 	 * 
 	 * Dynamic are properties that have their value calculated by a
 	 * {@link Parameter} object.
-	 * 
-	 * @throws DataException
-	 * @throws InitializationException
-	 * 
+	 *
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 * @see #outputProperties
 	 * @see #inputProperties
 	 * @see #isDynamicParameter(String)
@@ -185,12 +184,11 @@ public class FillDynamicProperiesOperation extends AbstractOperation {
 	/**
 	 * Gets the value of a dynamic input parameter from a {@link Parameter}
 	 * object.
-	 * 
-	 * @param value
+	 *
+	 * @param value the value
 	 * @return Returns the value of the dynamic parameter.
-	 * 
-	 * @throws DataException
-	 * @throws InitializationException
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */
 	private Object getPropertyFromParameterClass(String value)
 			throws DataException, InitializationException {
@@ -213,9 +211,6 @@ public class FillDynamicProperiesOperation extends AbstractOperation {
 	}
 
 	
-	/* (non-Javadoc)
-	 * @see gr.interamerican.bo2.impl.open.AbstractOperation#execute()
-	 */
 	@Override
 	public void execute() 
 	throws LogicException, DataException {	

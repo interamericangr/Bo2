@@ -18,12 +18,14 @@ package gr.interamerican.bo2.samples.ibean;
 public interface SomeOperations {
 	
 	/**
-	 * @param something
+	 * Say something.
+	 *
+	 * @param something the something
 	 */
 	void saySomething(String something);
 	
 	/**
-	 * 
+	 * Prepare.
 	 */
 	void prepare();
 

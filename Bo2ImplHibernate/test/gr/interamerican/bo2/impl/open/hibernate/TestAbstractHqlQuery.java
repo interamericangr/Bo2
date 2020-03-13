@@ -39,7 +39,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestAbstractHqlQuery.
  */
 public class TestAbstractHqlQuery {
 	
@@ -48,13 +48,11 @@ public class TestAbstractHqlQuery {
 	 */
 	public static final String CACHE_NAME = "cache"; //$NON-NLS-1$
 	
-	/**
-	 * sample role
-	 */
+	/** sample role. */
 	private static CompanyRole role = new CompanyRole(1L, null, UtilityForBo2Test.getExistingCompanyUserRoleCd(), "user"); //$NON-NLS-1$
 	
 	/**
-	 * sets up the cache
+	 * sets up the cache.
 	 */
 	@BeforeClass
 	public static void setup() {
@@ -67,10 +65,11 @@ public class TestAbstractHqlQuery {
 	}
 	
 	/**
-	 * tests reading a user
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 * tests reading a user.
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testReadUser() throws UnexpectedException, DataException, LogicException {
@@ -98,11 +97,11 @@ public class TestAbstractHqlQuery {
 	}
 	
 	/**
-	 * tests reading a {@link CompanyUser} based on a given {@link CompanyRole}
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 * tests reading a {@link CompanyUser} based on a given {@link CompanyRole}.
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testReadCompanyUserWithRole() 
@@ -129,10 +128,11 @@ public class TestAbstractHqlQuery {
 	}
 	
 	/**
-	 * tests reading a {@link CompanyUser} based on a given {@link Sex}
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 * tests reading a {@link CompanyUser} based on a given {@link Sex}.
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testReadCompanyUserWithSex() 
@@ -160,10 +160,11 @@ public class TestAbstractHqlQuery {
 	}
 	
 	/**
-	 * tests reading a {@link CompanyUser} based on a given a {@link UserIdBean}
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 * tests reading a {@link CompanyUser} based on a given a {@link UserIdBean}.
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testReadCompanyUserWithJavaBean() 
@@ -210,8 +211,8 @@ public class TestAbstractHqlQuery {
 		
 		/**
 		 * Sets the role.
-		 * 
-		 * @param role
+		 *
+		 * @param role the new role
 		 */
 		public void setRole(CompanyRole role) {
 			this.companyRole = role;
@@ -237,8 +238,8 @@ public class TestAbstractHqlQuery {
 		
 		/**
 		 * Sets the sex.
-		 * 
-		 * @param sex
+		 *
+		 * @param sex the new sex
 		 */
 		public void setSex(Sex sex) {
 			this.sex = sex;
@@ -270,10 +271,11 @@ public class TestAbstractHqlQuery {
 		public Integer getUserId() {
 			return userId;
 		}		
+		
 		/**
 		 * Sets the user id.
-		 * 
-		 * @param userId
+		 *
+		 * @param userId the new user id
 		 */
 		public void setUserId(Integer userId) {
 			this.userId = userId;
@@ -301,13 +303,17 @@ public class TestAbstractHqlQuery {
 		}
 		
 		/**
-		 * @param userIdBean
+		 * Sets the user id.
+		 *
+		 * @param userIdBean the new user id
 		 */
 		public void setUserId(UserIdBean userIdBean) {
 			this.userIdBean = userIdBean;
 		}
 		
 		/**
+		 * Gets the user id.
+		 *
 		 * @return user id.
 		 */
 		@SuppressWarnings("unused")

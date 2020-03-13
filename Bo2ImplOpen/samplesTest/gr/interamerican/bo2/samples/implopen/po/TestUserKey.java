@@ -20,13 +20,11 @@ import gr.interamerican.bo2.samples.archutil.po.UserKey;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestUserKey.
  */
 public class TestUserKey {
 	
-	/**
-	 * sample key
-	 */	
+	/** sample key. */	
 	UserKey sample = new UserKey(5);	
 	/**
 	 * little key.
@@ -36,13 +34,11 @@ public class TestUserKey {
 	 * greater key.
 	 */
 	UserKey big = new UserKey(9);
-	/**
-	 * 
-	 */
+	
+	/** The equal. */
 	UserKey equal = new UserKey(5);
-	/**
-	 * 
-	 */
+	
+	/** The nu. */
 	UserKey nu = new UserKey(null);
 	
 	/**

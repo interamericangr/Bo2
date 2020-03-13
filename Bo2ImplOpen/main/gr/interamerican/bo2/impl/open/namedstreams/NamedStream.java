@@ -27,7 +27,7 @@ import java.nio.charset.Charset;
  * In order to support unified handling of named streams
  * in mainframe and workstation environments a stream is
  * wrapped inside a StreamInfo object. Stream operations
- * are used through the StreamInfo object. <br/>
+ * are used through the StreamInfo object. <br>
  * The NamedStream interface is common for input and
  * output streams, as well as for sequential and indexed
  * files. Therefore it has methods for reading, writing

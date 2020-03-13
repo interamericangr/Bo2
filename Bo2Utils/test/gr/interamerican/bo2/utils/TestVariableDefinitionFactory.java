@@ -23,14 +23,15 @@ import java.lang.reflect.Field;
 import org.junit.Test;
 
 /**
- * 
+ * A factory for creating TestVariableDefinition objects.
  */
 public class TestVariableDefinitionFactory {
 	
 	/**
 	 * Unit test for create with field.
-	 * @throws NoSuchFieldException 
-	 * @throws SecurityException 
+	 *
+	 * @throws SecurityException the security exception
+	 * @throws NoSuchFieldException the no such field exception
 	 */
 	@Test
 	public void testCreate_withField() throws SecurityException, NoSuchFieldException {
@@ -43,8 +44,9 @@ public class TestVariableDefinitionFactory {
 	
 	/**
 	 * Unit test for create with fields array.
-	 * @throws NoSuchFieldException 
-	 * @throws SecurityException 
+	 *
+	 * @throws SecurityException the security exception
+	 * @throws NoSuchFieldException the no such field exception
 	 */
 	@Test
 	public void testCreate_withFields() throws SecurityException, NoSuchFieldException {
@@ -58,8 +60,8 @@ public class TestVariableDefinitionFactory {
 	
 	/**
 	 * Unit test for create with property.
-	 * 
-	 * @throws SecurityException 
+	 *
+	 * @throws SecurityException the security exception
 	 */
 	@Test
 	public void testCreate_withProperty() throws SecurityException{
@@ -72,8 +74,8 @@ public class TestVariableDefinitionFactory {
 	
 	/**
 	 * Unit test for create with fields array.
-	 * 
-	 * @throws SecurityException 
+	 *
+	 * @throws SecurityException the security exception
 	 */
 	@Test
 	public void testCreate_withProperties() throws SecurityException {
@@ -88,8 +90,9 @@ public class TestVariableDefinitionFactory {
 	
 	
 	/**
-	 * test AsVariableDefinition
-	 * @throws SecurityException
+	 * test AsVariableDefinition.
+	 *
+	 * @throws SecurityException the security exception
 	 */
 	@Test
 	public void testAsVariableDefinition() throws SecurityException {

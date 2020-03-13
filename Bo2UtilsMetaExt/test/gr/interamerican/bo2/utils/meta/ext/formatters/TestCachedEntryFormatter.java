@@ -25,9 +25,7 @@ import org.junit.Test;
  */
 public class TestCachedEntryFormatter {
 	
-	/**
-	 * Sample
-	 */
+	/** Sample. */
 	CachedEntryFormatter<TypedSelectable<Long>, Long> formatter = 
 		new CachedEntryFormatter<TypedSelectable<Long>, Long>(
 				FormatterResolver.getFormatter(Long.class));

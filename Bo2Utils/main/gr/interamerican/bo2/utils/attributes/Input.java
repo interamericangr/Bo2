@@ -7,10 +7,11 @@ package gr.interamerican.bo2.utils.attributes;
  *        Type of input object. 
  */
 public interface Input<I> {
+	
 	/**
 	 * Sets the input.
-	 * 
-	 * @param input
+	 *
+	 * @param input the new input
 	 */
 	public void setInput(I input);
 

@@ -29,10 +29,9 @@ public class RegexUtils {
 	
 	/**
 	 * Returns all matches of a pattern in a given string.
-	 * 
-	 * @param value
-	 * @param pattern
-	 * 
+	 *
+	 * @param value the value
+	 * @param pattern the pattern
 	 * @return List of matches.
 	 */
 	public static List<String> getMatches(String value, String pattern) {
@@ -42,10 +41,9 @@ public class RegexUtils {
 	
 	/**
 	 * Returns all matches of a {@link Pattern} in a given string.
-	 * 
-	 * @param value
-	 * @param p
-	 * 
+	 *
+	 * @param value the value
+	 * @param p the p
 	 * @return List of matches.
 	 */
 	public static List<String> getMatches(String value, Pattern p) {

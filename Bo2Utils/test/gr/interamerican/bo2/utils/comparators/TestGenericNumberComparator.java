@@ -20,12 +20,12 @@ import java.math.BigInteger;
 import org.junit.Test;
 
 /**
- * tests the GenericNumberComparator class
+ * tests the GenericNumberComparator class.
  */
 public class TestGenericNumberComparator {
 
 	/**
-	 * Every possible pair of the 8 Number sub-types is tested
+	 * Every possible pair of the 8 Number sub-types is tested.
 	 */
 	@Test
 	public void testGenericNumberComparator() {

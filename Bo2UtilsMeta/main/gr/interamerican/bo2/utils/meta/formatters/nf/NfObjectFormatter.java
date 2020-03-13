@@ -19,9 +19,7 @@ import gr.interamerican.bo2.utils.meta.formatters.ObjectFormatter;
  */
 public class NfObjectFormatter extends NullFilteringFormatter<Object> {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**

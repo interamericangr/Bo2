@@ -95,9 +95,8 @@ public class TestMethodsBasedKey {
 		 * serialVersionUID.
 		 */
 		private static final long serialVersionUID = 1L;
-		/**
-		 * Id
-		 */
+		
+		/** Id. */
 		private static final int ID = 2;
 		/**
 		 * code.
@@ -166,9 +165,7 @@ public class TestMethodsBasedKey {
 		 */
 		private static final long serialVersionUID = 1L;
 		
-		/**
-		 * Id
-		 */
+		/** Id. */
 		private int id;
 		
 		/**
@@ -224,7 +221,8 @@ public class TestMethodsBasedKey {
 
 		/**
 		 * Sets the Id.
-		 * @param id
+		 *
+		 * @param id the new id
 		 */
 		public void setId(int id) {
 			this.id = id;
@@ -232,7 +230,8 @@ public class TestMethodsBasedKey {
 
 		/**
 		 * Sets the code.
-		 * @param code
+		 *
+		 * @param code the new code
 		 */
 		public void setCode(Long code) {
 			this.code = code;
@@ -240,7 +239,8 @@ public class TestMethodsBasedKey {
 
 		/**
 		 * Sets the name.
-		 * @param name
+		 *
+		 * @param name the new name
 		 */
 		public void setName(String name) {
 			this.name = name;

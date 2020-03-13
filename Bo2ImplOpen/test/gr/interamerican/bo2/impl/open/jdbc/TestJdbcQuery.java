@@ -47,9 +47,10 @@ import org.junit.Test;
 public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 	
 	/**
-	 * tests that a method annotated as SQL can be executed as query
-	 * @throws InitializationException 
-	 * @throws DataException 
+	 * tests that a method annotated as SQL can be executed as query.
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -58,9 +59,8 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 		w.init(provider);
 		w.open();
 		w.execute();
-		int i=0;
+		int i = 0;
 		while (w.next()) {
-			i++;
 			String name = w.getString("USR_NM");
 			String userName = w.getString(3);
 			String name1 = w.get("USR_NM",StringType.INSTANCE);
@@ -78,16 +78,17 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 			Boolean b = w.get("ID",BooleanType.INSTANCE);
 			assertEquals(b1, b);
 			assertEquals(b2, b);
-			assertEquals(i,w.getRow());			
+			assertEquals(++i,w.getRow());			
 		}
 		w.close();
 	}
 	
 	
 	/**
-	 * tests that a method annotated as SQL can be executed as query
-	 * @throws InitializationException 
-	 * @throws DataException 
+	 * tests that a method annotated as SQL can be executed as query.
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
 	 */
 	@SuppressWarnings("nls")
 	@Test(expected=DataAccessException.class)
@@ -96,18 +97,17 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 		w.init(provider);
 		w.open();
 		w.execute();
-		int i=0;
 		while (w.next()) {
-			i++;
 			w.get("",StringType.INSTANCE);
 		}
 		w.close();
 	}
 	
 	/**
-	 * tests that a method annotated as SQL can be executed as query
-	 * @throws InitializationException 
-	 * @throws DataException 
+	 * tests that a method annotated as SQL can be executed as query.
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testGetWithNamedParameter() throws InitializationException, DataException {	
@@ -115,9 +115,8 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 		w.init(provider);
 		w.open();
 		w.execute();
-		int i=0;
 		while (w.next()) {
-			i++;
+			// empty
 		}
 		w.close();
 	}
@@ -125,22 +124,17 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 	
 	
 	/**
-	 * tests that a method annotated as SQL can be executed as query
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 * tests that a method annotated as SQL can be executed as query.
+	 *
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test
 	public void testExecute_GetDouble() 
 	throws DataException, InitializationException {
 		
-		JdbcQuery q = new DummyAllTypesQuery();
-		q.setManagerName("LOCALDB"); //$NON-NLS-1$
-		q.init(provider);
-		q.open();
-		q.execute();
-		int i=0;
+		JdbcQuery q = getQuery();
 		while (q.next()) {
-			i++;
 			Double d1 = q.getDouble("doub"); //$NON-NLS-1$
 			Double d2 = q.getDouble(2);
 			Double d = q.get("doub",DoubleType.INSTANCE); //$NON-NLS-1$
@@ -153,9 +147,10 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 	
 	
 	/**
-	 * tests that a method annotated as SQL can be executed as query
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 * tests that a method annotated as SQL can be executed as query.
+	 *
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=DataAccessException.class)
 	public void testExecute_DataExceptionDouble() 
@@ -165,18 +160,17 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 		w.init(provider);
 		w.open();
 		w.execute();
-		int i=0;
 		while (w.next()) {
-			i++;
 			w.getDouble("USR_NM"); //$NON-NLS-1$
 		}
 		w.close();
 	}
 	
 	/**
-	 * tests that a method annotated as SQL can be executed as query
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 * tests that a method annotated as SQL can be executed as query.
+	 *
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=DataAccessException.class)
 	public void testExecute_DataExceptionDoubleIntArgs() 
@@ -186,16 +180,14 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 		w.init(provider);
 		w.open();
 		w.execute();
-		int i=0;
 		while (w.next()) {
-			i++;
 			w.getDouble(3);
 		}
 		w.close();
 	}
 
 	/**
-	 * Unit test for setAvoidLock
+	 * Unit test for setAvoidLock.
 	 */
 	@Test
 	public void testSetGetAvoidLock() {
@@ -205,7 +197,7 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 	}
 	
 	/**
-	 * Unit test for isAvoidLock
+	 * Unit test for isAvoidLock.
 	 */
 	@Test
 	public void testIsAvoidLock() {
@@ -215,7 +207,7 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 	}
 	
 	/**
-	 * Unit test for isAvoidLock
+	 * Unit test for isAvoidLock.
 	 */
 	@Test
 	public void testCil() {
@@ -230,22 +222,17 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 
 	
 	/**
-	 * tests that a method annotated as SQL can be executed as query
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 * tests that a method annotated as SQL can be executed as query.
+	 *
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test
 	public void testExecute_GetFloat() 
 	throws DataException, InitializationException {
 		
-		JdbcQuery q = new DummyAllTypesQuery();
-		q.setManagerName("LOCALDB"); //$NON-NLS-1$
-		q.init(provider);
-		q.open();
-		q.execute();
-		int i=0;
+		JdbcQuery q = getQuery();
 		while (q.next()) {
-			i++;
 			Float f1 = q.getFloat("flt"); //$NON-NLS-1$
 			Float f2 = q.getFloat(5);
 			Float f = q.get("flt",FloatType.INSTANCE); //$NON-NLS-1$
@@ -257,9 +244,10 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 	}
 	
 	/**
-	 * tests that a method annotated as SQL can be executed as query
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 * tests that a method annotated as SQL can be executed as query.
+	 *
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=DataAccessException.class)
 	public void testExecute_DataExceptionFloat() 
@@ -269,18 +257,17 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 		w.init(provider);
 		w.open();
 		w.execute();
-		int i=0;
 		while (w.next()) {
-			i++;
 			w.getFloat("USR_NM");//$NON-NLS-1$
 		}
 		w.close();
 	}
 	
 	/**
-	 * tests that a method annotated as SQL can be executed as query
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 * tests that a method annotated as SQL can be executed as query.
+	 *
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=DataAccessException.class)
 	public void testExecute_DataExceptionFloatIntArgs() 
@@ -290,18 +277,17 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 		w.init(provider);
 		w.open();
 		w.execute();
-		int i=0;
 		while (w.next()) {
-			i++;
 			w.getFloat(3);
 		}
 		w.close();
 	}
 	
 	/**
-	 * tests that a method annotated as SQL can be executed as query
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 * tests that a method annotated as SQL can be executed as query.
+	 *
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=DataAccessException.class)
 	public void testExecute_DataExceptionInt() 
@@ -311,18 +297,17 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 		w.init(provider);
 		w.open();
 		w.execute();
-		int i=0;
 		while (w.next()) {
-			i++;
 			w.getInt("USR_NM"); //$NON-NLS-1$
 		}
 		w.close();
 	}
 	
 	/**
-	 * tests that a method annotated as SQL can be executed as query
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 * tests that a method annotated as SQL can be executed as query.
+	 *
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=DataAccessException.class)
 	public void testExecute_DataExceptionIntArgsInt() 
@@ -332,31 +317,24 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 		w.init(provider);
 		w.open();
 		w.execute();
-		int i=0;
 		while (w.next()) {
-			i++;
 			w.getInt(3);
 		}
 		w.close();
 	}
 	
 	/**
-	 * tests that a method annotated as SQL can be executed as query
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 * tests that a method annotated as SQL can be executed as query.
+	 *
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test
 	public void testExecute_GetLong() 
 	throws DataException, InitializationException {
 		
-		JdbcQuery q = new DummyAllTypesQuery();
-		q.setManagerName("LOCALDB"); //$NON-NLS-1$
-		q.init(provider);
-		q.open();
-		q.execute();
-		int i=0;
+		JdbcQuery q = getQuery();
 		while (q.next()) {
-			i++;
 			Long l1 = q.getLong("lng"); //$NON-NLS-1$
 			Long l2 = q.getLong(7);
 			Long l = q.get("lng",LongType.INSTANCE); //$NON-NLS-1$
@@ -369,9 +347,10 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 	
 	
 	/**
-	 * tests that a method annotated as SQL can be executed as query
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 * tests that a method annotated as SQL can be executed as query.
+	 *
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=DataAccessException.class)
 	public void testExecute_DataExceptionLong() 
@@ -381,17 +360,17 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 		w.init(provider);
 		w.open();
 		w.execute();
-		int i=0;
 		while (w.next()) {
-			i++;
 			w.getLong("USR_NM"); //$NON-NLS-1$
 		}
 		w.close();
 	}
+	
 	/**
-	 * tests that a method annotated as SQL can be executed as query
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 * tests that a method annotated as SQL can be executed as query.
+	 *
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=DataAccessException.class)
 	public void testExecute_DataExceptionLongIntArgs() 
@@ -401,9 +380,7 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 		w.init(provider);
 		w.open();
 		w.execute();
-		int i=0;
 		while (w.next()) {
-			i++;
 			w.getLong(3);
 		}
 		w.close();
@@ -411,22 +388,17 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 	
 	
 	/**
-	 * tests that a method annotated as SQL can be executed as query
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 * tests that a method annotated as SQL can be executed as query.
+	 *
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test
 	public void testExecute_GetShort() 
 	throws DataException, InitializationException {
 		
-		JdbcQuery q = new DummyAllTypesQuery();
-		q.setManagerName("LOCALDB"); //$NON-NLS-1$
-		q.init(provider);
-		q.open();
-		q.execute();
-		int i=0;
+		JdbcQuery q = getQuery();
 		while (q.next()) {
-			i++;
 			Short s1 = q.getShort("shrt"); //$NON-NLS-1$
 			Short s2 = q.getShort(1);
 			Short s = q.get("shrt",ShortType.INSTANCE); //$NON-NLS-1$
@@ -439,9 +411,10 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 	
 	
 	/**
-	 * tests that a method annotated as SQL can be executed as query
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 * tests that a method annotated as SQL can be executed as query.
+	 *
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=DataAccessException.class)
 	public void testExecute_DataExceptionShort() 
@@ -451,17 +424,17 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 		w.init(provider);
 		w.open();
 		w.execute();
-		int i=0;
 		while (w.next()) {
-			i++;
 			w.getShort("USR_NM"); //$NON-NLS-1$
 		}
 		w.close();
 	}
+	
 	/**
-	 * tests that a method annotated as SQL can be executed as query
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 * tests that a method annotated as SQL can be executed as query.
+	 *
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=DataAccessException.class)
 	public void testExecute_DataExceptionShortIntArgs() 
@@ -471,9 +444,7 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 		w.init(provider);
 		w.open();
 		w.execute();
-		int i=0;
 		while (w.next()) {
-			i++;
 			w.getShort(3);
 		}
 		w.close();
@@ -481,22 +452,17 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 	
 	
 	/**
-	 * tests that a method annotated as SQL can be executed as query
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 * tests that a method annotated as SQL can be executed as query.
+	 *
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test
 	public void testExecute_GetBigDecimal() 
 	throws DataException, InitializationException {
 		
-		JdbcQuery q = new DummyAllTypesQuery();
-		q.setManagerName("LOCALDB"); //$NON-NLS-1$
-		q.init(provider);
-		q.open();
-		q.execute();
-		int i=0;
+		JdbcQuery q = getQuery();
 		while (q.next()) {
-			i++;
 			BigDecimal bd1 = q.getBigDecimal("BigDec"); //$NON-NLS-1$
 			BigDecimal bd2 = q.getBigDecimal(6);
 			BigDecimal bd = q.get("BigDec",BigDecimalType.INSTANCE); //$NON-NLS-1$
@@ -509,9 +475,10 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 	
 	
 	/**
-	 * tests that a method annotated as SQL can be executed as query
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 * tests that a method annotated as SQL can be executed as query.
+	 *
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=DataAccessException.class)
 	public void testExecute_DataExceptionBigDecimal() 
@@ -521,18 +488,17 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 		w.init(provider);
 		w.open();
 		w.execute();
-		int i=0;
 		while (w.next()) {
-			i++;
 			w.getBigDecimal("USR_NM"); //$NON-NLS-1$
 		}
 		w.close();
 	}
 	
 	/**
-	 * tests that a method annotated as SQL can be executed as query
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 * tests that a method annotated as SQL can be executed as query.
+	 *
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=DataAccessException.class)
 	public void testExecute_DataExceptionBigDecimalIntArg() 
@@ -542,31 +508,24 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 		w.init(provider);
 		w.open();
 		w.execute();
-		int i=0;
 		while (w.next()) {
-			i++;
 			w.getBigDecimal(3);
 		}
 		w.close();
 	}
 	
 	/**
-	 * tests that a method annotated as SQL can be executed as query
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 * tests that a method annotated as SQL can be executed as query.
+	 *
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test
 	public void testExecute_GetByte() 
 	throws DataException, InitializationException {
 		
-		JdbcQuery q = new DummyAllTypesQuery();
-		q.setManagerName("LOCALDB"); //$NON-NLS-1$
-		q.init(provider);
-		q.open();
-		q.execute();
-		int i=0;
+		JdbcQuery q = getQuery();
 		while (q.next()) {
-			i++;
 			Byte b1 = q.getByte("bt"); //$NON-NLS-1$
 			Byte b2 =q.getByte(10);
 			Byte b = q.get("bt",ByteType.INSTANCE); //$NON-NLS-1$
@@ -579,9 +538,10 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 	
 	
 	/**
-	 * tests that a method annotated as SQL can be executed as query
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 * tests that a method annotated as SQL can be executed as query.
+	 *
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=DataAccessException.class)
 	public void testExecute_DataExceptionByte() 
@@ -591,18 +551,17 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 		w.init(provider);
 		w.open();
 		w.execute();
-		int i=0;
 		while (w.next()) {
-			i++;
 			w.getByte("USR_NM"); //$NON-NLS-1$
 		}
 		w.close();
 	}
 	
 	/**
-	 * tests that a method annotated as SQL can be executed as query
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 * tests that a method annotated as SQL can be executed as query.
+	 *
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=DataAccessException.class)
 	public void testExecute_DataExceptionByteIntArgs() 
@@ -612,9 +571,7 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 		w.init(provider);
 		w.open();
 		w.execute();
-		int i=0;
 		while (w.next()) {
-			i++;
 			w.getByte(3); 
 		}
 		w.close();
@@ -624,9 +581,10 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 	
 	
 	/**
-	 * tests that a method annotated as SQL can be executed as query
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 * tests that a method annotated as SQL can be executed as query.
+	 *
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=DataAccessException.class)
 	public void testExecute_DataExceptionBytes() 
@@ -636,18 +594,17 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 		w.init(provider);
 		w.open();
 		w.execute();
-		int i=0;
 		while (w.next()) {
-			i++;
 			w.getBytes("USR_NM"); //$NON-NLS-1$
 		}
 		w.close();
 	}
 	
 	/**
-	 * tests that a method annotated as SQL can be executed as query
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 * tests that a method annotated as SQL can be executed as query.
+	 *
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=DataAccessException.class)
 	public void testExecute_DataExceptionBytesIntArgs() 
@@ -657,9 +614,7 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 		w.init(provider);
 		w.open();
 		w.execute();
-		int i=0;
 		while (w.next()) {
-			i++;
 			w.getBytes(3);
 		}
 		w.close();
@@ -667,22 +622,17 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 	
 	
 	/**
-	 * tests that a method annotated as SQL can be executed as query
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 * tests that a method annotated as SQL can be executed as query.
+	 *
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test
 	public void testExecute_GetCalendar() 
 	throws DataException, InitializationException {
 		
-		JdbcQuery q = new DummyAllTypesQuery();
-		q.setManagerName("LOCALDB"); //$NON-NLS-1$
-		q.init(provider);
-		q.open();
-		q.execute();
-		int i=0;
+		JdbcQuery q = getQuery();
 		while (q.next()) {
-			i++;
 			Calendar c1 = q.getCalendar("dt"); //$NON-NLS-1$
 			Calendar c2 = q.getCalendar(4);
 			Calendar d =  q.get("dt",CalendarType.INSTANCE); //$NON-NLS-1$
@@ -695,9 +645,10 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 	
 	
 	/**
-	 * tests that a method annotated as SQL can be executed as query
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 * tests that a method annotated as SQL can be executed as query.
+	 *
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=DataAccessException.class)
 	public void testExecute_DataExceptionCalendar() 
@@ -707,18 +658,17 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 		w.init(provider);
 		w.open();
 		w.execute();
-		int i=0;
 		while (w.next()) {
-			i++;
 			w.getCalendar("USR_NM"); //$NON-NLS-1$
 		}
 		w.close();
 	}
 	
 	/**
-	 * tests that a method annotated as SQL can be executed as query
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 * tests that a method annotated as SQL can be executed as query.
+	 *
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=DataAccessException.class)
 	public void testExecute_DataExceptionCalendarIntArgs() 
@@ -728,9 +678,7 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 		w.init(provider);
 		w.open();
 		w.execute();
-		int i=0;
 		while (w.next()) {
-			i++;
 			w.getCalendar(3);
 		}
 		w.close();
@@ -738,22 +686,17 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 	
 	
 	/**
-	 * tests that a method annotated as SQL can be executed as query
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 * tests that a method annotated as SQL can be executed as query.
+	 *
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test
 	public void testExecute_GetDate() 
 	throws DataException, InitializationException {
 		
-		JdbcQuery q = new DummyAllTypesQuery();
-		q.setManagerName("LOCALDB"); //$NON-NLS-1$
-		q.init(provider);
-		q.open();
-		q.execute();
-		int i=0;
+		JdbcQuery q = getQuery();
 		while (q.next()) {
-			i++;
 			Date dt1 = (Date) q.getDate("dt"); //$NON-NLS-1$
 			Date dt2 =(Date) q.getDate(4);
 			Date d = (Date) q.get("dt",DateType.INSTANCE); //$NON-NLS-1$
@@ -766,9 +709,10 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 	
 	
 	/**
-	 * tests that a method annotated as SQL can be executed as query
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 * tests that a method annotated as SQL can be executed as query.
+	 *
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=DataAccessException.class)
 	public void testExecute_DataExceptionDate() 
@@ -778,18 +722,17 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 		w.init(provider);
 		w.open();
 		w.execute();
-		int i=0;
 		while (w.next()) {
-			i++;
 			w.getDate("USR_NM"); //$NON-NLS-1$
 		}
 		w.close();
 	}
 	
 	/**
-	 * tests that a method annotated as SQL can be executed as query
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 * tests that a method annotated as SQL can be executed as query.
+	 *
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=DataAccessException.class)
 	public void testExecute_DataExceptionDateIntArgs() 
@@ -799,9 +742,7 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 		w.init(provider);
 		w.open();
 		w.execute();
-		int i=0;
 		while (w.next()) {
-			i++;
 			w.getDate(3); 
 		}
 		w.close();
@@ -809,22 +750,17 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 	
 	
 	/**
-	 * tests that a method annotated as SQL can be executed as query
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 * tests that a method annotated as SQL can be executed as query.
+	 *
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test
 	public void testExecute_GetObject() 
 	throws DataException, InitializationException {
 		
-		JdbcQuery q = new DummyAllTypesQuery();
-		q.setManagerName("LOCALDB"); //$NON-NLS-1$
-		q.init(provider);
-		q.open();
-		q.execute();
-		int i=0;
+		JdbcQuery q = getQuery();
 		while (q.next()) {
-			i++;
 			q.getObject("object"); //$NON-NLS-1$
 			q.getObject(9);
 		}
@@ -837,7 +773,6 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 	 */
 	@ManagerName("LOCALDB")
 	private static class JdbcQueryImpl extends JdbcQuery {
-		
 
 		@Override
 		protected Object[] parameters() {
@@ -857,12 +792,9 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 	@ManagerName("LOCALDB")
 	private static class JdbcQueryParameterizedImpl extends JdbcQuery {
 		
-		/**
-		 * named parameter
-		 */
-		@SuppressWarnings("unused")
+		/** named parameter. */
 		@Parameter Long minId = -1L;
-		
+
 		@Override
 		protected String sql() {		
 			return "select * from X__X.users where ID > :minId"; //$NON-NLS-1$
@@ -871,22 +803,17 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 	
 	
 	/**
-	 * tests that a method annotated as SQL can be executed as query
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 * tests that a method annotated as SQL can be executed as query.
+	 *
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=DataAccessException.class)
 	public void testExecute_DataExceptionBoolean() 
 	throws DataException, InitializationException {
 		
-		JdbcQuery q = new DummyAllTypesQuery();
-		q.setManagerName("LOCALDB"); //$NON-NLS-1$
-		q.init(provider);
-		q.open();
-		q.execute();
-		int i=0;
+		JdbcQuery q = getQuery();
 		while (q.next()) {
-			i++;
 			q.getBoolean("dt");  //$NON-NLS-1$
 		}
 		q.close();
@@ -895,22 +822,17 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 	
 	
 	/**
-	 * tests that a method annotated as SQL can be executed as query
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 * tests that a method annotated as SQL can be executed as query.
+	 *
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=DataAccessException.class)
 	public void testExecute_DataExceptionBooleanIntArgs() 
 	throws DataException, InitializationException {
 		
-		JdbcQuery q = new DummyAllTypesQuery();
-		q.setManagerName("LOCALDB"); //$NON-NLS-1$
-		q.init(provider);
-		q.open();
-		q.execute();
-		int i=0;
+		JdbcQuery q = getQuery();
 		while (q.next()) {
-			i++;
 			q.getBoolean(4);
 		}
 		q.close();
@@ -918,91 +840,86 @@ public class TestJdbcQuery extends AbstractNonTransactionalProviderTest {
 	}
 	
 	/**
-	 * tests that a method annotated as SQL can be executed as query
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 * tests that a method annotated as SQL can be executed as query.
+	 *
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=DataAccessException.class)
 	public void testExecute_DataExceptionObject() 
 	throws DataException, InitializationException {
 		
-		JdbcQuery q = new DummyAllTypesQuery();
-		q.setManagerName("LOCALDB"); //$NON-NLS-1$
-		q.init(provider);
-		q.open();
-		q.execute();
-		int i=0;
+		JdbcQuery q = getQuery();
 		while (q.next()) {
-			i++;
 			q.getObject(""); //$NON-NLS-1$
 		}
 		q.close();
 	}
 	
 	/**
-	 * tests that a method annotated as SQL can be executed as query
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 * tests that a method annotated as SQL can be executed as query.
+	 *
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=DataAccessException.class)
 	public void testExecute_DataExceptionObjectIntArgs() 
 	throws DataException, InitializationException {
 		
-		JdbcQuery q = new DummyAllTypesQuery();
-		q.setManagerName("LOCALDB"); //$NON-NLS-1$
-		q.init(provider);
-		q.open();
-		q.execute();
-		int i=0;
+		JdbcQuery q = getQuery();
 		while (q.next()) {
-			i++;
 			q.getObject(0);
 		}
 		q.close();
 	}
 	
 	/**
-	 * tests that a method annotated as SQL can be executed as query
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 * tests that a method annotated as SQL can be executed as query.
+	 *
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=DataAccessException.class)
 	public void testExecute_DataExceptionString() 
 	throws DataException, InitializationException {
 		
-		JdbcQuery q = new DummyAllTypesQuery();
-		q.setManagerName("LOCALDB"); //$NON-NLS-1$
-		q.init(provider);
-		q.open();
-		q.execute();
-		int i=0;
+		JdbcQuery q = getQuery();
 		while (q.next()) {
-			i++;
 			q.getString(""); //$NON-NLS-1$
 		}
 		q.close();
 	}
 		
 	/**
-	 * tests that a method annotated as SQL can be executed as query
-	 * @throws DataException 
-	 * @throws InitializationException 
+	 * tests that a method annotated as SQL can be executed as query.
+	 *
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=DataAccessException.class)
 	public void testExecute_DataExceptionStringIntArgs() 
 	throws DataException, InitializationException {
-		
+		JdbcQuery q = getQuery();
+		while (q.next()) {
+			q.getString(0);
+		}
+		q.close();
+	}
+
+
+	/**
+	 * Returns a {@link DummyAllTypesQuery} to be tested.
+	 * 
+	 * @return a {@link DummyAllTypesQuery}.
+	 * @throws InitializationException
+	 * @throws DataException
+	 */
+	private JdbcQuery getQuery() throws InitializationException, DataException {
 		JdbcQuery q = new DummyAllTypesQuery();
 		q.setManagerName("LOCALDB"); //$NON-NLS-1$
 		q.init(provider);
 		q.open();
 		q.execute();
-		int i=0;
-		while (q.next()) {
-			i++;
-			q.getString(0);
-		}
-		q.close();
-	}		
-
+		return q;
+	}
 }

@@ -70,7 +70,8 @@ public class TestAbstractClassCreator {
 	
 	/**
 	 * Unit test.
-	 * @throws ClassCreationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
 	 */	
 	@SuppressWarnings("nls")
 	@Test
@@ -85,7 +86,8 @@ public class TestAbstractClassCreator {
 	
 	/**
 	 * Unit test.
-	 * @throws ClassCreationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
 	 */	
 	@SuppressWarnings("nls")
 	@Test
@@ -98,7 +100,8 @@ public class TestAbstractClassCreator {
 	
 	/**
 	 * Unit test.
-	 * @throws ClassCreationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
 	 */	
 	@SuppressWarnings("nls")
 	@Test
@@ -112,7 +115,8 @@ public class TestAbstractClassCreator {
 	
 	/**
 	 * Unit test.
-	 * @throws ClassCreationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
 	 */	
 	@SuppressWarnings("nls")
 	@Test
@@ -128,7 +132,8 @@ public class TestAbstractClassCreator {
 		
 	/**
 	 * Unit test.
-	 * @throws ClassCreationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
 	 */	
 	@SuppressWarnings("nls")
 	@Test
@@ -141,7 +146,8 @@ public class TestAbstractClassCreator {
 	
 	/**
 	 * Unit test.
-	 * @throws ClassCreationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
 	 */		
 	@Test
 	public void testIsImplementedMethod_withNull() 
@@ -152,7 +158,8 @@ public class TestAbstractClassCreator {
 	
 	/**
 	 * Unit test.
-	 * @throws ClassCreationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
 	 */		
 	@Test
 	public void testInitialize() 
@@ -167,7 +174,8 @@ public class TestAbstractClassCreator {
 	
 	/**
 	 * Unit test.
-	 * @throws ClassCreationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
 	 */		
 	@Test
 	public void testAddFieldCode() throws ClassCreationException {
@@ -179,7 +187,8 @@ public class TestAbstractClassCreator {
 	
 	/**
 	 * Unit test.
-	 * @throws ClassCreationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
 	 */		
 	@Test
 	public void testAddMethodCode() throws ClassCreationException {
@@ -191,7 +200,8 @@ public class TestAbstractClassCreator {
 	
 	/**
 	 * Unit test.
-	 * @throws ClassCreationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
 	 */		
 	@Test
 	public void testUpdaterForFields() throws ClassCreationException {
@@ -204,7 +214,8 @@ public class TestAbstractClassCreator {
 	
 	/**
 	 * Unit test.
-	 * @throws ClassCreationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
 	 */		
 	@Test
 	public void testUpdaterForMethods() throws ClassCreationException {
@@ -217,7 +228,8 @@ public class TestAbstractClassCreator {
 	
 	/**
 	 * Unit test.
-	 * @throws ClassCreationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
 	 */		
 	@Test
 	public void testGetClassCompiler() throws ClassCreationException {
@@ -227,7 +239,8 @@ public class TestAbstractClassCreator {
 	
 	/**
 	 * Unit test.
-	 * @throws ClassCreationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
 	 */		
 	@Test
 	public void testCantImplementAllMethods() throws ClassCreationException {
@@ -240,7 +253,8 @@ public class TestAbstractClassCreator {
 	
 	/**
 	 * Unit test.
-	 * @throws ClassCreationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
 	 */		
 	@Test
 	public void testCouldntImplementAllMethods_returnException() throws ClassCreationException {
@@ -252,7 +266,8 @@ public class TestAbstractClassCreator {
 	
 	/**
 	 * Unit test.
-	 * @throws ClassCreationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
 	 */		
 	@Test
 	public void testCouldntImplementAllMethods_returnNull() throws ClassCreationException {
@@ -263,7 +278,8 @@ public class TestAbstractClassCreator {
 	
 	/**
 	 * Unit test.
-	 * @throws ClassCreationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
 	 */		
 	@Test
 	public void testCantSupportOddProperties() throws ClassCreationException {		
@@ -275,7 +291,8 @@ public class TestAbstractClassCreator {
 	
 	/**
 	 * Unit test for getMethodsNotYetImplemented.
-	 * @throws ClassCreationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
 	 */		
 	@Test
 	public void testGetMethodsNotYetImplemented() throws ClassCreationException {
@@ -286,7 +303,8 @@ public class TestAbstractClassCreator {
 	
 	/**
 	 * Unit test for getMethodsNotYetImplemented.
-	 * @throws ClassCreationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
 	 */		
 	@Test
 	public void testGetCompareTo() throws ClassCreationException {

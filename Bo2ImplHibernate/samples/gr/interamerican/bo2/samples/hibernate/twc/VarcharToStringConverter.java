@@ -21,10 +21,12 @@ import gr.interamerican.bo2.utils.meta.exceptions.ConversionException;
  */
 public class VarcharToStringConverter implements TwoWayConverter<String, String> {
 
+	@Override
 	public String convertL(String l) throws ConversionException {
 		return l;
 	}
 
+	@Override
 	public String convertR(String r) throws ConversionException {
 		return r;
 	}

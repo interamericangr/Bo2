@@ -35,10 +35,9 @@ public class GeneralHttpLoggingFilter extends AbstractBaseLoggingFilter {
 	
 	/**
 	 * Returns the HTTP message.
-	 * 
-	 * @param bytes
-	 * @param charset
-	 * 
+	 *
+	 * @param bytes the bytes
+	 * @param charset the charset
 	 * @return Returns the HTTP message.
 	 */
 	private String logHttp(byte[] bytes, Charset charset) {

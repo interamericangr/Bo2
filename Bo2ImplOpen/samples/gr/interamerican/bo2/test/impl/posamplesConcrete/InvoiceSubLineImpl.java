@@ -58,48 +58,58 @@ implements InvoiceSubLine {
 		key = Factory.create(InvoiceSubLineKey.class);
 	}
 
+	@Override
 	public String getInvoiceNo() {		
 		return key.getInvoiceNo();
 	}
 
+	@Override
 	public void setInvoiceNo(String invoiceNo) {
 		key.setInvoiceNo(invoiceNo);
 		String[] properties = {"invoiceNo"};
 		fixChildren(properties);
 	}
 	
+	@Override
 	public void setLineNo(Integer lineNo) {
 		key.setLineNo(lineNo);
 		String[] properties = {"lineNo"};
 		fixChildren(properties);	
 	}
 	
+	@Override
 	public Integer getLineNo() {
 		return key.getLineNo();
 	}
 	
+	@Override
 	public Integer getSubLineNo() {
 		return key.getSubLineNo();
 	}
 	
+	@Override
 	public void setSubLineNo(Integer subLineNo) {
 		key.setSubLineNo(subLineNo);
 		String[] properties = {"subLineNo"};
 		fixChildren(properties);	
 	}
 
+	@Override
 	public String getName() {
 		return name;
 	}
 
+	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	@Override
 	public InvoiceRule getRule() {
 		return rule;
 	}
 
+	@Override
 	public void setRule(InvoiceRule rule) {
 		this.rule = rule;
 		if(rule!=null) {
@@ -107,10 +117,12 @@ implements InvoiceSubLine {
 		}
 	}
 
+	@Override
 	public Long getRuleCd() {
 		return ruleCd;
 	}
 
+	@Override
 	public void setRuleCd(Long ruleCd) {
 		this.ruleCd = ruleCd;
 	}

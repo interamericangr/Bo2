@@ -44,7 +44,7 @@ public class TestAbstractNumberBoPropertyDescriptor {
 	}
 		
 	/**
-	 * Test constructor
+	 * Test constructor.
 	 */
 	@Test
 	@SuppressWarnings("unchecked")
@@ -62,8 +62,9 @@ public class TestAbstractNumberBoPropertyDescriptor {
 	}	
 		
 	/**
-	 * Test setZeroAllowed, setNegativeAllowed, validate
-	 * @throws ValidationException
+	 * Test setZeroAllowed, setNegativeAllowed, validate.
+	 *
+	 * @throws ValidationException the validation exception
 	 */
 	@Test 	
 	public void testSetZeroAllowedNegativeAllowedAndValidate() throws ValidationException{
@@ -99,8 +100,9 @@ public class TestAbstractNumberBoPropertyDescriptor {
 	}
 	
 	/**
-	 * Test setLengthOfIntegerPart, setLengthOfDecimalPart, validate
-	 * @throws ValidationException
+	 * Test setLengthOfIntegerPart, setLengthOfDecimalPart, validate.
+	 *
+	 * @throws ValidationException the validation exception
 	 */
 	@Test 	
 	@SuppressWarnings("unchecked")
@@ -138,9 +140,8 @@ public class TestAbstractNumberBoPropertyDescriptor {
 	 * Implementation of descriptor for the tests.
 	 */
 	private class Descriptor extends AbstractNumberBoPropertyDescriptor<Double> {
-		/**
-		 * 
-		 */
+		
+		/** The Constant serialVersionUID. */
 		private static final long serialVersionUID = 1L;
 
 		/**

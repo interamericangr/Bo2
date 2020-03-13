@@ -1,13 +1,13 @@
 /*******************************************************************************
- * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A. 
+ * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/copyleft/lesser.html
- * 
- * This library is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
 package gr.interamerican.bo2.utils.ftp;
@@ -26,112 +26,112 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Ftp Client bean.
- * 
- * 
+ *
+ *
  */
 public class FtpSession {
 	/**
 	 * Could not connect message.
 	 */
-	private static final String COULD_NOT_CONNECT = 
-		"Could not connect to FTP server."; //$NON-NLS-1$
-	
+	private static final String COULD_NOT_CONNECT =
+			"Could not connect to FTP server."; //$NON-NLS-1$
+
 	/**
 	 * Could not connect message.
 	 */
-	private static final String LOGIN_FAILED = 
-		"Login to FTP server failed."; //$NON-NLS-1$
-	
+	private static final String LOGIN_FAILED =
+			"Login to FTP server failed."; //$NON-NLS-1$
+
 	/**
 	 * Could not connect message.
 	 */
-	private static final String NOT_CONNECTED = 
-		"Not connected to FTP server."; //$NON-NLS-1$
-	
+	private static final String NOT_CONNECTED =
+			"Not connected to FTP server."; //$NON-NLS-1$
+
 	/**
 	 * Logger.
 	 */
 	private static final Logger logger = LoggerFactory.getLogger(FtpSession.class);
 
-    /**
-     * Host name.
-     */
+	/**
+	 * Host name.
+	 */
 	String host;
-    /**
-     * User id.
-     */
+	/**
+	 * User id.
+	 */
 	String userid;
 	/**
 	 * Password.
 	 */
-    String password;
-    /**
-     */
-    int port;
-    /**
-     * FTPClient.
-     */
-    FTPClient ftp;
+	String password;
+	
+	/** The port. */
+	int port;
+	/**
+	 * FTPClient.
+	 */
+	FTPClient ftp;
 
-    /**
-     * Creates a new FtpBean.
-     * 
-     * @param host
-     * @param userid
-     * @param password
-     * @param port
-     */
-    public FtpSession(String host, String userid, String password, int port) {
-        super();
-        this.host = host;
-        this.userid = userid;
-        this.password = password;
-        this.port = port;        
-    }
-    
-    /**
-     * Creates a new FTPClient.
-     * 
-     * @return Returns a new FTPClient.
-     */
-    FTPClient newFtpClient() {
-    	return new FTPClient();
-    }
-    
-    /**
-     * Connects.
-     * 
-     * @throws FtpException
-     */
-    public void connect() throws FtpException {
-    	try {
+	/**
+	 * Creates a new FtpBean.
+	 *
+	 * @param host the host
+	 * @param userid the userid
+	 * @param password the password
+	 * @param port the port
+	 */
+	public FtpSession(String host, String userid, String password, int port) {
+		super();
+		this.host = host;
+		this.userid = userid;
+		this.password = password;
+		this.port = port;
+	}
+
+	/**
+	 * Creates a new FTPClient.
+	 *
+	 * @return Returns a new FTPClient.
+	 */
+	FTPClient newFtpClient() {
+		return new FTPClient();
+	}
+
+	/**
+	 * Connects.
+	 *
+	 * @throws FtpException the ftp exception
+	 */
+	public void connect() throws FtpException {
+		try {
 			ftp = newFtpClient();
 			ftp.connect(host, port);
 			int reply = ftp.getReplyCode();
 
 			if (!FTPReply.isPositiveCompletion(reply)) {
 				disconnectOnFailure();
-			    throw new FtpException(COULD_NOT_CONNECT);
+				throw new FtpException(COULD_NOT_CONNECT);
 			}
 			boolean loggedIn = ftp.login(userid, password);
 			if (!loggedIn) {
 				disconnectOnFailure();
-				throw new FtpException(LOGIN_FAILED);				
+				throw new FtpException(LOGIN_FAILED);
 			}
-		} catch (SocketException se) {			
-			disconnectOnFailure();		
+		} catch (SocketException se) {
+			disconnectOnFailure();
 			throw new FtpException(COULD_NOT_CONNECT, se);
 		} catch (IOException ioe) {
-			disconnectOnFailure();	
+			disconnectOnFailure();
 			throw new FtpException(ioe);
 		}
 	}
 
 	/**
 	 * changes the remote directory to the given one.
-	 * 
-	 * @param path
-	 * @throws FtpException
+	 *
+	 * @param path the path
+	 * @throws FtpException the ftp exception
 	 */
 	public void changeRemoteDir(String path) throws FtpException {
 		try {
@@ -141,31 +141,31 @@ public class FtpSession {
 			throw new FtpException(ioe);
 		}
 
-    }
-    
-    /**
-     * Disconnects.
-     * 
-     * @throws FtpException 
-     */
-    public void disconnect() throws FtpException {
-    	if (ftp==null) {
-    		throw new FtpException(NOT_CONNECTED);
-    	}
-    	try {			
-    		ftp.logout();
-			ftp.disconnect();			
+	}
+
+	/**
+	 * Disconnects.
+	 *
+	 * @throws FtpException the ftp exception
+	 */
+	public void disconnect() throws FtpException {
+		if (ftp==null) {
+			throw new FtpException(NOT_CONNECTED);
+		}
+		try {
+			ftp.logout();
+			ftp.disconnect();
 		} catch (IOException e) {
 			throw new FtpException(e);
 		} finally {
 			ftp=null;
 		}
-    }
-    
-    /**
-     * Disconnects. 
-     */
-    private void disconnectOnFailure() {    	
+	}
+
+	/**
+	 * Disconnects.
+	 */
+	private void disconnectOnFailure() {
 		try {
 			if (ftp.isConnected()) {
 				ftp.disconnect();
@@ -174,34 +174,31 @@ public class FtpSession {
 			/*
 			 * This exception is not re thrown, because
 			 * this method is used only by exception handling
-			 * blocks. 
+			 * blocks.
 			 */
 			logger.error(e.toString());
 		} finally {
 			ftp=null;
 		}
-    }
+	}
 
-   
 
-    
-    /**
-     * Download a remote file to a local OutputStream.
-     * 
-     * @param remote
-     *        Name of remote file.
-     * @param local
-     *        Local OutputStream. 
-     * @param isBinaryFile
-     *        Indication if the file is binary 
-     * @throws FtpException
-     */
-    public void download(String remote, OutputStream local, boolean isBinaryFile) 
-    throws FtpException {
-    	if (ftp==null) {
-    		throw new FtpException(NOT_CONNECTED);
-    	}
-        try {
+
+
+	/**
+	 * Download a remote file to a local OutputStream.
+	 *
+	 * @param remote        Name of remote file.
+	 * @param local        Local OutputStream.
+	 * @param isBinaryFile        Indication if the file is binary
+	 * @throws FtpException the ftp exception
+	 */
+	public void download(String remote, OutputStream local, boolean isBinaryFile)
+			throws FtpException {
+		if (ftp==null) {
+			throw new FtpException(NOT_CONNECTED);
+		}
+		try {
 			if (isBinaryFile) {
 				ftp.setFileType(org.apache.commons.net.ftp.FTP.BINARY_FILE_TYPE);
 			}
@@ -215,26 +212,23 @@ public class FtpSession {
 			throw new FtpException(fnfe);
 		} catch (IOException ioe) {
 			throw new FtpException(ioe);
-		}       
-    }
-    
-    /**
+		}
+	}
+
+	/**
 	 * Uploads a local file to the FTP server.
-	 * 
-	 * @param remote
-	 *        Name of the remote file
-	 * @param local
-	 *        Local InputStream
-	 * @param isBinaryFile
-	 *        Indication iff the file is binary
-	 * @throws FtpException
+	 *
+	 * @param remote        Name of the remote file
+	 * @param local        Local InputStream
+	 * @param isBinaryFile        Indication iff the file is binary
+	 * @throws FtpException the ftp exception
 	 */
-    public void upload(String remote, InputStream local, boolean isBinaryFile) 
-    throws FtpException {
-    	if (ftp==null) {
-    		throw new FtpException(NOT_CONNECTED);
-    	}
-        try {
+	public void upload(String remote, InputStream local, boolean isBinaryFile)
+			throws FtpException {
+		if (ftp==null) {
+			throw new FtpException(NOT_CONNECTED);
+		}
+		try {
 			if (isBinaryFile) {
 				ftp.setFileType(org.apache.commons.net.ftp.FTP.BINARY_FILE_TYPE);
 			}
@@ -249,7 +243,35 @@ public class FtpSession {
 		} catch (IOException ioe) {
 			throw new FtpException(ioe);
 		}
-    }
-   
+	}
+
+	/**
+	 * Append.
+	 *
+	 * @param remote the remote
+	 * @param local the local
+	 * @param isBinaryFile the is binary file
+	 * @throws FtpException the ftp exception
+	 */
+	public void append(String remote, InputStream local, boolean isBinaryFile) throws FtpException {
+		if (ftp == null) {
+			throw new FtpException(NOT_CONNECTED);
+		}
+		try {
+			if (isBinaryFile) {
+				ftp.setFileType(org.apache.commons.net.ftp.FTP.BINARY_FILE_TYPE);
+			}
+			boolean ok = ftp.appendFile(remote, local);
+			if (!ok) {
+				String msg = ftp.getReplyString();
+				throw new FtpException(msg);
+			}
+			local.close();
+		} catch (FileNotFoundException fnfe) {
+			throw new FtpException(fnfe);
+		} catch (IOException ioe) {
+			throw new FtpException(ioe);
+		}
+	}
 }
 

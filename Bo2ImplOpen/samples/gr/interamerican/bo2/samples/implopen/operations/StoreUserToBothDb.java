@@ -16,7 +16,7 @@ import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
 
 /**
- * 
+ * The Class StoreUserToBothDb.
  */
 public class StoreUserToBothDb extends AbstractBothDbUserOperation {
 
@@ -28,8 +28,8 @@ public class StoreUserToBothDb extends AbstractBothDbUserOperation {
 	/**
 	 * Creates a new DeleteUserFromBothDb object. 
 	 *
-	 * @param hib
-	 * @param operationMustFail
+	 * @param hib the hib
+	 * @param operationMustFail the operation must fail
 	 */
 	public StoreUserToBothDb(boolean hib, boolean operationMustFail) {
 		super(hib);

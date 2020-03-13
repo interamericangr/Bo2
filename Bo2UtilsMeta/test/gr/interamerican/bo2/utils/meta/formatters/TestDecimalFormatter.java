@@ -18,16 +18,15 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestDecimalFormatter.
  */
 public class TestDecimalFormatter {
-	/**
-	 * Double to test
-	 */
+	
+	/** Double to test. */
 	Double d = 1897.3;
 	
 	/**
-	 * Test
+	 * Test.
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Test
@@ -40,7 +39,7 @@ public class TestDecimalFormatter {
 	}
 	
 	/**
-	 * Test
+	 * Test.
 	 */
 	@Test
 	@SuppressWarnings({ "nls", "rawtypes", "unchecked" })

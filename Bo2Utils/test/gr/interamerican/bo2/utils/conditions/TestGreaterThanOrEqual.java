@@ -25,7 +25,7 @@ import org.junit.Test;
 public class TestGreaterThanOrEqual {
 	
 	/**
-	 * Tests check()
+	 * Tests check().
 	 */
 	@Test
 	public void testCheck() {
@@ -39,7 +39,7 @@ public class TestGreaterThanOrEqual {
 	}
 	
 	/**
-	 * Tests check()
+	 * Tests check().
 	 */
 	@Test
 	public void testCheck_2() {		

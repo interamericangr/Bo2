@@ -66,6 +66,7 @@ implements SmartCalc {
 	
 
 	
+	@Override
 	public BigDecimal addNumbers() {
 		this.reset();
 		for (BigDecimal bd : numbersToAdd) {

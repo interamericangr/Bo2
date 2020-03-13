@@ -9,10 +9,8 @@ import gr.interamerican.bo2.arch.Query;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.LogicException;
 import gr.interamerican.bo2.impl.open.operations.AbstractQueryCrawlerOperation;
-import gr.interamerican.bo2.impl.open.workers.PredefinedConditionValidator;
-import gr.interamerican.bo2.impl.open.workers.TestPredefinedConditionValidator;
-import gr.interamerican.bo2.impl.open.workers.FactorySupportedPoDeleter;
 import gr.interamerican.bo2.impl.open.workers.FactorySupportedPoHandler;
+import gr.interamerican.bo2.impl.open.workers.PredefinedConditionValidator;
 import gr.interamerican.bo2.samples.archutil.po.User;
 import gr.interamerican.bo2.samples.archutil.po.UserKey;
 import gr.interamerican.bo2.utils.ReflectionUtils;
@@ -65,5 +63,4 @@ public class TestSetTestDouble {
 		Object actual = ReflectionUtils.get("condition", rule);
 		Assert.assertEquals(condition, actual);		
 	}
-
 }

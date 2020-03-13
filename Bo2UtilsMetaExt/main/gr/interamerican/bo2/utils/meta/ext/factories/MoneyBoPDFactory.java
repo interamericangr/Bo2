@@ -27,13 +27,11 @@ public class MoneyBoPDFactory {
 	
 	/**
 	 * Creates a {@link MoneyBoPropertyDescriptor}.
-	 * 
-	 * @param pd
-	 *        PropertyDefinition
+	 *
+	 * @param pd        PropertyDefinition
 	 *        
 	 * @return IntegerBoPropertyDescriptor
-	 * 
-	 * @throws ParseException 
+	 * @throws ParseException the parse exception
 	 */
 	@SuppressWarnings("nls")
 	public static MoneyBoPropertyDescriptor create(PropertyDefinition pd) throws ParseException {

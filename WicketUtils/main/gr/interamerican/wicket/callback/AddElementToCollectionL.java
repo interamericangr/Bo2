@@ -22,24 +22,26 @@ import java.util.Collection;
  * 
  * @param <B> 
  *        Type of elements in the collection.
+ * @deprecated Bad Utility
  */
+@Deprecated
 public class AddElementToCollectionL<B extends Serializable> 
 extends AddElementToCollection<B> {
 	
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;	
 	
 	/**
 	 * Creates a new AddElementToCollectionAction object. 
 	 *
 	 * @param collection
+	 *            the collection
 	 * @param element
-	 * @param indexPropertyName 
+	 *            the element
+	 * @param indexPropertyName
+	 *            the index property name
 	 */
-	public AddElementToCollectionL
-	(Collection<B> collection, B element, String indexPropertyName) {
+	public AddElementToCollectionL(Collection<B> collection, B element, String indexPropertyName) {
 		super(collection,element,indexPropertyName);
 	}
 
@@ -47,7 +49,4 @@ extends AddElementToCollection<B> {
 	protected void work() {
 		CollectionUtils.addNextL(collection, element, indexPropertyName);
 	}
-	
-	
-
 }

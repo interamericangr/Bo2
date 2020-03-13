@@ -20,21 +20,21 @@ import org.junit.Test;
 public class TestPopUpExceptionHandler {
 	
 	/**
-	 * Test for handle(t)
+	 * Test for handle(t).
 	 */
 	@Test(expected=RuntimeException.class)
 	public void testHandle_exception() {		
 		Exception ex = new InstantiationException();
-		PopUpExceptionHandler.INSTANCE.handle(ex);		
+		PopUpExceptionHandler.POPUP_EH_INSTANCE.handle(ex);		
 	}
 	
 	/**
-	 * Test for handle(t)
+	 * Test for handle(t).
 	 */
 	@Test(expected=Error.class)
 	public void testHandle_error() {		
 		Error ex = new Error();
-		PopUpExceptionHandler.INSTANCE.handle(ex);		
+		PopUpExceptionHandler.POPUP_EH_INSTANCE.handle(ex);		
 	}
 
 

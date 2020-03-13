@@ -23,31 +23,34 @@ import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.model.IModel;
 
 /**
- * A {@link DataTable} column that allows to select multiple rows
- * from the rows contained in the table.
+ * A {@link DataTable} column that allows to select multiple rows from the rows
+ * contained in the table.
  * 
- * @param <B> Type of object selected.
+ * @param <B>
+ *            Type of object selected.
+ * @param <S>
+ *            the type of the sort property
  */
-public class MultipleSelectionsColumn<B  extends Serializable> 
-extends AbstractColumn<B> {
-	
+public class MultipleSelectionsColumn<B extends Serializable, S>
+extends AbstractColumn<B, S> {
+
 	/**
 	 * serial id.
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
-	 * Creates a new SingleSelectionColumn object. 
+	 * Creates a new SingleSelectionColumn object.
 	 *
 	 * @param displayModel
+	 *            the display model
 	 */
 	public MultipleSelectionsColumn(IModel<String> displayModel) {
 		super(displayModel);
 	}
 
+	@Override
 	public void populateItem(Item<ICellPopulator<B>> cellItem, String componentId, final IModel<B> rowModel) {
-		DataTableCheckBoxPanel<B> checkBoxPanel = new DataTableCheckBoxPanel<B>(componentId, rowModel);
-		cellItem.add(checkBoxPanel);
+		cellItem.add(new DataTableCheckBoxPanel<B>(componentId, rowModel));
 	}
-
 }

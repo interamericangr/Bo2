@@ -16,23 +16,21 @@ import static org.junit.Assert.assertEquals;
 import gr.interamerican.bo2.utils.meta.exceptions.ValidationException;
 
 import org.junit.Test;
+
 /**
- * StringMaxLengthValidatorTest
+ * StringMaxLengthValidatorTest.
  */
 public class TestStringMinLengthValidator {
 
 	
-	/**
-	 * StringMinLengthValidator me length iso me 2
-	 */
+	/** StringMinLengthValidator me length iso me 2. */
 	StringMinLengthValidator stringMinLenghtVal = new StringMinLengthValidator(2);
-	/**
-	 * StringMinLengthValidator me length iso me 0
-	 */
+	
+	/** StringMinLengthValidator me length iso me 0. */
 	StringMinLengthValidator zeroLengthVal = new StringMinLengthValidator();
 	
 	/**
-	 * Test getMaxLength
+	 * Test getMaxLength.
 	 */
 	@Test
 	public void testGetMinLength(){
@@ -41,7 +39,7 @@ public class TestStringMinLengthValidator {
 	}
 	
 	/**
-	 * Test setMaxLength
+	 * Test setMaxLength.
 	 */
 	@Test
 	public void testSetMinLength(){
@@ -51,8 +49,9 @@ public class TestStringMinLengthValidator {
 	
 	
 	/**
-	 * Test validate
-	 * @throws ValidationException 
+	 * Test validate.
+	 *
+	 * @throws ValidationException the validation exception
 	 */
 	@Test
 	public void testValidateHigherLength() throws ValidationException{
@@ -61,8 +60,9 @@ public class TestStringMinLengthValidator {
 	}
 	
 	/**
-	 * Test validate
-	 * @throws ValidationException 
+	 * Test validate.
+	 *
+	 * @throws ValidationException the validation exception
 	 */
 	@Test(expected=ValidationException.class)
 	public void testValidateLowerLength() throws ValidationException{

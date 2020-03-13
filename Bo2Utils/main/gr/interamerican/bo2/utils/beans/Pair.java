@@ -25,17 +25,14 @@ import java.io.Serializable;
  */
 public class Pair<L, R> implements Serializable {
 	
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * creates a new pair from the first two elements of an array.
-	 * 
-	 * @param array Array.
+	 *
 	 * @param <T> Type of elements.
-	 * 
+	 * @param array Array.
 	 * @return Returns a pair.
 	 */
 	public static <T> Pair<T, T> pair(T[] array) {
@@ -63,8 +60,8 @@ public class Pair<L, R> implements Serializable {
 	/**
 	 * Creates a new Pair object. 
 	 *
-	 * @param left
-	 * @param right
+	 * @param left the left
+	 * @param right the right
 	 */
 	public Pair(L left, R right) {
 		this();

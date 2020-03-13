@@ -20,13 +20,11 @@ import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
  */
 public class StringParser implements Parser<String>{
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	public String parse(String value) throws ParseException {
 		return value;
 	}
-
 }

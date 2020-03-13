@@ -18,10 +18,10 @@ import gr.interamerican.wicket.markup.html.panel.service.ServicePanelDef;
 /**
  * Interface for factories of {@link ServicePanel}. This factory is meant
  * to de-couple the service panel client from the service panel implementation.
- * <br/>
+ * <br>
  * The client only knows the service panel definition compile time; The service
  * panel implementation is decided on runtime.
- * <br/>
+ * <br>
  * This way, it is ensured that the only interaction of the client with the
  * service panel is through the established contract of the service panel
  * definition.
@@ -33,19 +33,16 @@ public interface ServicePanelFactory {
 	
 	/**
 	 * Creates the service panel that matches to a service panel definition.
-	 * 
-	 * @param definition
-	 *        ServicePanel definition.
-	 * @param <P>
-	 *        Type of panel.
-	 * 
+	 *
+	 * @param <P>        Type of panel.
+	 * @param definition        ServicePanel definition.
 	 * @return Returns a service panel.
 	 */
 	public <P extends ServicePanel> P createPanel(ServicePanelDef definition);
 	
 	/**
-	 * Gets the fixture resolver associated with this ServicePanelFactory
-	 * 
+	 * Gets the fixture resolver associated with this ServicePanelFactory.
+	 *
 	 * @return Returns the fixture resolver associated with this ServicePanelFactory
 	 */
 	public ServicePanelFixtureResolver getFixtureResolver();

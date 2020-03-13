@@ -20,35 +20,29 @@ import gr.interamerican.samples.utils.meta.SamplePropertyDefinition;
 import org.junit.Test;
 
 /**
- * 
+ * A factory for creating TestMoneyBoPD objects.
  */
 public class TestMoneyBoPDFactory {
 
 	
 	
-	/**
-	 * SamplePropertyDefinition
-	 */
+	/** SamplePropertyDefinition. */
 	SamplePropertyDefinition pd =  new SamplePropertyDefinition();
 	
-	/**
-	 * decimalLength
-	 */
+	/** decimalLength. */
 	Integer decimalLength = 2;
-	/**
-	 * integerLength
-	 */
+	
+	/** integerLength. */
 	Integer integerLength = 10;
 	
-	/**
-	 * name
-	 */
+	/** name. */
 	@SuppressWarnings("nls")
 	String name = "moneyPd";
 	
 	/**
-	 * @throws ParseException 
-	 * 
+	 * Test create.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@SuppressWarnings({ "nls" })
 	@Test
@@ -65,9 +59,9 @@ public class TestMoneyBoPDFactory {
 	
 	
 	/**
-	 * test Create when fails
-	 * @throws ParseException 
-	 * 
+	 * test Create when fails.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@SuppressWarnings({ "nls" })
 	@Test(expected = ParseException.class)

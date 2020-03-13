@@ -24,9 +24,9 @@ extends AbstractMethodInvocator {
 	/**
 	 * Creates a new MethodInvocator object. 
 	 *
-	 * @param handler
-	 * @param methodName
-	 * @param owner 
+	 * @param handler the handler
+	 * @param methodName the method name
+	 * @param owner the owner
 	 */
 	public EventHandlerMethodInvocator(AbstractEventHandler<?> handler, String methodName,	Object owner) {
 		super(handler, methodName, owner);
@@ -42,13 +42,4 @@ extends AbstractMethodInvocator {
 		}
 		return args;
 	}
-	
-	
-			
-	
-	
-	
-		
-	
-
 }

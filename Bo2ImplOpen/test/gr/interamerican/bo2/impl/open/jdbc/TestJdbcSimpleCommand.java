@@ -27,9 +27,10 @@ public class TestJdbcSimpleCommand extends AbstractNonTransactionalProviderTest 
 	
 	
 	/**
-	 * tests that a method annotated as SQL can be executed as query
-	 * @throws InitializationException 
-	 * @throws DataException 
+	 * tests that a method annotated as SQL can be executed as query.
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testExecute() throws InitializationException, DataException {
@@ -45,12 +46,10 @@ public class TestJdbcSimpleCommand extends AbstractNonTransactionalProviderTest 
 	}
 	
 	/**
-	 * tests that a method annotated as SQL can be executed as query
-	 * @throws InitializationException 
-	 * @throws DataException 
+	 * tests that a method annotated as SQL can be executed as query.
 	 */
 	@Test
-	public void testGetEntitiesCount() throws InitializationException, DataException {
+	public void testGetEntitiesCount()  {
 		JdbcSimpleCommandImpl w = new JdbcSimpleCommandImpl();
 		JdbcSimpleCommand cmd = w;		
 		cmd.recordsAffected =5;
@@ -58,9 +57,10 @@ public class TestJdbcSimpleCommand extends AbstractNonTransactionalProviderTest 
 	}
 	
 	/**
-	 * tests that a method annotated as SQL can be executed as query
-	 * @throws InitializationException 
-	 * @throws DataException 
+	 * tests that a method annotated as SQL can be executed as query.
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
 	 */
 	@Test(expected=DataException.class)
 	public void testExecute_throwingException() throws InitializationException, DataException {

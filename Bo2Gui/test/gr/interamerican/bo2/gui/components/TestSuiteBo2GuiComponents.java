@@ -20,7 +20,7 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 /**
- * 
+ * The Class TestSuiteBo2GuiComponents.
  */
 @RunWith(Suite.class)
 @SuiteClasses(

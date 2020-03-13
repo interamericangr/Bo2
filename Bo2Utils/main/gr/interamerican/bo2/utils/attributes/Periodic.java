@@ -14,8 +14,8 @@ public interface Periodic {
 	
 	/**
 	 * Sets the periodinterval.
-	 * 
-	 * @param periodInterval
+	 *
+	 * @param periodInterval the new period interval
 	 */
 	public void setPeriodInterval(long periodInterval);
 

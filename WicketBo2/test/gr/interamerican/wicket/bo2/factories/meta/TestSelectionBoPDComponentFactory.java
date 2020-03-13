@@ -23,22 +23,19 @@ import org.apache.wicket.model.PropertyModel;
 import org.junit.Test;
 
 /**
- * 
+ * A factory for creating TestSelectionBoPDComponent objects.
  */
 public class TestSelectionBoPDComponentFactory extends BaseClassForTestingComponentFactory{	
-	/**
-	 * 
-	 */
+	
+	/** The selection bo PD component factory. */
 	private SelectionBoPDComponentFactory  selectionBoPDComponentFactory = 
 		new SelectionBoPDComponentFactory();
 	
-	/**
-	 * 
-	 */
+	/** The selection bo property descriptor. */
 	private SelectionBoPropertyDescriptor<Long> selectionBoPropertyDescriptor = bean1descriptor.selectionDescriptor();
 		
 	/**
-	 * 
+	 * Test draw main first.
 	 */
 	@Test
 	public void testDrawMain_First(){
@@ -48,7 +45,7 @@ public class TestSelectionBoPDComponentFactory extends BaseClassForTestingCompon
 	}
 	
 	/**
-	 * 
+	 * Test draw main second.
 	 */
 	@Test
 	public void testDrawMain_Second(){

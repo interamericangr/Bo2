@@ -23,9 +23,8 @@ import org.junit.Test;
  */
 @SuppressWarnings("nls")
 public class TestBdCalculator {
-	/**
-	 * decimal places
-	 */
+	
+	/** decimal places. */
 	private static final int DCML = 2;
 	/**
 	 * Zero.

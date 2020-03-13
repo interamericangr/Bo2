@@ -8,13 +8,14 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * {@link JmsProviderImpl} tests
+ * {@link JmsProviderImpl} tests.
  */
 public class TestJmsProviderImpl {
 	
 	/**
-	 * test getAttributes
-	 * @throws InitializationException
+	 * test getAttributes.
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@SuppressWarnings("nls")
 	@Test(expected=InitializationException.class)
@@ -24,8 +25,9 @@ public class TestJmsProviderImpl {
 	}
 	
 	/**
-	 * test getAttributes
-	 * @throws InitializationException
+	 * test getAttributes.
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@SuppressWarnings("nls")
 	@Test(expected=InitializationException.class)
@@ -37,8 +39,9 @@ public class TestJmsProviderImpl {
 	}
 	
 	/**
-	 * test getAttributes
-	 * @throws InitializationException
+	 * test getAttributes.
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@SuppressWarnings("nls")
 	@Test

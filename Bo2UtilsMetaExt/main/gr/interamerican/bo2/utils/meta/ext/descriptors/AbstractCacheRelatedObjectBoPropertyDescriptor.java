@@ -33,9 +33,7 @@ import gr.interamerican.bo2.utils.meta.validators.Validator;
 public abstract class AbstractCacheRelatedObjectBoPropertyDescriptor<T, C extends Comparable<? super C>>
 extends AbstractBoPropertyDescriptor<T>{
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -43,9 +41,7 @@ extends AbstractBoPropertyDescriptor<T>{
 	 */	
 	protected Long typeId;
 	
-	/**
-	 * sub type id;
-	 */	
+	/** sub type id;. */	
 	protected Long subTypeId;
 	
 	/**
@@ -63,9 +59,7 @@ extends AbstractBoPropertyDescriptor<T>{
 	 */
 	protected Formatter<C> codeFormatter;
 	
-	/**
-	 * Cache
-	 */
+	/** Cache. */
 	private transient Cache<C> cache;
 	
 	/**
@@ -119,8 +113,8 @@ extends AbstractBoPropertyDescriptor<T>{
 	}
 	
 	/**
-	 * Initializes (if needed) and returns the transient field {@link #cache} 
-	 * 
+	 * Initializes (if needed) and returns the transient field {@link #cache} .
+	 *
 	 * @return returns the {@link Cache} of this AbstractCacheRelatedObjectBoPropertyDescriptor
 	 */
 	protected Cache<C> cache() {
@@ -131,6 +125,8 @@ extends AbstractBoPropertyDescriptor<T>{
 	}
 	
 	/**
+	 * Gets the cache name.
+	 *
 	 * @return Returns the cache name of this descriptor.
 	 */
 	public String getCacheName() {
@@ -138,6 +134,8 @@ extends AbstractBoPropertyDescriptor<T>{
 	}
 	
 	/**
+	 * Gets the type id.
+	 *
 	 * @return Returns the typeId of the entries for the values of this descriptor.
 	 */
 	public Long getTypeId() {

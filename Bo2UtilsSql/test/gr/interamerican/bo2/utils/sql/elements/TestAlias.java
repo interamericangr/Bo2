@@ -17,39 +17,29 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
- * Unit test for alias
+ * Unit test for alias.
  */
 public class TestAlias {
 
 	
-	/**
-	 * alias to test
-	 */
+	/** alias to test. */
 	Alias alias = new Alias();
 	
-	/**
-	 * ALIAS_NAME
-	 */
+	/** ALIAS_NAME. */
 	private static final String ALIAS_NAME = "aliasName"; //$NON-NLS-1$
 		
-	/**
-	 * TBNAME
-	 */
+	/** TBNAME. */
 	private static final String TBNAME = "tbName"; //$NON-NLS-1$
 	
-	/**
-	 * TBCREATOR
-	 */
+	/** TBCREATOR. */
 	private static final String TBCREATOR = "tbCreator"; //$NON-NLS-1$
 	
-	/**
-	 * CREATOR
-	 */
+	/** CREATOR. */
 	private static final String CREATOR = "creator"; //$NON-NLS-1$
 	
 	
 	/**
-	 * Test setName
+	 * Test setName.
 	 */
 	@Test
 	public void testSetName(){
@@ -58,7 +48,7 @@ public class TestAlias {
 	}
 	
 	/**
-	 * Test getName
+	 * Test getName.
 	 */
 	@Test
 	public void testGetName(){
@@ -68,7 +58,7 @@ public class TestAlias {
 	
 	
 	/**
-	 * Test setTbName
+	 * Test setTbName.
 	 */
 	@Test
 	public void testSetTbName(){
@@ -78,7 +68,7 @@ public class TestAlias {
 	
 	
 	/**
-	 * Test getTbName
+	 * Test getTbName.
 	 */
 	@Test
 	public void testGetTbName(){
@@ -87,7 +77,7 @@ public class TestAlias {
 	}
 	
 	/**
-	 * Test setTbCreator
+	 * Test setTbCreator.
 	 */
 	@Test
 	public void testSetTbCreator(){
@@ -96,7 +86,7 @@ public class TestAlias {
 	}
 	
 	/**
-	 * Test getTbCreator
+	 * Test getTbCreator.
 	 */
 	@Test
 	public void testGetTbCreator(){
@@ -105,7 +95,7 @@ public class TestAlias {
 	}
 	
 	/**
-	 * Test setCreator
+	 * Test setCreator.
 	 */
 	@Test
 	public void testSetCreator(){
@@ -114,7 +104,7 @@ public class TestAlias {
 	}
 	
 	/**
-	 * Test getCreator
+	 * Test getCreator.
 	 */
 	@Test
 	public void testGetCreator(){

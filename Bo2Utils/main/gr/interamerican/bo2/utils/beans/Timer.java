@@ -18,9 +18,8 @@ import java.util.Date;
  * Timer utility.
  */
 public class Timer {
-	/**
-	 * start time
-	 */
+	
+	/** start time. */
 	Date start;
 	
 	/**

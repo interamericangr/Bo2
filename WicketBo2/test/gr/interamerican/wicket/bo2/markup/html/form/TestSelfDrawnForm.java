@@ -12,6 +12,13 @@
  ******************************************************************************/
 package gr.interamerican.wicket.bo2.markup.html.form;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.wicket.Component;
+import org.apache.wicket.model.CompoundPropertyModel;
+import org.junit.Test;
+
 import gr.interamerican.bo2.samples.bean.BeanWith1Field;
 import gr.interamerican.bo2.samples.bean.BeanWith2Fields;
 import gr.interamerican.bo2.utils.meta.BasicBusinessObjectDescriptor;
@@ -19,16 +26,8 @@ import gr.interamerican.bo2.utils.meta.BusinessObjectDescriptor;
 import gr.interamerican.bo2.utils.meta.descriptors.BoPropertyDescriptor;
 import gr.interamerican.bo2.utils.meta.descriptors.LongBoPropertyDescriptor;
 import gr.interamerican.bo2.utils.meta.descriptors.StringBoPropertyDescriptor;
-import gr.interamerican.wicket.markup.html.TestPage;
 import gr.interamerican.wicket.markup.html.TestPanel;
 import gr.interamerican.wicket.test.WicketTest;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.wicket.Component;
-import org.apache.wicket.model.CompoundPropertyModel;
-import org.junit.Test;
 
 /**
  * Unit tests for {@link SelfDrawnForm}.
@@ -56,21 +55,19 @@ public class TestSelfDrawnForm extends WicketTest {
 	
 	@Override
 	@SuppressWarnings("nls")
-	protected Component initializeComponent() {
+	protected Component initializeComponent(String wicketId) {
 		CompoundPropertyModel<BeanWith2Fields> model = 
 			new CompoundPropertyModel<BeanWith2Fields>(new BeanWith2Fields("0", -1)); //$NON-NLS-1$
 		form = new SelfDrawnForm<BeanWith2Fields>("sdf", model, createBod());
 		String markup = "<wicket:panel><form wicket:id=\"" 
 				      + SELF_DRAWN_FORM_ID + "\"><div wicket:id=\"" 
 			          + SelfDrawnForm.PANEL_WICKET_ID + "\"/></form></wicket:panel>";
-		return new TestPanel(TestPage.TEST_ID, markup).add(form);
+		return new TestPanel(wicketId, markup).add(form);
 	}
-	
-	
-	
-	
-	
+
 	/**
+	 * Creates the bod.
+	 *
 	 * @return Returns the BusinessObjectDescriptor for BeanWith1Field.
 	 */
 	private BusinessObjectDescriptor<BeanWith2Fields> createBod() {
@@ -83,6 +80,8 @@ public class TestSelfDrawnForm extends WicketTest {
 	}
 	
 	/**
+	 * Gets the field 1 decriptor.
+	 *
 	 * @return Returns the LongBoPropertyDescriptor for field2 of BeanWith1Field.
 	 */
 	private StringBoPropertyDescriptor getField1Decriptor(){
@@ -95,6 +94,8 @@ public class TestSelfDrawnForm extends WicketTest {
 	}
 	
 	/**
+	 * Gets the field 2 decriptor.
+	 *
 	 * @return Returns the LongBoPropertyDescriptor for field2 of BeanWith1Field.
 	 */
 	private LongBoPropertyDescriptor getField2Decriptor(){
@@ -106,5 +107,4 @@ public class TestSelfDrawnForm extends WicketTest {
 		lbpd.setNegativeAllowed(false);
         return lbpd;
     }
-
 }

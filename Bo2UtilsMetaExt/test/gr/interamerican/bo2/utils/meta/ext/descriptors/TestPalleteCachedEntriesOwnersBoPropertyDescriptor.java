@@ -37,13 +37,11 @@ import org.junit.Test;
  * Unit test for {@link PalleteCachedEntriesOwnersBoPropertyDescriptor}.
  */
 public class TestPalleteCachedEntriesOwnersBoPropertyDescriptor extends AbstractCacheRelatedTest {
-	/**
-	 * TYPE
-	 */
+	
+	/** TYPE. */
 	private static final Long TYPE = 1000L;
-	/**
-	 * SUBTYPE
-	 */
+	
+	/** SUBTYPE. */
 	private static final Long SUBTYPE = 1L;
 	/**
 	 * CODE 1.
@@ -58,25 +56,19 @@ public class TestPalleteCachedEntriesOwnersBoPropertyDescriptor extends Abstract
 	 */
 	private static final Long CODE_3 = 3L;
 	
-	/**
-	 * codesParser
-	 */
+	/** codesParser. */
 	static final Parser<Long> codesParser = new LongParser();
 	
-	/**
-	 * Formatter
-	 */
+	/** Formatter. */
 	static final Formatter<Long> formatter = ObjectFormatter.<Long>getInstance();
 	
-	/**
-	 * MultipleCachedEntriesBoPropertyDescriptor
-	 */
+	/** MultipleCachedEntriesBoPropertyDescriptor. */
 	PalleteCachedEntriesOwnersBoPropertyDescriptor<ObjectType, Long> descriptor = 
 		new PalleteCachedEntriesOwnersBoPropertyDescriptor<ObjectType, Long>(TYPE,SUBTYPE,TEST_CACHE_NAME,codesParser, formatter);
 
 	
 	/**
-	 * initialize
+	 * initialize.
 	 */
 	@Before
 	public void initialize(){		
@@ -98,7 +90,8 @@ public class TestPalleteCachedEntriesOwnersBoPropertyDescriptor extends Abstract
 	
 	/**
 	 * test for {@link PalleteCachedEntriesOwnersBoPropertyDescriptor#parse(String)}.
-	 * @throws ParseException 
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@Test
 	public void testParse() throws ParseException{	
@@ -148,6 +141,8 @@ public class TestPalleteCachedEntriesOwnersBoPropertyDescriptor extends Abstract
 	}
 
 	/**
+	 * Creates the codes.
+	 *
 	 * @return codes of {@link EnumElement}.
 	 */
 	private String createCodes() {

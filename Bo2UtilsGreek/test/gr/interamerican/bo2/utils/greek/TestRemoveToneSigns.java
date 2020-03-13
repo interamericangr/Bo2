@@ -11,7 +11,7 @@ import org.junit.Test;
 public class TestRemoveToneSigns {
 	
 	/**
-	 * test containsNonGreekLetters
+	 * test containsNonGreekLetters.
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -31,7 +31,7 @@ public class TestRemoveToneSigns {
 	}
 	
 	/**
-	 * test containsNonGreekLetters
+	 * test containsNonGreekLetters.
 	 */	
 	@Test
 	public void testContainsNonGreekLetters() {

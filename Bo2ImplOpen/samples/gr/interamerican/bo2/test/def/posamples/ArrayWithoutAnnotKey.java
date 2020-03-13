@@ -16,21 +16,23 @@ import gr.interamerican.bo2.arch.Key;
 import gr.interamerican.bo2.impl.open.annotations.KeyProperties;
 
 /**
- * 
+ * The Interface ArrayWithoutAnnotKey.
  */
 @KeyProperties("invoiceCustomerArrayWithoutAnnotNo")
 public interface ArrayWithoutAnnotKey 
 extends Key {
 	
 	/**
-	 * Gets InvoiceCustomerArrayWithoutAnnotNo
+	 * Gets InvoiceCustomerArrayWithoutAnnotNo.
+	 *
 	 * @return InvoiceCustomerArrayWithoutAnnotNo
 	 */
 	public String getInvoiceCustomerArrayWithoutAnnotNo();
 	
 	/**
-	 * Sets InvoiceCustomerArrayWithoutAnnotNo
-	 * @param invoiceCustomerArrayWithoutAnnotNo
+	 * Sets InvoiceCustomerArrayWithoutAnnotNo.
+	 *
+	 * @param invoiceCustomerArrayWithoutAnnotNo the new invoice customer array without annot no
 	 */
 	public void setInvoiceCustomerArrayWithoutAnnotNo(String invoiceCustomerArrayWithoutAnnotNo);
 

@@ -9,7 +9,7 @@ import org.junit.Test;
 public class TestFunctionalMocksObjectFactoryImpl {
 	
 	/**
-	 * 
+	 * Test constructor.
 	 */
 	@Test
 	public void testConstructor() {

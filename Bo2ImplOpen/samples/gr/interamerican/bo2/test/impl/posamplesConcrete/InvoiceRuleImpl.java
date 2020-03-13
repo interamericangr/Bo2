@@ -56,38 +56,46 @@ extends AbstractModificationRecordPo<InvoiceRuleKey> implements InvoiceRule {
 		fixChild(subRules);
 	}
 
+	@Override
 	public Long getRuleCd() {
 		return this.key.getRuleCd();
 	}
 
+	@Override
 	public void setRuleCd(Long ruleCd) {
 		key.setRuleCd(ruleCd);
 		String[] properties = {"ruleCd"};
 		fixChildren(properties);
 	}
 
+	@Override
 	public String getInvoiceNo() {
 		return this.key.getInvoiceNo();
 	}
 
+	@Override
 	public void setInvoiceNo(String invoiceNo) {
 		key.setInvoiceNo(invoiceNo);
 		String[] properties = {"invoiceNo"};
 		fixChildren(properties);
 	}
 
+	@Override
 	public void setRuleName(String name) {
 		this.ruleName = name;
 	}
 
+	@Override
 	public String getRuleName() {
 		return ruleName;
 	}
 
+	@Override
 	public Set<InvoiceSubRule> getSubRules() {
 		return subRules;
 	}
 
+	@Override
 	public void setSubRules(Set<InvoiceSubRule> subRules) {
 		this.subRules = subRules;
 		fixChild(subRules);

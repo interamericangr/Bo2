@@ -3,7 +3,7 @@ package gr.interamerican.bo2.utils.concurrent;
 import java.math.BigDecimal;
 
 /**
- * Thread safe addition for BigDecimals
+ * Thread safe addition for BigDecimals.
  */
 public class SumBd {
 	

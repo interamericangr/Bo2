@@ -23,17 +23,15 @@ import gr.interamerican.bo2.utils.meta.formatters.nr.NrObjectFormatter;
 public class ShortFormatter
 implements Formatter<Short> {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Formatter.
 	 */
 	Formatter<Short> kf = NrObjectFormatter.<Short>getInstance();
 
+	@Override
 	public String format(Short t) {
 		return kf.format(t);
 	}
-
 }

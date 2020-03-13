@@ -31,7 +31,7 @@ public class BaseTestPropertyCodeTemplates {
 	/**
 	 * Creates a new TestPropertyCodeTemplates object. 
 	 *
-	 * @param templates
+	 * @param templates the templates
 	 */
 	public BaseTestPropertyCodeTemplates(
 	PropertyCodeTemplates templates) {

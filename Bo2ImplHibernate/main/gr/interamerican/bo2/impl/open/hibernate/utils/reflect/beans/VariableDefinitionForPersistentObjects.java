@@ -29,8 +29,8 @@ extends VariableDefinition<P>{
 	/**
 	 * Creates a new VariableDefinitionForPersistentObjects object. 
 	 *
-	 * @param name
-	 * @param type
+	 * @param name the name
+	 * @param type the type
 	 */
 	public VariableDefinitionForPersistentObjects(String name, Class<P> type) {
 		super(name, type);

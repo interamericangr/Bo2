@@ -23,9 +23,7 @@ import org.junit.Test;
  */
 public class TestAbstractNullFilteringFormatter {
 
-	/**
-	 * writer to test
-	 */
+	/** writer to test. */
 	AbstractNullFilteringFormatter<Object> formatter = new AbstractNullFilteringFormatter<Object>() {
 		/**
 		 * serialVersionUID
@@ -38,7 +36,7 @@ public class TestAbstractNullFilteringFormatter {
 	};
 	
 	/**
-	 * Tests format(t) an integer
+	 * Tests format(t) an integer.
 	 */
 	@Test
 	public void testFormat_notNull(){
@@ -50,7 +48,7 @@ public class TestAbstractNullFilteringFormatter {
 	
 
 	/**
-	 * Tests format(t) an integer
+	 * Tests format(t) an integer.
 	 */
 	@Test
 	public void testFormat_null(){

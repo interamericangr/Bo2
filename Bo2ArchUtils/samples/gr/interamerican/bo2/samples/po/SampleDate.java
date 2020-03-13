@@ -21,20 +21,16 @@ import java.util.Date;
 public class SampleDate extends Date {
 	
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 3955331052948511684L;
 	
-	/**
-	 * time
-	 */
+	/** time. */
 	long time;
 
 	/**
 	 * Creates a new SampleDate object. 
 	 *
-	 * @param time
+	 * @param time the time
 	 */
 	public SampleDate(long time){
 		this.time = time;

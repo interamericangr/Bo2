@@ -62,7 +62,8 @@ public class BeanWithStringAndDate implements Serializable {
 	
 	/**
 	 * Creates a new BeanWithDate object. 
-	 * @param date 
+	 *
+	 * @param date the date
 	 */
 	public BeanWithStringAndDate(Date date) {
 		super();

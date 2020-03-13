@@ -23,9 +23,7 @@ import gr.interamerican.bo2.utils.meta.parsers.FloatParser;
 public class FloatBoPropertyDescriptor 
 extends AbstractNumberBoPropertyDescriptor<Float> {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**

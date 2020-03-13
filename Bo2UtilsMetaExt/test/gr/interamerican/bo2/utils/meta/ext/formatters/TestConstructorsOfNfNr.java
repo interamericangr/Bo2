@@ -22,14 +22,13 @@ import gr.interamerican.bo2.utils.meta.ext.formatters.nr.NrTypedSelectableFormat
 import org.junit.Test;
 
 /**
- * Unit test for constructors
+ * Unit test for constructors.
  */
 public class TestConstructorsOfNfNr {
 
 	/**
 	 * Test creation.
 	 */
-	@SuppressWarnings("unused")
 	@Test
 	public void testConstructors(){
 		new NfMoneyFormatter();

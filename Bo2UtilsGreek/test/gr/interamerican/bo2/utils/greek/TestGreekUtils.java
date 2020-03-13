@@ -10,12 +10,12 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestGreekUtils.
  */
 public class TestGreekUtils {
 	
 	/**
-	 * test removeSymbolsAndReplaceLatinWithSimilarGreekChars
+	 * test removeSymbolsAndReplaceLatinWithSimilarGreekChars.
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -32,7 +32,7 @@ public class TestGreekUtils {
 	}
 	
 	/**
-	 * test containsNonGreekLetters
+	 * test containsNonGreekLetters.
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -50,7 +50,7 @@ public class TestGreekUtils {
 	}
 	
 	/**
-	 * test removeNonGreekLetters
+	 * test removeNonGreekLetters.
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -68,7 +68,7 @@ public class TestGreekUtils {
 	}
 	
 	/**
-	 * test removeNonGreekLetters
+	 * test removeNonGreekLetters.
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -86,7 +86,7 @@ public class TestGreekUtils {
 	}
 	
 	/**
-	 * test removeNonGreekLetters
+	 * test removeNonGreekLetters.
 	 */
 	@SuppressWarnings("nls")
 	@Test

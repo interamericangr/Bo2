@@ -13,7 +13,7 @@
 package gr.interamerican.bo2.creation.code.templatebean;
 
 /**
- * 
+ * The Class TestEmptyMethodCodeTemplates.
  */
 public class TestEmptyMethodCodeTemplates 
 extends BaseTestMethodCodeTemplates{

@@ -20,19 +20,18 @@ import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
 import gr.interamerican.bo2.utils.meta.parsers.Parser;
 
 /**
- * Parser for TypeSelectableParser for TypedSelectable<Long> .
+ * Parser for TypeSelectableParser for TypedSelectable&lt;Long&gt; .
  * 
- * This parser will return a TypedSelectable<?>.
+ * This parser will return a TypedSelectable&lt;?&gt;.
  */
 public class  TypeSelectableLongParser 
 implements Parser<TypedSelectable<Long>> {
 	
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	public TypedSelectable<Long> parse(String value) throws ParseException {
 		String[] splitValues = value.split(StringConstants.COMMA);
 		Long typeId = convertToLong(splitValues[0]) ;
@@ -50,15 +49,15 @@ implements Parser<TypedSelectable<Long>> {
 	 * Check if the input is not null or blank or contains "null" value, 
 	 * and returns a Long object that represents the integer value specified 
 	 * by the String input.   
-	 * 
-	 * @param input
+	 *
+	 * @param input the input
 	 * @return Long value.
 	 */
 	private Long convertToLong(String input){
 		if(	!StringUtils.isNullOrBlank(input)  && 
 			!input.equals(StringConstants.NULL)){
 			return Long.valueOf(input);
-		}else return null;
+		}
+		return null;
 	}
-	
 }

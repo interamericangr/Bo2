@@ -41,6 +41,11 @@ implements Session<A, L> {
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * Gets the.
+	 *
+	 * @return the bo 2 wicket session
+	 */
 	@SuppressWarnings("rawtypes")
 	public static Bo2WicketSession get() {
 		return (Bo2WicketSession) org.apache.wicket.Session.get();
@@ -59,7 +64,7 @@ implements Session<A, L> {
 	/**
 	 * Creates a new Bo2WicketSession object. 
 	 *
-	 * @param request
+	 * @param request the request
 	 * @param defaultLanguageId Default language id.
 	 */
 	public Bo2WicketSession(Request request, L defaultLanguageId) {
@@ -70,33 +75,37 @@ implements Session<A, L> {
 	/**
 	 * Creates a new Bo2WicketSession object. 
 	 *
-	 * @param request
+	 * @param request the request
 	 */
 	public Bo2WicketSession(Request request) {
 		super(request);
 	}
 
+	@Override
 	public User<A> getUser() {
 		return user;
 	}
 
 	/**
 	 * Sets the current user.
-	 * 
-	 * @param user
+	 *
+	 * @param user the new user
 	 */
 	public void setUser(User<A> user) {
 		this.user = user;
 	}
 	
+	@Override
 	public L getLanguageId() {		
 		return languageId;
 	}
 	
+	@Override
 	public void setLanguageId(L languageId) {
 		this.languageId = languageId;
 	}
 	
+	@Override
 	public boolean isAuthorized(A authorizationId) {
 		if (user!=null) {
 			return user.isAuthorized(authorizationId);
@@ -104,13 +113,14 @@ implements Session<A, L> {
 		return false;
 	}
 	
+	@Override
 	public boolean isLogin() {
 		return this.user!=null;
 	}
 	
 	/**
 	 * Creates a new drop down choice for a collection of {@link TranslatableEntry}
-	 * objects.<br/>
+	 * objects.<br>
 	 * 
 	 * @param <T> Type of {@link TranslatableEntry} objects.
 	 * @param id Drop down choice id.
@@ -125,7 +135,7 @@ implements Session<A, L> {
 	
 	/**
 	 * Creates a new drop down choice for a collection of {@link TranslatableEntry}
-	 * objects.<br/>
+	 * objects.<br>
 	 * 
 	 * @param <T> Type of {@link TranslatableEntry} objects.
 	 * @param id Drop down choice id.
@@ -141,12 +151,11 @@ implements Session<A, L> {
 	
 	/**
 	 * Creates a new drop down choice for a collection of {@link TranslatableEntryOwner}
-	 * objects.<br/>
+	 * objects.<br>
 	 *
+	 * @param <T> Type of {@link TranslatableEntry} objects.
 	 * @param id Drop down choice id.
 	 * @param choices List of choices.
-	 * @param <T> Type of {@link TranslatableEntry} objects. 
-	 * 
 	 * @return Returns a new drop down choice.
 	 */
 	public <T extends TranslatableEntryOwner<?, ?, L>> DropDownChoice<T> 
@@ -156,13 +165,12 @@ implements Session<A, L> {
 	
 	/**
 	 * Creates a new drop down choice for a collection of {@link TranslatableEntryOwner}
-	 * objects.<br/>
+	 * objects.<br>
 	 *
+	 * @param <T> Type of {@link TranslatableEntry} objects.
 	 * @param id Drop down choice id.
 	 * @param model Model.
 	 * @param choices List of choices.
-	 * @param <T> Type of {@link TranslatableEntry} objects. 
-	 * 
 	 * @return Returns a new drop down choice.
 	 */
 	public <T extends TranslatableEntryOwner<?, ?, L>> DropDownChoice<T> 

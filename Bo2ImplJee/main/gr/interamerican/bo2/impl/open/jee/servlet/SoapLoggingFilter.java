@@ -42,9 +42,7 @@ public class SoapLoggingFilter extends AbstractBaseLoggingFilter {
 	 */
 	static final String ERROR_MESSAGE = "Failed to manipulate SOAP for logging. Message was: \n"; //$NON-NLS-1$
 	
-	/**
-	 * caused by
-	 */
+	/** caused by. */
 	static final String CAUSED_BY = "caused by: "; //$NON-NLS-1$
 	
 	/**
@@ -99,14 +97,22 @@ public class SoapLoggingFilter extends AbstractBaseLoggingFilter {
 			"-------------------------------------------------------------------------------",
 			StringConstants.NEWLINE);
 		
-		LOGGER.info(msg);
+		logger().info(msg);
+	}
+	
+	/**
+	 * Allows to create sub-types that log elsewhere.
+	 * 
+	 * @return Logger to log with.
+	 */
+	protected Logger logger() {
+		return LOGGER;
 	}
 	
 	/**
 	 * Returns the SOAP message.
-	 * 
-	 * @param soap
-	 * 
+	 *
+	 * @param soap the soap
 	 * @return Returns the SOAP message.
 	 */
 	@SuppressWarnings("nls")
@@ -157,9 +163,10 @@ public class SoapLoggingFilter extends AbstractBaseLoggingFilter {
 	
 	/**
 	 * Handle SOAP parsing exception.
-	 * @param e
-	 * @param soap
-	 * @param mayLog 
+	 *
+	 * @param e the e
+	 * @param soap the soap
+	 * @param mayLog the may log
 	 * @return SOAP string assuming bytes encoded as UTF-8
 	 */
 	@SuppressWarnings("nls")

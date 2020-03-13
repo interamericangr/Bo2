@@ -23,7 +23,7 @@ import java.util.Properties;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestDocumentEngineProviderImpl.
  */
 public class TestDocumentEngineProviderImpl {
 	
@@ -62,10 +62,11 @@ public class TestDocumentEngineProviderImpl {
 	/**
 	 * Tests the constructor.
 	 */
+	@SuppressWarnings("nls")
 	@Test
 	public void testConstructor_withProperties() {
 		Properties properties = new Properties();
-		properties.setProperty("documentEngineClass", MockDocumentEngine.class.getName()); //$NON-NLS-1$
+		properties.setProperty("documentEngineClass", MockDocumentEngine.class.getName());
 		properties.setProperty("host", "localhost");
 		properties.setProperty("port", "8100");
 		DocumentEngineProviderImpl impl = new DocumentEngineProviderImpl(properties);

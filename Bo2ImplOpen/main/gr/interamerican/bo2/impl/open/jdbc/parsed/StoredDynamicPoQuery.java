@@ -19,35 +19,41 @@ import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.ext.CriteriaDependent;
 import gr.interamerican.bo2.impl.open.creation.Factory;
 import gr.interamerican.bo2.impl.open.jdbc.AbstractJdbcWorker;
+import gr.interamerican.bo2.impl.open.jdbc.JdbcQuery;
 import gr.interamerican.bo2.utils.JavaBeanUtils;
 import gr.interamerican.bo2.utils.annotations.Child;
 
 /**
  * This class is a {@link StoredDynamicEntitiesQuery} decorator that makes
  * possible the conversion of its results to {@link PersistentObject}s. 
- * <p/>
+ * <p>
  * A {@link StoredDynamicEntitiesQuery} may fetch a bean that contains
  * some of the properties of a {@link PersistentObject}. In this case, 
  * it is possible to wrap this query in a StoredDynamicPoQuery, so that 
  * getEntity() returns, in fact, an instance of the {@link PersistentObject}.
  * Note, that if the query does not fetch all the key properties of the
  * po, the applicability of the result is limited.
- * <p/>
+ * </p>
+ * <p>
  * In order for this to happen, the SQL supplied to the
  * {@link StoredDynamicEntitiesQuery} must produce a results bean with
  * properties that are named exactly the same, as the properties of the
  * {@link PersistentObject}.
- * <p/>
+ * </p>
+ * <p>
  * Reminder: The convention for the property names of the synthetic results
  * bean of the {@link StoredDynamicEntitiesQuery} is as follows: The result 
  * set column names are converted to property names by converting all letters
  * to small case and capitalizing each letter that is preceded by an underscore.
  * For example, FIRST_NAME column corresponds to firstName property.
+ * </p>
  * 
  * @param <P> 
  *        type of PersistentObject
  *        
- * @deprecated Use StoredDynamicEntitiesQuery directly and handle conversion manually.
+ * @deprecated Use of this api is not recommended. This might get moved outside
+ *             bo2. Switch to more simple Query implementations like
+ *             {@link JdbcQuery} and {@link DynamicJdbcQuery}
  */
 @Deprecated
 public class StoredDynamicPoQuery<P extends PersistentObject<?>> 
@@ -76,34 +82,42 @@ implements EntitiesQuery<P>, CriteriaDependent<Object> {
 		query.setManagerName(getManagerName());
 	}
 	
+	@Override
 	public void execute() throws DataException {
 		query.execute();
 	}
 
+	@Override
 	public boolean next() throws DataAccessException {
 		return query.next();
 	}
 
+	@Override
 	public int getRow() throws DataAccessException {
 		return query.getRow();
 	}
 
+	@Override
 	public void setAvoidLock(boolean avoidLock) {
 		query.setAvoidLock(avoidLock);
 	}
 
+	@Override
 	public boolean isAvoidLock() {
 		return query.isAvoidLock();
 	}
 
+	@Override
 	public void setCriteria(Object criteria) {
 		query.setCriteria(criteria);
 	}
 
+	@Override
 	public Object getCriteria() {
 		return query.getCriteria();
 	}
 
+	@Override
 	public P getEntity() throws DataAccessException {
 		P po = Factory.create(clazz);
 		JavaBeanUtils.copyProperties(query.getEntity(), po);

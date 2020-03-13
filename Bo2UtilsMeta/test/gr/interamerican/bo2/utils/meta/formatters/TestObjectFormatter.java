@@ -21,13 +21,11 @@ import org.junit.Test;
  */
 public class TestObjectFormatter {
 
-	/**
-	 * writer to test
-	 */
+	/** writer to test. */
 	ObjectFormatter formatter = ObjectFormatter.INSTANCE;
 
 	/**
-	 * Tests format(t) a date value
+	 * Tests format(t) a date value.
 	 */
 	@Test
 	public void testFormat(){

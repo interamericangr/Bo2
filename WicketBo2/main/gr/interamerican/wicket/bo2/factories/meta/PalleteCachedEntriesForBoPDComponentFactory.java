@@ -33,6 +33,7 @@ import org.apache.wicket.model.util.ListModel;
 public class PalleteCachedEntriesForBoPDComponentFactory 
 extends AbstractBoPDComponentFactory<PalleteCachedEntriesBoPropertyDescriptor<?,?>> {
 	
+	@Override
 	public Component drawMain(PalleteCachedEntriesBoPropertyDescriptor<?,?> descriptor, String wicketId) {
 		List<?> choices = new ArrayList<TypedSelectable<?>>(descriptor.getSelectableValues());
 		
@@ -43,6 +44,7 @@ extends AbstractBoPDComponentFactory<PalleteCachedEntriesBoPropertyDescriptor<?,
 		return new SelfDrawnPalleteForEntries(wicketId, descriptor, choicesModel, Bo2WicketSession.get());
 	}	
 
+	@Override
 	public Component drawMain(String wicketId, IModel<?> model, PalleteCachedEntriesBoPropertyDescriptor<?,?> descriptor) {
 		List<?> choices = new ArrayList<TypedSelectable<?>>(descriptor.getSelectableValues());
 

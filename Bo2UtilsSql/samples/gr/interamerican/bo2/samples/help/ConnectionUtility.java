@@ -44,11 +44,10 @@ public class ConnectionUtility {
     
 	/**
 	 * Opens a connection.
-	 * 
+	 *
 	 * @return Returns the connection.
-	 * 
-	 * @throws SQLException 
-	 * @throws ClassNotFoundException 
+	 * @throws SQLException the SQL exception
+	 * @throws ClassNotFoundException the class not found exception
 	 */
 	public static Connection getConnection() throws SQLException, ClassNotFoundException {
 		String path = "/gr/interamerican/bo2/deployparms/managers/localdb/of.properties";			 //$NON-NLS-1$

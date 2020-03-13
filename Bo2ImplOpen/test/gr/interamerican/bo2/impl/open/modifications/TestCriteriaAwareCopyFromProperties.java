@@ -30,10 +30,8 @@ public class TestCriteriaAwareCopyFromProperties {
 	
 	/**
 	 * Tests execute() on a bean that has Integer criteria.
-	 * 
-	 * This test fails. TODO: Fix this case.
 	 */	
-	//@Test
+	@Test
 	@SuppressWarnings("nls")
 	public void testExecute_withIntegerCriteria() {
 		Properties p = new Properties();
@@ -53,7 +51,7 @@ public class TestCriteriaAwareCopyFromProperties {
 	}
 	
 	/**
-	 * Tests execute() on a bean that has a javabean criteria
+	 * Tests execute() on a bean that has a javabean criteria.
 	 */	
 	@Test
 	@SuppressWarnings("nls")
@@ -77,6 +75,4 @@ public class TestCriteriaAwareCopyFromProperties {
 		Assert.assertEquals(field1, bean.getCriteria().getField1());
 		Assert.assertEquals(field2, bean.getCriteria().getField2());
 	}
-
-
 }

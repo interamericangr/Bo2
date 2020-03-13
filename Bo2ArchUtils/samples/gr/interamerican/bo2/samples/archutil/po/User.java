@@ -25,45 +25,34 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-
 /**
  * User.
  * 
  * Simple PersistentObject for the tests.
  * 
  */
-public class User
-implements TypedSelectable<Long>, PersistentObject<UserKey>, ModificationRecord {
+public class User implements TypedSelectable<Long>, PersistentObject<UserKey>, ModificationRecord {
 
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	static final long serialVersionUID = 1L;
 
-	/**
-	 * id
-	 */
+	/** id. */
 	Integer id;
 
-	/**
-	 * name
-	 */
+	/** name. */
 	String name;
 
-	/**
-	 * role id
-	 */
+	/** role id. */
 	int roleId;
 
-	/**
-	 * user id
-	 */
+	/** user id. */
 	String usrid;
 
 	/**
 	 * user profiles.
 	 */
-	@Child Set<UserProfile> profiles = new HashSet<UserProfile>();
+	@Child
+	Set<UserProfile> profiles = new HashSet<UserProfile>();
 
 	/**
 	 * {@link ModificationRecord}.
@@ -74,9 +63,13 @@ implements TypedSelectable<Long>, PersistentObject<UserKey>, ModificationRecord 
 	 * Creates a new User object.
 	 *
 	 * @param id
+	 *            the id
 	 * @param name
+	 *            the name
 	 * @param roleId
+	 *            the role id
 	 * @param usrid
+	 *            the usrid
 	 */
 	public User(Integer id, String name, int roleId, String usrid) {
 		super();
@@ -94,9 +87,9 @@ implements TypedSelectable<Long>, PersistentObject<UserKey>, ModificationRecord 
 		super();
 	}
 
-
-
 	/**
+	 * Gets the id.
+	 *
 	 * @return the id
 	 */
 	public Integer getId() {
@@ -104,13 +97,18 @@ implements TypedSelectable<Long>, PersistentObject<UserKey>, ModificationRecord 
 	}
 
 	/**
+	 * Sets the id.
+	 *
 	 * @param id
+	 *            the new id
 	 */
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
 	/**
+	 * Gets the name.
+	 *
 	 * @return the name
 	 */
 	@Override
@@ -119,6 +117,8 @@ implements TypedSelectable<Long>, PersistentObject<UserKey>, ModificationRecord 
 	}
 
 	/**
+	 * Sets the name.
+	 *
 	 * @param name
 	 *            the name to set
 	 */
@@ -128,6 +128,8 @@ implements TypedSelectable<Long>, PersistentObject<UserKey>, ModificationRecord 
 	}
 
 	/**
+	 * Gets the role id.
+	 *
 	 * @return the roleId
 	 */
 	public int getRoleId() {
@@ -135,6 +137,8 @@ implements TypedSelectable<Long>, PersistentObject<UserKey>, ModificationRecord 
 	}
 
 	/**
+	 * Sets the role id.
+	 *
 	 * @param roleId
 	 *            the roleId to set
 	 */
@@ -143,6 +147,8 @@ implements TypedSelectable<Long>, PersistentObject<UserKey>, ModificationRecord 
 	}
 
 	/**
+	 * Gets the usrid.
+	 *
 	 * @return the user id
 	 */
 	public String getUsrid() {
@@ -150,13 +156,14 @@ implements TypedSelectable<Long>, PersistentObject<UserKey>, ModificationRecord 
 	}
 
 	/**
+	 * Sets the usrid.
+	 *
 	 * @param usrid
 	 *            the user id to set
 	 */
 	public void setUsrid(String usrid) {
 		this.usrid = usrid;
 	}
-
 
 	/**
 	 * Gets the profiles.
@@ -170,7 +177,8 @@ implements TypedSelectable<Long>, PersistentObject<UserKey>, ModificationRecord 
 	/**
 	 * Assigns a new value to the profiles.
 	 *
-	 * @param profiles the profiles to set
+	 * @param profiles
+	 *            the profiles to set
 	 */
 	public void setProfiles(Set<UserProfile> profiles) {
 		this.profiles = profiles;
@@ -239,14 +247,14 @@ implements TypedSelectable<Long>, PersistentObject<UserKey>, ModificationRecord 
 
 	@Override
 	public void setCode(Long code) {
-		if (code!=null) {
+		if (code != null) {
 			id = code.intValue();
 		}
 	}
 
 	@Override
 	public Long getCode() {
-		if (id==null) {
+		if (id == null) {
 			return null;
 		}
 		return new Long(id);
@@ -273,7 +281,9 @@ implements TypedSelectable<Long>, PersistentObject<UserKey>, ModificationRecord 
 
 	@Override
 	public int compareTo(Codified<Long> o) {
-		if(o==null) { return 1; }
+		if (o == null) {
+			return 1;
+		}
 		return Utils.nullSafeCompare(o.getCode(), getCode());
 	}
 
@@ -298,17 +308,17 @@ implements TypedSelectable<Long>, PersistentObject<UserKey>, ModificationRecord 
 	}
 
 	/**
-	 * Gets the UserProfile associated with this that has the specified profileNo.
-	 * 
+	 * Gets the UserProfile associated with this that has the specified
+	 * profileNo.
+	 *
 	 * @param profileId
+	 *            the profile id
 	 * @return UserProfile.
 	 */
 	public UserProfile getProfileById(Integer profileId) {
-		if (profiles==null) {
+		if (profiles == null) {
 			return null;
 		}
-		return SelectionUtils.selectFirstByProperty("profileId", profileId, profiles, UserProfile.class);		 //$NON-NLS-1$
+		return SelectionUtils.selectFirstByProperty(UserProfile::getProfileId, profileId, profiles);
 	}
-
-
 }

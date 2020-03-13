@@ -19,22 +19,23 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * 
+ * A factory for creating TestModalWindow objects.
  */
 public class TestModalWindowFactory {
-	/**
-	 * the WicketTester
-	 */
+	
+	/** the WicketTester. */
 	public WicketTester wicketTester = null;
+	
 	/**
-	 * 
+	 * Sets the up.
 	 */
 	@Before
 	public void setUp(){	
 		wicketTester = new WicketTester();	
 	}
+	
 	/**
-	 * 
+	 * Test create modal window.
 	 */
 	@Test
 	public void testCreateModalWindow(){

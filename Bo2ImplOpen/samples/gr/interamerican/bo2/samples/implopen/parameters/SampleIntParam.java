@@ -17,7 +17,7 @@ import gr.interamerican.bo2.impl.open.properties.Parameter;
 import gr.interamerican.bo2.impl.open.workers.StandAloneWorker;
 
 /**
- * sample integer parameter
+ * sample integer parameter.
  */
 public class SampleIntParam
 extends StandAloneWorker
@@ -26,6 +26,8 @@ implements Parameter<Integer> {
 	 * Parameter value.
 	 */
 	public static final Integer VALUE = 77;
+	
+	@Override
 	public Integer getValue() throws DataException {			
 		return VALUE;
 	}

@@ -12,6 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.beans;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,7 +23,12 @@ import java.util.Map;
  * @param <T>
  *        Type of selection.
  */
-public class TypeBasedSelection<T> {
+public class TypeBasedSelection<T> implements Serializable {
+	
+	/**
+	 * Version UID
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	/**
 	 * maps the classes with the selections.
@@ -31,9 +37,9 @@ public class TypeBasedSelection<T> {
 	
 	/**
 	 * Registers a selection for a class.
-	 * 
-	 * @param clazz
-	 * @param t
+	 *
+	 * @param clazz the clazz
+	 * @param t the t
 	 */
 	public void registerSelection(Class<?> clazz, T t) {
 		selections.put(clazz, t);
@@ -47,11 +53,10 @@ public class TypeBasedSelection<T> {
 	 * declared on this type in the order these are returned by {@link Class#getInterfaces()}.
 	 * 
 	 * If no match is found, the process is repeated for the superClass of the type.
-	 * 
-	 * @see Class#getInterfaces()
-	 * 
-	 * @param clazz
+	 *
+	 * @param clazz the clazz
 	 * @return Returns the selection associated with this class.
+	 * @see Class#getInterfaces()
 	 */
 	public T selectionForType(Class<?> clazz) {
 		T t = selections.get(clazz);
@@ -76,13 +81,11 @@ public class TypeBasedSelection<T> {
 	
 	/**
 	 * Gets the selection for the specified object.
-	 * 
-	 * @see #selectionForType(Class)
-	 * 
-	 * @param object
-	 * 
+	 *
+	 * @param object the object
 	 * @return Returns the selection that matches to the class
 	 *         of the specified object.
+	 * @see #selectionForType(Class)
 	 */
 	public T select(Object object) {
 		if (object==null) {

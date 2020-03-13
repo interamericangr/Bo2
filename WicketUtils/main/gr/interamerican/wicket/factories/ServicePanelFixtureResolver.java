@@ -11,17 +11,19 @@ public interface ServicePanelFixtureResolver {
 	/**
 	 * Resolves a fixture for a given class. If no fixture is found, null
 	 * is returned.
-	 * 
-	 * @param panelId
+	 *
+	 * @param <M> the generic type
+	 * @param panelId the panel id
 	 * @return Fixture instance.
 	 */
 	<M extends ServicePanel> M resolveFixture(String panelId);
 	
 	/**
 	 * Registers a fixture.
-	 * 
-	 * @param panelId
-	 * @param fixture
+	 *
+	 * @param <M> the generic type
+	 * @param panelId the panel id
+	 * @param fixture the fixture
 	 */
 	<M extends ServicePanel> void registerFixture(String panelId, M fixture);
 	

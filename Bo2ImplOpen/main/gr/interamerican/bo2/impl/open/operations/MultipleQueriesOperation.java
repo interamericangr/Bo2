@@ -101,7 +101,7 @@ implements CriteriaDependent<Object>{
 			q.init(parent);
 		}
 	}
-	
+
 	@Override
 	public void open() throws DataException {		
 		super.open();
@@ -109,7 +109,7 @@ implements CriteriaDependent<Object>{
 			q.open();
 		}
 	}
-	
+
 	@Override
 	public void close() throws DataException {	
 		for (Query q : queries.values()) {
@@ -117,7 +117,7 @@ implements CriteriaDependent<Object>{
 		}
 		super.close();
 	}
-	
+
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public void execute() throws LogicException, DataException {
@@ -133,5 +133,4 @@ implements CriteriaDependent<Object>{
 			results.put(name, result);
 		}		
 	}
-
 }

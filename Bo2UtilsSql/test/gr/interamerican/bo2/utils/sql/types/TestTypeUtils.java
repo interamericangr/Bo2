@@ -20,13 +20,13 @@ import java.sql.Types;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestTypeUtils.
  */
 public class TestTypeUtils {
 
 	
 	/**
-	 * Tests getTypeForClass
+	 * Tests getTypeForClass.
 	 */
 	@Test
 	public void testGetTypeForClass(){
@@ -37,7 +37,7 @@ public class TestTypeUtils {
 	
 	
 	/**
-	 * Tests getTypeForClass when value is null
+	 * Tests getTypeForClass when value is null.
 	 */
 	@Test
 	public void testGetTypeForClass_nullValue(){
@@ -47,7 +47,7 @@ public class TestTypeUtils {
 	}
 	
 	/**
-	 * Tests getTypeForClass when value is null
+	 * Tests getTypeForClass when value is null.
 	 */
 	@Test
 	public void testGetTypeOfSqlType(){

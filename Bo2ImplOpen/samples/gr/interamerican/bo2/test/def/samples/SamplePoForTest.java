@@ -18,28 +18,31 @@ import gr.interamerican.bo2.arch.ext.TypedSelectable;
 import gr.interamerican.bo2.samples.ibean.IBeanWithIdAndName;
 
 /**
- * 
+ * The Interface SamplePoForTest.
  */
 public interface SamplePoForTest 
 extends SamplePoKP, PersistentObject<SamplePoKey>, 
 ModificationRecord, SampleCalculator, TypedSelectable<Long>,
 IBeanWithIdAndName
 {
+	
 	/**
-	 * Sets the serial no
-	 * 
-	 * @param serialNo
+	 * Sets the serial no.
+	 *
+	 * @param serialNo the new serial no
 	 */
 	public void setSerialNo(Long serialNo);
 	
 	/**
+	 * Gets the serial no.
+	 *
 	 * @return the serial no
 	 */
 	public Long getSerialNo();
 	
 	/**
 	 * hack used to initialize class fields
-	 * with @DelegateProperties or @DelegateMethods
+	 * with @DelegateProperties or @DelegateMethods.
 	 */
 	public void init();
 }

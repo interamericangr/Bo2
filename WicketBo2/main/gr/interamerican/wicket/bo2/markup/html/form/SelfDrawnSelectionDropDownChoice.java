@@ -26,8 +26,8 @@ import org.apache.wicket.model.Model;
 
 /**
  * SelfDrawn DropDownChoice.
- * 
- * @param <T> 
+ *
+ * @param <T> the generic type
  */
 public class SelfDrawnSelectionDropDownChoice<T extends Serializable> extends DropDownChoice<T>{
 	
@@ -38,8 +38,9 @@ public class SelfDrawnSelectionDropDownChoice<T extends Serializable> extends Dr
 			
 	/**
 	 * Creates a new SelfDrawnDropDownChoice object. 
-	 * @param id 
-	 * @param descriptor 
+	 *
+	 * @param id the id
+	 * @param descriptor the descriptor
 	 */
 	public SelfDrawnSelectionDropDownChoice(String id, SelectionBoPropertyDescriptor<T> descriptor) {
 		super(id, new Model<T>(), new ArrayList<T>(descriptor.getValues()));
@@ -47,12 +48,13 @@ public class SelfDrawnSelectionDropDownChoice<T extends Serializable> extends Dr
 	}
 	
 	/**
-     * Creates a new SelfDrawnDropDownChoice object.
-     *	
-     * @param id
-     * @param descriptor
-     * @param model
-     */
+	 * Creates a new SelfDrawnDropDownChoice object.
+	 * 	
+	 *
+	 * @param id the id
+	 * @param model the model
+	 * @param descriptor the descriptor
+	 */
     public SelfDrawnSelectionDropDownChoice(String id, IModel<T> model, SelectionBoPropertyDescriptor<T> descriptor) {
         super(id, model, new ArrayList<T>(descriptor.getValues()));
         SelfDrawnUtils.<T>standardSelfDrawnFormComponentStuff(this, descriptor);

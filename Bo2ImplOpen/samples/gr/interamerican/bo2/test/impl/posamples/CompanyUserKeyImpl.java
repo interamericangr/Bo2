@@ -4,14 +4,15 @@ import gr.interamerican.bo2.impl.open.po.AbstractKey;
 import gr.interamerican.bo2.test.def.posamples.CompanyUserKey;
 
 /**
- * 
+ * The Class CompanyUserKeyImpl.
  */
 public class CompanyUserKeyImpl extends AbstractKey implements CompanyUserKey {
 
+	/** The Constant serialVersionUID. */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
 	Long id;
 	
 	@Override

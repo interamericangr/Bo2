@@ -36,9 +36,7 @@ import java.util.Map;
 public abstract class AbstractBoPropertyDescriptor<T> 
 implements BoPropertyDescriptor<T> {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -78,17 +76,15 @@ implements BoPropertyDescriptor<T> {
 	 * default value.
 	 */
 	T defaultValue;	
-	/**
-	 * parser
-	 */
+	
+	/** parser. */
 	Parser<T> parser;
 	/**
 	 * label.
 	 */
 	String label;
-	/**
-	 * length
-	 */
+	
+	/** length. */
 	int maxLength;
 	/**
 	 * affected.
@@ -98,7 +94,7 @@ implements BoPropertyDescriptor<T> {
 	/**
 	 * Creates a new AbstractBoPropertyDescriptor object. 
 	 *
-	 * @param parser
+	 * @param parser the parser
 	 */
 	public AbstractBoPropertyDescriptor(Parser<T> parser) {
 		super();
@@ -107,42 +103,42 @@ implements BoPropertyDescriptor<T> {
 			validators.put(NotNullValidator.class, NotNullValidator.<T>getInstance());
 		}
 	}
-	
+
 	@Override
 	public String getName() {
 		return name;
 	}
-	
+
 	@Override
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	@Override
 	public String getClassName() {
 		return className;
 	}
-	
+
 	@Override
 	public void setClassName(String className) {
 		this.className = className;
 	}
-	
+
 	@Override
 	public boolean isReadOnly() {
 		return readOnly;
 	}
-	
+
 	@Override
 	public void setReadOnly(boolean readOnly) {
 		this.readOnly = readOnly;
 	}
-	
+
 	@Override
 	public boolean isNullAllowed() {
 		return nullAllowed;
 	}
-	
+
 	@Override
 	public void setNullAllowed(boolean nullAllowed) {
 		this.nullAllowed = nullAllowed;
@@ -152,27 +148,27 @@ implements BoPropertyDescriptor<T> {
 			validators.remove(NotNullValidator.class);
 		}
 	}
-	
+
 	@Override
 	public boolean isHasDefault() {
 		return hasDefault;
 	}
-	
+
 	@Override
 	public void setHasDefault(boolean hasDefault) {
 		this.hasDefault = hasDefault;
 	}
-	
+
 	@Override
 	public T getDefaultValue() {
 		return defaultValue;
 	}
-	
+
 	@Override
 	public void setDefaultValue(T defaultValue) {
 		this.defaultValue = defaultValue;
 	}
-	
+
 	@Override
 	public void validate(T value) throws ValidationException {
 		try {
@@ -181,29 +177,29 @@ implements BoPropertyDescriptor<T> {
 			throw new RuntimeException("Exception in validation of property " + getFullyQualifiedName(), e); //$NON-NLS-1$
 		}
 	}
-	
+
 	@Override
 	public String getFullyQualifiedName() {		
 		return StringUtils.concat(getFullyQualifiedClassName(), StringConstants.DOT, getName());
 	}
-	
+
 	@Override
 	public String getFullyQualifiedClassName() {
 		return StringUtils.concat(getPackageName(), StringConstants.DOT, getClassName());
 	}
-	
+
 	@Override
 	public T parseAndValidate(String value) throws ParseException, ValidationException {
 		T t = parse(value);
 		validate(t);
 		return t;
 	}
-	
+
 	@Override
 	public String getPackageName() {
 		return packageName;
 	}
-	
+
 	@Override
 	public void setPackageName(String packageName) {
 		this.packageName = packageName;
@@ -228,7 +224,7 @@ implements BoPropertyDescriptor<T> {
 	public T parse(String value) throws ParseException {		
 		return getParser().parse(value);
 	}	
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj==null) {
@@ -244,7 +240,7 @@ implements BoPropertyDescriptor<T> {
 		}
 		return false;
 	}	
-	
+
 	@Override
 	public int hashCode() {
 		String nm = getFullyQualifiedClassName();
@@ -253,12 +249,12 @@ implements BoPropertyDescriptor<T> {
 		}
 		return nm.hashCode();
 	}
-	
+
 	@Override
 	public String format(T value) {
 		return getFormatter().format(value);
 	}
-	
+
 	@Override
 	public Integer getIndex() {
 		return index;
@@ -280,6 +276,8 @@ implements BoPropertyDescriptor<T> {
 	}
 	
 	/**
+	 * Gets the formatter.
+	 *
 	 * @return Returns the appropriate formatter.
 	 */
 	protected abstract Formatter<T> getFormatter();
@@ -309,31 +307,34 @@ implements BoPropertyDescriptor<T> {
 	public void setMaxLength(int formatLength) {
 		this.maxLength = formatLength;
 	}
-	
+
 	@Override
 	public T valueOf(Number value) {	
 		return null;
 	}
-	
+
+	@Override
 	public String getAffected() {
 		return affected;
 	}
 
+	@Override
 	public void setAffected(String affected) {
 		this.affected = affected;
 	}
-	
+
+	@Override
 	public Parser<T> getParser() {
 		return parser;
 	}
-	
+
+	@Override
 	public Validator<T> getValidator() {
 		return new MultipleValidatorsValidator<T>(new HashSet<Validator<T>>(validators.values()), getLabel());
 	}
-	
+
 	@Override
 	public String toString() {
 		return getClassName() + StringConstants.DOT + getName();
 	}
-
 }

@@ -30,7 +30,8 @@ public class TestStreamUtils {
 	
 	/**
 	 * Test readProperties() success.
-	 * @throws IOException 
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	@Test
 	public void testReadResourceFile_SucceedAll() throws IOException {
@@ -42,7 +43,8 @@ public class TestStreamUtils {
 	
 	/**
 	 * Test readProperties() success.
-	 * @throws IOException 
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	@Test
 	public void testReadResourceFile_SucceedNoEmpty() throws IOException {
@@ -55,7 +57,8 @@ public class TestStreamUtils {
 	
 	/**
 	 * Test readProperties() success.
-	 * @throws IOException 
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	@Test
 	public void testReadResourceFile_SucceedNoEmptyNoSharps() throws IOException {
@@ -68,7 +71,8 @@ public class TestStreamUtils {
 	
 	/**
 	 * Test readProperties() failing.
-	 * @throws IOException 
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	@Test
 	public void readResourceFile_Fail() throws IOException {
@@ -83,14 +87,15 @@ public class TestStreamUtils {
 	 * 
 	 * For this test to succeed, the file in the path <code>EXISTING_PATH</code>
 	 * must exist.
-	 * 
-	 * @throws IOException 
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	@Test
 	public void testReadFile_Succeed() throws IOException {
 		String resourcePath = "/gr/interamerican/bo2/deployparms/deployment.properties"; //$NON-NLS-1$
 		Properties properties = CollectionUtils.readProperties(resourcePath);	
 		String workdir = properties.getProperty("streamsWorkDirectory");
+		System.out.println("XXX" + workdir);
 		String path = workdir + "existing.txt";
 		String[] lines = StreamUtils.readFile(path);
 		assertNotNull(lines);
@@ -99,7 +104,8 @@ public class TestStreamUtils {
 	
 	/**
 	 * Test readProperties() failing.
-	 * @throws IOException 
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	@Test
 	public void testReadFile_Fail() throws IOException {		

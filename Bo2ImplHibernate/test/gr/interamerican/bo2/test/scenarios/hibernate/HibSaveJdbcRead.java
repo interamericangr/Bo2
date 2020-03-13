@@ -38,7 +38,7 @@ extends AbstractOperation {
 	/**
 	 * Creates a new HibSaveJdbcRead object. 
 	 *
-	 * @param id
+	 * @param id the id
 	 */
 	public HibSaveJdbcRead(int id) {
 		super();
@@ -59,9 +59,6 @@ extends AbstractOperation {
 	private PersistenceWorker<User> jdbcPw = new UserPwImpl();
 	
 	
-	/* (non-Javadoc)
-	 * @see gr.interamerican.bo2.impl.open.workers.AbstractOperation#execute()
-	 */
 	@Override
 	public void execute() throws DataException {
 		

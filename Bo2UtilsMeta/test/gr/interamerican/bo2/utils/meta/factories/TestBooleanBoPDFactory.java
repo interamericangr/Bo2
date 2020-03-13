@@ -20,18 +20,16 @@ import gr.interamerican.samples.utils.meta.SamplePropertyDefinition;
 import org.junit.Test;
 
 /**
- * 
+ * A factory for creating TestBooleanBoPD objects.
  */
 public class TestBooleanBoPDFactory {
 	
-	/**
-	 * SamplePropertyDefinition
-	 */
+	/** SamplePropertyDefinition. */
 	SamplePropertyDefinition pd =  new SamplePropertyDefinition();
 	
 	
 	/**
-	 * Test create
+	 * Test create.
 	 */
 	@SuppressWarnings({ "nls" })
 	@Test
@@ -44,8 +42,7 @@ public class TestBooleanBoPDFactory {
 	}
 	
 	/**
-	 * test Create when fails
-	 * 
+	 * test Create when fails.
 	 */
 	@SuppressWarnings({ "nls" })
 	@Test

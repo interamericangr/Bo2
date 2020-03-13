@@ -23,23 +23,19 @@ import org.apache.wicket.model.PropertyModel;
 import org.junit.Test;
 
 /**
- * 
+ * A factory for creating TestBigDecimalBoPDComponent objects.
  */
 public class TestBigDecimalBoPDComponentFactory extends BaseClassForTestingComponentFactory{	
 
-	/**
-	 * 
-	 */
+	/** The big decimal bo PD component factory. */
 	private BigDecimalBoPDComponentFactory bigDecimalBoPDComponentFactory = 
 		new BigDecimalBoPDComponentFactory();
 	
-	/**
-	 * 
-	 */
+	/** The big decimal bo property descriptor. */
 	private BigDecimalBoPropertyDescriptor bigDecimalBoPropertyDescriptor = bean1descriptor.amountDescriptor();
 
 	/**
-	 * 
+	 * Test draw main first.
 	 */
 	@Test
 	public void testDrawMain_First(){
@@ -49,7 +45,7 @@ public class TestBigDecimalBoPDComponentFactory extends BaseClassForTestingCompo
 	}
 	
 	/**
-	 * 
+	 * Test draw main second.
 	 */
 	@Test
 	public void testDrawMain_Second(){

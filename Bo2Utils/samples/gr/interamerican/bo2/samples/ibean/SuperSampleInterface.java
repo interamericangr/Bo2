@@ -15,20 +15,49 @@ package gr.interamerican.bo2.samples.ibean;
 import java.io.Serializable;
 
 /**
- * sample interface
+ * sample interface.
  */
-@SuppressWarnings("all")
 public interface SuperSampleInterface extends Serializable {
 	
+	/**
+	 * Gets the field 4.
+	 *
+	 * @return the field 4
+	 */
 	public String getField4();
 
+	/**
+	 * Sets the field 4.
+	 *
+	 * @param field4 the new field 4
+	 */
 	public void setField4(String field4);
 
+	/**
+	 * Gets the field 5.
+	 *
+	 * @return the field 5
+	 */
 	public Integer getField5();
 
+	/**
+	 * Sets the field 5.
+	 *
+	 * @param field5 the new field 5
+	 */
 	public void setField5(Integer field5);
 
+	/**
+	 * Gets the field 6.
+	 *
+	 * @return the field 6
+	 */
 	public Object getField6();
 
+	/**
+	 * Sets the field 6.
+	 *
+	 * @param field6 the new field 6
+	 */
 	public void setField6(Object field6);
 }

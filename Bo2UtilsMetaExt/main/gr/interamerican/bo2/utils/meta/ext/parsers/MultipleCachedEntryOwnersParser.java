@@ -14,8 +14,9 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * 
- * @param <T> Type of entry 
+ * The Class MultipleCachedEntryOwnersParser.
+ *
+ * @param <T> Type of entry
  * @param <C> Type of cache code
  */
 public class MultipleCachedEntryOwnersParser
@@ -24,14 +25,10 @@ public class MultipleCachedEntryOwnersParser
 extends NamedCacheProvider<C>
 implements Parser<Collection<T>> {
 	
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Entry typeId
-	 */
+	/** Entry typeId. */
 	protected Long typeId;
 	
 	/**
@@ -42,9 +39,10 @@ implements Parser<Collection<T>> {
 	/**
 	 * Creates a new CachedEntryParser object.
 	 *  
-	 * @param cacheName 
-	 * @param typeId 
-	 * @param codeParser 
+	 *
+	 * @param cacheName the cache name
+	 * @param typeId the type id
+	 * @param codeParser the code parser
 	 */
 	public MultipleCachedEntryOwnersParser(String cacheName, Long typeId, Parser<C> codeParser) {
 		super(cacheName);
@@ -52,6 +50,7 @@ implements Parser<Collection<T>> {
 		this.codeParser = codeParser;
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public List<T> parse(String value) throws ParseException {
 		String[] tokens = TokenUtils.splitTrim(value, StringConstants.COMMA);
@@ -64,5 +63,4 @@ implements Parser<Collection<T>> {
 		}
 		return list;
 	}
-
 }

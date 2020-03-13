@@ -28,13 +28,10 @@ public class DateBoPDFactory {
 
 	/**
 	 * Creates a {@link DateBoPropertyDescriptor}.
-	 * 
-	 * @param pd
-	 *        PropertyDescriptorDefinition
-	 * 
+	 *
+	 * @param pd        PropertyDescriptorDefinition
 	 * @return returns a DateBoPropertyDescriptor
-	 * 
-	 * @throws ParseException
+	 * @throws ParseException the parse exception
 	 */
 	@SuppressWarnings("nls")
 	public static DateBoPropertyDescriptor create(PropertyDefinition pd) throws ParseException {

@@ -12,8 +12,19 @@
  ******************************************************************************/
 package gr.interamerican.bo2.creation.creators;
 
-import static gr.interamerican.bo2.creation.util.CodeGenerationUtilities.generateMethodDeclarationParameters;
-import static gr.interamerican.bo2.creation.util.CodeGenerationUtilities.generateMethodInvocationParameters;
+import static gr.interamerican.bo2.creation.util.CodeGenerationUtilities.*;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import gr.interamerican.bo2.creation.ClassCreator;
 import gr.interamerican.bo2.creation.annotations.Delegate2Map;
 import gr.interamerican.bo2.creation.annotations.DelegateMethods;
@@ -41,33 +52,22 @@ import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.TokenUtils;
-import gr.interamerican.bo2.utils.adapters.Transformation;
-import gr.interamerican.bo2.utils.adapters.trans.GetProperty;
 import gr.interamerican.bo2.utils.reflect.analyze.TypeAnalysis;
 import gr.interamerican.bo2.utils.reflect.beans.BeanPropertyDefinition;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 /**
  * {@link ClassCreator} that creates a concrete subclass of an abstract 
- * class. <br/>
+ * class. <br>
  * 
  * This composer can create a concrete class that extends a
  * specified abstract class. This class composer supports
  * the following annotations:
+ * <ul>
  * <li> {@link Property} </li>
  * <li> {@link DelegateProperties} </li>
  * <li> {@link Delegate2Map} </li>
  * <li> DelegateMethods </li>
+ * </ul>
  * The new class will not have any new field, it will only
  * have the methods necessary to implement the interfaces
  * declared by the abstract class. 
@@ -160,13 +160,13 @@ extends AbstractClassCreator {
 	 * Maps each property being supported by another to the property
 	 * that is being used for its support.
 	 */
-	Map<BeanPropertyDefinition<?>, BeanPropertyDefinition<?>> propertyReplacements = 
+	protected Map<BeanPropertyDefinition<?>, BeanPropertyDefinition<?>> propertyReplacements = 
 		new HashMap<BeanPropertyDefinition<?>, BeanPropertyDefinition<?>>();
 	
 	/**
 	 * Set with the properties being marked as mocks.
 	 */
-	Set<BeanPropertyDefinition<?>> mockProperties = new HashSet<BeanPropertyDefinition<?>>();
+	protected Set<BeanPropertyDefinition<?>> mockProperties = new HashSet<BeanPropertyDefinition<?>>();
 	
 	/**
 	 * Set with the properties being marked as mocks.
@@ -252,9 +252,7 @@ extends AbstractClassCreator {
 				String[] methodNames = TokenUtils.tokenize(anno.value());
 				if (methodNames.length==0) {
 					Method[] methods = field.getType().getMethods();
-					Transformation<Method, String> getname = 
-						new GetProperty<Method, String>("name", Method.class); //$NON-NLS-1$
-					methodNames = AdapterUtils.apply(methods, new String[0], getname);
+					methodNames = AdapterUtils.apply(methods, new String[0], Method::getName);
 				}
 				for (String methodName : methodNames) {
 					delegateProperties.put(methodName, field);
@@ -274,8 +272,8 @@ extends AbstractClassCreator {
 	/**
 	 * Analyzes {@link DelegateToOtherProperty} annotation of the
 	 * class being processed.
-	 * 
-	 * @throws ClassCreationException
+	 *
+	 * @throws ClassCreationException the class creation exception
 	 */
 	void analyzeDelegateToOther() throws ClassCreationException {
 		propertyReplacements.clear();		
@@ -356,11 +354,10 @@ extends AbstractClassCreator {
 	/**
 	 * Selects from a list the best matching BeanPropertyDefinition that can
 	 * support with delegation the specified property.
-	 * 
-	 * @param candidates
-	 * @param property
-	 * 
-	 * @return Returns 
+	 *
+	 * @param candidates the candidates
+	 * @param property the property
+	 * @return Returns
 	 */
 	BeanPropertyDefinition<?> selectDelegate
 	(List<BeanPropertyDefinition<?>> candidates, BeanPropertyDefinition<?> property) {
@@ -374,11 +371,10 @@ extends AbstractClassCreator {
 	/**
 	 * Selects from a list the appropriate BeanPropertyDefinition that matches
 	 * exactly to the type of the specified property.
-	 * 
-	 * @param candidates
-	 * @param property
-	 * 
-	 * @return Returns 
+	 *
+	 * @param candidates the candidates
+	 * @param property the property
+	 * @return Returns
 	 */
 	BeanPropertyDefinition<?> selectDelegateStrict
 	(List<BeanPropertyDefinition<?>> candidates, BeanPropertyDefinition<?> property) {
@@ -393,11 +389,10 @@ extends AbstractClassCreator {
 	/**
 	 * Selects from a list the appropriate BeanPropertyDefinition that can
 	 * support with delegation the specified property.
-	 * 
-	 * @param candidates
-	 * @param property
-	 * 
-	 * @return Returns 
+	 *
+	 * @param candidates the candidates
+	 * @param property the property
+	 * @return Returns
 	 */
 	BeanPropertyDefinition<?> selectDelegateLoose
 	(List<BeanPropertyDefinition<?>> candidates, BeanPropertyDefinition<?> property) {
@@ -412,11 +407,10 @@ extends AbstractClassCreator {
 	/**
 	 * Selects from a list the appropriate field and method that matches
 	 * exactly to the return type and argument types of the specified method.
-	 * 
-	 * @param candidates
-	 * @param method
-	 * 
-	 * @return Returns 
+	 *
+	 * @param candidates the candidates
+	 * @param method the method
+	 * @return Returns
 	 */
 	Field selectDelegateStrict (List<Field> candidates, Method method) {
 		for (Field field : candidates) {
@@ -433,11 +427,10 @@ extends AbstractClassCreator {
 	/**
 	 * Selects from a list the appropriate field and method that matches
 	 * exactly to the return type and argument types of the specified method.
-	 * 
-	 * @param candidates
-	 * @param method
-	 * 
-	 * @return Returns 
+	 *
+	 * @param candidates the candidates
+	 * @param method the method
+	 * @return Returns
 	 */
 	Field selectDelegateLoose (List<Field> candidates, Method method) {
 		Class<?>[] args = method.getParameterTypes();
@@ -461,11 +454,10 @@ extends AbstractClassCreator {
 	/**
 	 * Selects from a list the appropriate field and method that matches
 	 * exactly to the return type and argument types of the specified method.
-	 * 
-	 * @param candidates
-	 * @param method
-	 * 
-	 * @return Returns 
+	 *
+	 * @param candidates the candidates
+	 * @param method the method
+	 * @return Returns
 	 */
 	Field selectDelegate (List<Field> candidates, Method method) {
 		Field field = selectDelegateStrict(candidates, method);
@@ -620,26 +612,28 @@ extends AbstractClassCreator {
 	
 	/**
 	 * Selects the appropriate PropertyCodeTemplates.
-	 * 
-	 * @param field
-	 * @param delegate
-	 * 
+	 *
+	 * @param field the field
+	 * @param delegate the delegate
 	 * @return Returns the appropriate PropertyCodeTemplates.
 	 */
 	protected PropertyCodeTemplates getPropertyCodeTemplates(Field field, boolean delegate) {
-		boolean isPrivate = Modifier.isPrivate(field.getModifiers());
+		int modifiers = field.getModifiers();
+		boolean isPrivate = Modifier.isPrivate(modifiers);
+		boolean isDefault = !(Modifier.isPublic(modifiers) || Modifier.isProtected(modifiers) || isPrivate);
+		boolean isSamePackage = field.getDeclaringClass().getPackage().getName()
+				.equals(analysis.getClazz().getPackage().getName());
+		boolean useReflection = (isPrivate) || (isDefault && !isSamePackage);
 		if (delegate) {
-			return isPrivate ? reflectiveDelegateProperty : directDelegateProperty;
-		} else {
-			return isPrivate ? reflectiveProperty : directProperty;
+			return useReflection ? reflectiveDelegateProperty : directDelegateProperty;
 		}
+		return useReflection ? reflectiveProperty : directProperty;
 	}
 	
 	/**
 	 * Selects the appropriate PropertyCodeTemplates.
-	 * 
-	 * @param field
-	 * 
+	 *
+	 * @param field the field
 	 * @return Returns the appropriate PropertyCodeTemplates.
 	 */
 	protected PropertyCodeTemplates getDelegate2MapCodeTemplates(Field field) {
@@ -690,12 +684,10 @@ extends AbstractClassCreator {
 	
 	/**
 	 * Supports the specified property.
-	 * 
-	 * @param def
-	 *        Property to support.
-	 * 
+	 *
+	 * @param def        Property to support.
 	 * @return Returns true if the specified property could be supported.
-	 * @throws ClassCreationException 
+	 * @throws ClassCreationException the class creation exception
 	 */
 	protected boolean supportPropertyWithDelegation(BeanPropertyDefinition<?> def) 
 	throws ClassCreationException {
@@ -735,12 +727,10 @@ extends AbstractClassCreator {
 	
 	/**
 	 * Supports the specified property.
-	 * 
-	 * @param def
-	 *        Property to support.
-	 * 
+	 *
+	 * @param def        Property to support.
 	 * @return Returns true if the specified property could be supported.
-	 * @throws ClassCreationException 
+	 * @throws ClassCreationException the class creation exception
 	 */
 	protected boolean supportPropertyWithDelegate2Map(BeanPropertyDefinition<?> def) 
 	throws ClassCreationException {
@@ -775,9 +765,9 @@ extends AbstractClassCreator {
 	
 	/**
 	 * Specifies properties to delegate to the specified field.
-	 * 
-	 * @param field
-	 * @param names
+	 *
+	 * @param field the field
+	 * @param names the names
 	 */
 	protected void specifyDelegatedProperties(Field field, Collection<String> names) {
 		for (String name : names) {
@@ -790,8 +780,8 @@ extends AbstractClassCreator {
 	
 	/**
 	 * Handles the properties of the class.
-	 * 
-	 * @throws ClassCreationException 
+	 *
+	 * @throws ClassCreationException the class creation exception
 	 */
 	@Override
 	protected void supportProperties() throws ClassCreationException {
@@ -882,14 +872,13 @@ extends AbstractClassCreator {
 	
 	/**
 	 * Handles a property.
-	 * 
-	 * @param def
-	 *        Property.
+	 *
+	 * @param def        Property.
 	 *         
 	 * @return Returns true if the accessors for the property have
 	 *         been implemented.
 	 *         
-	 * @throws ClassCreationException 
+	 * @throws ClassCreationException the class creation exception
 	 */
 	protected boolean supportProperty(BeanPropertyDefinition<?> def) 
 	throws ClassCreationException {
@@ -910,12 +899,10 @@ extends AbstractClassCreator {
 	/**
 	 * Tries to support the specified property by delegating it to another
 	 * property of the same class.
-	 * 
-	 * @param def
-	 *        Property to support.
-	 * 
+	 *
+	 * @param def        Property to support.
 	 * @return Returns true if the specified property could be supported.
-	 * @throws ClassCreationException 
+	 * @throws ClassCreationException the class creation exception
 	 */
 	protected boolean supportPropertyWithOther (BeanPropertyDefinition<?> def) 
 	throws ClassCreationException {
@@ -946,9 +933,9 @@ extends AbstractClassCreator {
 	
 	/**
 	 * Marks a property for being supported by another.
-	 * 
-	 * @param supported
-	 * @param supporting
+	 *
+	 * @param supported the supported
+	 * @param supporting the supporting
 	 */
 	protected void markPropertyToBeSupportedBy
 	(BeanPropertyDefinition<?> supported, BeanPropertyDefinition<?> supporting) {
@@ -957,8 +944,8 @@ extends AbstractClassCreator {
 		
 	/**
 	 * Marks a property for being a mock.
-	 * 
-	 * @param mock 
+	 *
+	 * @param mock the mock
 	 */
 	protected void markPropertyAsMock (BeanPropertyDefinition<?> mock) {
 		mockProperties.add(mock);

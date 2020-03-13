@@ -24,16 +24,16 @@ import gr.interamerican.bo2.impl.open.runtime.AbstractBo2RuntimeCmd;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestArrayIteratorQuery.
  */
 public class TestArrayIteratorQuery {
 	
 	/**
 	 * test for the query.
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testLifecycle() throws UnexpectedException, DataException, LogicException {

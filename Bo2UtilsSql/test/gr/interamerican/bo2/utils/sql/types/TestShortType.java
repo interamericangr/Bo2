@@ -20,25 +20,22 @@ import java.sql.SQLException;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestShortType.
  */
 public class TestShortType {
 
 	
-	/**
-	 * DoubleType
-	 */
+	/** DoubleType. */
 	ShortType shortType = ShortType.INSTANCE;
 	
-	/**
-	 * MockResultSet
-	 */
+	/** MockResultSet. */
 	MockResultSet rs = new MockResultSet();
 	
 	
 	/**
-	 * Tests get when column index is string
-	 * @throws SQLException
+	 * Tests get when column index is string.
+	 *
+	 * @throws SQLException the SQL exception
 	 */
 	@Test
 	public void testGet_string() throws SQLException{
@@ -49,8 +46,9 @@ public class TestShortType {
 	}
 	
 	/**
-	 * Tests get when column index is integer
-	 * @throws SQLException
+	 * Tests get when column index is integer.
+	 *
+	 * @throws SQLException the SQL exception
 	 */
 	@Test
 	public void testGet_integer() throws SQLException{

@@ -28,7 +28,7 @@ import java.util.Properties;
  * Loads resources based on the component class name. The resource is queried
  * from resource bundles that exist on the component's class package and have
  * the same name with the component's class.
- * <br/>
+ * <br>
  * Priority is given to resource bundles of components that are higher in the
  * GUI hierarchy. This allows the author of a component to set default values
  * for the resource keys, but a developer re-using this component in another
@@ -54,8 +54,9 @@ public class FqcnStringResourceLoader implements StringResourceLoader {
 	
 	/**
 	 * Internal implementation.
-	 * @param component 
-	 * @param key 
+	 *
+	 * @param component the component
+	 * @param key the key
 	 * @return Located resource.
 	 */
 	String loadStringResource0(Component component, String key) {
@@ -71,9 +72,8 @@ public class FqcnStringResourceLoader implements StringResourceLoader {
 	
 	/**
 	 * Gets the bundle for the fqcn.
-	 * 
-	 * @param fqcn
-	 * 
+	 *
+	 * @param fqcn the fqcn
 	 * @return resource bundle.
 	 */
 	Properties getBundle(String fqcn) {
@@ -82,9 +82,8 @@ public class FqcnStringResourceLoader implements StringResourceLoader {
 	
 	/**
 	 * Creates and caches the bundle.
-	 * 
-	 * @param fqcn
-	 * 
+	 *
+	 * @param fqcn the fqcn
 	 * @return bundle.
 	 */
 	Properties createBundleForFqcn(String fqcn) {
@@ -112,6 +111,8 @@ public class FqcnStringResourceLoader implements StringResourceLoader {
 	}
 	
 	/**
+	 * Gets the.
+	 *
 	 * @return Singleton accessor.
 	 */
 	public static FqcnStringResourceLoader get() {

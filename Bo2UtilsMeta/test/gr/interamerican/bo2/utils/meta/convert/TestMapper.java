@@ -25,36 +25,29 @@ import java.util.Map;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestMapper.
  */
 public class TestMapper {
 
-	/**
-	 * generic writer
-	 */
+	/** generic writer. */
 	ObjectFormatter writer = ObjectFormatter.INSTANCE;
 	
-	/**
-	 * integerParser
-	 */
+	/** integerParser. */
 	Parser<Integer> parser = new IntegerParser();
 	
-	/**
-	 * map with values
-	 */
+	/** map with values. */
 	Map<String, String> map = new HashMap<String, String>();
 	
 	
-	/**
-	 * mapper to test
-	 */
+	/** mapper to test. */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	Mapper mapper = new Mapper(writer, parser, map);
 
 	
 	/**
-	 * Tests convert string to integer
-	 * @throws ConversionException 
+	 * Tests convert string to integer.
+	 *
+	 * @throws ConversionException the conversion exception
 	 */
 	@SuppressWarnings("unchecked")
 	@Test
@@ -67,8 +60,9 @@ public class TestMapper {
 	
 	
 	/**
-	 * Tests convert an object which has't been mapped
-	 * @throws ConversionException 
+	 * Tests convert an object which has't been mapped.
+	 *
+	 * @throws ConversionException the conversion exception
 	 */
 	@SuppressWarnings("unchecked")
 	@Test
@@ -77,8 +71,9 @@ public class TestMapper {
 	}
 	
 	/**
-	 * Tests convert an object which can't be converted
-	 * @throws ConversionException 
+	 * Tests convert an object which can't be converted.
+	 *
+	 * @throws ConversionException the conversion exception
 	 */
 	@SuppressWarnings("unchecked")
 	@Test(expected=ConversionException.class)
@@ -89,7 +84,7 @@ public class TestMapper {
 
 	
 	/**
-	 * Tests convert an object which can't be converted
+	 * Tests convert an object which can't be converted.
 	 */
 	@Test
 	public void testGetDescription(){

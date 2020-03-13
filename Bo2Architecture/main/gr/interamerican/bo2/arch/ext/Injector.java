@@ -19,11 +19,12 @@ package gr.interamerican.bo2.arch.ext;
  *        Type of resource injected.
  */
 public interface Injector<R> {
+	
 	/**
 	 * Provides the requested object to the visitor that
 	 * requested it.
-	 * 
-	 * @param consumer
+	 *
+	 * @param consumer the consumer
 	 */
 	public void inject(Consumer<R> consumer);
 

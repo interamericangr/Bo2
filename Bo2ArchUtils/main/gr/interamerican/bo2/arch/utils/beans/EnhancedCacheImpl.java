@@ -19,12 +19,11 @@ import gr.interamerican.bo2.arch.utils.CacheRegistry;
 import gr.interamerican.bo2.arch.utils.TranslatorRegistry;
 
 /**
- * Implementation of {@link EnhancedCache}
- * 
- * @param <C> 
- * @param <R> 
- * @param <L> 
- * 
+ * Implementation of {@link EnhancedCache}.
+ *
+ * @param <C> the generic type
+ * @param <R> the generic type
+ * @param <L> the generic type
  */
 public class EnhancedCacheImpl
 <C extends Comparable<? super C>,R extends Comparable<? super R>,L>  
@@ -65,14 +64,13 @@ implements gr.interamerican.bo2.arch.ext.EnhancedCache<C,R,L> {
 		TranslatorRegistry.registerTranslator(cacheName, translator);
 	}
 
+	@Override
 	public Cache<C> getCache() {		
 		return cache;
 	}
-	
+
+	@Override
 	public Translator<R,L> getTranslator() {		
 		return translator;
 	}
-	
-
-
 }

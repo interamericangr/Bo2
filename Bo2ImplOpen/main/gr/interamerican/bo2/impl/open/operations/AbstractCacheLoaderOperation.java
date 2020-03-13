@@ -84,12 +84,10 @@ extends AbstractOperation {
 	 * @return Returns a list of queries.
 	 */
 	protected abstract List<EntitiesQuery<? extends TypedSelectable<C>>> systemListEntriesQueries();
-	
-	
+
 	@Override
 	public void execute() throws LogicException, DataException {
 		putEnumerationsInCache();
 		loadQueriesOperation.execute();
 	}
-
 }

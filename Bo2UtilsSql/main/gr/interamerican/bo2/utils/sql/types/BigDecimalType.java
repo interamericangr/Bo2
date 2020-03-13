@@ -35,14 +35,17 @@ extends NonQuotedType<BigDecimal> {
 		super();		
 	}
 	
+	@Override
 	public BigDecimal get(ResultSet rs, String columnIndex) throws SQLException {		
 		return rs.getBigDecimal(columnIndex);
 	}
 	
+	@Override
 	public BigDecimal get(ResultSet rs, int columnIndex) throws SQLException {		
 		return rs.getBigDecimal(columnIndex);
 	}
 	
+	@Override
 	public Class<BigDecimal> getJavaType() {		
 		return BigDecimal.class;
 	}	

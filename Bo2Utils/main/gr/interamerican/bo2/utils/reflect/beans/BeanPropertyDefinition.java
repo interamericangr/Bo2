@@ -55,18 +55,13 @@ public class BeanPropertyDefinition<T> extends VariableDefinition<T> {
 	
 	/**
 	 * Creates a new BeanPropertyDefinition object.
-	 * 
-	 * @param name
-	 *            Property name.
-	 * @param type
-	 *            Property type.
-	 * @param genericType
-	 * @param beanClass
-	 *            Bean class on which the property belongs.
-	 * @param getter
-	 *            Getter method.
-	 * @param setter
-	 *            Setter method.
+	 *
+	 * @param name            Property name.
+	 * @param type            Property type.
+	 * @param genericType the generic type
+	 * @param beanClass            Bean class on which the property belongs.
+	 * @param getter            Getter method.
+	 * @param setter            Setter method.
 	 */
 	public BeanPropertyDefinition(String name, Class<T> type, Type genericType, Class<?> beanClass, Method getter, Method setter) {
 		super(name, type);
@@ -201,9 +196,8 @@ public class BeanPropertyDefinition<T> extends VariableDefinition<T> {
 	
 	/**
 	 * Answers if the specified method is abstract.
-	 * 
-	 * @param accessor
-	 * 
+	 *
+	 * @param accessor the accessor
 	 * @return Returns true if the specified method is abstract.
 	 */
 	private boolean isAbstract(Method accessor) {
@@ -224,6 +218,8 @@ public class BeanPropertyDefinition<T> extends VariableDefinition<T> {
 	}
 	
 	/**
+	 * Checks if is read only.
+	 *
 	 * @return True, if this property is read only
 	 */
 	public boolean isReadOnly() {
@@ -231,6 +227,8 @@ public class BeanPropertyDefinition<T> extends VariableDefinition<T> {
 	}
 	
 	/**
+	 * Checks if is write only.
+	 *
 	 * @return True, if this property is write only
 	 */
 	public boolean isWriteOnly() {

@@ -195,9 +195,8 @@ public class TestAbstractKey {
 	 * Implementation of AbstractKeyImpl for the tests.
 	 */
 	private static class Impl extends AbstractKey {		
-		/**
-		 * serialVersionUID
-		 */
+		
+		/** serialVersionUID. */
 		private static final long serialVersionUID = 1L;
 		
 		/**
@@ -207,7 +206,8 @@ public class TestAbstractKey {
 		
 		/**
 		 * Sets the elements.
-		 * @param elements
+		 *
+		 * @param elements the new fields
 		 */
 		public void setFields(Object[] elements) {
 			this.elements = elements;
@@ -224,9 +224,8 @@ public class TestAbstractKey {
 	 * Implementation of AbstractKeyImpl for the tests.
 	 */
 	private static class Impl2 extends AbstractKey {		
-		/**
-		 * serialVersionUID
-		 */
+		
+		/** serialVersionUID. */
 		private static final long serialVersionUID = 1L;
 		
 		/**
@@ -236,7 +235,8 @@ public class TestAbstractKey {
 		
 		/**
 		 * Sets the elements.
-		 * @param elements
+		 *
+		 * @param elements the new fields
 		 */
 		public void setFields(Object[] elements) {
 			this.elements = elements;

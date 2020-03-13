@@ -21,6 +21,7 @@ import gr.interamerican.bo2.utils.ReflectionUtils;
  */
 public class KeyCopier implements Copier<Key>{
 
+	@Override
 	public Key copy(Key objectToCopy) {
 		Key key = ReflectionUtils.newInstance(objectToCopy.getClass());
 		ReflectionUtils.copyProperties(objectToCopy, key);

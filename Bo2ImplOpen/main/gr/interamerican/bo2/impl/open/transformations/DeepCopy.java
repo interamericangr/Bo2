@@ -28,20 +28,13 @@ import gr.interamerican.bo2.utils.adapters.Modification;
 public class DeepCopy<A extends PersistentObject<?>> 
 implements Modification<A>, Copier<A> {
 
-	/**
-	 * Creates a new CopyTo object. 
-	 */
-	public DeepCopy() {
-		super();
-	}
-
-	
+	@Override
 	public A copy(A objectToCopy) {
 		return execute(objectToCopy);
 	}
-	
+
+	@Override
 	public A execute(A a) {
 		return PoUtils.deepCopy(a);
 	}
-
 }

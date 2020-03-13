@@ -20,7 +20,7 @@ import java.lang.annotation.Target;
 
 /**
  * The purpose of this annotation is to mark fields of a class
- * as child fields. <br/>
+ * as child fields. <br>
  * 
  * Marking a field as child, defines a specially managed hierarchy.
  * It can be used in order to deal specially with the child fields.

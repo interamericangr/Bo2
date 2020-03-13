@@ -30,9 +30,12 @@ import org.apache.wicket.model.Model;
  * Data provider for a sortable table.
  * 
  * @param <T> Type of objects presented by this data provider.
+ * 
+ * @deprecated Use {@link FunctionalSortableDataProvider} instead
  */
+@Deprecated
 public class SortableDataProvider<T extends Serializable> 
-extends org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider<T> {
+extends org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider<T,String> {
 	
 	/**
 	 * serialVersionUID.
@@ -92,23 +95,21 @@ extends org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvi
 	
 	/**
 	 * Sets the rows.
-	 * 
-	 * @param rows
+	 *
+	 * @param rows the new rows
 	 */
 	public void setRows(List<T> rows) {
 		this.rows = rows;
 	}
 
-	public int size() {
-		return rows.size();
-	}
-
+	@Override
 	public IModel<T> model(T t) {
 		return new Model<T>(t);
 	}
 
-	public Iterator<? extends T> iterator(int first, int count) {
-		final SortParam sortParam = getSort();
+	@Override
+	public Iterator<? extends T> iterator(long first, long count) {
+		SortParam<String> sortParam = getSort();
 		if (sortParam != null) {
 			String property = sortParam.getProperty();
 			Comparator<T> comparator = new PropertyBasedComparator<T>(clazz, property);
@@ -117,8 +118,11 @@ extends org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvi
 			}
 			Collections.sort(rows,comparator);					
 		}
-		return rows.subList(first, first + count).iterator();		
+		return rows.subList((int)first,(int)( first + count)).iterator();		
+	}
+
+	@Override
+	public long size() {
+		return rows.size();
 	}
 }
-
-

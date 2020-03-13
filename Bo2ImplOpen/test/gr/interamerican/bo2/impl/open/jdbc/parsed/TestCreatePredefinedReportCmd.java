@@ -34,8 +34,9 @@ public class TestCreatePredefinedReportCmd {
 	
 	/**
 	 * Unit test for the whole lifecycle.
-	 * @throws InitializationException 
-	 * @throws DataException 
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
 	 */
 	@SuppressWarnings("nls")
 	@Test

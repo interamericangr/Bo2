@@ -1,18 +1,19 @@
 package gr.interamerican.bo2.impl.open.namedstreams.resourcetypes;
 
-
-import static gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition.DATE;
-import static gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition.TIMESTAMP;
-import gr.interamerican.bo2.impl.open.namedstreams.NamedStream;
-import gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition;
-import gr.interamerican.bo2.impl.open.namedstreams.types.StreamType;
-import gr.interamerican.bo2.utils.SystemUtils;
+import static gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition.*;
 
 import java.io.File;
 import java.nio.charset.Charset;
 
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
+
+import gr.interamerican.bo2.impl.open.namedstreams.NamedStream;
+import gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition;
+import gr.interamerican.bo2.impl.open.namedstreams.types.StreamType;
+import gr.interamerican.bo2.utils.SystemUtils;
 
 /**
  * Unit tests for {@link FileNsFactory}.
@@ -20,12 +21,19 @@ import org.junit.Test;
  */
 public class TestFileNsFactory {
 	
+	/**
+	 * 
+	 */
+	@Rule
+	public TemporaryFolder tempDirectory = new TemporaryFolder();
 	
 	/**
 	 * Creates a sample NamedStreamDefinition.
-	 * 
+	 *
+	 * @param type the type
 	 * @return Returns the NamedStreamDefinition.
 	 */
+	@SuppressWarnings("finally")
 	NamedStreamDefinition sampleDefinition(StreamType type) {
 		NamedStreamDefinition def = new NamedStreamDefinition();
 		def.setEncoding(Charset.defaultCharset());
@@ -33,17 +41,21 @@ public class TestFileNsFactory {
 		def.setRecordLength(100);
 		def.setResourceType(StreamResourceEnum.FILE);
 		def.setType(type);
-		def.setUri("/temp/tmp/file_<TIMESTAMP>.txt"); //$NON-NLS-1$
+		try {
+			File tempFile = tempDirectory.newFile();
+			def.setUri(tempFile.getPath());
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
 		return def;
 	}
-	
-	
+	}
 	
 	/**
 	 * Unit test for create().
-	 * 
-	 * @param type 
-	 * @throws CouldNotCreateNamedStreamException 
+	 *
+	 * @param type the type
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */	
 	public void testCreateWithType(StreamType type) throws CouldNotCreateNamedStreamException {
 		FileNsFactory factory = new FileNsFactory();
@@ -64,12 +76,10 @@ public class TestFileNsFactory {
 		Assert.assertTrue(ns.getResource() instanceof File);
 	}
 	
-	
-	
 	/**
 	 * Unit test for create().
-	 * 
-	 * @throws CouldNotCreateNamedStreamException 
+	 *
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */
 	@Test()
 	public void testCreate_input() throws CouldNotCreateNamedStreamException {
@@ -78,8 +88,8 @@ public class TestFileNsFactory {
 	
 	/**
 	 * Unit test for create().
-	 * 
-	 * @throws CouldNotCreateNamedStreamException 
+	 *
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */
 	@Test()
 	public void testCreate_reader() throws CouldNotCreateNamedStreamException {
@@ -88,8 +98,8 @@ public class TestFileNsFactory {
 	
 	/**
 	 * Unit test for create().
-	 * 
-	 * @throws CouldNotCreateNamedStreamException 
+	 *
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */
 	@Test()
 	public void testCreate_output() throws CouldNotCreateNamedStreamException {
@@ -98,33 +108,31 @@ public class TestFileNsFactory {
 	
 	/**
 	 * Unit test for create().
-	 * 
-	 * @throws CouldNotCreateNamedStreamException 
+	 *
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */
 	@Test()
 	public void testCreate_print() throws CouldNotCreateNamedStreamException {
 		testCreateWithType(StreamType.PRINTSTREAM);
 	}
 	
-	
 	/**
 	 * Unit test for create().
-	 * 
-	 * @param from
-	 * @param to
-	 *  
-	 * @throws CouldNotCreateNamedStreamException 
-	 * @throws CouldNotConvertNamedStreamException 
+	 *
+	 * @param from the from
+	 * @param to the to
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
+	 * @throws CouldNotConvertNamedStreamException the could not convert named stream exception
 	 */	
-	public void testConvertWithTypes(StreamType from, StreamType to) 
-	throws CouldNotCreateNamedStreamException, CouldNotConvertNamedStreamException {
+	public void testConvertWithTypes(StreamType from, StreamType to) throws CouldNotCreateNamedStreamException,
+			CouldNotConvertNamedStreamException {
 		FileNsFactory factory = new FileNsFactory();
 		NamedStreamDefinition def = sampleDefinition(from);
 		NamedStream<?> ns1 = factory.create(def);
 		
 		int expectedRecLen = def.getRecordLength();
-		if (from==StreamType.PRINTSTREAM || from==StreamType.BUFFEREDREADER ||
-			to==StreamType.PRINTSTREAM || to==StreamType.BUFFEREDREADER) {
+		if (from == StreamType.PRINTSTREAM || from == StreamType.BUFFEREDREADER || to == StreamType.PRINTSTREAM
+				|| to == StreamType.BUFFEREDREADER) {
 			expectedRecLen = 0;
 		}
 
@@ -142,109 +150,95 @@ public class TestFileNsFactory {
 	
 	/**
 	 * Unit test for convert().
-	 * 
-	 * @throws CouldNotCreateNamedStreamException 
-	 * @throws CouldNotConvertNamedStreamException 
+	 *
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
+	 * @throws CouldNotConvertNamedStreamException the could not convert named stream exception
 	 */
 	@Test()
-	public void testConvert_OutOut() 
-	throws CouldNotCreateNamedStreamException, CouldNotConvertNamedStreamException {
+	public void testConvert_OutOut() throws CouldNotCreateNamedStreamException, CouldNotConvertNamedStreamException {
 		testConvertWithTypes(StreamType.OUTPUTSTREAM, StreamType.OUTPUTSTREAM);
 	}
 	
 	/**
 	 * Unit test for convert().
-	 * 
-	 * @throws CouldNotCreateNamedStreamException 
-	 * @throws CouldNotConvertNamedStreamException 
+	 *
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
+	 * @throws CouldNotConvertNamedStreamException the could not convert named stream exception
 	 */
 	@Test()
-	public void testConvert_OutPrint() 
-	throws CouldNotCreateNamedStreamException, CouldNotConvertNamedStreamException {
+	public void testConvert_OutPrint() throws CouldNotCreateNamedStreamException, CouldNotConvertNamedStreamException {
 		testConvertWithTypes(StreamType.OUTPUTSTREAM, StreamType.PRINTSTREAM);
 	}
 	
 	/**
 	 * Unit test for convert().
-	 * 
-	 * @throws CouldNotCreateNamedStreamException 
-	 * @throws CouldNotConvertNamedStreamException 
+	 *
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
+	 * @throws CouldNotConvertNamedStreamException the could not convert named stream exception
 	 */
 	@Test()
-	public void testConvert_OutIn() 
-	throws CouldNotCreateNamedStreamException, CouldNotConvertNamedStreamException {
+	public void testConvert_OutIn() throws CouldNotCreateNamedStreamException, CouldNotConvertNamedStreamException {
 		testConvertWithTypes(StreamType.OUTPUTSTREAM, StreamType.INPUTSTREAM);
 	}
 	
 	/**
 	 * Unit test for convert().
-	 * 
-	 * @throws CouldNotCreateNamedStreamException 
-	 * @throws CouldNotConvertNamedStreamException 
+	 *
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
+	 * @throws CouldNotConvertNamedStreamException the could not convert named stream exception
 	 */
 	@Test()
-	public void testConvert_OutReader() 
-	throws CouldNotCreateNamedStreamException, CouldNotConvertNamedStreamException {
+	public void testConvert_OutReader() throws CouldNotCreateNamedStreamException, CouldNotConvertNamedStreamException {
 		testConvertWithTypes(StreamType.OUTPUTSTREAM, StreamType.BUFFEREDREADER);
 	}
 	
-	
-	
-	
-	
-	
-	
 	/**
 	 * Unit test for convert().
-	 * 
-	 * @throws CouldNotCreateNamedStreamException 
-	 * @throws CouldNotConvertNamedStreamException 
+	 *
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
+	 * @throws CouldNotConvertNamedStreamException the could not convert named stream exception
 	 */
 	@Test()
-	public void testConvert_PrintOut() 
-	throws CouldNotCreateNamedStreamException, CouldNotConvertNamedStreamException {
+	public void testConvert_PrintOut() throws CouldNotCreateNamedStreamException, CouldNotConvertNamedStreamException {
 		testConvertWithTypes(StreamType.PRINTSTREAM, StreamType.OUTPUTSTREAM);
 	}
 	
 	/**
 	 * Unit test for convert().
-	 * 
-	 * @throws CouldNotCreateNamedStreamException 
-	 * @throws CouldNotConvertNamedStreamException 
+	 *
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
+	 * @throws CouldNotConvertNamedStreamException the could not convert named stream exception
 	 */
 	@Test()
-	public void testConvert_PrintPrint() 
-	throws CouldNotCreateNamedStreamException, CouldNotConvertNamedStreamException {
+	public void testConvert_PrintPrint() throws CouldNotCreateNamedStreamException, CouldNotConvertNamedStreamException {
 		testConvertWithTypes(StreamType.PRINTSTREAM, StreamType.PRINTSTREAM);
 	}
 	
 	/**
 	 * Unit test for convert().
-	 * 
-	 * @throws CouldNotCreateNamedStreamException 
-	 * @throws CouldNotConvertNamedStreamException 
+	 *
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
+	 * @throws CouldNotConvertNamedStreamException the could not convert named stream exception
 	 */
 	@Test()
-	public void testConvert_PrintIn() 
-	throws CouldNotCreateNamedStreamException, CouldNotConvertNamedStreamException {
+	public void testConvert_PrintIn() throws CouldNotCreateNamedStreamException, CouldNotConvertNamedStreamException {
 		testConvertWithTypes(StreamType.PRINTSTREAM, StreamType.INPUTSTREAM);
 	}
 	
 	/**
 	 * Unit test for convert().
-	 * 
-	 * @throws CouldNotCreateNamedStreamException 
-	 * @throws CouldNotConvertNamedStreamException 
+	 *
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
+	 * @throws CouldNotConvertNamedStreamException the could not convert named stream exception
 	 */
 	@Test()
-	public void testConvert_PrintReader() 
-	throws CouldNotCreateNamedStreamException, CouldNotConvertNamedStreamException {
+	public void testConvert_PrintReader() throws CouldNotCreateNamedStreamException,
+			CouldNotConvertNamedStreamException {
 		testConvertWithTypes(StreamType.PRINTSTREAM, StreamType.BUFFEREDREADER);
 	}	
 	
-	
 	/**
-	 * Tests currentTimestamp
+	 * Tests currentTimestamp.
 	 */
 	@Test
 	public void testCurrentTimestamp() {
@@ -254,7 +248,7 @@ public class TestFileNsFactory {
 	}
 	
 	/**
-	 * Tests currentDate
+	 * Tests currentDate.
 	 */
 	@Test
 	public void testCurrentDate() {
@@ -264,7 +258,7 @@ public class TestFileNsFactory {
 	}
 	
 	/**
-	 * Tests fileUri
+	 * Tests fileUri.
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -280,6 +274,4 @@ public class TestFileNsFactory {
 		}
 	}	
 	
-
-
 }

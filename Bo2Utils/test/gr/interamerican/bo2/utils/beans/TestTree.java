@@ -214,11 +214,12 @@ public class TestTree {
 	}
 	
 	/**
-	 * Check
-	 * @param <T>
-	 * @param parent
-	 * @param node
-	 * @param index
+	 * Check.
+	 *
+	 * @param <T> the generic type
+	 * @param parent the parent
+	 * @param node the node
+	 * @param index the index
 	 */
 	static <T> void assertContains(Tree<T> parent, Tree<T> node, int index) {
 		assertEquals(parent, node.parent);

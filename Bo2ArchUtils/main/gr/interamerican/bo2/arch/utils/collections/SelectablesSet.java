@@ -22,130 +22,92 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
-
 /**
  * Set of {@link Selectable} objects.
  * 
- * @param <C> Type of selectables code. 
+ * @param <C>
+ *            Type of selectables code.
  * 
  */
-public class SelectablesSet<C extends Comparable<? super C>> 
-implements Set<Selectable<C>>, Serializable {
-	
-	/**
-	 * serialVersionUID
-	 */
+public class SelectablesSet<C extends Comparable<? super C>> implements Set<Selectable<C>>, Serializable {
+
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * Map containing the persistent objects.
 	 */
-	private Map<C , Selectable<C>> map = 
-		new HashMap<C, Selectable<C>>();
-	
-	/*
-	 * (non-Javadoc)
-	 * @see java.util.Set#size()
-	 */
+	private Map<C, Selectable<C>> map = new HashMap<C, Selectable<C>>();
+
+	@Override
 	public int size() {
 		return map.size();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see java.util.Set#isEmpty()
-	 */
+	@Override
 	public boolean isEmpty() {
 		return map.isEmpty();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see java.util.Set#contains(java.lang.Object)
-	 */
+	@Override
 	public boolean contains(Object o) {
 		return map.containsValue(o);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see java.util.Set#iterator()
-	 */
+	@Override
 	public Iterator<Selectable<C>> iterator() {
 		return map.values().iterator();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see java.util.Set#toArray()
-	 */
+	@Override
 	public Object[] toArray() {
 		return map.values().toArray();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see java.util.Set#toArray(T[])
-	 */
+	@Override
 	public <T> T[] toArray(T[] a) {
 		return map.values().toArray(a);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see java.util.Set#add(java.lang.Object)
-	 */
+	@Override
 	public boolean add(Selectable<C> e) {
-		if(map.containsKey(e.getCode()))
+		if (map.containsKey(e.getCode())) {
 			return false;
-		else {
-			map.put(e.getCode(), e);
-			return true;
 		}
+		map.put(e.getCode(), e);
+		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see java.util.Set#remove(java.lang.Object)
-	 */
+	@Override
 	public boolean remove(Object o) {
-		try {			
+		try {
 			@SuppressWarnings("unchecked")
 			Selectable<C> element = (Selectable<C>) o;
-			Selectable<C> removed = map.remove(element.getCode()); 
-			return removed!=null;
+			Selectable<C> removed = map.remove(element.getCode());
+			return removed != null;
 		} catch (ClassCastException cce) {
 			return false;
 		}
 	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see java.util.Set#containsAll(java.util.Collection)
-	 */
+
+	@Override
 	public boolean containsAll(Collection<?> c) {
 		return map.values().containsAll(c);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see java.util.Set#addAll(java.util.Collection)
-	 */
+	@Override
 	public boolean addAll(Collection<? extends Selectable<C>> c) {
 		boolean ret = false;
 		for (Selectable<C> element : c) {
 			Selectable<C> previous = map.put(element.getCode(), element);
-			if (previous==null) {
+			if (previous == null) {
 				ret = true;
 			}
 		}
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see java.util.Set#retainAll(java.util.Collection)
-	 */
+	@Override
 	public boolean retainAll(Collection<?> c) {
 		boolean ret = false;
 		Set<Selectable<C>> toDelete = new HashSet<Selectable<C>>();
@@ -155,15 +117,12 @@ implements Set<Selectable<C>>, Serializable {
 				ret = true;
 			}
 		}
-		for(Selectable<C> element : toDelete)
+		for (Selectable<C> element : toDelete)
 			map.remove(element.getCode());
 		return ret;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see java.util.Set#removeAll(java.util.Collection)
-	 */
+	@Override
 	public boolean removeAll(Collection<?> c) {
 		boolean ret = false;
 		for (Object o : c) {
@@ -173,34 +132,27 @@ implements Set<Selectable<C>>, Serializable {
 		}
 		return ret;
 	}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see java.util.Set#clear()
-	 */
+
+	@Override
 	public void clear() {
 		map.clear();
 	}
-	
+
 	/**
 	 * Gets the PersistentObject of this set that has the specified key.
 	 * 
-	 * @param code code of object.
+	 * @param code
+	 *            code of object.
 	 * 
-	 * @return Returns the Selectable of this set that has the code
-	 *         specified by the parameter <code>code</code>. If the set
-	 *         does not contain any element with this code, then returns
-	 *         null.
+	 * @return Returns the Selectable of this set that has the code specified by
+	 *         the parameter <code>code</code>. If the set does not contain any
+	 *         element with this code, then returns null.
 	 */
 	public Selectable<C> getByCode(C code) {
 		return map.get(code);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override	
+	@Override
 	public boolean equals(Object o) {
 		if (this == o) {
 			return true;
@@ -208,7 +160,7 @@ implements Set<Selectable<C>>, Serializable {
 		if (o == null) {
 			return false;
 		}
-		try {			
+		try {
 			@SuppressWarnings("unchecked")
 			SelectablesSet<C> that = (SelectablesSet<C>) o;
 			return (this.containsAll(that) && that.containsAll(this));

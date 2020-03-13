@@ -28,9 +28,7 @@ import java.math.BigDecimal;
 public class MoneyBoPropertyDescriptor
 extends AbstractBoPropertyDescriptor<Money> {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * zero allowed flag.

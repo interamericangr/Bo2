@@ -26,20 +26,22 @@ import org.apache.wicket.model.PropertyModel;
 
 /**
  * This class deals with two concerns. 
- * <br/>
+ * <br>
  * Firstly, in case of a property expression that fails to evaluate against 
  * the given Object instance may be shown as a user specified faulty value.
  * This may be useful when the user knowingly represents instances of different
  * types in the rows (e.g. 2 sub-classes of a base type) and the properties
  * that need to be displayed do not exist in both types.
- * <br/>
+ * <br>
  * Secondly, the user may specify a Formatter with which to format
  * the column objects.
  * 
  * @param <T>
  *        Model Object type. 
+ * @param <S>
+ *            the type of the sort property
  */
-public class EnhancedPropertyColumn<T> extends PropertyColumn<T>{
+public class EnhancedPropertyColumn<T,S> extends PropertyColumn<T,S>{
 
 	/**
 	 * serialVersionUID.
@@ -69,24 +71,24 @@ public class EnhancedPropertyColumn<T> extends PropertyColumn<T>{
 
 	/**
 	 * Creates a new FaultyExpressionTolerantPropertyColumn object. 
-	 * 
-	 * @param displayModel 
-	 * @param sortProperty 
-	 * @param propertyExpression 
-	 * @param formatter 
-	 * @param faultyExpressionTolerant 
+	 *
+	 * @param displayModel the display model
+	 * @param sortProperty the sort property
+	 * @param propertyExpression the property expression
+	 * @param formatter the formatter
+	 * @param faultyExpressionTolerant the faulty expression tolerant
 	 */
-	public EnhancedPropertyColumn(IModel<String> displayModel, String sortProperty, String propertyExpression, Formatter<?> formatter, boolean faultyExpressionTolerant) {
+	public EnhancedPropertyColumn(IModel<String> displayModel, S sortProperty, String propertyExpression, Formatter<?> formatter, boolean faultyExpressionTolerant) {
 		super(displayModel, sortProperty, propertyExpression);
 		this.propertyExpression = propertyExpression;
 		this.formatter = formatter;
 		this.faultyExpressionTolerant = faultyExpressionTolerant;
 	}
-	
+
 	@Override
-	protected IModel<?> createLabelModel(IModel<T> rowModel) {
+	public IModel<?> getDataModel(IModel<T> rowModel) {
 		if(!faultyExpressionTolerant && formatter==null) {
-			return super.createLabelModel(rowModel);
+			return super.getDataModel(rowModel);
 		}
 		
 		Object faultyExprTolerant = null;
@@ -103,14 +105,14 @@ public class EnhancedPropertyColumn<T> extends PropertyColumn<T>{
 			String formatted = getFormatted(faultyExprTolerant);
 			return new Model<String>(formatted);
 		}
-		return super.createLabelModel(rowModel);
+		return super.getDataModel(rowModel);
 	}
 
 	/**
 	 * If the property expression does not evaluate against the given instance
 	 * a default user specified value will be placed in the cell instead.
-	 * 
-	 * @param rowModel
+	 *
+	 * @param rowModel the row model
 	 * @return Evaluated Object or a default value.
 	 */
 	protected Object getFaultyExprTolerant(IModel<T> rowModel) {
@@ -131,8 +133,8 @@ public class EnhancedPropertyColumn<T> extends PropertyColumn<T>{
 	
 	/**
 	 * Formats column Object with the user specified Formatter.
-	 * 
-	 * @param object
+	 *
+	 * @param object the object
 	 * @return Formatted value
 	 */
 	@SuppressWarnings("unchecked")
@@ -151,6 +153,4 @@ public class EnhancedPropertyColumn<T> extends PropertyColumn<T>{
 	public void setFaultyValue(String faultyValue) {
 		this.faultyValue = faultyValue;
 	}
-	
 }
-

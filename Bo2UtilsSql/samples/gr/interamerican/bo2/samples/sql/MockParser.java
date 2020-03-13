@@ -29,19 +29,23 @@ import java.util.List;
  */
 public class MockParser implements SqlParser {
 
+	@Override
 	public ArrayList<Parameter> getParameters(String sql) throws SqlParseException {		
 		return null;
 	}
 	
+	@Override
 	public String removeParameter(String parameter, String sql)
 	throws SqlParseException {
 		return null;
 	}
 	
+	@Override
 	public List<Column> getColumns(String sql) throws SqlParseException {
 		return null;
 	}
 	
+	@Override
 	public String removeUselessJoins(String sql) throws SqlParseException {
 		return null;
 	}

@@ -6,9 +6,9 @@ import gr.interamerican.bo2.utils.handlers.ConcreteMethodInvocator;
 
 
 /**
- * {@link MethodBasedVoidOperation}
+ * {@link MethodBasedVoidOperation}.
  *
- * @param <A>
+ * @param <A> the generic type
  */
 public class MethodBasedVoidOperation<A> 
 implements VoidOperation<A> {
@@ -20,10 +20,10 @@ implements VoidOperation<A> {
 	
 	/**
 	 * Creates a new ConcreteMethodInvocator.
-	 * 
-	 * @param handler
-	 * @param methodName
-	 * @param owner
+	 *
+	 * @param handler the handler
+	 * @param methodName the method name
+	 * @param owner the owner
 	 */
 	public MethodBasedVoidOperation (ExceptionHandler handler, String methodName, Object owner) {
 		cmi = new ConcreteMethodInvocator(handler, methodName, owner);		
@@ -31,9 +31,9 @@ implements VoidOperation<A> {
 	
 	/**
 	 * Creates a new ConcreteMethodInvocator with a default exception handler.
-	 * 
-	 * @param methodName
-	 * @param owner
+	 *
+	 * @param methodName the method name
+	 * @param owner the owner
 	 */
 	public MethodBasedVoidOperation (String methodName, Object owner) {
 		cmi = new ConcreteMethodInvocator(methodName, owner);
@@ -45,16 +45,4 @@ implements VoidOperation<A> {
 		cmi.setArguments(args);
 		cmi.execute();
 	}
-
-	
-	
-	
-	
-	
-
-
-	
-	
-	
-
 }

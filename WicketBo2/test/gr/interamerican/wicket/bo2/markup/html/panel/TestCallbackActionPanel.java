@@ -12,10 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.wicket.bo2.markup.html.panel;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import gr.interamerican.wicket.callback.CallbackAction;
+import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,10 +21,14 @@ import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.junit.Assert;
 import org.junit.Test;
 
+import gr.interamerican.wicket.callback.CallbackAction;
+import gr.interamerican.wicket.test.WicketTest;
+
 /**
  * Test for {@link CallbackActionPanel}.
  */
-public class TestCallbackActionPanel {
+@Deprecated
+public class TestCallbackActionPanel  extends WicketTest {
 	
 	/**
 	 * Tests the constructor.
@@ -53,8 +54,6 @@ public class TestCallbackActionPanel {
 		AjaxRequestTarget target = mock(AjaxRequestTarget.class);
 		
 		panel.callback(action, target);
-		verify(action,times(1)).callBack(target);
-		
+		verify(action).callBack(target);
 	}
-
 }

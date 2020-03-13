@@ -12,15 +12,18 @@
  ******************************************************************************/
 package gr.interamerican.wicket.bo2.markup.html.form;
 
-
 import gr.interamerican.bo2.arch.ext.Selectable;
+import gr.interamerican.wicket.utils.WicketUtils;
+
+import java.util.List;
 
 import org.apache.wicket.markup.html.form.IChoiceRenderer;
+import org.apache.wicket.model.IModel;
 
 /**
  * {@link IChoiceRenderer} for {@link Selectable} objects.
  */
-class ChoiceRendererForSelectable 
+class ChoiceRendererForSelectable
 implements IChoiceRenderer<Selectable<?>> {
 
 	/**
@@ -28,15 +31,21 @@ implements IChoiceRenderer<Selectable<?>> {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	public Object getDisplayValue(Selectable<?> object) {
-		return object==null ? null : object.getName(); 
+		return object == null ? null : object.getName();
 	}
 
+	@Override
 	public String getIdValue(Selectable<?> object, int index) {
-		if(object == null || object.getCode() == null) {
+		if (object == null || object.getCode() == null) {
 			return null;
 		}
 		return object.getCode().toString();
 	}
-	
+
+	@Override
+	public Selectable<?> getObject(String id, IModel<? extends List<? extends Selectable<?>>> choices) {
+		return WicketUtils.getObject(this, id, choices);
+	}
 }

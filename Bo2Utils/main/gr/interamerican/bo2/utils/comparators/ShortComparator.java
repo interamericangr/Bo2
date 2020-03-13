@@ -21,7 +21,8 @@ class ShortComparator
 implements Comparator<Number> {
 	
 	/**
-	 * Converts a number to Short
+	 * Converts a number to Short.
+	 *
 	 * @param n number to convert.
 	 * @return Returns the Short value of n
 	 */
@@ -29,9 +30,7 @@ implements Comparator<Number> {
 		return n.shortValue();
 	}
 	
-	/* (non-Javadoc)
-	 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
-	 */
+	@Override
 	public int compare(Number o1, Number o2) {
 		Short b1 = toShort(o1);
 		Short b2 = toShort(o2);

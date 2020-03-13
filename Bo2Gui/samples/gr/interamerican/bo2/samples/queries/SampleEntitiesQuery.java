@@ -15,12 +15,12 @@ import gr.interamerican.bo2.samples.implopen.runtime.concurrent.StringsQuery;
 
 
 /**
- * 
+ * The Class SampleEntitiesQuery.
  */
 public class SampleEntitiesQuery extends StringsQuery {
 
 	/**
-	 * 
+	 * Instantiates a new sample entities query.
 	 */
 	public SampleEntitiesQuery() {
 		super(1000);

@@ -29,41 +29,34 @@ import org.apache.wicket.model.PropertyModel;
 import org.junit.Test;
 
 /**
- * 
+ * A factory for creating TestCachedEntryBoPDComponent objects.
  */
 public class TestCachedEntryBoPDComponentFactory extends BaseClassForTestingComponentFactory{	
-	/**
-	 * TYPE
-	 */
+	
+	/** TYPE. */
 	private static final Long TYPE = 1000L;
-	/**
-	 * SUBTYPE
-	 */
+	
+	/** SUBTYPE. */
 	private static final Long SUBTYPE = 1L;
-	/**
-	 * PARSER
-	 */
+	
+	/** PARSER. */
 	private static final Parser<Long> PARSER = new LongParser();
-	/**
-	 * FORMATTER
-	 */
+	
+	/** FORMATTER. */
 	private static final Formatter<Long> FORMATTER = ObjectFormatter.<Long>getInstance();
-	/**
-	 * CODE
-	 */
+	
+	/** CODE. */
 	private static final Long CODE = 1L;
-	/**
-	 * 
-	 */
+	
+	/** The cached entry bo PD component factory. */
 	private CachedEntryBoPDComponentFactory cachedEntryBoPDComponentFactory = 
 		new CachedEntryBoPDComponentFactory();
 	
-	/**
-	 * 
-	 */
+	/** The cashed desc. */
 	private CachedEntryBoPropertyDescriptor<?,?> cashedDesc = createCacheEntryDescriptor();
+	
 	/**
-	 * 
+	 * Test draw main first.
 	 */
 	@Test
 	public void testDrawMain_First(){
@@ -71,8 +64,9 @@ public class TestCachedEntryBoPDComponentFactory extends BaseClassForTestingComp
 		tester.startPage(getTestPage(component));
 		tester.assertComponent(path(StringConstants.EMPTY), SelfDrawnDropDownChoiceForEntry.class); 
 	}
+	
 	/**
-	 * 
+	 * Test draw main second.
 	 */
 	@Test
 	public void testDrawMain_Second(){
@@ -84,9 +78,9 @@ public class TestCachedEntryBoPDComponentFactory extends BaseClassForTestingComp
 	}
 	
 	/**
-	 * Create CachedEntryBoPropertyDescriptor
+	 * Create CachedEntryBoPropertyDescriptor.
+	 *
 	 * @return CachedEntryBoPropertyDescriptor
-	 * 
 	 */
 	public CachedEntryBoPropertyDescriptor<?,?> createCacheEntryDescriptor(){
 
@@ -115,11 +109,13 @@ public class TestCachedEntryBoPDComponentFactory extends BaseClassForTestingComp
 		 */
 		private static final long serialVersionUID = 1L;
 
+		@Override
 		public String getTranslation(Long languageId) {			
 			return getName();
 			//+ StringConstants.SPACE + languageId.toString();
 		}
 		
+		@Override
 		public Long getTranslationResourceId() {			
 			return getCode();
 		}		

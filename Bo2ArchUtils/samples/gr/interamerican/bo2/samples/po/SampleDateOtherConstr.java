@@ -22,20 +22,16 @@ import java.util.Date;
 public class SampleDateOtherConstr extends Date {
 	
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 3955331052948511684L;
 	
-	/**
-	 * time
-	 */
+	/** time. */
 	BigDecimal time;
 
 	/**
 	 * Creates a new SampleDate object. 
 	 *
-	 * @param time
+	 * @param time the time
 	 */
 	public SampleDateOtherConstr(BigDecimal time){
 		this.time = time;

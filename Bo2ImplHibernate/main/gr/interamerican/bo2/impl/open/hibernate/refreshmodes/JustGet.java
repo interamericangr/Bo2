@@ -25,9 +25,9 @@ public class JustGet implements GetFromSession {
 	 * Instance.
 	 */
 	public static final JustGet INSTANCE = new JustGet(); 
-	
+
+	@Override
 	public Object get(Session session, Serializable id, Class<?> persistentClass) {
 		return session.get(persistentClass, id);
 	}
-
 }

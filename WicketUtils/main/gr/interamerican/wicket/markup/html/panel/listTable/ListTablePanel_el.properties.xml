@@ -2,4 +2,5 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 	<entry key="ltp_listTableLabel">Λίστα</entry>
+	<entry key="export_data_label">Αποθήκευση σε αρχείο</entry>
 </properties>

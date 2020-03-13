@@ -12,7 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.bo2.gui.components;
 
-import gr.interamerican.bo2.gui.listeners.MethodBasedActionListener;
+import gr.interamerican.bo2.gui.listeners.SwingMethodBasedActionListener;
 import gr.interamerican.bo2.gui.properties.ButtonProperties;
 
 import java.awt.event.ActionListener;
@@ -22,14 +22,12 @@ import java.util.Map;
 import javax.swing.JPanel;
 
 /**
- * 
+ * The Class ButtonPanel.
  */
 public class ButtonPanel 
 extends JPanel {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -83,14 +81,7 @@ extends JPanel {
 			button.removeActionListener(listener);
 		}
 		String methodName = button.getComponentName();
-		MethodBasedActionListener al = new MethodBasedActionListener(methodName, target);
+		ActionListener al = new SwingMethodBasedActionListener(methodName, target);
 		button.addActionListener(al);
 	}
-	
-	
-
-	
-	
-	
-
 }

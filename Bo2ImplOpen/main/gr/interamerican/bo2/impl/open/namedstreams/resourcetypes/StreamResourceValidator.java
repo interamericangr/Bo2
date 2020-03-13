@@ -13,7 +13,9 @@ class StreamResourceValidator {
 	private StreamResourceValidator() { /* empty */ }
 
 	/**
-	 * @param actual
+	 * Message.
+	 *
+	 * @param actual the actual
 	 * @return message
 	 */
 	static String message(StreamResource actual) {
@@ -22,9 +24,10 @@ class StreamResourceValidator {
 
 	/**
 	 * Validates that the actual StreamResource is equal with the valid one.
-	 * @param actual
-	 * @param valid
-	 * @throws CouldNotCreateNamedStreamException
+	 *
+	 * @param actual the actual
+	 * @param valid the valid
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */
 	public static void onCreate(StreamResource actual, StreamResource valid)
 			throws CouldNotCreateNamedStreamException {
@@ -35,9 +38,10 @@ class StreamResourceValidator {
 
 	/**
 	 * Validates that the actual StreamResource is equal with the valid one.
-	 * @param actual
-	 * @param valid
-	 * @throws CouldNotConvertNamedStreamException
+	 *
+	 * @param actual the actual
+	 * @param valid the valid
+	 * @throws CouldNotConvertNamedStreamException the could not convert named stream exception
 	 */
 	public static void onConvert(StreamResource actual, StreamResource valid)
 			throws CouldNotConvertNamedStreamException {

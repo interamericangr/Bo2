@@ -38,14 +38,14 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 /**
- * Tests 
+ * Tests.
  */
 public class TestGenericHibernatePersistenceWorker {
 	
 	/**
 	 * Creates a new TestGenericHibernatePersistenceWorker object. 
-	 * @throws InitializationException 
 	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	public TestGenericHibernatePersistenceWorker() throws InitializationException {
 		super();
@@ -66,8 +66,9 @@ public class TestGenericHibernatePersistenceWorker {
 
 	/**
 	 * See bean.
-	 * @throws InitializationException
-	 * @throws DataException
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
 	 */
 	@Before
 	public void setUp() throws InitializationException, DataException {		
@@ -76,8 +77,8 @@ public class TestGenericHibernatePersistenceWorker {
 
 	/**
 	 * See bean.
-	 * 
-	 * @throws DataException
+	 *
+	 * @throws DataException the data exception
 	 */
 	@After
 	public void tearDown() throws DataException {
@@ -86,8 +87,8 @@ public class TestGenericHibernatePersistenceWorker {
 
 	/**
 	 * See bean.
-	 * 
-	 * @throws PoNotFoundException
+	 *
+	 * @throws PoNotFoundException the po not found exception
 	 */
 	@Test(expected=PoNotFoundException.class)
 	public void testPoNotFoundExceptionOnRead() throws PoNotFoundException {
@@ -96,7 +97,8 @@ public class TestGenericHibernatePersistenceWorker {
 
 	/**
 	 * See bean.
-	 * @throws DataException 
+	 *
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testReadDoesNotFail() 
@@ -106,7 +108,8 @@ public class TestGenericHibernatePersistenceWorker {
 	
 	/**
 	 * See bean.
-	 * @throws DataException 
+	 *
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testUpdateDoesNotFail() 
@@ -116,7 +119,8 @@ public class TestGenericHibernatePersistenceWorker {
 
 	/**
 	 * See bean.
-	 * @throws DataException 
+	 *
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testUpdateAndReadDontFail() 
@@ -126,7 +130,8 @@ public class TestGenericHibernatePersistenceWorker {
 
 	/**
 	 * See bean.
-	 * @throws DataException 
+	 *
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testStoreReadAndDeleteDontFail() 
@@ -144,7 +149,7 @@ public class TestGenericHibernatePersistenceWorker {
 	}
 	
 	/**
-	 * Tests getDetachStrategy()
+	 * Tests getDetachStrategy().
 	 */
 	@Test
 	public void testGetDetachStrategy() {
@@ -153,7 +158,8 @@ public class TestGenericHibernatePersistenceWorker {
 	
 	/**
 	 * Tests the constructor failur due to missing annotation.
-	 * @throws InitializationException 
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test(expected=InitializationException.class)
 	public void testInit_failDueToMissingAnnotation() throws InitializationException {
@@ -165,7 +171,7 @@ public class TestGenericHibernatePersistenceWorker {
 	}
 	
 	/**
-	 * Tests newInstance(clazz) 
+	 * Tests newInstance(clazz).
 	 */
 	@Test()
 	public void testNewInstance() {
@@ -175,9 +181,10 @@ public class TestGenericHibernatePersistenceWorker {
 	}
 	
 	/**
-	 * Tests newInstance(clazz, validator) 
-	 * @throws ValidationException 
-	 * @throws InitializationException 
+	 * Tests newInstance(clazz, validator) .
+	 *
+	 * @throws ValidationException the validation exception
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test()
 	public void testNewInstance_withValidator() throws ValidationException, InitializationException {

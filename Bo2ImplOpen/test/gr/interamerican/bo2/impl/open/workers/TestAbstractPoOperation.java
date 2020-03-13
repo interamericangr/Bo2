@@ -20,7 +20,7 @@ import gr.interamerican.bo2.samples.archutil.po.User;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestAbstractPoOperation.
  */
 public class TestAbstractPoOperation {
 	

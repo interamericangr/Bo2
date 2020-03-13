@@ -18,14 +18,10 @@ public class NamedCacheProvider
 <C extends Comparable<? super C>> 
 implements Serializable {
 	
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * cacheName
-	 */
+	/** cacheName. */
 	private String cacheName;
 	
 	/**
@@ -36,7 +32,7 @@ implements Serializable {
 	/**
 	 * Creates a new CachedObjectValidator object. 
 	 *
-	 * @param cacheName
+	 * @param cacheName the cache name
 	 */
 	public NamedCacheProvider(String cacheName) {
 		super();
@@ -44,8 +40,8 @@ implements Serializable {
 	}
 	
 	/**
-	 * Initializes (if needed) and returns the transient field {@link #cache} 
-	 * 
+	 * Initializes (if needed) and returns the transient field {@link #cache} .
+	 *
 	 * @return returns the {@link Cache} of this AbstractCacheRelatedObjectBoPropertyDescriptor
 	 */
 	public Cache<C> cache() {

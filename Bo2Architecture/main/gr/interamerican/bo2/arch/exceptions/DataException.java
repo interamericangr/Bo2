@@ -35,21 +35,27 @@ public class DataException extends Exception {
     
     /**
      * Creates a new DataException with a message.
-     * 
-     * @param message 
+     *
+     * @param message the message
      */
     public DataException(String message) {
         super(message);        
     }
+    
     /**
-     * @param message
-     * @param cause
+     * Instantiates a new data exception.
+     *
+     * @param message the message
+     * @param cause the cause
      */
     public DataException(String message, Throwable cause) {
         super(message, cause);
     }
+    
     /**
-     * @param cause
+     * Instantiates a new data exception.
+     *
+     * @param cause the cause
      */
     public DataException(Throwable cause) {
         super(cause);

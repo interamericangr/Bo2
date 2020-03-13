@@ -12,12 +12,8 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.ftp;
 
-import static org.mockito.Matchers.anyObject;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import gr.interamerican.bo2.utils.CollectionUtils;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -31,6 +27,8 @@ import java.util.Properties;
 import org.apache.commons.net.ftp.FTPClient;
 import org.junit.Assert;
 import org.junit.Test;
+
+import gr.interamerican.bo2.utils.CollectionUtils;
 
 /**
  * Unit tests for {@link FtpSession}.
@@ -86,23 +84,20 @@ public class TestFtpSession {
 	
 	/**
 	 * Creates a mock FTPClient that does not need an FTP server.
-	 * 
-	 * @param succeedOnLogin 
-	 *        Specifies if this FTP client mocks its login method by
+	 *
+	 * @param succeedOnLogin        Specifies if this FTP client mocks its login method by
 	 *        imitating a successful or a failed login.
-	 * @param succedOnUploadDownload
-	 *        Specifies if this FTP client mocks the upload and download
+	 * @param succedOnUploadDownload        Specifies if this FTP client mocks the upload and download
 	 *        operations by imitating successful or failed operations.   
-	 * 
 	 * @return Returns an FtpSession object.
-	 * @throws IOException 
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	FTPClient mockFtpClient(boolean succeedOnLogin, boolean succedOnUploadDownload) throws IOException {
 		FTPClient client = mock(FTPClient.class);
 		when(client.login(anyString(), anyString())).thenReturn(succeedOnLogin);
 		when(client.getReplyCode()).thenReturn(250);
-		when(client.storeFile(anyString(), (InputStream)anyObject())).thenReturn(succedOnUploadDownload);
-		when(client.retrieveFile(anyString(), (OutputStream)anyObject())).thenReturn(succedOnUploadDownload);
+		when(client.storeFile(anyString(), any(InputStream.class))).thenReturn(succedOnUploadDownload);
+		when(client.retrieveFile(anyString(), any(OutputStream.class))).thenReturn(succedOnUploadDownload);
 		when(client.getReplyString()).thenReturn("Mock FTP reply string");	 //$NON-NLS-1$
 		return client;
 	}
@@ -110,16 +105,16 @@ public class TestFtpSession {
 	/**
 	 * Creates a mock FTPClient that throws a SocketException
 	 * on connect().
-	 * 
+	 *
 	 * @return Returns an FtpSession object.
-	 * @throws IOException 
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	FTPClient socketExMockFtpClient() throws IOException {
 		FTPClient client = mock(FTPClient.class);
 		when(client.login(anyString(), anyString())).thenReturn(true);
 		when(client.getReplyCode()).thenReturn(250);
-		when(client.storeFile(anyString(), (InputStream)anyObject())).thenReturn(true);
-		when(client.retrieveFile(anyString(), (OutputStream)anyObject())).thenReturn(true);
+		when(client.storeFile(anyString(), any(InputStream.class))).thenReturn(true);
+		when(client.retrieveFile(anyString(), any(OutputStream.class))).thenReturn(true);
 		when(client.getReplyString()).thenReturn("Mock FTP reply string");	 //$NON-NLS-1$
 		doThrow(SocketException.class).when(client).connect("ftp.host.com", 21); //$NON-NLS-1$
 		return client;
@@ -139,9 +134,9 @@ public class TestFtpSession {
 	
 	/**
 	 * Creates a sample input stream.
-	 * 
+	 *
 	 * @return Returns the input stream.
-	 * @throws FileNotFoundException
+	 * @throws FileNotFoundException the file not found exception
 	 */
 	InputStream sampleInputstream() throws FileNotFoundException {
 		String path = workPath() + "existing.txt"; //$NON-NLS-1$
@@ -168,8 +163,8 @@ public class TestFtpSession {
 	
 	/**
 	 * Tests connect.
-	 * 
-	 * @throws FtpException 
+	 *
+	 * @throws FtpException the ftp exception
 	 */	
 	@Test
 	public void testConnect_succeed() 
@@ -180,10 +175,10 @@ public class TestFtpSession {
 	
 	/**
 	 * Tests connect fail with SocketException thrown.
-	 * 
-	 * @throws FtpException 
-	 * @throws IOException 
-	 * @throws SocketException 
+	 *
+	 * @throws FtpException the ftp exception
+	 * @throws SocketException the socket exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */	
 	@Test(expected=FtpException.class)
 	public void testConnect_failWithSocketException() 
@@ -195,7 +190,8 @@ public class TestFtpSession {
 	
 	/**
 	 * Tests connect fail.
-	 * @throws FtpException 
+	 *
+	 * @throws FtpException the ftp exception
 	 */
 	@Test(expected=FtpException.class)
 	public void testConnect_failOnLogin() throws FtpException {		
@@ -205,8 +201,8 @@ public class TestFtpSession {
 	
 	/**
 	 * Tests disconnect.
-	 * 
-	 * @throws FtpException 
+	 *
+	 * @throws FtpException the ftp exception
 	 */	
 	@Test
 	public void testDisconnect_succeed() 
@@ -218,14 +214,11 @@ public class TestFtpSession {
 	
 	/**
 	 * Tests upload().
-	 * 
-	 * @param succeed
-	 *            Indicates if the operation will be successful.
-	 * @param binary
-	 *            Flag if the file is binary.
-	 * 
-	 * @throws FtpException
-	 * @throws IOException
+	 *
+	 * @param succeed            Indicates if the operation will be successful.
+	 * @param binary            Flag if the file is binary.
+	 * @throws FtpException the ftp exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */	
 	void testUpload(boolean succeed, boolean binary) 
 	throws FtpException, IOException {		
@@ -237,14 +230,11 @@ public class TestFtpSession {
 	
 	/**
 	 * Tests upload().
-	 * 
-	 * @param succeed
-	 *        Indicates if the operation will be successful. 
-	 * @param binary 
-	 *        Flags if the file is treated as binary.
-	 * 
-	 * @throws FtpException 
-	 * @throws IOException 
+	 *
+	 * @param succeed        Indicates if the operation will be successful. 
+	 * @param binary        Flags if the file is treated as binary.
+	 * @throws FtpException the ftp exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */	
 	@SuppressWarnings("nls")
 	void testDownload(boolean succeed, boolean binary) 
@@ -260,8 +250,8 @@ public class TestFtpSession {
 	
 	/**
 	 * Tests upload().
-	 * 
-	 * @throws FtpException 
+	 *
+	 * @throws FtpException the ftp exception
 	 */
 	@SuppressWarnings("nls")
 	@Test(expected=FtpException.class)
@@ -273,9 +263,9 @@ public class TestFtpSession {
 	
 	/**
 	 * Tests upload().
-	 * 
-	 * @throws FtpException 
-	 * @throws IOException 
+	 *
+	 * @throws FtpException the ftp exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */	
 	@Test
 	public void testUpload_textFileSucceed() 
@@ -285,9 +275,9 @@ public class TestFtpSession {
 	
 	/**
 	 * Tests upload.
-	 * 
-	 * @throws FtpException 
-	 * @throws IOException 
+	 *
+	 * @throws FtpException the ftp exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */	
 	@Test
 	public void testUpload_binaryFileSucceed() 
@@ -297,9 +287,9 @@ public class TestFtpSession {
 	
 	/**
 	 * Tests upload().
-	 * 
-	 * @throws FtpException 
-	 * @throws IOException 
+	 *
+	 * @throws FtpException the ftp exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */	
 	@Test(expected=FtpException.class)
 	public void testUpload_textFileFail() 
@@ -309,9 +299,9 @@ public class TestFtpSession {
 	
 	/**
 	 * Tests upload.
-	 * 
-	 * @throws FtpException 
-	 * @throws IOException 
+	 *
+	 * @throws FtpException the ftp exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */	
 	@Test(expected=FtpException.class)
 	public void testUpload_binaryFileFail() 
@@ -321,8 +311,8 @@ public class TestFtpSession {
 	
 	/**
 	 * Tests upload().
-	 * 
-	 * @throws FtpException 
+	 *
+	 * @throws FtpException the ftp exception
 	 */
 	@SuppressWarnings("nls")
 	@Test(expected=FtpException.class)
@@ -336,9 +326,9 @@ public class TestFtpSession {
 	
 	/**
 	 * Tests download().
-	 * 
-	 * @throws FtpException 
-	 * @throws IOException 
+	 *
+	 * @throws FtpException the ftp exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */	
 	@Test
 	public void testDownload_textFileSucceed() 
@@ -348,9 +338,9 @@ public class TestFtpSession {
 	
 	/**
 	 * Tests download.
-	 * 
-	 * @throws FtpException 
-	 * @throws IOException 
+	 *
+	 * @throws FtpException the ftp exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */	
 	@Test
 	public void testDownload_binaryFileSucceed() 
@@ -360,9 +350,9 @@ public class TestFtpSession {
 	
 	/**
 	 * Tests download().
-	 * 
-	 * @throws FtpException 
-	 * @throws IOException 
+	 *
+	 * @throws FtpException the ftp exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */	
 	@Test(expected=FtpException.class)
 	public void testDownload_textFileFail() 
@@ -372,9 +362,9 @@ public class TestFtpSession {
 	
 	/**
 	 * Tests download.
-	 * 
-	 * @throws FtpException 
-	 * @throws IOException 
+	 *
+	 * @throws FtpException the ftp exception
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */	
 	@Test(expected=FtpException.class)
 	public void testDownload_binaryFileFail() 

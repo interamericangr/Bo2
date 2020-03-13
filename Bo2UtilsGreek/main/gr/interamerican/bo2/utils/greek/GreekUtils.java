@@ -23,7 +23,7 @@ public class GreekUtils {
 	/**
 	 * Removes all characters that are not letters or digits, converts to 
 	 * upper case and then replaces any latin character that has a similar 
-	 * greek character with its greek similar (visually equal) character. <br/>
+	 * greek character with its greek similar (visually equal) character. <br>
 	 * 
 	 * @param str
 	 *        String to process.
@@ -62,8 +62,8 @@ public class GreekUtils {
 	 * Removes any character that is not a greek letter from the
 	 * specified string
 	 *  
-	 * @param string
-	 * 
+	 *
+	 * @param string the string
 	 * @return Returns the new string after removing from it any
 	 *         character that is not a greek letter.
 	 */
@@ -76,8 +76,8 @@ public class GreekUtils {
 	 * Removes any character that is a greek letter from the
 	 * specified string
 	 *  
-	 * @param string
-	 * 
+	 *
+	 * @param string the string
 	 * @return Returns the new string after removing from it any
 	 *         character that is a greek letter.
 	 */

@@ -25,8 +25,8 @@ implements Attachment {
 	
 	/**
 	 * Creates a new MailAttachment object. 
-	 * 
-	 * @param filename
+	 *
+	 * @param filename the filename
 	 */
 	public AbstractAttachment(String filename) {
 		super();		

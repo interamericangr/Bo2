@@ -13,7 +13,7 @@
 package gr.interamerican.bo2.samples.def.po;
 
 /**
- * 
+ * The Interface PrefectureKP.
  */
 public interface PrefectureKP extends RegionKP {
 	/**
@@ -24,7 +24,8 @@ public interface PrefectureKP extends RegionKP {
 	
 	/**
 	 * Set prefecture id.
-	 * @param prefectureId
+	 *
+	 * @param prefectureId the new prefecture id
 	 */
 	void setPrefectureId(Long prefectureId);
 

@@ -38,23 +38,22 @@ public class RemoveUselessJoinsFromSql {
 
 	/**
 	 * Removes useless joins from an SQL statement.
-	 * 
-	 * @param sql
+	 *
+	 * @param sql the sql
 	 * @return SQL with no useless joins.
-	 * @throws SqlParseException
+	 * @throws SqlParseException the sql parse exception
 	 */
 	public String remove(String sql) throws SqlParseException  {
 		Set<Join> joins = UselessJoinsFinder.INSTANCE.find(sql);
 		if (joins.size() == 0) {// nothing to remove
 			JsqlParserUtils.getLogger().debug("No Joins where removed"); //$NON-NLS-1$
 			return sql;
-		} else {
-			JsqlParserUtils.getLogger().debug("Removing " + joins.size() + " joins"); //$NON-NLS-1$ //$NON-NLS-2$
-			JsqlParserUtils.getLogger().debug("Original Query " + sql); //$NON-NLS-1$
-			if (JsqlParserUtils.getLogger().isTraceEnabled()) {
-				for (Join j : joins) {
-					JsqlParserUtils.getLogger().trace("Removing " + j.toString()); //$NON-NLS-1$
-				}
+		}
+		JsqlParserUtils.getLogger().debug("Removing " + joins.size() + " joins"); //$NON-NLS-1$ //$NON-NLS-2$
+		JsqlParserUtils.getLogger().debug("Original Query " + sql); //$NON-NLS-1$
+		if (JsqlParserUtils.getLogger().isTraceEnabled()) {
+			for (Join j : joins) {
+				JsqlParserUtils.getLogger().trace("Removing " + j.toString()); //$NON-NLS-1$
 			}
 		}
 		RebuildQueryWithOutUselessJoins rebuild = new RebuildQueryWithOutUselessJoins();
@@ -75,7 +74,7 @@ public class RemoveUselessJoinsFromSql {
 		JsqlParserUtils.getLogger().debug("Rebuilt Query " + rebuiltSql); //$NON-NLS-1$
 		return rebuiltSql;
 	}
-	
+
 	/**
 	 * Hidden. 
 	 */

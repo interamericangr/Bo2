@@ -24,16 +24,14 @@ import gr.interamerican.bo2.utils.annotations.Child;
 import java.util.Set;
 
 /**
- * 
+ * The Class SuburbImpl.
  */
 @DelegateKeyProperties({})
 public abstract class SuburbImpl 
 extends AbstractModificationRecordPo<SuburbKey>
 implements Suburb {
 	
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -46,6 +44,7 @@ implements Suburb {
 	 */
 	@Child @Property Set<Neighborhood> neighborhoods;
 	
+	@Override
 	public int getPopulation() {
 		int population = 0;
 		for (Populated child : neighborhoods) {

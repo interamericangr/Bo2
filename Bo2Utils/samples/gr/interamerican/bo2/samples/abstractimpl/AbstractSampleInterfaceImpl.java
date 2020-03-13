@@ -22,6 +22,7 @@ import gr.interamerican.bo2.samples.ibean.SomeOperations;
 public abstract class AbstractSampleInterfaceImpl 
 implements SampleInterface, SomeOperations {
 	
+	@Override
 	public String getField1() {return null;}
 	/**
 	 * Some method.
@@ -29,6 +30,7 @@ implements SampleInterface, SomeOperations {
 	public abstract void someMethod();
 	
 	
+	@Override
 	public void saySomething(String something) {
 		System.out.println(something);
 	}

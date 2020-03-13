@@ -18,7 +18,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestNfDateFormatter.
  */
 public class TestNfDateFormatter {
 	/**

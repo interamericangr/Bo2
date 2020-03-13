@@ -12,9 +12,19 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.namedstreams;
 
-import gr.interamerican.bo2.arch.exceptions.InitializationException;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import gr.interamerican.bo2.arch.Provider;
+import gr.interamerican.bo2.arch.exceptions.InitializationException;
+import gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResourceEnum;
+import gr.interamerican.bo2.impl.open.namedstreams.types.StreamType;
+import gr.interamerican.bo2.impl.open.utils.Bo2;
+import gr.interamerican.bo2.samples.implopen.mocks.MockNamedStream;
+import gr.interamerican.bo2.test.utils.UtilityForBo2Test;
+import gr.interamerican.bo2.utils.Bo2UtilsEnvironment;
+import gr.interamerican.bo2.utils.StringConstants;
 
 /**
  * Unit tests for {@link NamedStreamUtils}.
@@ -28,46 +38,32 @@ public class TestNamedStreamUtils {
 	/**
 	 * Unit test for registerStream().
 	 *
-	 * @throws InitializationException
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test
 	public void testRegisterStream() throws InitializationException {
-		// Assert.fail("Not implemented!");
-		/*
-		byte[] bytes = new byte[10000];
 		String name = "TestNamedStreamUtils.sample_buffered_reader"; //$NON-NLS-1$
-		NamedStream<?> ns = NamedStreamFactoryUtil.reader(bytes, name, Bo2UtilsEnvironment.getDefaultTextCharset());
+		NamedStream<?> ns = new MockNamedStream<>(StreamType.INPUTSTREAM, StreamResourceEnum.FILE, null, name, 5,
+				Bo2UtilsEnvironment.get().getDefaultTextCharset(), StringConstants.EMPTY);
 		Provider provider = Bo2.getDeployment(UtilityForBo2Test.BATCH_NO_TRAN).getProvider();
 		NamedStreamUtils.registerStream(ns, provider, MANAGER);
 		NamedStreamsProvider nsp = provider.getResource(MANAGER, NamedStreamsProvider.class);
 		NamedStream<?> nbf = nsp.getStream(name);
-		Assert.assertEquals(ns,nbf);
-		 */
+		assertEquals(ns,nbf);
 	}
 
 	/**
 	 * Unit test for getDefaultNamedStream().
-	 *
-	 * @throws InitializationException
+	 * @throws InitializationException 
 	 */
 	@Test
 	public void testGetDefaultNamedStream() throws InitializationException {
-		// Assert.fail("Not implemented!");
+		String streamName = "TestNamedStreamUtils.sample_named_stream"; //$NON-NLS-1$
+		Provider provider = Bo2.getDeployment(UtilityForBo2Test.BATCH_NO_TRAN).getProvider();
+		NamedStream<?> sampleStream = new MockNamedStream<>(StreamType.INPUTSTREAM, StreamResourceEnum.FILE, null, streamName, 5, Bo2UtilsEnvironment.get().getDefaultTextCharset(), StringConstants.EMPTY);
+		NamedStreamUtils.registerStream(sampleStream, provider, MANAGER);
+		
+		NamedStream<?> result = NamedStreamUtils.getDefaultNamedStream(provider, streamName);
+		assertSame(sampleStream, result);
 	}
-
-	/**
-	 * Unit test for getNamedStream().
-	 *
-	 * @throws InitializationException
-	 */
-	@Test
-	public void testGetNamedStream() throws InitializationException {
-		// Assert.fail("Not implemented!");
-	}
-
-
-
-
-
-
 }

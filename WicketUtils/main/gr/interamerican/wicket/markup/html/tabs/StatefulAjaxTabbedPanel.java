@@ -15,6 +15,7 @@ package gr.interamerican.wicket.markup.html.tabs;
 import java.util.List;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.extensions.ajax.markup.html.tabs.AjaxTabbedPanel;
 import org.apache.wicket.extensions.markup.html.tabs.ITab;
 import org.apache.wicket.markup.html.WebMarkupContainer;
@@ -22,52 +23,65 @@ import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 
 /**
- *  AjaxTabbedPanel that can keep the state of its tabs. 
+ * AjaxTabbedPanel that can keep the state of its tabs.<br>
+ * In essence, this replaces the {@link #newLink(String, int)} button with a
+ * Custom {@link AjaxSubmitLink}, which submits the form when we switch
+ * tabs.<br>
+ * Because of this customization - this panel is required to be inside a form.
  */
 public class StatefulAjaxTabbedPanel 
-extends AjaxTabbedPanel {
+extends AjaxTabbedPanel<ITab> {
 	
 	/**
 	 * UID.
 	 */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
-	 * Form.
-	 */
-	Form<?> form;
-	
-	/**
-	 * Button.
-	 */
-	Button button; 
-	
-	/**
-	 * Creates a new StatefullAjaxTabbedPanel object. 
+	 * Creates a new StatefullAjaxTabbedPanel object.
 	 *
 	 * @param id
+	 *            the id
 	 * @param tabs
-	 * @param announcementForm
-	 * @param saveButton 
+	 *            the tabs
 	 */
+	public StatefulAjaxTabbedPanel(String id, List<ITab> tabs) {
+		super(id, tabs);
+	}
+
+	/**
+	 * Creates a new StatefullAjaxTabbedPanel object.
+	 *
+	 * @param id
+	 *            the id
+	 * @param tabs
+	 *            the tabs
+	 * @param announcementForm
+	 *            the announcement form
+	 * @param saveButton
+	 *            the save button
+	 * 
+	 * @deprecated Use the Other Constructor - some fields are not being used
+	 */
+	@Deprecated
+	@SuppressWarnings("unused")
 	public StatefulAjaxTabbedPanel(String id, List<ITab> tabs, Form<?> announcementForm, Button saveButton) {
 		super(id, tabs);
-		this.form = announcementForm;
-		this.button = saveButton;
 	}
-	
+
 	/**
 	 * Expose onAjaxUpdate(AjaxRequestTarget) to package.
-	 *  
+	 * 
+	 *
 	 * @param target
-	 */	
+	 *            the target
+	 */
 	void callOnAjaxUpdate(AjaxRequestTarget target) {
 		onAjaxUpdate(target);
 	}
-	
+
 	@Override
 	protected WebMarkupContainer newLink(String linkId, final int index) {
 		return new StatefulAjaxTabbedPanelSubmitLink(linkId, this, index);
 	}
-	
 }

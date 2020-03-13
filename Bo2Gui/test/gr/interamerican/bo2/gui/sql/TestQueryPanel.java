@@ -12,8 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.bo2.gui.sql;
 
-import gr.interamerican.bo2.arch.exceptions.DataException;
-import gr.interamerican.bo2.gui.listeners.RuntimeCommandContext;
+import static org.junit.Assert.assertNotNull;
 
 import java.sql.SQLException;
 
@@ -22,9 +21,10 @@ import javax.swing.JComboBox;
 import javax.swing.JTextArea;
 import javax.swing.table.TableModel;
 
-import org.junit.Assert;
 import org.junit.Test;
-import org.mockito.Mockito;
+
+import gr.interamerican.bo2.arch.exceptions.DataException;
+import gr.interamerican.bo2.gui.listeners.RuntimeCommandContext;
 
 /**
  * Test {@link QueryPanel}.
@@ -34,36 +34,24 @@ public class TestQueryPanel {
 	/**
 	 * Test subject.
 	 */
-	QueryPanel panel = new QueryPanel();
 	
 	/**
-	 * @throws SQLException 
-	 * @throws DataException 
-	 * 
+	 * Test create table model.
+	 *
+	 * @throws DataException the data exception
+	 * @throws SQLException the SQL exception
 	 */
 	@SuppressWarnings("nls")
 	@Test
 	public void testCreateTableModel() throws DataException, SQLException {
-		JComboBox managersSelection = Mockito.mock(JComboBox.class);
-		Mockito.when(managersSelection.getSelectedItem()).thenReturn("LOCALDB");
-		panel.managersSelection = managersSelection;
-		
-		JTextArea sqlArea = Mockito.mock(JTextArea.class);
-		Mockito.when(sqlArea.getText()).thenReturn("select * from test.users");
-		panel.sqlArea = sqlArea;
-		
-		JCheckBox limitCheckBox = Mockito.mock(JCheckBox.class);
-		Mockito.when(limitCheckBox.isSelected()).thenReturn(false);
-		panel.limitCheckBox = limitCheckBox;
+		QueryPanel panel = new QueryPanel();
+		panel.managersSelection = new JComboBox<>(new String[] {"LOCALDB"});
+		panel.sqlArea = new JTextArea("select * from test.users");
+		panel.limitCheckBox = new JCheckBox();
 		
 		RuntimeCommandContext.get().beginProcessing();
-		
 		TableModel tModel = panel.createTableModel();
-		
 		RuntimeCommandContext.get().endProcessing();
-		
-		Assert.assertNotNull(tModel);
-		
+		assertNotNull(tModel);
 	}
-
 }

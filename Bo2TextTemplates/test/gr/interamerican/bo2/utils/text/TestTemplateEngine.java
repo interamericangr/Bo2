@@ -19,8 +19,9 @@ public class TestTemplateEngine {
 
 	/**
 	 * Test method for {@link gr.interamerican.bo2.utils.text.TemplateEngine#fill(java.lang.String, java.lang.Object)}.
-	 * @throws TemplateException 
-	 * @throws IOException 
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws TemplateException the template exception
 	 */
 	@SuppressWarnings("nls")
 	@Test

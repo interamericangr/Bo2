@@ -28,9 +28,7 @@ import javax.swing.SpringLayout;
  */
 public class PopUpFrame extends JFrame {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
 	/**
@@ -53,9 +51,9 @@ public class PopUpFrame extends JFrame {
 	
 	/**
 	 * Creates a new PopUpFrame and makes it visible.
-	 * 
-	 * @param text
-	 * @param title 
+	 *
+	 * @param text the text
+	 * @param title the title
 	 */
 	public PopUpFrame(String text, String title) {
 		super(title);
@@ -73,9 +71,9 @@ public class PopUpFrame extends JFrame {
 	}
 	
 	/**
-	 * constructor
-	 * 
-	 * @param text 
+	 * constructor.
+	 *
+	 * @param text the text
 	 */
 	public PopUpFrame(String text) {
 		this(text,StringConstants.EMPTY);

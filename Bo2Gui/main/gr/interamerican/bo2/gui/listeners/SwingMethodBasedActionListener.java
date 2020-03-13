@@ -16,6 +16,7 @@ package gr.interamerican.bo2.gui.listeners;
 /**
  * {@link MethodBasedActionListener} that uses the facilities provided
  * by the {@link RuntimeCommandContext} context.
+ *
  */
 public class SwingMethodBasedActionListener extends MethodBasedActionListener {
 	
@@ -27,8 +28,8 @@ public class SwingMethodBasedActionListener extends MethodBasedActionListener {
 	/**
 	 * Creates a new MethodBasedActionProcessorListener object. 
 	 *
-	 * @param methodName
-	 * @param owner
+	 * @param methodName the method name
+	 * @param owner the owner
 	 */
 	public SwingMethodBasedActionListener(String methodName, Object owner) {
 		super(methodName, owner);

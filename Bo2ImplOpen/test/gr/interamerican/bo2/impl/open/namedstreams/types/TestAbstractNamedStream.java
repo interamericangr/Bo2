@@ -36,7 +36,7 @@ public class TestAbstractNamedStream {
 		PrintStream stream = System.out;
 		AbstractNamedStream<PrintStream> mo = 
 			new AbstractNamedStream<PrintStream>
-			(StreamType.PRINTSTREAM,StreamResourceEnum.SYSTEM,stream,"Mock",10, stream, Bo2UtilsEnvironment.getDefaultTextCharset(), "furi") {
+			(StreamType.PRINTSTREAM,StreamResourceEnum.SYSTEM,stream,"Mock",10, stream, Bo2UtilsEnvironment.get().getDefaultTextCharset(), "furi") {
 				@Override
 				public byte[] readRecord() 
 				throws DataException, DataOperationNotSupportedException {
@@ -72,7 +72,7 @@ public class TestAbstractNamedStream {
 	}
 	
 	/**
-	 * Tests getStream()
+	 * Tests getStream().
 	 */
 	@Test
 	public void testGetStream() {
@@ -81,7 +81,7 @@ public class TestAbstractNamedStream {
 	}
 		
 	/**
-	 * Tests getName()
+	 * Tests getName().
 	 */	
 	@Test
 	public void testGetName() {
@@ -90,7 +90,7 @@ public class TestAbstractNamedStream {
 	}
 	
 	/**
-	 * Tests getRecordLength()
+	 * Tests getRecordLength().
 	 */	
 	@Test
 	public void testGetRecordLength() {
@@ -99,7 +99,7 @@ public class TestAbstractNamedStream {
 	}
 	
 	/**
-	 * Tests getType()
+	 * Tests getType().
 	 */	
 	@Test
 	public void testGetType() {
@@ -108,7 +108,7 @@ public class TestAbstractNamedStream {
 	}
 	
 	/**
-	 * Tests getResourceType()
+	 * Tests getResourceType().
 	 */	
 	@Test
 	public void testGetResourceType() {
@@ -117,7 +117,7 @@ public class TestAbstractNamedStream {
 	}
 	
 	/**
-	 * Tests getResourceType()
+	 * Tests getResourceType().
 	 */	
 	@Test
 	public void testGetUri() {
@@ -126,7 +126,7 @@ public class TestAbstractNamedStream {
 	}
 	
 	/**
-	 * Tests getResourceType()
+	 * Tests getResourceType().
 	 */	
 	@Test(expected=RuntimeException.class)
 	public void testValidate() {

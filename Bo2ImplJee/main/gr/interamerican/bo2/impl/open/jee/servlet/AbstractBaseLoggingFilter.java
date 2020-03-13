@@ -17,12 +17,13 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Base {@link Filter} that records HTTP request-response messages.
- * <br/>
+ * <br>
  * Implementors of concrete extensions of this base class, should
  * implement {@link #doLog(String, Charset, Charset, byte[], byte[])}
  */
 public abstract class AbstractBaseLoggingFilter implements Filter {
-	
+
+	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) 
 	throws IOException, ServletException {
 		
@@ -65,10 +66,12 @@ public abstract class AbstractBaseLoggingFilter implements Filter {
 		}
 		
 		doLog(url, requestCharset, responseCharset, requestPayload, responsePayload);
-
 	}
 
+	@Override
 	public void init(FilterConfig filterConfig) throws ServletException { /* empty */ }
+
+	@Override
 	public void destroy() { /* empty */	}
 	
 	/**
@@ -88,5 +91,4 @@ public abstract class AbstractBaseLoggingFilter implements Filter {
 	 *        Recorded raw bytes of the response. Null values are allowed.
 	 */
 	protected abstract void doLog(String url, Charset requestEncoding, Charset responseEncoding, byte[] request, byte[] response);
-
 }

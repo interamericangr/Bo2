@@ -19,19 +19,17 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestMoneyBoPropertyDescriptor.
  */
 public class TestMoneyBoPropertyDescriptor {
 
 	
-	/**
-	 * MoneyBoPropertyDescriptor
-	 */
+	/** MoneyBoPropertyDescriptor. */
 	MoneyBoPropertyDescriptor descriptor = new MoneyBoPropertyDescriptor();
 	
 
 	/**
-	 * test setZeroAllowed
+	 * test setZeroAllowed.
 	 */
 	@Test
 	public void testSetZeroAllowed(){
@@ -40,7 +38,7 @@ public class TestMoneyBoPropertyDescriptor {
 	}
 	
 	/**
-	 * test test IsZeroAllowed
+	 * test test IsZeroAllowed.
 	 */
 	@Test
 	public void testIsZeroAllowed(){
@@ -50,7 +48,7 @@ public class TestMoneyBoPropertyDescriptor {
 	
 	
 	/**
-	 * test setNegativeAllowed
+	 * test setNegativeAllowed.
 	 */
 	@Test
 	public void testSetNegativeAllowed(){
@@ -59,7 +57,7 @@ public class TestMoneyBoPropertyDescriptor {
 	}
 	
 	/**
-	 * test test isNegativeAllowed
+	 * test test isNegativeAllowed.
 	 */
 	@Test
 	public void testIsNegativeAllowed(){
@@ -69,7 +67,7 @@ public class TestMoneyBoPropertyDescriptor {
 	
 	
 	/**
-	 * test test setLengthOfIntegerPart
+	 * test test setLengthOfIntegerPart.
 	 */
 	@Test
 	public void testSetLengthOfIntegerPart(){
@@ -79,7 +77,7 @@ public class TestMoneyBoPropertyDescriptor {
 	}
 	
 	/**
-	 * test test getLengthOfIntegerPart
+	 * test test getLengthOfIntegerPart.
 	 */
 	@Test
 	public void testGetLengthOfIntegerPart(){
@@ -89,7 +87,7 @@ public class TestMoneyBoPropertyDescriptor {
 	}
 	
 	/**
-	 * test test getLengthOfDecimalPart
+	 * test test getLengthOfDecimalPart.
 	 */
 	@Test
 	public void testSetLengthOfDecimalPart(){
@@ -99,7 +97,7 @@ public class TestMoneyBoPropertyDescriptor {
 	}
 	
 	/**
-	 * test test getLengthOfDecimalPart
+	 * test test getLengthOfDecimalPart.
 	 */
 	@Test
 	public void testGetLengthOfDecimalPart(){

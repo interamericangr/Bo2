@@ -12,14 +12,14 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.workers;
 
+import java.io.Serializable;
+
 import gr.interamerican.bo2.arch.PersistentObject;
 import gr.interamerican.bo2.arch.PoDeleter;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 
-import java.io.Serializable;
-
 /**
- * Implementation of {@link FastPoReader}.
+ * Implementation of {@link PoDeleter}.
  * 
  * This implementation depends on the Factory in order to create
  * instances of the PersistentObject and its PersistenceWorker.
@@ -39,26 +39,21 @@ implements PoDeleter<K, P> {
 	/**
 	 * Creates a new FastPoReaderImpl object. 
 	 *
-	 * @param poClass
+	 * @param poClass the po class
 	 */
 	public FactorySupportedPoDeleter(Class<P> poClass) {
 		super(poClass);
 	}
-	
+
 	@Override
 	public void delete(K key) throws DataException {
 		P p = createByKey(key);
 		pw.delete(p);
 	}
-	
+
 	@Override
 	public void deleteByProperties(Object key) throws DataException {
 		P p = createByKeyProperties(key);
 		pw.delete(p);
 	}
-	
-	
-
-	
-	
 }

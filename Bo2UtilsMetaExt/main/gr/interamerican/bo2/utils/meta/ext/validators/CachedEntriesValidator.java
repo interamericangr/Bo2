@@ -31,9 +31,7 @@ public class CachedEntriesValidator
 <T extends TypedSelectable<C>, C extends Comparable<? super C>>
 implements Validator<Collection<T>> {
 	
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Validator of a single entry.
@@ -42,12 +40,14 @@ implements Validator<Collection<T>> {
 	
 	/**
 	 * Creates a new CachedEntriesValidator object. 
-	 * @param cacheName 
+	 *
+	 * @param cacheName the cache name
 	 */
 	public CachedEntriesValidator(String cacheName) {
 		this.delegate = new CachedEntryValidator<TypedSelectable<C>, C>(cacheName);
 	}
 
+	@Override
 	public void validate(Collection<T> value) throws ValidationException {
 		String msg = StringConstants.EMPTY;
 		for(TypedSelectable<C> entry : value) {
@@ -61,5 +61,4 @@ implements Validator<Collection<T>> {
 			throw new ValidationException(msg);
 		}
 	}
-
 }

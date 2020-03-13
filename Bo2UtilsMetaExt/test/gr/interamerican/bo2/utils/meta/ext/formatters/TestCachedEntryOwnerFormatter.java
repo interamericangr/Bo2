@@ -25,9 +25,7 @@ import org.junit.Test;
  */
 public class TestCachedEntryOwnerFormatter {
 	
-	/**
-	 * Sample
-	 */
+	/** Sample. */
 	CachedEntryOwnerFormatter<TranslatableEntryOwner<Long,?,?>, Long> formatter = 
 		new CachedEntryOwnerFormatter<TranslatableEntryOwner<Long,?,?>, Long>(
 			FormatterResolver.getFormatter(Long.class));

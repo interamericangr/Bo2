@@ -100,7 +100,9 @@ public class TestSelfDrawnIntegerTextField extends WicketTest {
 	}
 	
 	/**
-	 * @param textField
+	 * Test form submission.
+	 *
+	 * @param textField the text field
 	 */
 	private void testFormSubmission(TextField<Integer> textField) {
 		FormTester formTester = tester.newFormTester(formPath());

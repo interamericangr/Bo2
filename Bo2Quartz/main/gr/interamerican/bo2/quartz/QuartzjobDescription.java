@@ -34,11 +34,15 @@ public interface QuartzjobDescription extends Serializable {
 	void setJobName(String jobName);
 
 	/**
+	 * Gets the job name.
+	 *
 	 * @return the jobName assigned during the creation.
 	 */
 	String getJobName();
 
 	/**
+	 * Gets the throwable.
+	 *
 	 * @return the throwable.
 	 */
 	Throwable getThrowable();
@@ -46,19 +50,21 @@ public interface QuartzjobDescription extends Serializable {
 	/**
 	 * sets the throwable.
 	 *
-	 * @param t
+	 * @param t the new throwable
 	 */
 	void setThrowable(Throwable t);
 
 	/**
+	 * Gets the job description digest.
+	 *
 	 * @return the digested version of a {@link JobDescription}
 	 */
 	String getJobDescriptionDigest();
 
 	/**
-	 * sets the digested version of a {@link JobDescription}
+	 * sets the digested version of a {@link JobDescription}.
 	 *
-	 * @param digest
+	 * @param digest the new job description digest
 	 */
 	void setJobDescriptionDigest(String digest);
 }

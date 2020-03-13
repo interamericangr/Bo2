@@ -64,10 +64,9 @@ extends RuntimeCommand {
 	
 	/**
 	 * Creates an object using the default Bo2 Factory.
-	 * 
-	 * @param clazz  Class of object.
+	 *
 	 * @param <P> Type defined by the class <code>clazz</code>.
-	 * 
+	 * @param clazz  Class of object.
 	 * @return Returns an instance of P.
 	 */
 	protected final <P> P create(Class<P> clazz) {
@@ -77,15 +76,13 @@ extends RuntimeCommand {
 	/**
 	 * Gets an open {@link PersistenceWorker} for {@link PersistentObject}
 	 * objects of type P.
-	 * 
-	 * @param clazz Class of {@link PersistentObject}.
-	 * @param <P> Type of {@link PersistentObject} defined by 
+	 *
+	 * @param <P> Type of {@link PersistentObject} defined by
 	 *        <code>clazz</code>.
-	 * 
+	 * @param clazz Class of {@link PersistentObject}.
 	 * @return Returns a new open PersistenceWorker for P objects.
-	 * 
-	 * @throws InitializationException
-	 * @throws DataException
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
 	 */
 	protected final <P extends PersistentObject<?>> 
 	PersistenceWorker<P> openPw(Class<P> clazz) 
@@ -97,14 +94,12 @@ extends RuntimeCommand {
 	
 	/**
 	 * Gets an open {@link Worker} object of a specified type.
-	 * 
-	 * @param clazz Class of worker.
+	 *
 	 * @param <W> Type of worker defined by <code>clazz</code>.
-	 * 
+	 * @param clazz Class of worker.
 	 * @return Returns a new open instance of W.
-	 * 
-	 * @throws InitializationException
-	 * @throws DataException
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
 	 */
 	protected final <W extends Worker> W open(Class<W> clazz)
 	throws InitializationException, DataException {
@@ -115,11 +110,9 @@ extends RuntimeCommand {
 	/**
 	 * Schedules a job. The job will be submitted if and only if
 	 * this unit of work commits successfully.
-	 * 
-	 * @param description
-	 * 
-	 * @param synchronous 
-	 *        If this is true, the scheduler will wait for the jobs to finish
+	 *
+	 * @param description the description
+	 * @param synchronous        If this is true, the scheduler will wait for the jobs to finish
 	 */
 	protected final void schedule(JobDescription description, boolean synchronous) {
 		if(synchronous) {
@@ -131,11 +124,12 @@ extends RuntimeCommand {
 
 	/**
 	 * Gets an open {@link Worker} object of a specified instance.
-	 * 
-	 * @param w
+	 *
+	 * @param <W> the generic type
+	 * @param w the w
 	 * @return w
-	 * @throws InitializationException
-	 * @throws DataException
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
 	 */
 	protected final <W extends Worker> W open(W w) throws InitializationException, DataException {
 		initAndOpen(w);
@@ -144,11 +138,10 @@ extends RuntimeCommand {
 	
 	/**
 	 * Initializes and opens a worker.
-	 * 
+	 *
 	 * @param w Worker.
-	 * 
-	 * @throws InitializationException 
-	 * @throws DataException 
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
 	 */
 	private void initAndOpen(Worker w) 
 	throws InitializationException, DataException {
@@ -159,11 +152,11 @@ extends RuntimeCommand {
 	
 	/**
 	 * main method.
-	 * 
-	 * @throws LogicException
-	 * @throws DataException
-	 * @throws InitializationException
-	 * @throws UnexpectedException
+	 *
+	 * @throws LogicException the logic exception
+	 * @throws DataException the data exception
+	 * @throws InitializationException the initialization exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	public abstract void work() 
 	throws LogicException, DataException, 
@@ -175,14 +168,10 @@ extends RuntimeCommand {
 	private class RuntimeLayerAdapter
 	extends AbstractOperation {
 		
-		/**
-		 * Workers created in this uow
-		 */
+		/** Workers created in this uow. */
 		List<Worker> workers = new ArrayList<Worker>();
 		
-		/**
-		 * Jobs scheduled in this uow
-		 */
+		/** Jobs scheduled in this uow. */
 		List<JobDescription> jobs = new ArrayList<JobDescription>();
 		
 		/**

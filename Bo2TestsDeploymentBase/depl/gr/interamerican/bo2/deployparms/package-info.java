@@ -1,5 +1,5 @@
 /**
- * Deployment parameters. <br/>
+ * Deployment parameters. <br>
  * 
  * <tr> <td>package-info.java</td>
  *      <td>This file</td> </tr>

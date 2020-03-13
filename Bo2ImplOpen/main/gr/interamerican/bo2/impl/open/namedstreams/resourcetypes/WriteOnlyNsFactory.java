@@ -1,7 +1,6 @@
 package gr.interamerican.bo2.impl.open.namedstreams.resourcetypes;
 
-import static gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResourceValidator.onConvert;
-import static gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResourceValidator.onCreate;
+import static gr.interamerican.bo2.impl.open.namedstreams.resourcetypes.StreamResourceValidator.*;
 import gr.interamerican.bo2.impl.open.namedstreams.NamedStream;
 import gr.interamerican.bo2.impl.open.namedstreams.NamedStreamDefinition;
 import gr.interamerican.bo2.impl.open.namedstreams.types.NamedOutputStream;
@@ -10,14 +9,12 @@ import gr.interamerican.bo2.impl.open.namedstreams.types.StreamType;
 import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.StringUtils;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.nio.charset.Charset;
 
 /**
- *
+ * A factory for creating WriteOnlyNs objects.
  */
 public abstract class WriteOnlyNsFactory implements NamedStreamFactory {
 
@@ -29,7 +26,7 @@ public abstract class WriteOnlyNsFactory implements NamedStreamFactory {
 	/**
 	 * Creates a new ReadOnlyNsFactory.
 	 *
-	 * @param resourceType
+	 * @param resourceType the resource type
 	 */
 	public WriteOnlyNsFactory(StreamResource resourceType) {
 		super();
@@ -62,10 +59,8 @@ public abstract class WriteOnlyNsFactory implements NamedStreamFactory {
 	/**
 	 * Creates a new NamedStream.
 	 *
-	 * @param def
-	 *
+	 * @param def the def
 	 * @return Returns the {@link NamedStream}.
-	 * @throws IOException
 	 * @throws CouldNotCreateNamedStreamException
 	 */
 	NamedStream<?> createNs(NamedStreamDefinition def) throws CouldNotCreateNamedStreamException {
@@ -76,12 +71,10 @@ public abstract class WriteOnlyNsFactory implements NamedStreamFactory {
 	/**
 	 * Creates a new NamedStream.
 	 *
-	 * @param stream
-	 *
-	 * @param def
-	 *
+	 * @param stream the stream
+	 * @param def the def
 	 * @return Returns the {@link NamedStream}.
-	 * @throws CouldNotCreateNamedStreamException
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */
 	NamedStream<?> createNs(OutputStream stream, NamedStreamDefinition def)
 			throws CouldNotCreateNamedStreamException {
@@ -100,15 +93,13 @@ public abstract class WriteOnlyNsFactory implements NamedStreamFactory {
 
 	/**
 	 * Creates a new NamedOutputStream that wraps a file.
-	 *
+	 * 
 	 * The specified file provides the underlying resource of the NamedStream.
-	 *
+	 * 
 	 * The file is read using the user-defined encoding in the Bo2 configuration.
 	 *
 	 * @param stream
 	 *
-	 * @param file
-	 *            File.
 	 * @param name
 	 *            Stream name.
 	 * @param recordLength
@@ -118,8 +109,6 @@ public abstract class WriteOnlyNsFactory implements NamedStreamFactory {
 	 *            Stream URI.
 	 *
 	 * @return Returns the NamedBufferedReader.
-	 *
-	 * @throws IOException
 	 */
 	NamedOutputStream output(OutputStream stream, String name, int recordLength, Charset encoding,
 			String uri) {
@@ -129,20 +118,14 @@ public abstract class WriteOnlyNsFactory implements NamedStreamFactory {
 
 	/**
 	 * Creates a new NamedPrintStream that wraps a file.
-	 *
+	 * 
 	 * The specified file provides the underlying resource of the NamedStream.
 	 *
-	 * @param stream
-	 *
-	 * @param name
-	 *            Stream name.
-	 * @param encoding
-	 *            Encoding (if applicable).
-	 * @param uri
-	 *            Stream URI.
-	 *
+	 * @param stream the stream
+	 * @param name            Stream name.
+	 * @param encoding            Encoding (if applicable).
+	 * @param uri            Stream URI.
 	 * @return Returns the NamedInputStream.
-	 * @throws FileNotFoundException
 	 */
 	NamedPrintStream writer(OutputStream stream, String name, Charset encoding, String uri) {
 		PrintStream br = new PrintStream(stream);
@@ -152,12 +135,10 @@ public abstract class WriteOnlyNsFactory implements NamedStreamFactory {
 	/**
 	 * Creates an InputStream according to the specified {@link NamedStreamDefinition}.
 	 *
-	 * @param def
-	 *            NamedStreamDefinition with the necessary information for the
+	 * @param def            NamedStreamDefinition with the necessary information for the
 	 *            creation of the stream.
-	 *
 	 * @return Returns the InputStream.
-	 * @throws CouldNotCreateNamedStreamException
+	 * @throws CouldNotCreateNamedStreamException the could not create named stream exception
 	 */
 	protected abstract OutputStream openOutputStream(NamedStreamDefinition def)
 			throws CouldNotCreateNamedStreamException;

@@ -22,9 +22,7 @@ import javax.swing.JTextArea;
  */
 public class BTextArea extends JTextArea implements ValueComponent {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;	
 		
 	/**

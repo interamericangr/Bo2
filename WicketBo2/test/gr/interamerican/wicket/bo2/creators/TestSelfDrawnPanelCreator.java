@@ -32,17 +32,15 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Unit test for SelfDrawnPanelCreator
+ * Unit test for SelfDrawnPanelCreator.
  */
 public class TestSelfDrawnPanelCreator extends Bo2WicketTest{
 	
-	/**
-	 * descriptor for test
-	 */
+	/** descriptor for test. */
 	BasicBusinessObjectDescriptor<ChildBean> beanDescriptor;
 	
 	/**
-	 * Init
+	 * Init.
 	 */
 	@Before
 	public void init(){
@@ -52,7 +50,7 @@ public class TestSelfDrawnPanelCreator extends Bo2WicketTest{
 	}
 
 	/**
-	 * Test constructor
+	 * Test constructor.
 	 */
 	@Test
 	public void testConstructor(){
@@ -62,7 +60,7 @@ public class TestSelfDrawnPanelCreator extends Bo2WicketTest{
 	
 	
 	/**
-	 * Test constructor
+	 * Test constructor.
 	 */
 	@Test
 	public void testCreatePanel(){
@@ -79,7 +77,8 @@ public class TestSelfDrawnPanelCreator extends Bo2WicketTest{
 	
 	
 	/**
-	 * Creates a sample descriptor
+	 * Creates a sample descriptor.
+	 *
 	 * @return sampleDesc
 	 */
 	StringBoPropertyDescriptor sampleDescriptor() {	

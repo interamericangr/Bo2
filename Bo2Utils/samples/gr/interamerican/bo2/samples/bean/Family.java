@@ -23,9 +23,8 @@ import java.util.List;
  * Family.
  */
 public class Family implements Serializable {
-	/**
-	 * 
-	 */
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Father.

@@ -78,15 +78,14 @@ public abstract class JasperReportOperation extends AbstractOperation {
     
     /**
      * Gets the datasource of the report.
-     * 
+     *
      * @return Returns the datasource of the report.
-     * 
-     * @throws DataException 
+     * @throws DataException the data exception
      */
     protected abstract JRDataSource datasource() throws DataException;
     
     
-    @SuppressWarnings("unchecked")
+      @SuppressWarnings("unchecked")
 	@Override
     public void init(Provider parent) throws InitializationException {
     	super.init(parent);

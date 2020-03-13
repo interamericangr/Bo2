@@ -16,35 +16,39 @@ import gr.interamerican.bo2.arch.DetachStrategy;
 import gr.interamerican.bo2.arch.Provider;
 
 /**
- * This implementation of {@link DetachStrategy} does not do 
- * anything.
+ * This implementation of {@link DetachStrategy} does not do anything.
  */
 public class JdbcDetachStrategy implements DetachStrategy {
-	
-	/**
-	 * serialVersionUID
-	 */
+
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
-	
+
 	/**
 	 * Singleton instance.
 	 */
 	public static final JdbcDetachStrategy INSTANCE = new JdbcDetachStrategy();
-	
+
 	/**
-	 * Creates a new JdbcDetachStrategy object. 
+	 * Creates a new JdbcDetachStrategy object.
 	 *
 	 */
 	private JdbcDetachStrategy() {
-		super();		
+		super();
 	}
 
-	public void reattach(Object object, Provider provider) {/* do nothing */}
-	
-	public void reattachForUpdate(Object object, Provider provider) {/* do nothing */}
+	@Override
+	public void reattach(Object object, Provider provider) {
+		/* do nothing */}
 
-	public void detach(Object object, Provider provider) {/* do nothing */}	
-	
-	public void markExplicitSave(Object object, Provider provider) {/* do nothing */}
+	@Override
+	public void reattachForUpdate(Object object, Provider provider) {
+		/* do nothing */}
 
+	@Override
+	public void detach(Object object, Provider provider) {
+		/* do nothing */}
+
+	@Override
+	public void markExplicitSave(Object object, Provider provider) {
+		/* do nothing */}
 }

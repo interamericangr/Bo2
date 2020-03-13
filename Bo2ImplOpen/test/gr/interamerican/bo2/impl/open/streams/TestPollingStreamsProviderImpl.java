@@ -46,7 +46,8 @@ public class TestPollingStreamsProviderImpl {
 	 * 
 	 * Creates an OutputStream, writes some data in it, then 
 	 * Creates an InputStream and reads the data.
-	 * @throws DataException 
+	 *
+	 * @throws DataException the data exception
 	 */
 	@Test(expected=DataOperationNotSupportedException.class)
 	public void testGetOutputStream_withoutException() 
@@ -60,7 +61,8 @@ public class TestPollingStreamsProviderImpl {
 	 * 
 	 * Creates an OutputStream, writes some data in it, then 
 	 * Creates an InputStream and reads the data.
-	 * @throws DataException
+	 *
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testInputStream_withoutException() 
@@ -72,8 +74,8 @@ public class TestPollingStreamsProviderImpl {
 	
 	/**
 	 * Tests the failure of an output stream creation.
-	 * 
-	 * @throws DataException
+	 *
+	 * @throws DataException the data exception
 	 */
 	@Test(expected=DataException.class)
 	public void testGetInputStream_withException() throws DataException {

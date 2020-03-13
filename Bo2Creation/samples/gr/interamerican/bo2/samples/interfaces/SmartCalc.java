@@ -18,7 +18,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
- * 
+ * The Interface SmartCalc.
  */
 public interface SmartCalc 
 extends IBeanWithIdAndName {
@@ -64,8 +64,8 @@ extends IBeanWithIdAndName {
 	
 	/**
 	 * Sets the numbers to add.
-	 * 
-	 * @param numbersToAdd
+	 *
+	 * @param numbersToAdd the new numbers to add
 	 */
 	public void setNumbersToAdd(List<BigDecimal> numbersToAdd);
 	
@@ -85,14 +85,15 @@ extends IBeanWithIdAndName {
 	
 	/**
 	 * Sets the alarmLimit.
-	 * 
-	 * @param alarmLimit
+	 *
+	 * @param alarmLimit the new alarm limit
 	 */
 	public void setAlarmLimit(BigDecimal alarmLimit);
 	
 	/**
 	 * Sets the left.
-	 * @param left
+	 *
+	 * @param left the new left
 	 */
 	public void setLeft(BigDecimal left);
 	
@@ -105,7 +106,8 @@ extends IBeanWithIdAndName {
 	
 	/**
 	 * Sets the right.
-	 * @param right
+	 *
+	 * @param right the new right
 	 */
 	public void setRight(BigDecimal right);
 	
@@ -118,8 +120,8 @@ extends IBeanWithIdAndName {
 	
 	/**
 	 * Checks if bd is between left and right.
-	 * 
-	 * @param bd
+	 *
+	 * @param bd the bd
 	 * @return Returns true if bd is within the range.
 	 */
 	public boolean contains(BigDecimal bd);

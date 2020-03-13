@@ -36,11 +36,11 @@ import gr.interamerican.bo2.utils.StringUtils;
 /**
  * {@link RuntimeCommand} is a runtime layer object that provides
  * a transaction context to a sequence of operations and executes
- * them. <br/>
+ * them. <br>
  * 
  * The RuntimeCommand is a one use object. It can be executed
  * only once. If a new execution is required, then a new RuntimeCommand
- * must be created. <br/>
+ * must be created. <br>
  **/
 public class RuntimeCommand {
 	
@@ -87,6 +87,22 @@ public class RuntimeCommand {
 			this.operation = new SequentialOperation(operations);			
 		}		
 	}
+	
+	/**
+	 * Creates a new RuntimeCommand object. This constructor is meant to be used
+	 * for executing Quartz jobs only! 
+	 *
+	 * @param provider the provider
+	 * @param operation the operation
+	 */
+	public RuntimeCommand(Provider provider, Operation operation) {
+		this.provider = provider;
+		this.operation = operation;
+		transactionManager = provider.getTransactionManager();
+		if (this.transactionManager==null) {
+			throw new NoTransactionManagerException();
+		}
+	}
 		
 	/**
 	 * Creates a new RuntimeCommand object.
@@ -120,31 +136,33 @@ public class RuntimeCommand {
 	
 	/**
 	 * Preparation before the main execution.
-	 * 
-	 * @throws DataException 
-	 * @throws LogicException 
-	 * @throws InitializationException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws InitializationException the initialization exception
 	 */
+	@SuppressWarnings("unused")
 	protected void before() throws DataException, LogicException, InitializationException {
 		/* empty */
 	}
 	
 	/**
 	 * Work to do after the main execution.
-	 * 
-	 * @throws DataException 
-	 * @throws LogicException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
+	@SuppressWarnings("unused")
 	protected void after() throws DataException, LogicException {
 		/* empty */
 	}
 	
 	/**
 	 * Executable method of the command.
-	 * 
-	 * @throws DataException
-	 * @throws LogicException
-	 * @throws UnexpectedException
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	public void execute() 
 	throws DataException, LogicException, UnexpectedException {
@@ -154,7 +172,6 @@ public class RuntimeCommand {
 			begin();
 			mainFlow();
 			commit();
-			provider.close();	
 		} catch (InitializationException ie) {
 			handle(ie);
 		} catch (DataException de) {
@@ -167,6 +184,7 @@ public class RuntimeCommand {
 			handle(err);
 			rethrow(err);
 		} finally {			
+			provider.close();
 			Bo2Session.setProvider(null);
 			Debug.resetActiveModule();			
 		}
@@ -174,10 +192,10 @@ public class RuntimeCommand {
 	
 	/**
 	 * Basic flow of execution.
-	 * 
-	 * @throws DataException
-	 * @throws LogicException
-	 * @throws InitializationException
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws InitializationException the initialization exception
 	 */
 	private void mainFlow() 
 	throws DataException, LogicException, InitializationException  {				
@@ -198,11 +216,11 @@ public class RuntimeCommand {
 	 * DataException or a LogicException, it will be re-thrown, if it 
 	 * is an instance of another type of Exception, it will wrap it 
 	 * inside an UnexpectedException.
-	 * 
+	 *
 	 * @param ex Exception.
-	 * @throws LogicException  
-	 * @throws DataException
-	 * @throws UnexpectedException 
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	void handle(Throwable ex) throws DataException, LogicException, UnexpectedException {
 		rollback(ex);
@@ -211,13 +229,12 @@ public class RuntimeCommand {
 	
 	/**
 	 * Re-throws the specified exception.
-	 * 
-	 * @param ex
-	 *        Exception to rethrow.
+	 *
+	 * @param ex        Exception to rethrow.
 	 *        
-	 * @throws DataException
-	 * @throws LogicException
-	 * @throws UnexpectedException
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	void rethrow(Throwable ex) 
 	throws DataException, LogicException, UnexpectedException {
@@ -287,9 +304,9 @@ public class RuntimeCommand {
 	
 	/**
 	 * Uses the transaction manager for rollback.
-	 * 
-	 * @param initialCause
-	 * @throws UnexpectedException
+	 *
+	 * @param initialCause the initial cause
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	private void rollback(Throwable initialCause) 
 	throws UnexpectedException {
@@ -304,5 +321,4 @@ public class RuntimeCommand {
 			throw new UnexpectedException(cnrbex);
 		}		
 	}	
-
 }

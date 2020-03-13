@@ -14,25 +14,26 @@ package gr.interamerican.bo2.jsqlparser.visitors;
 
 import java.io.StringReader;
 
+import org.junit.Assert;
+import org.junit.Test;
+
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.parser.CCJSqlParserManager;
 import net.sf.jsqlparser.parser.JSqlParser;
 import net.sf.jsqlparser.statement.Statement;
-import net.sf.jsqlparser.statement.StatementVisitor;
 import net.sf.jsqlparser.statement.select.Select;
-
-import org.junit.Assert;
-import org.junit.Test;
 
 
 /**
  * test case for {@link TableNamesFinderInJoin}, {@link TableNamesFinderInSelectElements},
- * {@link TableNamesFinderInWhereClause}
+ * {@link TableNamesFinderInWhereClause}.
  */
 public class TestTableNamesFinder {
 
 	/**
-	 * @throws JSQLParserException
+	 * Test get table names.
+	 *
+	 * @throws JSQLParserException the JSQL parser exception
 	 */
 	@Test
 	public void testGetTableNames() throws JSQLParserException {
@@ -41,7 +42,7 @@ public class TestTableNamesFinder {
 		Statement st = parser.parse(new StringReader(sql));
 		Select plain = (Select) st;
 		TableNamesFinderInSelectElements selectFinder = new TableNamesFinderInSelectElements();
-		plain.accept((StatementVisitor) selectFinder);
+		plain.accept(selectFinder);
 		Assert.assertTrue(selectFinder.getTableNames().contains("a")); //$NON-NLS-1$
 		Assert.assertTrue(selectFinder.getTableNames().contains("b")); //$NON-NLS-1$
 		Assert.assertFalse(selectFinder.getTableNames().contains("c")); //$NON-NLS-1$

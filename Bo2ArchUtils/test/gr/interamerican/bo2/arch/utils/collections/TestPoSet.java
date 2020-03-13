@@ -32,41 +32,32 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestPoSet.
  */
 public class TestPoSet {
 
-	/**
-	 * 6 sample vehicles
-	 */
+	/** 6 sample vehicles. */
 	private User v1;
-	/**
-	 * 
-	 */
+	
+	/** The v 2. */
 	private User v2;
-	/**
-	 * 
-	 */
+	
+	/** The v 3. */
 	private User v3;
-	/**
-	 * 
-	 */
+	
+	/** The v 4. */
 	private User v4;
-	/**
-	 * 
-	 */
+	
+	/** The v 5. */
 	private User v5;
-	/**
-	 * 
-	 */
+	
+	/** The v 6. */
 	private User v6;
-	/**
-	 * and a poset
-	 */
+	
+	/** and a poset. */
 	private PoSet<User> set;
-	/**
-	 * an old-fashioned set with the 3 first vehicles
-	 */
+	
+	/** an old-fashioned set with the 3 first vehicles. */
 	private Set<User> plainSet; 
 
 	/**
@@ -102,7 +93,7 @@ public class TestPoSet {
 	}
 
 	/**
-	 * tests Collection handling methods implemented in PoSet
+	 * tests Collection handling methods implemented in PoSet.
 	 */
 	@Test
 	public void testSetMethods() {
@@ -223,7 +214,7 @@ public class TestPoSet {
 	
 	/**
 	 * PoSet with parameters
-	 * Add a user to PoSet
+	 * Add a user to PoSet.
 	 */
 	@Test
 	public void  createPoSet(){
@@ -236,7 +227,7 @@ public class TestPoSet {
 
 	/**
 	 * Test Add
-	 * Add a user that already exists
+	 * Add a user that already exists.
 	 */
 	@Test
 	public void testAdd(){
@@ -244,7 +235,7 @@ public class TestPoSet {
 	}
 	
 	/**
-	 * Test Equals with null value
+	 * Test Equals with null value.
 	 */
 	@Test
 	public void testEqualsWithNullValue(){
@@ -252,7 +243,7 @@ public class TestPoSet {
 	}
 	
 	/**
-	 * Test Equals with the same PoSet
+	 * Test Equals with the same PoSet.
 	 */
 	@Test
 	public void testEqualsWithSamePoSet(){
@@ -261,17 +252,17 @@ public class TestPoSet {
 	
 	/**
 	 * Test that a PoSet can be serialized.
-	 * @throws IOException 
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
 	 */
 	@Test
 	public void testSerialization() throws IOException {
 		PoSet<User> subject = new PoSet<User>();
 		subject.addAll(set);
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		ObjectOutputStream oos = new ObjectOutputStream(baos);
-		oos.writeObject(subject);
-		oos.close();
+		try (ObjectOutputStream oos = new ObjectOutputStream(baos)) {
+			oos.writeObject(subject);
+		}
 		assertTrue(baos.toByteArray().length>0);
 	}
-	
 }

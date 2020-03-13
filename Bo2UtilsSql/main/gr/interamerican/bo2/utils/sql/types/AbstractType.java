@@ -17,17 +17,18 @@ import java.sql.SQLException;
 
 /**
  * Abstract basic implementation of {@link Type}.
- * 
- * @param <T> 
- * 
+ *
+ * @param <T> the generic type
  */
 public abstract class AbstractType <T> 
 implements Type<T> {
-	
+
+	@Override
 	public Object statementParameter(T t) {		
 		return t;
 	}
-	
+
+	@Override
 	public T get(ResultSet rs, int columnIndex, boolean returnNullValues) throws SQLException {
 		T result = get(rs, columnIndex);
 		if(rs.wasNull() && returnNullValues) {
@@ -35,7 +36,8 @@ implements Type<T> {
 		}
 		return result;
 	}
-	
+
+	@Override
 	public T get(ResultSet rs, String columnIndex, boolean returnNullValues) throws SQLException {
 		T result = get(rs, columnIndex);
 		if(rs.wasNull() && returnNullValues) {
@@ -43,5 +45,4 @@ implements Type<T> {
 		}
 		return result;
 	}
-
 }

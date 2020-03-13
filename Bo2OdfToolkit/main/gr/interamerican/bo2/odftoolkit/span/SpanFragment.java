@@ -24,8 +24,8 @@ public interface SpanFragment {
 	
 	/**
 	 * Appends this string element to the specified TextSpanElement.
-	 * 
-	 * @param span
+	 *
+	 * @param span the span
 	 */
 	void appendTo(TextSpanElement span);
 	

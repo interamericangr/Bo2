@@ -22,7 +22,7 @@ import gr.interamerican.bo2.impl.open.creation.Factory;
 import java.awt.Dimension;
 
 /**
- * panel for monitoring the status of jvm
+ * panel for monitoring the status of jvm.
  */
 public class MultiThreadedLongProcessStatsPanel 
 extends BPanel<MultiThreadedLongProcess> {
@@ -32,9 +32,7 @@ extends BPanel<MultiThreadedLongProcess> {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * fields
-	 */
+	/** fields. */
 	@SuppressWarnings("nls")
 	private static String[] FIELDS = { 
 		"countOfSubProcesses",  
@@ -47,7 +45,7 @@ extends BPanel<MultiThreadedLongProcess> {
 	/**
 	 * Creates a new MultiThreadedLongProcessStatsPanel object. 
 	 *
-	 * @param model
+	 * @param model the model
 	 */
 	public MultiThreadedLongProcessStatsPanel(MultiThreadedLongProcess model) {
 		super(model);

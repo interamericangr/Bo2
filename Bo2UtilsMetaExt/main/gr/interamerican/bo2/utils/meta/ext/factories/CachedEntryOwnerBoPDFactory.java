@@ -32,17 +32,13 @@ public class CachedEntryOwnerBoPDFactory {
 	
 	/**
 	 * Creates a {@link CachedEntryOwnerBoPropertyDescriptor} using a {@link PropertyDefinition}.
-	 * 
-	 * @param <T> 
-	 *        Type of entry owner.
-	 * @param <C> 
-	 *        Type of cache code.
-	 * @param pd
-	 *        PropertyDefinition
+	 *
+	 * @param <T>        Type of entry owner.
+	 * @param <C>        Type of cache code.
+	 * @param pd        PropertyDefinition
 	 *        
 	 * @return Returns a CachedEntryOwnerBoPropertyDescriptor.
-	 * 
-	 * @throws ParseException 
+	 * @throws ParseException the parse exception
 	 */
 	@SuppressWarnings("nls")
 	public static <T extends TranslatableEntryOwner<C, ?, ?>, C extends Comparable<? super C>> 
@@ -71,7 +67,7 @@ public class CachedEntryOwnerBoPDFactory {
 	}
 	
 	/**
-	 * Hidden constructor 
+	 * Hidden constructor.
 	 */
 	private CachedEntryOwnerBoPDFactory() { /* empty */ }
 	

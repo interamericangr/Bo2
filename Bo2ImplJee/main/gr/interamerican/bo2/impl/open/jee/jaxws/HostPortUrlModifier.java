@@ -14,40 +14,33 @@ import java.net.URL;
  */
 public class HostPortUrlModifier implements UrlModifier {
 
-	/**
-	 * new host
-	 */
+	/** new host. */
 	String host;
 	
-	/**
-	 * new port
-	 */
+	/** new port. */
 	int port;
-	
+
 	/**
 	 * Creates a new HostPortUrlModifier object.
-	 *  
+	 * 
 	 * @param hostPort
-	 *        e.g. "127.0.0.1:8080"
+	 *            e.g. "127.0.0.1:8080"
 	 */
 	public HostPortUrlModifier(String hostPort) {
 		String[] tokens = TokenUtils.splitTrim(hostPort, StringConstants.COLON);
 		this.host = tokens[0];
 		this.port = 80;
-		if(tokens.length > 1) {
+		if (tokens.length > 1) {
 			port = NumberUtils.string2Int(tokens[1]);
 		}
 	}
-	
+
+	@Override
 	public URL execute(URL a) {
-		
-		
 		try {
-			return new URL(
-				a.getProtocol(), host, port, a.getFile());
+			return new URL(a.getProtocol(), host, port, a.getFile());
 		} catch (MalformedURLException e) {
 			throw new RuntimeException(e);
 		}
 	}
-
 }

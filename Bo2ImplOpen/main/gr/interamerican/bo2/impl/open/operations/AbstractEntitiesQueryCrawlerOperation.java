@@ -19,8 +19,8 @@ extends AbstractQueryCrawlerOperation<Q> {
 
 	/**
 	 * Creates a new AbstractEntitiesQueryCrawlerOperation.
-	 * 
-	 * @param query
+	 *
+	 * @param query the query
 	 */
 	public AbstractEntitiesQueryCrawlerOperation(Q query) {
 		super(query);
@@ -34,9 +34,12 @@ extends AbstractQueryCrawlerOperation<Q> {
 	
 	/**
 	 * Handles the specified entity.
-	 * 
-	 * @param p
-	 *        entity to handle.
+	 *
+	 * @param p        entity to handle.
+	 * @throws LogicException the logic exception
+	 * @throws DataException the data exception
+	 * @throws LogicException 
+	 * @throws DataException 
 	 */
 	protected abstract void handleEntity(P p) throws LogicException, DataException; 
 

@@ -25,7 +25,7 @@ import javax.swing.JPanel;
 import javax.swing.SpringLayout;
 
 /**
- * 
+ * The Class Layout.
  */
 public class Layout {
 	
@@ -40,7 +40,7 @@ public class Layout {
 	
 	/**
 	 * Sets the layout of a panel so that all its components
-	 * are adjusted in a row. <br/>
+	 * are adjusted in a row. <br>
 	 * 
 	 * @param panel 
 	 *        Panel to set the layout.
@@ -65,12 +65,12 @@ public class Layout {
 	/**
 	 * Puts constraints so that the pair of components 
 	 * a label and a field are presented as a pair.
-	 * 
-	 * @param layout 
-	 * @param label
-	 * @param field
-	 * @param panel
-	 * @param x 
+	 *
+	 * @param layout the layout
+	 * @param label the label
+	 * @param field the field
+	 * @param panel the panel
+	 * @param x the x
 	 */
 	public static void layAsPair(SpringLayout layout, Component label, 
 			Component field, JPanel panel, int x) {
@@ -82,20 +82,17 @@ public class Layout {
 	/**
 	 * Sets the layout of a panel so that all its components
 	 * are adjusted in a stack of pairs of components with each
-	 * pair being the label of a field and its component. <br/>
+	 * pair being the label of a field and its component. <br>
 	 * 
 	 * 
 	 * TODO: Manage odd number of components in the panel.
-	 * 
-	 * @param panel 
-	 *        Panel to set the layout.
-	 * @param x
-	 *        Space between each component
-	 * @param y
-	 *        Space from the top of the panel to the top of each
+	 *
+	 * @param panel        Panel to set the layout.
+	 * @param x        Space between each component
+	 * @param y        Space from the top of the panel to the top of each
 	 *        component.
-	 * @param exceptLast 
-	 * @param xForLast 
+	 * @param exceptLast the except last
+	 * @param xForLast the x for last
 	 */
 	public static void layAsStackOfLabeledFields(JPanel panel, int x, int y, int exceptLast, int xForLast) {
 		SpringLayout layout = new SpringLayout();
@@ -141,7 +138,7 @@ public class Layout {
 	/**
 	 * Sets the layout of a panel so that all its components
 	 * are adjusted in a stack of pairs of components with each
-	 * pair being the label of a field and its component. <br/>
+	 * pair being the label of a field and its component. <br>
 	 * 
 	 * @param panel 
 	 *        Panel to set the layout.
@@ -157,7 +154,7 @@ public class Layout {
 	
 	/**
 	 * Sets the layout of a panel so that all its components
-	 * are adjusted in a stack, one under the other. <br/>
+	 * are adjusted in a stack, one under the other. <br>
 	 * 
 	 * @param panel 
 	 *        Panel to set the layout.

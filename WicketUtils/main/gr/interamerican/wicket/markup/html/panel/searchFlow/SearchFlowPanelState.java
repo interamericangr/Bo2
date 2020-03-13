@@ -12,6 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.wicket.markup.html.panel.searchFlow;
 
+import org.apache.wicket.Component;
 
 /**
  * Possible states of a {@link SearchFlowPanel}.
@@ -23,9 +24,9 @@ public enum SearchFlowPanelState {
 	 */
 	CRITERIA {
 		@Override
-		void paint(SearchFlowPanel<?, ?> panel) {			
-			panel.criteriaPanel.setVisible(true);
-			panel.resultsPanel.setVisible(false);
+		void paint(Component criteriaPanel, Component resultsPanel) {			
+			criteriaPanel.setVisible(true);
+			resultsPanel.setVisible(false);
 		}
 	},
 	
@@ -34,9 +35,9 @@ public enum SearchFlowPanelState {
 	 */
 	RESULTS {
 		@Override
-		void paint(SearchFlowPanel<?, ?> panel) {			
-			panel.criteriaPanel.setVisible(false);
-			panel.resultsPanel.setVisible(true);
+		void paint(Component criteriaPanel, Component resultsPanel) {			
+			criteriaPanel.setVisible(false);
+			resultsPanel.setVisible(true);
 		}
 	},
 	
@@ -45,20 +46,17 @@ public enum SearchFlowPanelState {
 	 */
 	BOTH {
 		@Override
-		void paint(SearchFlowPanel<?, ?> panel) {
-			panel.criteriaPanel.setVisible(true);
-			panel.resultsPanel.setVisible(true);
+		void paint(Component criteriaPanel, Component resultsPanel) {
+			criteriaPanel.setVisible(true);
+			resultsPanel.setVisible(true);
 		}
 	};
 	
 	
 	/**
 	 * Paints the panel.
-	 * 
-	 * @param panel
+	 * @param criteriaPanel 
+	 * @param resultsPanel
 	 */
-	abstract void paint(SearchFlowPanel<?, ?> panel);
-	
-	
-
+	abstract void paint(Component criteriaPanel, Component resultsPanel);
 }

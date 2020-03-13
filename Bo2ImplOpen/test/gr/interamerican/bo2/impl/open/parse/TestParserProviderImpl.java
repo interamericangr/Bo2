@@ -24,7 +24,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 /**
- * 
+ * The Class TestParserProviderImpl.
  */
 public class TestParserProviderImpl {
 	

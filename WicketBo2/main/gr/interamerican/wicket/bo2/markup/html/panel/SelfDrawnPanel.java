@@ -12,6 +12,24 @@
  ******************************************************************************/
 package gr.interamerican.wicket.bo2.markup.html.panel;
 
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+
+import org.apache.wicket.Component;
+import org.apache.wicket.MarkupContainer;
+import org.apache.wicket.markup.IMarkupCacheKeyProvider;
+import org.apache.wicket.markup.IMarkupResourceStreamProvider;
+import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.markup.repeater.RepeatingView;
+import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.util.resource.IResourceStream;
+
 import gr.interamerican.bo2.arch.ext.TranslatableEntry;
 import gr.interamerican.bo2.arch.utils.CacheRegistry;
 import gr.interamerican.bo2.utils.CollectionUtils;
@@ -29,36 +47,16 @@ import gr.interamerican.wicket.bo2.markup.html.form.DropDownChoiceForEntry;
 import gr.interamerican.wicket.bo2.utils.SelfDrawnUtils;
 import gr.interamerican.wicket.util.resource.StringAsResourceStream;
 
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-
-import org.apache.wicket.Component;
-import org.apache.wicket.MarkupContainer;
-import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
-import org.apache.wicket.markup.IMarkupCacheKeyProvider;
-import org.apache.wicket.markup.IMarkupResourceStreamProvider;
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.panel.Panel;
-import org.apache.wicket.markup.repeater.RepeatingView;
-import org.apache.wicket.model.CompoundPropertyModel;
-import org.apache.wicket.util.resource.IResourceStream;
-
 /**
  * The components are drawn inside a {@link RepeatingView}.
- * <br/>
+ * <br>
  * Each component may optionally contain a label to indicate
  * what it is.
- * <br/>
+ * <br>
  * This Panel requires a {@link CompoundPropertyModel}. If the
  * model object of this model changes, the change is propagated
  * to the contained components.
- * <br/>
+ * <br>
  * The components are drawn in a grid layout. The user specifies the
  * number of columns. The markup is calculated dynamically.
  * 
@@ -68,9 +66,7 @@ import org.apache.wicket.util.resource.IResourceStream;
 public class SelfDrawnPanel<T extends Serializable> extends Panel
 implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -87,18 +83,6 @@ implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 	 * Wicket id of empty component.
 	 */
 	private static final String COMPONENT_WICKET_ID = "component"; //$NON-NLS-1$
-
-	/**
-	 * Name of index property of {@link BoPropertyDescriptor}. This is used to
-	 * sort the components within the panel.
-	 */
-	private static final String INDEX_PROPERTY_NAME = "index"; //$NON-NLS-1$
-	
-	/**
-	 * Name of name property of {@link BoPropertyDescriptor}. This is used to
-	 * generate a unique for the BusinessObjectDescriptor. 
-	 */
-	private static final String NAME_PROPERTY_NAME = "name"; //$NON-NLS-1$
 
 	/**
 	 * Placeholder for Wicket id of label on body template.
@@ -125,14 +109,10 @@ implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 	 */
 	private static final String MARKUP_TAIL = "/gr/interamerican/wicket/bo2/markup/html/panel/SelfDrawnPanel_tail.txt"; //$NON-NLS-1$
 	
-	/**
-	 * head of a row
-	 */
+	/** head of a row. */
 	private static final String ROW_HEAD = "<tr style=\"height:23px;\">"; //$NON-NLS-1$
 	
-	/**
-	 * bottom of a row
-	 */
+	/** bottom of a row. */
 	private static final String ROW_BOTTOM = "</tr>"; //$NON-NLS-1$
 	
 	/**
@@ -140,9 +120,7 @@ implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 	 */
 	static final ConcurrentHashMap<String, String> MARKUPS = new ConcurrentHashMap<String, String>(); 
 
-	/**
-	 * Model
-	 */
+	/** Model. */
 	private final CompoundPropertyModel<T> model;
 	
 	/**
@@ -164,11 +142,10 @@ implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 
 	/**
 	 * Creates a new SelfDrawnPanel object with 1 column and no drop down fixture.
-	 * 
-	 * @param id
-	 * @param model
-	 * @param boDescriptor
-	 * 
+	 *
+	 * @param id the id
+	 * @param model the model
+	 * @param boDescriptor the bo descriptor
 	 * @see #SelfDrawnPanel(String, CompoundPropertyModel, BusinessObjectDescriptor, int, Map)
 	 */
 	public SelfDrawnPanel(String id, CompoundPropertyModel<T> model, BusinessObjectDescriptor<T> boDescriptor) {
@@ -208,7 +185,7 @@ implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 		}
 		
 		List<BoPropertyDescriptor<?>> specs = boDescriptor.getPropertyDescriptors();
-		specs = CollectionUtils.sort(specs, BoPropertyDescriptor.class, INDEX_PROPERTY_NAME);
+		specs = CollectionUtils.sort(specs, BoPropertyDescriptor::getIndex);
 		List<List<BoPropertyDescriptor<?>>> rowSpecs = CollectionUtils.partition(specs, columns);
 		
 		String markup = MARKUPS.get(markupKey);
@@ -222,45 +199,44 @@ implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 		}
 		
 		add(label);
-		
 		addOnChangeBehaviorsOnAffectingDropDowns(boDescriptor);
-		
 	}
-	
+
+	@Override
 	public String getCacheKey(MarkupContainer container, Class<?> containerClass) {
 		return null; //no caching
 	}
 
+	@Override
 	public IResourceStream getMarkupResourceStream(MarkupContainer container, Class<?> containerClass) {
 		return new StringAsResourceStream(MARKUPS.get(markupKey));
 	}
-	
+
 	/**
 	 * Calculate a unique key based on the BusinessObjectDescriptor to facilitate
 	 * markup caching.
-	 * 
-	 * @param businessObjectDescriptor
-	 * 
+	 *
+	 * @param businessObjectDescriptor the business object descriptor
 	 * @return Unique key.
 	 */
 	String markupKey(BusinessObjectDescriptor<T> businessObjectDescriptor) {
 		List<BoPropertyDescriptor<?>> propertyDescriptors = CollectionUtils.sort(
-				businessObjectDescriptor.getPropertyDescriptors(), BoPropertyDescriptor.class, NAME_PROPERTY_NAME);
-		
+				businessObjectDescriptor.getPropertyDescriptors(), BoPropertyDescriptor::getName);
 		StringBuilder sb = new StringBuilder();
 		sb.append(columns + StringConstants.COLON);
 		sb.append(businessObjectDescriptor.getName() + StringConstants.COLON);
 		for(BoPropertyDescriptor<?> bpd : propertyDescriptors) {
 			sb.append(bpd.getName());
 		}
-		
 		return sb.toString();
 	}
 	
 	/**
 	 * Populate the WebMarkupContainer that encapsulates a single row.
-	 * @param rowSpec
-	 * @param boDescriptor 
+	 *
+	 * @param <E> the element type
+	 * @param rowSpec the row spec
+	 * @param boDescriptor the bo descriptor
 	 */
 	@SuppressWarnings("unchecked")
 	<E extends TranslatableEntry<Long, ?, Long>>
@@ -305,10 +281,11 @@ implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 	/**
 	 * Sets the choices for a dependent drop down based on the model
 	 * object value of the affecting property.
-	 * 
-	 * @param boDescriptor
-	 * @param affectedPd
-	 * @param affectedDdc
+	 *
+	 * @param <E> the element type
+	 * @param boDescriptor the bo descriptor
+	 * @param affectedPd the affected pd
+	 * @param affectedDdc the affected ddc
 	 */
 	@SuppressWarnings("unchecked")
 	<E extends TranslatableEntry<Long, ?, Long>>
@@ -330,10 +307,11 @@ implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 	
 	/**
 	 * Sets the choices to a drop down based on a supplied fixture.
-	 * 
-	 * @param fixedPd
-	 * @param fixedDdc
-	 * @param subListCd
+	 *
+	 * @param <E> the element type
+	 * @param fixedPd the fixed pd
+	 * @param fixedDdc the fixed ddc
+	 * @param subListCd the sub list cd
 	 */
 	<E extends TranslatableEntry<Long, ?, Long>>
 	void setChoicesToFixedDropDown(CachedEntryBoPropertyDescriptor<E, Long> fixedPd, DropDownChoiceForEntry<Long,E> fixedDdc, Long subListCd) {
@@ -378,9 +356,9 @@ implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 	
 	/**
 	 * Creates the static markup for a single row.
-	 * 
-	 * @param rowSpec
-	 * @param body
+	 *
+	 * @param rowSpec the row spec
+	 * @param body the body
 	 * @return Row markup.
 	 */
 	String rowMarkup(List<BoPropertyDescriptor<?>> rowSpec, String body) {
@@ -416,7 +394,8 @@ implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 	 * Resolves DropDownChoices that affect other DropDownChoices and adds ajax
 	 * 'onchange' behaviors. 
 	 *  
-	 * @param boDescriptor
+	 *
+	 * @param boDescriptor the bo descriptor
 	 */
 	void addOnChangeBehaviorsOnAffectingDropDowns(BusinessObjectDescriptor<T> boDescriptor) {
 		for(BoPropertyDescriptor<?> bpd : boDescriptor.getPropertyDescriptors()) {
@@ -429,27 +408,29 @@ implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 	/**
 	 * Adds an 'onchange' behavior on a DropDownChoice of this panel that
 	 * affects another DropDownChoice of this panel.
-	 * 
-	 * @param boDescriptor
-	 * @param affecting
-	 * @param affected
+	 *
+	 * @param <E> the element type
+	 * @param boDescriptor the bo descriptor
+	 * @param affecting the affecting
+	 * @param affected the affected
 	 */
-	@SuppressWarnings("unchecked")
 	<E extends TranslatableEntry<Long, ?, Long>> void addOnChangeBehaviorOnAffectingDropDown(
 		BusinessObjectDescriptor<T> boDescriptor, String affecting, String affected) {
-		
+		@SuppressWarnings("unchecked")
 		DropDownChoiceForEntry<Long, E> affectingDdc = (DropDownChoiceForEntry<Long, E>) get(affecting);
+		@SuppressWarnings("unchecked")
 		DropDownChoiceForEntry<Long, E> affectedDdc = (DropDownChoiceForEntry<Long, E>) get(affected);
 		BoPropertyDescriptor<?> unchecked = boDescriptor.getDescriptorByName(affected);
 		CachedEntryBoPropertyDescriptor<E, ?> affectedDescriptor = unwrapDescriptorIfAppropriate(boDescriptor, unchecked);
 		affectingDdc.add(new AffectingDdcBehavior<E>(affectingDdc, affectedDdc, affectedDescriptor));
 	}
-	
+
 	/**
 	 * Unwrap possibly wrapped {@link CachedEntryBoPropertyDescriptor}.
-	 * 
-	 * @param boDescriptor
-	 * @param possiblyWrapped
+	 *
+	 * @param <E> the element type
+	 * @param boDescriptor the bo descriptor
+	 * @param possiblyWrapped the possibly wrapped
 	 * @return CachedEntryBoPropertyDescriptor
 	 */
 	@SuppressWarnings({ "nls", "unchecked" })
@@ -518,69 +499,4 @@ implements IMarkupResourceStreamProvider, IMarkupCacheKeyProvider {
 		l.setVisible(false);
 		return l;
 	}
-	
-	/**
-	 * Behavior that will affect the choices of a Drop Down Choice of this panel
-	 * based on the selection performed on another Drop Down Choice of this panel
-	 * that affects the first.
-	 * 
-	 * @param <E> Entry type. This is hacky, not both DDCs have to have the same type.
-	 */
-	static class AffectingDdcBehavior<E extends TranslatableEntry<Long, ?, Long>> extends AjaxFormComponentUpdatingBehavior {
-		
-		/**
-		 * serialVersionUID.
-		 */
-		private static final long serialVersionUID = 1L;
-		
-		/**
-		 * Affecting drop down choice
-		 */
-		DropDownChoiceForEntry<Long,E> affectingDdc;
-		
-		/**
-		 * Affected drop down choice
-		 */
-		DropDownChoiceForEntry<Long,E> affectedDdc;
-		
-		/**
-		 * Cache name of the affectedDescriptor 
-		 */
-		String cacheName;
-		
-		/**
-		 * Type id of the affectedDescriptor 
-		 */
-		Long typeId;
-		
-		/**
-		 * Creates a new SelfDrawnPanel.AffectingDdcBehavior object. 
-		 * @param affectedDdc 
-		 * @param affectedDescriptor 
-		 * @param affectingDdc 
-		 */
-		public AffectingDdcBehavior(DropDownChoiceForEntry<Long,E> affectingDdc, DropDownChoiceForEntry<Long,E> affectedDdc, CachedEntryBoPropertyDescriptor<E,?> affectedDescriptor) {
-			super("onchange"); //$NON-NLS-1$
-			this.affectedDdc = affectedDdc;
-			this.cacheName = affectedDescriptor.getCacheName();
-			this.typeId = affectedDescriptor.getTypeId();
-			this.affectingDdc = affectingDdc;
-		}
-		
-		@Override
-		protected void onUpdate(AjaxRequestTarget target) {
-			target.add(affectedDdc);
-			E affectingChoice = affectingDdc.getModelObject();
-			Long affectedSubListCd = null;
-			if(affectingChoice != null) {
-				affectedSubListCd = affectingChoice.getCode();
-			}
-			Set<E> choices = CacheRegistry.<Long>getRegisteredCache(cacheName).getSubCache(typeId, affectedSubListCd);
-			List<E> choicesList = new ArrayList<E>(choices);
-			affectedDdc.setChoices(choicesList);
-			SelfDrawnUtils.<Long, E>sortCachedEntries(affectedDdc);
-		}
-		
-	}
-
 }

@@ -19,15 +19,18 @@ import gr.interamerican.bo2.creation.ClassCreator;
  */
 public class MockClassCreator implements ClassCreator {
 	
+	@Override
 	public Class<?> create(Class<?> interfaceType) {
 		return null;
 	}
 
 	
+	@Override
 	public String compileTimeClassName(String runTimeName) {
 		return null;
 	}
 
+	@Override
 	public String runTimeClassName(String compileTimeName) {
 		return null;
 	}

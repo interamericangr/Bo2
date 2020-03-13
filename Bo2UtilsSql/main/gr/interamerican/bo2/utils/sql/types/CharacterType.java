@@ -36,15 +36,18 @@ extends QuotedType<Character> {
 		super();		
 	}
 	
+	@Override
 	public Character get(ResultSet rs, String columnIndex) throws SQLException {		
 		return StringUtils.firstChar(rs.getString(columnIndex));		
 		
 	}
 	
+	@Override
 	public Character get(ResultSet rs, int columnIndex) throws SQLException {		
 		return StringUtils.firstChar(rs.getString(columnIndex));
 	}
 	
+	@Override
 	public Class<Character> getJavaType() {
 		return Character.class;
 	}	

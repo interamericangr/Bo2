@@ -38,6 +38,7 @@ import org.junit.Test;
 /**
  * Unit tests for {@link StoredDynamicEntitiesQuery}.
  */
+@Deprecated
 public class TestStoredDynamicEntitiesQuery {
 	
 	/**
@@ -47,13 +48,13 @@ public class TestStoredDynamicEntitiesQuery {
 	
 	/**
 	 * Unit test for the whole life cycle.
-	 * 
-	 * @throws InitializationException 
-	 * @throws DataException 
-	 * @throws LogicException 
-	 * @throws NoSuchFieldException 
-	 * @throws SecurityException 
-	 * @throws UnexpectedException 
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws SecurityException the security exception
+	 * @throws NoSuchFieldException the no such field exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -116,9 +117,9 @@ public class TestStoredDynamicEntitiesQuery {
 	
 	/**
 	 * Unit test for failed init.
-	 * 
-	 * @throws InitializationException 
-	 * @throws DataException 
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
 	 */
 	@Test(expected=InitializationException.class)
 	public void testInit_Fail() throws InitializationException, DataException {
@@ -134,10 +135,11 @@ public class TestStoredDynamicEntitiesQuery {
 
 	
 	/**
-	 * Test get values from fields
-	 * @throws InitializationException
-	 * @throws DataException
-	 * @throws ParseException 
+	 * Test get values from fields.
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
+	 * @throws ParseException the parse exception
 	 */
 	@Test
 	public void testGetFields() throws InitializationException, DataException, ParseException{
@@ -192,7 +194,7 @@ public class TestStoredDynamicEntitiesQuery {
 	
 	
 	/**
-	 * Test IsAvoidLock
+	 * Test IsAvoidLock.
 	 */
 	@Test
 	public void testIsAvoidLock(){
@@ -204,7 +206,7 @@ public class TestStoredDynamicEntitiesQuery {
 	
 	
 	/**
-	 * Test setAvoidLock
+	 * Test setAvoidLock.
 	 */
 	@Test
 	public void testSetAvoidLock(){
@@ -216,7 +218,7 @@ public class TestStoredDynamicEntitiesQuery {
 	
 	
 	/**
-	 * Test SetCriteria
+	 * Test SetCriteria.
 	 */
 	@Test
 	public void testSetCriteria(){
@@ -228,7 +230,7 @@ public class TestStoredDynamicEntitiesQuery {
 
 	
 	/**
-	 * Test getInputObjectType
+	 * Test getInputObjectType.
 	 */
 	@Test
 	public void testGetInputObjectType_nullValue(){
@@ -238,7 +240,7 @@ public class TestStoredDynamicEntitiesQuery {
 	}
 	
 	/**
-	 * Test getInputObjectType
+	 * Test getInputObjectType.
 	 */
 	@Test
 	public void testGetOutputObjectType_nullValue(){

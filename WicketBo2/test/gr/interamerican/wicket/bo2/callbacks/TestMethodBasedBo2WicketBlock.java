@@ -24,11 +24,9 @@ import org.junit.Test;
 /**
  * Unit tests for {@link MethodBasedBo2WicketBlock}.
  */
-@SuppressWarnings("nls")
+@SuppressWarnings({"nls", "deprecation"})
 public class TestMethodBasedBo2WicketBlock implements Serializable { //HACK
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
 	/**
@@ -45,9 +43,8 @@ public class TestMethodBasedBo2WicketBlock implements Serializable { //HACK
 
 	/**
 	 * Method to be executed by MethodBasedBo2WicketBlock.
-	 * 
-	 * @param i
-	 * 
+	 *
+	 * @param i the i
 	 */
 	void onEventWithParams(Integer i) {
 		integer = i;
@@ -61,16 +58,16 @@ public class TestMethodBasedBo2WicketBlock implements Serializable { //HACK
 
 	/**
 	 * Overloaded method.
-	 * 
-	 * @param argument
+	 *
+	 * @param argument the argument
 	 */
 	void ambiguous(@SuppressWarnings("unused") Integer argument) {/* empty */}
 
 	/**
 	 * Method to be executed by a {@link Bo2WicketBlock} and throw
 	 * an Exception.
-	 * 
-	 * @throws LogicException
+	 *
+	 * @throws LogicException the logic exception
 	 */
 	void doThrow() throws LogicException {
 		throw new LogicException();
@@ -117,7 +114,7 @@ public class TestMethodBasedBo2WicketBlock implements Serializable { //HACK
 		MethodBasedBo2WicketBlock block =
 				new MethodBasedBo2WicketBlock("onEvent", this);
 		integer = 0;
-		block.execute();
+		block.work();
 		assertEquals(Integer.valueOf(1), integer);
 	}
 
@@ -130,7 +127,7 @@ public class TestMethodBasedBo2WicketBlock implements Serializable { //HACK
 				new MethodBasedBo2WicketBlock("doThrow", this);
 		integer = 0;
 		try {
-			block.execute();
+			block.work();
 		} catch (RuntimeException e) {
 			Throwable cause = e.getCause();
 			assertTrue(cause instanceof LogicException);
@@ -147,7 +144,7 @@ public class TestMethodBasedBo2WicketBlock implements Serializable { //HACK
 				new MethodBasedBo2WicketBlock("onEventWithParams", this);
 		integer = 0;
 		block.setHandlerParameter(Integer.class, 7);
-		block.execute();
+		block.work();
 		assertEquals(Integer.valueOf(7), integer);
 	}
 

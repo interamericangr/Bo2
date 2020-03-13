@@ -32,10 +32,10 @@ public class TestSettingSupertypeClassUpdater {
 	
 	/**
 	 * Unit test for update.
-	 * 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws ClassCreationException 
+	 *
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws ClassCreationException the class creation exception
 	 */	
 	@Test
 	public void testUpdate() 
@@ -51,14 +51,14 @@ public class TestSettingSupertypeClassUpdater {
 	
 	/**
 	 * Unit test for update.
-	 * 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws ClassCreationException 
-	 * @throws NoSuchMethodException 
-	 * @throws SecurityException 
-	 * @throws InvocationTargetException 
-	 * @throws IllegalArgumentException 
+	 *
+	 * @throws InstantiationException the instantiation exception
+	 * @throws IllegalAccessException the illegal access exception
+	 * @throws ClassCreationException the class creation exception
+	 * @throws SecurityException the security exception
+	 * @throws NoSuchMethodException the no such method exception
+	 * @throws IllegalArgumentException the illegal argument exception
+	 * @throws InvocationTargetException the invocation target exception
 	 */	
 	@Test
 	public void testUpdate_classHasNoDefaultConstructor() 

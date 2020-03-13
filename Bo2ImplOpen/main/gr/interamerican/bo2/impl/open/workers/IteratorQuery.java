@@ -42,7 +42,7 @@ implements EntitiesQuery<T> {
 	 * Current entity.
 	 */
 	T entity = null;
-	
+
 	@Override
 	public void execute() throws DataException {
 		row = 0;
@@ -50,7 +50,6 @@ implements EntitiesQuery<T> {
 		iterator = createIterator();
 	}
 
-	
 	@Override
 	public boolean next() throws DataAccessException {
 		if (!iterator.hasNext()) {
@@ -82,7 +81,7 @@ implements EntitiesQuery<T> {
 	/**
 	 * Creates a new IteratorQuery object. 
 	 *
-	 * @param iterator
+	 * @param iterator the iterator
 	 */
 	public IteratorQuery(Iterator<T> iterator) {
 		super();
@@ -104,19 +103,16 @@ implements EntitiesQuery<T> {
 	/**
 	 * This method creates the iterator.
 	 * 
-	 * This method is invoked by the <code>execute()</code>
-	 * method in order to get the iterator with the query
-	 * data. By default it returns the iterator defined in
-	 * the constructor. It must be overriden in order to create
-	 * the iterator dynamically.
-	 * 
+	 * This method is invoked by the <code>execute()</code> method in order to
+	 * get the iterator with the query data. By default it returns the iterator
+	 * defined in the constructor.<br>
+	 * It must be overriden in order to create the iterator dynamically.
+	 *
 	 * @return Returns the iterator.
-	 * 
-	 * @throws DataException 
+	 * @throws DataException the data exception
 	 */
-	protected Iterator<T> createIterator() 
-	throws DataException {
+	@SuppressWarnings("unused")
+	protected Iterator<T> createIterator() throws DataException {
 		return iterator;		
 	}
-
 }

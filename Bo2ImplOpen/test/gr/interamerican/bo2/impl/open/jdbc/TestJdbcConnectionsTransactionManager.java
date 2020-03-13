@@ -39,9 +39,8 @@ public class TestJdbcConnectionsTransactionManager {
 	 * test for hibernate.
 	 */
 	ProviderTransactionManagerTestBean testBeanHib;
-	/**
-	 * Test for jdbc
-	 */
+	
+	/** Test for jdbc. */
 	ProviderTransactionManagerTestBean testBeanJdbc;
 	
 	/**
@@ -61,10 +60,10 @@ public class TestJdbcConnectionsTransactionManager {
 	
 	/**
 	 * Tests commit with JDBC.
-	 * 
-	 * @throws DataException
-	 * @throws LogicException
-	 * @throws UnexpectedException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test
 	public void testCommit_withJdbc() throws DataException, LogicException, UnexpectedException {
@@ -73,10 +72,10 @@ public class TestJdbcConnectionsTransactionManager {
 	
 	/**
 	 * Tests commit with Hibernate.
-	 * 
-	 * @throws DataException
-	 * @throws LogicException
-	 * @throws UnexpectedException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */	
 	@Test
 	public void testCommit_withHibernate() throws DataException, LogicException, UnexpectedException {
@@ -85,10 +84,10 @@ public class TestJdbcConnectionsTransactionManager {
 
 	/**
 	 * Tests rollback with JDBC.
-	 * 
-	 * @throws DataException
-	 * @throws LogicException
-	 * @throws UnexpectedException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */
 	@Test
 	public void testRollback_withJdbc() throws DataException, LogicException, UnexpectedException {
@@ -97,10 +96,10 @@ public class TestJdbcConnectionsTransactionManager {
 	
 	/**
 	 * Tests rollback with Hibernate.
-	 * 
-	 * @throws DataException
-	 * @throws LogicException
-	 * @throws UnexpectedException 
+	 *
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
+	 * @throws UnexpectedException the unexpected exception
 	 */	
 	@Test
 	public void testRollback_withHibernate() throws DataException, LogicException, UnexpectedException {
@@ -109,12 +108,12 @@ public class TestJdbcConnectionsTransactionManager {
 	
 	/**
 	 * Tests that the enList method.
-	 * 
-	 * @throws InitializationException
-	 * @throws DataException
-	 * @throws SQLException
-	 * @throws CouldNotBeginException 
-	 * @throws CouldNotEnlistException 
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
+	 * @throws SQLException the SQL exception
+	 * @throws CouldNotBeginException the could not begin exception
+	 * @throws CouldNotEnlistException the could not enlist exception
 	 */
 	@Test
 	public void testEnList() 
@@ -136,19 +135,20 @@ public class TestJdbcConnectionsTransactionManager {
 	
 	/**
 	 * Tests that the delist method.
-	 * 
-	 * @throws InitializationException
-	 * @throws DataException
-	 * @throws SQLException
-	 * @throws CouldNotBeginException 
-	 * @throws CouldNotDelistException 
-	 * @throws CouldNotEnlistException 
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
+	 * @throws SQLException the SQL exception
+	 * @throws CouldNotBeginException the could not begin exception
+	 * @throws CouldNotDelistException the could not delist exception
+	 * @throws CouldNotEnlistException the could not enlist exception
 	 */
 	@Test
 	public void testDeList() 
 	throws InitializationException, DataException, SQLException, CouldNotBeginException, CouldNotDelistException, CouldNotEnlistException {
 		Provider provider = Bo2.getProvider();
 		JdbcConnectionProvider jdbc = provider.getResource("LOCALDB",JdbcConnectionProvider.class); //$NON-NLS-1$		
+		@SuppressWarnings("resource")
 		Connection connection = jdbc.getConnection();
 		
 		JdbcConnectionsTransactionManager manager = new JdbcConnectionsTransactionManager();

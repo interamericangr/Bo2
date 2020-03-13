@@ -37,7 +37,9 @@ public class Bo2DeploymentHibernateInfoUtility {
 	private static Logger LOGGER = LoggerFactory.getLogger(ObjectFactoryImpl.class);
 
 	/**
-	 * @param hbmPath
+	 * Gets the hbm contents.
+	 *
+	 * @param hbmPath the hbm path
 	 * @return the contents of the hdm file, null if not found.
 	 */
 	private String getHbmContents(String hbmPath) {
@@ -56,7 +58,9 @@ public class Bo2DeploymentHibernateInfoUtility {
 	}
 
 	/**
-	 * @param hbmPath
+	 * Gets the package from hbm.
+	 *
+	 * @param hbmPath the hbm path
 	 * @return the package from the given hbm
 	 */
 	private String getPackageFromHbm(String hbmPath) {
@@ -69,8 +73,11 @@ public class Bo2DeploymentHibernateInfoUtility {
 		String pack = el.attr("package"); //$NON-NLS-1$
 		return pack;
 	}
+	
 	/**
-	 * @param hbmPath
+	 * Gets the class from hbm.
+	 *
+	 * @param hbmPath the hbm path
 	 * @return the class for the given hbm.
 	 */
 	String getClassFromHbm(String hbmPath) {
@@ -89,7 +96,9 @@ public class Bo2DeploymentHibernateInfoUtility {
 	}
 
 	/**
-	 * @param hbmPath
+	 * Gets the sub classes from hbm.
+	 *
+	 * @param hbmPath the hbm path
 	 * @return the join-subclasses from the hbm
 	 */
 	Set<String> getSubClassesFromHbm(String hbmPath) {
@@ -119,7 +128,9 @@ public class Bo2DeploymentHibernateInfoUtility {
 	}
 
 	/**
-	 * @param className
+	 * Generate class from string.
+	 *
+	 * @param className the class name
 	 * @return the class that will be created by the given classname.
 	 */
 	Class<?> generateClassFromString(String className) {
@@ -141,8 +152,11 @@ public class Bo2DeploymentHibernateInfoUtility {
 		}
 		return obj.getClass();
 	}
+	
 	/**
-	 * @param propertyValue
+	 * Gets the hibernate classes from flat file.
+	 *
+	 * @param propertyValue the property value
 	 * @return a set of hibernate classes from the given flat file.
 	 */
 	Set<Class<?>> getHibernateClassesFromFlatFile(String propertyValue) {
@@ -173,8 +187,10 @@ public class Bo2DeploymentHibernateInfoUtility {
 	}
 
 	/**
-	 * @param propertyValue
-	 * @return
+	 * Gets the hibernate classes from cfg.
+	 *
+	 * @param propertyValue the property value
+	 * @return the hibernate classes from cfg
 	 */
 	Set<Class<?>> getHibernateClassesFromCfg(String propertyValue) {
 		Set<Class<?>> clazzes = new HashSet<Class<?>>();
@@ -190,8 +206,11 @@ public class Bo2DeploymentHibernateInfoUtility {
 		}
 		return clazzes;
 	}
+	
 	/**
-	 * @param property
+	 * Gets the hibernate classes.
+	 *
+	 * @param property the property
 	 * @return a set of classes that exist in the hibernate configurations/mapping of the given manager.
 	 */
 	public Set<Class<?>> getHibernateClasses(Properties property) {
@@ -245,6 +264,8 @@ public class Bo2DeploymentHibernateInfoUtility {
 	}
 
 	/**
+	 * Gets the all hibernate classes.
+	 *
 	 * @return all hibernate classes.
 	 */
 	public Set<Class<?>> getAllHibernateClasses() {

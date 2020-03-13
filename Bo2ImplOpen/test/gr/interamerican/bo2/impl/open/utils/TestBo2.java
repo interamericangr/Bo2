@@ -20,23 +20,25 @@ import gr.interamerican.bo2.arch.exceptions.InitializationException;
 import gr.interamerican.bo2.impl.open.jdbc.JdbcConnectionProvider;
 import gr.interamerican.bo2.impl.open.jdbc.ThreadLocalConnectionStrategy;
 import gr.interamerican.bo2.test.utils.UtilityForBo2Test;
+import gr.interamerican.bo2.utils.Bo2UtilsEnvironment;
 
+import java.nio.charset.Charset;
 import java.sql.Connection;
 
 import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestBo2.
  */
 public class TestBo2 {
 		
 	
 	/**
-	 * Unit test for setThreadLocalConnection(connection)
-	 * 
-	 * @throws InitializationException 
-	 * @throws DataException 
+	 * Unit test for setThreadLocalConnection(connection).
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testSetThreadLocalConnection() throws InitializationException, DataException {
@@ -48,6 +50,20 @@ public class TestBo2 {
 		p.close();
 		
 		Assert.assertTrue(Bo2MavenTestEnvironmentInitialization.initialized);
-	}	
+	}
+	
+	/**
+	 * Tests that Bo2UtilsEnvironment is initialized properly.
+	 */
+	@Test
+	public void testBo2UtilsEnvironmentInit() {
+		String resourceFileEncoding = Bo2.getDefaultDeployment().getDeploymentBean().getResourceFileEncoding();
+		Charset resourceFileCharset = Bo2UtilsEnvironment.get().getDefaultResourceFileCharset();
+		Assert.assertSame(Charset.forName(resourceFileEncoding), resourceFileCharset);
+		
+		String textEncoding = Bo2.getDefaultDeployment().getDeploymentBean().getTextEncoding();
+		Charset textCharset = Bo2UtilsEnvironment.get().getDefaultTextCharset();
+		Assert.assertSame(Charset.forName(textEncoding), textCharset);
+	}
 	
 }

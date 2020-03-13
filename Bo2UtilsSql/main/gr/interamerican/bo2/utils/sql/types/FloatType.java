@@ -34,14 +34,17 @@ extends NonQuotedType<Float> {
 		super();		
 	}
 	
+	@Override
 	public Float get(ResultSet rs, String columnIndex) throws SQLException {		
 		return rs.getFloat(columnIndex);
 	}
 	
+	@Override
 	public Float get(ResultSet rs, int columnIndex) throws SQLException {		
 		return rs.getFloat(columnIndex);
 	}
 	
+	@Override
 	public Class<Float> getJavaType() {
 		return Float.class;
 	}	

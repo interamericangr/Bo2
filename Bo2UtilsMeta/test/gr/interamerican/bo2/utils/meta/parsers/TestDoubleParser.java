@@ -23,13 +23,13 @@ import org.junit.Test;
 public class TestDoubleParser {
 	
 	
-	/**
-	 * DoubleParser
-	 */
+	/** DoubleParser. */
 	DoubleParser parser = new DoubleParser(3);
+	
 	/**
-	 * unit test for parse
-	 * @throws ParseException
+	 * unit test for parse.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -46,11 +46,10 @@ public class TestDoubleParser {
 	
 	/**
 	 * main test method.
-	 * @param string 
-	 *        parse input
-	 * @param val
-	 *        expected output.     
-	 * @throws ParseException
+	 *
+	 * @param string        parse input
+	 * @param val        expected output.     
+	 * @throws ParseException the parse exception
 	 */
 	private void test(String string, double val) throws ParseException {
 		Double bd = parser.parse(string);
@@ -60,8 +59,9 @@ public class TestDoubleParser {
 	
 	
 	/**
-	 * Test parse a value that is not number
-	 * @throws ParseException
+	 * Test parse a value that is not number.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@Test(expected=ParseException.class)
 	public void testParseFalseValue() throws ParseException{

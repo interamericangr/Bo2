@@ -18,7 +18,7 @@ import gr.interamerican.bo2.arch.utils.beans.TranslatorImpl;
 import gr.interamerican.bo2.samples.utils.meta.Bean1;
 import gr.interamerican.bo2.utils.StringConstants;
 import gr.interamerican.bo2.utils.meta.descriptors.StringBoPropertyDescriptor;
-import gr.interamerican.wicket.bo2.descriptors.TranslatableBoPropertyDescriptorWrapper;
+import gr.interamerican.bo2.utils.meta.ext.descriptors.TranslatableBoPropertyDescriptorWrapper;
 import gr.interamerican.wicket.bo2.markup.html.form.SelfDrawnStringTextField;
 import gr.interamerican.wicket.markup.html.TestPage;
 
@@ -29,35 +29,28 @@ import org.junit.Test;
 
 
 /**
- * 
+ * A factory for creating TestTranslatableBoPDWrapperComponent objects.
  */
 public class TestTranslatableBoPDWrapperComponentFactory extends BaseClassForTestingComponentFactory {	
 
-	/**
-	 * 
-	 */
+	/** The translator. */
 	@SuppressWarnings("rawtypes")
 	private Translator translator=  new TranslatorImpl();
-	/**
-	 * 
-	 */
+	
+	/** The translatable bo PD component factory. */
 	private TranslatableBoPDWrapperComponentFactory<StringBoPropertyDescriptor> translatableBoPDComponentFactory =
 		new TranslatableBoPDWrapperComponentFactory<StringBoPropertyDescriptor>();
 	
-	/**
-	 * 
-	 */
+	/** The string bo property descriptor. */
 	private StringBoPropertyDescriptor stringBoPropertyDescriptor = bean1descriptor.descriptionDescriptor();
 	
-	/**
-	 * 
-	 */
+	/** The tbp D. */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private TranslatableBoPropertyDescriptorWrapper tbpD = 
 		new TranslatableBoPropertyDescriptorWrapper(stringBoPropertyDescriptor, null, this.getClass().getName());
 
 	/**
-	 * setup
+	 * setup.
 	 */
 	@Before
 	@SuppressWarnings("unchecked")
@@ -71,7 +64,7 @@ public class TestTranslatableBoPDWrapperComponentFactory extends BaseClassForTes
 	
 		
 	/**
-	 * 
+	 * Test draw main first.
 	 */
 	@Test
 	public void testDrawMain_First(){
@@ -81,7 +74,7 @@ public class TestTranslatableBoPDWrapperComponentFactory extends BaseClassForTes
 	}
 	
 	/**
-	 * 
+	 * Test draw main second.
 	 */
 	@Test
 	public void testDrawMain_Second(){

@@ -13,7 +13,7 @@
 package gr.interamerican.bo2.samples.def.po;
 
 /**
- * 
+ * The Interface CityKP.
  */
 public interface CityKP extends PrefectureKP {
 	/**
@@ -24,7 +24,8 @@ public interface CityKP extends PrefectureKP {
 	
 	/**
 	 * Set City id.
-	 * @param cityId
+	 *
+	 * @param cityId the new city id
 	 */
 	void setCityId(Long cityId);
 

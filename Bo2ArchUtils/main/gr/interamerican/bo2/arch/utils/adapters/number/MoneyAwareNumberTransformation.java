@@ -18,7 +18,7 @@ implements Transformation<Object, Number>{
 	/**
 	 * Creates a new MoneyAwareNumberTransformation object. 
 	 *
-	 * @param transformation
+	 * @param transformation the transformation
 	 */
 	public MoneyAwareNumberTransformation(Transformation<Number, Number> transformation) {
 		super();

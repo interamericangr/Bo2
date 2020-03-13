@@ -63,9 +63,7 @@ implements EntitiesQuery<T> {
 		this.query = query;
 		this.transformation = transformation;
 	}
-	
 
-	
 	@Override
 	public void execute() throws DataException {
 		row = 0;
@@ -73,7 +71,6 @@ implements EntitiesQuery<T> {
 		query.execute();		
 	}
 
-	
 	@Override
 	public boolean next() throws DataAccessException {
 		if (query.next()) {
@@ -82,19 +79,17 @@ implements EntitiesQuery<T> {
 			if (entity!=null) {
 				row++;
 				return true;
-			} else {
-				return next();				
-			}			
-		} else {
-			return false;			
-		}		
+			}
+			return next();			
+		}
+		return false;		
 	}
-	
+
 	@Override
 	public int getRow() throws DataAccessException {		
 		return row;
 	}
-	
+
 	@Override
 	public void setAvoidLock(boolean avoidLock) {
 		query.setAvoidLock(avoidLock);		
@@ -104,10 +99,9 @@ implements EntitiesQuery<T> {
 	public boolean isAvoidLock() {		
 		return query.isAvoidLock();
 	}
-	
+
 	@Override
 	public T getEntity() throws DataAccessException {	
 		return entity;
 	}
-
 }

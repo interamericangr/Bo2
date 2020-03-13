@@ -26,6 +26,7 @@ import org.junit.runners.Suite.SuiteClasses;
  * 
  *
  */
+@SuppressWarnings("deprecation")
 @RunWith(Suite.class)
 @SuiteClasses(
 	{	

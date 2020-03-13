@@ -23,24 +23,20 @@ import org.apache.wicket.model.PropertyModel;
 import org.junit.Test;
 
 /**
- * 
+ * A factory for creating TestDoubleBoPDComponent objects.
  */
 public class TestDoubleBoPDComponentFactory extends BaseClassForTestingComponentFactory{
 
-	/**
-	 * 
-	 */
+	/** The double bo PD component factory. */
 	private DoubleBoPDComponentFactory doubleBoPDComponentFactory =  
 		new DoubleBoPDComponentFactory();
 	
-	/**
-	 * 
-	 */
+	/** The double bo property descriptor. */
 	private DoubleBoPropertyDescriptor doubleBoPropertyDescriptor = 
 		bean1descriptor.percentageDescriptor();
 	
 	/**
-	 * 
+	 * Test draw main first.
 	 */
 	@Test
 	public void testDrawMain_First(){
@@ -50,7 +46,7 @@ public class TestDoubleBoPDComponentFactory extends BaseClassForTestingComponent
 	}
 	
 	/**
-	 * 
+	 * Test draw main second.
 	 */
 	@Test
 	public void testDrawMain_Second(){

@@ -24,7 +24,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * 
+ * The Class CustomerImpl.
  */
 public class CustomerImpl 
 extends AbstractModificationRecordPo<CustomerKey> 
@@ -40,9 +40,7 @@ implements Customer {
 	 */
 	private String customerName;
 	
-	/**
-	 * afm
-	 */
+	/** afm. */
 	private String taxId;
 	
 	/**
@@ -64,34 +62,42 @@ implements Customer {
 		fixChild(addressesSet);
 	}
 
+	@Override
 	public String getCustomerNo() {
 		return 	key.getCustomerNo();
 	}
 	
+	@Override
 	public void setCustomerNo(String customerNo) {
 		key.setCustomerNo(customerNo);
 	}
 
+	@Override
 	public String getCustomerName() {
 		return customerName;
 	}
 
+	@Override
 	public void setCustomerName(String customerName) {
 		this.customerName = customerName;
 	}
 
+	@Override
 	public String getTaxId() {
 		return taxId;
 	}
 
+	@Override
 	public void setTaxId(String taxId) {
 		this.taxId = taxId;
 	}
 
+	@Override
 	public Set<CustomerAddress> getAddresses() {		
 		return addresses;
 	}
 
+	@Override
 	public void setAddresses(Set<CustomerAddress> addresses) {
 		this.addresses=addresses;
 		fixChild(addresses);

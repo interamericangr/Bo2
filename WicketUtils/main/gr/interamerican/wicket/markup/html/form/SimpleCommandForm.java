@@ -27,9 +27,7 @@ import org.apache.wicket.model.IModel;
 public class SimpleCommandForm<T> 
 extends Form<T> {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
 	/**
@@ -40,8 +38,8 @@ extends Form<T> {
 	/**
 	 * Creates a new CallbackActionForm object. 
 	 *
-	 * @param id
-	 * @param action 
+	 * @param id the id
+	 * @param action the action
 	 */
 	public SimpleCommandForm(String id, SimpleCommand action) {
 		super(id);
@@ -51,9 +49,9 @@ extends Form<T> {
 	/**
 	 * Creates a new CallbackActionForm object. 
 	 *
-	 * @param id
-	 * @param model 
-	 * @param action 
+	 * @param id the id
+	 * @param model the model
+	 * @param action the action
 	 */
 	public SimpleCommandForm(String id, IModel<T> model, SimpleCommand action) {
 		super(id,model);

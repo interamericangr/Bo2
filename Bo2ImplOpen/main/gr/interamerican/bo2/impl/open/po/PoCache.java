@@ -27,18 +27,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Dynamic cache for persistent objects. <br/>
+ * Dynamic cache for persistent objects. <br>
  * 
  * This class fetches persistent objects from the database and keeps
  * them in a cache so that the next time the same object is asked, it
- * can be fetched from the local cache. <br/>
+ * can be fetched from the local cache. <br>
  * The purpose of this class is to keep objects that are not expected
  * to be modified.
- * 
- * @param <P>
- *        Type of {@link PersistentObject}.
- * @param <K>
- *        Type of PersistentObject key.
+ *
+ * @param <K>        Type of PersistentObject key.
+ * @param <P>        Type of {@link PersistentObject}.
  */
 public class PoCache
 <K extends Serializable & Comparable<? super K>, P extends PersistentObject<K>> {
@@ -70,14 +68,11 @@ public class PoCache
 	/**
 	 * Creates a new PoCache object.
 	 *
-	 * @param modification
-	 *        Modification to apply to the objects being read.
-	 *        Optional, this can be null.
-	 * @param poClass
-	 *        Persistent class.
-	 * @param maxSize
-	 *        Size of cache. If set to 0 then objects read will not
+	 * @param poClass        Persistent class.
+	 * @param maxSize        Size of cache. If set to 0 then objects read will not
 	 *        be cached.
+	 * @param modification        Modification to apply to the objects being read.
+	 *        Optional, this can be null.
 	 */
 	public PoCache(Class<P> poClass, int maxSize, Modification<P> modification) {
 		super();
@@ -90,7 +85,7 @@ public class PoCache
 
 	/**
 	 * Fetches the persistent object with the specified key searching it
-	 * first in the local cache and then in the data store. <br/>
+	 * first in the local cache and then in the data store. <br>
 	 * 
 	 * If the object is retrieved from the local cache, then it is re-attached
 	 * to the current session.

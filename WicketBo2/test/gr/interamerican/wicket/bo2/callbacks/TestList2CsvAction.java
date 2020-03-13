@@ -12,37 +12,31 @@
  ******************************************************************************/
 package gr.interamerican.wicket.bo2.callbacks;
 
-import gr.interamerican.bo2.samples.bean.BeanWith3Fields;
-import gr.interamerican.wicket.bo2.callbacks.clients.List2CsvActionClient;
-import gr.interamerican.wicket.bo2.protocol.http.Bo2WicketRequestCycle;
-import gr.interamerican.wicket.bo2.test.MockApplicationForWicketBo2;
-
 import java.util.Arrays;
 import java.util.List;
 
 import org.apache.wicket.request.IRequestHandler;
 import org.apache.wicket.request.cycle.RequestCycle;
 import org.apache.wicket.request.handler.resource.ResourceStreamRequestHandler;
-import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Assert;
 import org.junit.Test;
-import org.mockito.Mockito;
+
+import gr.interamerican.bo2.impl.open.creation.Factory;
+import gr.interamerican.bo2.samples.bean.BeanWith3Fields;
+import gr.interamerican.wicket.bo2.protocol.http.Bo2WicketRequestCycle;
+import gr.interamerican.wicket.bo2.test.Bo2WicketTest;
+import gr.interamerican.wicket.bo2.utils.DownloadFileFromListBean;
 
 /**
  * Unit test for {@link List2CsvAction}.
  */
-public class TestList2CsvAction {
-	
-	/**
-	 * the WicketTester
-	 */
-	public WicketTester wicketTester =
-		new WicketTester(new MockApplicationForWicketBo2());
+@Deprecated
+public class TestList2CsvAction extends Bo2WicketTest {
 	
 	/**
 	 * Unit test for create(clazz).
 	 */
-	@SuppressWarnings({ "nls", "rawtypes", "unchecked" })
+	@SuppressWarnings("nls")
 	@Test
 	public void testAction(){
 		RequestCycle rc = RequestCycle.get();
@@ -57,23 +51,19 @@ public class TestList2CsvAction {
 		String[] labels = {"Field 1", "Field 2"};
 		String filename = "TestCsvFile.csv";
 		
-		List2CsvActionClient client = Mockito.mock(List2CsvActionClient.class);
-		Mockito.when(client.getList()).thenReturn((List)list);
-		Mockito.when(client.getPropertiesToExport()).thenReturn(properties);
-		Mockito.when(client.getColumnLabels()).thenReturn(labels);
-		Mockito.when(client.getFileName()).thenReturn(filename);
-		Mockito.when(client.getDownloadedFileName()).thenReturn(filename);
+		DownloadFileFromListBean client = Factory.create(DownloadFileFromListBean.class);
+		client.setList(list);
+		client.setPropertiesToExport(properties);
+		client.setColumnLabels(labels);
+		client.setDownloadedFileName(filename);
 				
 		List2CsvAction action = new List2CsvAction(client);
 		
-		action.execute();
+		action.run();
 		IRequestHandler target = rc.getRequestHandlerScheduledAfterCurrent();
 		Assert.assertTrue(target instanceof ResourceStreamRequestHandler);
 		ResourceStreamRequestHandler rt = (ResourceStreamRequestHandler) target;
-		Assert.assertEquals(rt.getFileName(), client.getFileName());				
+		Assert.assertEquals(rt.getFileName(), filename);				
 		Bo2WicketRequestCycle.endRequest(rc);		
 	}
-	
-	
-
 }

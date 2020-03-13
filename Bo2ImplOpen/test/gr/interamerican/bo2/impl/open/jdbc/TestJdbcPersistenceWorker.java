@@ -44,8 +44,8 @@ public class TestJdbcPersistenceWorker {
 
 	/**
 	 * Creates a new TestJdbcPersistenceWorker object. 
-	 * @throws InitializationException 
 	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	public TestJdbcPersistenceWorker() throws InitializationException {
 		super();
@@ -56,8 +56,9 @@ public class TestJdbcPersistenceWorker {
 	
 	/**
 	 * See bean.
-	 * @throws InitializationException
-	 * @throws DataException
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
 	 */
 	@Before
 	public void setUp() throws InitializationException, DataException {
@@ -66,8 +67,8 @@ public class TestJdbcPersistenceWorker {
 
 	/**
 	 * See bean.
-	 * 
-	 * @throws DataException
+	 *
+	 * @throws DataException the data exception
 	 */
 	@After
 	public void tearDown() throws DataException {
@@ -76,8 +77,8 @@ public class TestJdbcPersistenceWorker {
 
 	/**
 	 * See bean.
-	 * 
-	 * @throws PoNotFoundException
+	 *
+	 * @throws PoNotFoundException the po not found exception
 	 */
 	@Test(expected=PoNotFoundException.class)
 	public void testPoNotFoundExceptionOnRead() throws PoNotFoundException {
@@ -86,7 +87,8 @@ public class TestJdbcPersistenceWorker {
 
 	/**
 	 * See bean.
-	 * @throws DataException 
+	 *
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testReadDoesNotFail() 
@@ -96,7 +98,8 @@ public class TestJdbcPersistenceWorker {
 	
 	/**
 	 * See bean.
-	 * @throws DataException 
+	 *
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testUpdateDoesNotFail() 
@@ -106,7 +109,8 @@ public class TestJdbcPersistenceWorker {
 
 	/**
 	 * See bean.
-	 * @throws DataException 
+	 *
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testUpdateAndReadDontFail() 
@@ -116,7 +120,8 @@ public class TestJdbcPersistenceWorker {
 
 	/**
 	 * See bean.
-	 * @throws DataException 
+	 *
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testStoreReadAndDeleteDontFail() 
@@ -125,7 +130,7 @@ public class TestJdbcPersistenceWorker {
 	}
 	
 	/**
-	 * Tests getDetachStrategy()
+	 * Tests getDetachStrategy().
 	 */
 	@Test
 	public void testGetDetachStrategy() {

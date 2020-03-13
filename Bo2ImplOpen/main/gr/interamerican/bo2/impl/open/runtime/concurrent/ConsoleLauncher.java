@@ -1,24 +1,33 @@
+/*******************************************************************************
+ * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Lesser Public License v3
+ * which accompanies this distribution, and is available at
+ * http://www.gnu.org/copyleft/lesser.html
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU Lesser General Public License for more details.
+ ******************************************************************************/
 package gr.interamerican.bo2.impl.open.runtime.concurrent;
 
-import gr.interamerican.bo2.arch.batch.LongProcess;
-import gr.interamerican.bo2.arch.batch.LongProcessLauncher;
-import gr.interamerican.bo2.arch.utils.ext.Bo2Session;
-import gr.interamerican.bo2.utils.runnables.Monitor;
-
 import java.util.Properties;
+
+import gr.interamerican.bo2.arch.utils.ext.Bo2Session;
 
 /**
  * Console launcher for a batch process.
  */
-public class ConsoleLauncher implements LongProcessLauncher {
+public class ConsoleLauncher extends AbstractAutomatedLongProcessLauncher {
+
 
 	@Override
 	public void launch(Properties properties) {
 		BatchProcessUtility controller = new BatchProcessUtility(Bo2Session.getSession());
-		BatchProcess<?> batch = controller.createBatchProcess(properties);
-		controller.startBatchProcess(batch);
-		Monitor<LongProcess> monitor = controller.createMonitor(batch, properties);
-		controller.startMonitor(monitor);
+		creatAndStartBatchProcessThread(properties, controller);
+		monitor = controller.createMonitor(batch, properties, extraMonitoringOperation);
+		monitorThread = controller.startMonitor(monitor);
 	}
 
 }

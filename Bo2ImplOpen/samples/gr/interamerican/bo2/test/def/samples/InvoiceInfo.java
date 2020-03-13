@@ -17,13 +17,14 @@ import gr.interamerican.bo2.test.def.posamples.Invoice;
 import java.io.Serializable;
 
 /**
- * Bean used as a Component in mapping of {@link Invoice}
+ * Bean used as a Component in mapping of {@link Invoice}.
  */
 public interface InvoiceInfo extends Serializable{
 	
 	/**
 	 * Sets the barCode.
-	 * @param barCode
+	 *
+	 * @param barCode the new bar code
 	 */
 	void setBarCode(String barCode);
 	

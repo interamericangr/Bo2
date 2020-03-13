@@ -29,9 +29,9 @@ public class SelfDrawnStringTextField extends AbstractSelfDrawnTextField<String>
        
     /**
      * Creates a new SelfDrawnStringTextField object.
-     * 
-     * @param id
-     * @param descriptor
+     *
+     * @param id the id
+     * @param descriptor the descriptor
      */
     public SelfDrawnStringTextField(String id, StringBoPropertyDescriptor descriptor) {
         super(id, descriptor, null); //type is null because of possible bug with #getConvertEmptyInputStringToNull()
@@ -40,10 +40,10 @@ public class SelfDrawnStringTextField extends AbstractSelfDrawnTextField<String>
    
     /**
      * Creates a new SelfDrawnStringTextField object.
-     * 
-     * @param id
-     * @param model 
-     * @param descriptor
+     *
+     * @param id the id
+     * @param model the model
+     * @param descriptor the descriptor
      */
     public SelfDrawnStringTextField(String id, IModel<String> model, StringBoPropertyDescriptor descriptor) {
         super(id, model, descriptor, null); //type is null because of possible bug with #getConvertEmptyInputStringToNull()

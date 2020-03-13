@@ -24,15 +24,13 @@ import java.text.DecimalFormat;
  */
 public class NrDecimalFormatter<T extends Number> extends NullReturningFormatter<T> {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Creates a new NfDecimalFormatter object. 
 	 *
-	 * @param df
+	 * @param df the df
 	 */
 	public NrDecimalFormatter(DecimalFormat df) {
 		super(new DecimalFormatter<T>(df));
@@ -40,7 +38,8 @@ public class NrDecimalFormatter<T extends Number> extends NullReturningFormatter
 	
 	/**
 	 * Creates a new NrDecimalFormatter object. 
-	 * @param decimalDigits 
+	 *
+	 * @param decimalDigits the decimal digits
 	 */
 	public NrDecimalFormatter(int decimalDigits) {
 		super(new DecimalFormatter<T>(decimalDigits));

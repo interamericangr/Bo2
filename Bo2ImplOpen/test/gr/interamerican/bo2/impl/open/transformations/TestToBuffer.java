@@ -37,7 +37,7 @@ import org.junit.Test;
 public class TestToBuffer {
 	
 	/**
-	 * test
+	 * test.
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -65,7 +65,7 @@ public class TestToBuffer {
 	}
 	
 	/**
-	 * test
+	 * test.
 	 */
 	@SuppressWarnings("nls")
 	@Test

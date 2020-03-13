@@ -4,19 +4,19 @@
 	<parent>
 		<groupId>gr.interamerican.bo2</groupId>
 		<artifactId>Bo2</artifactId>
-		<version>2.3.12-SNAPSHOT</version>
+		<version>3.4.1</version>
 	</parent>
-	
-	<artifactId>Bo2Gui</artifactId>
 
-	<dependencies>
+	<artifactId>Bo2Gui</artifactId>
 	
+	<dependencies>
+
 		<dependency>
 			<groupId>org.apache.derby</groupId>
 			<artifactId>derbyclient</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>gr.interamerican.bo2</groupId>
 			<artifactId>Bo2Architecture</artifactId>
@@ -29,7 +29,7 @@
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>gr.interamerican.bo2</groupId>
 			<artifactId>Bo2ArchUtils</artifactId>
@@ -50,7 +50,7 @@
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>gr.interamerican.bo2</groupId>
 			<artifactId>Bo2ImplOpen</artifactId>
@@ -63,7 +63,7 @@
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>gr.interamerican.bo2</groupId>
 			<artifactId>Bo2UtilsMeta</artifactId>
@@ -76,21 +76,18 @@
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>gr.interamerican.bo2</groupId>
 			<artifactId>Bo2TestsDeploymentBase</artifactId>
 			<version>${project.version}</version>
-			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>gr.interamerican.bo2</groupId>
 			<artifactId>Bo2TestsDeploymentJdbc</artifactId>
 			<version>${project.version}</version>
-			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
 </project>

@@ -26,13 +26,11 @@ import org.junit.Test;
 public class TestMoneyFormatter {
 
 	
-	/**
-	 * Formatter to test
-	 */
+	/** Formatter to test. */
 	MoneyFormatter formatter = MoneyFormatter.INSTANCE;
 	
 	/**
-	 * Tests format
+	 * Tests format.
 	 */
 	@SuppressWarnings("nls")
 	@Test

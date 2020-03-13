@@ -87,7 +87,7 @@ public class CacheRegistry {
 	}
 	
 	/**
-	 * Clears all the caches referenced by the PoFetcher.
+	 * Clears all the caches registered in this.
 	 */
 	public static void flushCaches() {
 		for(Cache<?> cache : registry.values()) {
@@ -95,6 +95,13 @@ public class CacheRegistry {
 		}
 		registry.clear();
 	}
-
 	
+	/**
+	 * Clears the content for all caches registered in this.
+	 */
+	public static void flushAllCacheContents() {
+		for(Cache<?> cache : registry.values()) {
+			cache.clear();
+		}
+	}
 }

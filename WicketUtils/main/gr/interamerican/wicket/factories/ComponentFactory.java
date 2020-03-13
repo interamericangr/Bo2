@@ -38,13 +38,12 @@ public class ComponentFactory {
 	 * δίνοντας to wicketId του Component,
 	 * το πεδίο του object που θέλουμε να δείχνουμε,
 	 * και το collection των αντικειμένων τα οποία θα δείχνουμε.
-	 * 
-	 * @param <P>
-	 * @param wicketId
-	 * @param displayExpression
-	 * @param pos
+	 *
+	 * @param <P> the generic type
+	 * @param wicketId the wicket id
+	 * @param displayExpression the display expression
+	 * @param pos the pos
 	 * @return DropDownChoice
-	 * 
 	 */
 	public static <P extends Serializable> DropDownChoice<P> addDropDownWithChoiceRenderer(String wicketId,String displayExpression,List<P> pos) {
 		DropDownChoice<P> dd = new DropDownChoice<P>(wicketId, new Model<P>(), pos);
@@ -86,7 +85,7 @@ public class ComponentFactory {
 	}
 
 	/**
-	 * Δημιουργεί TextField<String> με νέο Model<String> με τα wicketId
+	 * Δημιουργεί TextField&lt;String&gt; με νέο Model&lt;String&gt; με τα wicketId
 	 * που του δίνουμε και τα προσθέτει στον markupContainer χωρίς να τα
 	 * κάνει bind στον Object του model του MarkupContainer.
 	 * 
@@ -103,7 +102,7 @@ public class ComponentFactory {
 	}
 
 	/**
-	 * Δημιουργεί TextField<String> με τα wicketId που του δίνουμε
+	 * Δημιουργεί TextField&lt;String&gt; με τα wicketId που του δίνουμε
 	 * και τα προσθέτει στον markupContainer.
 	 * 
 	 * @param cmp
@@ -137,7 +136,7 @@ public class ComponentFactory {
 		}
 	}
 	/**
-	 * Δημιουργεί Disabled TextField<String> με τα wicketId που του δίνουμε
+	 * Δημιουργεί Disabled TextField&lt;String&gt; με τα wicketId που του δίνουμε
 	 * και τα προσθέτει στον markupContainer.
 	 * 
 	 * @param cmp
@@ -169,7 +168,7 @@ public class ComponentFactory {
 
 
 	/**
-	 * Δημιουργεί DateField με νέο Model<Date> με τα wicketId
+	 * Δημιουργεί DateField με νέο Model&lt;Date&gt; με τα wicketId
 	 * που του δίνουμε και τα προσθέτει στον markupContainer χωρίς να τα
 	 * κάνει bind στον Object του model του MarkupContainer.
 	 * 
@@ -229,7 +228,7 @@ public class ComponentFactory {
 	}
 
 	/**
-	 * Δημιουργεί TextField<Double> τα οποία είναι υποχρεωτικά, με τα wicketId
+	 * Δημιουργεί TextField&lt;Double&gt; τα οποία είναι υποχρεωτικά, με τα wicketId
 	 * που του δίνουμε και τα προσθέτει στον markupContainer. Στα textField
 	 * θέτουμε το μέγιστο αριθμο των επιτρεπόμενων δεκαδικών ψηφίων.
 	 * 
@@ -251,7 +250,7 @@ public class ComponentFactory {
 	}
 
 	/**
-	 * Δημιουργεί TextField<Double> με τα wicketId που του δίνουμε
+	 * Δημιουργεί TextField&lt;Double&gt; με τα wicketId που του δίνουμε
 	 * και τα προσθέτει στον markupContainer.Στα textField
 	 * θέτουμε το μέγιστο αριθμο των επιτρεπόμενων δεκαδικών ψηφίων.
 	 * 
@@ -276,14 +275,13 @@ public class ComponentFactory {
 	}
 
 	/**
-	 * Δημιουργεί TextField<Double> με το wicketId (field) που του δίνουμε
-	 * και κάνει bind στο CompoundPropertyModel<T> model.
+	 * Δημιουργεί TextField&lt;Double&gt; με το wicketId (field) που του δίνουμε
+	 * και κάνει bind στο CompoundPropertyModel&lt;T&gt; model.
 	 * Στα textField
 	 * θέτουμε επίσης το μέγιστο αριθμο των επιτρεπόμενων δεκαδικών ψηφίων.
-	 * @param <T>
-	 * @param field
-	 * 
-	 * 		το wicketId του TextField.
+	 *
+	 * @param <T> the generic type
+	 * @param field 		το wicketId του TextField.
 	 * @param model το μοντέλο που θα περιεχει το field στο οποίο θα κάνουμε το binding.
 	 * @param decimals Ο μέγιστος αριθμός των επιτρεπόμενων δεκαδικών ψηφίων
 	 * @return TF
@@ -300,18 +298,16 @@ public class ComponentFactory {
 		IModel<Double> doubleModel = model.bind(field);
 		return new DoubleTextField(field,doubleModel,dec);
 	}
+	
 	/**
-	 * Δημιουργεί TextField<Double> με τα wicketId που του δίνουμε
+	 * Δημιουργεί TextField&lt;Double&gt; με τα wicketId που του δίνουμε
 	 * και τα προσθέτει στον markupContainer.Στα textField
 	 * θέτουμε το μέγιστο αριθμο των επιτρεπόμενων δεκαδικών ψηφίων.
-	 * 
-	 * @param cmp
-	 * 		O markupContainer,στον οποίο θα προστεθούν τα Textfields.
-	 * @param wicketIds
-	 * 		Τα wicketIds με τα οποία θα δημιουργηθούν τα Textfields.
-	 * @param modelObject
-	 * 		Το object που κάνει bind to component.
-	 * @param decimals
+	 *
+	 * @param cmp 		O markupContainer,στον οποίο θα προστεθούν τα Textfields.
+	 * @param wicketIds 		Τα wicketIds με τα οποία θα δημιουργηθούν τα Textfields.
+	 * @param modelObject 		Το object που κάνει bind to component.
+	 * @param decimals the decimals
 	 */
 	public static void addDoubleTextFields(MarkupContainer cmp, String[] wicketIds, Object modelObject,Integer decimals){
 		final Integer dec;
@@ -330,17 +326,14 @@ public class ComponentFactory {
 
 
 	/**
-	 * Δημιουργεί TextField<Double> με τα wicketId που του δίνουμε
+	 * Δημιουργεί TextField&lt;Double&gt; με τα wicketId που του δίνουμε
 	 * και τα προσθέτει στον markupContainer χωρίς να τα
 	 * κάνει bind στον Object του model.Στα textField
 	 * θέτουμε το μέγιστο αριθμο των επιτρεπόμενων δεκαδικών ψηφίων.
-	 * 
-	 * @param cmp
-	 * 		O markupContainer,στον οποίο θα προστεθούν τα Textfields.
-	 * @param wicketIds
-	 * 		Τα wicketIds με τα οποία θα δημιουργηθούν τα Textfields.
-	 * @param decimals
-	 * 
+	 *
+	 * @param cmp 		O markupContainer,στον οποίο θα προστεθούν τα Textfields.
+	 * @param wicketIds 		Τα wicketIds με τα οποία θα δημιουργηθούν τα Textfields.
+	 * @param decimals the decimals
 	 */
 	public static void addDoubleTextFieldWithoutBinding(MarkupContainer cmp, String[] wicketIds, Integer decimals) {
 		final Integer dec;
@@ -355,15 +348,13 @@ public class ComponentFactory {
 	}
 
 	/**
-	 * Δημιουργεί TextField<BigDecimal> με τα wicketId που του δίνουμε
+	 * Δημιουργεί TextField&lt;BigDecimal&gt; με τα wicketId που του δίνουμε
 	 * και τα προσθέτει στον markupContainer κάνοντας τα bind με το
 	 * Object που του περνάμε.
-	 * 
-	 * @param cmp
-	 * 		O markupContainer,στον οποίο θα προστεθούν τα Textfields.
-	 * @param wicketIds
-	 * 		Τα wicketIds με τα οποία θα δημιουργηθούν τα Textfields.
-	 * @param modelObject
+	 *
+	 * @param cmp 		O markupContainer,στον οποίο θα προστεθούν τα Textfields.
+	 * @param wicketIds 		Τα wicketIds με τα οποία θα δημιουργηθούν τα Textfields.
+	 * @param modelObject the model object
 	 */
 	public static void addBigDecimalTextFields(MarkupContainer cmp, String[] wicketIds, Object modelObject){
 		for(String field : wicketIds){
@@ -372,7 +363,7 @@ public class ComponentFactory {
 	}
 
 	/**
-	 * Δημιουργεί TextField<BigDecimal> με τα wicketId που του δίνουμε
+	 * Δημιουργεί TextField&lt;BigDecimal&gt; με τα wicketId που του δίνουμε
 	 * και τα προσθέτει στον markupContainer.Στα textField
 	 * θέτουμε το μέγιστο αριθμο των επιτρεπόμενων δεκαδικών ψηφίων.
 	 * 
@@ -397,7 +388,7 @@ public class ComponentFactory {
 	}
 
 	/**
-	 * Δημιουργεί TextField<BigDecimal> με νέο Model<BigDecimal> με τα wicketId
+	 * Δημιουργεί TextField&lt;BigDecimal&gt; με νέο Model&lt;BigDecimal&gt; με τα wicketId
 	 * που του δίνουμε και τα προσθέτει στον markupContainer χωρίς να τα
 	 * κάνει bind στον Object του model του MarkupContainer.
 	 * 
@@ -414,14 +405,13 @@ public class ComponentFactory {
 	}
 
 	/**
-	 * Δημιουργεί TextField<BigDecimal> με το wicketId (field) που του δίνουμε
-	 * και κάνει bind στο CompoundPropertyModel<T> model.
+	 * Δημιουργεί TextField&lt;BigDecimal&gt; με το wicketId (field) που του δίνουμε
+	 * και κάνει bind στο CompoundPropertyModel&lt;T&gt; model.
 	 * Στα textField
 	 * θέτουμε επίσης το μέγιστο αριθμο των επιτρεπόμενων δεκαδικών ψηφίων.
-	 * @param <T>
-	 * @param field
-	 * 
-	 * 		το wicketId του TextField.
+	 *
+	 * @param <T> the generic type
+	 * @param field 		το wicketId του TextField.
 	 * @param model το μοντέλο που θα περιεχει το field στο οποίο θα κάνουμε το binding.
 	 * @param decimals Ο μέγιστος αριθμός των επιτρεπόμενων δεκαδικών ψηφίων
 	 * @return TF
@@ -440,7 +430,7 @@ public class ComponentFactory {
 	}
 
 	/**
-	 * Δημιουργεί TextField<Long> με τα wicketId που του δίνουμε
+	 * Δημιουργεί TextField&lt;Long&gt; με τα wicketId που του δίνουμε
 	 * και τα προσθέτει στον markupContainer.
 	 * 
 	 * @param cmp
@@ -458,7 +448,7 @@ public class ComponentFactory {
 	}
 
 	/**
-	 * Δημιουργεί TextField<Integer> με τα wicketId που του δίνουμε
+	 * Δημιουργεί TextField&lt;Integer&gt; με τα wicketId που του δίνουμε
 	 * και τα προσθέτει στον markupContainer.
 	 * 
 	 * @param cmp
@@ -572,7 +562,7 @@ public class ComponentFactory {
 	/**
 	 * 
 	 * 
-	 * Δημιουργεί TextField<Integer> με τα wicketId που του δίνουμε
+	 * Δημιουργεί TextField&lt;Integer&gt; με τα wicketId που του δίνουμε
 	 * και τα προσθέτει στον markupContainer κάνοντας τα bind με το
 	 * Object που του περνάμε. .
 	 * 

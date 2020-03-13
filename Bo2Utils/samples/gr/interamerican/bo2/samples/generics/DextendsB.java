@@ -13,7 +13,7 @@
 package gr.interamerican.bo2.samples.generics;
 
 /**
- * 
+ * The Class DextendsB.
  */
 public class DextendsB extends BimplementsIB {
 //

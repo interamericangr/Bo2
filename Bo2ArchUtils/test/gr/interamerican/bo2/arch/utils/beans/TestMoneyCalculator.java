@@ -37,8 +37,8 @@ public class TestMoneyCalculator {
 	
 	/**
 	 * Money factory.
-	 * 
-	 * @param amount
+	 *
+	 * @param amount the amount
 	 * @return Returns euro money.
 	 */
 	private static Money money(String amount) {

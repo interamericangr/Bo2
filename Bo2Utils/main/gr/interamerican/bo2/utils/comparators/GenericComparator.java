@@ -22,10 +22,12 @@ import java.util.Date;
  * Finds the types of the object it compares and selects the
  * appropriate comparison strategy. The supported types that are
  * handled accordingly are:
+ * <ul>
  * <li> {@link String} </li>
  * <li> {@link Date} </li>
  * <li> {@link Calendar} </li>
  * <li> {@link Number} </li>
+ * </ul>
  * Other types are handled as Strings using their <code>toString()</code>
  * method.
  * 
@@ -33,21 +35,15 @@ import java.util.Date;
 public class GenericComparator 
 implements Comparator<Object>{
 	
-	/**
-	 * Comparator used for String
-	 */	
+	/** Comparator used for String. */	
 	private static final Comparator<Object> COMPARE_STRINGS = 
 		new StringComparator();
 	
-	/**
-	 * Comparator used for Number
-	 */
+	/** Comparator used for Number. */
 	private static final Comparator<Object> COMPARE_NUMBERS = 
 		new GenericNumberComparator();
 	
-	/**
-	 * Comparator used for Number
-	 */
+	/** Comparator used for Number. */
 	private static final Comparator<Object> COMPARE_DATES = 
 		new GenericDateComparator();
 	
@@ -74,6 +70,7 @@ implements Comparator<Object>{
 	}
 	
 		
+	@Override
 	public int compare(Object o1, Object o2) {
 		if (o1==o2) {
 			return 0; //���� ������ ��� ���� ��������� ��� ��� �� ��� ����� null

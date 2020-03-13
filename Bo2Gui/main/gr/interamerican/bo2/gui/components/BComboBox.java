@@ -3,13 +3,12 @@ package gr.interamerican.bo2.gui.components;
 import javax.swing.JComboBox;
 
 /**
- * Combo Box
+ * Combo Box.
+ * @param <T> 
  */
-public class BComboBox extends JComboBox implements ValueComponent {
+public class BComboBox<T> extends JComboBox<T> implements ValueComponent {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**
@@ -19,8 +18,8 @@ public class BComboBox extends JComboBox implements ValueComponent {
 
 	/**
 	 * Creates a new TextField object.
-	 * 
-	 * @param componentName
+	 *
+	 * @param componentName the component name
 	 */
 	public BComboBox(String componentName) {
 		super();
@@ -46,5 +45,4 @@ public class BComboBox extends JComboBox implements ValueComponent {
 	public String getName() {
 		return componentName;
 	}
-
 }

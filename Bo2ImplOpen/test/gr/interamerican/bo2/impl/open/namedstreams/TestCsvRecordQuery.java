@@ -1,13 +1,13 @@
 /*******************************************************************************
- * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A. 
+ * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/copyleft/lesser.html
- * 
- * This library is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.namedstreams;
@@ -26,7 +26,7 @@ import org.junit.Test;
  * Unit test for {@link CsvRecordQuery}.
  */
 public class TestCsvRecordQuery {
-	
+
 	/**
 	 * Tests the constructor.
 	 */
@@ -38,13 +38,13 @@ public class TestCsvRecordQuery {
 		CsvRecord rec = (CsvRecord) q.getRecord();
 		Assert.assertNotNull(rec);
 	}
-	
+
 	/**
 	 * Tests the lifecycle.
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testLifecycle() throws UnexpectedException, DataException, LogicException {
@@ -55,7 +55,7 @@ public class TestCsvRecordQuery {
 			InitializationException, UnexpectedException {
 				String logicalStreamName = "Sample.csv";
 				String manager = "LOCALFS";
-				
+
 				int recordCount = 0;
 				CsvRecordQuery q = new CsvRecordQuery(4, ';');
 				q.setManagerName(manager);
@@ -64,13 +64,14 @@ public class TestCsvRecordQuery {
 				q.open();
 				q.execute();
 				while (q.next()) {
-					recordCount++;					
+					recordCount++;
 					CsvRecord rec = (CsvRecord) q.getRecord();
 					Assert.assertNotNull(rec);
-				}				
+					Assert.assertEquals(q.getEntity().getBuffer(), rec.getBuffer());
+				}
 				q.close();
 				Assert.assertEquals(4, recordCount);
-				
+
 			}
 		}.execute();
 	}

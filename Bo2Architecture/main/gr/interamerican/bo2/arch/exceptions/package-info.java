@@ -11,7 +11,7 @@
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
 /**
- * Exceptions thrown by operations of the Bo2 framework. <br/>
+ * Exceptions thrown by operations of the Bo2 framework. <br>
  *
  * The Bo2 framework demands to hide the technology
  * used for its implementation. Methods of Bo2 classes 

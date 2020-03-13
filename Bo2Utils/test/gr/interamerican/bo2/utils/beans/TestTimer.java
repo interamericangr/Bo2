@@ -43,7 +43,7 @@ public class TestTimer {
 		ThreadUtils.sleepMillis(500);
 		long millis = t.get();
 		long dev = Math.abs(millis - 500);
-		boolean ok = dev<5;
+		boolean ok = dev<50;
 		Assert.assertTrue(ok);		
 	}
 

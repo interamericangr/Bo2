@@ -21,9 +21,6 @@ import gr.interamerican.bo2.impl.open.workers.AbstractOperation;
 public class FailingOperation
 extends AbstractOperation {
 
-	/* (non-Javadoc)
-	 * @see gr.interamerican.bo2.impl.open.workers.AbstractOperation#execute()
-	 */
 	@Override
 	public void execute() throws LogicException {
 		throw new LogicException();

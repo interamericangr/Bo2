@@ -1,5 +1,4 @@
 /*******************************************************************************
- * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A. 
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
@@ -14,6 +13,7 @@ package gr.interamerican.bo2.impl.open.workers;
 
 import gr.interamerican.bo2.arch.PersistenceWorker;
 import gr.interamerican.bo2.arch.PersistentObject;
+import gr.interamerican.bo2.arch.PoReader;
 import gr.interamerican.bo2.impl.open.creation.Factory;
 import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.annotations.Child;
@@ -21,7 +21,7 @@ import gr.interamerican.bo2.utils.annotations.Child;
 import java.io.Serializable;
 
 /**
- * Implementation of {@link FastPoReader}.
+ * Implementation of {@link PoReader}.
  * 
  * This implementation depends on the Factory in order to create
  * instances of the PersistentObject and its PersistenceWorker.
@@ -50,10 +50,9 @@ extends AbstractResourceConsumer {
 	/**
 	 * Creates a new FastPoReaderImpl object. 
 	 *
-	 * @param poClass
+	 * @param poClass the po class
 	 */
 	public FactorySupportedPoHandler(Class<P> poClass) {
-		super();
 		this.poClass = poClass;
 		this.pw = Factory.createPw(poClass);
 	}
@@ -63,8 +62,8 @@ extends AbstractResourceConsumer {
 	 * Gets a Persistent object with key properties 
 	 * equal to the properties of the specified object. 
 	 *  
-	 * @param key
-	 * 
+	 *
+	 * @param key the key
 	 * @return Returns the persistent object.
 	 */
 	protected P createByKeyProperties(Object key) {
@@ -78,8 +77,8 @@ extends AbstractResourceConsumer {
 	/**
 	 * Gets a Persistent object with the specified key. 
 	 *  
-	 * @param key
-	 * 
+	 *
+	 * @param key the key
 	 * @return Returns the persistent object.
 	 */
 	protected P createByKey(K key) {
@@ -87,11 +86,4 @@ extends AbstractResourceConsumer {
 		p.setKey(key);
 		return p;
 	}
-	
-	
-	
-	
-
-	
-	
 }

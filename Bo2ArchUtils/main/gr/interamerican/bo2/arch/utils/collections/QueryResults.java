@@ -45,32 +45,32 @@ public abstract class QueryResults<K,V,Q extends Query> implements Map<K,V> {
 	
 	/**
 	 * Key that is used for data access.
-	 * 
+	 *
 	 * @param q Query that gives values to the QueryResults
 	 * @return the key that will be used for data access
-	 * @throws DataAccessException
-	 * 
+	 * @throws DataAccessException the data access exception
 	 */
 	public abstract K key(Q q) throws DataAccessException;
 	
 	/**
 	 * Object that holds all useful information of a query row.
-	 * 
+	 *
 	 * @param q Query that gives values to the QueryResults
-	 * @return the object that contains one row's data. 
+	 * @return the object that contains one row's data.
 	 *         This object will be stored in the map.
 	 *         
-	 * @throws DataAccessException
-	 * @throws ClassCastException
+	 * @throws DataAccessException the data access exception
+	 * @throws ClassCastException the class cast exception
 	 */
 	public abstract V value(Q q) throws DataAccessException;
 	
 
 	
 	/**
-	 * reads data from a DataQuery
-	 * @param q
-	 * @throws DataAccessException
+	 * reads data from a DataQuery.
+	 *
+	 * @param q the q
+	 * @throws DataAccessException the data access exception
 	 */
 	public void read(Q q) throws DataAccessException {
 		while (q.next()) {
@@ -80,96 +80,63 @@ public abstract class QueryResults<K,V,Q extends Query> implements Map<K,V> {
 		}
 	}
 
-	/*
-	 *  (non-Javadoc)
-	 * @see java.util.Map#clear()
-	 */
+	@Override
 	public void clear() {
 		results.clear();
 	}
-	
-	/* (non-Javadoc)
-	 * @see java.util.Map#containsKey(java.lang.Object)
-	 */
+
+	@Override
 	public boolean containsKey(Object arg0) {
 		return results.containsKey(arg0);
 	}
 
-	/* (non-Javadoc)
-	 * @see java.util.Map#containsValue(java.lang.Object)
-	 */
+	@Override
 	public boolean containsValue(Object arg0) {
 		return results.containsValue(arg0);
 	}
 
-	/* (non-Javadoc)
-	 * @see java.util.Map#entrySet()
-	 */
+	@Override
 	public Set<Entry<K, V>> entrySet() {
 		return results.entrySet();
 	}
 
-	
-
-	/*
-	 *  (non-Javadoc)
-	 * @see java.util.Map#isEmpty()
-	 */
+	@Override
 	public boolean isEmpty() {
 		return results.isEmpty();
 	}
 
-	/*
-	 *  (non-Javadoc)
-	 * @see java.util.Map#keySet()
-	 */
+	@Override
 	public Set<K> keySet() {
 		return results.keySet();
 	}
 
-
-	/* (non-Javadoc)
-	 * @see java.util.Map#get(java.lang.Object)
-	 */
+	@Override
 	public V get(Object key) {
 		return results.get(key);
 	}
 
-	/* (non-Javadoc)
-	 * @see java.util.Map#put(java.lang.Object, java.lang.Object)
-	 */
+	@Override
 	public V put(K key, V value) {
 		return results.put(key, value);
 	}
 
-	/* (non-Javadoc)
-	 * @see java.util.Map#putAll(java.util.Map)
-	 */
+	@Override
 	public void putAll(Map<? extends K, ? extends V> t) {
 		results.putAll(t);
 	}
 
-	/* (non-Javadoc)
-	 * @see java.util.Map#remove(java.lang.Object)
-	 */
+	@Override
 	public V remove(Object key) {
 		return results.remove(key);
 	}
 
-	/*
-	 *  (non-Javadoc)
-	 * @see java.util.Map#size()
-	 */
+	@Override
 	public int size() {
 		return results.size();
 	}
 
-	/*
-	 *  (non-Javadoc)
-	 * @see java.util.Map#values()
-	 */
+	@Override
 	public Collection<V> values() {
 		return results.values();
 	}
-
 }

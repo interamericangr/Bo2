@@ -32,7 +32,7 @@ import java.util.Properties;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestTwoWayConverterUserType.
  */
 public class TestTwoWayConverterUserType {
 	
@@ -61,7 +61,8 @@ public class TestTwoWayConverterUserType {
 
 	/**
 	 * Test method for nullSafeGet.
-	 * @throws SQLException 
+	 *
+	 * @throws SQLException the SQL exception
 	 */
 	@Test
 	@SuppressWarnings({ "cast", "nls" })
@@ -75,7 +76,8 @@ public class TestTwoWayConverterUserType {
 
 	/**
 	 * Test method for nullSafeSet.
-	 * @throws SQLException 
+	 *
+	 * @throws SQLException the SQL exception
 	 */
 	@Test
 	@SuppressWarnings("nls")

@@ -17,6 +17,7 @@ package gr.interamerican.bo2.utils.conditions;
  */
 public class StringNotEmpty implements Condition<String> {
 
+	@Override
 	public boolean check(String t) {
 		return t.trim().length() > 0;
 	}

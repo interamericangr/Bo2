@@ -12,9 +12,12 @@
  ******************************************************************************/
 package gr.interamerican.wicket.bo2.protocol.http;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.*;
+
+import org.apache.wicket.request.cycle.RequestCycle;
+import org.junit.Assert;
+import org.junit.Test;
+
 import gr.interamerican.bo2.arch.Operation;
 import gr.interamerican.bo2.arch.PersistenceWorker;
 import gr.interamerican.bo2.arch.exceptions.DataException;
@@ -25,32 +28,13 @@ import gr.interamerican.bo2.impl.open.namedstreams.NamedStreamsProvider;
 import gr.interamerican.bo2.impl.open.streams.StreamsProvider;
 import gr.interamerican.bo2.samples.archutil.po.User;
 import gr.interamerican.bo2.test.def.posamples.Invoice;
-import gr.interamerican.wicket.bo2.test.MockApplicationForWicketBo2;
-
-import org.apache.wicket.request.cycle.RequestCycle;
-import org.apache.wicket.util.tester.WicketTester;
-import org.junit.Assert;
-import org.junit.Test;
+import gr.interamerican.wicket.bo2.test.Bo2WicketTest;
 
 /**
  * Unit tests for {@link Bo2WicketRequestCycle}.
  * 
  */
-public class TestBo2WicketRequestCycle {
-	
-	/**
-	 * the WicketTester
-	 */
-	public WicketTester wicketTester =
-		new WicketTester(new MockApplicationForWicketBo2());
-	
-	/**
-	 * Unit test for a request cycle.
-	 */
-	@Test
-	public void testBo2WicketRequestCycle(){
-		wicketTester.startPage(wicketTester.getApplication().getHomePage());
-	}
+public class TestBo2WicketRequestCycle extends Bo2WicketTest {
 	
 	/**
 	 * Unit test for create(clazz).
@@ -78,7 +62,8 @@ public class TestBo2WicketRequestCycle {
 	
 	/**
 	 * Unit test for onBeginRequest().
-	 * @throws InitializationException 
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test
 	public void testGetDefaultNamedStreamsProvider() throws InitializationException{
@@ -91,7 +76,8 @@ public class TestBo2WicketRequestCycle {
 	
 	/**
 	 * Unit test for onBeginRequest().
-	 * @throws InitializationException 
+	 *
+	 * @throws InitializationException the initialization exception
 	 */
 	@Test
 	public void testGetDefaultStreamsProvider() throws InitializationException{
@@ -104,8 +90,9 @@ public class TestBo2WicketRequestCycle {
 	
 	/**
 	 * Unit test for onBeginRequest().
-	 * @throws DataException 
-	 * @throws LogicException 
+	 *
+	 * @throws LogicException the logic exception
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testExecute() throws LogicException, DataException{

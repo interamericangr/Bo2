@@ -19,16 +19,14 @@ import gr.interamerican.bo2.impl.open.jdbc.Sql;
 import java.sql.SQLException;
 
 /**
- * 
+ * The Class DeleteCompanyUserCmd.
  */
 public class DeleteCompanyUserCmd extends JdbcCommand {
 	
+	/** The sql users. */
 	@Sql
 	private String sqlUsers = "delete from TEST.COMPANYUSER where ID<>999"; //$NON-NLS-1$
-	
-	/* (non-Javadoc)
-	 * @see gr.interamerican.bo2.impl.open.jdbc.JdbcCommand#work()
-	 */
+
 	@Override
 	protected void work() throws DataException {
 		String[] params = new String[0];
@@ -37,7 +35,5 @@ public class DeleteCompanyUserCmd extends JdbcCommand {
 		} catch (SQLException e) {
 			throw new DataException(e);
 		}
-
 	}
-
 }

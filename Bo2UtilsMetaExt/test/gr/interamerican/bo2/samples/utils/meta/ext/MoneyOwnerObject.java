@@ -25,14 +25,14 @@ public class MoneyOwnerObject implements Serializable {
 	 * serial.
 	 */
 	private static final long serialVersionUID = 1L;
-	/**
-	 * 
-	 */
+	
+	/** The money field. */
 	private Money moneyField;
+	
 	/**
 	 * Creates a new MoneyOwnerObject object. 
 	 *
-	 * @param moneyField
+	 * @param moneyField the money field
 	 */
 	public MoneyOwnerObject(Money moneyField) {
 		super();

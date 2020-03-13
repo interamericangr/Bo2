@@ -13,14 +13,15 @@
 package gr.interamerican.bo2.odftoolkit.utils;
 
 import gr.interamerican.bo2.utils.CollectionUtils;
+import gr.interamerican.bo2.utils.StringUtils;
 
+import java.io.File;
 import java.util.Properties;
 
 import org.odftoolkit.simple.TextDocument;
 
-
 /**
- * 
+ * The Class ResourceUtils.
  */
 @SuppressWarnings("nls")
 public class ResourceUtils {
@@ -30,76 +31,78 @@ public class ResourceUtils {
 	 * So we can't define the resources directory, relevant to the build path.
 	 */
 	private static String sourcePath;
-	
+
 	static {
 		try {
 			String pathToProperties = "/gr/interamerican/bo2/deployparms/deployment.properties";
 			Properties properties = CollectionUtils.readProperties(pathToProperties);
 			sourcePath = properties.getProperty("odfWorkDirectory");
-			sourcePath=sourcePath.trim();
-			if (!sourcePath.endsWith("/")) {
-				sourcePath = sourcePath+"/";
+			sourcePath = sourcePath.trim();
+			if (!sourcePath.endsWith(File.separator)) {
+				sourcePath = sourcePath + File.separator;
 			}
 		} catch (RuntimeException e) {
 			throw new ExceptionInInitializerError(e);
 		}
 	}
-	
-	//odfWorkDirectory
-	
+
 	/**
-	 * ResourceUtilities is never instantiated. 
+	 * ResourceUtilities is never instantiated.
 	 *
 	 */
 	private ResourceUtils() {
 		/* empty */
 	}
-	
+
 	/**
 	 * Moves the path one level up.
-	 * 
+	 *
 	 * @param path
+	 *            the path
 	 * @return Returns the specified path moved one level up.
 	 */
-	static String oneLevelUp(String path) {		
-		int i = path.length() - 1;			
-		while (--i>=0 && path.charAt(i)!='/') {	/* empty */	}		
-		if (i<0) {
-			return ""; 
+	static String oneLevelUp(String path) {
+		int i = path.length() - 1;
+		while (--i >= 0 && path.charAt(i) != '/') {
+			/* empty */ }
+		if (i < 0) {
+			return "";
 		}
-		return path.substring(0,i+1);
+		return path.substring(0, i + 1);
 	}
-	
+
 	/**
 	 * Gets a File in the input resources folder with the specified name.
 	 * 
 	 * @param fileName
-	 *        Filename.
-	 *        
+	 *            Filename.
+	 * 
 	 * @return Returns the File.
 	 */
-	public static String inputPath(String fileName) {					
-		return sourcePath+"in/"+fileName;		
+	public static String inputPath(String fileName) {
+		return StringUtils.concat(sourcePath, "in", File.separator, fileName);
 	}
-	
+
 	/**
 	 * Gets a File in the output resources folder with the specified name.
 	 * 
 	 * @param fileName
-	 *        Filename.
-	 *        
+	 *            Filename.
+	 * 
 	 * @return Returns the File.
 	 */
 	public static String outputPath(String fileName) {
-		return sourcePath+"out/"+fileName;		
+		return StringUtils.concat(sourcePath, "out", File.separator, fileName);
 	}
-	
+
 	/**
-	 * Copies the specified file from the input folder to the output
-	 * and saves it as XML.
-	 * 
+	 * Copies the specified file from the input folder to the output and saves
+	 * it as XML.
+	 *
 	 * @param filename
+	 *            the filename
 	 * @throws Exception
+	 *             the exception
 	 */
 	public static void in2outAsXml(String filename) throws Exception {
 		String inpath = ResourceUtils.inputPath(filename);
@@ -108,7 +111,4 @@ public class ResourceUtils {
 		template.save(outpath);
 		OdfUtils.saveContentAsXml(template);
 	}
-	
-	
-
 }

@@ -27,6 +27,7 @@ implements Comparator<T> {
 	 */
 	NumberComparator nc = new NumberComparator();
 	
+	@Override
 	public int compare(T o1, T o2) {		
 		return nc.compare(o1, o2);
 	}

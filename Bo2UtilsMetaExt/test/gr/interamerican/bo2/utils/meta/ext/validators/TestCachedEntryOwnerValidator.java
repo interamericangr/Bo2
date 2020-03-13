@@ -24,13 +24,10 @@ import org.junit.Test;
  */
 public class TestCachedEntryOwnerValidator extends AbstractCacheRelatedTest {
 	
-	/**
-	 * TYPE
-	 */
+	/** TYPE. */
 	private static final Long TYPE = 1000L;
-	/**
-	 * SUBTYPE
-	 */
+	
+	/** SUBTYPE. */
 	private static final Long SUBTYPE = 1L;
 	/**
 	 * CODE 1.
@@ -38,7 +35,8 @@ public class TestCachedEntryOwnerValidator extends AbstractCacheRelatedTest {
 	private static final Long CODE_1 = 1L;
 
 	/**
-	 * Creates a CachedEntryOwnerValidator
+	 * Creates a CachedEntryOwnerValidator.
+	 *
 	 * @return CachedEntryOwnerValidator
 	 */
 	private CachedEntryOwnerValidator<ObjectType, Long> createCachedEntryOwnerValidator(){
@@ -54,8 +52,9 @@ public class TestCachedEntryOwnerValidator extends AbstractCacheRelatedTest {
 	
 	
 	/**
-	 * Test Validate
-	 * @throws ValidationException 
+	 * Test Validate.
+	 *
+	 * @throws ValidationException the validation exception
 	 */
 	@Test(expected=ValidationException.class)
 	public void testValidateNoInCacheValue() throws ValidationException{
@@ -64,8 +63,9 @@ public class TestCachedEntryOwnerValidator extends AbstractCacheRelatedTest {
 	}
 	
 	/**
-	 * Test Validate
-	 * @throws ValidationException 
+	 * Test Validate.
+	 *
+	 * @throws ValidationException the validation exception
 	 */
 	@Test
 	public void testValidate() throws ValidationException{

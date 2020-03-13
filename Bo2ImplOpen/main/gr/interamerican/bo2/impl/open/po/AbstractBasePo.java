@@ -45,7 +45,7 @@ import org.slf4j.LoggerFactory;
  * When an attribute of a PersistentObject is annotated as child 
  * PersistentObject then its <code>setKey(key)</code> method will 
  * be called by the setKey method of its parent.
- * <br/>
+ * <br>
  * This class offers functionalities necessary mainly in cases where
  * the key of the persistent object is composite and consists of more
  * than one elements. In this case, the children of the persistent
@@ -55,9 +55,10 @@ import org.slf4j.LoggerFactory;
  * children of the father's key. This class offers this functionality.
  * Implementations of {@link PersistentObject} can be abstract classes
  * with some fields annotated with the appropriate annotations. The
- * {@link Factory} will create the appropriate concrete class. <br/>
+ * {@link Factory} will create the appropriate concrete class. <br>
  * 
- * The following limitations apply: <br/>
+ * The following limitations apply: <br>
+ * <ul>
  * <li> Child collections can only be of type {@link Set}. 
  *      All these collections can be declared as sets. These sets are 
  *      created by the constructor. </li> 
@@ -69,7 +70,7 @@ import org.slf4j.LoggerFactory;
  * <li> Child elements are <strong>owned</strong> by this instance. Their
  *      existence either in the java heap or in the persistence layer makes
  *      no sense without this object </li>
- * 
+ * </ul>
  * @param <K> Type of the persistent object key.
  */
 public abstract class AbstractBasePo<K extends Key> 
@@ -116,14 +117,7 @@ implements PersistentObject<K> {
 	 */
 	private transient List<Field> childFields;
 	
-	/**
-	 * List with the fields of the class of this object that
-	 * are not marked with the {@link Child} annotation and
-	 * are either:
-	 * <li>PersistentObject</li>
-	 * <li>Array of PersistentObject</li>
-	 * <li>Collection of PersistentObject</li>
-	 */
+	/** List with the fields of the class of this object that are not marked with the {@link Child} annotation and are either: <li>PersistentObject</li> <li>Array of PersistentObject</li> <li>Collection of PersistentObject</li>. */
 	private transient List<Field> nonChildFields;
 
 	/**
@@ -158,20 +152,20 @@ implements PersistentObject<K> {
 	 *
 	 */
 	public AbstractBasePo() {
-		super();
 		resolveChildFields();
 	}
-	
+
+	@Override
 	public K getKey() {		
 		return key;
 	}
-	
+
+	@Override
 	public void setKey(K key) {
 		this.key = key;
 		fixKeysOfChildren();
 	}
-	
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		if (obj == null) {
@@ -193,7 +187,8 @@ implements PersistentObject<K> {
 		}
 		return key.hashCode();
 	}
-	
+
+	@Override
 	public void tidy() {
 		doTidy();
 		if (isCanIgnorePoChildren()) {
@@ -241,8 +236,8 @@ implements PersistentObject<K> {
 	
 	/**
 	 * Fixes the key of a child.
-	 * 
-	 * @param child
+	 *
+	 * @param child the child
 	 */
 	protected void fixChild(Object child) {	
 		if (child!=null && !isCanIgnorePoChildren()) {
@@ -252,9 +247,8 @@ implements PersistentObject<K> {
 	
 	/**
 	 * Fixes the keys of this PO's children.
-	 * 
-	 * @param properties 
 	 *
+	 * @param properties the properties
 	 */
 	protected void fixChildren(String[] properties) {
 		fixChildren(properties, true);
@@ -262,10 +256,9 @@ implements PersistentObject<K> {
 	
 	/**
 	 * Fixes and tidies the children of this PO.
-	 * 
-	 * @param properties 
-	 * @param onlyKeys 
-	 *        If true then only keys will be fixed, otherwise the children
+	 *
+	 * @param properties the properties
+	 * @param onlyKeys        If true then only keys will be fixed, otherwise the children
 	 *        will be also tidied by their <code>doTidy()</code> method.
 	 */
 	private void fixChildren(String[] properties, boolean onlyKeys) {
@@ -440,10 +433,10 @@ implements PersistentObject<K> {
 	
 	/**
 	 * Fixes a child object.
-	 * 
-	 * @param object 
-	 * @param properties 
-	 * @param onlyKeys 
+	 *
+	 * @param object the object
+	 * @param properties the properties
+	 * @param onlyKeys the only keys
 	 */
 	private void fixChildField (Object object, String[] properties, boolean onlyKeys) {		
 		if (PoConditionChecker.isChildNotNeedFix(object)) {
@@ -484,7 +477,7 @@ implements PersistentObject<K> {
 		}
 		return nonChildFields;
 	}
-	
+
 	@Override
 	public String toString() {
 		return StringUtils.concat(
@@ -492,8 +485,4 @@ implements PersistentObject<K> {
 				//StringConstants.COLON,
 				StringUtils.toString(key));
 	}
-	
-	
-	
-
 }

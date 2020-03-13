@@ -45,14 +45,17 @@ extends AbstractType<Date> {
 	 */
 	private static DateFormat df = new SimpleDateFormat("yyyy-MM-dd"); //$NON-NLS-1$
 	
+	@Override
 	public Date get(ResultSet rs, String columnIndex) throws SQLException {		
 		return rs.getDate(columnIndex);
 	}
 	
+	@Override
 	public Date get(ResultSet rs, int columnIndex) throws SQLException {		
 		return rs.getDate(columnIndex);
 	}	
 	
+	@Override
 	public synchronized String sqlString(Date t) {
 		if (t==null) {
 			return StringConstants.NULL;
@@ -69,6 +72,7 @@ extends AbstractType<Date> {
 		return null;
 	}
 	
+	@Override
 	public Class<Date> getJavaType() {
 		return Date.class;
 	}

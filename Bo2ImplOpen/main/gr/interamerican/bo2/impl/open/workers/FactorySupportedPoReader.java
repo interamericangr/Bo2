@@ -13,14 +13,14 @@
 package gr.interamerican.bo2.impl.open.workers;
 
 
+import java.io.Serializable;
+
 import gr.interamerican.bo2.arch.PersistentObject;
 import gr.interamerican.bo2.arch.PoReader;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 
-import java.io.Serializable;
-
 /**
- * Implementation of {@link FastPoReader}.
+ * Implementation of {@link PoReader}.
  * 
  * This implementation depends on the Factory in order to create
  * instances of the PersistentObject and its PersistenceWorker.
@@ -40,26 +40,21 @@ implements PoReader<K, P> {
 	/**
 	 * Creates a new FastPoReaderImpl object. 
 	 *
-	 * @param poClass
+	 * @param poClass the po class
 	 */
 	public FactorySupportedPoReader(Class<P> poClass) {
 		super(poClass);		
 	}
-	
+
 	@Override
 	public P get(K key) throws DataException {
 		P p = createByKey(key);
 		return pw.read(p);
 	}
-	
+
 	@Override
 	public P getByProperties(Object key) throws DataException {
 		P p = createByKeyProperties(key);
 		return pw.read(p);
 	}
-	
-	
-
-	
-	
 }

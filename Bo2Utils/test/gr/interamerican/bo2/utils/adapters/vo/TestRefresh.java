@@ -12,7 +12,7 @@ import org.mockito.Mockito;
 public class TestRefresh {
 	
 	/**
-	 * 
+	 * Test execute.
 	 */
 	@Test
 	public void testExecute() {

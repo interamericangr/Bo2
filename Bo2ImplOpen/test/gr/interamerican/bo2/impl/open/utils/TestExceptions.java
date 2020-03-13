@@ -15,13 +15,13 @@ package gr.interamerican.bo2.impl.open.utils;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestExceptions.
  */
 public class TestExceptions {
 
 	
 	/**
-	 * test RuntimeException
+	 * test RuntimeException.
 	 */
 	@Test
 	public void testRuntime(){
@@ -33,7 +33,7 @@ public class TestExceptions {
 	
 	
 	/**
-	 * tests initializationException
+	 * tests initializationException.
 	 */
 	@Test
 	public void testInitializationException(){

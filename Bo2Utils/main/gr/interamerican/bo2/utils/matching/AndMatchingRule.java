@@ -33,13 +33,14 @@ public class AndMatchingRule<F,S> implements MatchingRule<F, S> {
 	/**
 	 * Creates a new AndMatchingRule object. 
 	 *
-	 * @param rules
+	 * @param rules the rules
 	 */
 	public AndMatchingRule(List<MatchingRule<F, S>> rules) {
 		super();
 		this.rules = rules;
 	}
 
+	@Override
 	public boolean isMatch(F first, S second) {
 		for (MatchingRule<F, S> rule : rules) {
 			if (!rule.isMatch(first, second)) {

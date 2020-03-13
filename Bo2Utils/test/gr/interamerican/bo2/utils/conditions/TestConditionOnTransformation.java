@@ -20,12 +20,12 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestConditionOnTransformation.
  */
 public class TestConditionOnTransformation {
 	
 	/**
-	 * Tests check()
+	 * Tests check().
 	 */
 	@Test
 	public void testCheck() {

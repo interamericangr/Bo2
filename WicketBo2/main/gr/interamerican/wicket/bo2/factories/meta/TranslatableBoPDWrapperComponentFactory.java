@@ -13,7 +13,7 @@
 package gr.interamerican.wicket.bo2.factories.meta;
 
 import gr.interamerican.bo2.utils.meta.descriptors.BoPropertyDescriptor;
-import gr.interamerican.wicket.bo2.descriptors.TranslatableBoPropertyDescriptorWrapper;
+import gr.interamerican.bo2.utils.meta.ext.descriptors.TranslatableBoPropertyDescriptorWrapper;
 
 import org.apache.wicket.Component;
 import org.apache.wicket.model.IModel;
@@ -30,12 +30,14 @@ import org.apache.wicket.model.IModel;
 public class TranslatableBoPDWrapperComponentFactory<D extends BoPropertyDescriptor<?>> 
 extends AbstractBoPDComponentFactory<TranslatableBoPropertyDescriptorWrapper<?, ?, ?>> {	
 	
+	@Override
 	public Component drawMain(TranslatableBoPropertyDescriptorWrapper<?, ?, ?> descriptor,String wicketId) {		
 		D wrapped = (D) descriptor.getDescriptor();
 		BoPDComponentFactory<D> factory = (BoPDComponentFactory<D>) BoPDTypeBasedFactorySelection.INSTANCE.select(wrapped);
 		return factory.drawMain(wrapped, wicketId);
 	}
 	
+	@Override
 	public Component drawMain(String wicketId, IModel<?> model,
 			TranslatableBoPropertyDescriptorWrapper<?, ?, ?> descriptor) {
 		D wrapped = (D) descriptor.getDescriptor();

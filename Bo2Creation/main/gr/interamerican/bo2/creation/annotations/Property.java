@@ -21,10 +21,10 @@ import java.lang.annotation.Target;
 
 /**
  * The purpose of this annotation is to mark fields of a class
- * as properties. <br/>
+ * as properties. <br>
  * 
  * A property field will have a getter and setter method generated
- * for it. <br/>
+ * for it. <br>
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)

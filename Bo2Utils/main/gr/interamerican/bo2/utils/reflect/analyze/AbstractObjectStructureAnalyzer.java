@@ -12,6 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.reflect.analyze;
 
+import gr.interamerican.bo2.utils.CollectionUtils;
 import gr.interamerican.bo2.utils.ReflectionUtils;
 import gr.interamerican.bo2.utils.StringUtils;
 import gr.interamerican.bo2.utils.adapters.Transformation;
@@ -107,6 +108,7 @@ implements Transformation<Object, Tree<VariableDefinition<?>>> {
 		leafConditions.add(new IsLeafTypeCondition());
 	}
 	
+	@Override
 	public Tree<VariableDefinition<?>> execute(Object a) {
 		VariableDefinition<?> root = createVariableDefinition(a, "root", a.getClass()); //$NON-NLS-1$
 		Tree<VariableDefinition<?>> tree = createRootNode(root);
@@ -168,7 +170,8 @@ implements Transformation<Object, Tree<VariableDefinition<?>>> {
 		
 	/**
 	 * Adds the nodes of an element.
-	 * @param tree
+	 *
+	 * @param tree the tree
 	 */	
 	private void addNodes(Tree<VariableDefinition<?>> tree) {
 		VariableDefinition<?> root = tree.getRootElement();
@@ -192,6 +195,7 @@ implements Transformation<Object, Tree<VariableDefinition<?>>> {
 	private void addNodesOfSingleElement(Tree<VariableDefinition<?>> tree) {		
 		VariableDefinition<?> root = tree.getRootElement();
 		List<VariableDefinition<?>> fields = whichFieldsToInclude(root.getValue());
+		fields = CollectionUtils.sort(fields, VariableDefinition::getName);
 		for (VariableDefinition<?> field : fields) {						
 			try {
 				addFieldNode(field, tree);
@@ -231,8 +235,8 @@ implements Transformation<Object, Tree<VariableDefinition<?>>> {
 	
 	/**
 	 * Adds the nodes of an array.
-	 * 
-	 * @param tree  
+	 *
+	 * @param tree the tree
 	 */
 	private void addNodesOfArray(Tree<VariableDefinition<?>> tree) {
 		VariableDefinition<?> branch = tree.getRootElement();
@@ -250,8 +254,8 @@ implements Transformation<Object, Tree<VariableDefinition<?>>> {
 	
 	/**
 	 * Adds the nodes of a collection.
-	 * 
-	 * @param tree
+	 *
+	 * @param tree the tree
 	 */	
 	private void addNodesOfCollection(Tree<VariableDefinition<?>> tree) {
 		VariableDefinition<?> branch = tree.getRootElement();
@@ -310,8 +314,8 @@ implements Transformation<Object, Tree<VariableDefinition<?>>> {
 	
 	/**
 	 * Checks if an object exists already on the Tree. Only uses reference equality!!!
-	 * 
-	 * @param subject
+	 *
+	 * @param subject the subject
 	 * @return True, if this exact instance is already on the Tree.
 	 */
 	boolean isPreexisting(Object subject) {
@@ -343,8 +347,5 @@ implements Transformation<Object, Tree<VariableDefinition<?>>> {
 			}
 			return false;
 		}
-		
 	}
-	
-
 }

@@ -30,10 +30,11 @@ public class PoNotFoundException extends DataException {
     public PoNotFoundException() {
         super();        
     }
+    
     /**
      * Creates a new PoNotFoundException with a message.
-     * 
-     * @param message
+     *
+     * @param message the message
      */
     public PoNotFoundException(String message) {
         super(message);        

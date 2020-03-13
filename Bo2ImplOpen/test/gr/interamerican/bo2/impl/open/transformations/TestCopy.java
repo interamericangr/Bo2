@@ -23,7 +23,7 @@ import org.junit.Test;
 public class TestCopy {
 	
 	/**
-	 * test
+	 * test.
 	 */
 	@SuppressWarnings({"nls"})	
 	@Test

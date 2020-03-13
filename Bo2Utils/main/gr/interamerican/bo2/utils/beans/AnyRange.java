@@ -29,9 +29,7 @@ import java.util.List;
 public final class AnyRange<T extends Comparable<? super T>>
 extends Range<T> {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
 	/**

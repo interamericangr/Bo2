@@ -30,34 +30,38 @@ import java.util.Properties;
 import org.hibernate.HibernateException;
 
 /**
- * General purpose user type that is used when there is an entity <-> database table
- * mismatch. This may happen when it is required to map an entity with a legacy table.
- * The configuration parameters are as follows:
- * <li> twoWayConverterClass: Class of the {@link TwoWayConverter}. It MUST have a
- *      default constructor.
- * <li> propertyClass: java type of the entity property.
- * <li> sqlType: sql type of the column. See {@link Types}.
- * <br/>
+ * General purpose user type that is used when there is an entity &lt;-&gt;
+ * database table mismatch. This may happen when it is required to map an entity
+ * with a legacy table. The configuration parameters are as follows:
+ * <ul>
+ * <li>twoWayConverterClass: Class of the {@link TwoWayConverter}. It MUST have
+ * a default constructor.</li>
+ * <li>propertyClass: java type of the entity property.</li>
+ * <li>sqlType: sql type of the column. See {@link Types}.</li>
+ * </ul>
+ * <br>
  * Example configuration for this user type.
- *
- * <typedef class="gr.interamerican.bo2.impl.open.hibernate.types.TwoWayConverterUserType" name="DamageCause">
- * 	<param name="twoWayConverterClass">gr.interamerican.converters.StringToCountryConverter</param>
- *	<param name="propertyClass">gr.interamerican.bo.def.pc.common.base.SystemListEntry</param>
- *	<param name="columnSqlType">1</param>
- * </typedef>
- *
- * When writing a {@link TwoWayConverter} implementation for this user type, the developer
- * has to be aware of the java type that is created by the driver when retrieving a column
- * of the specified SQL type from the resultset. Use {@link TypeUtils#getJavaTypeOfSqlType(int)}
- * if you are not sure what the java type will be.
- *
- * @see TypeUtils
- * @see TwoWayConverter
+ * 
+ * <pre>
+ * &lt;typedef class="gr.interamerican.bo2.impl.open.hibernate.types.TwoWayConverterUserType" name="DamageCause"&gt;
+ * 	&lt;param name="twoWayConverterClass"&gt;gr.interamerican.converters.StringToCountryConverter&lt;/param&gt;
+ * 	&lt;param name="propertyClass"&gt;gr.interamerican.bo.def.pc.common.base.SystemListEntry&lt;/param&gt;
+ * 	&lt;param name="columnSqlType"&gt;1&lt;/param&gt;
+ * &lt;/typedef&gt;
+ * </pre>
+ * 
+ * When writing a {@link TwoWayConverter} implementation for this user type, the
+ * developer has to be aware of the java type that is created by the driver when
+ * retrieving a column of the specified SQL type from the resultset. Use
+ * {@link TypeUtils#getJavaTypeOfSqlType(int)} if you are not sure what the java
+ * type will be.
  *
  * @param <L>
- *        Type to be inserted in / read from the database column.
+ *            Type to be inserted in / read from the database column.
  * @param <R>
- *        Type of the entity property.
+ *            Type of the entity property.
+ * @see TypeUtils
+ * @see TwoWayConverter
  */
 public class TwoWayConverterUserType<L, R> extends AbstractUserType {
 
@@ -84,7 +88,7 @@ public class TwoWayConverterUserType<L, R> extends AbstractUserType {
 	/**
 	 * Cached converter instances. The key is the converter class fqcn.
 	 */
-	private static final Map<String, TwoWayConverter<?, ?>> converters = new HashMap<String, TwoWayConverter<?,?>>();
+	private static final Map<String, TwoWayConverter<?, ?>> converters = new HashMap<String, TwoWayConverter<?, ?>>();
 
 	/**
 	 * Class of the property.
@@ -92,40 +96,41 @@ public class TwoWayConverterUserType<L, R> extends AbstractUserType {
 	private Class<R> propertyClass;
 
 	/**
-	 * {@link TwoWayConverter} for L<-->R conversions.
+	 * {@link TwoWayConverter} for L&lt;--&gt;R conversions.
 	 */
 	private TwoWayConverter<L, R> twoWayConverter;
 
 	/**
 	 * SQL type of column.
+	 * 
 	 * @see Types
 	 */
 	int sqlType;
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public void setParameterValues(Properties parameters) {
 		String twoWayConverterFqcn = parameters.getProperty(TWO_WAY_CONVERTER_FQCN_PARAMETER);
 		String propertyFqcn = parameters.getProperty(ENTITY_PROPERTY_FQCN_PARAMETER);
-
 		sqlType = NumberUtils.string2Int(parameters.getProperty(COLUMN_SQL_TYPE_PARAMETER));
-
 		propertyClass = (Class<R>) knownClasses.get(propertyFqcn);
-		if(propertyClass == null) {
+		if (propertyClass == null) {
 			propertyClass = (Class<R>) loadClass(propertyFqcn);
 		}
 
 		twoWayConverter = (TwoWayConverter<L, R>) converters.get(twoWayConverterFqcn);
-		if(twoWayConverter == null){
+		if (twoWayConverter == null) {
 			Class<?> twoWayconverterClass = knownClasses.get(twoWayConverterFqcn);
-			if(twoWayconverterClass == null) {
+			if (twoWayconverterClass == null) {
 				twoWayconverterClass = loadClass(twoWayConverterFqcn);
 			}
 			twoWayConverter = (TwoWayConverter<L, R>) ReflectionUtils.newInstance(twoWayconverterClass);
 			converters.put(twoWayConverterFqcn, twoWayConverter);
 		}
-
 	}
 
+	@Deprecated
+	@Override
 	@SuppressWarnings({ "unchecked" })
 	public Object nullSafeGet(ResultSet rs, String[] names, Object owner) throws HibernateException, SQLException {
 		Object column = TypeUtils.getTypeOfSqlType(sqlType).get(rs, names[0]);
@@ -136,6 +141,8 @@ public class TwoWayConverterUserType<L, R> extends AbstractUserType {
 		}
 	}
 
+	@Deprecated
+	@Override
 	public void nullSafeSet(PreparedStatement st, Object value, int index) throws HibernateException, SQLException {
 		R property = propertyClass.cast(value);
 		try {
@@ -146,22 +153,27 @@ public class TwoWayConverterUserType<L, R> extends AbstractUserType {
 		}
 	}
 
+	@Override
 	public int[] sqlTypes() {
-		return new int[]{sqlType};
+		return new int[] { sqlType };
 	}
 
+	@Override
 	public Class<?> returnedClass() {
 		return propertyClass;
 	}
 
+	@Override
 	public String objectToSQLString(Object value) {
 		return StringUtils.toString(value);
 	}
 
+	@Override
 	public String toXMLString(Object value) {
 		return StringUtils.toString(value);
 	}
 
+	@Override
 	public Object fromXMLString(String xmlValue) {
 		return null;
 	}
@@ -170,16 +182,16 @@ public class TwoWayConverterUserType<L, R> extends AbstractUserType {
 	 * Loads a class and updates the local cache.
 	 *
 	 * @param className
+	 *            the class name
 	 * @return loaded class.
 	 */
 	private Class<?> loadClass(String className) {
-		try{
+		try {
 			Class<?> clazz = Class.forName(className);
 			knownClasses.put(className, clazz);
 			return clazz;
-		} catch(ClassNotFoundException cnfe) {
+		} catch (ClassNotFoundException cnfe) {
 			throw new RuntimeException(cnfe);
 		}
 	}
-
 }

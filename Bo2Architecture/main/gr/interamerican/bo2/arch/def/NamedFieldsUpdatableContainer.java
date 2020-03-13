@@ -32,11 +32,10 @@ public interface NamedFieldsUpdatableContainer {
 	
 	/**
 	 * Sets the value of a field assigning to it a string.
-	 * 
+	 *
 	 * @param field field name.
 	 * @param value value to set to the field.
-	 * 
-	 * @throws DataAccessException
+	 * @throws DataAccessException the data access exception
 	 */
 	public void setString(String field, String value)
 	throws DataAccessException;
@@ -44,11 +43,10 @@ public interface NamedFieldsUpdatableContainer {
 	
 	/**
 	 * Sets the value of a field assigning to it a big decimal.
-	 * 
+	 *
 	 * @param field field name.
 	 * @param value value to set to the field.
-	 * 
-	 * @throws DataAccessException
+	 * @throws DataAccessException the data access exception
 	 */
 	public void setBigDecimal(String field, BigDecimal value)
 	throws DataAccessException;
@@ -56,66 +54,60 @@ public interface NamedFieldsUpdatableContainer {
 	
 	/**
 	 * Sets the value of a field assigning to it a double.
-	 * 
+	 *
 	 * @param field field name.
 	 * @param value value to set to the field.
-	 * 
-	 * @throws DataAccessException
+	 * @throws DataAccessException the data access exception
 	 */
 	public void setDouble(String field, double value)
 	throws DataAccessException;
 	
 	/**
 	 * Sets the value of a field assigning to it a float.
-	 * 
+	 *
 	 * @param field field name.
 	 * @param value value to set to the field.
-	 * 
-	 * @throws DataAccessException
+	 * @throws DataAccessException the data access exception
 	 */
 	public void setFloat(String field, float value)
 	throws DataAccessException;
 	
 	/**
 	 * Sets the value of a field assigning to it a double.
-	 * 
+	 *
 	 * @param field field name.
 	 * @param value value to set to the field.
-	 * 
-	 * @throws DataAccessException
+	 * @throws DataAccessException the data access exception
 	 */
 	public void setInt(String field, int value)
 	throws DataAccessException;
 	
 	/**
 	 * Sets the value of a field assigning to it a long.
-	 * 
+	 *
 	 * @param field field name.
 	 * @param value value to set to the field.
-	 * 
-	 * @throws DataAccessException
+	 * @throws DataAccessException the data access exception
 	 */
 	public void setLong(String field, long value)
 	throws DataAccessException;
 	
 	/**
 	 * Sets the value of a field assigning to it a short.
-	 * 
+	 *
 	 * @param field field name.
 	 * @param value value to set to the field.
-	 * 
-	 * @throws DataAccessException
+	 * @throws DataAccessException the data access exception
 	 */
 	public void setShort(String field, short value)
 	throws DataAccessException;
 	
 	/**
 	 * Sets the value of a field assigning to it a boolean.
-	 * 
+	 *
 	 * @param field field name.
 	 * @param value value to set to the field.
-	 * 
-	 * @throws DataAccessException
+	 * @throws DataAccessException the data access exception
 	 */
 	public void setBoolean(String field, boolean value)
 	throws DataAccessException;
@@ -123,33 +115,30 @@ public interface NamedFieldsUpdatableContainer {
 	
 	/**
 	 * Sets the value of a field assigning to it a byte.
-	 * 
+	 *
 	 * @param field field name.
 	 * @param value value to set to the field.
-	 * 
-	 * @throws DataAccessException
+	 * @throws DataAccessException the data access exception
 	 */
 	public void setByte(String field, byte value)
 	throws DataAccessException;
 
 	/**
 	 * Sets the value of a field assigning to it a byte array.
-	 * 
+	 *
 	 * @param field field name.
 	 * @param value value to set to the field.
-	 * 
-	 * @throws DataAccessException
+	 * @throws DataAccessException the data access exception
 	 */
 	public void setBytes(String field, byte[] value)
 	throws DataAccessException;
 	
 	/**
 	 * Sets the value of a field assigning to it a date.
-	 * 
+	 *
 	 * @param field field name.
 	 * @param value value to set to the field.
-	 * 
-	 * @throws DataAccessException
+	 * @throws DataAccessException the data access exception
 	 */
 	public void setDate(String field, Date value)
 	throws DataAccessException;
@@ -157,11 +146,10 @@ public interface NamedFieldsUpdatableContainer {
 	
 	/**
 	 * Sets the value of a field assigning to it a calendar.
-	 * 
+	 *
 	 * @param field field name.
 	 * @param value value to set to the field.
-	 * 
-	 * @throws DataAccessException
+	 * @throws DataAccessException the data access exception
 	 */
 	public void setCalendar(String field, Calendar value)
 	throws DataAccessException;
@@ -169,11 +157,10 @@ public interface NamedFieldsUpdatableContainer {
 	
 	/**
 	 * Sets the value of a field assigning to it an object.
-	 * 
+	 *
 	 * @param field field name.
 	 * @param value value to set to the field.
-	 * 
-	 * @throws DataAccessException
+	 * @throws DataAccessException the data access exception
 	 */
 	public void setObject(String field, Object value)
 	throws DataAccessException;

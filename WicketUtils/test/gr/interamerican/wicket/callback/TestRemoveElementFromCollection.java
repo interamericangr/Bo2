@@ -25,6 +25,7 @@ import org.junit.Test;
 /**
  * Test for {@link RemoveElementFromCollection}.
  */
+@Deprecated
 public class TestRemoveElementFromCollection {
 	
 	/**
@@ -41,23 +42,16 @@ public class TestRemoveElementFromCollection {
 	}
 	
 	/**
-	 * Tests the constructor.
+	 * Tests the callBack method.
 	 */
 	@Test
-	public void testWork() {		
+	public void testCallBack() {		
 		Set<BeanWithOrderedFields> set = new HashSet<BeanWithOrderedFields>();
 		BeanWithOrderedFields b = new BeanWithOrderedFields();
 		set.add(b);		
 		RemoveElementFromCollection<BeanWithOrderedFields> remove =
 			new RemoveElementFromCollection<BeanWithOrderedFields>(set, b);		
-		remove.work();		
+		remove.callBack(null);		
 		assertFalse(set.contains(b));
-		
 	}
-	
-	
-	
-	
-
-
 }

@@ -31,19 +31,15 @@ import org.junit.Test;
 
 
 /**
- * TestCrudOperations
+ * TestCrudOperations.
  */
 public class TestCrudOperationsWithHibernate {
 
 	
-	/**
-	 * CrudOperations
-	 */
+	/** CrudOperations. */
 	private CrudOperations crudOperation;
 	
-	/**
-	 * CompanyUser
-	 */
+	/** CompanyUser. */
 	CompanyUser po = Factory.create(CompanyUser.class);
 	
 	/**
@@ -53,8 +49,9 @@ public class TestCrudOperationsWithHibernate {
 	
 	/**
 	 * Deletes the user with the specified id.
-	 * @param id
-	 * @throws DataException 
+	 *
+	 * @param id the id
+	 * @throws DataException the data exception
 	 */
 	private void delete(Long id) throws DataException {
 		CompanyUser p = Factory.create(CompanyUser.class);
@@ -70,9 +67,10 @@ public class TestCrudOperationsWithHibernate {
 	
 	/**
 	 * Tests setup.
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Before
 	public void setup() throws UnexpectedException, DataException, LogicException {
@@ -92,10 +90,11 @@ public class TestCrudOperationsWithHibernate {
 	
 	
 	/**
-	 * Test store
-	 * @throws UnexpectedException
-	 * @throws DataException
-	 * @throws LogicException
+	 * Test store.
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testPerform_store() throws UnexpectedException, DataException, LogicException {
@@ -115,10 +114,11 @@ public class TestCrudOperationsWithHibernate {
 	}
 	
 	/**
-	 * Test Read
-	 * @throws UnexpectedException
-	 * @throws DataException
-	 * @throws LogicException
+	 * Test Read.
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testPerform_read() throws UnexpectedException, DataException, LogicException {
@@ -139,9 +139,11 @@ public class TestCrudOperationsWithHibernate {
 	
 	
 	/**
-	 * @throws UnexpectedException
-	 * @throws DataException
-	 * @throws LogicException
+	 * Test perform update.
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testPerform_update() throws UnexpectedException, DataException, LogicException {
@@ -165,10 +167,12 @@ public class TestCrudOperationsWithHibernate {
 	
 	
 	
-	/**Tests delete
-	 * @throws UnexpectedException
-	 * @throws DataException
-	 * @throws LogicException
+	/**
+	 * Tests delete.
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test(expected = PoNotFoundException.class)
 	public void testPerform_delete() throws UnexpectedException, DataException, LogicException {

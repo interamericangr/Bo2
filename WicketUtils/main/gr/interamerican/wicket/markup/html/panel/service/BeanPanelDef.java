@@ -26,11 +26,9 @@ public interface BeanPanelDef<B> extends ServicePanelDef {
 	/**
 	 * [MANDATORY]
 	 * Sets the model of the panel.
-	 * 
+	 *
+	 * @param beanModel        the model of the panel.
 	 * @see #getBeanModel()
-	 * 
-	 * @param beanModel
-	 *        the model of the panel.
 	 */
 	void setBeanModel(IModel<B> beanModel);
 	

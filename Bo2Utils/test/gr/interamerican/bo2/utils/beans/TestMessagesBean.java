@@ -30,7 +30,7 @@ public class TestMessagesBean {
 
 	
 	/**
-	 * Tests getString(msg)
+	 * Tests getString(msg).
 	 */
 	@Test
 	public void testGetString() {
@@ -52,7 +52,7 @@ public class TestMessagesBean {
 	}
 	
 	/**
-	 * Tests getString(msg)
+	 * Tests getString(msg).
 	 */
 	@Test
 	public void testGetString_withParams() {
@@ -62,7 +62,7 @@ public class TestMessagesBean {
 	}
 	
 	/**
-	 * Tests getString(msg)
+	 * Tests getString(msg).
 	 */
 	@Test
 	public void testGetString_xml() {
@@ -84,7 +84,7 @@ public class TestMessagesBean {
 	}
 	
 	/**
-	 * Tests getString(msg)
+	 * Tests getString(msg).
 	 */
 	@Test
 	public void testGetString_withParams_xml() {

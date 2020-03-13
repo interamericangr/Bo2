@@ -12,15 +12,15 @@
  ******************************************************************************/
 package gr.interamerican.wicket.markup.html.panel.picker;
 
-import gr.interamerican.bo2.utils.adapters.Flag;
-import gr.interamerican.wicket.callback.CallbackAction;
-import gr.interamerican.wicket.markup.html.panel.listTable.ListTablePanelDef;
-import gr.interamerican.wicket.markup.html.panel.service.ServicePanelDef;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
 import org.apache.wicket.model.IModel;
+
+import gr.interamerican.bo2.utils.adapters.Flag;
+import gr.interamerican.wicket.callback.MultiplePickAction;
+import gr.interamerican.wicket.markup.html.panel.listTable.ListTablePanelDef;
+import gr.interamerican.wicket.markup.html.panel.service.ServicePanelDef;
 
 /**
  * {@link ServicePanelDef} for {@link MultipleSelectionsPanel}.
@@ -36,7 +36,7 @@ extends ListTablePanelDef<B> {
 	 *
 	 * @return Returns the itemsSelectedAction
 	 */
-	CallbackAction getItemsSelectedAction();
+	MultiplePickAction<B> getItemsSelectedAction();
 
 	/**
 	 * [MANDATORY]
@@ -50,7 +50,7 @@ extends ListTablePanelDef<B> {
 	 *
 	 * @param itemsSelectedAction the itemsSelectedAction to set
 	 */
-	void setItemsSelectedAction(CallbackAction itemsSelectedAction);
+	void setItemsSelectedAction(MultiplePickAction<B> itemsSelectedAction);
 	
 	/**
 	 * Gets the itemsSelectedActionFlag.
@@ -62,8 +62,8 @@ extends ListTablePanelDef<B> {
 	/**
 	 * [OPTIONAL]
 	 * Sets the itemsSelectedActionFlag.
-	 * 
-	 * @param itemsSelectedActionFlag
+	 *
+	 * @param itemsSelectedActionFlag the new items selected action flag
 	 */
 	void setItemsSelectedActionFlag(Flag itemsSelectedActionFlag);
 	
@@ -74,7 +74,7 @@ extends ListTablePanelDef<B> {
 	 *
 	 * @return Returns the secondItemsSelectedAction
 	 */
-	CallbackAction getSecondItemsSelectedAction();
+	MultiplePickAction<B> getSecondItemsSelectedAction();
 
 	/**
 	 * [OPTIONAL]
@@ -87,7 +87,7 @@ extends ListTablePanelDef<B> {
 	 *
 	 * @param secondItemsSelectedAction the itemsSelectedAction to set
 	 */
-	void setSecondItemsSelectedAction(CallbackAction secondItemsSelectedAction);
+	void setSecondItemsSelectedAction(MultiplePickAction<B> secondItemsSelectedAction);
 	
 	/**
 	 * Gets the secondItemsSelectedActionFlag.
@@ -99,8 +99,8 @@ extends ListTablePanelDef<B> {
 	/**
 	 * [OPTIONAL]
 	 * Sets the secondItemsSelectedActionFlag.
-	 * 
-	 * @param secondItemsSelectedActionFlag
+	 *
+	 * @param secondItemsSelectedActionFlag the new second items selected action flag
 	 */
 	void setSecondItemsSelectedActionFlag(Flag secondItemsSelectedActionFlag);
 	
@@ -116,10 +116,9 @@ extends ListTablePanelDef<B> {
 	
 	/**
 	 * Sets the selections model.
-	 * 
+	 *
+	 * @param selectionsModel the new selections model
 	 * @see #getSelectionsModel()
-	 * 
-	 * @param selectionsModel
 	 */
 	void setSelectionsModel(IModel<ArrayList<B>> selectionsModel);
 	
@@ -132,8 +131,8 @@ extends ListTablePanelDef<B> {
 	
 	/**
 	 * [OPTIONAL] Sets a custom label for the select button.
-	 * 
-	 * @param label
+	 *
+	 * @param label the new select label model
 	 */
 	void setSelectLabelModel(IModel<String> label);
 	
@@ -146,14 +145,14 @@ extends ListTablePanelDef<B> {
 	
 	/**
 	 * [OPTIONAL] Sets a custom label for the 2nd select button.
-	 * 
-	 * @param label
+	 *
+	 * @param label the new second select label model
 	 */
 	void setSecondSelectLabelModel(IModel<String> label);
 	
 	/**
-	 * Gets the checkGroupSelectorLabel
-	 * 
+	 * Gets the checkGroupSelectorLabel.
+	 *
 	 * @return checkGroupSelectorLabel
 	 */
 	IModel<String> getCheckGroupSelectorLabelModel();
@@ -161,8 +160,8 @@ extends ListTablePanelDef<B> {
 	/**
 	 * [OPTIONAL]
 	 * Sets a custom label for the select / deselect all checkbox.
-	 * 
-	 * @param label
+	 *
+	 * @param label the new check group selector label model
 	 */
 	void setCheckGroupSelectorLabelModel(IModel<String> label);
 

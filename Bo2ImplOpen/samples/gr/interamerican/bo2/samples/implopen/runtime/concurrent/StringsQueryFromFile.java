@@ -26,10 +26,9 @@ import java.io.InputStream;
  */
 public class StringsQueryFromFile extends AbstractResourceConsumer implements EntitiesQuery<String> {
 
-	/**
-	 * 
-	 */
+	/** The rownumber. */
 	int rownumber = 0;
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public void init(Provider parent) throws InitializationException {
@@ -38,22 +37,21 @@ public class StringsQueryFromFile extends AbstractResourceConsumer implements En
 		readStream = (NamedStream<InputStream>) nsp.getStream("testRead"); //$NON-NLS-1$
 	}
 
-	/**
-	 * 
-	 */
+	/** The entity. */
 	String entity = null;
-	/**
-	 * 
-	 */
+	
+	/** The read stream. */
 	NamedStream<InputStream> readStream;
-	/**
-	 * 
-	 */
+	
+	/** The avoid lock. */
 	private boolean avoidLock = false;
+	
+	@Override
 	public void execute() throws DataException {
 		rownumber = 0;
 	}
 
+	@Override
 	public boolean next() throws DataAccessException {
 		try {
 			entity = readStream.readString();
@@ -69,18 +67,22 @@ public class StringsQueryFromFile extends AbstractResourceConsumer implements En
 		return true;
 	}
 
+	@Override
 	public int getRow() throws DataAccessException {
 		return rownumber;
 	}
 
+	@Override
 	public void setAvoidLock(boolean avoidLock) {
 		this.avoidLock = avoidLock;
 	}
 
+	@Override
 	public boolean isAvoidLock() {
 		return avoidLock;
 	}
 
+	@Override
 	public String getEntity() throws DataAccessException {
 		return entity;
 	}

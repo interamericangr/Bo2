@@ -34,15 +34,13 @@ public class TestJdbcSingleStatementQuestion extends AbstractNonTransactionalPro
 	
 	/**
 	 * Asks for an id.
-	 * 
-	 * @param question 	  
-	 * @param id
-	 * 
+	 *
+	 * @param question the question
+	 * @param id the id
 	 * @return Returns the answer.
-	 * 
-	 * @throws InitializationException
-	 * @throws DataException
-	 * @throws LogicException
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	Boolean ask(AbstractJdbcSingleStatementQuestionSample question, int id) 
 	throws InitializationException, DataException, LogicException {
@@ -56,10 +54,10 @@ public class TestJdbcSingleStatementQuestion extends AbstractNonTransactionalPro
 	
 	/**
 	 * tests the question that uses named parameters.
-	 * 
-	 * @throws InitializationException 
-	 * @throws LogicException 
-	 * @throws DataException 
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testExecuteQuestion_withNamedParams() 
@@ -71,10 +69,10 @@ public class TestJdbcSingleStatementQuestion extends AbstractNonTransactionalPro
 	
 	/**
 	 * tests the question that uses the annotation.
-	 * 
-	 * @throws InitializationException 
-	 * @throws LogicException 
-	 * @throws DataException 
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testExecuteQuestion_withAnno() 
@@ -86,10 +84,10 @@ public class TestJdbcSingleStatementQuestion extends AbstractNonTransactionalPro
 	
 	/**
 	 * tests the question that uses the annotation.
-	 * 
-	 * @throws InitializationException 
-	 * @throws LogicException 
-	 * @throws DataException 
+	 *
+	 * @throws InitializationException the initialization exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testExecuteQuestion_withoutParams() 
@@ -99,10 +97,9 @@ public class TestJdbcSingleStatementQuestion extends AbstractNonTransactionalPro
 	}	
 	
 	/**
-	 * implementation to test
+	 * implementation to test.
 	 */
-	@ManagerName("LOCALDB") @SuppressWarnings("unused")
-	private abstract class AbstractJdbcSingleStatementQuestionSample 
+	@ManagerName("LOCALDB") private abstract class AbstractJdbcSingleStatementQuestionSample 
 	extends JdbcSingleStatementQuestion<Boolean> {	
 		
 		/**
@@ -124,13 +121,13 @@ public class TestJdbcSingleStatementQuestion extends AbstractNonTransactionalPro
 		public void setId(Integer id) {
 			this.id = id;
 		}
-		
+
 		@Override
 		protected void work() throws DataException, LogicException {
 			answer = false;
 			String stmt = sql();
 			try {			
-				Object[] parms = this.getParamsFromNamedParams();
+				Object[] parms = getParamsFromNamedParams();
 				ResultSet rs = executePreparedQuery(stmt,parms);
 				if (rs.next()) {				
 					answer = true;
@@ -138,22 +135,18 @@ public class TestJdbcSingleStatementQuestion extends AbstractNonTransactionalPro
 			} catch (SQLException e) {
 				throw new DataException(e);
 			}
-		}			
-		
+		}
+
 		@Override
 		public Boolean getAnswer() {			
 			return answer;
 		}
-		
 	}
-	
-	
-	
+
 	/**
-	 * implementation to test
+	 * implementation to test.
 	 */
-	@ManagerName("LOCALDB") @SuppressWarnings("unused")
-	@ParametersOrder("id")
+	@ManagerName("LOCALDB") @ParametersOrder("id")
 	private class QuestionWithAnno 
 	extends AbstractJdbcSingleStatementQuestionSample{	
 		/**
@@ -163,10 +156,9 @@ public class TestJdbcSingleStatementQuestion extends AbstractNonTransactionalPro
 	}
 	
 	/**
-	 * implementation to test
+	 * implementation to test.
 	 */
-	@ManagerName("LOCALDB") @SuppressWarnings("unused")
-	private class QuestionWithNamedParams 
+	@ManagerName("LOCALDB") private class QuestionWithNamedParams 
 	extends AbstractJdbcSingleStatementQuestionSample {					
 		/**
 		 * sgl.
@@ -175,10 +167,9 @@ public class TestJdbcSingleStatementQuestion extends AbstractNonTransactionalPro
 	}
 	
 	/**
-	 * implementation to test
+	 * implementation to test.
 	 */
-	@ManagerName("LOCALDB") @SuppressWarnings("unused")
-	private class QuestionWithoutParams 
+	@ManagerName("LOCALDB") private class QuestionWithoutParams 
 	extends AbstractJdbcSingleStatementQuestionSample {					
 		/**
 		 * sgl.

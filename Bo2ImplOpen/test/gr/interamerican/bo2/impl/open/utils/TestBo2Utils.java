@@ -12,16 +12,18 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.utils;
 
-import gr.interamerican.bo2.arch.utils.Bo2ArchUtils;
+import static org.junit.Assert.*;
+import gr.interamerican.bo2.creation.ObjectFactory;
 import gr.interamerican.bo2.samples.archutil.beans.IntegerCriteriaDependentBean;
 import gr.interamerican.bo2.samples.archutil.beans.SampleCriteriaDependentBean;
 import gr.interamerican.bo2.samples.bean.BeanWith2Fields;
 
-import org.junit.Assert;
+import java.util.Map;
+
 import org.junit.Test;
 
 /**
- * Unit tests for class {@link Bo2ArchUtils}.
+ * Unit tests for class {@link Bo2Utils}.
  */
 public class TestBo2Utils {
 	
@@ -34,7 +36,7 @@ public class TestBo2Utils {
 		IntegerCriteriaDependentBean bean = new IntegerCriteriaDependentBean();
 		bean.setCriteria(null);
 		Integer criteria = Bo2Utils.getCriteria(bean);
-		Assert.assertEquals(Integer.valueOf(0), criteria);
+		assertEquals(Integer.valueOf(0), criteria);
 	}
 	
 	/**
@@ -45,10 +47,35 @@ public class TestBo2Utils {
 		SampleCriteriaDependentBean bean = new SampleCriteriaDependentBean();
 		bean.setCriteria(null);
 		BeanWith2Fields criteria = Bo2Utils.getCriteria(bean);
-		Assert.assertNotNull(criteria);
+		assertNotNull(criteria);
 	}
-	
 
-	
-	
+	/**
+	 * tests getFactoriesMapFromProperties.
+	 */
+	@Test(expected = RuntimeException.class)
+	public void testGetFactoriesMapFromProperties_Fail() {
+		@SuppressWarnings("nls")
+		String[] managersToLoad = new String[] { "/gr/interamerican/bo2/deployparms/managers/localdb/of.properties",
+				"/gr/interamerican/bo2/deployparms/managers/localdbjta/of.properties",
+				"/gr/interamerican/bo2/deployparms/managers/odf/of.properties" };
+		// same manager name loaded twice - this should fail
+		Bo2Utils.getFactoriesMapFromProperties(managersToLoad);
+	}
+
+	/**
+	 * tests getFactoriesMapFromProperties.
+	 */
+	@Test
+	public void testGetFactoriesMapFromProperties() {
+		@SuppressWarnings("nls")
+		String[] managersToLoad = new String[] { "/gr/interamerican/bo2/deployparms/managers/localdb/of.properties",
+				"/gr/interamerican/bo2/deployparms/managers/localfs/of.properties",
+				"/gr/interamerican/bo2/deployparms/managers/otherdb/of.properties",
+				"/gr/interamerican/rsrc/managers/mock1/of.properties"};
+		Map<String, ObjectFactory> result = Bo2Utils.getFactoriesMapFromProperties(managersToLoad);
+		assertEquals(4, result.size());
+		ObjectFactory objectFactory = result.get("MOCK1"); //$NON-NLS-1$
+		assertNotNull(objectFactory);
+	}
 }

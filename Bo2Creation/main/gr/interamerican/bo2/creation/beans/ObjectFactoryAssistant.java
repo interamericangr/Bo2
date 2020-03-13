@@ -89,7 +89,7 @@ extends PropertiesInitializedBean {
 	/**
 	 * Creates a new ObjectFactoryAssistant object. 
 	 *
-	 * @param properties
+	 * @param properties the properties
 	 */
 	public ObjectFactoryAssistant(Properties properties) {
 		super(properties);		
@@ -202,10 +202,9 @@ extends PropertiesInitializedBean {
 	
 	/**
 	 * Gets the appropriate {@link ClassCreator} for the specified class.
-	 * 
-	 * @param clazz
-	 * 
-	 * @return if the specified class is concrete, then returns the 
+	 *
+	 * @param clazz the clazz
+	 * @return if the specified class is concrete, then returns the
 	 *         <code>concreteClassEnhancer</code> else if the specified
 	 *         class is abstract returns the <code>abstractClassImplementor</code>
 	 *         else returns the <code>interfaceImplementor</code>

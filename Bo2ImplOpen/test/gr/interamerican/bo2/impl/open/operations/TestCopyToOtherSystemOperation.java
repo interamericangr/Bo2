@@ -12,6 +12,11 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.operations;
 
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
 import gr.interamerican.bo2.arch.PersistenceWorker;
 import gr.interamerican.bo2.arch.exceptions.DataException;
 import gr.interamerican.bo2.arch.exceptions.InitializationException;
@@ -25,31 +30,27 @@ import gr.interamerican.bo2.samples.archutil.po.User;
 import gr.interamerican.bo2.samples.archutil.po.UserKey;
 import gr.interamerican.bo2.test.def.posamples.SamplesFactory;
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-
 /**
- * This test works because the object graph that is to be
- * copied does not include many to one references.
+ * This test works because the object graph that is to be copied does not
+ * include many to one references.
  */
+@SuppressWarnings("deprecation")
 public class TestCopyToOtherSystemOperation {
 	/**
 	 * User id.
 	 */
 	private static final Integer USERID = 555;
-	
+
 	/**
 	 * From manager.
 	 */
 	private static final String FROM = "LOCALDB"; //$NON-NLS-1$
-	
+
 	/**
 	 * To manager.
 	 */
 	private static final String TO = "OTHERDB"; //$NON-NLS-1$
-	
+
 	/**
 	 * CRUD command for setup and teardown.
 	 */
@@ -57,86 +58,89 @@ public class TestCopyToOtherSystemOperation {
 	/**
 	 * CRUD command for setup and teardown.
 	 */
-	CrudCmd<User> crudTo;	
-	
-	
+	CrudCmd<User> crudTo;
+
 	/**
 	 * Test sample.
 	 */
 	User sample;
-	
-	
-	
+
 	/**
-	 * Creates a new TestCopyToOtherSystemOperation object. 
-	 *
+	 * Creates a new TestCopyToOtherSystemOperation object.
+	 * 
 	 */
 	public TestCopyToOtherSystemOperation() {
 		super();
 		PersistenceWorker<User> from = Factory.createPw(User.class);
 		AbstractResourceConsumer rcFrom = (AbstractResourceConsumer) from;
 		rcFrom.setManagerName(FROM);
-		crudFrom = new CrudCmd<User>(from,true);
-		
+		crudFrom = new CrudCmd<User>(from, true);
+
 		PersistenceWorker<User> to = Factory.createPw(User.class);
 		AbstractResourceConsumer rcTo = (AbstractResourceConsumer) to;
 		rcTo.setManagerName(TO);
-		crudTo = new CrudCmd<User>(to,true);
-		
+		crudTo = new CrudCmd<User>(to, true);
+
 		SamplesFactory factory = SamplesFactory.getBo2Factory();
 		sample = factory.sampleUser(USERID, 3);
+
 	}
 
 	/**
 	 * Test setup.
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 * 
+	 * @throws LogicException
+	 * @throws DataException
+	 * @throws UnexpectedException
 	 */
 	@Before
-	public void setup() throws UnexpectedException, DataException, LogicException {		
+	public void setup() throws UnexpectedException, DataException, LogicException {
 		crudFrom.delete(sample);
 		crudTo.delete(sample);
 		crudFrom.store(sample);
+		sample = crudFrom.read(sample);
 	}
-	
+
 	/**
 	 * Test tear down.
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 * 
+	 * @throws LogicException
+	 * @throws DataException
+	 * @throws UnexpectedException
 	 */
 	@After
 	public void teardown() throws UnexpectedException, DataException, LogicException {
 		crudFrom.delete(sample);
 		crudTo.delete(sample);
-	}	
-	
+	}
+
 	/**
 	 * Unit test for execute.
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 * 
+	 * @throws LogicException
+	 * @throws DataException
+	 * @throws UnexpectedException
 	 */
 	@Test
-	public void testExecute() 
-	throws UnexpectedException, DataException, LogicException {
-		new AbstractBo2RuntimeCmd() {			
+	public void testExecute() throws UnexpectedException, DataException, LogicException {
+		new AbstractBo2RuntimeCmd() {
 			@Override
-			public void work() throws LogicException, DataException,
-			InitializationException, UnexpectedException {				
-				CopyToOtherSystemOperation<User, UserKey> op =
-					new CopyToOtherSystemOperation<User, UserKey>(User.class, FROM, TO);
+			public void work() throws LogicException, InitializationException, UnexpectedException, DataException {
+				CopyToOtherSystemOperation<User, UserKey> op = new CopyToOtherSystemOperation<User, UserKey>(
+						User.class, FROM, TO);
+
+				//System.out.println("ID To Copy:" + sample.getKey().getId());
 				op.setKey(sample.getKey());
 				op.init(getProvider());
 				op.open();
 				op.execute();
 				op.close();
+
+				//System.out.println("id to store: " + sample.getKey().getId());
 			}
 		}.execute();
-		
+
 		User copied = crudTo.read(sample);
 		Assert.assertEquals(sample, copied);
 	}
-
 }

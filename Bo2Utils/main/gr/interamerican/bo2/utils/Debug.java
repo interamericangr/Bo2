@@ -207,8 +207,8 @@ public class Debug {
 	
 	/**
 	 * Creates a String for the active module.
-	 * 
-	 * @param activeModule
+	 *
+	 * @param activeModule the active module
 	 * @return Returns a String for the active module.
 	 */
 	static String activeModuleName(Object activeModule) {
@@ -267,9 +267,9 @@ public class Debug {
 	
 	/**
 	 * Prints a debug message with a given target logger. 
-	 * 
-	 * @param target 
-	 * @param msg
+	 *
+	 * @param target the target
+	 * @param msg the msg
 	 */
 	public static void debug(Logger target, String msg) {
 		if(target.isDebugEnabled()) {

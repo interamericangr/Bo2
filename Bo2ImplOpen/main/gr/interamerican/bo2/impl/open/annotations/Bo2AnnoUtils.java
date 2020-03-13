@@ -121,9 +121,8 @@ public class Bo2AnnoUtils {
 	
 	/**
 	 * Checks if the specified class needs a manager.
-	 * 
-	 * @param clazz
-	 * 
+	 *
+	 * @param clazz the clazz
 	 * @return Returns true if clazz has a manager.
 	 */
 	private static boolean isClassWithManager(Class<?> clazz) {
@@ -151,13 +150,12 @@ public class Bo2AnnoUtils {
 		}		
 		return null;
 	}
-	
+
 	/**
 	 * Gets an array that contains the names of a class' parameters
 	 * as defined by a {@link ParametersOrder} annotation.
-	 * 
-	 * @param clazz
-	 * 
+	 *
+	 * @param clazz the clazz
 	 * @return Returns the names of the parameters.
 	 */
 	public static String[] getParameterNames(Class<?> clazz) {
@@ -171,10 +169,4 @@ public class Bo2AnnoUtils {
 		}
 		return null;
 	}
-	
-	
-	
-	
-	
-
 }

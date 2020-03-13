@@ -26,8 +26,8 @@ public class AccessorUtils {
 	
 	/**
 	 * Finds if a method is a property getter.
-	 * 
-	 * @param method
+	 *
+	 * @param method the method
 	 * @return Returns true if the method is a getter.
 	 */
 	public static boolean isGetter(Method method) {
@@ -83,8 +83,8 @@ public class AccessorUtils {
 	
 	/**
 	 * Finds if a method is a property setter.
-	 * 
-	 * @param method
+	 *
+	 * @param method the method
 	 * @return Returns true if the method is a setter.
 	 */
 	public static boolean isSetter(Method method) {
@@ -131,9 +131,9 @@ public class AccessorUtils {
 	
 	/**
 	 * Gets the getter method of a field.
-	 * 
-	 * @param field
-	 * @param clazz
+	 *
+	 * @param field the field
+	 * @param clazz the clazz
 	 * @return Returns the getter method of a field.
 	 */
 	public static Method getGetter(Field field, Class<?> clazz) {		
@@ -142,11 +142,11 @@ public class AccessorUtils {
 	
 	/**
 	 * Gets the getter method of a property.
-	 * 
-	 * @param propertyName
-	 * @param propertyType
-	 * @param clazz
-	 * @return Returns the getter method. 
+	 *
+	 * @param propertyName the property name
+	 * @param propertyType the property type
+	 * @param clazz the clazz
+	 * @return Returns the getter method.
 	 *         If the property is write only, returns null.
 	 */
 	public static Method getGetter(String propertyName, Class<?> propertyType, Class<?> clazz) {		
@@ -199,9 +199,9 @@ public class AccessorUtils {
 	
 	/**
 	 * Gets the setter method of a field.
-	 * 
-	 * @param field
-	 * @param clazz
+	 *
+	 * @param field the field
+	 * @param clazz the clazz
 	 * @return Returns the setter method of a field.
 	 */
 	public static Method getSetter(Field field, Class<?> clazz) {		
@@ -210,11 +210,10 @@ public class AccessorUtils {
 	
 	/**
 	 * Gets the setter method of a property.
-	 * 
-	 * @param propertyName
-	 * @param propertyType
-	 * @param clazz
-	 * 
+	 *
+	 * @param propertyName the property name
+	 * @param propertyType the property type
+	 * @param clazz the clazz
 	 * @return Returns the property setter. If the property is read only, returns null.
 	 */
 	public static Method getSetter(String propertyName, Class<?> propertyType, Class<?> clazz) {

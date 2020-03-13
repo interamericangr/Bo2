@@ -20,14 +20,14 @@ import gr.interamerican.bo2.utils.annotations.Child;
 
 /**
  * An {@link AbstractQueryCrawlerOperation} is an Operation that performs work 
- * on each row of the result of a Query execution. <br/>
+ * on each row of the result of a Query execution. <br>
  * 
  * This operation requires a Query instance and an Operation class. The query is 
  * used to produce the rows which are used in order to provide input for the 
  * Operation. The user must implement {@link #handleRow()} in order to use
  * the current query row to give input to the operation then execute the
  * operation. 
- * <br/>
+ * <br>
  * 
  * @param <Q> 
  *        Type of query being executed.
@@ -38,7 +38,7 @@ extends AbstractOperation {
 	/**
 	 * Creates a new AbstractQueryCrawlerOperation object. 
 	 *
-	 * @param query
+	 * @param query the query
 	 */
 	public AbstractQueryCrawlerOperation(Q query) {
 		super();
@@ -55,10 +55,11 @@ extends AbstractOperation {
 	/**
 	 * This method is a place holder for defining functionality that has
 	 * to be run before the query execution.
-	 * 
-	 * @throws LogicException
-	 * @throws DataException
+	 *
+	 * @throws LogicException the logic exception
+	 * @throws DataException the data exception
 	 */	
+	@SuppressWarnings("unused")
 	protected void beforeQuery() throws LogicException, DataException {
 		/* empty */
 	}
@@ -66,23 +67,24 @@ extends AbstractOperation {
 	/**
 	 * This method is a place holder for defining functionality that has
 	 * to be run after crawling the query.
-	 * 
-	 * @throws LogicException
-	 * @throws DataException
+	 *
+	 * @throws LogicException the logic exception
+	 * @throws DataException the data exception
 	 */	
+	@SuppressWarnings("unused")
 	protected void afterQuery() throws LogicException, DataException {
 		/* empty */
 	}
 	
-	/**       
+	/**
+	 *        
 	 * Handles the current row of the query.
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
+	 *
+	 * @throws LogicException the logic exception
+	 * @throws DataException the data exception
 	 */
 	protected abstract void handleRow() throws LogicException, DataException;
 
-	
 	@Override
 	public void execute() throws LogicException, DataException {
 		beforeQuery();
@@ -92,5 +94,4 @@ extends AbstractOperation {
 		}
 		afterQuery();
 	}
-
 }

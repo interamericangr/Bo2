@@ -13,9 +13,6 @@
 package gr.interamerican.wicket.creators;
 
 import java.io.Serializable;
-import java.util.List;
-
-import org.apache.wicket.extensions.markup.html.repeater.data.table.DataTable;
 
 /**
  * Base class for {@link DataTableCreator} implementations.
@@ -26,9 +23,7 @@ import org.apache.wicket.extensions.markup.html.repeater.data.table.DataTable;
 public abstract class AbstractDataTableCreator<B extends Serializable> 
 implements DataTableCreator<B> {
 	
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	
 	/**
@@ -53,7 +48,4 @@ implements DataTableCreator<B> {
 	public void setRowsPerPage(Integer rowsPerPage) {
 		this.rowsPerPage = rowsPerPage;
 	}
-
-	public abstract DataTable<B> createDataTable(String id, List<B> elements);
-
 }

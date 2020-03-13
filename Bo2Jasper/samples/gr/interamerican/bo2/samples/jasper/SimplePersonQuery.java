@@ -20,7 +20,7 @@ import gr.interamerican.bo2.utils.ReflectionUtils;
 import java.util.Map;
 
 /**
- * This query is criteria dependent. <br/>
+ * This query is criteria dependent. <br>
  * 
  * Setting the criteria has the following effect.
  * All entities fetched by the query, will have its
@@ -58,6 +58,7 @@ implements CriteriaDependent<SimplePerson> {
 	 *
 	 * @return Returns the criteria
 	 */
+	@Override
 	public SimplePerson getCriteria() {
 		return criteria;
 	}
@@ -67,6 +68,7 @@ implements CriteriaDependent<SimplePerson> {
 	 *
 	 * @param criteria the criteria to set
 	 */
+	@Override
 	public void setCriteria(SimplePerson criteria) {
 		this.criteria = criteria;
 	}

@@ -25,7 +25,7 @@ import org.junit.Test;
 public class TestSessionImpl {
 	
 	/**
-	 * Unit test for setUser(user)
+	 * Unit test for setUser(user).
 	 */
 	@Test
 	public void testSetUser() {
@@ -37,7 +37,7 @@ public class TestSessionImpl {
 	}
 	
 	/**
-	 * Unit test for getUser()
+	 * Unit test for getUser().
 	 */
 	@Test
 	public void testGetUser() {
@@ -49,7 +49,7 @@ public class TestSessionImpl {
 	}
 	
 	/**
-	 * Unit test for setLanguageId(languageId)
+	 * Unit test for setLanguageId(languageId).
 	 */
 	@Test
 	public void testSetLanguageId() {
@@ -61,7 +61,7 @@ public class TestSessionImpl {
 	}
 	
 	/**
-	 * Unit test for getLanguageId()
+	 * Unit test for getLanguageId().
 	 */
 	@Test
 	public void testGetLanguageId() {
@@ -73,7 +73,7 @@ public class TestSessionImpl {
 	}
 	
 	/**
-	 * Unit test for isLogin()
+	 * Unit test for isLogin().
 	 */
 	@Test
 	public void testIsLogin() {
@@ -86,7 +86,7 @@ public class TestSessionImpl {
 	}
 	
 	/**
-	 * Unit test for isLogin()
+	 * Unit test for isLogin().
 	 */
 	@SuppressWarnings("nls")
 	@Test

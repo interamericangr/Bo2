@@ -13,8 +13,7 @@ public class MultipleExceptionTranslator {
 	/**
 	 * Exception unwwrappers.
 	 */
-	@SuppressWarnings("rawtypes")
-	protected Map<Class, ExceptionUnwrapper> unwrappers;
+	protected Map<Class<? extends Exception>, ExceptionUnwrapper<? extends Exception>> unwrappers;
 	
 	/**
 	 * Handler for the rest exceptions.
@@ -23,15 +22,15 @@ public class MultipleExceptionTranslator {
 	
 	/**
 	 * Creates a new ExceptionTranslator object.
-	 * 
-	 * @param classes
+	 *
+	 * @param classes the classes
 	 */
-	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@SafeVarargs
 	public MultipleExceptionTranslator(Class<? extends Exception>... classes) {
 		super();
-		unwrappers = new HashMap<Class, ExceptionUnwrapper>();
+		unwrappers = new HashMap<>();
 		for (Class<? extends Exception> clazz : classes) {
-			ExceptionUnwrapper unwrapper = new ExceptionUnwrapper(clazz);			
+			ExceptionUnwrapper<?> unwrapper = new ExceptionUnwrapper<>(clazz);			
 			unwrappers.put(clazz, unwrapper);
 		}
 	}
@@ -40,21 +39,22 @@ public class MultipleExceptionTranslator {
 	
 	/**
 	 * Rethrows a specific Exception type.
-	 * 
-	 * @param clazz
-	 * @param t
-	 * @throws E
+	 *
+	 * @param <E> the element type
+	 * @param clazz the clazz
+	 * @param t the t
+	 * @throws E the e
 	 */
-	@SuppressWarnings("unchecked")
 	protected <E extends Exception> void rethrow(Class<E> clazz, Throwable t) throws E {
-		ExceptionUnwrapper<E> unwrapper = unwrappers.get(clazz);
+		@SuppressWarnings("unchecked")
+		ExceptionUnwrapper<E> unwrapper = (ExceptionUnwrapper<E>) unwrappers.get(clazz);
 		ExceptionUnwrapper.rethrow(unwrapper, t);		
 	}
 	
 	/**
 	 * Rethrows exception types not covered by the unwrappers.
-	 * 
-	 * @param t
+	 *
+	 * @param t the t
 	 */
 	protected void rethrowRest(Throwable t) {
 		handler.rethrow(t);
@@ -62,22 +62,14 @@ public class MultipleExceptionTranslator {
 	
 	/**
 	 * Rethrows exception types not covered by the unwrappers.
-	 * 
-	 * @param t
-	 * 
-	 * @throws Exception 
+	 *
+	 * @param t the t
+	 * @throws Exception the exception
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void rethrow(Throwable t) throws Exception {
-		for (Class clazz : unwrappers.keySet()) {
+		for (Class<? extends Exception> clazz : unwrappers.keySet()) {
 			rethrow(clazz,t);			
 		}
 		rethrowRest(t);
 	}
-	
-	
-	
-	
-	
-
 }

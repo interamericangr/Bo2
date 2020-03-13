@@ -15,20 +15,50 @@ package gr.interamerican.bo2.test.def.samples;
 import java.io.Serializable;
 
 /**
- * 
+ * The Interface SampleJavaBean1.
  */
 public interface SampleJavaBean1 extends Serializable, SampleJavaBeanSuperType {
 	
+	/**
+	 * Sets the name.
+	 *
+	 * @param name the new name
+	 */
 	public void setName(String name);
 	
+	/**
+	 * Gets the name.
+	 *
+	 * @return the name
+	 */
 	public String getName();
 	
+	/**
+	 * Gets the picture.
+	 *
+	 * @return the picture
+	 */
 	public byte[] getPicture();
 	
+	/**
+	 * Sets the picture.
+	 *
+	 * @param pic the new picture
+	 */
 	public void setPicture(byte[] pic);
 	
+	/**
+	 * Gets the measurements.
+	 *
+	 * @return the measurements
+	 */
 	public Integer[] getMeasurements();
 	
+	/**
+	 * Sets the measurements.
+	 *
+	 * @param measurements the new measurements
+	 */
 	public void setMeasurements(Integer[] measurements);
 
 }

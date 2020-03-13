@@ -33,14 +33,17 @@ extends NonQuotedType<Short> {
 		super();
 	}
 	
+	@Override
 	public Short get(ResultSet rs, String columnIndex) throws SQLException {		
 		return rs.getShort(columnIndex);
 	}
 	
+	@Override
 	public Short get(ResultSet rs, int columnIndex) throws SQLException {		
 		return rs.getShort(columnIndex);
 	}
 	
+	@Override
 	public Class<Short> getJavaType() {		
 		return Short.class;
 	}

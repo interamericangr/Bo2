@@ -48,14 +48,13 @@ public class TestNamedBufferedReader {
 	
 	/**
 	 * Creates a sample.
-	 * 
-	 * @param rows
-	 * 
+	 *
+	 * @param rows the rows
 	 * @return Returns the sample.
 	 */
 	NamedBufferedReader sample(String... rows) {
 		Charset encoding = Charset.defaultCharset();
-		InputStream in = Streams.input(encoding, lines);
+		InputStream in = Streams.input(encoding, rows);
 		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 		return new NamedBufferedReader(null, reader, "NBR", in, encoding, "NBR_uri");
 	}
@@ -87,8 +86,8 @@ public class TestNamedBufferedReader {
 
 	/**
 	 * Unit test for readRecord().
-	 * 
-	 * @throws DataException
+	 *
+	 * @throws DataException the data exception
 	 */	
 	@Test
 	public void testReadRecord() throws DataException {		
@@ -102,8 +101,8 @@ public class TestNamedBufferedReader {
 	
 	/**
 	 * Unit test for readString().
-	 * 
-	 * @throws DataException
+	 *
+	 * @throws DataException the data exception
 	 */	
 	@Test
 	public void testReadString() throws DataException {
@@ -116,8 +115,8 @@ public class TestNamedBufferedReader {
 	
 	/**
 	 * Unit test for writeString.
-	 * 
-	 * @throws DataException
+	 *
+	 * @throws DataException the data exception
 	 */	
 	@Test(expected=DataOperationNotSupportedException.class)
 	public void testWriteString() 
@@ -128,8 +127,8 @@ public class TestNamedBufferedReader {
 	
 	/**
 	 * Unit test for writeString.
-	 * 
-	 * @throws DataException
+	 *
+	 * @throws DataException the data exception
 	 */	
 	@Test(expected=DataOperationNotSupportedException.class)
 	public void testWriteRecord() 
@@ -140,8 +139,8 @@ public class TestNamedBufferedReader {
 	
 	/**
 	 * Unit test for find.
-	 * 
-	 * @throws DataException
+	 *
+	 * @throws DataException the data exception
 	 */	
 	@Test(expected=DataOperationNotSupportedException.class)
 	public void testFind() throws DataException {
@@ -151,9 +150,9 @@ public class TestNamedBufferedReader {
 	
 	/**
 	 * Test for close().
-	 * 
-	 * @throws IOException 
-	 * @throws DataException 
+	 *
+	 * @throws IOException Signals that an I/O exception has occurred.
+	 * @throws DataException the data exception
 	 */
 	@Test
 	public void testClose() throws IOException, DataException {

@@ -19,6 +19,7 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
 import gr.interamerican.bo2.arch.DetachStrategy;
+import gr.interamerican.bo2.arch.PersistenceWorker;
 import gr.interamerican.bo2.creation.ObjectFactory;
 import gr.interamerican.bo2.creation.beans.FunctionalMocksObjectFactoryImpl;
 import gr.interamerican.bo2.samples.almostEmpty.AlmostEmpty1;
@@ -38,7 +39,7 @@ import org.mockito.Mockito;
 public class TestFactory {
 	
 	/**
-	 * unit test for nullSafe()
+	 * unit test for nullSafe().
 	 */
 	@Test
 	public void testNullSafe() {
@@ -69,9 +70,9 @@ public class TestFactory {
 	
 	/**
 	 * Tests compileJavaBean().
-	 * 
-	 * @throws NoSuchFieldException 
-	 * @throws SecurityException 
+	 *
+	 * @throws SecurityException the security exception
+	 * @throws NoSuchFieldException the no such field exception
 	 */
 	@SuppressWarnings("nls")
 	@Test
@@ -143,7 +144,7 @@ public class TestFactory {
 	}
 	
 	/**
-	 * Test for registerFixture(clazz,instance)
+	 * Test for registerFixture(clazz,instance).
 	 */
 	@Test
 	public void testRegisterFixture_withInstance() {
@@ -161,6 +162,18 @@ public class TestFactory {
 	}
 	
 	/**
+	 * Test method for {@link Factory#registerPwFixture(Class, PersistenceWorker)}
+	 */
+	@Test
+	public void testRegisterPwFixture(){
+		@SuppressWarnings("unchecked")
+		PersistenceWorker<User> mockPw = Mockito.mock(PersistenceWorker.class);
+		Factory.registerPwFixture(User.class, mockPw);
+		assertEquals(mockPw, Factory.createPw(User.class));
+		Factory.resetPwFixtures();
+	}
+	
+	/**
 	 * Test for resetFixtures()
 	 */
 	@Test
@@ -175,6 +188,33 @@ public class TestFactory {
 	}
 	
 	/**
+	 * Test method for {@link Factory#resetPwFixtures}
+	 */
+	@Test
+	public void testResetPwFixtures(){
+		@SuppressWarnings("unchecked")
+		PersistenceWorker<User> mockPw = Mockito.mock(PersistenceWorker.class);
+		Factory.registerPwFixture(User.class, mockPw);
+		Factory.resetPwFixtures();
+		assertNotSame(mockPw, Factory.createPw(User.class));
+	}
+	
+	/**
+	 * Test method for {@link Factory#resetAllFixtures()}
+	 */
+	@Test
+	public void testResetAllFixtures(){
+		IBeanWith2Strings mock = Mockito.mock(IBeanWith2Strings.class);
+		Factory.registerFixture(IBeanWith2Strings.class, mock);
+		@SuppressWarnings("unchecked")
+		PersistenceWorker<User> mockPw = Mockito.mock(PersistenceWorker.class);
+		Factory.registerPwFixture(User.class, mockPw);
+		Factory.resetAllFixtures();
+		assertNotSame(mock, Factory.create(IBeanWith2Strings.class));
+		assertNotSame(mockPw, Factory.createPw(User.class));
+	}
+	
+	/**
 	 * Test for getType(c)
 	 */
 	@Test
@@ -184,7 +224,7 @@ public class TestFactory {
 	}
 	
 	/**
-	 * Test for declarationTypeName(c)
+	 * Test for declarationTypeName(c).
 	 */
 	@Test
 	public void testDeclarationTypeName() {

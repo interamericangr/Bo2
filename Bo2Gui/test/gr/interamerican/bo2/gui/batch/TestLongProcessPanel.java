@@ -20,12 +20,12 @@ import org.mockito.Mockito;
 
 
 /**
- * test case for {@link LongProcessPanel}
+ * test case for {@link LongProcessPanel}.
  */
 public class TestLongProcessPanel {
 
 	/**
-	 * test method for {@link LongProcessPanel#LongProcessPanel(LongProcess)}
+	 * test method for {@link LongProcessPanel#LongProcessPanel(LongProcess)}.
 	 */
 	@Test
 	public void testConstructor() {

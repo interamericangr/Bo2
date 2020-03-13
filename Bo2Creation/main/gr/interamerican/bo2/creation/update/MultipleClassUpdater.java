@@ -38,7 +38,7 @@ extends AbstractClassUpdater {
 	/**
 	 * Creates a new MultipleClassUpdater object. 
 	 *
-	 * @param updaters
+	 * @param updaters the updaters
 	 */
 	public MultipleClassUpdater(AbstractClassUpdater... updaters) {
 		this(Arrays.asList(updaters));
@@ -47,7 +47,7 @@ extends AbstractClassUpdater {
 	/**
 	 * Creates a new MultipleClassUpdater object. 
 	 *
-	 * @param updaters
+	 * @param updaters the updaters
 	 */
 	public MultipleClassUpdater(List<AbstractClassUpdater> updaters) {
 		super();

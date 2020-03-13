@@ -34,17 +34,17 @@ import org.hibernate.proxy.HibernateProxy;
  * for manual re-attaching to the Hibernate Session and a list of
  * objects that are currently transient and should not be affected
  * by the re-attachment process.
- * <br/>
+ * <br>
  * The two lists are returned as a {@link PoReattachAnalysisResult}.
- * <br/>
+ * <br>
  * This is achieved by inspecting recursively owned entities and
  * owned collections of entities and including in the results referenced
  * entities and referenced collections of entities.
- * <br/>
+ * <br>
  * No force initialization of lazy proxies of entities or collections
  * of entities is caused by this adapter. The application of the adapter
  * to an {@link AbstractBasePo} does not alter its state. 
- * <br/>
+ * <br>
  * 
  * @see DetachStrategy#reattach(Object, gr.interamerican.bo2.arch.Provider)
  */
@@ -64,6 +64,7 @@ public class PoReattachAnalysis implements Transformation<AbstractBasePo<?>, PoR
 		return INSTANCE;
 	}
 
+	@Override
 	public PoReattachAnalysisResult execute(AbstractBasePo<?> a) {
 		PoReattachAnalysisResult analysis = new PoReattachAnalysisResult();
 		
@@ -120,7 +121,7 @@ public class PoReattachAnalysis implements Transformation<AbstractBasePo<?>, PoR
 	}
 	
 	/**
-	 * There are two possible scenarios for references that need re-attaching:<br/>
+	 * There are two possible scenarios for references that need re-attaching:<br>
 	 * <li>A non-child {@link PersistentObject} that is an initialized {@link HibernateProxy}.</li>
 	 * <li>The elements of a non-child {@link PersistentCollection} that has been initialized.</li>
 	 * <li>A non-child {@link PersistentObject}</li>
@@ -164,7 +165,7 @@ public class PoReattachAnalysis implements Transformation<AbstractBasePo<?>, PoR
 	}
 	
 	/**
-	 * Results bean
+	 * Results bean.
 	 */
 	public static class PoReattachAnalysisResult {
 		

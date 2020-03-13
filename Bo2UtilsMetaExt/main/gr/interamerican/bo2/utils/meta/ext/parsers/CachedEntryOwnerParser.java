@@ -8,8 +8,9 @@ import gr.interamerican.bo2.utils.meta.exceptions.ParseException;
 import gr.interamerican.bo2.utils.meta.parsers.Parser;
 
 /**
- * 
- * @param <T> Type of entry 
+ * The Class CachedEntryOwnerParser.
+ *
+ * @param <T> Type of entry
  * @param <C> Type of cache code
  */
 public class CachedEntryOwnerParser
@@ -18,14 +19,10 @@ public class CachedEntryOwnerParser
 extends NamedCacheProvider<C>
 implements Parser<T> {
 
-	/**
-	 * serialVersionUID
-	 */
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * Entry typeId
-	 */
+	/** Entry typeId. */
 	protected Long typeId;
 	
 	/**
@@ -36,9 +33,10 @@ implements Parser<T> {
 	/**
 	 * Creates a new CachedEntryParser object.
 	 *  
-	 * @param cacheName 
-	 * @param typeId 
-	 * @param codeParser 
+	 *
+	 * @param cacheName the cache name
+	 * @param typeId the type id
+	 * @param codeParser the code parser
 	 */
 	public CachedEntryOwnerParser(String cacheName, Long typeId, Parser<C> codeParser) {
 		super(cacheName);
@@ -46,6 +44,7 @@ implements Parser<T> {
 		this.codeParser = codeParser;
 	}
 
+	@Override
 	@SuppressWarnings("unchecked")
 	public T parse(String value) throws ParseException {
 		TypedSelectable<C> typedSelectable = cache().get(typeId, codeParser.parse(value));
@@ -60,5 +59,4 @@ implements Parser<T> {
 		OwnedEntry<C, ?, ?> entry = (OwnedEntry<C, ?, ?>) typedSelectable;
 		return (T) entry.getOwner();
 	}
-
 }

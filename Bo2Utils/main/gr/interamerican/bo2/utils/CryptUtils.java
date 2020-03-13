@@ -8,16 +8,14 @@ import java.security.NoSuchAlgorithmException;
  */
 public class CryptUtils {
 	
-	/**
-	 * MD5 MessageDigest
-	 */
+	/** MD5 MessageDigest. */
 	private static MessageDigest MD5;
 	
 	/**
 	 * Gets the md5 sum of an array (16 bytes, hex representation).
 	 * The string is 32 chars length.
-	 * 
-	 * @param data
+	 *
+	 * @param data the data
 	 * @return md5 sum of array.
 	 */
 	public static String getMd5(byte[] data) {
@@ -32,6 +30,8 @@ public class CryptUtils {
 	}
 	
 	/**
+	 * Md 5.
+	 *
 	 * @return Return MD5 {@link MessageDigest}.
 	 */
 	static synchronized MessageDigest md5() {

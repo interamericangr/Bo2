@@ -15,7 +15,7 @@ package gr.interamerican.bo2.samples.providers;
 import gr.interamerican.bo2.arch.ResourceWrapper;
 
 /**
- * 
+ * The Interface IMockRw1.
  */
 public interface IMockRw1 extends ResourceWrapper {
 	/* empty */

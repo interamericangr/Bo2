@@ -106,14 +106,15 @@ public class TestSelfDrawnPanel_AffectedDdcs extends Bo2WicketTest {
 		commonAssertions_noError();
 	}
 	
-	
 	@Override
-	protected Component initializeComponent() {
+	protected Component initializeComponent(String wicketId) {
 		model = new CompoundPropertyModel<BeanWith2TranslatableEntries>(new BeanWith2TranslatableEntries(null, null));
-		return new SelfDrawnPanel<BeanWith2TranslatableEntries>(TestPage.TEST_ID, model, createBod());
+		return new SelfDrawnPanel<BeanWith2TranslatableEntries>(wicketId, model, createBod());
 	}
 	
 	/**
+	 * Creates the bod.
+	 *
 	 * @return Returns the BusinessObjectDescriptor for BeanWith2Selectables.
 	 */
 	BusinessObjectDescriptor<BeanWith2TranslatableEntries> createBod() {
@@ -126,6 +127,8 @@ public class TestSelfDrawnPanel_AffectedDdcs extends Bo2WicketTest {
 	}
 	
 	/**
+	 * Gets the field 1 decriptor.
+	 *
 	 * @return Returns the CachedEntryBoPropertyDescriptor for field1 of BeanWith2Selectables.
 	 */
 	CachedEntryBoPropertyDescriptor<TranslatableEntryImpl, Long> getField1Decriptor(){
@@ -146,6 +149,8 @@ public class TestSelfDrawnPanel_AffectedDdcs extends Bo2WicketTest {
     }
 	
 	/**
+	 * Gets the field 2 decriptor.
+	 *
 	 * @return Returns the CachedEntryBoPropertyDescriptor for field2 of BeanWith2Selectables.
 	 */
 	CachedEntryBoPropertyDescriptor<TranslatableEntryImpl, Long> getField2Decriptor(){
@@ -166,6 +171,8 @@ public class TestSelfDrawnPanel_AffectedDdcs extends Bo2WicketTest {
     }
 	
 	/**
+	 * Mock cache.
+	 *
 	 * @return Mocked cache.
 	 */
 	@SuppressWarnings("unchecked")
@@ -182,6 +189,8 @@ public class TestSelfDrawnPanel_AffectedDdcs extends Bo2WicketTest {
 	}
 	
 	/**
+	 * Field 1 values.
+	 *
 	 * @return All field1 values
 	 */
 	Set<TranslatableEntryImpl> field1Values() {
@@ -192,6 +201,8 @@ public class TestSelfDrawnPanel_AffectedDdcs extends Bo2WicketTest {
 	}
 	
 	/**
+	 * Field 2 values.
+	 *
 	 * @return 2 field2 values dependent on field1 value
 	 */
 	Set<TranslatableEntryImpl> field2Values() {

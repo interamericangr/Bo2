@@ -26,28 +26,22 @@ import java.util.Collection;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestCacheUtils.
  */
 public class TestCacheUtils {
 
 	
-	/**
-	 * cache 
-	 */
+	/** cache. */
 	CacheImpl<Long> cache = new CacheImpl<Long>();
 	
-	/**
-	 * collection
-	 */
+	/** collection. */
 	Collection<TypedSelectableImpl> selectableCollection  = new ArrayList<TypedSelectableImpl>();
 	
-	/**
-	 * translCollection
-	 */
+	/** translCollection. */
 	Collection<TranslatableEntryOwnerImpl> translCollection  = new ArrayList<TranslatableEntryOwnerImpl>();
 	
 	/**
-	 * test loadEntries
+	 * test loadEntries.
 	 */
 	@Test
 	public void testLoadEntries(){
@@ -60,7 +54,7 @@ public class TestCacheUtils {
 	}
 	
 	/**
-	 * test load entryOwners
+	 * test load entryOwners.
 	 */
 	@Test
 	public void testloadEntryOwners(){
@@ -74,40 +68,30 @@ public class TestCacheUtils {
 	
 	
 	/**
-	 * interface to test
+	 * interface to test.
 	 */
 	private interface TypedSelectableSample extends TypedSelectable<Long>{
         //empty
 	}
 	
 	/**
-	 * implementation to test
+	 * implementation to test.
 	 */
 	private class TypedSelectableImpl implements TypedSelectableSample{
 
-		/**
-		 * uid
-		 */
+		/** uid. */
 		private static final long serialVersionUID = 8233108397841361674L;
 
-		/**
-		 * name
-		 */
+		/** name. */
 		String name;
 		
-		/**
-		 * code
-		 */
+		/** code. */
 		Long code;
 		
-		/**
-		 * typeId
-		 */
+		/** typeId. */
 		Long typeId;
 	
-		/**
-		 * subTypeId
-		 */
+		/** subTypeId. */
 		Long subTypeId;
 
 		/**
@@ -115,14 +99,17 @@ public class TestCacheUtils {
 		 *
 		 * @return name
 		 */
+		@Override
 		public String getName() {
 			return name;
 		}
+		
 		/**
 		 * ��������� name.
 		 *
-		 * @param name 
+		 * @param name the new name
 		 */
+		@Override
 		public void setName(String name) {
 			this.name = name;
 		}
@@ -131,14 +118,17 @@ public class TestCacheUtils {
 		 *
 		 * @return code
 		 */
+		@Override
 		public Long getCode() {
 			return code;
 		}
+		
 		/**
 		 * ��������� code.
 		 *
-		 * @param code 
+		 * @param code the new code
 		 */
+		@Override
 		public void setCode(Long code) {
 			this.code = code;
 		}
@@ -147,14 +137,17 @@ public class TestCacheUtils {
 		 *
 		 * @return typeId
 		 */
+		@Override
 		public Long getTypeId() {
 			return typeId;
 		}
+		
 		/**
 		 * ��������� typeId.
 		 *
-		 * @param typeId 
+		 * @param typeId the new type id
 		 */
+		@Override
 		public void setTypeId(Long typeId) {
 			this.typeId = typeId;
 		}
@@ -163,18 +156,22 @@ public class TestCacheUtils {
 		 *
 		 * @return subTypeId
 		 */
+		@Override
 		public Long getSubTypeId() {
 			return subTypeId;
 		}
+		
 		/**
 		 * ��������� subTypeId.
 		 *
-		 * @param subTypeId 
+		 * @param subTypeId the new sub type id
 		 */
+		@Override
 		public void setSubTypeId(Long subTypeId) {
 			this.subTypeId = subTypeId;
 		}
 
+		@Override
 		public int compareTo(Codified<Long> o) {
 			if(o==null) { return 1; }
 			return Utils.nullSafeCompare(o.getCode(), this.getCode());
@@ -184,7 +181,7 @@ public class TestCacheUtils {
 	
 	
 	/**
-	 * interface to test
+	 * interface to test.
 	 */
 	private interface TranslatableEntryOwnerSample extends TranslatableEntryOwner<Long,Long,Long>{
 		//empty
@@ -192,7 +189,7 @@ public class TestCacheUtils {
 	
 	
 	/**
-	 * TranslatableEntryOwnerImpl
+	 * TranslatableEntryOwnerImpl.
 	 */
 	private class TranslatableEntryOwnerImpl implements TranslatableEntryOwnerSample{
 
@@ -201,11 +198,11 @@ public class TestCacheUtils {
 		 * uid.
 		 */
 		private static final long serialVersionUID = -401136617322813111L;
-		/**
-		 * entry
-		 */
+		
+		/** entry. */
 		Entry entry = new Entry();
 		
+		@Override
 		public TranslatableEntry<Long, Long, Long> getEntry() {
 			entry.setTypeId(1l);
 			entry.setSubTypeId(1l);
@@ -228,11 +225,13 @@ public class TestCacheUtils {
 		private static final long serialVersionUID = 3942702939765163945L;
 
 
+		@Override
 		public Long getTranslationResourceId() {
 			return null;
 		}
 
 
+		@Override
 		public String getTranslation(Long languageId) {
 			return null;
 		}}

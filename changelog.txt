@@ -1,0 +1,1 @@
+BOTWO-198 : Enhance MailMessage with displayName attribute

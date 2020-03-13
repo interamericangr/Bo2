@@ -15,19 +15,15 @@ package gr.interamerican.bo2.samples.bean;
 import gr.interamerican.bo2.samples.ibean.IBeanWithIdAndName;
 
 /**
- * 
+ * The Class IBeanWithIdAndNameImpl.
  */
 @SuppressWarnings("serial")
 public class IBeanWithIdAndNameImpl implements IBeanWithIdAndName {
 	
-	/**
-	 * bean name
-	 */
+	/** bean name. */
 	private String beanName;
 	
-	/**
-	 * bean id
-	 */
+	/** bean id. */
 	private Integer beanId;
 
 	/**
@@ -35,6 +31,7 @@ public class IBeanWithIdAndNameImpl implements IBeanWithIdAndName {
 	 *
 	 * @return Returns the beanName
 	 */
+	@Override
 	public String getBeanName() {
 		return beanName;
 	}
@@ -44,6 +41,7 @@ public class IBeanWithIdAndNameImpl implements IBeanWithIdAndName {
 	 *
 	 * @param beanName the beanName to set
 	 */
+	@Override
 	public void setBeanName(String beanName) {
 		this.beanName = beanName;
 	}
@@ -53,6 +51,7 @@ public class IBeanWithIdAndNameImpl implements IBeanWithIdAndName {
 	 *
 	 * @return Returns the beanId
 	 */
+	@Override
 	public Integer getBeanId() {
 		return beanId;
 	}
@@ -62,6 +61,7 @@ public class IBeanWithIdAndNameImpl implements IBeanWithIdAndName {
 	 *
 	 * @param beanId the beanId to set
 	 */
+	@Override
 	public void setBeanId(Integer beanId) {
 		this.beanId = beanId;
 	}

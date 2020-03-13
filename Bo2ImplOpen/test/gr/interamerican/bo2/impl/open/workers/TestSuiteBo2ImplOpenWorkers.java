@@ -1,13 +1,13 @@
 /*******************************************************************************
- * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A. 
+ * Copyright (c) 2013 INTERAMERICAN PROPERTY AND CASUALTY INSURANCE COMPANY S.A.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the GNU Lesser Public License v3
  * which accompanies this distribution, and is available at
  * http://www.gnu.org/copyleft/lesser.html
- * 
- * This library is distributed in the hope that it will be useful, 
- * but WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. 
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
  * See the GNU Lesser General Public License for more details.
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.workers;
@@ -22,19 +22,18 @@ import org.junit.runners.Suite.SuiteClasses;
  */
 @RunWith(Suite.class)
 @SuiteClasses(
-	{			
+	{
 		TestAbstractBaseWorker.class,
 		TestAbstractPoOperation.class,
-		TestAbstractPoValidator.class,	
+		TestAbstractPoValidator.class,
 		TestStandAloneWorker.class,
 		TestPwWrapperQuery.class,
 		TestWorkerUtils.class,
 		TestArrayIteratorQuery.class,
 		TestIteratorQuery.class,
 		TestTransformedQuery.class,
-		TestFactorySupportedFastPoReader.class,
 		TestPredefinedConditionValidator.class,
-		TestAbstractOperation.class,
+		TestAbstractBusinessLogic.class,
 	}
 )
 public class TestSuiteBo2ImplOpenWorkers {

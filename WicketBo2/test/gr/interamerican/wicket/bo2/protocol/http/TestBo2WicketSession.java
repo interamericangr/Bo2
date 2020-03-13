@@ -28,12 +28,13 @@ import org.apache.wicket.util.tester.WicketTester;
 import org.junit.Test;
 
 /**
- * 
- *  
+ * The Class TestBo2WicketSession.
  */
 public class TestBo2WicketSession {
 	
 	/**
+	 * Mock request.
+	 *
 	 * @return request.
 	 */
 	Request mockRequest() {

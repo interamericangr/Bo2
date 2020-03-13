@@ -26,10 +26,10 @@ public class DocumentUtils {
 	/**
 	 * This method adds a row to the end of the documentTable if needed.
 	 * That means that if and only if the rows are shown at the template are used we add a new one.
-	 * 
-	 * @param documentTable
-	 * @param rowPointer
-	 * @throws DocumentEngineException
+	 *
+	 * @param documentTable the document table
+	 * @param rowPointer the row pointer
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	public static void appendRowIfNeeded(DocumentTable documentTable, int rowPointer) throws DocumentEngineException{
 		if(documentTable.getRowCount()==rowPointer){
@@ -44,10 +44,11 @@ public class DocumentUtils {
 	 * Μέθοδος που ελέγχει αν το columnIndex αναφέρεται σε στήλη του πίνακα table που υπάρχει, πρέπει 
 	 * το columnIndex να είναι μεγαλύτερο table.maxColumn 
 	 * Αν ο πίνακας έχει λιγότερες στήλες απο το columnIndex τότε πετάμε DocumentEngineException().
+	 *
 	 * @param table o πίνακας που δημιουργούμε.
 	 * @param tableName το όνομα του πίνακα, για error message.
 	 * @param columnIndex ο μέγιστος αριθμός στηλών που θέλουμε να έχει ο πίνακας.
-	 * @throws DocumentEngineException
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	public static void validateColumnCount(DocumentTable table, String tableName,int columnIndex) throws DocumentEngineException{
 		if(columnIndex >= table.getColumnCount()){
@@ -62,11 +63,12 @@ public class DocumentUtils {
 	 * <br>Αν είναι και τα δύο documents not-null τότε κανει append το extraDoc στο τέλος 
 	 * του baseDoc και επιστρέφει το extraDoc.
 	 * <br>Αν είναι το baseDoc ειναι null αλλα το extraDoc οχι τοτε επιστρέφει το extraDoc.
+	 *
 	 * @param baseDoc το βασικό document στο οποίο θα κανουμε append.
 	 * @param extraDoc το document το οποίο θα μπεί στο τέλος του βασικού.
 	 * @param addPageBreak Αν είναι true βάζει ένα pageBreak μεταξύ των δύο σελίδων.
 	 * @return resultDoc το αποτελεσμα του append
-	 * @throws DocumentEngineException
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	public static BusinessDocument safeAppend
 	(BusinessDocument baseDoc, BusinessDocument extraDoc, boolean addPageBreak) 

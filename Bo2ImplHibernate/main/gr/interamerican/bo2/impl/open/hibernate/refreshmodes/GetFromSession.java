@@ -24,11 +24,10 @@ public interface GetFromSession {
 	
 	/**
 	 * Gets the object with the specified id from the session.
-	 * 
-	 * @param session
-	 * @param id
-	 * @param persistentClass
-	 * 
+	 *
+	 * @param session the session
+	 * @param id the id
+	 * @param persistentClass the persistent class
 	 * @return Returns the object with the specified id from the session
 	 *         and null if the object with the specified id does not exist.
 	 */

@@ -25,7 +25,7 @@ extends BPanel<BeanWith2Fields> {
 	/**
 	 * Creates a new BeanWith2FieldsPanel object. 
 	 *
-	 * @param model
+	 * @param model the model
 	 */
 	public BeanWith2FieldsPanel(BeanWith2Fields model) {
 		super(model);		

@@ -73,7 +73,6 @@ implements Invoice {
 	 *
 	 */
 	public InvoiceImpl() {
-		super();
 		this.key = Factory.create(InvoiceKey.class);
 		this.lines = new HashSet<InvoiceLine>();
 		this.rules = new HashSet<InvoiceRule>();
@@ -81,66 +80,76 @@ implements Invoice {
 		fixChild(rules);
 	}
 
+	@Override
 	public String getInvoiceNo() {		
 		return key.getInvoiceNo();
 	}
 
-	
+	@Override
 	public void setInvoiceNo(String invoiceNo) {
 		key.setInvoiceNo(invoiceNo);
 		String[] properties = {"invoiceNo"};
 		fixChildren(properties);
 	}
 
+	@Override
 	public Date getInvoiceDate() {
 		return invoiceDate;
 	}
 
+	@Override
 	public void setInvoiceDate(Date invoiceDate) {
 		this.invoiceDate = invoiceDate;		
 	}
 
+	@Override
 	public InvoiceCustomer getCustomer() {
 		return customer;
 	}
 
+	@Override
 	public void setCustomer(InvoiceCustomer customer) {
 		this.customer = customer;
 		fixChild(customer);
 	}
 
+	@Override
 	public Set<InvoiceLine> getLines() {
 		return lines;
 	}
 
+	@Override
 	public void setLines(Set<InvoiceLine> lines) {
 		this.lines=lines;
 		fixChild(lines);
 	}
 
+	@Override
 	public Set<InvoiceRule> getRules() {
 		return this.rules;
 	}
 
+	@Override
 	public void setRules(Set<InvoiceRule> rules) {
 		this.rules = rules;
 		fixChild(rules);
 	}
 
+	@Override
 	public InvoiceInfo getInfo() {
 		return info;
 	}
 
+	@Override
 	public void setInfo(InvoiceInfo info) {
 		this.info = info;
 	}
-	
-	
+
+	@Override
 	public InvoiceLine getLineByNo(Integer lineNo) {
 		if (lines==null) {
 			return null;
 		}
-		return SelectionUtils.selectFirstByProperty("lineNo", lineNo, lines, InvoiceLine.class);		
+		return SelectionUtils.selectFirstByProperty(InvoiceLine::getLineNo, lineNo, lines);		
 	}
-	
 }

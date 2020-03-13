@@ -12,17 +12,7 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.reflect.analyze;
 
-import static gr.interamerican.bo2.utils.reflect.AccessorUtils.isGetter;
-import static gr.interamerican.bo2.utils.reflect.AccessorUtils.isSetter;
-import static gr.interamerican.bo2.utils.reflect.AccessorUtils.propertyName;
-import gr.interamerican.bo2.utils.AdapterUtils;
-import gr.interamerican.bo2.utils.CollectionUtils;
-import gr.interamerican.bo2.utils.ReflectionUtils;
-import gr.interamerican.bo2.utils.SelectionUtils;
-import gr.interamerican.bo2.utils.Utils;
-import gr.interamerican.bo2.utils.beans.Array;
-import gr.interamerican.bo2.utils.enums.AccessType;
-import gr.interamerican.bo2.utils.reflect.beans.BeanPropertyDefinition;
+import static gr.interamerican.bo2.utils.reflect.AccessorUtils.*;
 
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
@@ -32,13 +22,20 @@ import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+
+import gr.interamerican.bo2.utils.AdapterUtils;
+import gr.interamerican.bo2.utils.ReflectionUtils;
+import gr.interamerican.bo2.utils.SelectionUtils;
+import gr.interamerican.bo2.utils.Utils;
+import gr.interamerican.bo2.utils.beans.Array;
+import gr.interamerican.bo2.utils.enums.AccessType;
+import gr.interamerican.bo2.utils.reflect.beans.BeanPropertyDefinition;
 
 /**
  * Analysis of a type.
@@ -113,7 +110,7 @@ public class TypeAnalysis {
 		
 	/**
 	 * Write only properties, that have another property of other type
-	 * with the same name. <br/>
+	 * with the same name. <br>
 	 * 
 	 * This would happen if an interface had two methods with the name setId,
 	 * one with an Integer argument and another with a Long. The interface 
@@ -170,10 +167,10 @@ public class TypeAnalysis {
 	
 	/**
 	 * Categorizes the method to the appropriate set.
-	 * 
-	 * @param method
-	 * @param abstrct
-	 * @param cncrt
+	 *
+	 * @param method the method
+	 * @param abstrct the abstrct
+	 * @param cncrt the cncrt
 	 */
 	private void categorize(Method method, Set<Method> abstrct, Set<Method> cncrt) {
 		Set<Method> set = Modifier.isAbstract(method.getModifiers()) ?
@@ -183,11 +180,10 @@ public class TypeAnalysis {
 	
 	/**
 	 * Creates a key.
-	 * 
-	 * @param name 
-	 * @param genericType 
-	 * @param type 
-	 * 
+	 *
+	 * @param name the name
+	 * @param genericType the generic type
+	 * @param type the type
 	 * @return Returns the key.
 	 */
 	Array propertyKey(String name, Type genericType, Class<?> type) {		
@@ -243,9 +239,9 @@ public class TypeAnalysis {
 	
 	/**
 	 * Register an annotated field. Static fields are registered separately.
-	 * 
-	 * @param anno
-	 * @param field
+	 *
+	 * @param anno the anno
+	 * @param field the field
 	 */
 	void registerField(Class<? extends Annotation> anno, Field field) {	
 		Map<String, List<Field>> map = annotatedFields.get(anno);
@@ -263,9 +259,9 @@ public class TypeAnalysis {
 	
 	/**
 	 * Register an annotated method.
-	 * 
-	 * @param anno
-	 * @param method
+	 *
+	 * @param anno the anno
+	 * @param method the method
 	 */
 	void registerAnnotatedMethod(Class<? extends Annotation> anno, Method method) {
 		List<Method> list = annotatedMethods.get(anno);
@@ -281,10 +277,9 @@ public class TypeAnalysis {
 	
 	/**
 	 * Gets the first field with the specified annotation and name.
-	 * 
-	 * @param anno
-	 * @param fieldName
-	 * 
+	 *
+	 * @param anno the anno
+	 * @param fieldName the field name
 	 * @return Returns the first field with the specified annotation and name.
 	 */
 	public Field getFirstAnnotated(Class<? extends Annotation> anno, String fieldName) {
@@ -301,11 +296,10 @@ public class TypeAnalysis {
 	
 	/**
 	 * Gets a list with all fields with the specified annotation and name.
-	 * 
-	 * @param anno
-	 * @param fieldName
-	 * @param mapWithLists 
-	 * 
+	 *
+	 * @param anno the anno
+	 * @param fieldName the field name
+	 * @param mapWithLists the map with lists
 	 * @return Returns all fields with the specified annotation and name.
 	 */
 	List<Field> getAnnotatedFrom (
@@ -326,10 +320,9 @@ public class TypeAnalysis {
 	
 	/**
 	 * Gets a list with all fields with the specified annotation and name.
-	 * 
-	 * @param anno
-	 * @param fieldName
-	 * 
+	 *
+	 * @param anno the anno
+	 * @param fieldName the field name
 	 * @return Returns all fields with the specified annotation and name.
 	 */
 	public List<Field> getAnnotated(Class<? extends Annotation> anno, String fieldName) {		
@@ -338,9 +331,8 @@ public class TypeAnalysis {
 	
 	/**
 	 * Gets a list with all fields with the specified annotation and name.
-	 * 
-	 * @param anno
-	 * 
+	 *
+	 * @param anno the anno
 	 * @return Returns all fields with the specified annotation and name.
 	 */
 	public Set<Field> getAnnotated(Class<? extends Annotation> anno) {
@@ -437,8 +429,8 @@ public class TypeAnalysis {
 	
 	/**
 	 * Handles a method.
-	 * 
-	 * @param method
+	 *
+	 * @param method the method
 	 */
 	void handleMethod(Method method) {
 		if (isGetter(method)) {
@@ -456,8 +448,8 @@ public class TypeAnalysis {
 	
 	/**
 	 * Handles a getter.
-	 * 
-	 * @param getter
+	 *
+	 * @param getter the getter
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	void handleGetter(Method getter) {
@@ -478,8 +470,8 @@ public class TypeAnalysis {
 	
 	/**
 	 * Handles a getter.
-	 * 
-	 * @param setter
+	 *
+	 * @param setter the setter
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	void handleSetter(Method setter) {
@@ -496,28 +488,25 @@ public class TypeAnalysis {
 			def.setSetter(setter);
 		}
 	}
-	
+
 	/**
 	 * Handles the case when two or more properties have the same name.
 	 * 
 	 * @param sameNamed
-	 *        List with the {@link BeanPropertyDefinition}s of the properties
-	 *        with the same name.
+	 *            List with the {@link BeanPropertyDefinition}s of the
+	 *            properties with the same name.
 	 * 
 	 */
 	void handleConflict(List<BeanPropertyDefinition<?>> sameNamed) {
-		Class<BeanPropertyDefinition<?>> bpdClazz = Utils.cast(BeanPropertyDefinition.class);
-		BeanPropertyDefinition<?> normal = 
-			SelectionUtils.selectFirstWithNotNullProperty ("getter", sameNamed, bpdClazz); //$NON-NLS-1$
+		BeanPropertyDefinition<?> normal = SelectionUtils
+				.selectFirstWithNotNullProperty(BeanPropertyDefinition::getGetter, sameNamed);
 		normal = Utils.notNull(normal, sameNamed.get(0));
 		String name = normal.getName();
-		List<BeanPropertyDefinition<?>> list = 
-			new ArrayList<BeanPropertyDefinition<?>>(sameNamed);
+		List<BeanPropertyDefinition<?>> list = new ArrayList<BeanPropertyDefinition<?>>(sameNamed);
 		list.remove(normal);
 		oddPropertiesByName.put(name, list);
 		oddProperties.addAll(list);
 	}
-	
 
 	/**
 	 * Gets the clazz.
@@ -608,33 +597,28 @@ public class TypeAnalysis {
 	public Set<BeanPropertyDefinition<?>> getAllProperties() {
 		return new HashSet<BeanPropertyDefinition<?>>(allProperties.values());
 	}
-	
+
 	/**
 	 * Gets all read-write properties of the analyzed type.
 	 *
 	 * @return Returns all read-write properties
 	 */
-	@SuppressWarnings({ "rawtypes", "nls" })
 	public List<BeanPropertyDefinition<?>> getReadWriteProperties() {
-		Collection<BeanPropertyDefinition> properties = Utils.cast(allProperties.values());
-		List<BeanPropertyDefinition> list = SelectionUtils.selectByProperty 
-			("accessType", AccessType.READ_WRITE, properties, BeanPropertyDefinition.class);
-		return Utils.cast(list);
+		return SelectionUtils.selectByProperty(BeanPropertyDefinition::getAccessType, AccessType.READ_WRITE,
+				allProperties.values());
 	}
-	
+
 	/**
-	 * Gets all read-write properties of the analyzed type.
+	 * Gets all read-write properties of the analyzed type.<br>
+	 * TODO : possible bug
 	 *
 	 * @return Returns all read-write properties
 	 */
-	@SuppressWarnings("rawtypes")
 	public Set<String> getNamesOfReadWriteProperties() {
-		Set<BeanPropertyDefinition<?>> properties = CollectionUtils.toSet(allProperties.values());
-		Set<BeanPropertyDefinition> raw = Utils.cast(properties);
-		List<String> list = AdapterUtils.getName(raw, BeanPropertyDefinition.class);
+		List<String> list = AdapterUtils.getProperty(allProperties.values(), BeanPropertyDefinition::getName);
 		return new HashSet<String>(list);
 	}
-	
+
 	/**
 	 * Gets the property with the specified same.
 	 * 
@@ -666,9 +650,8 @@ public class TypeAnalysis {
 	
 	/**
 	 * Gets ths properties of the analyzed class that have the specified name.
-	 * 
-	 * @param name
-	 * 
+	 *
+	 * @param name the name
 	 * @return Returns a list of properties. If there is no property with the
 	 *         specified name, returns null.
 	 */

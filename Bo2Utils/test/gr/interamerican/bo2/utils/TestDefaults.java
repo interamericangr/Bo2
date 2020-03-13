@@ -28,7 +28,7 @@ public class TestDefaults {
 	
 	
 	/**
-	 * Unit test for getNestedProperty()
+	 * Unit test for getNestedProperty().
 	 */	
 	@Test 
 	public void testSetDefaults() {
@@ -47,7 +47,7 @@ public class TestDefaults {
 	}
 	
 	/**
-	 * Unit test for getNestedProperty()
+	 * Unit test for getNestedProperty().
 	 */	
 	@Test 
 	public void testSetStandardDefaults() {
@@ -59,7 +59,7 @@ public class TestDefaults {
 	}
 	
 	/**
-	 * Unit test for getNestedProperty()
+	 * Unit test for getNestedProperty().
 	 */	
 	@Test 
 	public void testRegisterDefaultValue() {
@@ -71,7 +71,7 @@ public class TestDefaults {
 	}
 	
 	/**
-	 * Unit test for getDefaultValue()
+	 * Unit test for getDefaultValue().
 	 */	
 	@SuppressWarnings("cast")
 	@Test 
@@ -96,7 +96,7 @@ public class TestDefaults {
 	}
 	
 	/**
-	 * Unit test for setDefaultValue()
+	 * Unit test for setDefaultValue().
 	 */	
 	@Test 
 	public void testSetDefaultValue() {

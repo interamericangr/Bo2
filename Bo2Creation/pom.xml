@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>gr.interamerican.bo2</groupId>
 		<artifactId>Bo2</artifactId>
-		<version>2.3.12-SNAPSHOT</version>
+		<version>3.4.1</version>
 	</parent>
 	
 	<artifactId>Bo2Creation</artifactId>
@@ -12,7 +12,7 @@
 	<dependencies>
 	
 		<dependency>
-			<groupId>javassist</groupId>
+			<groupId>org.javassist</groupId>
 			<artifactId>javassist</artifactId>
 		</dependency>
 		

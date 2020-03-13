@@ -15,13 +15,13 @@ package gr.interamerican.bo2.utils.meta.exceptions;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestConversionException.
  */
 public class TestConversionException {
 
 	
 	/**
-	 * test constructors
+	 * test constructors.
 	 */
 	@SuppressWarnings("unused")
 	@Test

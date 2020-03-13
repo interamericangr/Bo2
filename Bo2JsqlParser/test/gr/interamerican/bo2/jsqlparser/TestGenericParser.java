@@ -37,9 +37,7 @@ public class TestGenericParser extends AbstractParserTest {
 	 */
 	private GenericParser parser = new GenericParser();
 	
-	/**
-	 * SQL 1
-	 */	
+	/** SQL 1. */	
 	private String sql1 = StringUtils.concat( 
 		"select A.id, A.name, A.doy, B.doyNm ",
 		" from xxxx.PEOPLE A ",
@@ -51,9 +49,7 @@ public class TestGenericParser extends AbstractParserTest {
 		" and A.doyNm > :minDoyNm ",
 		" and B.doyNm > :minDoyNm");
 	
-	/**
-	 * SQL 2
-	 */
+	/** SQL 2. */
 	private String sql2 = StringUtils.concat(
 		"select I.INVOICE_NO as ino, I.INVOICE_DATE as idate, L.LINE_NO as lno, L.AMOUNT as a ", 
 		"from TEST.INVOICE I ", 
@@ -72,13 +68,74 @@ public class TestGenericParser extends AbstractParserTest {
 	 * Not supported SQL statement.
 	 */
 	private String invalidSql = 
-		"this is not a valid sql statement"; 
-	
+		"this is not a valid sql statement";
 	
 	/**
-	 * Unit test for getParameters().
-	 * 
+	 * Tests if a NOT expression is altered during parameter removal.
 	 * @throws SqlParseException
+	 * 
+	 * BOTWO-72
+	 */
+	@Test
+	public void testRemoveParameter_caseNotExpression() throws SqlParseException{
+		String sql = StringUtils.concat( 
+				"select A.id ",
+				" from xxxx.PEOPLE as A ",
+				" where A.doyNm > :minDoyNm ",
+				" and not A.age > :minAge");
+		String expected = StringUtils.concat( 
+				"select A.id ",
+				"from xxxx.PEOPLE as A ",
+				"where not A.age > :minAge");
+		
+		String actual =	parser.removeParameter("minDoyNm", sql);
+		checkStatement(expected, actual);
+		
+		sql = StringUtils.concat( 
+				"select A.id ",
+				"from xxxx.PEOPLE as A ",
+				"where A.doyNm > :minDoyNm ",
+				"and not (A.age > :minAge or A.age < :maxAge)");
+		expected = StringUtils.concat( 
+				"select A.id ",
+				"from xxxx.PEOPLE as A ",
+				"where not ( A.age > :minAge or A.age < :maxAge )");
+		actual = parser.removeParameter("minDoyNm", sql);
+		checkStatement(expected, actual);
+		
+		sql = StringUtils.concat( 
+				"select A.id ",
+				"from xxxx.PEOPLE as A ",
+				"where A.doyNm > :minDoyNm ",
+				"and (A.age not in (10,11)) and (A.age < 50) and not A.age = 45",
+				"and A.name = :name");
+		expected = StringUtils.concat( 
+				"select A.id ",
+				"from xxxx.PEOPLE as A ",
+				"where A.doyNm > :minDoyNm ",
+				"and ( A.age NOT IN ( 10,11 ) ) and A.age < 50 and not A.age = 45");
+		actual = parser.removeParameter("name", sql);
+		checkStatement(expected, actual);
+		
+		sql = StringUtils.concat( 
+				"select A.id ",
+				"from xxxx.PEOPLE as A ",
+				"where A.doyNm > :minDoyNm ",
+				"and A.age is not null and not (A.age = 45)",
+				"and A.name = :name");
+		expected = StringUtils.concat( 
+				"select A.id ",
+				"from xxxx.PEOPLE as A ",
+				"where A.doyNm > :minDoyNm ",
+				"and A.age is not null and not A.age = 45");
+		actual = parser.removeParameter("name", sql);
+		checkStatement(expected, actual);
+	}
+			
+	/**
+	 * Unit test for getParameters().
+	 *
+	 * @throws SqlParseException the sql parse exception
 	 */
 	@Test
 	public void testGetParameters() throws SqlParseException {
@@ -88,7 +145,7 @@ public class TestGenericParser extends AbstractParserTest {
 		checkParam(parameters1, "minAge");
 		checkParam(parameters1, "surname");
 		
-		List<Parameter> params = SelectionUtils.selectByProperty("name", "minDoyNm", parameters1, Parameter.class); //$NON-NLS-1$
+		List<Parameter> params = SelectionUtils.selectByProperty(Parameter::getName, "minDoyNm", parameters1); //$NON-NLS-1$
 		assertEquals(2, params.size());
 		Parameter parm = params.get(0); 
 		assertNotNull(parm);
@@ -106,8 +163,8 @@ public class TestGenericParser extends AbstractParserTest {
 	
 	/**
 	 * Unit test for getParameters().
-	 * 
-	 * @throws SqlParseException
+	 *
+	 * @throws SqlParseException the sql parse exception
 	 */
 	@Test(expected=SqlParseException.class)
 	public void testGetColumns_onNotSupportedSql() throws SqlParseException {
@@ -116,8 +173,8 @@ public class TestGenericParser extends AbstractParserTest {
 	
 	/**
 	 * Unit test for getParameters().
-	 * 
-	 * @throws SqlParseException
+	 *
+	 * @throws SqlParseException the sql parse exception
 	 */
 	@Test(expected=SqlParseException.class)
 	public void testGetColumns_onInvalid() throws SqlParseException {
@@ -126,8 +183,8 @@ public class TestGenericParser extends AbstractParserTest {
 
 	/**
 	 * Unit test for getParameters().
-	 * 
-	 * @throws SqlParseException
+	 *
+	 * @throws SqlParseException the sql parse exception
 	 */
 	@Test(expected=SqlParseException.class)
 	public void testRemoveParameter_onNotSupportedSql() throws SqlParseException {
@@ -136,8 +193,8 @@ public class TestGenericParser extends AbstractParserTest {
 	
 	/**
 	 * Unit test for getColumns().
-	 * 
-	 * @throws SqlParseException
+	 *
+	 * @throws SqlParseException the sql parse exception
 	 */
 	@Test
 	public void testGetColumns() throws SqlParseException {
@@ -156,50 +213,52 @@ public class TestGenericParser extends AbstractParserTest {
 	
 	/**
 	 * Unit test for getColumns() when the resultset contains a function.
-	 * @throws SqlParseException 
+	 *
+	 * @throws SqlParseException the sql parse exception
 	 */
 	@Test
 	public void testGetColumns_Function() throws SqlParseException {
 		String sql = "select system, module, status, count(*) as count " +
-				"from X__X.tb1stsrp where system = :system group by system, module, status";
+				"from TEST.tb1stsrp where system = :system group by system, module, status";
 		List<Column> columns = parser.getColumns(sql);
-		checkColumn(columns, 0, "system", "X__X", "tb1stsrp", null);
-		checkColumn(columns, 1, "module", "X__X", "tb1stsrp", null);
-		checkColumn(columns, 2, "status", "X__X", "tb1stsrp", null);
+		checkColumn(columns, 0, "system", "TEST", "tb1stsrp", null);
+		checkColumn(columns, 1, "module", "TEST", "tb1stsrp", null);
+		checkColumn(columns, 2, "status", "TEST", "tb1stsrp", null);
 		checkColumn(columns, 3, "count", null, null, "count");
 	}
 	
 	/**
 	 * Unit test for getColumns() when the resultset contains a function
 	 * with no alias.
-	 * @throws SqlParseException 
+	 *
+	 * @throws SqlParseException the sql parse exception
 	 */
 	@Test (expected = SqlParseException.class)
 	public void testGetColumns_Function_noAlias() throws SqlParseException {
 		String sql = "select system, module, status, count(*) " +
-				"from X__X.tb1stsrp where system = :system group by system, module, status";
+				"from TEST.tb1stsrp where system = :system group by system, module, status";
 		List<Column> columns = parser.getColumns(sql);
-		checkColumn(columns, 0, "system", "X__X", "tb1stsrp", null);
-		checkColumn(columns, 1, "module", "X__X", "tb1stsrp", null);
-		checkColumn(columns, 2, "status", "X__X", "tb1stsrp", null);
+		checkColumn(columns, 0, "system", "TEST", "tb1stsrp", null);
+		checkColumn(columns, 1, "module", "TEST", "tb1stsrp", null);
+		checkColumn(columns, 2, "status", "TEST", "tb1stsrp", null);
 		checkColumn(columns, 3, "count", null, null, "count");
 	}
 	
 	/**
 	 * Unit test for getColumns() when select * is used.
-	 * 
-	 * @throws SqlParseException 
+	 *
+	 * @throws SqlParseException the sql parse exception
 	 */
 	@Test (expected = SqlParseException.class)
 	public void testGetColumns_withWildCard() throws SqlParseException {
-		String sql = "select * from X__X.tb1stsrp where system = :system";
+		String sql = "select * from TEST.tb1stsrp where system = :system";
 		parser.getColumns(sql);
 	}
 	
 	/**
 	 * Unit test for getParameters().
-	 * 
-	 * @throws SqlParseException
+	 *
+	 * @throws SqlParseException the sql parse exception
 	 */
 	@Test(expected=SqlParseException.class)
 	public void testRemoveParameter_onInvalid() throws SqlParseException {
@@ -208,8 +267,8 @@ public class TestGenericParser extends AbstractParserTest {
 	
 	/**
 	 * Remove the only parameter in the where clause.
-	 * 
-	 * @throws SqlParseException
+	 *
+	 * @throws SqlParseException the sql parse exception
 	 */
 	@Test
 	public void testRemoveParameter_singleParameter() throws SqlParseException {
@@ -250,8 +309,8 @@ public class TestGenericParser extends AbstractParserTest {
 	
 	/**
 	 * Try a statement that is not supported.
-	 * 
-	 * @throws SqlParseException
+	 *
+	 * @throws SqlParseException the sql parse exception
 	 */
 	@Test(expected=SqlParseException.class)
 	public void testRemoveParameter_onNotSupportedExpression() throws SqlParseException {
@@ -263,8 +322,8 @@ public class TestGenericParser extends AbstractParserTest {
 	
 	/**
 	 * Remove some parameter.
-	 * 
-	 * @throws SqlParseException
+	 *
+	 * @throws SqlParseException the sql parse exception
 	 */
 	@Test()
 	public void testRemoveParameter_onceMore() throws SqlParseException {
@@ -284,8 +343,8 @@ public class TestGenericParser extends AbstractParserTest {
 	/**
 	 * Remove the first and last parameter in a where clause that
 	 * has only AND.
-	 * 
-	 * @throws SqlParseException
+	 *
+	 * @throws SqlParseException the sql parse exception
 	 */
 	@Test
 	public void testRemoveParameter_allAnd() throws SqlParseException {
@@ -340,8 +399,8 @@ public class TestGenericParser extends AbstractParserTest {
 	
 	/**
 	 * Remove parameters from a where clause that has only AND.
-	 * 
-	 * @throws SqlParseException
+	 *
+	 * @throws SqlParseException the sql parse exception
 	 */
 	@Test
 	public void testRemoveParameter_similarNames() throws SqlParseException {
@@ -415,8 +474,8 @@ public class TestGenericParser extends AbstractParserTest {
 	/**
 	 * Remove the first and last parameter in a where clause that
 	 * has only OR.
-	 * 
-	 * @throws SqlParseException
+	 *
+	 * @throws SqlParseException the sql parse exception
 	 */
 	@Test
 	public void testRemoveParameter_allOr() throws SqlParseException {
@@ -470,8 +529,8 @@ public class TestGenericParser extends AbstractParserTest {
 	
 	/**
 	 * Remove parameters from a where clause that has both AND and OR.
-	 * 
-	 * @throws SqlParseException
+	 *
+	 * @throws SqlParseException the sql parse exception
 	 */
 	@Test
 	public void testRemoveParameter_mixedAndOr() throws SqlParseException {
@@ -545,8 +604,8 @@ public class TestGenericParser extends AbstractParserTest {
 	/**
 	 * Remove parameters from a where clause that does not have only
 	 * named parameters.
-	 * 
-	 * @throws SqlParseException
+	 *
+	 * @throws SqlParseException the sql parse exception
 	 */
 	@Test
 	public void testRemoveParameter_constantParameters() throws SqlParseException {
@@ -606,8 +665,8 @@ public class TestGenericParser extends AbstractParserTest {
 	
 	/**
 	 * Remove parameters from a where clause that has a parenthesis.
-	 * 
-	 * @throws SqlParseException 
+	 *
+	 * @throws SqlParseException the sql parse exception
 	 */
 	@Test
 	public void testRemoveParameter_parenthesis() throws SqlParseException {
@@ -753,8 +812,8 @@ public class TestGenericParser extends AbstractParserTest {
 	
 	/**
 	 * Remove parameters from a where clause that has a double parenthesis.
-	 * 
-	 * @throws SqlParseException 
+	 *
+	 * @throws SqlParseException the sql parse exception
 	 */
 	@Test
 	public void testRemoveParameter_doubleParenthesis() throws SqlParseException {
@@ -838,8 +897,8 @@ public class TestGenericParser extends AbstractParserTest {
 	
 	/**
 	 * Remove parameters from a where clause that has two parentheses.
-	 * 
-	 * @throws SqlParseException 
+	 *
+	 * @throws SqlParseException the sql parse exception
 	 */
 	@Test
 	public void testRemoveParameter_twoParentheses() throws SqlParseException {
@@ -885,7 +944,8 @@ public class TestGenericParser extends AbstractParserTest {
 	
 	/**
 	 * Tests parameter removal from a union query.
-	 * @throws SqlParseException
+	 *
+	 * @throws SqlParseException the sql parse exception
 	 */
 	@Test
 	public void testRemoveParameter_union() throws SqlParseException {
@@ -998,8 +1058,8 @@ public class TestGenericParser extends AbstractParserTest {
 	
 	/**
 	 * Remove parameters from a where clause that has is (not) null.
-	 * 
-	 * @throws SqlParseException 
+	 *
+	 * @throws SqlParseException the sql parse exception
 	 */
 	@Test
 	public void testRemoveParameter_isNull() throws SqlParseException {
@@ -1038,8 +1098,8 @@ public class TestGenericParser extends AbstractParserTest {
 	
 	/**
 	 * Remove parameters from a where clause that has in with itemsList.
-	 * 
-	 * @throws SqlParseException 
+	 *
+	 * @throws SqlParseException the sql parse exception
 	 */
 	@Test
 	public void testRemoveParameter_inItems() throws SqlParseException {
@@ -1110,8 +1170,8 @@ public class TestGenericParser extends AbstractParserTest {
 	
 	/**
 	 * Remove parameters from a where clause that has in with subselect.
-	 * 
-	 * @throws SqlParseException 
+	 *
+	 * @throws SqlParseException the sql parse exception
 	 */
 	@Test
 	public void testRemoveParameter_inSubSelect() throws SqlParseException {
@@ -1148,8 +1208,8 @@ public class TestGenericParser extends AbstractParserTest {
 	
 	/**
 	 * Remove parameters from a where clause that has an equals to a subselect predicate.
-	 * 
-	 * @throws SqlParseException 
+	 *
+	 * @throws SqlParseException the sql parse exception
 	 */
 	@Test
 	public void testRemoveParameter_equalsSubSelect() throws SqlParseException {
@@ -1186,8 +1246,8 @@ public class TestGenericParser extends AbstractParserTest {
 	
 	/**
 	 * Remove parameters from a where clause that has an equals to a subselect predicate.
-	 * 
-	 * @throws SqlParseException 
+	 *
+	 * @throws SqlParseException the sql parse exception
 	 */
 	@Test
 	public void testRemoveParameter_equalsSubSelect2() throws SqlParseException {
@@ -1224,8 +1284,8 @@ public class TestGenericParser extends AbstractParserTest {
 	
 	/**
 	 * Remove parameters from a where clause that has an equals to a subselect predicate version 2.
-	 * 
-	 * @throws SqlParseException 
+	 *
+	 * @throws SqlParseException the sql parse exception
 	 */
 	@Test
 	public void testRemoveParameter_equalsSubSelect3() throws SqlParseException {
@@ -1260,8 +1320,9 @@ public class TestGenericParser extends AbstractParserTest {
 	}
 	
 	/**
-	 * 
-	 * @throws SqlParseException 
+	 * Test remove parameter group by having.
+	 *
+	 * @throws SqlParseException the sql parse exception
 	 */
 	@Test
 	public void testRemoveParameter_groupByHaving() throws SqlParseException {
@@ -1311,8 +1372,9 @@ public class TestGenericParser extends AbstractParserTest {
 	
 
 	/**
-	 * 
-	 * @throws SqlParseException 
+	 * Test remove parameter order by limit.
+	 *
+	 * @throws SqlParseException the sql parse exception
 	 */
 	@Test
 	public void testRemoveParameter_orderByLimit() throws SqlParseException {
@@ -1361,8 +1423,9 @@ public class TestGenericParser extends AbstractParserTest {
 	}
 	
 	/**
-	 * 
-	 * @throws SqlParseException 
+	 * Test remove parameter exists.
+	 *
+	 * @throws SqlParseException the sql parse exception
 	 */
 	@Test
 	public void testRemoveParameter_exists() throws SqlParseException {
@@ -1413,8 +1476,8 @@ public class TestGenericParser extends AbstractParserTest {
 	
 	/**
 	 * Unit test from Manolist.
-	 * 
-	 * @throws SqlParseException
+	 *
+	 * @throws SqlParseException the sql parse exception
 	 */
 	@Test
 	public void testManolis() throws SqlParseException {
@@ -1443,40 +1506,40 @@ public class TestGenericParser extends AbstractParserTest {
 	
 	/**
 	 * Remove parameters from a where clause that has an equals to a subselect predicate version 2.
-	 * 
-	 * @throws SqlParseException 
+	 *
+	 * @throws SqlParseException the sql parse exception
 	 */
 	@Test
 	public void testRemoveParameter_gpag() throws SqlParseException {
 		String sql = StringUtils.concat(
 				"select riii.BRANCH_ID,riii.POLICY_NO,riii.REF_RECEIPT_NO,riii.REF_RENEWAL_NO,riii.REF_RISK_NO ",
-				"from X__X.TB1IPIII rii ",
-				"join X__X.TB1IPIIM riii on riii.BRANCH_ID = rii.BRANCH_ID and riii.POLICY_NO = rii.POLICY_NO and ",
+				"from TEST.TB1IPIII rii ",
+				"join TEST.TB1IPIIM riii on riii.BRANCH_ID = rii.BRANCH_ID and riii.POLICY_NO = rii.POLICY_NO and ",
 				"riii.ITEM_UNIQUE_ID= rii.ITEM_UNIQUE_ID and riii.RECEIPT_NO = rii.RECEIPT_NO and ",
 				"riii.RENEWAL_NO = rii.RENEWAL_NO and riii.RISK_NO = rii.RISK_NO and riii.ITEM_NO = rii.ITEM_NO ",
 				"where rii.ISS_DT = ",
-				"(select max(iss_dt) from X__X.TB1IPIII ",
+				"(select max(iss_dt) from TEST.TB1IPIII ",
 				"where branch_id = :branchId and policy_no = :policyNo and item_unique_id = :itemUniqueId and date(ISS_DT) <= :portfolioDate) ",   
 				"and riii.START_DT <= :interestDate and riii.END_DT >= :interestDate");
 
 		String actual = parser.removeParameter("itemUniqueId", sql);
 		String expected = StringUtils.concat( 
 				"select riii.BRANCH_ID,riii.POLICY_NO,riii.REF_RECEIPT_NO,riii.REF_RENEWAL_NO,riii.REF_RISK_NO ",
-				"from X__X.TB1IPIII as rii ",
-				"join X__X.TB1IPIIM as riii on riii.BRANCH_ID = rii.BRANCH_ID and riii.POLICY_NO = rii.POLICY_NO and ",
+				"from TEST.TB1IPIII as rii ",
+				"join TEST.TB1IPIIM as riii on riii.BRANCH_ID = rii.BRANCH_ID and riii.POLICY_NO = rii.POLICY_NO and ",
 				"riii.ITEM_UNIQUE_ID = rii.ITEM_UNIQUE_ID and riii.RECEIPT_NO = rii.RECEIPT_NO and ",
 				"riii.RENEWAL_NO = rii.RENEWAL_NO and riii.RISK_NO = rii.RISK_NO and riii.ITEM_NO = rii.ITEM_NO ",
 				"where rii.ISS_DT = ",
-				"(select max(iss_dt) from X__X.TB1IPIII ",
+				"(select max(iss_dt) from TEST.TB1IPIII ",
 				"where branch_id = :branchId and policy_no = :policyNo and date(ISS_DT) <= :portfolioDate) ",
 				"and riii.START_DT <= :interestDate and riii.END_DT >= :interestDate");
 		checkStatement(expected, actual);
 	}
 	
 	/**
-	 * Unit test for int()
-	 * 
-	 * @throws SqlParseException
+	 * Unit test for int().
+	 *
+	 * @throws SqlParseException the sql parse exception
 	 */
 	@Test
 	public void testIntFunction() throws SqlParseException {
@@ -1515,9 +1578,9 @@ public class TestGenericParser extends AbstractParserTest {
 	
 	
 	/**
-	 * Unit test for int()
-	 * 
-	 * @throws SqlParseException
+	 * Unit test for int().
+	 *
+	 * @throws SqlParseException the sql parse exception
 	 */
 	@Test
 	public void testCustomFunction() throws SqlParseException {
@@ -1555,9 +1618,9 @@ public class TestGenericParser extends AbstractParserTest {
 	}
 	
 	/**
-	 * Unit test for duplicate parameter
-	 * 
-	 * @throws SqlParseException
+	 * Unit test for duplicate parameter.
+	 *
+	 * @throws SqlParseException the sql parse exception
 	 */
 	@Test
 	public void testDuplicateParameter() throws SqlParseException {

@@ -25,9 +25,7 @@ import javassist.NotFoundException;
 public class AddingInterfacesClassUpdater 
 extends AbstractClassUpdater {
 	
-	/**
-	 * interfaces
-	 */
+	/** interfaces. */
 	private String[] interfaceNames;
 	
 	/**

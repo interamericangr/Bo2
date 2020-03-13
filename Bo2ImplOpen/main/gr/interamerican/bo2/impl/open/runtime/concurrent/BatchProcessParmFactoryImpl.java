@@ -174,8 +174,7 @@ implements BatchProcessParmsFactory {
 	/**
 	 * Creates the Formatter according to the specified class name.
 	 *
-	 * @param formatterClassName
-	 *
+	 * @param formatterClassName the formatter class name
 	 * @return Returns the modification.
 	 */
 	protected Formatter<?> createFormatter(String formatterClassName) {
@@ -188,8 +187,7 @@ implements BatchProcessParmsFactory {
 	/**
 	 * Gets the initial threads.
 	 *
-	 * @param properties
-	 *
+	 * @param properties the properties
 	 * @return Returns the initial threads.
 	 */
 	protected int calculateInitialThreads(Properties properties) {
@@ -204,7 +202,7 @@ implements BatchProcessParmsFactory {
 	/**
 	 * Returns an optional operation instance or null.
 	 *
-	 * @param operationClassName
+	 * @param operationClassName the operation class name
 	 * @return Operation instance.
 	 */
 	Operation createOptionalOperation(String operationClassName) {

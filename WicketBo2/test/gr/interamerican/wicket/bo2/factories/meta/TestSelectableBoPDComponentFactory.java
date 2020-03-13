@@ -28,30 +28,25 @@ import org.apache.wicket.model.PropertyModel;
 import org.junit.Test;
 
 /**
- * 
+ * A factory for creating TestSelectableBoPDComponent objects.
  */
 public class TestSelectableBoPDComponentFactory extends BaseClassForTestingComponentFactory{
-	/**
-	 * TYPE
-	 */
+	
+	/** TYPE. */
 	private static final Long TYPE = 1000L;
-	/**
-	 * SUBTYPE
-	 */
+	
+	/** SUBTYPE. */
 	private static final Long SUBTYPE = 1L;
 	
-	/**
-	 * 
-	 */
+	/** The selectable bo property descriptor. */
 	@SuppressWarnings("unchecked")
 	private SelectableBoPropertyDescriptor<Entry> selectableBoPropertyDescriptor =  createSelectableBoPropertyDescriptor();
-	/**
-	 * 
-	 */
+	
+	/** The selectable bo PD component factory. */
 	private SelectableBoPDComponentFactory selectableBoPDComponentFactory = new SelectableBoPDComponentFactory();
 	
 	/**
-	 * 
+	 * Test draw main first.
 	 */
 	@Test
 	public void testDrawMain_First(){
@@ -61,7 +56,7 @@ public class TestSelectableBoPDComponentFactory extends BaseClassForTestingCompo
 	}
 	
 	/**
-	 * 
+	 * Test draw main second.
 	 */
 	@Test
 	public void testDrawMain_Second(){
@@ -73,9 +68,9 @@ public class TestSelectableBoPDComponentFactory extends BaseClassForTestingCompo
 	
 	
 	/**
-	 * Create MultipleChoiceCachedEntryBoPropertyDescriptor
+	 * Create MultipleChoiceCachedEntryBoPropertyDescriptor.
+	 *
 	 * @return MultipleChoiceCachedEntryBoPropertyDescriptor
-	 * 
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public SelectableBoPropertyDescriptor createSelectableBoPropertyDescriptor(){
@@ -87,6 +82,8 @@ public class TestSelectableBoPDComponentFactory extends BaseClassForTestingCompo
 	}
 
 	/**
+	 * Gets the entries set.
+	 *
 	 * @return entriesSet
 	 */
 	private Set<Entry> getEntriesSet() {
@@ -126,10 +123,12 @@ public class TestSelectableBoPDComponentFactory extends BaseClassForTestingCompo
 		private static final long serialVersionUID = 1L;
 
 		
+		@Override
 		public String getTranslation(Long languageId) {			
 			return getName();
 		}
 		
+		@Override
 		public Long getTranslationResourceId() {			
 			return getCode();
 		}		

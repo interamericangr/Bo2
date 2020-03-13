@@ -36,9 +36,9 @@ public class ConditionChecker<M> {
 	
 	/**
 	 * Adds a control.
-	 * 
-	 * @param messageId
-	 * @param condition
+	 *
+	 * @param messageId the message id
+	 * @param condition the condition
 	 */
 	public void addControl(M messageId, Boolean condition) {
 		controls.put(messageId, condition);

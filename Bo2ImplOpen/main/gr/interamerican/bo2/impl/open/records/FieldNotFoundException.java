@@ -33,15 +33,12 @@ extends RuntimeException {
 	/**
 	 * Creates a new FieldNotFoundException object. 
 	 *
-	 * @param field
+	 * @param field the field
 	 */
 	FieldNotFoundException(String field) {
 		this.field = field;
 	}
 	
-	/* (non-Javadoc)
-	 * @see java.lang.Throwable#toString()
-	 */
 	@Override
 	public String toString() {			
 		return super.toString() + 

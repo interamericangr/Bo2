@@ -32,7 +32,7 @@ extends AbstractClassUpdater {
 	/**
 	 * Creates a new AddingMethodsClassUpdater object. 
 	 *
-	 * @param newCode
+	 * @param newCode the new code
 	 */
 	public AddingCodeToDefaultConstructorClassUpdater(String newCode) {
 		super();

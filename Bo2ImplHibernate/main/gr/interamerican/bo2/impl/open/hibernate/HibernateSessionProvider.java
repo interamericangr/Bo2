@@ -24,7 +24,13 @@ import org.hibernate.Session;
  * 
  * The {@link HibernateSessionProvider} also provides a facade that hides
  * some session operations. 
- *
+ * 
+ * Any manager supporting this type of resource should define that the resource
+ * wrapper gr.interamerican.bo2.impl.open.jdbc.JdbcConnectionProvider is replaced by
+ * this type.
+ * 
+ * This way the underlying JdbcConnection for both the hibernate session and jdbc
+ * workers is the same.
  */
 public interface HibernateSessionProvider 
 extends ResourceWrapper {
@@ -41,9 +47,8 @@ extends ResourceWrapper {
 	 * 
 	 * The behavior of this method depends on the {@link FlushStrategy} of this
 	 * HibernateSesssionProvider. 
-	 * 
-	 * @param object
-	 * 
+	 *
+	 * @param object the object
 	 * @see #setFlushStrategy(FlushStrategy)
 	 * @see #setExcluded(Object)
 	 * @see #setNotExcluded(Object)
@@ -61,7 +66,7 @@ extends ResourceWrapper {
 	public void register(Object object);
 	
 	/**
-	 * Deletes from this provider's register an object. <br/>
+	 * Deletes from this provider's register an object. <br>
 	 * 
 	 * This method unregisters object that had previously been registered with
 	 * <code>register(object)</code>. The most common use for this method is

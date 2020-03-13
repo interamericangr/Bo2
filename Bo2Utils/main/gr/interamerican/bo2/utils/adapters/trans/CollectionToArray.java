@@ -34,17 +34,14 @@ implements Transformation<List<T>, T[]> {
 	/**
 	 * Creates a new ListToArray object. 
 	 *
-	 * @param sample
+	 * @param sample the sample
 	 */
 	public CollectionToArray(T[] sample) {
-		super();
 		this.sample = sample;
 	}
 
+	@Override
 	public T[] execute(List<T> a) {	
 		return CollectionUtils.toArray(a, sample);
 	}
-	
-	
-
 }

@@ -31,8 +31,8 @@ extends VariableDefinition<T> {
 	/**
 	 * Creates a new VariableDefinitionForPersistentCollections object. 
 	 *
-	 * @param name
-	 * @param type
+	 * @param name the name
+	 * @param type the type
 	 */
 	public VariableDefinitionForPersistentCollections(String name, Class<T> type) {
 		super(name, type);

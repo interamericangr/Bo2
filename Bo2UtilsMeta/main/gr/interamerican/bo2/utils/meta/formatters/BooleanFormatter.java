@@ -18,9 +18,8 @@ import gr.interamerican.bo2.utils.StringConstants;
  * Formatter for {@link Boolean} objects.
  */
 public class BooleanFormatter implements Formatter<Boolean> {
-	/**
-	 * 
-	 */
+	
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Literal for true.
@@ -34,8 +33,8 @@ public class BooleanFormatter implements Formatter<Boolean> {
 	/**
 	 * Creates a new BooleanFormatter object. 
 	 *
-	 * @param trueLiteral
-	 * @param falseLiteral
+	 * @param trueLiteral the true literal
+	 * @param falseLiteral the false literal
 	 */
 	public BooleanFormatter(String trueLiteral, String falseLiteral) {
 		super();
@@ -50,16 +49,16 @@ public class BooleanFormatter implements Formatter<Boolean> {
 	public BooleanFormatter() {
 		this("true", "false");
 	}
-	
+
+	@Override
 	public String format(Boolean t) {
 		if(t==null) {
 			return StringConstants.NULL;
 		}
 		if (t) {
 			return trueLiteral;
-		} else {
-			return falseLiteral;
 		}
+		return falseLiteral;
 	}
 
 }

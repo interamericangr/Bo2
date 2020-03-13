@@ -24,11 +24,20 @@ import org.junit.runners.Suite.SuiteClasses;
  * Test suite for package <code>gr.interamerican.wicket.utils</code>.
  * 
  */
+@SuppressWarnings("deprecation")
 @RunWith(Suite.class)
 @SuiteClasses(
 	{
+		TestBigDecimalTextField.class,
+		TestBooleanDdc.class,
 		TestCallbackActionBehavior.class,
-
+		TestDoubleTextField.class,
+		TestFixedDigitsBigDecimalConverter.class,
+		TestFixedDigitsDoubleConverter.class,
+		TestPercentageBigDecimalConverter.class,
+		TestPercentageBigDecimalTextField.class,
+		TestPercentageDoubleConverter.class,
+		TestPercentageTextField.class,
 		
 	
 	}

@@ -32,14 +32,15 @@ implements NameResolver {
 	/**
 	 * Creates a new MultipleStepsNameResolver object.
 	 *  
-	 * @param resolvers 
+	 *
+	 * @param resolvers the resolvers
 	 */
 	public MultipleStepsNameResolver(NameResolver... resolvers) {
 		super();
 		this.resolvers = resolvers;
 	}
 
-	
+	@Override
 	public String getImplementationName(String interfaceName) {
 		String result=interfaceName;
 		for (int i = 0; i < resolvers.length; i++) {
@@ -48,6 +49,7 @@ implements NameResolver {
 		return result;
 	}
 
+	@Override
 	public String getDeclarationName(String implementationName) {		
 		String result=implementationName;
 		for (int i = resolvers.length-1; i >=0; i--) {
@@ -55,7 +57,4 @@ implements NameResolver {
 		}
 		return result;
 	}
-	
-	
-
 }

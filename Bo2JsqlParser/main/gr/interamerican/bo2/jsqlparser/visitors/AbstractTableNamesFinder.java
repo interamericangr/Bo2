@@ -91,19 +91,16 @@ ItemsListVisitor, StatementVisitor {
 	@Override
 	abstract public void visit(PlainSelect plainSelect);
 
-	/**
-	 * 
-	 */
+	/** The table names. */
 	protected Set<String> tableNames = new HashSet<String>();
-	/**
-	 * 
-	 */
+	
+	/** The all columns. */
 	private boolean allColumns = false;
 
 	/**
 	 * method to handle binary expressions.
-	 * 
-	 * @param b
+	 *
+	 * @param b the b
 	 */
 	private void handleBinaryExpression(BinaryExpression b) {
 		b.getLeftExpression().accept(this);
@@ -111,6 +108,8 @@ ItemsListVisitor, StatementVisitor {
 	}
 
 	/**
+	 * Gets the all columns.
+	 *
 	 * @return return if the sql is running for all columns
 	 */
 	public boolean getAllColumns() {
@@ -125,6 +124,8 @@ ItemsListVisitor, StatementVisitor {
 	}
 
 	/**
+	 * Gets the table names.
+	 *
 	 * @return the tables names.
 	 */
 	public Set<String> getTableNames() {
@@ -135,7 +136,7 @@ ItemsListVisitor, StatementVisitor {
 	}
 
 	@Override
-	public void visit(AllColumns allColumns) {
+	public void visit(AllColumns all) {
 		this.allColumns = true;
 	}
 

@@ -27,8 +27,8 @@ public class TestDocumentUtils {
 	
 	/**
 	 * Test for safeAppend().
-	 * 
-	 * @throws DocumentEngineException
+	 *
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	@Test
 	public void testSafeAppend_noNulls() throws DocumentEngineException {
@@ -42,8 +42,8 @@ public class TestDocumentUtils {
 	
 	/**
 	 * Test for safeAppend().
-	 * 
-	 * @throws DocumentEngineException
+	 *
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	@Test
 	public void testSafeAppend_withNullNull() throws DocumentEngineException {		
@@ -54,8 +54,8 @@ public class TestDocumentUtils {
 	
 	/**
 	 * Test for safeAppend().
-	 * 
-	 * @throws DocumentEngineException
+	 *
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	@Test
 	public void testSafeAppend_firstNull() throws DocumentEngineException {
@@ -69,8 +69,8 @@ public class TestDocumentUtils {
 	
 	/**
 	 * Test for appendRowIfNeeded().
-	 * 
-	 * @throws DocumentEngineException
+	 *
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	@Test
 	public void testAppendRowIfNeeded_needed() throws DocumentEngineException {
@@ -82,8 +82,8 @@ public class TestDocumentUtils {
 	
 	/**
 	 * Test for appendRowIfNeeded().
-	 * 
-	 * @throws DocumentEngineException
+	 *
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	@Test
 	public void testAppendRowIfNeeded_notNeeded() throws DocumentEngineException {
@@ -95,8 +95,8 @@ public class TestDocumentUtils {
 	
 	/**
 	 * Test for safeAppend().
-	 * 
-	 * @throws DocumentEngineException
+	 *
+	 * @throws DocumentEngineException the document engine exception
 	 */
 	@Test(expected=DocumentEngineException.class)
 	public void testValidateColumnCount() throws DocumentEngineException {

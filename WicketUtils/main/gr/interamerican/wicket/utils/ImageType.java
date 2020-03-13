@@ -13,55 +13,44 @@
 package gr.interamerican.wicket.utils;
 
 import gr.interamerican.bo2.utils.StringUtils;
+import gr.interamerican.wicket.utils.images.EmbeddedImage;
 
 /**
- * Enumeration with the image types of a link. 
+ * Enumeration with the image types of a link.
+ * 
+ * @deprecated Use {@link EmbeddedImage} instead. Various utilities using it
+ *             have been marked as deprecated with alternatives being offered on
+ *             each
  */
+@Deprecated
 @SuppressWarnings("nls")
 public enum ImageType {
-	/**
-	 * Edit Image
-	 */	
+	
+	/** Edit Image. */	
 	EDIT("images/edit.jpeg"),
 	
-	/**
-	 * Delete image
-	 */
+	/** Delete image. */
 	DELETE("images/delete1.jpeg"),
 	
-	/**
-	 * COPY image
-	 */
+	/** COPY image. */
 	COPY("images/copy.jpeg"),
 	
-	/**
-	 * PREVIEW image
-	 */
+	/** PREVIEW image. */
 	PREVIEW("images/preview.jpeg"),
 	
-	/**
-	 * ARROW_UP image
-	 */
+	/** ARROW_UP image. */
 	ARROW_UP("images/arrowup.jpeg"),
 	
-	/**
-	 * ARROW_DOWN image
-	 */
+	/** ARROW_DOWN image. */
 	ARROW_DOWN("images/arrowdown.jpeg"),
 		
-	/**
-	 * SEND_EMAIL image
-	 */
+	/** SEND_EMAIL image. */
 	SEND_EMAIL("images/send_email.jpeg"),
 	
-	/**
-	 * CHECK image
-	 */
+	/** CHECK image. */
 	CHECK("images/tick.jpeg"),
 	
-	/**
-	 * Blank image
-	 */
+	/** Blank image. */
 	BLANK("images/blankimage.jpeg"),
 	
 	/**
@@ -74,15 +63,13 @@ public enum ImageType {
 		}
 	};
 	
-	/**
-	 * Image for this 
-	 */
+	/** Image for this. */
 	String image;
 
 	/**
 	 * Creates a new ImageType object. 
 	 *
-	 * @param image
+	 * @param image the image
 	 */
 	private ImageType(String image) {
 		this.image = image;
@@ -100,6 +87,8 @@ public enum ImageType {
 	/**
 	 * Legacy wicket 1.4 implementation
 	 * TODO: remove it.
+	 *
+	 * @return the string
 	 */
 	@Override
 	public String toString() {
@@ -110,8 +99,10 @@ public enum ImageType {
 	}
 	
 	/**
-	 * @param contextRelativeUrl
-	 * @return html fragment for image 
+	 * To string.
+	 *
+	 * @param contextRelativeUrl the context relative url
+	 * @return html fragment for image
 	 */
 	public String toString(String contextRelativeUrl) {
 		return StringUtils.concat(

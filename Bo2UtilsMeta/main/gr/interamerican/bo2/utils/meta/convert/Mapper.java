@@ -22,18 +22,15 @@ import java.io.Serializable;
 import java.util.Map;
 
 /**
- * A {@link Mapper} encapsulates the mapping of  
- * 
- * @param <L> 
- *        Input type of the mapping. The type being mapped.
- * @param <R> 
- *        Output type of the mapping. The type of the result.
+ * A {@link Mapper} encapsulates the mapping of  .
+ *
+ * @param <L>        Input type of the mapping. The type being mapped.
+ * @param <R>        Output type of the mapping. The type of the result.
  */
 public class Mapper<L,R> 
 implements Converter<L, R>, Serializable {
-	/**
-	 * serialVersionUID
-	 */
+	
+	/** serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Writer used to get string representations of mapped objects.
@@ -52,6 +49,7 @@ implements Converter<L, R>, Serializable {
 	 */
 	String description=StringConstants.EMPTY;
 	
+	@Override
 	public R convert(L l) throws ConversionException {		
 		String sl = format(l);
 		String sr = map.get(sl);
@@ -108,13 +106,15 @@ implements Converter<L, R>, Serializable {
 		return description;
 	}
 	
-	/**	 
+	/**
+	 * 	 
 	 * Parses the specified string and converts it to the
 	 * type of R.
 	 *  
-	 * @param sr
+	 *
+	 * @param sr the sr
 	 * @return R the output type of the mapping. The type of the result.
-	 * @throws ParseException
+	 * @throws ParseException the parse exception
 	 */
 	public R parse(String sr) throws ParseException {
 		return parser.parse(sr);
@@ -122,9 +122,9 @@ implements Converter<L, R>, Serializable {
 
 	/**
 	 * Transforms an object of type L to its string representation.
-	 * 
-	 * @param l
-	 * @return The object that will be represented as string. 
+	 *
+	 * @param l the l
+	 * @return The object that will be represented as string.
 	 */
 	public String format(L l) {
 		String sl = writer.format(l);

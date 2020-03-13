@@ -18,7 +18,7 @@ import java.util.Map;
 
 
 /**
- * Test for {@link DelegateToOtherPropertyCodeTemplates}
+ * Test for {@link DelegateToOtherPropertyCodeTemplates}.
  */
 public class TestDelegateToOtherPropertyCodeTemplates 
 extends BaseTestPropertyCodeTemplates {

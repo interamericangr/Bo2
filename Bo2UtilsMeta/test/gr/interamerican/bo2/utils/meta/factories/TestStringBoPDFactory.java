@@ -19,20 +19,18 @@ import gr.interamerican.samples.utils.meta.SamplePropertyDefinition;
 import org.junit.Test;
 
 /**
- * 
+ * A factory for creating TestStringBoPD objects.
  */
 public class TestStringBoPDFactory {
 
 	
 	
-	/**
-	 * SamplePropertyDefinition
-	 */
+	/** SamplePropertyDefinition. */
 	SamplePropertyDefinition pd =  new SamplePropertyDefinition();
 	
 	
 	/**
-	 * Test create
+	 * Test create.
 	 */
 	@SuppressWarnings({ "nls" })
 	@Test

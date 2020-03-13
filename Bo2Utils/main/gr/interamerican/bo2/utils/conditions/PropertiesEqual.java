@@ -12,7 +12,6 @@
  ******************************************************************************/
 package gr.interamerican.bo2.utils.conditions;
 
-
 /**
  * Checks a condition on a property of the specified object.
  * 
@@ -21,10 +20,11 @@ package gr.interamerican.bo2.utils.conditions;
  * 
  * @param <T> 
  *        Type of object being checked by the condition.
- * 
+ * @deprecated Use {@link gr.interamerican.bo2.utils.conditions.functional.PropertiesEqual}
  */
+@Deprecated
 public class PropertiesEqual<T> 
-implements Condition<T>{
+implements Condition<T> {
 	
 	/**
 	 * Checks equality of all specified properties.
@@ -34,9 +34,9 @@ implements Condition<T>{
 	/**
 	 * Creates a new PropertiesEqual object. 
 	 *
-	 * @param properties
-	 * @param values
-	 * @param clazz
+	 * @param properties the properties
+	 * @param values the values
+	 * @param clazz the clazz
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public PropertiesEqual(String[] properties, Object[] values, Class<T> clazz) {
@@ -48,8 +48,8 @@ implements Condition<T>{
 		and = new And(conditions);		
 	}
 
+	@Override
 	public boolean check(T t) {		
 		return and.check(t);
 	}
-
 }

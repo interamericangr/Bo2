@@ -25,26 +25,20 @@ public class StringResourceUtils {
 	 * If {@code userSuppliedResource} is not null, then returns a model with its value.
 	 * In any other case, returns a {@link StringResourceModel} for the specified
 	 * {@code resourceKey}, {@code component} and {@code defaultValue}.
-	 * 
-	 * @see StringResourceModel
-	 * 
-	 * @param resourceKey
-	 *        Resource key for resource bundle lookup,
-	 * @param component 
-	 *        Component whose resource bundle hierarchy will be looked up. 
-	 * @param userSuppliedResource
-	 *        Resource model supplied explicitly by the user.
-	 * @param defaultValue
-	 *        Default value, if everything else fails.
-	 * 
+	 *
+	 * @param resourceKey        Resource key for resource bundle lookup,
+	 * @param component        Component whose resource bundle hierarchy will be looked up. 
+	 * @param userSuppliedResource        Resource model supplied explicitly by the user.
+	 * @param defaultValue        Default value, if everything else fails.
 	 * @return Returns an {@link IModel} of the resource.
+	 * @see StringResourceModel
 	 */
 	public static IModel<String> getResourceModel(
 	String resourceKey, Component component, IModel<String> userSuppliedResource, String defaultValue) {
 		if(userSuppliedResource != null) {
 			return userSuppliedResource;
 		}
-		return new StringResourceModel(resourceKey, component, null, defaultValue);
+		return new StringResourceModel(resourceKey, component).setDefaultValue(defaultValue);
 	}
 	
 	/**

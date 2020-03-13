@@ -30,7 +30,7 @@ import org.junit.Test;
 public class TestBo2AnnoUtils {
 	
 	/**
-	 * tests getManagerName
+	 * tests getManagerName.
 	 */
 	@Test
 	public void testGetManagerName_withAnnotatedClass() {
@@ -39,7 +39,7 @@ public class TestBo2AnnoUtils {
 	}
 	
 	/**
-	 * tests getManagerName
+	 * tests getManagerName.
 	 */
 	@Test
 	public void testGetManagerName_withAnnotatedSuperClass() {
@@ -48,7 +48,7 @@ public class TestBo2AnnoUtils {
 	}
 
 	/**
-	 * tests getManagerName
+	 * tests getManagerName.
 	 */
 	@Test
 	public void testGetManagerName_withAnnotatedPackage() {
@@ -57,7 +57,7 @@ public class TestBo2AnnoUtils {
 	}
 	
 	/**
-	 * tests getManagerName
+	 * tests getManagerName.
 	 */
 	@Test
 	public void testGetManagerName_withImplementedInterface() {
@@ -66,7 +66,7 @@ public class TestBo2AnnoUtils {
 	}
 	
 	/**
-	 * tests getManagerName
+	 * tests getManagerName.
 	 */
 	@Test
 	public void testGetManagerName_withAnnotatedTheSuperInterface() {
@@ -75,7 +75,7 @@ public class TestBo2AnnoUtils {
 	}
 	
 	/**
-	 * tests getManagerName
+	 * tests getManagerName.
 	 */
 	@Test
 	public void testGetManagerName_withClassThatHasAnnotatedTheSuperInterface() {
@@ -84,7 +84,7 @@ public class TestBo2AnnoUtils {
 	}
 	
 	/**
-	 * tests getManagerName
+	 * tests getManagerName.
 	 */
 	@Test
 	public void testGetManagerName_withClassThatHasAnnotatedTheSuperClass() {
@@ -93,7 +93,7 @@ public class TestBo2AnnoUtils {
 	}
 	
 	/**
-	 * tests getManagerName
+	 * tests getManagerName.
 	 */
 	@Test
 	public void testGetManagerName_withReannotatedClass() {
@@ -102,7 +102,7 @@ public class TestBo2AnnoUtils {
 	}
 	
 	/**
-	 * tests getManagerName
+	 * tests getManagerName.
 	 */
 	@Test
 	public void testGetKeyProperties() {
@@ -115,7 +115,7 @@ public class TestBo2AnnoUtils {
 	}
 	
 	/**
-	 * tests getManagerName
+	 * tests getManagerName.
 	 */
 	@Test
 	public void testGetManagerName_withClassThatHasNoManager() {
@@ -124,7 +124,7 @@ public class TestBo2AnnoUtils {
 	}
 	
 	/**
-	 * tests getManagerName
+	 * tests getManagerName.
 	 */
 	@Test
 	public void testGetManagerName_withBaseClass1() {
@@ -133,7 +133,7 @@ public class TestBo2AnnoUtils {
 	}
 	
 	/**
-	 * tests getManagerName
+	 * tests getManagerName.
 	 */
 	@Test
 	public void testGetManagerName_withBaseClass2() {
@@ -142,7 +142,7 @@ public class TestBo2AnnoUtils {
 	}
 	
 	/**
-	 * Tests copyManagerName()
+	 * Tests copyManagerName().
 	 */
 	@Test
 	public void testCopyManagerName() {
@@ -156,7 +156,7 @@ public class TestBo2AnnoUtils {
 	}
 	
 	/**
-	 * Tests 
+	 * Tests.
 	 */
 	@Test
 	public void testGetParameterNames_withClassAnnotated() {
@@ -167,7 +167,7 @@ public class TestBo2AnnoUtils {
 	}
 	
 	/**
-	 * Tests 
+	 * Tests.
 	 */
 	@Test
 	public void testGetParameterNames_withSuperClassAnnotated() {
@@ -178,7 +178,7 @@ public class TestBo2AnnoUtils {
 	}
 	
 	/**
-	 * Tests 
+	 * Tests.
 	 */
 	@Test
 	public void testGetParameterNames_withClassAndSuperClassAnnotated() {
@@ -208,9 +208,17 @@ public class TestBo2AnnoUtils {
 	 */
 	@ParametersOrder({"a","b"})
 	class Impl implements Inter {
+		
+		@Override
 		public void open() throws DataException {/*empty*/}
+		
+		@Override
 		public void close() throws DataException {/*empty*/}
+		
+		@Override
 		public void init(Provider parent) throws InitializationException {/*empty*/}
+		
+		@Override
 		public Provider getProvider() {return null;}
 	}
 	
@@ -235,9 +243,17 @@ public class TestBo2AnnoUtils {
 	 * Sample class.
 	 */
 	class Impl2 implements ExtendedInter {
+		
+		@Override
 		public void open() throws DataException {/*empty*/}
+		
+		@Override
 		public void close() throws DataException {/*empty*/}
+		
+		@Override
 		public void init(Provider parent) throws InitializationException {/*empty*/}
+		
+		@Override
 		public Provider getProvider() {return null;}
 	}
 	
@@ -277,8 +293,14 @@ public class TestBo2AnnoUtils {
 	 */
 	@SuppressWarnings("serial")
 	class NotAnnotatedPo extends AnnotatedPo {
+		
+		@Override
 		public Integer getKey() {return key;}
+		
+		@Override
 		public void setKey(Integer key) {this.key=key;}
+		
+		@Override
 		public void tidy() {/* empty*/ 	}		
 	}
 	/**
@@ -291,7 +313,7 @@ public class TestBo2AnnoUtils {
 	}
 	
 	/**
-	 * This is used to test copyManagerName()
+	 * This is used to test copyManagerName().
 	 */
 	class SomeWorker extends Impl2 {
 		/*empty*/

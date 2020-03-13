@@ -12,14 +12,15 @@
  ******************************************************************************/
 package gr.interamerican.bo2.impl.open.beans;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 
 /**
- * 
+ * Tests of {@link ConstantType}.
  */
 public class TestConstantType {
+
 	/**
 	 * type.
 	 */
@@ -47,7 +48,14 @@ public class TestConstantType {
 		assertEquals(TYPE, type.getTypeId());		
 	}
 	
-	
-
-
+	/**
+	 * test equals()
+	 */
+	@Test
+	public void testEquals() {
+		assertFalse(type.equals(null));
+		assertTrue(type.equals(type));
+		assertTrue(type.equals(new ConstantType(1000L)));
+		assertFalse(type.equals(new ConstantType(21312L)));		
+	}
 }

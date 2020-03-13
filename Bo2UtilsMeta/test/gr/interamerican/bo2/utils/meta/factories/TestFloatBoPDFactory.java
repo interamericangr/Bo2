@@ -21,25 +21,22 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * 
+ * A factory for creating TestFloatBoPD objects.
  */
 public class TestFloatBoPDFactory {
 
 	
-	/**
-	 * BigDecimalBoPDFactory
-	 */
+	/** BigDecimalBoPDFactory. */
 	FloatBoPDFactory factory = new FloatBoPDFactory();
 	
-	/**
-	 * SamplePropertyDefinition
-	 */
+	/** SamplePropertyDefinition. */
 	SamplePropertyDefinition pd =  new SamplePropertyDefinition();
 	
 	
 	/**
-	 * Test create
-	 * @throws ParseException 
+	 * Test create.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@SuppressWarnings({ "static-access", "nls" })
 	@Test
@@ -56,9 +53,9 @@ public class TestFloatBoPDFactory {
 	}
 	
 	/**
-	 * test Create when fails
-	 * @throws ParseException 
-	 * 
+	 * test Create when fails.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@SuppressWarnings({ "nls", "static-access" })
 	@Test(expected = ParseException.class)
@@ -70,8 +67,9 @@ public class TestFloatBoPDFactory {
 	}
 	
 	/**
-	 * Test for the generated max length
-	 * @throws ParseException
+	 * Test for the generated max length.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@SuppressWarnings("static-access")
 	@Test

@@ -28,45 +28,35 @@ import gr.interamerican.bo2.utils.meta.parsers.Parser;
 import java.util.Arrays;
 
 /**
- * 
+ * The Class TestBeanDescriptor.
  */
 public class TestBeanDescriptor extends BasicBusinessObjectDescriptor<TestBean> {
 
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
-	/**
-	 * TYPE
-	 */
+	
+	/** TYPE. */
 	private static final Long TYPE = 1000L;
-	/**
-	 * SEC_TYPE
-	 */
+	
+	/** SEC_TYPE. */
 	private static final Long SEC_TYPE = 1001L;
-	/**
-	 * THRD_TYPE
-	 */
+	
+	/** THRD_TYPE. */
 	private static final Long THRD_TYPE = 1002L;
-	/**
-	 * SUBTYPE
-	 */
+	
+	/** SUBTYPE. */
 	private static final Long SUBTYPE = 1L;
-	/**
-	 * CACHE
-	 */
+	
+	/** CACHE. */
 	private static final Cache<Long> CACHE = new CacheImpl<Long>();
-	/**
-	 * PARSER
-	 */
+	
+	/** PARSER. */
 	private static final Parser<Long> PARSER = new LongParser();
-	/**
-	 * FORMATTER
-	 */
+	
+	/** FORMATTER. */
 	private static final Formatter<Long> FORMATTER = ObjectFormatter.<Long> getInstance();
-	/**
-	 * CODE
-	 */
+	
+	/** CODE. */
 	private static final Long CODE = 1L;
 
 	/**
@@ -86,8 +76,8 @@ public class TestBeanDescriptor extends BasicBusinessObjectDescriptor<TestBean> 
 	}
 
 	/**
-	 * Create CachedEntryBoPropertyDescriptor
-	 * 
+	 * Create CachedEntryBoPropertyDescriptor.
+	 *
 	 * @return CachedEntryBoPropertyDescriptor
 	 */
 	public CachedEntryBoPropertyDescriptor<?, ?> firstAttributeDescriptor() {
@@ -106,8 +96,8 @@ public class TestBeanDescriptor extends BasicBusinessObjectDescriptor<TestBean> 
 	}
 
 	/**
-	 * Create CachedEntryBoPropertyDescriptor
-	 * 
+	 * Create CachedEntryBoPropertyDescriptor.
+	 *
 	 * @return CachedEntryBoPropertyDescriptor
 	 */
 	public CachedEntryBoPropertyDescriptor<?, ?> secondAttributeDescriptor() {
@@ -126,8 +116,8 @@ public class TestBeanDescriptor extends BasicBusinessObjectDescriptor<TestBean> 
 	}
 
 	/**
-	 * Create CachedEntryBoPropertyDescriptor
-	 * 
+	 * Create CachedEntryBoPropertyDescriptor.
+	 *
 	 * @return CachedEntryBoPropertyDescriptor
 	 */
 	public CachedEntryBoPropertyDescriptor<?, ?> thirdAttributeDescriptor() {
@@ -153,11 +143,13 @@ public class TestBeanDescriptor extends BasicBusinessObjectDescriptor<TestBean> 
 		 */
 		private static final long serialVersionUID = 1L;
 
+		@Override
 		public String getTranslation(Long languageId) {
 			return getName();
 			// + StringConstants.SPACE + languageId.toString();
 		}
 
+		@Override
 		public Long getTranslationResourceId() {
 			return getCode();
 		}

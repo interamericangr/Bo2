@@ -35,7 +35,7 @@ public class CustomDateTextField extends DateTextField{
 	/**
 	 * Creates a new CustomDateTextField object. 
 	 *
-	 * @param id
+	 * @param id the id
 	 */
 	public CustomDateTextField(String id) {
 		super(id);
@@ -46,8 +46,8 @@ public class CustomDateTextField extends DateTextField{
 	/**
 	 * Creates a new CustomDateTextField object. 
 	 *
-	 * @param id
-	 * @param model
+	 * @param id the id
+	 * @param model the model
 	 */
 	public CustomDateTextField(String id, IModel<Date> model) {
 		super(id, model);
@@ -59,7 +59,7 @@ public class CustomDateTextField extends DateTextField{
 	@Override
 	public <C> IConverter<C> getConverter(Class<C> type) {
 		return (IConverter<C>) new PatternDateConverter 
-			(Bo2UtilsEnvironment.getShortDateFormatPattern(), true);
+			(Bo2UtilsEnvironment.get().getShortDateFormatPattern(), true);
 	}
 	
 }

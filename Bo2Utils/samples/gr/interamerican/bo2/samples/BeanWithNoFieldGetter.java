@@ -32,8 +32,8 @@ public class BeanWithNoFieldGetter {
 	
 	/**
 	 * Sets field 1.
-	 * 
-	 * @param field1
+	 *
+	 * @param field1 the new field 1
 	 */
 	public void setField1(String field1) {
 		this.field1=field1;		

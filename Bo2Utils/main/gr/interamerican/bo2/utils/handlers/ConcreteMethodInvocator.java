@@ -18,10 +18,10 @@ public class ConcreteMethodInvocator extends AbstractMethodInvocator {
 
 	/**
 	 * Creates a new ConcreteMethodInvocator.
-	 * 
-	 * @param handler
-	 * @param methodName
-	 * @param owner
+	 *
+	 * @param handler the handler
+	 * @param methodName the method name
+	 * @param owner the owner
 	 */
 	public ConcreteMethodInvocator (ExceptionHandler handler, String methodName, Object owner) {
 		super(handler, methodName, owner);		
@@ -29,9 +29,9 @@ public class ConcreteMethodInvocator extends AbstractMethodInvocator {
 	
 	/**
 	 * Creates a new ConcreteMethodInvocator with a default exception handler.
-	 * 
-	 * @param methodName
-	 * @param owner
+	 *
+	 * @param methodName the method name
+	 * @param owner the owner
 	 */
 	public ConcreteMethodInvocator (String methodName, Object owner) {
 		this(ThrowingExceptionHandler.INSTANCE, methodName, owner);		
@@ -39,7 +39,8 @@ public class ConcreteMethodInvocator extends AbstractMethodInvocator {
 
 	/**
 	 * Sets the arguments.
-	 * 
+	 *
+	 * @return the arguments
 	 */
 	@Override
 	protected Object[] getArguments() {		

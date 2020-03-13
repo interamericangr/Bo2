@@ -25,15 +25,15 @@ public interface IBeanWithOddProperties {
 	
 	/**
 	 * Sets the name.
-	 * 
-	 * @param name
+	 *
+	 * @param name the new name
 	 */
 	public void setName(String name);
 	
 	/**
 	 * Sets an integer as name.
-	 * 
-	 * @param name
+	 *
+	 * @param name the new name
 	 */
 	public void setName(Integer name);
 

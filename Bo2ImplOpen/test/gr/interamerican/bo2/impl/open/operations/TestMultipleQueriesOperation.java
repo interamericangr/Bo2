@@ -34,10 +34,10 @@ public class TestMultipleQueriesOperation {
 	
 	/**
 	 * Unit test for the lifecycle.
-	 * 
-	 * @throws LogicException 
-	 * @throws DataException 
-	 * @throws UnexpectedException 
+	 *
+	 * @throws UnexpectedException the unexpected exception
+	 * @throws DataException the data exception
+	 * @throws LogicException the logic exception
 	 */
 	@Test
 	public void testLifecycle() throws UnexpectedException, DataException, LogicException {		
@@ -85,7 +85,7 @@ public class TestMultipleQueriesOperation {
 	}
 	
 	/**
-	 * Unit tests for set-get criteria
+	 * Unit tests for set-get criteria.
 	 */
 	@Test
 	public void testGetSetCriteria() {

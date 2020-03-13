@@ -32,9 +32,7 @@ implements EntitiesQuery<TypedSelectable<Long>> {
 	 */
 	public static final Long TYPEID = 1000L;
 	
-	/**
-	 * 
-	 */
+	/** The rows. */
 	@SuppressWarnings("nls")
 	private String[] rows = {"ena", "dyo", "tria"};
 	/**
@@ -57,22 +55,26 @@ implements EntitiesQuery<TypedSelectable<Long>> {
 	 * current row.
 	 */
 	int i=0;		
-			
+
 	@Override
 	public void execute() throws DataException {
 		i=0;
 	}
+	
 	@Override
 	public boolean next() throws DataAccessException {
 		i++;
 		return i<=rows.length;
 	}
+	
 	@Override
 	public int getRow() throws DataAccessException {		
 		return i;
 	}
+
 	@Override
 	public void setAvoidLock(boolean avoidLock) {/*empty*/}
+	
 	@Override
 	public boolean isAvoidLock() {return true;}
 	/** 
@@ -82,6 +84,7 @@ implements EntitiesQuery<TypedSelectable<Long>> {
 	public String getDescription() {
 		return rows[i-1];
 	}
+	
 	@Override
 	public TypedSelectable<Long> getEntity() throws DataAccessException {
 		TypedSelectableImpl<Long> impl = new TypedSelectableImpl<Long>();

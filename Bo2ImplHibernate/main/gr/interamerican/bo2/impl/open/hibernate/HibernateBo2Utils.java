@@ -51,10 +51,9 @@ public class HibernateBo2Utils {
 	
 	/**
 	 * Gets the {@link HibernateSessionProvider} that manages the specified object.
-	 * 
-	 * @param object
-	 * @param provider
-	 * 
+	 *
+	 * @param object the object
+	 * @param provider the provider
 	 * @return Returns the HibernateSessionProvider that manages the specified object.
 	 *         If the specified object is not managed by a HibernateSessionProvider,
 	 *         returns null.
@@ -69,8 +68,8 @@ public class HibernateBo2Utils {
 	
 	/**
 	 * Logs {@link SessionFactory} statistics.
-	 * 
-	 * @param sessionFactory 
+	 *
+	 * @param sessionFactory the session factory
 	 */
 	@SuppressWarnings("nls")
 	public static void logSessionFactoryStatistics(SessionFactory sessionFactory) {
@@ -98,10 +97,11 @@ public class HibernateBo2Utils {
 	}
 	
 	/**
-	 * @param po
-	 *        PersistentObject
+	 * Checks if is transient.
+	 *
+	 * @param po        PersistentObject
 	 *        
-	 * @return Returns true, if the specified <code>po</code> is transient. 
+	 * @return Returns true, if the specified <code>po</code> is transient.
 	 */
 	public static boolean isTransient(PersistentObject<?> po) {
 		if(po instanceof HibernateProxy) {

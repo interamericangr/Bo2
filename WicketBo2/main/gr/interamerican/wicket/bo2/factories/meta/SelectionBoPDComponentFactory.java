@@ -25,10 +25,12 @@ import org.apache.wicket.model.IModel;
 public class SelectionBoPDComponentFactory 
 extends AbstractBoPDComponentFactory<SelectionBoPropertyDescriptor<?>> {
 
+	@Override
 	public Component drawMain(SelectionBoPropertyDescriptor<?> descriptor,String wicketId) {
 		return new SelfDrawnSelectionDropDownChoice(wicketId, descriptor);
 	}
 
+	@Override
 	public Component drawMain(String wicketId, IModel<?> model, SelectionBoPropertyDescriptor<?> descriptor) {
 		return new SelfDrawnSelectionDropDownChoice(wicketId, model,descriptor);
 	}

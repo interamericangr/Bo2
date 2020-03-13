@@ -26,34 +26,28 @@ import gr.interamerican.bo2.utils.meta.parsers.Parser;
 import org.junit.Test;
 
 /**
- * 
+ * The Class TestCachedEntryOwnerBoPropertyDescriptor.
  */
 public class TestCachedEntryOwnerBoPropertyDescriptor extends AbstractCacheRelatedTest {
 
-	/**
-	 * TYPE
-	 */
+	/** TYPE. */
 	private static final Long TYPE = 1000L;
-	/**
-	 * SUBTYPE
-	 */
+	
+	/** SUBTYPE. */
 	private static final Long SUBTYPE = 1L;
-	/**
-	 * PARSER
-	 */
+	
+	/** PARSER. */
 	private static final Parser<Long> PARSER = new LongParser();
-	/**
-	 * Formatter
-	 */
+	
+	/** Formatter. */
 	private static final Formatter<Long> FORMATTER = ObjectFormatter.<Long> getInstance();
-	/**
-	 * CODE
-	 */
+	
+	/** CODE. */
 	private static final Long CODE = 1L;
 
 	/**
-	 * Create CachedEntryBoPropertyDescriptor
-	 * 
+	 * Create CachedEntryBoPropertyDescriptor.
+	 *
 	 * @return CachedEntryBoPropertyDescriptor
 	 */
 	public CachedEntryOwnerBoPropertyDescriptor<ObjectType, Long> createDescriptor() {
@@ -68,9 +62,9 @@ public class TestCachedEntryOwnerBoPropertyDescriptor extends AbstractCacheRelat
 	}
 
 	/**
-	 * Test parse
-	 * 
-	 * @throws ParseException
+	 * Test parse.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@Test
 	public void testParse() throws ParseException {
@@ -79,9 +73,9 @@ public class TestCachedEntryOwnerBoPropertyDescriptor extends AbstractCacheRelat
 	}
 
 	/**
-	 * Test parse
-	 * 
-	 * @throws ParseException
+	 * Test parse.
+	 *
+	 * @throws ParseException the parse exception
 	 */
 	@Test(expected = ParseException.class)
 	public void testParseFalseValue() throws ParseException {
@@ -90,9 +84,9 @@ public class TestCachedEntryOwnerBoPropertyDescriptor extends AbstractCacheRelat
 	}
 
 	/**
-	 * Test validate
-	 * 
-	 * @throws ValidationException
+	 * Test validate.
+	 *
+	 * @throws ValidationException the validation exception
 	 */
 	@Test
 	public void testValidate() throws ValidationException {
@@ -101,7 +95,7 @@ public class TestCachedEntryOwnerBoPropertyDescriptor extends AbstractCacheRelat
 	}
 
 	/**
-	 * Test getValues
+	 * Test getValues.
 	 */
 	@Test
 	public void testGetValues() {
@@ -110,7 +104,7 @@ public class TestCachedEntryOwnerBoPropertyDescriptor extends AbstractCacheRelat
 	}
 	
 	/**
-	 * Test getFormatter
+	 * Test getFormatter.
 	 */
 	@Test
 	public void testGetFormatter() {

@@ -13,7 +13,7 @@
 package gr.interamerican.bo2.samples.def.po;
 
 /**
- * 
+ * The Interface ContinentKP.
  */
 public interface ContinentKP extends PlanetKP {
 	/**
@@ -24,7 +24,8 @@ public interface ContinentKP extends PlanetKP {
 	
 	/**
 	 * Set Continent id.
-	 * @param continentId
+	 *
+	 * @param continentId the new continent id
 	 */
 	void setContinentId(Long continentId);
 

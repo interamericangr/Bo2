@@ -59,7 +59,7 @@ import net.sf.jsqlparser.statement.select.Union;
  * Queries with BETWEEN are not supported at the moment. Note that
  * they can easily be written equivalently as two comparisons.
  */
-@SuppressWarnings({"unchecked", "nls"})
+@SuppressWarnings("nls")
 public class RemoveParameter 
 extends EmptyVisitor {
 	
@@ -85,52 +85,59 @@ extends EmptyVisitor {
 	
 	/**
 	 * Creates a new RemoveParameter object. 
-	 * @param paramToRemove 
+	 *
+	 * @param paramToRemove the param to remove
 	 */
 	public RemoveParameter(String paramToRemove) {
 		super();
 		this.paramToRemove = QUOTE+SqlParser.PARM_CHAR+paramToRemove+QUOTE;
 	}
-	
+
 	/*
 	 * These are the elementary expressions found in a where clause.
 	 */
 	@Override
 	public void visit(EqualsTo equalsTo) {
-		handleElementaryExpression(equalsTo);
+		sb.append(handleElementaryExpression(equalsTo));
 	}
+
 	@Override
 	public void visit(GreaterThan greaterThan) {
-		handleElementaryExpression(greaterThan);
+		sb.append(handleElementaryExpression(greaterThan));
 	}
+
 	@Override
 	public void visit(GreaterThanEquals greaterThanEquals) {
-		handleElementaryExpression(greaterThanEquals);
+		sb.append(handleElementaryExpression(greaterThanEquals));
 	}
+
 	@Override
 	public void visit(MinorThan minorThan) {
-		handleElementaryExpression(minorThan);
+		sb.append(handleElementaryExpression(minorThan));
 	}
+
 	@Override
 	public void visit(MinorThanEquals minorThanEquals) {
-		handleElementaryExpression(minorThanEquals);
+		sb.append(handleElementaryExpression(minorThanEquals));
 	}
+
 	@Override
 	public void visit(NotEqualsTo notEqualsTo) {
-		handleElementaryExpression(notEqualsTo);
+		sb.append(handleElementaryExpression(notEqualsTo));
 	}
+
 	@Override
 	public void visit(LikeExpression likeExpression) {
-		handleElementaryExpression(likeExpression);
+		sb.append(handleElementaryExpression(likeExpression));
 	}
-	
+
 	@Override
 	public void visit(Between between) {
 		String msg = "BETWEEN is not supported. Try writing it as" +
 				" two separate comparison expressions instead.";
 		throw new NotSupportedByVisitorException(msg);
 	}
-	
+
 	@Override
 	public void visit(ExistsExpression existsExpression) {
 		sb.append(SPACE+existsExpression.getStringExpression()+SPACE+LEFT_PARENTHESIS);
@@ -139,14 +146,13 @@ extends EmptyVisitor {
 		} else {
 			sb.append(SPACE+existsExpression.getRightExpression().toString()+SPACE+RIGHT_PARENTHESIS);
 		}
-		
 	}
-	
+
 	@Override
 	public void visit(IsNullExpression isNullExpression) { 
 		sb.append(SPACE+isNullExpression.toString());
 	}
-	
+
 	@Override
 	public void visit(InExpression inExpression) {
 		ItemsList itemsList = inExpression.getItemsList();
@@ -185,7 +191,7 @@ extends EmptyVisitor {
 	/*
 	 * End of BinaryExpressions.
 	 */
-	
+
 	/*
 	 * AND in the where statement. This could be inside a parenthesis or not.
 	 */
@@ -205,7 +211,7 @@ extends EmptyVisitor {
 			right.accept(this);
 		}
 	}
-	
+
 	/*
 	 * OR in the where statement. This could be inside a parenthesis or not.
 	 */
@@ -225,22 +231,33 @@ extends EmptyVisitor {
 			right.accept(this);
 		}
 	}
-	
+
 	/*
 	 * A parenthesis in the where statement.
 	 */
 	@Override
 	public void visit(Parenthesis parenthesis) {
 		Expression expr = parenthesis.getExpression();
+		boolean isNot = parenthesis.isNot();
+		
 		if(isSimple(expr)) {
-			handleElementaryExpression(expr);
+			String s = handleElementaryExpression(expr);
+			if(!StringUtils.isNullOrBlank(s)) {
+				if(isNot) {
+					sb.append(" NOT ");
+				}
+				sb.append(SPACE + s);
+			}
 		} else {
+			if(isNot) {
+				sb.append(" NOT ");
+			}
 			sb.append(SPACE + LEFT_PARENTHESIS);
 			parenthesis.getExpression().accept(this);
 			sb.append(SPACE + RIGHT_PARENTHESIS);
 		}
 	}
-	
+
 	/*
 	 * This is where the WHERE statement is found.
 	 */
@@ -251,12 +268,13 @@ extends EmptyVisitor {
 			where.accept(this);
 		}
 	}
-	
+
 	/*
 	 * A union exists, multiple where clauses to handle.
 	 */
 	@Override
 	public void visit(Union union) {
+		@SuppressWarnings("unchecked")
 		List<PlainSelect> plainSelects = union.getPlainSelects();
 		allWhereClauses = new ArrayList<String>();
 		for(PlainSelect ps : plainSelects) {
@@ -291,8 +309,9 @@ extends EmptyVisitor {
 	
 	/**
 	 * Processes a subSelect removing any occurrences of the
-	 * <code>paramToRemove</code>
-	 * @param subSelect
+	 * <code>paramToRemove</code>.
+	 *
+	 * @param subSelect the sub select
 	 * @return Returns the string representation of the corrected subSelect.
 	 */
 	private String processSubSelect(SubSelect subSelect) {
@@ -300,7 +319,7 @@ extends EmptyVisitor {
 		select.setSelectBody(subSelect.getSelectBody());
 		/*
 		 * Convert the paramToRemove back to original form.
-		 * e.g. ':name' --> name
+		 * e.g. ':name' --&gt; name
 		 */
 		String param = paramToRemove.replace(QUOTE, EMPTY).replace(SqlParser.PARM_CHAR.toString(), EMPTY);
 		RemoveParameter rp = new RemoveParameter(param);
@@ -382,9 +401,8 @@ extends EmptyVisitor {
 	 * where a = :a and (b=:b and c=:b)
 	 * if b is removed the where clause is left like this:
 	 * where a = :a and
-	 * 
-	 * @param tokens
-	 * 
+	 *
+	 * @param tokens the tokens
 	 * @return Return the fixed tokens.
 	 */
 	private List<String> removeGarbageFromEnd(List<String> tokens) {
@@ -401,10 +419,8 @@ extends EmptyVisitor {
 				newList.add(tokens.get(i));
 			}
 			return newList;
-		}else {
-			return tokens;
 		}
-		
+		return tokens;
 	}
 	
 	/**
@@ -413,9 +429,8 @@ extends EmptyVisitor {
 	 * when we must decide whether to include or not the operator that is
 	 * to be included before the next element. If this element is to be 
 	 * removed, the operator must not be added.
-	 * 
-	 * @param expression
-	 * 
+	 *
+	 * @param expression the expression
 	 * @return Returns true, if the leftmost expression of the supplied
 	 *         expression contains the parameter that is to be removed.
 	 */
@@ -424,18 +439,16 @@ extends EmptyVisitor {
 			BinaryExpression be = (BinaryExpression) expression;
 			if(!isSimple(be.getLeftExpression())) {
 				return containsParamFirst(be.getLeftExpression());
-			} else {
-				return be.getLeftExpression().toString().contains(paramToRemove);
 			}
-		} else {
-			return false;
+			return be.getLeftExpression().toString().contains(paramToRemove);
 		}
+		return false;
 	}
-	
+
 	/**
 	 * Checks whether an expression is a simple expression.
-	 * 
-	 * @param e
+	 *
+	 * @param e the e
 	 * @return Returns true, if the expression is simple.
 	 */
 	private boolean isSimple(Expression e) {
@@ -450,16 +463,18 @@ extends EmptyVisitor {
 	
 	/**
 	 * Handles an elementary expression. If this expression does not include
-	 * the named parameter that is to be removed, add it to the where clause
-	 * being built.
-	 * 
-	 * @param e
+	 * the named parameter that is to be removed, return a String to be added 
+	 * to the where clause being built. Otherwise, return a space.
+	 *
+	 * @param e the e
+	 * @return Returns the string for this expression to be added to the where clause.
 	 */
-	private void handleElementaryExpression(Expression e) {
+	private String handleElementaryExpression(Expression e) {
 		String processed = processElementaryExpression(e);
 		if(!StringUtils.isNullOrBlank(processed)) {
-			sb.append(SPACE + processed);
+			return SPACE + processed;
 		}
+		return EMPTY;
 	}
 	
 	/**
@@ -490,8 +505,8 @@ extends EmptyVisitor {
 	
 	/**
 	 * Converts an expression to a String. Handles expressions with subselects.
-	 * 
-	 * @param expression
+	 *
+	 * @param expression the expression
 	 * @return Converts an expression to a String
 	 */
 	private String expressionToString(Expression expression) {

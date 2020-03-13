@@ -36,7 +36,7 @@ public class TestPair {
 	}
 	
 	/**
-	 * test equals()
+	 * test equals().
 	 */
 	@Test
 	public void testEquals() {
@@ -55,7 +55,7 @@ public class TestPair {
 	}
 	
 	/**
-	 * test equals()
+	 * test equals().
 	 */
 	@Test
 	public void testEquals_WithNulls() {
@@ -66,7 +66,7 @@ public class TestPair {
 	}
 	
 	/**
-	 * test equals()
+	 * test equals().
 	 */
 	@Test
 	public void testHashcode() {
@@ -81,7 +81,7 @@ public class TestPair {
 	}
 
 	/**
-	 * test equals()
+	 * test equals().
 	 */
 	@Test
 	public void testHashcode_WithNulls() {
@@ -94,7 +94,7 @@ public class TestPair {
 	}
 	
 	/**
-	 * Unit test for toString()
+	 * Unit test for toString().
 	 */
 	@Test
 	public void testToString() {
@@ -104,7 +104,8 @@ public class TestPair {
 	
 	/**
 	 * Unit tests for toString().
-	 * @param pair
+	 *
+	 * @param pair the pair
 	 */
 	@SuppressWarnings("nls")
 	private void testToString(Pair<?,?> pair) {
@@ -119,7 +120,7 @@ public class TestPair {
 	}
 	
 	/**
-	 * Unit test for toString()
+	 * Unit test for toString().
 	 */
 	@Test
 	public void testPair() {

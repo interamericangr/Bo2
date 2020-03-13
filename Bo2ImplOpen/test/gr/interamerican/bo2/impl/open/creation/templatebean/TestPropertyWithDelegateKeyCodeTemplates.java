@@ -20,7 +20,7 @@ import java.util.Map;
 
 
 /**
- * Test for {@link ChildPropertyWithDirectAccessCodeTemplates}
+ * Test for {@link ChildPropertyWithDirectAccessCodeTemplates}.
  */
 public class TestPropertyWithDelegateKeyCodeTemplates 
 extends BaseTestPropertyCodeTemplates {

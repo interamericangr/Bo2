@@ -17,8 +17,9 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
- * Unit tests for ImageType
+ * Unit tests for ImageType.
  */
+@Deprecated
 public class TestImageType {
 	
 	/**

@@ -12,15 +12,6 @@
  ******************************************************************************/
 package gr.interamerican.wicket.markup.html.panel.picker;
 
-import gr.interamerican.bo2.utils.CollectionUtils;
-import gr.interamerican.wicket.ajax.markup.html.form.CallbackAjaxButton;
-import gr.interamerican.wicket.callback.CallbackAction;
-import gr.interamerican.wicket.markup.html.panel.ServicePanelUtils;
-import gr.interamerican.wicket.markup.html.panel.listTable.ListTablePanel;
-import gr.interamerican.wicket.markup.html.panel.service.ServicePanel;
-import gr.interamerican.wicket.util.resource.StringResourceUtils;
-import gr.interamerican.wicket.util.resource.WellKnownResourceIds;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -32,12 +23,23 @@ import org.apache.wicket.markup.html.form.CheckGroupSelector;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.model.IModel;
 
+import gr.interamerican.bo2.utils.CollectionUtils;
+import gr.interamerican.bo2.utils.adapters.Flag;
+import gr.interamerican.wicket.ajax.markup.html.form.CallbackAjaxButton;
+import gr.interamerican.wicket.callback.ICallbackAction;
+import gr.interamerican.wicket.callback.MultiplePickAction;
+import gr.interamerican.wicket.markup.html.panel.ServicePanelUtils;
+import gr.interamerican.wicket.markup.html.panel.listTable.ListTablePanel;
+import gr.interamerican.wicket.markup.html.panel.service.ServicePanel;
+import gr.interamerican.wicket.util.resource.StringResourceUtils;
+import gr.interamerican.wicket.util.resource.WellKnownResourceIds;
+
 /**
  * Basic {@link ServicePanel} that shows a List of objects and
  * allows the user to pick many of them.
  * 
- * This panel requires one {@link CallbackAction} that is executed
- * when the user requests to go back and one {@link CallbackAction}
+ * This panel requires one {@link ICallbackAction} that is executed
+ * when the user requests to go back and one {@link MultiplePickAction}
  * that is executed when the user selects some objects from the list.
  * 
  * @param <B> Type of bean that encapsulates a row of the result set.
@@ -80,14 +82,10 @@ extends ListTablePanel<B> {
 	 */
 	protected static final String CHECKGROUP_SELECTOR_LABEL_ID = "checkGroupSelectorLabel"; //$NON-NLS-1$
 	
-	/**
-	 * Select checked rows {@link AjaxButton}
-	 */	
+	/** Select checked rows {@link AjaxButton}. */	
 	protected CallbackAjaxButton selectButton;
 	
-	/**
-	 * 2nd select checked rows {@link AjaxButton}
-	 */	
+	/** 2nd select checked rows {@link AjaxButton}. */	
 	protected CallbackAjaxButton secondSelectButton;  
 	
 	/**
@@ -108,7 +106,7 @@ extends ListTablePanel<B> {
 	/**
 	 * Creates a new MultipleSelectionsPanel object. 
 	 *
-	 * @param definition
+	 * @param definition the definition
 	 */
 	public MultipleSelectionsPanel(MultipleSelectionsPanelDef<B> definition) {
 		super(definition);
@@ -120,7 +118,7 @@ extends ListTablePanel<B> {
 		return (MultipleSelectionsPanelDef<B>)definition;
 	}
 	
-	@SuppressWarnings({ "serial", "nls" })
+	@SuppressWarnings({ "nls" })
 	@Override
 	protected void init() {
 		super.init();
@@ -132,45 +130,18 @@ extends ListTablePanel<B> {
 		IModel<String> checkGroupSelectorLabelModel = StringResourceUtils.getResourceModel(
 				WellKnownResourceIds.MSP_CHECKGROUP_SELECTOR_LABEL, this, getDefinition().getCheckGroupSelectorLabelModel(), "Select all");
 		
-		CallbackAction itemsSelectedAction = getDefinition().getItemsSelectedAction(); 
-		if(itemsSelectedAction!=null) {
-			itemsSelectedAction.setCaller(this);
-		}
-		CallbackAction secondItemsSelectedAction = getDefinition().getSecondItemsSelectedAction();
-		if(secondItemsSelectedAction!=null) {
-			secondItemsSelectedAction.setCaller(this);
-		}
+		MultiplePickAction<B> itemsSelectedAction = getDefinition().getItemsSelectedAction(); 
+		MultiplePickAction<B> secondItemsSelectedAction = getDefinition().getSecondItemsSelectedAction();
 		
 		
-		selectButton = new CallbackAjaxButton(SELECT_BUTTON_ID, selectLabel, itemsSelectedAction, getFeedBackPanel()) {		
-			@Override
-			public void onSubmit(AjaxRequestTarget target, Form<?> form) {
-				if(!ServicePanelUtils.authorizedByFlag(getDefinition().getItemsSelectedActionFlag())) {
-					target.add(feedBackPanel);
-					MultipleSelectionsPanel.this.error(getDefinition().getItemsSelectedActionFlag().getDownMessage());
-					return;
-				}
-				if(CollectionUtils.isNullOrEmpty(getDefinition().getSelectionsModel().getObject())) {
-					return; 
-				}
-				super.onSubmit(target, form);
-			}
-		};
-		
-		secondSelectButton = new CallbackAjaxButton(SECOND_SELECT_BUTTON_ID, secondSelectLabel, secondItemsSelectedAction, getFeedBackPanel()) {
-			@Override
-			public void onSubmit(AjaxRequestTarget target, Form<?> form) {
-				if(!ServicePanelUtils.authorizedByFlag(getDefinition().getSecondItemsSelectedActionFlag())) {
-					target.add(feedBackPanel);
-					MultipleSelectionsPanel.this.error(getDefinition().getSecondItemsSelectedActionFlag().getDownMessage());
-					return;
-				}
-				if(CollectionUtils.isNullOrEmpty(getDefinition().getSelectionsModel().getObject())) {
-					return; 
-				}
-				super.onSubmit(target, form);
-			}
-		};
+		selectButton = new CallbackAjaxButton(SELECT_BUTTON_ID, selectLabel,
+				new WrappedICallbackAction(itemsSelectedAction, getDefinition().getItemsSelectedActionFlag()),
+				getFeedBackPanel());
+
+		secondSelectButton = new CallbackAjaxButton(SECOND_SELECT_BUTTON_ID, secondSelectLabel,
+				new WrappedICallbackAction(secondItemsSelectedAction,
+						getDefinition().getSecondItemsSelectedActionFlag()),
+				getFeedBackPanel());
 		
 		ServicePanelUtils.disableButton(getDefinition(), getDefinition().getItemsSelectedActionFlag(), selectButton);
 		
@@ -189,6 +160,7 @@ extends ListTablePanel<B> {
 		tableForm.add(selectButton);
 		tableForm.add(secondSelectButton);
 		tableForm.add(backButton);
+		tableForm.add(getDefinition().createButton(EXPORT_BUTTON_ID, getDefinition(), this));
 		add(tableForm);		
 		add(feedBackPanel);
 		
@@ -214,4 +186,57 @@ extends ListTablePanel<B> {
 		}
 	}
 
+	/**
+	 * The actual {@link ICallbackAction} used.
+	 */
+	class WrappedICallbackAction implements ICallbackAction {
+
+		/**
+		 * Serial Version UID
+		 */
+		private static final long serialVersionUID = 1L;
+
+		/**
+		 * The Actual Action
+		 */
+		private MultiplePickAction<B> pick;
+
+		/**
+		 * Flag
+		 */
+		private Flag flag;
+
+		/**
+		 * Constructor.
+		 * 
+		 * @param pick
+		 *            The Actual Action
+		 * @param flag
+		 *            Flag
+		 */
+		public WrappedICallbackAction(MultiplePickAction<B> pick, Flag flag) {
+			this.pick = pick;
+			this.flag = flag;
+		}
+
+		@SuppressWarnings("deprecation")
+		@Override
+		public void invoke(AjaxRequestTarget target, Form<?> form) {
+			if (!ServicePanelUtils.authorizedByFlag(flag)) {
+				MultipleSelectionsPanel.this.error(flag.getDownMessage());
+				return;
+			}
+			if (CollectionUtils.isNullOrEmpty(getDefinition().getSelectionsModel().getObject())) {
+				return;
+			}
+			// backwards compatibility
+			if (pick instanceof gr.interamerican.wicket.callback.CallbackAction) {
+				gr.interamerican.wicket.callback.CallbackAction callback = (gr.interamerican.wicket.callback.CallbackAction) pick;
+				callback.setCaller(MultipleSelectionsPanel.this);
+				callback.callBack(target, form);
+			} else {
+				pick.doPick(target, getDefinition().getSelectionsModel().getObject());
+			}
+		}
+	}
 }

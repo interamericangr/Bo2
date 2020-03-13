@@ -22,8 +22,9 @@ import org.junit.Test;
  */
 @SuppressWarnings("nls")
 public class TestConditionalStringBuilder {
+	
 	/**
-	 * Unit test for addFragment()
+	 * Unit test for addFragment().
 	 */
 	@Test
 	public void testAppendIf() {
@@ -35,7 +36,7 @@ public class TestConditionalStringBuilder {
 	}
 	
 	/**
-	 * Unit test for addFragment()
+	 * Unit test for addFragment().
 	 */
 	@Test
 	public void testAddIfNotNull() {
@@ -51,7 +52,7 @@ public class TestConditionalStringBuilder {
 	
 	
 	/**
-	 * Unit test for toString()
+	 * Unit test for toString().
 	 */
 	@Test
 	public void testToString_withoutSeparator() {
@@ -66,7 +67,7 @@ public class TestConditionalStringBuilder {
 	}
 	
 	/**
-	 * Unit test for toString()
+	 * Unit test for toString().
 	 */
 	@Test
 	public void testToString_withSeparator() {
@@ -85,7 +86,7 @@ public class TestConditionalStringBuilder {
 	
 	
 	/**
-	 * Unit test for setSeparator()
+	 * Unit test for setSeparator().
 	 */
 	@Test
 	public void testSetSeparator() {
@@ -96,7 +97,7 @@ public class TestConditionalStringBuilder {
 	}
 	
 	/**
-	 * Unit test for setSeparator()
+	 * Unit test for setSeparator().
 	 */
 	@Test
 	public void testGetSeparator() {

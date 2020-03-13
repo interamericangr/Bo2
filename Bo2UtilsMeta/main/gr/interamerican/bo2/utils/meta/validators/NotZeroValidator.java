@@ -21,9 +21,7 @@ public class NotZeroValidator
 extends AbstractValidator
 implements Validator<Number> {
 	
-	/**
-	 * 
-	 */
+	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Singleton.
@@ -48,6 +46,7 @@ implements Validator<Number> {
 	 */
 	private NotZeroValidator() { /* hidden, empty */ }
 	
+	@Override
 	public void validate(Number value) throws ValidationException {
 		if (value!=null) {
 			if (value.doubleValue()==0) {

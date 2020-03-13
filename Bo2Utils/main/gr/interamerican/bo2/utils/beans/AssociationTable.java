@@ -22,8 +22,9 @@ import java.util.Map;
  * Associates pairs of elements.
  * 
  * Each element can have only one associate.
- * @param <L> 
- * @param <R> 
+ *
+ * @param <L> the generic type
+ * @param <R> the generic type
  */
 public class AssociationTable<L,R> 
 implements Iterable<Pair<L, R>>{
@@ -40,9 +41,9 @@ implements Iterable<Pair<L, R>>{
 	
 	/**
 	 * Associates left with right.
-	 * 
-	 * @param left 
-	 * @param right
+	 *
+	 * @param left the left
+	 * @param right the right
 	 */
 	public void associate(L left, R right) {
 		R oldRight = rights.get(left);
@@ -59,8 +60,8 @@ implements Iterable<Pair<L, R>>{
 	
 	/**
 	 * Gets the element associated with left.
-	 * 
-	 * @param left 
+	 *
+	 * @param left the left
 	 * @return Returns the element associated with left.
 	 */
 	public R getRight(L left) {
@@ -69,8 +70,8 @@ implements Iterable<Pair<L, R>>{
 	
 	/**
 	 * Gets the element associated with right.
-	 * 
-	 * @param right 
+	 *
+	 * @param right the right
 	 * @return Returns the element associated with right.
 	 */	
 	public L getLeft(R right) {
@@ -130,13 +131,10 @@ implements Iterable<Pair<L, R>>{
 	
 	/**
 	 * Associates left with right.
-	 * 
-	 * @param left 
-	 * @param right
-	 * 
+	 *
+	 * @param left the left
 	 * @return Returns true if the specified left was found
 	 *         in the association table.
-	 *  
 	 */
 	public boolean removeLeft(L left) {
 		R right = rights.get(left);
@@ -150,13 +148,10 @@ implements Iterable<Pair<L, R>>{
 	
 	/**
 	 * Associates left with right.
-	 * 
-	 * @param left 
-	 * @param right
-	 * 
+	 *
+	 * @param right the right
 	 * @return Returns true if the specified left was found
 	 *         in the association table.
-	 *  
 	 */
 	public boolean removeRight(R right) {
 		L left = lefts.get(right);

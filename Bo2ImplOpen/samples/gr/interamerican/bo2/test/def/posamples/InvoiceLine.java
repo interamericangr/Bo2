@@ -25,20 +25,60 @@ import java.util.Set;
 public interface InvoiceLine 
 extends InvoiceLineKP, PersistentObject<InvoiceLineKey>, ModificationRecord {
 	
+	/**
+	 * Gets the type.
+	 *
+	 * @return the type
+	 */
 	public Integer getType();
 	
+	/**
+	 * Sets the type.
+	 *
+	 * @param type the new type
+	 */
 	public void setType(Integer type);
 	
+	/**
+	 * Gets the amount.
+	 *
+	 * @return the amount
+	 */
 	public Double getAmount();
 	
+	/**
+	 * Sets the amount.
+	 *
+	 * @param amount the new amount
+	 */
 	public void setAmount(Double amount);
 	
+	/**
+	 * Sets the sub lines.
+	 *
+	 * @param subLines the new sub lines
+	 */
 	public void setSubLines(Set<InvoiceSubLine> subLines);
 	
+	/**
+	 * Gets the sub lines.
+	 *
+	 * @return the sub lines
+	 */
 	public Set<InvoiceSubLine> getSubLines();
 	
+	/**
+	 * Gets the customer.
+	 *
+	 * @return the customer
+	 */
 	public Customer getCustomer();
 	
+	/**
+	 * Sets the customer.
+	 *
+	 * @param customer the new customer
+	 */
 	public void setCustomer(Customer customer);
 
 }

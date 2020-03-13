@@ -41,12 +41,11 @@ public interface NamedStreamsProvider extends ResourceWrapper {
 	 * A global stream is a stream that is shared by more than one {@link NamedStreamsProvider}
 	 * instances. These streams may be closed when all NamedStreamsProvider instances accessing
 	 * them have #close() invoked.
-	 * 
-	 * @param name
-	 *        Stream name.
+	 *
+	 * @param name        Stream name.
 	 *        
 	 * @return Returns the stream.
-	 * @throws InitializationException
+	 * @throws InitializationException the initialization exception
 	 */
 	public NamedStream<?> getSharedStream(String name) 
 	throws InitializationException;
@@ -95,8 +94,10 @@ public interface NamedStreamsProvider extends ResourceWrapper {
 	 * @return Returns a new NamedStream with the specified name of new stream.
 	 * 
 	 * @throws DataException
+	 * <ul>
 	 *         <li>If this NamedStreamsProvider does not support the specified conversion.</li>
 	 *         <li>If this NamedStreamsProvider does not manage a stream with the specified name.</li>
+	 *         </ul>
 	 *         
 	 *  
 	 */

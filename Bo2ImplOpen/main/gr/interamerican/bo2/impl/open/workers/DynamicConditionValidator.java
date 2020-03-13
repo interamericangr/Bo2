@@ -31,9 +31,7 @@ implements Rule, Input<T> {
 	 */
 	MessagesBean messages;
 	
-	/**
-	 * 
-	 */
+	/** The fail on. */
 	boolean failOn;
 
 	
@@ -54,23 +52,18 @@ implements Rule, Input<T> {
 	/**
 	 * Creates a new ConditionValidator object.
 	 * 
-	 * @param condition
 	 *        Condition to check.
 	 * @param failOn 
 	 *        Defines when the Rule fails. A <code>true</code> value indicates
 	 *        that the rule throws an exception when the condition is met.
 	 *        A <code>false</code> value indicates that the rule throws an exception 
 	 *        when the condition is not met.
-	 * @param messages
-	 *        MessagesBean that fetches the messages.
-	 * @param messageKey 
-	 *        Message key used to fetch the key from the message bean.  
-	 * @param validatedObjectProperty 
-	 *        Property name of the validated object.
+	 * @param messages        MessagesBean that fetches the messages.
+	 * @param messageKey        Message key used to fetch the key from the message bean.  
+	 * @param validatedObjectProperty        Property name of the validated object.
 	 */
 	protected DynamicConditionValidator
 	(boolean failOn, MessagesBean messages, String messageKey, String validatedObjectProperty) {
-		super();
 		this.messageKey = messageKey;
 		this.messages = messages;
 		this.failOn = failOn;
@@ -115,8 +108,8 @@ implements Rule, Input<T> {
 
 	/**
 	 * Sets the validated object.
-	 * 
-	 * @param validatedObject
+	 *
+	 * @param validatedObject the new validated object
 	 */
 	public void setValidatedObject(T validatedObject) {
 		ReflectionUtils.setProperty(validatedObjectProperty, validatedObject, this);
