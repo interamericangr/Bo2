@@ -12,7 +12,7 @@
 
 	<properties>
 		<skip.pit>true</skip.pit>
-		<version.junit>4.11</version.junit>
+		<version.junit>4.13.1</version.junit>
 		<version.mockito-core>2.21.0</version.mockito-core>
 		<version.slf4j-api>1.7.5</version.slf4j-api>
 		<version.log4j>1.2.16</version.log4j>
