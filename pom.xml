@@ -19,7 +19,7 @@
 		<version.slf4j-log4j12>1.7.5</version.slf4j-log4j12>
 		<version.commons-beanutils>1.9.3</version.commons-beanutils>
 		<version.commons-net>3.6</version.commons-net>
-		<version.commons-io>2.5</version.commons-io>
+		<version.commons-io>2.7</version.commons-io>
 		<version.javax.mail>1.4</version.javax.mail>
 		<version.javassist>3.18.2-GA</version.javassist>
 		<version.jodconverter>2.2.0</version.jodconverter>
