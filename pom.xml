@@ -37,7 +37,7 @@
 		<version.connector-api>1.5</version.connector-api>
 		<version.jotm-core>2.1.9</version.jotm-core>
 		<version.xapool>1.5.0</version.xapool>
-		<version.wicket>7.10.0</version.wicket>
+		<version.wicket>7.17.0</version.wicket>
 		<version.servlet-api>3.1.0</version.servlet-api>
 		<version.hibernate-core>3.6.8.Final</version.hibernate-core>
 		<version.quartz-all>2.2.1</version.quartz-all>
