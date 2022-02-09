@@ -39,7 +39,7 @@
 		<version.xapool>1.5.0</version.xapool>
 		<version.wicket>7.10.0</version.wicket>
 		<version.servlet-api>3.1.0</version.servlet-api>
-		<version.hibernate-core>3.6.8.Final</version.hibernate-core>
+		<version.hibernate-core>5.4.24.Final</version.hibernate-core>
 		<version.quartz-all>2.2.1</version.quartz-all>
 		<version.commonj>1.1.1</version.commonj>
 		<version.freemarker>2.3.16</version.freemarker>
