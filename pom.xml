@@ -32,7 +32,7 @@
 		<version.ognl>3.0.2</version.ognl>
 		<version.jasperreports>4.1.2</version.jasperreports>
 		<version.groovy-all>2.1.3</version.groovy-all>
-		<version.poi>3.12</version.poi>
+		<version.poi>4.1.1</version.poi>
 		<version.jta>1.1</version.jta>
 		<version.connector-api>1.5</version.connector-api>
 		<version.jotm-core>2.1.9</version.jotm-core>
