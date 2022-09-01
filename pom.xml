@@ -43,7 +43,7 @@
 		<version.quartz-all>2.2.1</version.quartz-all>
 		<version.commonj>1.1.1</version.commonj>
 		<version.freemarker>2.3.16</version.freemarker>
-		<version.jsoup>1.7.3</version.jsoup>
+		<version.jsoup>1.15.3</version.jsoup>
 		<version.jms-api>1.1-rev-1</version.jms-api>
 		<version.jpb>1.0.1</version.jpb>
 		<version.barcode4j>2.1</version.barcode4j>
